@@ -77,7 +77,7 @@ foreach(_LANGUAGE ${LANGUAGE_LIST})
                 --language=${_LANGUAGE_CROWDIN}
                 --branch=${VERSION}
                 --config=${CROWDIN_YML_PATH}
-                --export-only-approved
+                # --export-only-approved
                 --no-progress
                 --verbose
         WORKING_DIRECTORY ${PROJ_L10N_VERSION_DIR}
