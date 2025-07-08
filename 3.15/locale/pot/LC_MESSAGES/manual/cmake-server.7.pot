@@ -1,0 +1,1292 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2000-2019 Kitware, Inc. and Contributors
+# This file is distributed under the same license as the CMake package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CMake 3.15\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-07-08 02:52+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../manual/cmake-server.7.rst:4
+msgid "cmake-server(7)"
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:7
+msgid "Contents"
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:12
+msgid ""
+"This will be removed from a future version of CMake. Clients should use the :"
+"manual:`cmake-file-api(7)` instead."
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:16
+msgid "Introduction"
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:18
+msgid ""
+":manual:`cmake(1)` is capable of providing semantic information about CMake "
+"code it executes to generate a buildsystem.  If executed with the ``-E "
+"server`` command line options, it starts in a long running mode and allows a "
+"client to request the available information via a JSON protocol."
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:23
+msgid ""
+"The protocol is designed to be useful to IDEs, refactoring tools, and other "
+"tools which have a need to understand the buildsystem in entirety."
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:26
+msgid ""
+"A single :manual:`cmake-buildsystem(7)` may describe buildsystem contents "
+"and build properties which differ based on :manual:`generation-time context "
+"<cmake-generator-expressions(7)>` including:"
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:31
+msgid "The Platform (eg, Windows, APPLE, Linux)."
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:32
+msgid "The build configuration (eg, Debug, Release, Coverage)."
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:33
+msgid "The Compiler (eg, MSVC, GCC, Clang) and compiler version."
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:34
+msgid "The language of the source files compiled."
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:35
+msgid "Available compile features (eg CXX variadic templates)."
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:36
+msgid "CMake policies."
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:38
+msgid ""
+"The protocol aims to provide information to tooling to satisfy several needs:"
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:41
+msgid ""
+"Provide a complete and easily parsed source of all information relevant to "
+"the tooling as it relates to the source code.  There should be no need for "
+"tooling to parse generated buildsystems to access include directories or "
+"compile definitions for example."
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:45
+msgid "Semantic information about the CMake buildsystem itself."
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:46
+msgid ""
+"Provide a stable interface for reading the information in the CMake cache."
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:47
+msgid ""
+"Information for determining when cmake needs to be re-run as a result of "
+"file changes."
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:52
+msgid "Operation"
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:54
+msgid ""
+"Start :manual:`cmake(1)` in the server command mode, supplying the path to "
+"the build directory to process::"
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:57
+msgid "cmake -E server (--debug|--pipe=<NAMED_PIPE>)"
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:59
+msgid ""
+"The server will communicate using stdin/stdout (with the ``--debug`` "
+"parameter) or using a named pipe (with the ``--pipe=<NAMED_PIPE>`` "
+"parameter).  Note that \"named pipe\" refers to a local domain socket on "
+"Unix and to a named pipe on Windows."
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:64
+msgid ""
+"When connecting to the server (via named pipe or by starting it in ``--"
+"debug`` mode), the server will reply with a hello message::"
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:67
+msgid ""
+"[== \"CMake Server\" ==[\n"
+"{\"supportedProtocolVersions\":[{\"major\":1,\"minor\":0}],\"type\":"
+"\"hello\"}\n"
+"]== \"CMake Server\" ==]"
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:71
+msgid "Messages sent to and from the process are wrapped in magic strings::"
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:73
+msgid ""
+"[== \"CMake Server\" ==[\n"
+"{\n"
+"  ... some JSON message ...\n"
+"}\n"
+"]== \"CMake Server\" ==]"
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:79
+msgid ""
+"The server is now ready to accept further requests via the named pipe or "
+"stdin."
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:84
+msgid "Debugging"
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:86
+msgid ""
+"CMake server mode can be asked to provide statistics on execution times, "
+"etc. or to dump a copy of the response into a file. This is done passing a "
+"\"debug\" JSON object as a child of the request."
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:90
+msgid ""
+"The debug object supports the \"showStats\" key, which takes a boolean and "
+"makes the server mode return a \"zzzDebug\" object with stats as part of its "
+"response. \"dumpToFile\" takes a string value and will cause the cmake "
+"server to copy the response into the given filename."
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:95
+msgid ""
+"This is a response from the cmake server with \"showStats\" set to true::"
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:97
+msgid ""
+"[== \"CMake Server\" ==[\n"
+"{\n"
+"  \"cookie\":\"\",\n"
+"  \"errorMessage\":\"Waiting for type \\\"handshake\\\".\",\n"
+"  \"inReplyTo\":\"unknown\",\n"
+" \"type\":\"error\",\n"
+"  \"zzzDebug\": {\n"
+"    \"dumpFile\":\"/tmp/error.txt\",\n"
+"    \"jsonSerialization\":0.011016,\n"
+"    \"size\":111,\n"
+"    \"totalTime\":0.025995\n"
+"  }\n"
+"}\n"
+"]== \"CMake Server\" ==]"
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:112
+msgid ""
+"The server has made a copy of this response into the file /tmp/error.txt and "
+"took 0.011 seconds to turn the JSON response into a string, and it took "
+"0.025 seconds to process the request in total. The reply has a size of 111 "
+"bytes."
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:118
+msgid "Protocol API"
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:122
+msgid "General Message Layout"
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:124
+msgid ""
+"All messages need to have a \"type\" value, which identifies the type of "
+"message that is passed back or forth. E.g. the initial message sent by the "
+"server is of type \"hello\". Messages without a type will generate an "
+"response of type \"error\"."
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:129
+msgid ""
+"All requests sent to the server may contain a \"cookie\" value. This value "
+"will he handed back unchanged in all responses triggered by the request."
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:132
+msgid ""
+"All responses will contain a value \"inReplyTo\", which may be empty in case "
+"of parse errors, but will contain the type of the request message in all "
+"other cases."
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:138
+msgid "Type \"reply\""
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:140
+msgid "This type is used by the server to reply to requests."
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:142
+msgid ""
+"The message may -- depending on the type of the original request -- contain "
+"values."
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:145
+#: ../../../manual/cmake-server.7.rst:158
+#: ../../../manual/cmake-server.7.rst:189
+#: ../../../manual/cmake-server.7.rst:269
+#: ../../../manual/cmake-server.7.rst:300
+#: ../../../manual/cmake-server.7.rst:323
+#: ../../../manual/cmake-server.7.rst:384
+#: ../../../manual/cmake-server.7.rst:411
+#: ../../../manual/cmake-server.7.rst:430
+#: ../../../manual/cmake-server.7.rst:552
+#: ../../../manual/cmake-server.7.rst:657
+#: ../../../manual/cmake-server.7.rst:694
+#: ../../../manual/cmake-server.7.rst:730
+msgid "Example::"
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:147
+#: ../../../manual/cmake-server.7.rst:310
+msgid ""
+"[== \"CMake Server\" ==[\n"
+"{\"cookie\":\"zimtstern\",\"inReplyTo\":\"handshake\",\"type\":\"reply\"}\n"
+"]== \"CMake Server\" ==]"
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:153
+msgid "Type \"error\""
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:155
+msgid ""
+"This type is used to return an error condition to the client. It will "
+"contain an \"errorMessage\"."
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:160
+msgid ""
+"[== \"CMake Server\" ==[\n"
+"{\"cookie\":\"\",\"errorMessage\":\"Protocol version not supported.\","
+"\"inReplyTo\":\"handshake\",\"type\":\"error\"}\n"
+"]== \"CMake Server\" ==]"
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:166
+msgid "Type \"progress\""
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:168
+msgid ""
+"When the server is busy for a long time, it is polite to send back replies "
+"of type \"progress\" to the client. These will contain a \"progressMessage\" "
+"with a string describing the action currently taking place as well as "
+"\"progressMinimum\", \"progressMaximum\" and \"progressCurrent\" with "
+"integer values describing the range of progress."
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:174
+msgid ""
+"Messages of type \"progress\" will be followed by more \"progress\" messages "
+"or with a message of type \"reply\" or \"error\" that complete the request."
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:177
+msgid ""
+"\"progress\" messages may not be emitted after the \"reply\" or \"error\" "
+"message for the request that triggered the responses was delivered."
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:182
+msgid "Type \"message\""
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:184
+msgid ""
+"A message is triggered when the server processes a request and produces some "
+"form of output that should be displayed to the user. A Message has a "
+"\"message\" with the actual text to display as well as a \"title\" with a "
+"suggested dialog box title."
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:191
+msgid ""
+"[== \"CMake Server\" ==[\n"
+"{\"cookie\":\"\",\"message\":\"Something happened.\",\"title\":\"Title "
+"Text\",\"inReplyTo\":\"handshake\",\"type\":\"message\"}\n"
+"]== \"CMake Server\" ==]"
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:197
+msgid "Type \"signal\""
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:199
+msgid ""
+"The server can send signals when it detects changes in the system state. "
+"Signals are of type \"signal\", have an empty \"cookie\" and \"inReplyTo\" "
+"field and always have a \"name\" set to show which signal was sent."
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:205
+msgid "Specific Signals"
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:207
+msgid "The cmake server may sent signals with the following names:"
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:210
+msgid "\"dirty\" Signal"
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:212
+msgid ""
+"The \"dirty\" signal is sent whenever the server determines that the "
+"configuration of the project is no longer up-to-date. This happens when any "
+"of the files that have an influence on the build system is changed."
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:216
+msgid "The \"dirty\" signal may look like this::"
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:218
+msgid ""
+"[== \"CMake Server\" ==[\n"
+"{\n"
+"  \"cookie\":\"\",\n"
+"  \"inReplyTo\":\"\",\n"
+"  \"name\":\"dirty\",\n"
+"  \"type\":\"signal\"}\n"
+"]== \"CMake Server\" ==]"
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:228
+msgid "\"fileChange\" Signal"
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:230
+msgid ""
+"The \"fileChange\" signal is sent whenever a watched file is changed. It "
+"contains the \"path\" that has changed and a list of \"properties\" with the "
+"kind of change that was detected. Possible changes are \"change\" and "
+"\"rename\"."
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:234
+msgid "The \"fileChange\" signal looks like this::"
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:236
+msgid ""
+"[== \"CMake Server\" ==[\n"
+"{\n"
+"  \"cookie\":\"\",\n"
+"  \"inReplyTo\":\"\",\n"
+"  \"name\":\"fileChange\",\n"
+"  \"path\":\"/absolute/CMakeLists.txt\",\n"
+"  \"properties\":[\"change\"],\n"
+"  \"type\":\"signal\"}\n"
+"]== \"CMake Server\" ==]"
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:248
+msgid "Specific Message Types"
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:252
+msgid "Type \"hello\""
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:254
+msgid ""
+"The initial message send by the cmake server on startup is of type "
+"\"hello\". This is the only message ever sent by the server that is not of "
+"type \"reply\", \"progress\" or \"error\"."
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:258
+msgid ""
+"It will contain \"supportedProtocolVersions\" with an array of server "
+"protocol versions supported by the cmake server. These are JSON objects with "
+"\"major\" and \"minor\" keys containing non-negative integer values. Some "
+"versions may be marked as experimental. These will contain the "
+"\"isExperimental\" key set to true. Enabling these requires a special "
+"command line argument when starting the cmake server mode."
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:264
+msgid ""
+"Within a \"major\" version all \"minor\" versions are fully backwards "
+"compatible. New \"minor\" versions may introduce functionality in such a way "
+"that existing clients of the same \"major\" version will continue to work, "
+"provided they ignore keys in the output that they do not know about."
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:271
+msgid ""
+"[== \"CMake Server\" ==[\n"
+"{\"supportedProtocolVersions\":[{\"major\":0,\"minor\":1}],\"type\":"
+"\"hello\"}\n"
+"]== \"CMake Server\" ==]"
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:277
+msgid "Type \"handshake\""
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:279
+msgid ""
+"The first request that the client may send to the server is of type "
+"\"handshake\"."
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:281
+msgid ""
+"This request needs to pass one of the \"supportedProtocolVersions\" of the "
+"\"hello\" type response received earlier back to the server in the "
+"\"protocolVersion\" field. Giving the \"major\" version of the requested "
+"protocol version will make the server use the latest minor version of that "
+"protocol. Use this if you do not explicitly need to depend on a specific "
+"minor version."
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:287
+msgid "Protocol version 1.0 requires the following attributes to be set:"
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:289
+msgid "\"sourceDirectory\" with a path to the sources"
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:290
+msgid "\"buildDirectory\" with a path to the build directory"
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:291
+msgid "\"generator\" with the generator name"
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:292
+msgid "\"extraGenerator\" (optional!) with the extra generator to be used"
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:293
+msgid ""
+"\"platform\" with the generator platform (if supported by the generator)"
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:294
+msgid "\"toolset\" with the generator toolset (if supported by the generator)"
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:296
+msgid ""
+"Protocol version 1.2 makes all but the build directory optional, provided "
+"there is a valid cache in the build directory that contains all the other "
+"information already."
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:302
+msgid ""
+"[== \"CMake Server\" ==[\n"
+"{\"cookie\":\"zimtstern\",\"type\":\"handshake\",\"protocolVersion\":"
+"{\"major\":0},\n"
+" \"sourceDirectory\":\"/home/code/cmake\", \"buildDirectory\":\"/tmp/"
+"testbuild\",\n"
+" \"generator\":\"Ninja\"}\n"
+"]== \"CMake Server\" ==]"
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:308
+#: ../../../manual/cmake-server.7.rst:329
+msgid "which will result in a response type \"reply\"::"
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:314
+msgid "indicating that the server is ready for action."
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:318
+msgid "Type \"globalSettings\""
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:320
+msgid ""
+"This request can be sent after the initial handshake. It will return a JSON "
+"structure with information on cmake state."
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:325
+msgid ""
+"[== \"CMake Server\" ==[\n"
+"{\"type\":\"globalSettings\"}\n"
+"]== \"CMake Server\" ==]"
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:331
+msgid ""
+"[== \"CMake Server\" ==[\n"
+"{\n"
+"  \"buildDirectory\": \"/tmp/test-build\",\n"
+"  \"capabilities\": {\n"
+"    \"generators\": [\n"
+"      {\n"
+"        \"extraGenerators\": [],\n"
+"        \"name\": \"Watcom WMake\",\n"
+"        \"platformSupport\": false,\n"
+"        \"toolsetSupport\": false\n"
+"      },\n"
+"      <...>\n"
+"    ],\n"
+"    \"serverMode\": false,\n"
+"    \"version\": {\n"
+"      \"isDirty\": false,\n"
+"      \"major\": 3,\n"
+"      \"minor\": 6,\n"
+"      \"patch\": 20160830,\n"
+"      \"string\": \"3.6.20160830-gd6abad\",\n"
+"      \"suffix\": \"gd6abad\"\n"
+"    }\n"
+"  },\n"
+"  \"checkSystemVars\": false,\n"
+"  \"cookie\": \"\",\n"
+"  \"extraGenerator\": \"\",\n"
+"  \"generator\": \"Ninja\",\n"
+"  \"debugOutput\": false,\n"
+"  \"inReplyTo\": \"globalSettings\",\n"
+"  \"sourceDirectory\": \"/home/code/cmake\",\n"
+"  \"trace\": false,\n"
+"  \"traceExpand\": false,\n"
+"  \"type\": \"reply\",\n"
+"  \"warnUninitialized\": false,\n"
+"  \"warnUnused\": false,\n"
+"  \"warnUnusedCli\": true\n"
+"}\n"
+"]== \"CMake Server\" ==]"
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:372
+msgid "Type \"setGlobalSettings\""
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:374
+msgid ""
+"This request can be sent to change the global settings attributes. Unknown "
+"attributes are going to be ignored. Read-only attributes reported by "
+"\"globalSettings\" are all capabilities, buildDirectory, generator, "
+"extraGenerator and sourceDirectory. Any attempt to set these will be "
+"ignored, too."
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:380
+msgid "All other settings will be changed."
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:382
+msgid "The server will respond with an empty reply message or an error."
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:386
+msgid ""
+"[== \"CMake Server\" ==[\n"
+"{\"type\":\"setGlobalSettings\",\"debugOutput\":true}\n"
+"]== \"CMake Server\" ==]"
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:390
+msgid "CMake will reply to this with::"
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:392
+msgid ""
+"[== \"CMake Server\" ==[\n"
+"{\"inReplyTo\":\"setGlobalSettings\",\"type\":\"reply\"}\n"
+"]== \"CMake Server\" ==]"
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:398
+msgid "Type \"configure\""
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:400
+msgid "This request will configure a project for build."
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:402
+msgid ""
+"To configure a build directory already containing cmake files, it is enough "
+"to set \"buildDirectory\" via \"setGlobalSettings\". To create a fresh build "
+"directory you also need to set \"currentGenerator\" and \"sourceDirectory\" "
+"via \"setGlobalSettings\" in addition to \"buildDirectory\"."
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:407
+msgid ""
+"You may a list of strings to \"configure\" via the \"cacheArguments\" key. "
+"These strings will be interpreted similar to command line arguments related "
+"to cache handling that are passed to the cmake command line client."
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:413
+msgid ""
+"[== \"CMake Server\" ==[\n"
+"{\"type\":\"configure\", \"cacheArguments\":[\"-Dsomething=else\"]}\n"
+"]== \"CMake Server\" ==]"
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:417
+msgid "CMake will reply like this (after reporting progress for some time)::"
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:419
+msgid ""
+"[== \"CMake Server\" ==[\n"
+"{\"cookie\":\"\",\"inReplyTo\":\"configure\",\"type\":\"reply\"}\n"
+"]== \"CMake Server\" ==]"
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:425
+msgid "Type \"compute\""
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:427
+msgid ""
+"This request will generate build system files in the build directory and is "
+"only available after a project was successfully \"configure\"d."
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:432
+msgid ""
+"[== \"CMake Server\" ==[\n"
+"{\"type\":\"compute\"}\n"
+"]== \"CMake Server\" ==]"
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:436
+msgid "CMake will reply (after reporting progress information)::"
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:438
+msgid ""
+"[== \"CMake Server\" ==[\n"
+"{\"cookie\":\"\",\"inReplyTo\":\"compute\",\"type\":\"reply\"}\n"
+"]== \"CMake Server\" ==]"
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:444
+msgid "Type \"codemodel\""
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:446
+msgid ""
+"The \"codemodel\" request can be used after a project was \"compute\"d "
+"successfully."
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:448
+msgid "It will list the complete project structure as it is known to cmake."
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:450
+#: ../../../manual/cmake-server.7.rst:610
+msgid ""
+"The reply will contain a key \"configurations\", which will contain a list "
+"of configuration objects. Configuration objects are used to destinquish "
+"between different configurations the build directory might have enabled. "
+"While most generators only support one configuration, others might support "
+"several."
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:455
+#: ../../../manual/cmake-server.7.rst:615
+msgid "Each configuration object can have the following keys:"
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:457
+#: ../../../manual/cmake-server.7.rst:466
+#: ../../../manual/cmake-server.7.rst:484
+#: ../../../manual/cmake-server.7.rst:617
+#: ../../../manual/cmake-server.7.rst:626
+msgid "\"name\""
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:458
+#: ../../../manual/cmake-server.7.rst:618
+msgid "contains the name of the configuration. The name may be empty."
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:459
+#: ../../../manual/cmake-server.7.rst:619
+msgid "\"projects\""
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:460
+#: ../../../manual/cmake-server.7.rst:620
+msgid "contains a list of project objects, one for each build project."
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:462
+#: ../../../manual/cmake-server.7.rst:622
+msgid ""
+"Project objects define one (sub-)project defined in the cmake build system."
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:464
+#: ../../../manual/cmake-server.7.rst:624
+msgid "Each project object can have the following keys:"
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:467
+#: ../../../manual/cmake-server.7.rst:627
+msgid "contains the (sub-)projects name."
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:468
+msgid "\"minimumCMakeVersion\""
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:469
+msgid ""
+"contains the minimum cmake version allowed for this project, null if the "
+"project doesn't specify one."
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:471
+#: ../../../manual/cmake-server.7.rst:498
+msgid "\"hasInstallRule\""
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:472
+msgid "true if the project contains any install rules, false otherwise."
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:473
+#: ../../../manual/cmake-server.7.rst:492
+msgid "\"sourceDirectory\""
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:474
+msgid "contains the current source directory"
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:475
+#: ../../../manual/cmake-server.7.rst:494
+msgid "\"buildDirectory\""
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:476
+#: ../../../manual/cmake-server.7.rst:495
+msgid "contains the current build directory."
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:477
+msgid "\"targets\""
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:478
+msgid "contains a list of build system target objects."
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:480
+msgid ""
+"Target objects define individual build targets for a certain configuration."
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:482
+msgid "Each target object can have the following keys:"
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:485
+msgid "contains the name of the target."
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:486
+msgid "\"type\""
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:487
+msgid ""
+"defines the type of build of the target. Possible values are "
+"\"STATIC_LIBRARY\", \"MODULE_LIBRARY\", \"SHARED_LIBRARY\", "
+"\"OBJECT_LIBRARY\", \"EXECUTABLE\", \"UTILITY\" and \"INTERFACE_LIBRARY\"."
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:490
+msgid "\"fullName\""
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:491
+msgid "contains the full name of the build result (incl. extensions, etc.)."
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:493
+msgid "contains the current source directory."
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:496
+msgid "\"isGeneratorProvided\""
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:497
+msgid "true if the target is auto-created by a generator, false otherwise"
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:499
+msgid "true if the target contains any install rules, false otherwise."
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:500
+msgid "\"installPaths\""
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:501
+msgid ""
+"full path to the destination directories defined by target install rules."
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:502
+msgid "\"artifacts\""
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:503
+msgid ""
+"with a list of build artifacts. The list is sorted with the most important "
+"artifacts first (e.g. a .DLL file is listed before a .PDB file on windows)."
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:506
+msgid "\"linkerLanguage\""
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:507
+msgid "contains the language of the linker used to produce the artifact."
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:508
+msgid "\"linkLibraries\""
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:509
+msgid ""
+"with a list of libraries to link to. This value is encoded in the system's "
+"native shell format."
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:511
+msgid "\"linkFlags\""
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:512
+msgid ""
+"with a list of flags to pass to the linker. This value is encoded in the "
+"system's native shell format."
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:514
+msgid "\"linkLanguageFlags\""
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:515
+msgid ""
+"with the flags for a compiler using the linkerLanguage. This value is "
+"encoded in the system's native shell format."
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:517
+msgid "\"frameworkPath\""
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:518
+msgid ""
+"with the framework path (on Apple computers). This value is encoded in the "
+"system's native shell format."
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:520
+msgid "\"linkPath\""
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:521
+msgid ""
+"with the link path. This value is encoded in the system's native shell "
+"format."
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:523
+msgid "\"sysroot\""
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:524
+msgid "with the sysroot path."
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:525
+msgid "\"fileGroups\""
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:526
+msgid "contains the source files making up the target."
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:528
+msgid "FileGroups are used to group sources using similar settings together."
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:530
+msgid "Each fileGroup object may contain the following keys:"
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:532
+msgid "\"language\""
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:533
+msgid "contains the programming language used by all files in the group."
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:534
+msgid "\"compileFlags\""
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:535
+msgid ""
+"with a string containing all the flags passed to the compiler when building "
+"any of the files in this group. This value is encoded in the system's native "
+"shell format."
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:538
+msgid "\"includePath\""
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:539
+msgid ""
+"with a list of include paths. Each include path is an object containing a "
+"\"path\" with the actual include path and \"isSystem\" with a bool value "
+"informing whether this is a normal include or a system include. This value "
+"is encoded in the system's native shell format."
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:543
+msgid "\"defines\""
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:544
+msgid ""
+"with a list of defines in the form \"SOMEVALUE\" or \"SOMEVALUE=42\". This "
+"value is encoded in the system's native shell format."
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:546
+msgid "\"sources\""
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:547
+msgid "with a list of source files."
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:549
+msgid ""
+"All file paths in the fileGroup are either absolute or relative to the "
+"sourceDirectory of the target."
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:554
+msgid ""
+"[== \"CMake Server\" ==[\n"
+"{\"type\":\"codemodel\"}\n"
+"]== \"CMake Server\" ==]"
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:558
+msgid "CMake will reply::"
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:560
+msgid ""
+"[== \"CMake Server\" ==[\n"
+"{\n"
+"  \"configurations\": [\n"
+"    {\n"
+"      \"name\": \"\",\n"
+"      \"projects\": [\n"
+"        {\n"
+"          \"buildDirectory\": \"/tmp/build/Source/CursesDialog/form\",\n"
+"          \"name\": \"CMAKE_FORM\",\n"
+"          \"sourceDirectory\": \"/home/code/src/cmake/Source/CursesDialog/"
+"form\",\n"
+"          \"targets\": [\n"
+"            {\n"
+"              \"artifacts\": [ \"/tmp/build/Source/CursesDialog/form/"
+"libcmForm.a\" ],\n"
+"              \"buildDirectory\": \"/tmp/build/Source/CursesDialog/form\",\n"
+"              \"fileGroups\": [\n"
+"                {\n"
+"                  \"compileFlags\": \"  -std=gnu11\",\n"
+"                  \"defines\": [ \"CURL_STATICLIB\", "
+"\"LIBARCHIVE_STATIC\" ],\n"
+"                  \"includePath\": [ { \"path\": \"/tmp/build/Utilities\" }, "
+"<...> ],\n"
+"                  \"isGenerated\": false,\n"
+"                  \"language\": \"C\",\n"
+"                  \"sources\": [ \"fld_arg.c\", <...> ]\n"
+"                }\n"
+"              ],\n"
+"              \"fullName\": \"libcmForm.a\",\n"
+"              \"linkerLanguage\": \"C\",\n"
+"              \"name\": \"cmForm\",\n"
+"              \"sourceDirectory\": \"/home/code/src/cmake/Source/"
+"CursesDialog/form\",\n"
+"              \"type\": \"STATIC_LIBRARY\"\n"
+"            }\n"
+"          ]\n"
+"        },\n"
+"        <...>\n"
+"      ]\n"
+"    }\n"
+"  ],\n"
+"  \"cookie\": \"\",\n"
+"  \"inReplyTo\": \"codemodel\",\n"
+"  \"type\": \"reply\"\n"
+"}\n"
+"]== \"CMake Server\" ==]"
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:604
+msgid "Type \"ctestInfo\""
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:606
+msgid ""
+"The \"ctestInfo\" request can be used after a project was \"compute\"d "
+"successfully."
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:608
+msgid ""
+"It will list the complete project test structure as it is known to cmake."
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:628
+msgid "\"ctestInfo\""
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:629
+msgid "contains a list of test objects."
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:631
+msgid "Each test object can have the following keys:"
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:633
+msgid "\"ctestName\""
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:634
+msgid "contains the name of the test."
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:635
+msgid "\"ctestCommand\""
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:636
+msgid "contains the test command."
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:637
+msgid "\"properties\""
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:638
+msgid "contains a list of test property objects."
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:640
+msgid "Each test property object can have the following keys:"
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:642
+msgid "\"key\""
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:643
+msgid "contains the test property key."
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:644
+msgid "\"value\""
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:645
+msgid "contains the test property value."
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:649
+msgid "Type \"cmakeInputs\""
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:651
+msgid ""
+"The \"cmakeInputs\" requests will report files used by CMake as part of the "
+"build system itself."
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:654
+msgid ""
+"This request is only available after a project was successfully "
+"\"configure\"d."
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:659
+msgid ""
+"[== \"CMake Server\" ==[\n"
+"{\"type\":\"cmakeInputs\"}\n"
+"]== \"CMake Server\" ==]"
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:663
+msgid "CMake will reply with the following information::"
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:665
+msgid ""
+"[== \"CMake Server\" ==[\n"
+"{\"buildFiles\":\n"
+"  [\n"
+"    {\"isCMake\":true,\"isTemporary\":false,\"sources\":[\"/usr/lib/cmake/..."
+"\", ... ]},\n"
+"    {\"isCMake\":false,\"isTemporary\":false,\"sources\":[\"CMakeLists."
+"txt\", ...]},\n"
+"    {\"isCMake\":false,\"isTemporary\":true,\"sources\":[\"/tmp/build/"
+"CMakeFiles/...\", ...]}\n"
+"  ],\n"
+"  \"cmakeRootDirectory\":\"/usr/lib/cmake\",\n"
+"  \"sourceDirectory\":\"/home/code/src/cmake\",\n"
+"  \"cookie\":\"\",\n"
+"  \"inReplyTo\":\"cmakeInputs\",\n"
+"  \"type\":\"reply\"\n"
+"}\n"
+"]== \"CMake Server\" ==]"
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:680
+msgid ""
+"All file names are either relative to the top level source directory or "
+"absolute."
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:683
+msgid ""
+"The list of files which \"isCMake\" set to true are part of the cmake "
+"installation."
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:685
+msgid ""
+"The list of files witch \"isTemporary\" set to true are part of the build "
+"directory and will not survive the build directory getting cleaned out."
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:690
+msgid "Type \"cache\""
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:692
+msgid "The \"cache\" request will list the cached configuration values."
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:696
+msgid ""
+"[== \"CMake Server\" ==[\n"
+"{\"type\":\"cache\"}\n"
+"]== \"CMake Server\" ==]"
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:700
+#: ../../../manual/cmake-server.7.rst:736
+msgid "CMake will respond with the following output::"
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:702
+msgid ""
+"[== \"CMake Server\" ==[\n"
+"{\n"
+"  \"cookie\":\"\",\"inReplyTo\":\"cache\",\"type\":\"reply\",\n"
+"  \"cache\":\n"
+"  [\n"
+"    {\n"
+"      \"key\":\"SOMEVALUE\",\n"
+"      \"properties\":\n"
+"      {\n"
+"        \"ADVANCED\":\"1\",\n"
+"        \"HELPSTRING\":\"This is not helpful\"\n"
+"      }\n"
+"      \"type\":\"STRING\",\n"
+"      \"value\":\"TEST\"}\n"
+"  ]\n"
+"}\n"
+"]== \"CMake Server\" ==]"
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:720
+msgid ""
+"The output can be limited to a list of keys by passing an array of key names "
+"to the \"keys\" optional field of the \"cache\" request."
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:725
+msgid "Type \"fileSystemWatchers\""
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:727
+msgid ""
+"The server can watch the filesystem for changes. The \"fileSystemWatchers\" "
+"command will report on the files and directories watched."
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:732
+msgid ""
+"[== \"CMake Server\" ==[\n"
+"{\"type\":\"fileSystemWatchers\"}\n"
+"]== \"CMake Server\" ==]"
+msgstr ""
+
+#: ../../../manual/cmake-server.7.rst:738
+msgid ""
+"[== \"CMake Server\" ==[\n"
+"{\n"
+"  \"cookie\":\"\",\"inReplyTo\":\"fileSystemWatchers\",\"type\":\"reply\",\n"
+"  \"watchedFiles\": [ \"/absolute/path\" ],\n"
+"  \"watchedDirectories\": [ \"/absolute\" ]\n"
+"}\n"
+"]== \"CMake Server\" ==]"
+msgstr ""
