@@ -1,0 +1,340 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2000-2020 Kitware, Inc. and Contributors
+# This file is distributed under the same license as the CMake package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CMake 3.17\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-07-08 02:51+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../../Modules/BundleUtilities.cmake:6
+msgid "BundleUtilities"
+msgstr ""
+
+#: ../../../../Modules/BundleUtilities.cmake:8
+msgid "Functions to help assemble a standalone bundle application."
+msgstr ""
+
+#: ../../../../Modules/BundleUtilities.cmake:10
+msgid ""
+"A collection of CMake utility functions useful for dealing with ``.app`` "
+"bundles on the Mac and bundle-like directories on any OS."
+msgstr ""
+
+#: ../../../../Modules/BundleUtilities.cmake:13
+msgid "The following functions are provided by this module:"
+msgstr ""
+
+#: ../../../../Modules/BundleUtilities.cmake:15
+msgid ""
+"fixup_bundle\n"
+"copy_and_fixup_bundle\n"
+"verify_app\n"
+"get_bundle_main_executable\n"
+"get_dotapp_dir\n"
+"get_bundle_and_executable\n"
+"get_bundle_all_executables\n"
+"get_item_key\n"
+"get_item_rpaths\n"
+"clear_bundle_keys\n"
+"set_bundle_key_values\n"
+"get_bundle_keys\n"
+"copy_resolved_item_into_bundle\n"
+"copy_resolved_framework_into_bundle\n"
+"fixup_bundle_item\n"
+"verify_bundle_prerequisites\n"
+"verify_bundle_symlinks"
+msgstr ""
+
+#: ../../../../Modules/BundleUtilities.cmake:35
+msgid ""
+"Requires CMake 2.6 or greater because it uses function, break and "
+"``PARENT_SCOPE``.  Also depends on ``GetPrerequisites.cmake``."
+msgstr ""
+
+#: ../../../../Modules/BundleUtilities.cmake:38
+msgid ""
+"DO NOT USE THESE FUNCTIONS AT CONFIGURE TIME (from ``CMakeLists.txt``)! "
+"Instead, invoke them from an :command:`install(CODE)` or :command:"
+"`install(SCRIPT)` rule."
+msgstr ""
+
+#: ../../../../Modules/BundleUtilities.cmake:42
+msgid "fixup_bundle(<app> <libs> <dirs>)"
+msgstr ""
+
+#: ../../../../Modules/BundleUtilities.cmake:46
+msgid ""
+"Fix up ``<app>`` bundle in-place and make it standalone, such that it can be "
+"drag-n-drop copied to another machine and run on that machine as long as all "
+"of the system libraries are compatible."
+msgstr ""
+
+#: ../../../../Modules/BundleUtilities.cmake:50
+msgid ""
+"If you pass plugins to ``fixup_bundle`` as the libs parameter, you should "
+"install them or copy them into the bundle before calling ``fixup_bundle``. "
+"The ``<libs>`` parameter is a list of libraries that must be fixed up, but "
+"that cannot be determined by ``otool`` output analysis  (i.e. ``plugins``)."
+msgstr ""
+
+#: ../../../../Modules/BundleUtilities.cmake:55
+msgid ""
+"Gather all the keys for all the executables and libraries in a bundle, and "
+"then, for each key, copy each prerequisite into the bundle.  Then fix each "
+"one up according to its own list of prerequisites."
+msgstr ""
+
+#: ../../../../Modules/BundleUtilities.cmake:59
+msgid ""
+"Then clear all the keys and call ``verify_app`` on the final bundle to "
+"ensure that it is truly standalone."
+msgstr ""
+
+#: ../../../../Modules/BundleUtilities.cmake:62
+msgid ""
+"As an optional parameter (``IGNORE_ITEM``) a list of file names can be "
+"passed, which are then ignored (e.g. ``IGNORE_ITEM \"vcredist_x86.exe;"
+"vcredist_x64.exe\"``)."
+msgstr ""
+
+#: ../../../../Modules/BundleUtilities.cmake:66
+msgid "copy_and_fixup_bundle(<src> <dst> <libs> <dirs>)"
+msgstr ""
+
+#: ../../../../Modules/BundleUtilities.cmake:70
+msgid ""
+"Makes a copy of the bundle ``<src>`` at location ``<dst>`` and then fixes up "
+"the new copied bundle in-place at ``<dst>``."
+msgstr ""
+
+#: ../../../../Modules/BundleUtilities.cmake:73
+msgid "verify_app(<app>)"
+msgstr ""
+
+#: ../../../../Modules/BundleUtilities.cmake:77
+msgid ""
+"Verifies that an application ``<app>`` appears valid based on running "
+"analysis tools on it.  Calls :command:`message(FATAL_ERROR)` if the "
+"application is not verified."
+msgstr ""
+
+#: ../../../../Modules/BundleUtilities.cmake:81
+#: ../../../../Modules/BundleUtilities.cmake:158
+#: ../../../../Modules/BundleUtilities.cmake:218
+msgid ""
+"As an optional parameter (``IGNORE_ITEM``) a list of file names can be "
+"passed, which are then ignored (e.g. ``IGNORE_ITEM \"vcredist_x86.exe;"
+"vcredist_x64.exe\"``)"
+msgstr ""
+
+#: ../../../../Modules/BundleUtilities.cmake:85
+msgid "get_bundle_main_executable(<bundle> <result_var>)"
+msgstr ""
+
+#: ../../../../Modules/BundleUtilities.cmake:89
+msgid ""
+"The result will be the full path name of the bundle's main executable file "
+"or an ``error:`` prefixed string if it could not be determined."
+msgstr ""
+
+#: ../../../../Modules/BundleUtilities.cmake:92
+msgid "get_dotapp_dir(<exe> <dotapp_dir_var>)"
+msgstr ""
+
+#: ../../../../Modules/BundleUtilities.cmake:96
+msgid ""
+"Returns the nearest parent dir whose name ends with ``.app`` given the full "
+"path to an executable.  If there is no such parent dir, then simply return "
+"the dir containing the executable."
+msgstr ""
+
+#: ../../../../Modules/BundleUtilities.cmake:100
+msgid "The returned directory may or may not exist."
+msgstr ""
+
+#: ../../../../Modules/BundleUtilities.cmake:102
+msgid ""
+"get_bundle_and_executable(<app> <bundle_var> <executable_var> <valid_var>)"
+msgstr ""
+
+#: ../../../../Modules/BundleUtilities.cmake:106
+msgid ""
+"Takes either a ``.app`` directory name or the name of an executable nested "
+"inside a ``.app`` directory and returns the path to the ``.app`` directory "
+"in ``<bundle_var>`` and the path to its main executable in "
+"``<executable_var>``."
+msgstr ""
+
+#: ../../../../Modules/BundleUtilities.cmake:111
+msgid "get_bundle_all_executables(<bundle> <exes_var>)"
+msgstr ""
+
+#: ../../../../Modules/BundleUtilities.cmake:115
+msgid ""
+"Scans ``<bundle>`` bundle recursively for all ``<exes_var>`` executable "
+"files and accumulates them into a variable."
+msgstr ""
+
+#: ../../../../Modules/BundleUtilities.cmake:118
+msgid "get_item_key(<item> <key_var>)"
+msgstr ""
+
+#: ../../../../Modules/BundleUtilities.cmake:122
+msgid ""
+"Given ``<item>`` file name, generate ``<key_var>`` key that should be unique "
+"considering the set of libraries that need copying or fixing up to make a "
+"bundle standalone.  This is essentially the file name including extension "
+"with ``.`` replaced by ``_``"
+msgstr ""
+
+#: ../../../../Modules/BundleUtilities.cmake:127
+msgid ""
+"This key is used as a prefix for CMake variables so that we can associate a "
+"set of variables with a given item based on its key."
+msgstr ""
+
+#: ../../../../Modules/BundleUtilities.cmake:130
+msgid "clear_bundle_keys(<keys_var>)"
+msgstr ""
+
+#: ../../../../Modules/BundleUtilities.cmake:134
+msgid ""
+"Loop over the ``<keys_var>`` list of keys, clearing all the variables "
+"associated with each key.  After the loop, clear the list of keys itself."
+msgstr ""
+
+#: ../../../../Modules/BundleUtilities.cmake:137
+msgid ""
+"Caller of ``get_bundle_keys`` should call ``clear_bundle_keys`` when done "
+"with list of keys."
+msgstr ""
+
+#: ../../../../Modules/BundleUtilities.cmake:140
+msgid ""
+"set_bundle_key_values(<keys_var> <context> <item> <exepath> <dirs>\n"
+"                      <copyflag> [<rpaths>])"
+msgstr ""
+
+#: ../../../../Modules/BundleUtilities.cmake:145
+msgid ""
+"Add ``<keys_var>`` key to the list (if necessary) for the given item. If "
+"added, also set all the variables associated with that key."
+msgstr ""
+
+#: ../../../../Modules/BundleUtilities.cmake:148
+msgid "get_bundle_keys(<app> <libs> <dirs> <keys_var>)"
+msgstr ""
+
+#: ../../../../Modules/BundleUtilities.cmake:152
+msgid ""
+"Loop over all the executable and library files within ``<app>`` bundle (and "
+"given as extra ``<libs>``) and accumulate a list of keys representing them.  "
+"Set values associated with each key such that we can loop over all of them "
+"and copy prerequisite libs into the bundle and then do appropriate "
+"``install_name_tool`` fixups."
+msgstr ""
+
+#: ../../../../Modules/BundleUtilities.cmake:162
+msgid ""
+"copy_resolved_item_into_bundle(<resolved_item> <resolved_embedded_item>)"
+msgstr ""
+
+#: ../../../../Modules/BundleUtilities.cmake:166
+msgid ""
+"Copy a resolved item into the bundle if necessary. Copy is not necessary, if "
+"the ``<resolved_item>`` is \"the same as\" the ``<resolved_embedded_item>``."
+msgstr ""
+
+#: ../../../../Modules/BundleUtilities.cmake:170
+msgid ""
+"copy_resolved_framework_into_bundle(<resolved_item> <resolved_embedded_item>)"
+msgstr ""
+
+#: ../../../../Modules/BundleUtilities.cmake:174
+msgid ""
+"Copy a resolved framework into the bundle if necessary. Copy is not "
+"necessary, if the ``<resolved_item>`` is \"the same as\" the "
+"``<resolved_embedded_item>``."
+msgstr ""
+
+#: ../../../../Modules/BundleUtilities.cmake:178
+msgid ""
+"By default, ``BU_COPY_FULL_FRAMEWORK_CONTENTS`` is not set.  If you want "
+"full frameworks embedded in your bundles, set "
+"``BU_COPY_FULL_FRAMEWORK_CONTENTS`` to ``ON`` before calling fixup_bundle.  "
+"By default, ``COPY_RESOLVED_FRAMEWORK_INTO_BUNDLE`` copies the framework "
+"dylib itself plus the framework ``Resources`` directory."
+msgstr ""
+
+#: ../../../../Modules/BundleUtilities.cmake:184
+msgid "fixup_bundle_item(<resolved_embedded_item> <exepath> <dirs>)"
+msgstr ""
+
+#: ../../../../Modules/BundleUtilities.cmake:188
+msgid ""
+"Get the direct/non-system prerequisites of the ``<resolved_embedded_item>``. "
+"For each prerequisite, change the way it is referenced to the value of the "
+"``_EMBEDDED_ITEM`` keyed variable for that prerequisite.  (Most likely "
+"changing to an ``@executable_path`` style reference.)"
+msgstr ""
+
+#: ../../../../Modules/BundleUtilities.cmake:193
+msgid ""
+"This function requires that the ``<resolved_embedded_item>`` be ``inside`` "
+"the bundle already.  In other words, if you pass plugins to ``fixup_bundle`` "
+"as the libs parameter, you should install them or copy them into the bundle "
+"before calling ``fixup_bundle``.  The ``libs`` parameter is a list of "
+"libraries that must be fixed up, but that cannot be determined by otool "
+"output analysis.  (i.e., ``plugins``)"
+msgstr ""
+
+#: ../../../../Modules/BundleUtilities.cmake:200
+msgid ""
+"Also, change the id of the item being fixed up to its own ``_EMBEDDED_ITEM`` "
+"value."
+msgstr ""
+
+#: ../../../../Modules/BundleUtilities.cmake:203
+msgid ""
+"Accumulate changes in a local variable and make *one* call to "
+"``install_name_tool`` at the end of the function with all the changes at "
+"once."
+msgstr ""
+
+#: ../../../../Modules/BundleUtilities.cmake:207
+msgid ""
+"If the ``BU_CHMOD_BUNDLE_ITEMS`` variable is set then bundle items will be "
+"marked writable before ``install_name_tool`` tries to change them."
+msgstr ""
+
+#: ../../../../Modules/BundleUtilities.cmake:210
+msgid "verify_bundle_prerequisites(<bundle> <result_var> <info_var>)"
+msgstr ""
+
+#: ../../../../Modules/BundleUtilities.cmake:214
+msgid ""
+"Verifies that the sum of all prerequisites of all files inside the bundle "
+"are contained within the bundle or are ``system`` libraries, presumed to "
+"exist everywhere."
+msgstr ""
+
+#: ../../../../Modules/BundleUtilities.cmake:222
+msgid "verify_bundle_symlinks(<bundle> <result_var> <info_var>)"
+msgstr ""
+
+#: ../../../../Modules/BundleUtilities.cmake:226
+msgid ""
+"Verifies that any symlinks found in the ``<bundle>`` bundle point to other "
+"files that are already also in the bundle...  Anything that points to an "
+"external file causes this function to fail the verification."
+msgstr ""
