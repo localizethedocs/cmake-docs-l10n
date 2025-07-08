@@ -1,0 +1,236 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2000-2022 Kitware, Inc. and Contributors
+# This file is distributed under the same license as the CMake package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CMake 3.23\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-07-08 02:52+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../guide/tutorial/Adding a Library.rst:2
+msgid "Step 2: Adding a Library"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding a Library.rst:4
+msgid ""
+"Now we will add a library to our project. This library will contain our own "
+"implementation for computing the square root of a number. The executable can "
+"then use this library instead of the standard square root function provided "
+"by the compiler."
+msgstr ""
+
+#: ../../../guide/tutorial/Adding a Library.rst:9
+msgid ""
+"For this tutorial we will put the library into a subdirectory called "
+"``MathFunctions``. This directory already contains a header file, "
+"``MathFunctions.h``, and a source file ``mysqrt.cxx``. The source file has "
+"one function called ``mysqrt`` that provides similar functionality to the "
+"compiler's ``sqrt`` function."
+msgstr ""
+
+#: ../../../guide/tutorial/Adding a Library.rst:15
+msgid ""
+"Add the following one line ``CMakeLists.txt`` file to the ``MathFunctions`` "
+"directory:"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding a Library.rst:18
+msgid "MathFunctions/CMakeLists.txt"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding a Library.rst:18
+msgid "add_library(MathFunctions mysqrt.cxx)\n"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding a Library.rst:23
+msgid ""
+"To make use of the new library we will add an :command:`add_subdirectory` "
+"call in the top-level ``CMakeLists.txt`` file so that the library will get "
+"built. We add the new library to the executable, and add ``MathFunctions`` "
+"as an include directory so that the ``MathFunctions.h`` header file can be "
+"found. The last few lines of the top-level ``CMakeLists.txt`` file should "
+"now look like:"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding a Library.rst:30 Library.rst:54
+#: Library.rst:76
+msgid "CMakeLists.txt"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding a Library.rst:30
+msgid ""
+"# add the MathFunctions library\n"
+"add_subdirectory(MathFunctions)\n"
+"\n"
+"# add the executable\n"
+"add_executable(Tutorial tutorial.cxx)\n"
+"\n"
+"target_link_libraries(Tutorial PUBLIC MathFunctions)\n"
+"\n"
+"# add the binary tree to the search path for include files\n"
+"# so that we will find TutorialConfig.h\n"
+"target_include_directories(Tutorial PUBLIC\n"
+"                          \"${PROJECT_BINARY_DIR}\"\n"
+"                          \"${PROJECT_SOURCE_DIR}/MathFunctions\"\n"
+"                          )"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding a Library.rst:49
+msgid ""
+"Now let us make the ``MathFunctions`` library optional. While for the "
+"tutorial there really isn't any need to do so, for larger projects this is a "
+"common occurrence. The first step is to add an option to the top-level "
+"``CMakeLists.txt`` file."
+msgstr ""
+
+#: ../../../guide/tutorial/Adding a Library.rst:54
+msgid ""
+"option(USE_MYMATH \"Use tutorial provided math implementation\" ON)\n"
+"\n"
+"# configure a header file to pass some of the CMake settings\n"
+"# to the source code\n"
+"configure_file(TutorialConfig.h.in TutorialConfig.h)\n"
+"\n"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding a Library.rst:61
+msgid ""
+"This option will be displayed in the :manual:`cmake-gui <cmake-gui(1)>` and :"
+"manual:`ccmake <ccmake(1)>` with a default value of ``ON`` that can be "
+"changed by the user. This setting will be stored in the cache so that the "
+"user does not need to set the value each time they run CMake on a build "
+"directory."
+msgstr ""
+
+#: ../../../guide/tutorial/Adding a Library.rst:67
+msgid ""
+"The next change is to make building and linking the ``MathFunctions`` "
+"library conditional. To do this,  we will create an ``if`` statement which "
+"checks the value of the option.  Inside the ``if`` block, put the :command:"
+"`add_subdirectory` command from above with some additional list commands to "
+"store information needed to link to the library and add the subdirectory as "
+"an include directory in the ``Tutorial`` target. The end of the top-level "
+"``CMakeLists.txt`` file will now look like the following:"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding a Library.rst:76
+msgid ""
+"if(USE_MYMATH)\n"
+"  add_subdirectory(MathFunctions)\n"
+"  list(APPEND EXTRA_LIBS MathFunctions)\n"
+"  list(APPEND EXTRA_INCLUDES \"${PROJECT_SOURCE_DIR}/MathFunctions\")\n"
+"endif()\n"
+"\n"
+"# add the executable\n"
+"add_executable(Tutorial tutorial.cxx)\n"
+"\n"
+"target_link_libraries(Tutorial PUBLIC ${EXTRA_LIBS})\n"
+"\n"
+"# add the binary tree to the search path for include files\n"
+"# so that we will find TutorialConfig.h\n"
+"target_include_directories(Tutorial PUBLIC\n"
+"                           \"${PROJECT_BINARY_DIR}\"\n"
+"                           ${EXTRA_INCLUDES}\n"
+"                           )\n"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding a Library.rst:82
+msgid ""
+"Note the use of the variable ``EXTRA_LIBS`` to collect up any optional "
+"libraries to later be linked into the executable. The variable "
+"``EXTRA_INCLUDES`` is used similarly for optional header files. This is a "
+"classic approach when dealing with many optional components, we will cover "
+"the modern approach in the next step."
+msgstr ""
+
+#: ../../../guide/tutorial/Adding a Library.rst:88
+msgid ""
+"The corresponding changes to the source code are fairly straightforward. "
+"First, in ``tutorial.cxx``, include the ``MathFunctions.h`` header if we "
+"need it:"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding a Library.rst:92 Library.rst:102
+msgid "tutorial.cxx"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding a Library.rst:92
+msgid ""
+"#ifdef USE_MYMATH\n"
+"#  include \"MathFunctions.h\"\n"
+"#endif\n"
+"\n"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding a Library.rst:99
+msgid ""
+"Then, in the same file, make ``USE_MYMATH`` control which square root "
+"function is used:"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding a Library.rst:102
+msgid ""
+"#ifdef USE_MYMATH\n"
+"  const double outputValue = mysqrt(inputValue);\n"
+"#else\n"
+"  const double outputValue = sqrt(inputValue);\n"
+"#endif\n"
+"\n"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding a Library.rst:109
+msgid ""
+"Since the source code now requires ``USE_MYMATH`` we can add it to "
+"``TutorialConfig.h.in`` with the following line:"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding a Library.rst:112
+msgid "TutorialConfig.h.in"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding a Library.rst:112
+msgid "#cmakedefine USE_MYMATH\n"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding a Library.rst:118
+msgid ""
+"**Exercise**: Why is it important that we configure ``TutorialConfig.h.in`` "
+"after the option for ``USE_MYMATH``? What would happen if we inverted the "
+"two?"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding a Library.rst:121
+msgid ""
+"Run the :manual:`cmake  <cmake(1)>` executable or the :manual:`cmake-gui "
+"<cmake-gui(1)>` to configure the project and then build it with your chosen "
+"build tool. Then run the built Tutorial executable."
+msgstr ""
+
+#: ../../../guide/tutorial/Adding a Library.rst:125
+msgid ""
+"Now let's update the value of ``USE_MYMATH``. The easiest way is to use the :"
+"manual:`cmake-gui <cmake-gui(1)>` or  :manual:`ccmake <ccmake(1)>` if you're "
+"in the terminal. Or, alternatively, if you want to change the option from "
+"the command-line, try:"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding a Library.rst:130
+msgid "cmake ../Step2 -DUSE_MYMATH=OFF"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding a Library.rst:134
+msgid "Rebuild and run the tutorial again."
+msgstr ""
+
+#: ../../../guide/tutorial/Adding a Library.rst:136
+msgid "Which function gives better results, ``sqrt`` or ``mysqrt``?"
+msgstr ""
