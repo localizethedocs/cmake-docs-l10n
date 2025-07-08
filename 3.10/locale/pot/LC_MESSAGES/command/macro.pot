@@ -1,0 +1,124 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2000-2017 Kitware, Inc. and Contributors
+# This file is distributed under the same license as the CMake package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CMake 3.10\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-07-08 02:46+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../command/macro.rst:2
+msgid "macro"
+msgstr ""
+
+#: ../../../command/macro.rst:4
+msgid "Start recording a macro for later invocation as a command::"
+msgstr ""
+
+#: ../../../command/macro.rst:6
+msgid ""
+"macro(<name> [arg1 [arg2 [arg3 ...]]])\n"
+"  COMMAND1(ARGS ...)\n"
+"  COMMAND2(ARGS ...)\n"
+"  ...\n"
+"endmacro(<name>)"
+msgstr ""
+
+#: ../../../command/macro.rst:12
+msgid ""
+"Define a macro named ``<name>`` that takes arguments named ``arg1``, "
+"``arg2``, ``arg3``, (...). Commands listed after macro, but before the "
+"matching :command:`endmacro()`, are not invoked until the macro is invoked. "
+"When it is invoked, the commands recorded in the macro are first modified by "
+"replacing formal parameters (``${arg1}``) with the arguments passed, and "
+"then invoked as normal commands. In addition to referencing the formal "
+"parameters you can reference the values ``${ARGC}`` which will be set to the "
+"number of arguments passed into the function as well as ``${ARGV0}``, "
+"``${ARGV1}``, ``${ARGV2}``, ...  which will have the actual values of the "
+"arguments passed in. This facilitates creating macros with optional "
+"arguments. Additionally ``${ARGV}`` holds the list of all arguments given to "
+"the macro and ``${ARGN}`` holds the list of arguments past the last expected "
+"argument. Referencing to ``${ARGV#}`` arguments beyond ``${ARGC}`` have "
+"undefined behavior. Checking that ``${ARGC}`` is greater than ``#`` is the "
+"only way to ensure that ``${ARGV#}`` was passed to the function as an extra "
+"argument."
+msgstr ""
+
+#: ../../../command/macro.rst:32
+msgid ""
+"See the :command:`cmake_policy()` command documentation for the behavior of "
+"policies inside macros."
+msgstr ""
+
+#: ../../../command/macro.rst:36
+msgid "Macro Argument Caveats"
+msgstr ""
+
+#: ../../../command/macro.rst:38
+msgid ""
+"Note that the parameters to a macro and values such as ``ARGN`` are not "
+"variables in the usual CMake sense.  They are string replacements much like "
+"the C preprocessor would do with a macro. Therefore you will NOT be able to "
+"use commands like::"
+msgstr ""
+
+#: ../../../command/macro.rst:43
+msgid ""
+"if(ARGV1) # ARGV1 is not a variable\n"
+"if(DEFINED ARGV2) # ARGV2 is not a variable\n"
+"if(ARGC GREATER 2) # ARGC is not a variable\n"
+"foreach(loop_var IN LISTS ARGN) # ARGN is not a variable"
+msgstr ""
+
+#: ../../../command/macro.rst:48
+msgid ""
+"In the first case, you can use ``if(${ARGV1})``. In the second and third "
+"case, the proper way to check if an optional variable was passed to the "
+"macro is to use ``if(${ARGC} GREATER 2)``. In the last case, you can use "
+"``foreach(loop_var ${ARGN})`` but this will skip empty arguments. If you "
+"need to include them, you can use::"
+msgstr ""
+
+#: ../../../command/macro.rst:55
+msgid ""
+"set(list_var \"${ARGN}\")\n"
+"foreach(loop_var IN LISTS list_var)"
+msgstr ""
+
+#: ../../../command/macro.rst:58
+msgid ""
+"Note that if you have a variable with the same name in the scope from which "
+"the macro is called, using unreferenced names will use the existing variable "
+"instead of the arguments. For example::"
+msgstr ""
+
+#: ../../../command/macro.rst:62
+msgid ""
+"macro(_BAR)\n"
+"  foreach(arg IN LISTS ARGN)\n"
+"    [...]\n"
+"  endforeach()\n"
+"endmacro()\n"
+"\n"
+"function(_FOO)\n"
+"  _bar(x y z)\n"
+"endfunction()\n"
+"\n"
+"_foo(a b c)"
+msgstr ""
+
+#: ../../../command/macro.rst:74
+msgid ""
+"Will loop over ``a;b;c`` and not over ``x;y;z`` as one might be expecting. "
+"If you want true CMake variables and/or better CMake scope control you "
+"should look at the function command."
+msgstr ""
