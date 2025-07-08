@@ -1,0 +1,71 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2000-2015 Kitware, Inc.
+# This file is distributed under the same license as the CMake package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CMake 3.4\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-07-08 02:46+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../policy/CMP0023.rst:2
+msgid "CMP0023"
+msgstr ""
+
+#: ../../../policy/CMP0023.rst:4
+msgid "Plain and keyword target_link_libraries signatures cannot be mixed."
+msgstr ""
+
+#: ../../../policy/CMP0023.rst:6
+msgid ""
+"CMake 2.8.12 introduced the target_link_libraries signature using the "
+"PUBLIC, PRIVATE, and INTERFACE keywords to generalize the LINK_PUBLIC and "
+"LINK_PRIVATE keywords introduced in CMake 2.8.7.  Use of signatures with any "
+"of these keywords sets the link interface of a target explicitly, even if "
+"empty.  This produces confusing behavior when used in combination with the "
+"historical behavior of the plain target_link_libraries signature.  For "
+"example, consider the code:"
+msgstr ""
+
+#: ../../../policy/CMP0023.rst:16
+msgid ""
+"target_link_libraries(mylib A)\n"
+"target_link_libraries(mylib PRIVATE B)"
+msgstr ""
+
+#: ../../../policy/CMP0023.rst:19
+msgid ""
+"After the first line the link interface has not been set explicitly so CMake "
+"would use the link implementation, A, as the link interface. However, the "
+"second line sets the link interface to empty.  In order to avoid this subtle "
+"behavior CMake now prefers to disallow mixing the plain and keyword "
+"signatures of target_link_libraries for a single target."
+msgstr ""
+
+#: ../../../policy/CMP0023.rst:26
+msgid ""
+"The OLD behavior for this policy is to allow keyword and plain "
+"target_link_libraries signatures to be mixed.  The NEW behavior for this "
+"policy is to not to allow mixing of the keyword and plain signatures."
+msgstr ""
+
+#: ../../../policy/CMP0023.rst:31
+msgid ""
+"This policy was introduced in CMake version 2.8.12.  CMake version |release| "
+"warns when the policy is not set and uses OLD behavior.  Use the "
+"cmake_policy command to set it to OLD or NEW explicitly."
+msgstr ""
+
+#: ../../../policy/DEPRECATED.txt:2
+msgid ""
+"The ``OLD`` behavior of a policy is :manual:`deprecated by definition <cmake-"
+"policies(7)>` and may be removed in a future version of CMake."
+msgstr ""
