@@ -1,0 +1,408 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2000-2022 Kitware, Inc. and Contributors
+# This file is distributed under the same license as the CMake package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CMake 3.24\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-07-08 02:46+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../command/try_compile.rst:2
+msgid "try_compile"
+msgstr ""
+
+#: ../../../command/try_compile.rst:5
+msgid "Contents"
+msgstr ""
+
+#: ../../../command/try_compile.rst:8
+msgid "Try building some code."
+msgstr ""
+
+#: ../../../command/try_compile.rst:13
+msgid "Try Compiling Whole Projects"
+msgstr ""
+
+#: ../../../command/try_compile.rst:15
+msgid ""
+"try_compile(<resultVar> <bindir> <srcdir>\n"
+"            <projectName> [<targetName>] [CMAKE_FLAGS <flags>...]\n"
+"            [OUTPUT_VARIABLE <var>])"
+msgstr ""
+
+#: ../../../command/try_compile.rst:21
+msgid ""
+"Try building a project.  The success or failure of the ``try_compile``, i.e. "
+"``TRUE`` or ``FALSE`` respectively, is returned in ``<resultVar>``."
+msgstr ""
+
+#: ../../../command/try_compile.rst:24
+msgid ""
+"In this form, ``<srcdir>`` should contain a complete CMake project with a "
+"``CMakeLists.txt`` file and all sources.  The ``<bindir>`` and ``<srcdir>`` "
+"will not be deleted after this command is run.  Specify ``<targetName>`` to "
+"build a specific target instead of the ``all`` or ``ALL_BUILD`` target.  See "
+"below for the meaning of other options."
+msgstr ""
+
+#: ../../../command/try_compile.rst:30
+msgid ""
+"CMake variables describing platform settings, and those listed by the :"
+"variable:`CMAKE_TRY_COMPILE_PLATFORM_VARIABLES` variable, are propagated "
+"into the project's build configuration.  See policy :policy:`CMP0137`. "
+"Previously this was only done by the :ref:`source file <Try Compiling Source "
+"Files>` signature."
+msgstr ""
+
+#: ../../../command/try_compile.rst:40
+msgid "Try Compiling Source Files"
+msgstr ""
+
+#: ../../../command/try_compile.rst:42
+msgid ""
+"try_compile(<resultVar> <bindir> <srcfile|SOURCES srcfile...>\n"
+"            [CMAKE_FLAGS <flags>...]\n"
+"            [COMPILE_DEFINITIONS <defs>...]\n"
+"            [LINK_OPTIONS <options>...]\n"
+"            [LINK_LIBRARIES <libs>...]\n"
+"            [OUTPUT_VARIABLE <var>]\n"
+"            [COPY_FILE <fileName> [COPY_FILE_ERROR <var>]]\n"
+"            [<LANG>_STANDARD <std>]\n"
+"            [<LANG>_STANDARD_REQUIRED <bool>]\n"
+"            [<LANG>_EXTENSIONS <bool>]\n"
+"            )"
+msgstr ""
+
+#: ../../../command/try_compile.rst:56
+msgid ""
+"Try building an executable or static library from one or more source files "
+"(which one is determined by the :variable:`CMAKE_TRY_COMPILE_TARGET_TYPE` "
+"variable).  The success or failure of the ``try_compile``, i.e. ``TRUE`` or "
+"``FALSE`` respectively, is returned in ``<resultVar>``."
+msgstr ""
+
+#: ../../../command/try_compile.rst:61
+msgid ""
+"In this form, one or more source files must be provided.  If :variable:"
+"`CMAKE_TRY_COMPILE_TARGET_TYPE` is unset or is set to ``EXECUTABLE``, the "
+"sources must include a definition for ``main`` and CMake will create a "
+"``CMakeLists.txt`` file to build the source(s) as an executable. If :"
+"variable:`CMAKE_TRY_COMPILE_TARGET_TYPE` is set to ``STATIC_LIBRARY``, a "
+"static library will be built instead and no definition for ``main`` is "
+"required.  For an executable, the generated ``CMakeLists.txt`` file would "
+"contain something like the following:"
+msgstr ""
+
+#: ../../../command/try_compile.rst:70
+msgid ""
+"add_definitions(<expanded COMPILE_DEFINITIONS from caller>)\n"
+"include_directories(${INCLUDE_DIRECTORIES})\n"
+"link_directories(${LINK_DIRECTORIES})\n"
+"add_executable(cmTryCompileExec <srcfile>...)\n"
+"target_link_options(cmTryCompileExec PRIVATE <LINK_OPTIONS from caller>)\n"
+"target_link_libraries(cmTryCompileExec ${LINK_LIBRARIES})"
+msgstr ""
+
+#: ../../../command/try_compile.rst:79
+msgid "The options are:"
+msgstr ""
+
+#: ../../../command/try_compile.rst:81
+msgid "``CMAKE_FLAGS <flags>...``"
+msgstr ""
+
+#: ../../../command/try_compile.rst:82
+msgid ""
+"Specify flags of the form ``-DVAR:TYPE=VALUE`` to be passed to the ``cmake`` "
+"command-line used to drive the test build. The above example shows how "
+"values for variables ``INCLUDE_DIRECTORIES``, ``LINK_DIRECTORIES``, and "
+"``LINK_LIBRARIES`` are used."
+msgstr ""
+
+#: ../../../command/try_compile.rst:88
+msgid "``COMPILE_DEFINITIONS <defs>...``"
+msgstr ""
+
+#: ../../../command/try_compile.rst:89
+msgid ""
+"Specify ``-Ddefinition`` arguments to pass to :command:`add_definitions` in "
+"the generated test project."
+msgstr ""
+
+#: ../../../command/try_compile.rst:92
+msgid "``COPY_FILE <fileName>``"
+msgstr ""
+
+#: ../../../command/try_compile.rst:93
+msgid ""
+"Copy the built executable or static library to the given ``<fileName>``."
+msgstr ""
+
+#: ../../../command/try_compile.rst:95
+msgid "``COPY_FILE_ERROR <var>``"
+msgstr ""
+
+#: ../../../command/try_compile.rst:96
+msgid ""
+"Use after ``COPY_FILE`` to capture into variable ``<var>`` any error message "
+"encountered while trying to copy the file."
+msgstr ""
+
+#: ../../../command/try_compile.rst:99
+msgid "``LINK_LIBRARIES <libs>...``"
+msgstr ""
+
+#: ../../../command/try_compile.rst:100
+msgid ""
+"Specify libraries to be linked in the generated project. The list of "
+"libraries may refer to system libraries and to :ref:`Imported Targets "
+"<Imported Targets>` from the calling project."
+msgstr ""
+
+#: ../../../command/try_compile.rst:104
+msgid ""
+"If this option is specified, any ``-DLINK_LIBRARIES=...`` value given to the "
+"``CMAKE_FLAGS`` option will be ignored."
+msgstr ""
+
+#: ../../../command/try_compile.rst:107
+msgid "``LINK_OPTIONS <options>...``"
+msgstr ""
+
+#: ../../../command/try_compile.rst:110
+msgid ""
+"Specify link step options to pass to :command:`target_link_options` or to "
+"set the :prop_tgt:`STATIC_LIBRARY_OPTIONS` target property in the generated "
+"project, depending on the :variable:`CMAKE_TRY_COMPILE_TARGET_TYPE` variable."
+msgstr ""
+
+#: ../../../command/try_compile.rst:114
+msgid "``OUTPUT_VARIABLE <var>``"
+msgstr ""
+
+#: ../../../command/try_compile.rst:115
+msgid "Store the output from the build process in the given variable."
+msgstr ""
+
+#: ../../../command/try_compile.rst:117
+msgid "``<LANG>_STANDARD <std>``"
+msgstr ""
+
+#: ../../../command/try_compile.rst:120
+msgid ""
+"Specify the :prop_tgt:`C_STANDARD`, :prop_tgt:`CXX_STANDARD`, :prop_tgt:"
+"`OBJC_STANDARD`, :prop_tgt:`OBJCXX_STANDARD`, or :prop_tgt:`CUDA_STANDARD` "
+"target property of the generated project."
+msgstr ""
+
+#: ../../../command/try_compile.rst:124
+msgid "``<LANG>_STANDARD_REQUIRED <bool>``"
+msgstr ""
+
+#: ../../../command/try_compile.rst:127
+msgid ""
+"Specify the :prop_tgt:`C_STANDARD_REQUIRED`, :prop_tgt:"
+"`CXX_STANDARD_REQUIRED`, :prop_tgt:`OBJC_STANDARD_REQUIRED`, :prop_tgt:"
+"`OBJCXX_STANDARD_REQUIRED`,or :prop_tgt:`CUDA_STANDARD_REQUIRED` target "
+"property of the generated project."
+msgstr ""
+
+#: ../../../command/try_compile.rst:132
+msgid "``<LANG>_EXTENSIONS <bool>``"
+msgstr ""
+
+#: ../../../command/try_compile.rst:135
+msgid ""
+"Specify the :prop_tgt:`C_EXTENSIONS`, :prop_tgt:`CXX_EXTENSIONS`, :prop_tgt:"
+"`OBJC_EXTENSIONS`, :prop_tgt:`OBJCXX_EXTENSIONS`, or :prop_tgt:"
+"`CUDA_EXTENSIONS` target property of the generated project."
+msgstr ""
+
+#: ../../../command/try_compile.rst:139
+msgid ""
+"In this version all files in ``<bindir>/CMakeFiles/CMakeTmp`` will be "
+"cleaned automatically.  For debugging, ``--debug-trycompile`` can be passed "
+"to ``cmake`` to avoid this clean.  However, multiple sequential "
+"``try_compile`` operations reuse this single output directory.  If you use "
+"``--debug-trycompile``, you can only debug one ``try_compile`` call at a "
+"time. The recommended procedure is to protect all ``try_compile`` calls in "
+"your project by ``if(NOT DEFINED <resultVar>)`` logic, configure with cmake "
+"all the way through once, then delete the cache entry associated with the "
+"try_compile call of interest, and then re-run cmake again with ``--debug-"
+"trycompile``."
+msgstr ""
+
+#: ../../../command/try_compile.rst:151
+msgid "Other Behavior Settings"
+msgstr ""
+
+#: ../../../command/try_compile.rst:153
+msgid ""
+"If set, the following variables are passed in to the generated try_compile "
+"CMakeLists.txt to initialize compile target properties with default values:"
+msgstr ""
+
+#: ../../../command/try_compile.rst:158
+msgid ":variable:`CMAKE_CUDA_RUNTIME_LIBRARY`"
+msgstr ""
+
+#: ../../../command/try_compile.rst:159
+msgid ":variable:`CMAKE_ENABLE_EXPORTS`"
+msgstr ""
+
+#: ../../../command/try_compile.rst:160
+msgid ":variable:`CMAKE_LINK_SEARCH_START_STATIC`"
+msgstr ""
+
+#: ../../../command/try_compile.rst:161
+msgid ":variable:`CMAKE_LINK_SEARCH_END_STATIC`"
+msgstr ""
+
+#: ../../../command/try_compile.rst:162
+msgid ":variable:`CMAKE_MSVC_RUNTIME_LIBRARY`"
+msgstr ""
+
+#: ../../../command/try_compile.rst:163
+msgid ":variable:`CMAKE_POSITION_INDEPENDENT_CODE`"
+msgstr ""
+
+#: ../../../command/try_compile.rst:164
+msgid ":variable:`CMAKE_WATCOM_RUNTIME_LIBRARY`"
+msgstr ""
+
+#: ../../../command/try_compile.rst:166
+msgid ""
+"If :policy:`CMP0056` is set to ``NEW``, then :variable:"
+"`CMAKE_EXE_LINKER_FLAGS` is passed in as well."
+msgstr ""
+
+#: ../../../command/try_compile.rst:169
+msgid ""
+"If :policy:`CMP0083` is set to ``NEW``, then in order to obtain correct "
+"behavior at link time, the ``check_pie_supported()`` command from the :"
+"module:`CheckPIESupported` module must be called before using the :command:"
+"`try_compile` command."
+msgstr ""
+
+#: ../../../command/try_compile.rst:175
+msgid ""
+"The current settings of :policy:`CMP0065` and :policy:`CMP0083` are "
+"propagated through to the generated test project."
+msgstr ""
+
+#: ../../../command/try_compile.rst:178
+msgid ""
+"Set the :variable:`CMAKE_TRY_COMPILE_CONFIGURATION` variable to choose a "
+"build configuration."
+msgstr ""
+
+#: ../../../command/try_compile.rst:181
+msgid ""
+"Set the :variable:`CMAKE_TRY_COMPILE_TARGET_TYPE` variable to specify the "
+"type of target used for the source file signature."
+msgstr ""
+
+#: ../../../command/try_compile.rst:185
+msgid ""
+"Set the :variable:`CMAKE_TRY_COMPILE_PLATFORM_VARIABLES` variable to specify "
+"variables that must be propagated into the test project.  This variable is "
+"meant for use only in toolchain files and is only honored by the "
+"``try_compile()`` command for the source files form, not when given a whole "
+"project."
+msgstr ""
+
+#: ../../../command/try_compile.rst:192
+msgid ""
+"If :policy:`CMP0067` is set to ``NEW``, or any of the ``<LANG>_STANDARD``, "
+"``<LANG>_STANDARD_REQUIRED``, or ``<LANG>_EXTENSIONS`` options are used, "
+"then the language standard variables are honored:"
+msgstr ""
+
+#: ../../../command/try_compile.rst:197
+msgid ":variable:`CMAKE_C_STANDARD`"
+msgstr ""
+
+#: ../../../command/try_compile.rst:198
+msgid ":variable:`CMAKE_C_STANDARD_REQUIRED`"
+msgstr ""
+
+#: ../../../command/try_compile.rst:199
+msgid ":variable:`CMAKE_C_EXTENSIONS`"
+msgstr ""
+
+#: ../../../command/try_compile.rst:200
+msgid ":variable:`CMAKE_CXX_STANDARD`"
+msgstr ""
+
+#: ../../../command/try_compile.rst:201
+msgid ":variable:`CMAKE_CXX_STANDARD_REQUIRED`"
+msgstr ""
+
+#: ../../../command/try_compile.rst:202
+msgid ":variable:`CMAKE_CXX_EXTENSIONS`"
+msgstr ""
+
+#: ../../../command/try_compile.rst:203
+msgid ":variable:`CMAKE_OBJC_STANDARD`"
+msgstr ""
+
+#: ../../../command/try_compile.rst:204
+msgid ":variable:`CMAKE_OBJC_STANDARD_REQUIRED`"
+msgstr ""
+
+#: ../../../command/try_compile.rst:205
+msgid ":variable:`CMAKE_OBJC_EXTENSIONS`"
+msgstr ""
+
+#: ../../../command/try_compile.rst:206
+msgid ":variable:`CMAKE_OBJCXX_STANDARD`"
+msgstr ""
+
+#: ../../../command/try_compile.rst:207
+msgid ":variable:`CMAKE_OBJCXX_STANDARD_REQUIRED`"
+msgstr ""
+
+#: ../../../command/try_compile.rst:208
+msgid ":variable:`CMAKE_OBJCXX_EXTENSIONS`"
+msgstr ""
+
+#: ../../../command/try_compile.rst:209
+msgid ":variable:`CMAKE_CUDA_STANDARD`"
+msgstr ""
+
+#: ../../../command/try_compile.rst:210
+msgid ":variable:`CMAKE_CUDA_STANDARD_REQUIRED`"
+msgstr ""
+
+#: ../../../command/try_compile.rst:211
+msgid ":variable:`CMAKE_CUDA_EXTENSIONS`"
+msgstr ""
+
+#: ../../../command/try_compile.rst:213
+msgid ""
+"Their values are used to set the corresponding target properties in the "
+"generated project (unless overridden by an explicit option)."
+msgstr ""
+
+#: ../../../command/try_compile.rst:216
+msgid ""
+"For the :generator:`Green Hills MULTI` generator the GHS toolset and target "
+"system customization cache variables are also propagated into the test "
+"project."
+msgstr ""
+
+#: ../../../command/try_compile.rst:220
+msgid ""
+"The :variable:`CMAKE_TRY_COMPILE_NO_PLATFORM_VARIABLES` variable may be set "
+"to disable passing platform variables into the test project."
+msgstr ""
