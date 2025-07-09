@@ -1,0 +1,167 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2000-2022 Kitware, Inc. and Contributors
+# This file is distributed under the same license as the CMake package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CMake 3.25\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-07-08 02:52+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../command/target_link_options.rst:2
+msgid "target_link_options"
+msgstr ""
+
+#: ../../../command/target_link_options.rst:6
+msgid ""
+"Add options to the link step for an executable, shared library or module "
+"library target."
+msgstr ""
+
+#: ../../../command/target_link_options.rst:9
+msgid ""
+"target_link_options(<target> [BEFORE]\n"
+"  <INTERFACE|PUBLIC|PRIVATE> [items1...]\n"
+"  [<INTERFACE|PUBLIC|PRIVATE> [items2...] ...])"
+msgstr ""
+
+#: ../../../command/target_link_options.rst:15
+msgid ""
+"The named ``<target>`` must have been created by a command such as :command:"
+"`add_executable` or :command:`add_library` and must not be an :ref:`ALIAS "
+"target <Alias Targets>`."
+msgstr ""
+
+#: ../../../command/target_link_options.rst:19
+msgid ""
+"This command can be used to add any link options, but alternative commands "
+"exist to add libraries (:command:`target_link_libraries` or :command:"
+"`link_libraries`).  See documentation of the :prop_dir:`directory "
+"<LINK_OPTIONS>` and :prop_tgt:`target <LINK_OPTIONS>` ``LINK_OPTIONS`` "
+"properties."
+msgstr ""
+
+#: ../../../command/target_link_options.rst:27
+msgid ""
+"This command cannot be used to add options for static library targets, since "
+"they do not use a linker.  To add archiver or MSVC librarian flags, see the :"
+"prop_tgt:`STATIC_LIBRARY_OPTIONS` target property."
+msgstr ""
+
+#: ../../../command/target_link_options.rst:31
+msgid ""
+"If ``BEFORE`` is specified, the content will be prepended to the property "
+"instead of being appended."
+msgstr ""
+
+#: ../../../command/target_link_options.rst:34
+msgid ""
+"The ``INTERFACE``, ``PUBLIC`` and ``PRIVATE`` keywords are required to "
+"specify the :ref:`scope <Target Usage Requirements>` of the following "
+"arguments. ``PRIVATE`` and ``PUBLIC`` items will populate the :prop_tgt:"
+"`LINK_OPTIONS` property of ``<target>``.  ``PUBLIC`` and ``INTERFACE`` items "
+"will populate the :prop_tgt:`INTERFACE_LINK_OPTIONS` property of "
+"``<target>``. The following arguments specify link options.  Repeated calls "
+"for the same ``<target>`` append items in the order called."
+msgstr ""
+
+#: ../../../command/target_link_options.rst:43
+msgid ""
+":ref:`IMPORTED targets <Imported Targets>` only support ``INTERFACE`` items."
+msgstr ""
+
+#: ../../../command/target_link_options.rst:45
+msgid ""
+"Arguments to ``target_link_options`` may use \"generator expressions\" with "
+"the syntax ``$<...>``. See the :manual:`cmake-generator-expressions(7)` "
+"manual for available expressions.  See the :manual:`cmake-buildsystem(7)` "
+"manual for more on defining buildsystem properties."
+msgstr ""
+
+#: ../../../command/DEVICE_LINK_OPTIONS.txt:2
+msgid "Host And Device Specific Link Options"
+msgstr ""
+
+#: ../../../command/DEVICE_LINK_OPTIONS.txt:4
+msgid ""
+"When a device link step is involved, which is controlled by :prop_tgt:"
+"`CUDA_SEPARABLE_COMPILATION` and :prop_tgt:`CUDA_RESOLVE_DEVICE_SYMBOLS` "
+"properties and policy :policy:`CMP0105`, the raw options will be delivered "
+"to the host and device link steps (wrapped in ``-Xcompiler`` or equivalent "
+"for device link). Options wrapped with ``$<DEVICE_LINK:...>`` :manual:"
+"`generator expression <cmake-generator-expressions(7)>` will be used only "
+"for the device link step. Options wrapped with ``$<HOST_LINK:...>`` :manual:"
+"`generator expression <cmake-generator-expressions(7)>` will be used only "
+"for the host link step."
+msgstr ""
+
+#: ../../../command/OPTIONS_SHELL.txt:2
+msgid "Option De-duplication"
+msgstr ""
+
+#: ../../../command/OPTIONS_SHELL.txt:4
+msgid ""
+"The final set of options used for a target is constructed by accumulating "
+"options from the current target and the usage requirements of its "
+"dependencies.  The set of options is de-duplicated to avoid repetition."
+msgstr ""
+
+#: ../../../command/OPTIONS_SHELL.txt:8
+msgid ""
+"While beneficial for individual options, the de-duplication step can break "
+"up option groups.  For example, ``-option A -option B`` becomes ``-option A "
+"B``.  One may specify a group of options using shell-like quoting along with "
+"a ``SHELL:`` prefix.  The ``SHELL:`` prefix is dropped, and the rest of the "
+"option string is parsed using the :command:`separate_arguments` "
+"``UNIX_COMMAND`` mode. For example, ``\"SHELL:-option A\" \"SHELL:-option "
+"B\"`` becomes ``-option A -option B``."
+msgstr ""
+
+#: ../../../command/LINK_OPTIONS_LINKER.txt:2
+msgid "Handling Compiler Driver Differences"
+msgstr ""
+
+#: ../../../command/LINK_OPTIONS_LINKER.txt:4
+msgid ""
+"To pass options to the linker tool, each compiler driver has its own syntax. "
+"The ``LINKER:`` prefix and ``,`` separator can be used to specify, in a "
+"portable way, options to pass to the linker tool. ``LINKER:`` is replaced by "
+"the appropriate driver option and ``,`` by the appropriate driver separator. "
+"The driver prefix and driver separator are given by the values of the :"
+"variable:`CMAKE_<LANG>_LINKER_WRAPPER_FLAG` and :variable:"
+"`CMAKE_<LANG>_LINKER_WRAPPER_FLAG_SEP` variables."
+msgstr ""
+
+#: ../../../command/LINK_OPTIONS_LINKER.txt:12
+msgid ""
+"For example, ``\"LINKER:-z,defs\"`` becomes ``-Xlinker -z -Xlinker defs`` "
+"for ``Clang`` and ``-Wl,-z,defs`` for ``GNU GCC``."
+msgstr ""
+
+#: ../../../command/LINK_OPTIONS_LINKER.txt:15
+msgid ""
+"The ``LINKER:`` prefix can be specified as part of a ``SHELL:`` prefix "
+"expression."
+msgstr ""
+
+#: ../../../command/LINK_OPTIONS_LINKER.txt:18
+msgid ""
+"The ``LINKER:`` prefix supports, as an alternative syntax, specification of "
+"arguments using the ``SHELL:`` prefix and space as separator. The previous "
+"example then becomes ``\"LINKER:SHELL:-z defs\"``."
+msgstr ""
+
+#: ../../../command/LINK_OPTIONS_LINKER.txt:24
+msgid ""
+"Specifying the ``SHELL:`` prefix anywhere other than at the beginning of the "
+"``LINKER:`` prefix is not supported."
+msgstr ""
