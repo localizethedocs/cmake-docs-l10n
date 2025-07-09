@@ -1,0 +1,778 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2000-2017 Kitware, Inc. and Contributors
+# This file is distributed under the same license as the CMake package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CMake 3.10\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-07-08 02:46+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../manual/cmake-generator-expressions.7.rst:4
+msgid "cmake-generator-expressions(7)"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:7
+msgid "Contents"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:11
+msgid "Introduction"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:13
+msgid ""
+"Generator expressions are evaluated during build system generation to "
+"produce information specific to each build configuration."
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:16
+msgid ""
+"Generator expressions are allowed in the context of many target properties, "
+"such as :prop_tgt:`LINK_LIBRARIES`, :prop_tgt:`INCLUDE_DIRECTORIES`, :"
+"prop_tgt:`COMPILE_DEFINITIONS` and others.  They may also be used when using "
+"commands to populate those properties, such as :command:"
+"`target_link_libraries`, :command:`target_include_directories`, :command:"
+"`target_compile_definitions` and others."
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:23
+msgid ""
+"This means that they enable conditional linking, conditional definitions "
+"used when compiling, and conditional include directories and more.  The "
+"conditions may be based on the build configuration, target properties, "
+"platform information or any other queryable information."
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:29
+msgid "Logical Expressions"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:31
+msgid ""
+"Logical expressions are used to create conditional output.  The basic "
+"expressions are the ``0`` and ``1`` expressions.  Because other logical "
+"expressions evaluate to either ``0`` or ``1``, they can be composed to "
+"create conditional output::"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:36
+msgid "$<$<CONFIG:Debug>:DEBUG_MODE>"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:38
+msgid ""
+"expands to ``DEBUG_MODE`` when the ``Debug`` configuration is used, and "
+"otherwise expands to nothing."
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:41
+msgid "Available logical expressions are:"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:43
+msgid "``$<BOOL:...>``"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:44
+msgid "``1`` if the ``...`` is true, else ``0``"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:45
+msgid "``$<AND:?[,?]...>``"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:46
+msgid "``1`` if all ``?`` are ``1``, else ``0``"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:48
+msgid "The ``?`` must always be either ``0`` or ``1`` in boolean expressions."
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:50
+msgid "``$<OR:?[,?]...>``"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:51
+msgid "``0`` if all ``?`` are ``0``, else ``1``"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:52
+msgid "``$<NOT:?>``"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:53
+msgid "``0`` if ``?`` is ``1``, else ``1``"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:54
+msgid "``$<IF:?,true-value...,false-value...>```"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:55
+msgid ""
+"``true-value...`` if ``?`` is ``1``, ``false-value...`` if ``?`` is ``0``"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:56
+msgid "``$<STREQUAL:a,b>``"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:57
+msgid "``1`` if ``a`` is STREQUAL ``b``, else ``0``"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:58
+msgid "``$<EQUAL:a,b>``"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:59
+msgid "``1`` if ``a`` is EQUAL ``b`` in a numeric comparison, else ``0``"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:60
+msgid "``$<CONFIG:cfg>``"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:61
+msgid ""
+"``1`` if config is ``cfg``, else ``0``. This is a case-insensitive "
+"comparison. The mapping in :prop_tgt:`MAP_IMPORTED_CONFIG_<CONFIG>` is also "
+"considered by this expression when it is evaluated on a property on an :"
+"prop_tgt:`IMPORTED` target."
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:65
+msgid "``$<PLATFORM_ID:comp>``"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:66
+msgid ""
+"``1`` if the CMake-id of the platform matches ``comp``, otherwise ``0``."
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:67
+msgid "``$<C_COMPILER_ID:comp>``"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:68
+msgid ""
+"``1`` if the CMake-id of the C compiler matches ``comp``, otherwise ``0``."
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:69
+msgid "``$<CXX_COMPILER_ID:comp>``"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:70
+msgid ""
+"``1`` if the CMake-id of the CXX compiler matches ``comp``, otherwise ``0``."
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:71
+msgid "``$<VERSION_LESS:v1,v2>``"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:72
+msgid "``1`` if ``v1`` is a version less than ``v2``, else ``0``."
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:73
+msgid "``$<VERSION_GREATER:v1,v2>``"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:74
+msgid "``1`` if ``v1`` is a version greater than ``v2``, else ``0``."
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:75
+msgid "``$<VERSION_EQUAL:v1,v2>``"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:76
+msgid "``1`` if ``v1`` is the same version as ``v2``, else ``0``."
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:77
+msgid "``$<VERSION_LESS_EQUAL:v1,v2>``"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:78
+msgid "``1`` if ``v1`` is a version less than or equal to ``v2``, else ``0``."
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:79
+msgid "``$<VERSION_GREATER_EQUAL:v1,v2>``"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:80
+msgid ""
+"``1`` if ``v1`` is a version greater than or equal to ``v2``, else ``0``."
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:81
+msgid "``$<C_COMPILER_VERSION:ver>``"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:82
+msgid ""
+"``1`` if the version of the C compiler matches ``ver``, otherwise ``0``."
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:83
+msgid "``$<CXX_COMPILER_VERSION:ver>``"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:84
+msgid ""
+"``1`` if the version of the CXX compiler matches ``ver``, otherwise ``0``."
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:85
+msgid "``$<TARGET_POLICY:pol>``"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:86
+msgid ""
+"``1`` if the policy ``pol`` was NEW when the 'head' target was created, else "
+"``0``.  If the policy was not set, the warning message for the policy will "
+"be emitted. This generator expression only works for a subset of policies."
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:90
+msgid "``$<COMPILE_FEATURES:feature[,feature]...>``"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:91
+msgid ""
+"``1`` if all of the ``feature`` features are available for the 'head' "
+"target, and ``0`` otherwise. If this expression is used while evaluating the "
+"link implementation of a target and if any dependency transitively increases "
+"the required :prop_tgt:`C_STANDARD` or :prop_tgt:`CXX_STANDARD` for the "
+"'head' target, an error is reported.  See the :manual:`cmake-compile-"
+"features(7)` manual for information on compile features and a list of "
+"supported compilers."
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:98
+msgid "``$<COMPILE_LANGUAGE:lang>``"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:99
+msgid ""
+"``1`` when the language used for compilation unit matches ``lang``, "
+"otherwise ``0``.  This expression used to specify compile options for source "
+"files of a particular language in a target. For example, to specify the use "
+"of the ``-fno-exceptions`` compile option (compiler id checks elided):"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:105
+msgid ""
+"add_executable(myapp main.cpp foo.c bar.cpp)\n"
+"target_compile_options(myapp\n"
+"  PRIVATE $<$<COMPILE_LANGUAGE:CXX>:-fno-exceptions>\n"
+")"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:112
+msgid ""
+"This generator expression has limited use because it is not possible to use "
+"it with the Visual Studio generators.  Portable buildsystems would not use "
+"this expression, and would create separate libraries for each source file "
+"language instead:"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:117
+msgid ""
+"add_library(myapp_c foo.c)\n"
+"add_library(myapp_cxx bar.cpp)\n"
+"target_compile_options(myapp_cxx PUBLIC -fno-exceptions)\n"
+"add_executable(myapp main.cpp)\n"
+"target_link_libraries(myapp myapp_c myapp_cxx)"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:125
+msgid ""
+"The ``Makefile`` and ``Ninja`` based generators can also use this expression "
+"to specify compile-language specific compile definitions and include "
+"directories:"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:129
+msgid ""
+"add_executable(myapp main.cpp foo.c bar.cpp)\n"
+"target_compile_definitions(myapp\n"
+"  PRIVATE $<$<COMPILE_LANGUAGE:CXX>:COMPILING_CXX>\n"
+")\n"
+"target_include_directories(myapp\n"
+"  PRIVATE $<$<COMPILE_LANGUAGE:CXX>:/opt/foo/cxx_headers>\n"
+")"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:140
+msgid "Informational Expressions"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:142
+msgid ""
+"These expressions expand to some information. The information may be used "
+"directly, eg::"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:145
+msgid "include_directories(/usr/include/$<CXX_COMPILER_ID>/)"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:147
+msgid ""
+"expands to ``/usr/include/GNU/`` or ``/usr/include/Clang/`` etc, depending "
+"on the Id of the compiler."
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:150
+msgid "These expressions may also may be combined with logical expressions::"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:152
+msgid "$<$<VERSION_LESS:$<CXX_COMPILER_VERSION>,4.2.0>:OLD_COMPILER>"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:154
+msgid ""
+"expands to ``OLD_COMPILER`` if the :variable:`CMAKE_CXX_COMPILER_VERSION "
+"<CMAKE_<LANG>_COMPILER_VERSION>` is less than 4.2.0."
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:158
+msgid "Available informational expressions are:"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:160
+msgid "``$<CONFIGURATION>``"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:161
+msgid "Configuration name. Deprecated. Use ``CONFIG`` instead."
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:162
+msgid "``$<CONFIG>``"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:163
+msgid "Configuration name"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:164
+msgid "``$<PLATFORM_ID>``"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:165
+msgid ""
+"The CMake-id of the platform. See also the :variable:`CMAKE_SYSTEM_NAME` "
+"variable."
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:167
+msgid "``$<C_COMPILER_ID>``"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:168
+msgid ""
+"The CMake-id of the C compiler used. See also the :variable:"
+"`CMAKE_<LANG>_COMPILER_ID` variable."
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:170
+msgid "``$<CXX_COMPILER_ID>``"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:171
+msgid ""
+"The CMake-id of the CXX compiler used. See also the :variable:"
+"`CMAKE_<LANG>_COMPILER_ID` variable."
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:173
+msgid "``$<C_COMPILER_VERSION>``"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:174
+msgid ""
+"The version of the C compiler used. See also the :variable:"
+"`CMAKE_<LANG>_COMPILER_VERSION` variable."
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:176
+msgid "``$<CXX_COMPILER_VERSION>``"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:177
+msgid ""
+"The version of the CXX compiler used. See also the :variable:"
+"`CMAKE_<LANG>_COMPILER_VERSION` variable."
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:179
+msgid "``$<TARGET_FILE:tgt>``"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:180
+msgid ""
+"Full path to main file (.exe, .so.1.2, .a) where ``tgt`` is the name of a "
+"target."
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:181
+msgid "``$<TARGET_FILE_NAME:tgt>``"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:182
+msgid "Name of main file (.exe, .so.1.2, .a)."
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:183
+msgid "``$<TARGET_FILE_DIR:tgt>``"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:184
+msgid "Directory of main file (.exe, .so.1.2, .a)."
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:185
+msgid "``$<TARGET_LINKER_FILE:tgt>``"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:186
+msgid ""
+"File used to link (.a, .lib, .so) where ``tgt`` is the name of a target."
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:187
+msgid "``$<TARGET_LINKER_FILE_NAME:tgt>``"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:188
+msgid "Name of file used to link (.a, .lib, .so)."
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:189
+msgid "``$<TARGET_LINKER_FILE_DIR:tgt>``"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:190
+msgid "Directory of file used to link (.a, .lib, .so)."
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:191
+msgid "``$<TARGET_SONAME_FILE:tgt>``"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:192
+msgid "File with soname (.so.3) where ``tgt`` is the name of a target."
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:193
+msgid "``$<TARGET_SONAME_FILE_NAME:tgt>``"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:194
+msgid "Name of file with soname (.so.3)."
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:195
+msgid "``$<TARGET_SONAME_FILE_DIR:tgt>``"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:196
+msgid "Directory of with soname (.so.3)."
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:197
+msgid "``$<TARGET_PDB_FILE:tgt>``"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:198
+msgid ""
+"Full path to the linker generated program database file (.pdb) where ``tgt`` "
+"is the name of a target."
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:201
+msgid ""
+"See also the :prop_tgt:`PDB_NAME` and :prop_tgt:`PDB_OUTPUT_DIRECTORY` "
+"target properties and their configuration specific variants :prop_tgt:"
+"`PDB_NAME_<CONFIG>` and :prop_tgt:`PDB_OUTPUT_DIRECTORY_<CONFIG>`."
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:204
+msgid "``$<TARGET_PDB_FILE_NAME:tgt>``"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:205
+msgid "Name of the linker generated program database file (.pdb)."
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:206
+msgid "``$<TARGET_PDB_FILE_DIR:tgt>``"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:207
+msgid "Directory of the linker generated program database file (.pdb)."
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:208
+msgid "``$<TARGET_BUNDLE_DIR:tgt>``"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:209
+msgid ""
+"Full path to the bundle directory (``my.app``, ``my.framework``, or ``my."
+"bundle``) where ``tgt`` is the name of a target."
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:211
+msgid "``$<TARGET_BUNDLE_CONTENT_DIR:tgt>``"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:212
+msgid ""
+"Full path to the bundle content directory where ``tgt`` is the name of a "
+"target. For the macOS SDK it leads to ``my.app/Contents``, ``my.framework``, "
+"or ``my.bundle/Contents``. For all other SDKs (e.g. iOS) it leads to ``my."
+"app``, ``my.framework``, or ``my.bundle`` due to the flat bundle structure."
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:217
+msgid "``$<TARGET_PROPERTY:tgt,prop>``"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:218
+msgid "Value of the property ``prop`` on the target ``tgt``."
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:220
+msgid ""
+"Note that ``tgt`` is not added as a dependency of the target this expression "
+"is evaluated on."
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:222
+msgid "``$<TARGET_PROPERTY:prop>``"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:223
+msgid ""
+"Value of the property ``prop`` on the target on which the generator "
+"expression is evaluated."
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:225
+msgid "``$<INSTALL_PREFIX>``"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:226
+msgid ""
+"Content of the install prefix when the target is exported via :command:"
+"`install(EXPORT)` and empty otherwise."
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:228
+msgid "``$<COMPILE_LANGUAGE>``"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:229
+msgid ""
+"The compile language of source files when evaluating compile options. See "
+"the unary version for notes about portability of this generator expression."
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:234
+msgid "Output Expressions"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:236
+msgid ""
+"These expressions generate output, in some cases depending on an input. "
+"These expressions may be combined with other expressions for information or "
+"logical comparison::"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:240
+msgid "-I$<JOIN:$<TARGET_PROPERTY:INCLUDE_DIRECTORIES>, -I>"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:242
+msgid ""
+"generates a string of the entries in the :prop_tgt:`INCLUDE_DIRECTORIES` "
+"target property with each entry preceded by ``-I``. Note that a more-"
+"complete use in this situation would require first checking if the "
+"INCLUDE_DIRECTORIES property is non-empty::"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:247
+msgid "$<$<BOOL:${prop}>:-I$<JOIN:${prop}, -I>>"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:249
+msgid "where ``${prop}`` refers to a helper variable::"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:251
+msgid "set(prop \"$<TARGET_PROPERTY:INCLUDE_DIRECTORIES>\")"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:253
+msgid "Available output expressions are:"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:255
+msgid "``$<0:...>``"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:256
+msgid "Empty string (ignores ``...``)"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:257
+msgid "``$<1:...>``"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:258
+msgid "Content of ``...``"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:259
+msgid "``$<JOIN:list,...>``"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:260
+msgid "Joins the list with the content of ``...``"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:261
+msgid "``$<ANGLE-R>``"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:262
+msgid ""
+"A literal ``>``. Used to compare strings which contain a ``>`` for example."
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:263
+msgid "``$<COMMA>``"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:264
+msgid ""
+"A literal ``,``. Used to compare strings which contain a ``,`` for example."
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:265
+msgid "``$<SEMICOLON>``"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:266
+msgid ""
+"A literal ``;``. Used to prevent list expansion on an argument with ``;``."
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:267
+msgid "``$<TARGET_NAME:...>``"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:268
+msgid ""
+"Marks ``...`` as being the name of a target.  This is required if exporting "
+"targets to multiple dependent export sets.  The ``...`` must be a literal "
+"name of a target- it may not contain generator expressions."
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:271
+msgid "``$<LINK_ONLY:...>``"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:272
+msgid ""
+"Content of ``...`` except when evaluated in a link interface while "
+"propagating :ref:`Target Usage Requirements`, in which case it is the empty "
+"string. Intended for use only in an :prop_tgt:`INTERFACE_LINK_LIBRARIES` "
+"target property, perhaps via the :command:`target_link_libraries` command, "
+"to specify private link dependencies without other usage requirements."
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:278
+msgid "``$<INSTALL_INTERFACE:...>``"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:279
+msgid ""
+"Content of ``...`` when the property is exported using :command:"
+"`install(EXPORT)`, and empty otherwise."
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:281
+msgid "``$<BUILD_INTERFACE:...>``"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:282
+msgid ""
+"Content of ``...`` when the property is exported using :command:`export`, or "
+"when the target is used by another target in the same buildsystem. Expands "
+"to the empty string otherwise."
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:285
+msgid "``$<LOWER_CASE:...>``"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:286
+msgid "Content of ``...`` converted to lower case."
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:287
+msgid "``$<UPPER_CASE:...>``"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:288
+msgid "Content of ``...`` converted to upper case."
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:289
+msgid "``$<MAKE_C_IDENTIFIER:...>``"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:290
+msgid "Content of ``...`` converted to a C identifier."
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:291
+msgid "``$<TARGET_OBJECTS:objLib>``"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:292
+msgid ""
+"List of objects resulting from build of ``objLib``. ``objLib`` must be an "
+"object of type ``OBJECT_LIBRARY``."
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:294
+msgid "``$<SHELL_PATH:...>``"
+msgstr ""
+
+#: ../../../manual/cmake-generator-expressions.7.rst:295
+msgid ""
+"Content of ``...`` converted to shell path style. For example, slashes are "
+"converted to backslashes in Windows shells and drive letters are converted "
+"to posix paths in MSYS shells. The ``...`` must be an absolute path."
+msgstr ""
