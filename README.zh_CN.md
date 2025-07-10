@@ -5,10 +5,10 @@
 </div>
 
 <div align="center">
-<h1 id="localization-of-cmake-documentation">Localization of CMake Documentation</h1>
+<h1 id="localization-of-cmake-documentation">CMake 文档的本地化</h1>
 </div>
 
-<details><summary><strong>Switch Languages</strong></summary>
+<details><summary><strong>切换语言</strong></summary>
 <p></p>
 <ul>
   <li><a href="./README.md"><code>en_US</code> : English</a></li>
@@ -20,19 +20,19 @@
 <h2 id="table-of-contents">Table of Contents</h2>
 
 <ul>
-  <li><a href="#introduction">Introduction</a></li>
-  <li><a href="#progress-of-translations">Progress of Translations</a></li>
-  <li><a href="#preview-translations">Preview Translations</a></li>
-  <li><a href="#maintainers">Maintainers</a></li>
+  <li><a href="#introduction">简介</a></li>
+  <li><a href="#progress-of-translations">翻译进度</a></li>
+  <li><a href="#preview-translations">预览翻译</a></li>
+  <li><a href="#maintainers">维护者</a></li>
   <li><a href="#support-this-project">Support this Project</a></li>
-  <li><a href="#sponsorship">Sponsorship</a></li>
-  <li><a href="#code-contributors">Code Contributors</a></li>
-  <li><a href="#financial-contributors">Financial Contributors</a></li>
-  <li><a href="#translation-disclaimer">Translation Disclaimer</a></li>
-  <li><a href="#licenses">Licenses</a></li>
+  <li><a href="#sponsorship">赞助</a></li>
+  <li><a href="#code-contributors">代码贡献者</a></li>
+  <li><a href="#financial-contributors">财务贡献者</a></li>
+  <li><a href="#translation-disclaimer">翻译免责声明</a></li>
+  <li><a href="#licenses">许可证</a></li>
 </ul>
 
-<h2 id="introduction"><a href="#table-of-contents">Introduction</a></h2>
+<h2 id="introduction"><a href="#table-of-contents">简介</a></h2>
 
 <div align="center"><a href="https://github.com/localizethedocs/cmake-docs-l10n/stargazers" title="GitHub Stars" target="_blank">
   <img alt="GitHub Stars" src="https://img.shields.io/github/stars/localizethedocs/cmake-docs-l10n.svg?logo=github&style=flat&color=blue" />
@@ -68,7 +68,7 @@ This is a localization project of CMake Documentation. Translations are contribu
 <table>
   <thead>
     <tr>
-      <th rowspan="1" colspan="3" align="center" style="text-align: center;"><div>Project Links</div></th>
+      <th rowspan="1" colspan="3" align="center" style="text-align: center;"><div>项目链接</div></th>
     </tr>
   </thead>
   <tbody>
@@ -113,8 +113,8 @@ This is a localization project of CMake Documentation. Translations are contribu
       <th rowspan="1" colspan="2" align="center" style="text-align: center;"><div>GitHub Workflows</div></th>
     </tr>
     <tr>
-      <th rowspan="1" colspan="1" align="center" style="text-align: center;"><div>Status</div></th>
-      <th rowspan="1" colspan="1" align="center" style="text-align: center;"><div>Description</div></th>
+      <th rowspan="1" colspan="1" align="center" style="text-align: center;"><div>状态</div></th>
+      <th rowspan="1" colspan="1" align="center" style="text-align: center;"><div>描述</div></th>
     </tr>
   </thead>
   <tbody>
@@ -218,7 +218,7 @@ This is a localization project of CMake Documentation. Translations are contribu
 </table>
 </div>
 
-<h2 id="progress-of-translations"><a href="#table-of-contents">Progress of Translations</a></h2>
+<h2 id="progress-of-translations"><a href="#table-of-contents">翻译进度</a></h2>
 
 <div align="center">
 <table>
@@ -251,8 +251,8 @@ This is a localization project of CMake Documentation. Translations are contribu
       </td>
       <td rowspan="1" colspan="1" align="center" style="text-align: center;">
         <div>
-          <div><a href="https://localizethedocs.crowdin.com/cmake-docs-l10n/zh-CN" title="zh-CN translation" target="_blank"><img alt="zh-CN translation" src="https://img.shields.io/badge/dynamic/json?color=blue&label=zh-CN&style=flat&logo=crowdin&query=%24.progress.3.data.translationProgress&url=https%3A%2F%2Fbadges.awesome-crowdin.com%2Fstats-200032568-1.json" /></a></div>
-          <div><a href="https://localizethedocs.crowdin.com/cmake-docs-l10n/zh-CN" title="zh-CN proofreading" target="_blank"><img alt="zh-CN proofreading" src="https://img.shields.io/badge/dynamic/json?color=green&label=zh-CN&style=flat&logo=crowdin&query=%24.progress.3.data.approvalProgress&url=https%3A%2F%2Fbadges.awesome-crowdin.com%2Fstats-200032568-1.json" /></a></div>
+          <div><a href="https://localizethedocs.crowdin.com/cmake-docs-l10n/zh-CN" title="zh-CN translation" target="_blank"><img alt="zh-CN translation" src="https://img.shields.io/badge/dynamic/json?color=blue&label=zh-CN&style=flat&logo=crowdin&query=%24.progress.1.data.translationProgress&url=https%3A%2F%2Fbadges.awesome-crowdin.com%2Fstats-200032568-1.json" /></a></div>
+          <div><a href="https://localizethedocs.crowdin.com/cmake-docs-l10n/zh-CN" title="zh-CN proofreading" target="_blank"><img alt="zh-CN proofreading" src="https://img.shields.io/badge/dynamic/json?color=green&label=zh-CN&style=flat&logo=crowdin&query=%24.progress.1.data.approvalProgress&url=https%3A%2F%2Fbadges.awesome-crowdin.com%2Fstats-200032568-1.json" /></a></div>
         </div>
       </td>
     </tr>
@@ -267,8 +267,8 @@ This is a localization project of CMake Documentation. Translations are contribu
       </td>
       <td rowspan="1" colspan="1" align="center" style="text-align: center;">
         <div>
-          <div><a href="https://localizethedocs.crowdin.com/cmake-docs-l10n/zh-TW" title="zh-TW translation" target="_blank"><img alt="zh-TW translation" src="https://img.shields.io/badge/dynamic/json?color=blue&label=zh-TW&style=flat&logo=crowdin&query=%24.progress.4.data.translationProgress&url=https%3A%2F%2Fbadges.awesome-crowdin.com%2Fstats-200032568-1.json" /></a></div>
-          <div><a href="https://localizethedocs.crowdin.com/cmake-docs-l10n/zh-TW" title="zh-TW proofreading" target="_blank"><img alt="zh-TW proofreading" src="https://img.shields.io/badge/dynamic/json?color=green&label=zh-TW&style=flat&logo=crowdin&query=%24.progress.4.data.approvalProgress&url=https%3A%2F%2Fbadges.awesome-crowdin.com%2Fstats-200032568-1.json" /></a></div>
+          <div><a href="https://localizethedocs.crowdin.com/cmake-docs-l10n/zh-TW" title="zh-TW translation" target="_blank"><img alt="zh-TW translation" src="https://img.shields.io/badge/dynamic/json?color=blue&label=zh-TW&style=flat&logo=crowdin&query=%24.progress.1.data.translationProgress&url=https%3A%2F%2Fbadges.awesome-crowdin.com%2Fstats-200032568-1.json" /></a></div>
+          <div><a href="https://localizethedocs.crowdin.com/cmake-docs-l10n/zh-TW" title="zh-TW proofreading" target="_blank"><img alt="zh-TW proofreading" src="https://img.shields.io/badge/dynamic/json?color=green&label=zh-TW&style=flat&logo=crowdin&query=%24.progress.1.data.approvalProgress&url=https%3A%2F%2Fbadges.awesome-crowdin.com%2Fstats-200032568-1.json" /></a></div>
         </div>
       </td>
     </tr>
@@ -279,7 +279,7 @@ This is a localization project of CMake Documentation. Translations are contribu
 <div align="center"><a href="https://localizethedocs.crowdin.com/cmake-docs-l10n"><img src="https://badges.awesome-crowdin.com/translation-200032568-1.png"></a>
 </div>
 
-<h2 id="preview-translations"><a href="#table-of-contents">Preview Translations</a></h2>
+<h2 id="preview-translations"><a href="#table-of-contents">预览翻译</a></h2>
 
 You can preview translations in <a href="https://localizethedocs.github.io/cmake-docs-l10n">GitHub Pages</a>:
 
@@ -287,7 +287,7 @@ You can preview translations in <a href="https://localizethedocs.github.io/cmake
 <table>
   <thead>
     <tr>
-      <th rowspan="1" colspan="1" align="center" style="text-align: center;"><div>Language</div></th>
+      <th rowspan="1" colspan="1" align="center" style="text-align: center;"><div>语言</div></th>
       <th rowspan="1" colspan="1" align="center" style="text-align: center;"><div>GitHub Pages</div></th>
     </tr>
   </thead>
@@ -319,7 +319,7 @@ You can preview translations in <a href="https://localizethedocs.github.io/cmake
 
 You can switch to other available languages and versions by the flyout navigation menu.
 
-<h2 id="maintainers"><a href="#table-of-contents">Maintainers</a></h2>
+<h2 id="maintainers"><a href="#table-of-contents">维护者</a></h2>
 
 This project is currently maintained by:
 
@@ -328,7 +328,7 @@ This project is currently maintained by:
   <thead>
     <tr>
       <th rowspan="1" colspan="1" align="center" style="text-align: center;"><div>Name</div></th>
-      <th rowspan="1" colspan="1" align="center" style="text-align: center;"><div>GitHub Username</div></th>
+      <th rowspan="1" colspan="1" align="center" style="text-align: center;"><div>GitHub 用户名</div></th>
     </tr>
   </thead>
   <tbody>
@@ -354,7 +354,7 @@ You can contribute and support this project by doing any of the following:
 
 It will facilitate the creation and ongoing maintenance of l10n projects for open-source documentation.
 
-<h2 id="sponsorship"><a href="#table-of-contents">Sponsorship</a></h2>
+<h2 id="sponsorship"><a href="#table-of-contents">赞助</a></h2>
 
 You can sponsor the maintainers directly through the following platforms:
 
@@ -367,7 +367,7 @@ You can sponsor the maintainers directly through the following platforms:
     <!-- Row 1 -->
     <tr>
       <th rowspan="1" colspan="1" align="center" style="text-align: center; width: 50%;"><div>Patreon</div></th>
-      <th rowspan="1" colspan="1" align="center" style="text-align: center; width: 50%;"><div>Afdian</div></th>
+      <th rowspan="1" colspan="1" align="center" style="text-align: center; width: 50%;"><div>爱发电</div></th>
     </tr>
     <!-- Row 2 -->
     <tr>
@@ -386,13 +386,13 @@ You can sponsor the maintainers directly through the following platforms:
 </table>
 </div>
 
-<h2 id="code-contributors"><a href="#table-of-contents">Code Contributors</a></h2>
+<h2 id="code-contributors"><a href="#table-of-contents">代码贡献者</a></h2>
 
 <div align="center">
 <img width="100%" alt="GitHub Contributors SVG" src="https://contrib.nn.ci/api?repo=localizethedocs/cmake-docs-l10n&no_bot=true" />
 </div>
 
-<h2 id="financial-contributors"><a href="#table-of-contents">Financial Contributors</a></h2>
+<h2 id="financial-contributors"><a href="#table-of-contents">财务贡献者</a></h2>
 
 <div align="center">
 <h3 id="sponsors-to-haowei-hsu">Sponsors to Haowei Hsu</h3>
@@ -402,11 +402,11 @@ You can sponsor the maintainers directly through the following platforms:
 <img width="100%" alt="Sponsors to Haowei Hsu" src="https://cdn.jsdelivr.net/gh/hwhsu1231/sponsors/static/sponsors.svg" />
 </div>
 
-<h2 id="translation-disclaimer"><a href="#table-of-contents">Translation Disclaimer</a></h2>
+<h2 id="translation-disclaimer"><a href="#table-of-contents">翻译免责声明</a></h2>
 
 Translators who contribute to this project will never make use of the copyright on his or her translations, will never forbid copying them, and will never ask for some kind of compensation. Everyone will always be allowed to freely use, modify, and distribute these translations.
 
-<h2 id="licenses"><a href="#table-of-contents">Licenses</a></h2>
+<h2 id="licenses"><a href="#table-of-contents">许可证</a></h2>
 
 All CMake script files (e.g., <code>CMakeLists.txt</code>, <code>CMakePresets.json</code>, and <code>cmake/\*\*/\*</code> files), GitHub workflow files (e.g., <code>.github/workflows/\*.yml</code> files), and configuration files (e.g., <code>versions.json</code>, <code>languages.json</code>, <code>crowdin.yml</code>, etc.) of this project are licensed under <a href="https://opensource.org/license/bsd-3-clause/">3-Clause BSD</a> license. See <a href="./LICENSE-BSD">LICENSE-BSD</a> for details.
 
