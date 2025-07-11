@@ -9,10 +9,12 @@ message(STATUS "-------------------- ${SCRIPT_NAME} --------------------")
 
 
 set(CMAKE_MODULE_PATH   "${PROJ_CMAKE_MODULES_DIR}")
+set(CMake_ROOT_DIR      "${PROJ_CONDA_DIR}")
 set(Python_ROOT_DIR     "${PROJ_CONDA_DIR}")
 set(Sphinx_ROOT_DIR     "${PROJ_CONDA_DIR}")
 find_package(Git        MODULE REQUIRED)
 find_package(Gettext    MODULE REQUIRED COMPONENTS Msgcat Msgmerge)
+find_package(CMake      MODULE REQUIRED)
 find_package(Python     MODULE REQUIRED COMPONENTS Interpreter)
 find_package(Sphinx     MODULE REQUIRED COMPONENTS Build)
 include(LogUtils)
@@ -127,18 +129,10 @@ message("")
 execute_process(
     COMMAND ${CMAKE_COMMAND} -E env
             ${ENV_VARS_OF_SYSTEM}
-            ${CMAKE_COMMAND}
+            ${CMake_EXECUTABLE}
             -S ${PROJ_OUT_REPO_UTILS_SPHINX_DIR}
             -B ${PROJ_OUT_REPO_UTILS_SPHINX_DIR}/build
             -D SPHINX_HTML=ON
-            -D CMAKE_POLICY_VERSION_MINIMUM=3.5
-            #[============================================================[
-            # When configuring with CMake 4.0.0 or later, you may see this error:
-            #
-            #   Compatibility with CMake < 3.5 has been removed from CMake.
-            #
-            # To fix it, add -DCMAKE_POLICY_VERSION_MINIMUM=3.5
-            #]============================================================]
     ECHO_OUTPUT_VARIABLE
     ECHO_ERROR_VARIABLE
     COMMAND_ERROR_IS_FATAL ANY)

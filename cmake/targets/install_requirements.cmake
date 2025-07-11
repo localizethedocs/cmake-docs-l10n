@@ -142,6 +142,7 @@ remove_cmake_message_indent()
 message("")
 execute_process(
     COMMAND ${Conda_EXECUTABLE} install
+            conda-forge::cmake=${VERSION_OF_CMAKE}
             conda-forge::python=${VERSION_OF_PYTHON}
             conda-forge::sphinx=${VERSION_OF_SPHINX}
             --channel conda-forge
