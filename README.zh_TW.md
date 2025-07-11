@@ -72,9 +72,15 @@ This is a localization project of CMake Documentation. Translations are contribu
     </tr>
   </thead>
   <tbody>
+    <!-- Preview -->
+    <tr>
+      <th rowspan="1" colspan="1" align="center" style="text-align: center;"><div>Preview</div></th>
+      <td rowspan="1" colspan="1" align="center" style="text-align: center;">
+        <div><a href="https://localizethedocs.github.io/cmake-docs-l10n" target="_blank">cmake-docs-l10n</a></div>
+      </td>
+    </tr>
     <!-- TMS -->
     <tr>
-      <th rowspan="1" colspan="1" align="center" style="text-align: center;"><div>TMS</div></th>
       <th rowspan="1" colspan="1" align="center" style="text-align: center;"><div>Crowdin</div></th>
       <td rowspan="1" colspan="1" align="center" style="text-align: center;">
         <div><a href="https://localizethedocs.crowdin.com/cmake-docs-l10n" target="_blank">cmake-docs-l10n</a></div>
@@ -82,7 +88,6 @@ This is a localization project of CMake Documentation. Translations are contribu
     </tr>
     <!-- Main -->
     <tr>
-      <th rowspan="1" colspan="1" align="center" style="text-align: center;"><div>Main</div></th>
       <th rowspan="1" colspan="1" align="center" style="text-align: center;"><div>GitHub</div></th>
       <td rowspan="1" colspan="1" align="center" style="text-align: center;">
         <div><a href="https://github.com/localizethedocs/cmake-docs-l10n" target="_blank">cmake-docs-l10n</a></div>
@@ -90,7 +95,6 @@ This is a localization project of CMake Documentation. Translations are contribu
     </tr>
     <!-- Mirror -->
     <tr>
-      <th rowspan="2" colspan="1" align="center" style="text-align: center;"><div>Mirror</div></th>
       <th rowspan="1" colspan="1" align="center" style="text-align: center;"><div>GitCode</div></th>
       <td rowspan="1" colspan="1" align="center" style="text-align: center;">
         <div><a href="https://gitcode.com/localizethedocs/cmake-docs-l10n" target="_blank">cmake-docs-l10n</a></div>
@@ -279,7 +283,7 @@ This is a localization project of CMake Documentation. Translations are contribu
 <div align="center"><a href="https://localizethedocs.crowdin.com/cmake-docs-l10n"><img src="https://badges.awesome-crowdin.com/translation-200032568-1.png"></a>
 </div>
 
-<h2 id="preview-translations">預覽翻譯</h2>
+<h2 id="preview-translations"><a href="#table-of-contents">預覽翻譯</a></h2>
 
 您可以在 <a href="https://localizethedocs.github.io/cmake-docs-l10n">GitHub 網頁</a>中預覽翻譯內容：
 
