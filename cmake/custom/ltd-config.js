@@ -9,6 +9,7 @@ var CONFIG_OPTIONS = {
   CONFIG_VERSIONS: [
     ["master",  "Development"],
     ["latest",  "Latest Release"],
+    ["4.1",     "Release 4.1"],
     ["4.0",     "Release 4.0"],
     ["3.31",    "Release 3.31"],
     ["3.30",    "Release 3.30"],
