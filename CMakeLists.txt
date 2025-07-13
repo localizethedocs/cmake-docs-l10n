@@ -280,7 +280,7 @@ elseif (VERSION MATCHES "^latest$")
     set(VERSION_OF_PYTHON   "3.12")
     set(VERSION_OF_SPHINX   "8.1")
 elseif (VERSION MATCHES "^([0-9]+)\\.([0-9]+)$")
-    if     (VERSION VERSION_LESS_EQUAL    "4.0" AND
+    if     (VERSION VERSION_LESS_EQUAL    "4.1" AND
             VERSION VERSION_GREATER_EQUAL "4.0")
         set(VERSION_OF_CMAKE    "4")
         set(VERSION_OF_PYTHON   "3.12")
