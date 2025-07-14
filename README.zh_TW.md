@@ -360,7 +360,7 @@ It will facilitate the creation and ongoing maintenance of l10n projects for ope
 
 <h2 id="sponsorship"><a href="#table-of-contents">贊助</a></h2>
 
-You can sponsor the maintainers directly through the following platforms:
+您可以透過以下平台直接贊助維護者：
 
 <div align="center">
 <table>
