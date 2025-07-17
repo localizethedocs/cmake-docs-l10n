@@ -226,7 +226,7 @@ else()
 endif()
 
 
-message(STATUS "Removing '${PROJ_OUT_REPO_DOCS_LOCALE_DIR}/' directory...")
+message(STATUS "Removing directory '${PROJ_OUT_REPO_DOCS_LOCALE_DIR}/'...")
 if (EXISTS "${PROJ_OUT_REPO_DOCS_LOCALE_DIR}")
     file(REMOVE_RECURSE "${PROJ_OUT_REPO_DOCS_LOCALE_DIR}")
     remove_cmake_message_indent()
