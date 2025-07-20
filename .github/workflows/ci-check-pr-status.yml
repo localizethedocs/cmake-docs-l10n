@@ -15,6 +15,13 @@ on:
 
 jobs:
   before-check:
+    if: ${{ ( github.repository == 'localizethedocs/cmake-docs-l10n' ) &&
+            ( ( github.event_name   == 'pull_request' ) &&
+              ( github.base_ref     == 'main' ||
+                github.base_ref     == 'l10n' ) &&
+              ( github.event.action == 'opened' ||
+                github.event.action == 'synchronize' ||
+                github.event.action == 'reopened' ) ) }}
     runs-on: ubuntu-latest
     outputs:
       WORKFLOW_CHANGE: ${{ steps.filter.outputs.workflow }}
@@ -71,6 +78,7 @@ jobs:
               - 'languages.json'
               - 'versions.json'
       - name: Check Outputs of paths-filter
+        shell: bash
         run: |
           echo "steps.filter.outputs.workflow = ${{ steps.filter.outputs.workflow }}"
           echo "steps.filter.outputs.document = ${{ steps.filter.outputs.document }}"
@@ -81,6 +89,13 @@ jobs:
 
   check-crowdin-update-docs:
     needs: [ 'before-check' ]
+    if: ${{ ( github.repository == 'localizethedocs/cmake-docs-l10n' ) &&
+            ( ( github.event_name   == 'pull_request' ) &&
+              ( github.base_ref     == 'main' ||
+                github.base_ref     == 'l10n' ) &&
+              ( github.event.action == 'opened' ||
+                github.event.action == 'synchronize' ||
+                github.event.action == 'reopened' ) ) }}
     uses: localizethedocs/ci-common/.github/workflows/use-crowdin-update-docs.yml@main
     with:
       ENABLE: ${{ needs.before-check.outputs.DOCUMENT_CHANGE == 'true' }}
@@ -102,6 +117,13 @@ jobs:
 
   check-sphinx-build-docs:
     needs: [ 'before-check' ]
+    if: ${{ ( github.repository == 'localizethedocs/cmake-docs-l10n' ) &&
+            ( ( github.event_name   == 'pull_request' ) &&
+              ( github.base_ref     == 'main' ||
+                github.base_ref     == 'l10n' ) &&
+              ( github.event.action == 'opened' ||
+                github.event.action == 'synchronize' ||
+                github.event.action == 'reopened' ) ) }}
     uses: localizethedocs/ci-common/.github/workflows/use-sphinx-build-docs.yml@main
     with:
       ENABLE: ${{ needs.before-check.outputs.SCRIPT_CHANGE == 'true' }}

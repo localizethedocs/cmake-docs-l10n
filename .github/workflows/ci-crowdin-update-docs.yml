@@ -26,7 +26,8 @@ on:
 
 jobs:
   precondition:
-    if: ${{ ( ( github.event_name == 'push' ) ||
+    if: ${{ ( github.repository == 'localizethedocs/cmake-docs-l10n' ) &&
+            ( ( github.event_name == 'push' ) ||
               ( github.event_name == 'schedule' ) ||
               ( github.event_name == 'workflow_dispatch' ) ) }}
     runs-on: ${{ vars.RUNNER }}
@@ -113,7 +114,8 @@ jobs:
 
   caller:
     needs: [ 'precondition' ]
-    if: ${{ ( ( github.event_name == 'push' ) ||
+    if: ${{ ( github.repository == 'localizethedocs/cmake-docs-l10n' ) &&
+            ( ( github.event_name == 'push' ) ||
               ( github.event_name == 'schedule' ) ||
               ( github.event_name == 'workflow_dispatch' ) ) }}
     concurrency:

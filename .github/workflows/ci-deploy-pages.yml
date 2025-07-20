@@ -27,6 +27,10 @@ on:
 
 jobs:
   precondition:
+    if: ${{ ( github.repository == 'localizethedocs/cmake-docs-l10n' ) &&
+            ( ( github.event_name == 'repository_dispatch' &&
+                github.event.action == 'sphinx-build-docs' ) ) ||
+              ( github.event_name == 'workflow_dispatch' ) }}
     runs-on: ${{ vars.RUNNER }}
     steps:
       - name: Print Contexts/Inputs/Variables/Secrets
@@ -99,7 +103,8 @@ jobs:
 
   caller:
     needs: [ 'precondition' ]
-    if: ${{ ( ( github.event_name == 'repository_dispatch' &&
+    if: ${{ ( github.repository == 'localizethedocs/cmake-docs-l10n' ) &&
+            ( ( github.event_name == 'repository_dispatch' &&
                 github.event.action == 'sphinx-build-docs' ) ) ||
               ( github.event_name == 'workflow_dispatch' ) }}
     permissions:
