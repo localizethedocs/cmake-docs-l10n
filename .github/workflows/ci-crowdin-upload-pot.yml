@@ -36,7 +36,8 @@ on:
 
 jobs:
   precondition:
-    if: ${{ ( ( github.event_name == 'repository_dispatch' &&
+    if: ${{ ( github.repository == 'localizethedocs/cmake-docs-l10n' ) &&
+            ( ( github.event_name == 'repository_dispatch' &&
                 github.event.action == 'pr-merged-to-l10n' &&
                 github.event.client_payload.CROWDIN == 'true' ) ||
               ( github.event_name == 'workflow_dispatch' ) ) }}
@@ -110,8 +111,8 @@ jobs:
           fi
 
   get-matrix:
-    needs: [ 'precondition' ]
-    if: ${{ ( ( github.event_name == 'repository_dispatch' &&
+    if: ${{ ( github.repository == 'localizethedocs/cmake-docs-l10n' ) &&
+            ( ( github.event_name == 'repository_dispatch' &&
                 github.event.action == 'pr-merged-to-l10n' &&
                 github.event.client_payload.CROWDIN == 'true' ) ||
               ( github.event_name == 'workflow_dispatch' ) ) }}
@@ -141,8 +142,9 @@ jobs:
           version-array: ${{ steps.gvlv.outputs.VERSION_ARRAY }}
 
   caller:
-    needs: [ 'get-matrix' ]
-    if: ${{ ( needs.get-matrix.outputs.MATRIX_NUM != '0' ) &&
+    needs: [ 'precondition', 'get-matrix' ]
+    if: ${{ ( github.repository == 'localizethedocs/cmake-docs-l10n' ) &&
+            ( needs.get-matrix.outputs.MATRIX_NUM != '0' ) &&
             ( ( github.event_name == 'repository_dispatch' &&
                 github.event.action == 'pr-merged-to-l10n' &&
                 github.event.client_payload.CROWDIN == 'true' ) ||
