@@ -1,0 +1,3134 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2000-2025 Kitware, Inc. and Contributors
+# This file is distributed under the same license as the CMake package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CMake master\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-07-14 08:20+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../manual/cmake-file-api.7.rst:4
+msgid "cmake-file-api(7)"
+msgstr "cmake-檔案-api(7)"
+
+#: ../../../manual/cmake-file-api.7.rst:7
+msgid "Contents"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:11
+msgid "Introduction"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:13
+msgid ""
+"CMake provides a file-based API that clients may use to get semantic "
+"information about the buildsystems CMake generates.  Clients may use the API "
+"by writing query files to a specific location in a build tree to request "
+"zero or more `Object Kinds`_.  When CMake generates the buildsystem in that "
+"build tree it will read the query files and write reply files for the client "
+"to read."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:20
+msgid ""
+"The file-based API uses a ``<build>/.cmake/api/`` directory at the top of a "
+"build tree.  The API is versioned to support changes to the layout of files "
+"within the API directory.  API file layout versioning is orthogonal to the "
+"versioning of `Object Kinds`_ used in replies. This version of CMake "
+"supports only one API version, `API v1`_."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:26
+msgid ""
+"Projects may also submit queries for the current run using the :command:"
+"`cmake_file_api` command."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:33
+msgid "API v1"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:35
+msgid ""
+"API v1 is housed in the ``<build>/.cmake/api/v1/`` directory. It has the "
+"following subdirectories:"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:38
+msgid "``query/``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:39
+msgid ""
+"Holds query files written by clients. These may be `v1 Shared Stateless "
+"Query Files`_, `v1 Client Stateless Query Files`_, or `v1 Client Stateful "
+"Query Files`_."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:43
+msgid "``reply/``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:44
+msgid ""
+"Holds reply files written by CMake when it runs to generate a build system. "
+"Clients may read reply files only when referenced by a reply index:"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:47
+msgid "``index-*.json``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:48
+msgid "A `v1 Reply Index File`_ written when CMake generates a build system."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:50
+msgid "``error-*.json``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:53
+msgid ""
+"A `v1 Reply Error Index`_ written when CMake fails to generate a build "
+"system due to an error."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:56
+msgid ""
+"Clients may look for and read a reply index at any time. Clients may "
+"optionally create the ``reply/`` directory at any time and monitor it for "
+"the appearance of a new reply index. CMake owns all reply files.  Clients "
+"must never remove them."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:61
+msgid ""
+"Users can add query files to ``api/v1/query`` inside the :envvar:"
+"`CMAKE_CONFIG_DIR` to create user-wide queries for all CMake projects."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:66
+msgid "v1 Shared Stateless Query Files"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:68
+msgid ""
+"Shared stateless query files allow clients to share requests for major "
+"versions of the `Object Kinds`_ and get all requested versions recognized by "
+"the CMake that runs."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:72
+msgid ""
+"Clients may create shared requests by creating empty files in the ``v1/query/"
+"`` directory.  The form is::"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:75
+msgid "<build>/.cmake/api/v1/query/<kind>-v<major>"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:77
+msgid ""
+"where ``<kind>`` is one of the `Object Kinds`_, ``-v`` is literal, and "
+"``<major>`` is the major version number."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:80
+msgid ""
+"Files of this form are stateless shared queries not owned by any specific "
+"client.  Once created they should not be removed without external client "
+"coordination or human intervention."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:85
+msgid "v1 Client Stateless Query Files"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:87
+msgid ""
+"Client stateless query files allow clients to create owned requests for "
+"major versions of the `Object Kinds`_ and get all requested versions "
+"recognized by the CMake that runs."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:91
+msgid ""
+"Clients may create owned requests by creating empty files in client-specific "
+"query subdirectories.  The form is::"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:94
+msgid "<build>/.cmake/api/v1/query/client-<client>/<kind>-v<major>"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:96
+msgid ""
+"where ``client-`` is literal, ``<client>`` is a string uniquely identifying "
+"the client, ``<kind>`` is one of the `Object Kinds`_, ``-v`` is literal, and "
+"``<major>`` is the major version number. Each client must choose a unique "
+"``<client>`` identifier via its own means."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:102
+msgid ""
+"Files of this form are stateless queries owned by the client ``<client>``. "
+"The owning client may remove them at any time."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:106
+msgid "v1 Client Stateful Query Files"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:108
+msgid ""
+"Stateful query files allow clients to request a list of versions of each of "
+"the `Object Kinds`_ and get only the most recent version recognized by the "
+"CMake that runs."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:112
+msgid ""
+"Clients may create owned stateful queries by creating ``query.json`` files "
+"in client-specific query subdirectories.  The form is::"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:115
+msgid "<build>/.cmake/api/v1/query/client-<client>/query.json"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:117
+msgid ""
+"where ``client-`` is literal, ``<client>`` is a string uniquely identifying "
+"the client, and ``query.json`` is literal.  Each client must choose a unique "
+"``<client>`` identifier via its own means."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:121
+msgid ""
+"``query.json`` files are stateful queries owned by the client ``<client>``. "
+"The owning client may update or remove them at any time.  When a given "
+"client installation is updated it may then update the stateful query it "
+"writes to build trees to request newer object versions. This can be used to "
+"avoid asking CMake to generate multiple object versions unnecessarily."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:128
+msgid "A ``query.json`` file must contain a JSON object:"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:130
+msgid ""
+"{\n"
+"  \"requests\": [\n"
+"    { \"kind\": \"<kind>\" , \"version\": 1 },\n"
+"    { \"kind\": \"<kind>\" , \"version\": { \"major\": 1, \"minor\": 2 } },\n"
+"    { \"kind\": \"<kind>\" , \"version\": [2, 1] },\n"
+"    { \"kind\": \"<kind>\" , \"version\": [2, { \"major\": 1, \"minor\": "
+"2 }] },\n"
+"    { \"kind\": \"<kind>\" , \"version\": 1, \"client\": {} },\n"
+"    { \"kind\": \"...\" }\n"
+"  ],\n"
+"  \"client\": {}\n"
+"}"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:144
+#: ../../../manual/cmake-file-api.7.rst:257
+msgid "The members are:"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:146
+#: ../../../manual/cmake-file-api.7.rst:361
+msgid "``requests``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:147
+msgid ""
+"A JSON array containing zero or more requests.  Each request is a JSON "
+"object with members:"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:150
+#: ../../../manual/cmake-file-api.7.rst:385
+msgid "``kind``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:151
+msgid "Specifies one of the `Object Kinds`_ to be included in the reply."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:153
+#: ../../../manual/cmake-file-api.7.rst:263
+#: ../../../manual/cmake-file-api.7.rst:387
+#: ../../../manual/cmake-file-api.7.rst:1814
+msgid "``version``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:154
+msgid ""
+"Indicates the version(s) of the object kind that the client understands.  "
+"Versions have major and minor components following semantic version "
+"conventions.  The value must be"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:158
+msgid "a JSON integer specifying a (non-negative) major version number, or"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:159
+msgid ""
+"a JSON object containing ``major`` and (optionally) ``minor`` members "
+"specifying non-negative integer version components, or"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:161
+msgid "a JSON array whose elements are each one of the above."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:163
+#: ../../../manual/cmake-file-api.7.rst:177
+#: ../../../manual/cmake-file-api.7.rst:358
+msgid "``client``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:164
+msgid ""
+"Optional member reserved for use by the client.  This value is preserved in "
+"the reply written for the client in the `v1 Reply Index File`_ but is "
+"otherwise ignored.  Clients may use this to pass custom information with a "
+"request through to its reply."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:169
+msgid ""
+"For each requested object kind CMake will choose the *first* version that it "
+"recognizes for that kind among those listed in the request. The response "
+"will use the selected *major* version with the highest *minor* version known "
+"to the running CMake for that major version. Therefore clients should list "
+"all supported major versions in preferred order along with the minimal minor "
+"version required for each major version."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:178
+msgid ""
+"Optional member reserved for use by the client.  This value is preserved in "
+"the reply written for the client in the `v1 Reply Index File`_ but is "
+"otherwise ignored.  Clients may use this to pass custom information with a "
+"query through to its reply."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:183
+msgid ""
+"Other ``query.json`` top-level members are reserved for future use. If "
+"present they are ignored for forward compatibility."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:187
+msgid "v1 Reply Index File"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:189
+msgid ""
+"CMake writes an ``index-*.json`` file to the ``v1/reply/`` directory when it "
+"successfully generates a build system.  Clients must read the reply index "
+"file first and may read other `v1 Reply Files`_ only by following "
+"references.  The form of the reply index file name is::"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:194
+msgid "<build>/.cmake/api/v1/reply/index-<unspecified>.json"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:196
+msgid ""
+"where ``index-`` is literal and ``<unspecified>`` is an unspecified name "
+"selected by CMake.  Whenever a new index file is generated it is given a new "
+"name and any old one is deleted.  During the short time between these steps "
+"there may be multiple index files present; the one with the largest name in "
+"lexicographic order is the current index file."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:203
+msgid "The reply index file contains a JSON object:"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:205
+msgid ""
+"{\n"
+"  \"cmake\": {\n"
+"    \"version\": {\n"
+"      \"major\": 3, \"minor\": 14, \"patch\": 0, \"suffix\": \"\",\n"
+"      \"string\": \"3.14.0\", \"isDirty\": false\n"
+"    },\n"
+"    \"paths\": {\n"
+"      \"cmake\": \"/prefix/bin/cmake\",\n"
+"      \"ctest\": \"/prefix/bin/ctest\",\n"
+"      \"cpack\": \"/prefix/bin/cpack\",\n"
+"      \"root\": \"/prefix/share/cmake-3.14\"\n"
+"    },\n"
+"    \"generator\": {\n"
+"      \"multiConfig\": false,\n"
+"      \"name\": \"Unix Makefiles\"\n"
+"    }\n"
+"  },\n"
+"  \"objects\": [\n"
+"    { \"kind\": \"<kind>\",\n"
+"      \"version\": { \"major\": 1, \"minor\": 0 },\n"
+"      \"jsonFile\": \"<file>\" },\n"
+"    { \"...\": \"...\" }\n"
+"  ],\n"
+"  \"reply\": {\n"
+"    \"<kind>-v<major>\": { \"kind\": \"<kind>\",\n"
+"                         \"version\": { \"major\": 1, \"minor\": 0 },\n"
+"                         \"jsonFile\": \"<file>\" },\n"
+"    \"<unknown>\": { \"error\": \"unknown query file\" },\n"
+"    \"...\": {},\n"
+"    \"client-<client>\": {\n"
+"      \"<kind>-v<major>\": { \"kind\": \"<kind>\",\n"
+"                           \"version\": { \"major\": 1, \"minor\": 0 },\n"
+"                           \"jsonFile\": \"<file>\" },\n"
+"      \"<unknown>\": { \"error\": \"unknown query file\" },\n"
+"      \"...\": {},\n"
+"      \"query.json\": {\n"
+"        \"requests\": [ {}, {}, {} ],\n"
+"        \"responses\": [\n"
+"          { \"kind\": \"<kind>\",\n"
+"            \"version\": { \"major\": 1, \"minor\": 0 },\n"
+"            \"jsonFile\": \"<file>\" },\n"
+"          { \"error\": \"unknown query file\" },\n"
+"          { \"...\": {} }\n"
+"        ],\n"
+"        \"client\": {}\n"
+"      }\n"
+"    }\n"
+"  }\n"
+"}"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:259
+msgid "``cmake``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:260
+msgid ""
+"A JSON object containing information about the instance of CMake that "
+"generated the reply.  It contains members:"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:264
+msgid "A JSON object specifying the version of CMake with members:"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:266
+msgid "``major``, ``minor``, ``patch``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:267
+msgid ""
+"Integer values specifying the major, minor, and patch version components."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:268
+msgid "``suffix``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:269
+msgid "A string specifying the version suffix, if any, e.g. ``g0abc3``."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:270
+#: ../../../manual/cmake-file-api.7.rst:615
+msgid "``string``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:271
+msgid ""
+"A string specifying the full version in the format ``<major>.<minor>."
+"<patch>[-<suffix>]``."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:273
+msgid "``isDirty``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:274
+msgid ""
+"A boolean indicating whether the version was built from a version controlled "
+"source tree with local modifications."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:277
+#: ../../../manual/cmake-file-api.7.rst:543
+#: ../../../manual/cmake-file-api.7.rst:707
+#: ../../../manual/cmake-file-api.7.rst:737
+#: ../../../manual/cmake-file-api.7.rst:1009
+#: ../../../manual/cmake-file-api.7.rst:1632
+#: ../../../manual/cmake-file-api.7.rst:1703
+msgid "``paths``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:278
+msgid ""
+"A JSON object specifying paths to things that come with CMake. It has "
+"members for :program:`cmake`, :program:`ctest`, and :program:`cpack` whose "
+"values are JSON strings specifying the absolute path to each tool, "
+"represented with forward slashes.  It also has a ``root`` member for the "
+"absolute path to the directory containing CMake resources like the ``Modules/"
+"`` directory (see :variable:`CMAKE_ROOT`)."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:285
+msgid "``generator``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:286
+msgid ""
+"A JSON object describing the CMake generator used for the build. It has "
+"members:"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:289
+msgid "``multiConfig``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:290
+msgid ""
+"A boolean specifying whether the generator supports multiple output "
+"configurations."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:292
+#: ../../../manual/cmake-file-api.7.rst:562
+#: ../../../manual/cmake-file-api.7.rst:646
+#: ../../../manual/cmake-file-api.7.rst:680
+#: ../../../manual/cmake-file-api.7.rst:983
+#: ../../../manual/cmake-file-api.7.rst:1006
+#: ../../../manual/cmake-file-api.7.rst:1209
+#: ../../../manual/cmake-file-api.7.rst:1274
+#: ../../../manual/cmake-file-api.7.rst:1556
+#: ../../../manual/cmake-file-api.7.rst:1571
+msgid "``name``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:293
+msgid "A string specifying the name of the generator."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:294
+msgid "``platform``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:295
+msgid ""
+"If the generator supports :variable:`CMAKE_GENERATOR_PLATFORM`, this is a "
+"string specifying the generator platform name."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:298
+msgid "``objects``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:299
+msgid ""
+"A JSON array listing all versions of all `Object Kinds`_ generated as part "
+"of the reply.  Each array entry is a `v1 Reply File Reference`_."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:303
+msgid "``reply``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:304
+msgid ""
+"A JSON object mirroring the content of the ``query/`` directory that CMake "
+"loaded to produce the reply.  The members are of the form"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:307
+#: ../../../manual/cmake-file-api.7.rst:331
+msgid "``<kind>-v<major>``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:308
+msgid ""
+"A member of this form appears for each of the `v1 Shared Stateless Query "
+"Files`_ that CMake recognized as a request for object kind ``<kind>`` with "
+"major version ``<major>``. The value is"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:313
+#: ../../../manual/cmake-file-api.7.rst:337
+msgid ""
+"a `v1 Reply File Reference`_ to the corresponding reply file for that object "
+"kind and version, or"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:315
+#: ../../../manual/cmake-file-api.7.rst:339
+msgid ""
+"in a `v1 Reply Error Index`_, a JSON object with a single ``error`` member "
+"containing a string with an error message."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:318
+#: ../../../manual/cmake-file-api.7.rst:342
+msgid "``<unknown>``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:319
+msgid ""
+"A member of this form appears for each of the `v1 Shared Stateless Query "
+"Files`_ that CMake did not recognize. The value is a JSON object with a "
+"single ``error`` member containing a string with an error message indicating "
+"that the query file is unknown."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:325
+msgid "``client-<client>``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:326
+msgid ""
+"A member of this form appears for each client-owned directory holding `v1 "
+"Client Stateless Query Files`_. The value is a JSON object mirroring the "
+"content of the ``query/client-<client>/`` directory.  The members are of the "
+"form:"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:332
+msgid ""
+"A member of this form appears for each of the `v1 Client Stateless Query "
+"Files`_ that CMake recognized as a request for object kind ``<kind>`` with "
+"major version ``<major>``. The value is"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:343
+msgid ""
+"A member of this form appears for each of the `v1 Client Stateless Query "
+"Files`_ that CMake did not recognize. The value is a JSON object with a "
+"single ``error`` member containing a string with an error message indicating "
+"that the query file is unknown."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:349
+msgid "``query.json``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:350
+msgid ""
+"This member appears for clients using `v1 Client Stateful Query Files`_. If "
+"the ``query.json`` file failed to read or parse as a JSON object, this "
+"member is a JSON object with a single ``error`` member containing a string "
+"with an error message.  Otherwise, this member is a JSON object mirroring "
+"the content of the ``query.json`` file. The members are:"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:359
+msgid "A copy of the ``query.json`` file ``client`` member, if it exists."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:362
+msgid "A copy of the ``query.json`` file ``requests`` member, if it exists."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:364
+msgid "``responses``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:365
+msgid ""
+"If the ``query.json`` file ``requests`` member is missing or invalid, this "
+"member is a JSON object with a single ``error`` member containing a string "
+"with an error message.  Otherwise, this member contains a JSON array with a "
+"response for each entry of the ``requests`` array, in the same order.  Each "
+"response is"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:371
+msgid ""
+"a `v1 Reply File Reference`_ to the corresponding reply file for the "
+"requested object kind and selected version, or"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:373
+msgid ""
+"a JSON object with a single ``error`` member containing a string with an "
+"error message."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:376
+msgid ""
+"After reading the reply index file, clients may read the other `v1 Reply "
+"Files`_ it references."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:380
+msgid "v1 Reply File Reference"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:382
+msgid ""
+"The reply index file represents each reference to another reply file using a "
+"JSON object with members:"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:386
+msgid "A string specifying one of the `Object Kinds`_."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:388
+msgid ""
+"A JSON object with members ``major`` and ``minor`` specifying integer "
+"version components of the object kind."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:390
+#: ../../../manual/cmake-file-api.7.rst:629
+#: ../../../manual/cmake-file-api.7.rst:695
+msgid "``jsonFile``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:391
+msgid ""
+"A JSON string specifying a path relative to the reply index file to another "
+"JSON file containing the object."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:397
+msgid "v1 Reply Error Index"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:401
+msgid ""
+"CMake writes an ``error-*.json`` file to the ``v1/reply/`` directory when it "
+"fails to generate a build system.  This reply error index follows the same "
+"naming pattern, syntax, and semantics of a `v1 Reply Index File`_, with the "
+"following exceptions:"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:406
+msgid "The ``index-`` prefix is replaced by an ``error-`` prefix."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:408
+msgid ""
+"When a new error index is generated, old index files are *not* deleted.  If "
+"a `v1 Reply Index File`_ exists, it indexes replies from the most recent "
+"successful run.  If multiple ``index-*.json`` and/or ``error-*.json`` files "
+"are present, the one with the largest name in lexicographic order, excluding "
+"the ``index-`` or ``error-`` prefix, is the current index."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:415
+msgid "Only a subset of `Object Kinds`_ are provided:"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:417
+msgid "`configureLog <file-api configureLog_>`_"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:420
+msgid ""
+"Index entries for other object kinds contain an ``error`` message instead of "
+"a `v1 Reply File Reference`_."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:424
+msgid "v1 Reply Files"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:426
+msgid ""
+"Reply files containing specific `Object Kinds`_ are written by CMake. The "
+"names of these files are unspecified and must not be interpreted by "
+"clients.  Clients must first read the `v1 Reply Index File`_ and follow "
+"references to the names of the desired response objects."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:431
+msgid ""
+"Reply files (including the index file) will never be replaced by files of "
+"the same name but different content.  This allows a client to read the files "
+"concurrently with a running CMake that may generate a new reply.  However, "
+"after generating a new reply CMake will attempt to remove reply files from "
+"previous runs that it did not just write. If a client attempts to read a "
+"reply file referenced by the index but finds the file missing, that means a "
+"concurrent CMake has generated a new reply.  The client may simply start "
+"again by reading the new reply index file."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:444
+msgid "Object Kinds"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:446
+msgid ""
+"The CMake file-based API reports semantic information about the build system "
+"using the following kinds of JSON objects.  Each kind of object is versioned "
+"independently using semantic versioning with major and minor components.  "
+"Every kind of object has the form:"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:451
+msgid ""
+"{\n"
+"  \"kind\": \"<kind>\",\n"
+"  \"version\": { \"major\": 1, \"minor\": 0 },\n"
+"  \"...\": {}\n"
+"}"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:459
+msgid ""
+"The ``kind`` member is a string specifying the object kind name. The "
+"``version`` member is a JSON object with ``major`` and ``minor`` members "
+"specifying integer components of the object kind's version. Additional top-"
+"level members are specific to each object kind."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:465
+msgid "Object Kind \"codemodel\""
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:467
+msgid ""
+"The ``codemodel`` object kind describes the build system structure as "
+"modeled by CMake."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:470
+msgid ""
+"There is only one ``codemodel`` object major version, version 2. Version 1 "
+"does not exist to avoid confusion with that from :manual:`cmake-server(7)` "
+"mode."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:475
+msgid "\"codemodel\" version 2"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:477
+msgid "``codemodel`` object version 2 is a JSON object:"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:479
+msgid ""
+"{\n"
+"  \"kind\": \"codemodel\",\n"
+"  \"version\": { \"major\": 2, \"minor\": 8 },\n"
+"  \"paths\": {\n"
+"    \"source\": \"/path/to/top-level-source-dir\",\n"
+"    \"build\": \"/path/to/top-level-build-dir\"\n"
+"  },\n"
+"  \"configurations\": [\n"
+"    {\n"
+"      \"name\": \"Debug\",\n"
+"      \"directories\": [\n"
+"        {\n"
+"          \"source\": \".\",\n"
+"          \"build\": \".\",\n"
+"          \"childIndexes\": [ 1 ],\n"
+"          \"projectIndex\": 0,\n"
+"          \"targetIndexes\": [ 0 ],\n"
+"          \"hasInstallRule\": true,\n"
+"          \"minimumCMakeVersion\": {\n"
+"            \"string\": \"3.14\"\n"
+"          },\n"
+"          \"jsonFile\": \"<file>\"\n"
+"        },\n"
+"        {\n"
+"          \"source\": \"sub\",\n"
+"          \"build\": \"sub\",\n"
+"          \"parentIndex\": 0,\n"
+"          \"projectIndex\": 0,\n"
+"          \"targetIndexes\": [ 1 ],\n"
+"          \"minimumCMakeVersion\": {\n"
+"            \"string\": \"3.14\"\n"
+"          },\n"
+"          \"jsonFile\": \"<file>\"\n"
+"        }\n"
+"      ],\n"
+"      \"projects\": [\n"
+"        {\n"
+"          \"name\": \"MyProject\",\n"
+"          \"directoryIndexes\": [ 0, 1 ],\n"
+"          \"targetIndexes\": [ 0, 1 ]\n"
+"        }\n"
+"      ],\n"
+"      \"targets\": [\n"
+"        {\n"
+"          \"name\": \"MyExecutable\",\n"
+"          \"directoryIndex\": 0,\n"
+"          \"projectIndex\": 0,\n"
+"          \"jsonFile\": \"<file>\"\n"
+"        },\n"
+"        {\n"
+"          \"name\": \"MyLibrary\",\n"
+"          \"directoryIndex\": 1,\n"
+"          \"projectIndex\": 0,\n"
+"          \"jsonFile\": \"<file>\"\n"
+"        }\n"
+"      ]\n"
+"    }\n"
+"  ]\n"
+"}"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:541
+msgid "The members specific to ``codemodel`` objects are:"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:544
+#: ../../../manual/cmake-file-api.7.rst:708
+#: ../../../manual/cmake-file-api.7.rst:1010
+#: ../../../manual/cmake-file-api.7.rst:1633
+#: ../../../manual/cmake-file-api.7.rst:1801
+#: ../../../manual/cmake-file-api.7.rst:1827
+msgid "A JSON object containing members:"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:546
+#: ../../../manual/cmake-file-api.7.rst:571
+#: ../../../manual/cmake-file-api.7.rst:710
+#: ../../../manual/cmake-file-api.7.rst:1012
+#: ../../../manual/cmake-file-api.7.rst:1635
+msgid "``source``"
+msgstr "``source``"
+
+#: ../../../manual/cmake-file-api.7.rst:547
+#: ../../../manual/cmake-file-api.7.rst:1636
+msgid ""
+"A string specifying the absolute path to the top-level source directory, "
+"represented with forward slashes."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:550
+#: ../../../manual/cmake-file-api.7.rst:578
+#: ../../../manual/cmake-file-api.7.rst:717
+#: ../../../manual/cmake-file-api.7.rst:1019
+#: ../../../manual/cmake-file-api.7.rst:1639
+msgid "``build``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:551
+#: ../../../manual/cmake-file-api.7.rst:1640
+msgid ""
+"A string specifying the absolute path to the top-level build directory, "
+"represented with forward slashes."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:554
+msgid "``configurations``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:555
+msgid ""
+"A JSON array of entries corresponding to available build configurations. On "
+"single-configuration generators there is one entry for the value of the :"
+"variable:`CMAKE_BUILD_TYPE` variable.  For multi-configuration generators "
+"there is an entry for each configuration listed in the :variable:"
+"`CMAKE_CONFIGURATION_TYPES` variable. Each entry is a JSON object containing "
+"members:"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:563
+msgid "A string specifying the name of the configuration, e.g. ``Debug``."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:565
+msgid "``directories``"
+msgstr "``directories``"
+
+#: ../../../manual/cmake-file-api.7.rst:566
+msgid ""
+"A JSON array of entries each corresponding to a build system directory whose "
+"source directory contains a ``CMakeLists.txt`` file.  The first entry "
+"corresponds to the top-level directory.  Each entry is a JSON object "
+"containing members:"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:572
+#: ../../../manual/cmake-file-api.7.rst:711
+msgid ""
+"A string specifying the path to the source directory, represented with "
+"forward slashes.  If the directory is inside the top-level source directory "
+"then the path is specified relative to that directory (with ``.`` for the "
+"top-level source directory itself). Otherwise the path is absolute."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:579
+#: ../../../manual/cmake-file-api.7.rst:718
+msgid ""
+"A string specifying the path to the build directory, represented with "
+"forward slashes.  If the directory is inside the top-level build directory "
+"then the path is specified relative to that directory (with ``.`` for the "
+"top-level build directory itself). Otherwise the path is absolute."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:585
+#: ../../../manual/cmake-file-api.7.rst:649
+msgid "``parentIndex``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:586
+msgid ""
+"Optional member that is present when the directory is not top-level. The "
+"value is an unsigned integer 0-based index of another entry in the main "
+"``directories`` array that corresponds to the parent directory that added "
+"this directory as a subdirectory."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:591
+#: ../../../manual/cmake-file-api.7.rst:655
+msgid "``childIndexes``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:592
+msgid ""
+"Optional member that is present when the directory has subdirectories. The "
+"value is a JSON array of entries corresponding to child directories created "
+"by the :command:`add_subdirectory` or :command:`subdirs` command.  Each "
+"entry is an unsigned integer 0-based index of another entry in the main "
+"``directories`` array."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:598
+#: ../../../manual/cmake-file-api.7.rst:691
+msgid "``projectIndex``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:599
+msgid ""
+"An unsigned integer 0-based index into the main ``projects`` array "
+"indicating the build system project to which the this directory belongs."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:602
+#: ../../../manual/cmake-file-api.7.rst:667
+msgid "``targetIndexes``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:603
+msgid ""
+"Optional member that is present when the directory itself has targets, "
+"excluding those belonging to subdirectories.  The value is a JSON array of "
+"entries corresponding to the targets.  Each entry is an unsigned integer 0-"
+"based index into the main ``targets`` array."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:608
+msgid "``minimumCMakeVersion``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:609
+msgid ""
+"Optional member present when a minimum required version of CMake is known "
+"for the directory.  This is the ``<min>`` version given to the most local "
+"call to the :command:`cmake_minimum_required(VERSION)` command in the "
+"directory itself or one of its ancestors. The value is a JSON object with "
+"one member:"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:616
+msgid "A string specifying the minimum required version in the format::"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:618
+msgid "<major>.<minor>[.<patch>[.<tweak>]][<suffix>]"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:620
+msgid ""
+"Each component is an unsigned integer and the suffix may be an arbitrary "
+"string."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:623
+msgid "``hasInstallRule``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:624
+msgid ""
+"Optional member that is present with boolean value ``true`` when the "
+"directory or one of its subdirectories contains any :command:`install` "
+"rules, i.e. whether a ``make install`` or equivalent rule is available."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:630
+msgid ""
+"A JSON string specifying a path relative to the codemodel file to another "
+"JSON file containing a `\"codemodel\" version 2 \"directory\" object`_."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:634
+msgid "This field was added in codemodel version 2.3."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:636
+msgid "``projects``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:637
+msgid ""
+"A JSON array of entries corresponding to the top-level project and sub-"
+"projects defined in the build system.  Each (sub-)project corresponds to a "
+"source directory whose ``CMakeLists.txt`` file calls the :command:`project` "
+"command with a project name different from its parent directory.  The first "
+"entry corresponds to the top-level project."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:644
+msgid "Each entry is a JSON object containing members:"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:647
+msgid "A string specifying the name given to the :command:`project` command."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:650
+msgid ""
+"Optional member that is present when the project is not top-level. The value "
+"is an unsigned integer 0-based index of another entry in the main "
+"``projects`` array that corresponds to the parent project that added this "
+"project as a sub-project."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:656
+msgid ""
+"Optional member that is present when the project has sub-projects. The value "
+"is a JSON array of entries corresponding to the sub-projects. Each entry is "
+"an unsigned integer 0-based index of another entry in the main ``projects`` "
+"array."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:661
+msgid "``directoryIndexes``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:662
+msgid ""
+"A JSON array of entries corresponding to build system directories that are "
+"part of the project.  The first entry corresponds to the top-level directory "
+"of the project.  Each entry is an unsigned integer 0-based index into the "
+"main ``directories`` array."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:668
+msgid ""
+"Optional member that is present when the project itself has targets, "
+"excluding those belonging to sub-projects.  The value is a JSON array of "
+"entries corresponding to the targets.  Each entry is an unsigned integer 0-"
+"based index into the main ``targets`` array."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:673
+msgid "``targets``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:674
+msgid ""
+"A JSON array of entries corresponding to the build system targets. Such "
+"targets are created by calls to :command:`add_executable`, :command:"
+"`add_library`, and :command:`add_custom_target`, excluding imported targets "
+"and interface libraries (which do not generate any build rules).  Each entry "
+"is a JSON object containing members:"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:681
+msgid "A string specifying the target name."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:683
+#: ../../../manual/cmake-file-api.7.rst:882
+#: ../../../manual/cmake-file-api.7.rst:933
+#: ../../../manual/cmake-file-api.7.rst:948
+#: ../../../manual/cmake-file-api.7.rst:986
+#: ../../../manual/cmake-file-api.7.rst:1193
+#: ../../../manual/cmake-file-api.7.rst:1808
+msgid "``id``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:684
+msgid ""
+"A string uniquely identifying the target.  This matches the ``id`` field in "
+"the file referenced by ``jsonFile``."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:687
+msgid "``directoryIndex``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:688
+msgid ""
+"An unsigned integer 0-based index into the main ``directories`` array "
+"indicating the build system directory in which the target is defined."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:692
+msgid ""
+"An unsigned integer 0-based index into the main ``projects`` array "
+"indicating the build system project in which the target is defined."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:696
+msgid ""
+"A JSON string specifying a path relative to the codemodel file to another "
+"JSON file containing a `\"codemodel\" version 2 \"target\" object`_."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:701
+msgid "\"codemodel\" version 2 \"directory\" object"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:703
+msgid ""
+"A codemodel \"directory\" object is referenced by a `\"codemodel\" version "
+"2`_ object's ``directories`` array.  Each \"directory\" object is a JSON "
+"object with members:"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:724
+msgid "``installers``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:725
+msgid ""
+"A JSON array of entries corresponding to :command:`install` rules. Each "
+"entry is a JSON object containing members:"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:728
+msgid "``component``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:729
+msgid ""
+"A string specifying the component selected by the corresponding :command:"
+"`install` command invocation."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:732
+msgid "``destination``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:733
+msgid ""
+"Optional member that is present for specific ``type`` values below. The "
+"value is a string specifying the install destination path. The path may be "
+"absolute or relative to the install prefix."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:738
+msgid ""
+"Optional member that is present for specific ``type`` values below. The "
+"value is a JSON array of entries corresponding to the paths (files or "
+"directories) to be installed.  Each entry is one of:"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:742
+msgid ""
+"A string specifying the path from which a file or directory is to be "
+"installed.  The portion of the path not preceded by a ``/`` also specifies "
+"the path (name) to which the file or directory is to be installed under the "
+"destination."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:747
+msgid "A JSON object with members:"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:749
+msgid "``from``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:750
+msgid ""
+"A string specifying the path from which a file or directory is to be "
+"installed."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:753
+msgid "``to``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:754
+msgid ""
+"A string specifying the path to which the file or directory is to be "
+"installed under the destination."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:757
+msgid ""
+"In both cases the paths are represented with forward slashes.  If the "
+"\"from\" path is inside the top-level directory documented by the "
+"corresponding ``type`` value, then the path is specified relative to that "
+"directory.  Otherwise the path is absolute."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:762
+#: ../../../manual/cmake-file-api.7.rst:990
+#: ../../../manual/cmake-file-api.7.rst:1088
+#: ../../../manual/cmake-file-api.7.rst:1212
+#: ../../../manual/cmake-file-api.7.rst:1562
+msgid "``type``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:763
+msgid ""
+"A string specifying the type of installation rule.  The value is one of the "
+"following, with some variants providing additional members:"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:766
+#: ../../../manual/cmake-file-api.7.rst:1434
+msgid "``file``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:767
+msgid ""
+"An :command:`install(FILES)` or :command:`install(PROGRAMS)` call. The "
+"``destination`` and ``paths`` members are populated, with paths under the "
+"top-level *source* directory expressed relative to it. The ``isOptional`` "
+"member may exist. This type has no additional members."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:773
+msgid "``directory``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:774
+msgid ""
+"An :command:`install(DIRECTORY)` call. The ``destination`` and ``paths`` "
+"members are populated, with paths under the top-level *source* directory "
+"expressed relative to it. The ``isOptional`` member may exist. This type has "
+"no additional members."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:780
+#: ../../../manual/cmake-file-api.7.rst:1820
+msgid "``target``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:781
+msgid ""
+"An :command:`install(TARGETS)` call. The ``destination`` and ``paths`` "
+"members are populated, with paths under the top-level *build* directory "
+"expressed relative to it. The ``isOptional`` member may exist. This type has "
+"additional members ``targetId``, ``targetIndex``, ``targetIsImportLibrary``, "
+"and ``targetInstallNamelink``."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:788
+msgid "``export``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:789
+msgid ""
+"An :command:`install(EXPORT)` call. The ``destination`` and ``paths`` "
+"members are populated, with paths under the top-level *build* directory "
+"expressed relative to it. The ``paths`` entries refer to files generated "
+"automatically by CMake for installation, and their actual values are "
+"considered private implementation details. This type has additional members "
+"``exportName`` and ``exportTargets``."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:797
+msgid "``script``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:798
+msgid ""
+"An :command:`install(SCRIPT)` call. This type has additional member "
+"``scriptFile``."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:801
+msgid "``code``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:802
+msgid "An :command:`install(CODE)` call. This type has no additional members."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:805
+msgid "``importedRuntimeArtifacts``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:806
+msgid ""
+"An :command:`install(IMPORTED_RUNTIME_ARTIFACTS)` call. The ``destination`` "
+"member is populated. The ``isOptional`` member may exist. This type has no "
+"additional members."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:810
+msgid "``runtimeDependencySet``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:811
+msgid ""
+"An :command:`install(RUNTIME_DEPENDENCY_SET)` call or an :command:"
+"`install(TARGETS)` call with ``RUNTIME_DEPENDENCIES``. The ``destination`` "
+"member is populated. This type has additional members "
+"``runtimeDependencySetName`` and ``runtimeDependencySetType``."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:816
+msgid "``fileSet``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:817
+msgid ""
+"An :command:`install(TARGETS)` call with ``FILE_SET``. The ``destination`` "
+"and ``paths`` members are populated. The ``isOptional`` member may exist. "
+"This type has additional members ``fileSetName``, ``fileSetType``, "
+"``fileSetDirectories``, and ``fileSetTarget``."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:823
+msgid "This type was added in codemodel version 2.4."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:825
+msgid "``cxxModuleBmi``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:826
+msgid ""
+"An :command:`install(TARGETS)` call with ``CXX_MODULES_BMI``. The "
+"``destination`` member is populated and the ``isOptional`` member may "
+"exist.  This type has an additional ``cxxModuleBmiTarget`` member."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:830
+msgid "This type was added in codemodel version 2.5."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:832
+msgid "``isExcludeFromAll``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:833
+msgid ""
+"Optional member that is present with boolean value ``true`` when :command:"
+"`install` is called with the ``EXCLUDE_FROM_ALL`` option."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:836
+msgid "``isForAllComponents``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:837
+msgid ""
+"Optional member that is present with boolean value ``true`` when :command:"
+"`install(SCRIPT|CODE)` is called with the ``ALL_COMPONENTS`` option."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:841
+msgid "``isOptional``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:842
+msgid ""
+"Optional member that is present with boolean value ``true`` when :command:"
+"`install` is called with the ``OPTIONAL`` option. This is allowed when "
+"``type`` is ``file``, ``directory``, or ``target``."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:846
+msgid "``targetId``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:847
+msgid ""
+"Optional member that is present when ``type`` is ``target``. The value is a "
+"string uniquely identifying the target to be installed. This matches the "
+"``id`` member of the target in the main \"codemodel\" object's ``targets`` "
+"array."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:852
+msgid "``targetIndex``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:853
+msgid ""
+"Optional member that is present when ``type`` is ``target``. The value is an "
+"unsigned integer 0-based index into the main \"codemodel\" object's "
+"``targets`` array for the target to be installed."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:857
+msgid "``targetIsImportLibrary``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:858
+msgid ""
+"Optional member that is present when ``type`` is ``target`` and the "
+"installer is for a Windows DLL import library file or for an AIX linker "
+"import file.  If present, it has boolean value ``true``."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:862
+msgid "``targetInstallNamelink``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:863
+msgid ""
+"Optional member that is present when ``type`` is ``target`` and the "
+"installer corresponds to a target that may use symbolic links to implement "
+"the :prop_tgt:`VERSION` and :prop_tgt:`SOVERSION` target properties. The "
+"value is a string indicating how the installer is supposed to handle the "
+"symlinks: ``skip`` means the installer should skip the symlinks and install "
+"only the real file, and ``only`` means the installer should install only the "
+"symlinks and not the real file. In all cases the ``paths`` member lists what "
+"it actually installs."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:873
+msgid "``exportName``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:874
+msgid ""
+"Optional member that is present when ``type`` is ``export``. The value is a "
+"string specifying the name of the export."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:877
+msgid "``exportTargets``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:878
+msgid ""
+"Optional member that is present when ``type`` is ``export``. The value is a "
+"JSON array of entries corresponding to the targets included in the export.  "
+"Each entry is a JSON object with members:"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:883
+#: ../../../manual/cmake-file-api.7.rst:934
+#: ../../../manual/cmake-file-api.7.rst:949
+msgid ""
+"A string uniquely identifying the target.  This matches the ``id`` member of "
+"the target in the main \"codemodel\" object's ``targets`` array."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:887
+#: ../../../manual/cmake-file-api.7.rst:938
+#: ../../../manual/cmake-file-api.7.rst:953
+msgid "``index``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:888
+#: ../../../manual/cmake-file-api.7.rst:939
+#: ../../../manual/cmake-file-api.7.rst:954
+msgid ""
+"An unsigned integer 0-based index into the main \"codemodel\" object's "
+"``targets`` array for the target."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:891
+msgid "``runtimeDependencySetName``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:892
+msgid ""
+"Optional member that is present when ``type`` is ``runtimeDependencySet`` "
+"and the installer was created by an :command:"
+"`install(RUNTIME_DEPENDENCY_SET)` call. The value is a string specifying the "
+"name of the runtime dependency set that was installed."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:897
+msgid "``runtimeDependencySetType``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:898
+msgid ""
+"Optional member that is present when ``type`` is ``runtimeDependencySet``. "
+"The value is a string with one of the following values:"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:901
+msgid "``library``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:902
+msgid ""
+"Indicates that this installer installs dependencies that are not macOS "
+"frameworks."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:905
+msgid "``framework``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:906
+msgid ""
+"Indicates that this installer installs dependencies that are macOS "
+"frameworks."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:909
+msgid "``fileSetName``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:910
+msgid ""
+"Optional member that is present when ``type`` is ``fileSet``. The value is a "
+"string with the name of the file set."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:913
+#: ../../../manual/cmake-file-api.7.rst:919
+#: ../../../manual/cmake-file-api.7.rst:927
+#: ../../../manual/cmake-file-api.7.rst:942
+msgid "This field was added in codemodel version 2.4."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:915
+msgid "``fileSetType``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:916
+msgid ""
+"Optional member that is present when ``type`` is ``fileSet``. The value is a "
+"string with the type of the file set."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:921
+msgid "``fileSetDirectories``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:922
+msgid ""
+"Optional member that is present when ``type`` is ``fileSet``. The value is a "
+"list of strings with the file set's base directories (determined by genex-"
+"evaluation of :prop_tgt:`HEADER_DIRS` or :prop_tgt:`HEADER_DIRS_<NAME>`)."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:929
+msgid "``fileSetTarget``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:930
+msgid ""
+"Optional member that is present when ``type`` is ``fileSet``. The value is a "
+"JSON object with members:"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:944
+msgid "``cxxModuleBmiTarget``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:945
+msgid ""
+"Optional member that is present when ``type`` is ``cxxModuleBmi``. The value "
+"is a JSON object with members:"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:957
+#: ../../../manual/cmake-file-api.7.rst:1226
+#: ../../../manual/cmake-file-api.7.rst:1258
+msgid "This field was added in codemodel version 2.5."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:959
+msgid "``scriptFile``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:960
+msgid ""
+"Optional member that is present when ``type`` is ``script``. The value is a "
+"string specifying the path to the script file on disk, represented with "
+"forward slashes.  If the file is inside the top-level source directory then "
+"the path is specified relative to that directory. Otherwise the path is "
+"absolute."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:966
+#: ../../../manual/cmake-file-api.7.rst:996
+#: ../../../manual/cmake-file-api.7.rst:1066
+#: ../../../manual/cmake-file-api.7.rst:1128
+#: ../../../manual/cmake-file-api.7.rst:1197
+#: ../../../manual/cmake-file-api.7.rst:1260
+#: ../../../manual/cmake-file-api.7.rst:1327
+#: ../../../manual/cmake-file-api.7.rst:1346
+#: ../../../manual/cmake-file-api.7.rst:1366
+#: ../../../manual/cmake-file-api.7.rst:1384
+#: ../../../manual/cmake-file-api.7.rst:1402
+msgid "``backtrace``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:967
+msgid ""
+"Optional member that is present when a CMake language backtrace to the :"
+"command:`install` or other command invocation that added this installer is "
+"available.  The value is an unsigned integer 0-based index into the "
+"``backtraceGraph`` member's ``nodes`` array."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:972
+#: ../../../manual/cmake-file-api.7.rst:1418
+msgid "``backtraceGraph``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:973
+msgid ""
+"A `\"codemodel\" version 2 \"backtrace graph\"`_ whose nodes are referenced "
+"from ``backtrace`` members elsewhere in this \"directory\" object."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:977
+msgid "\"codemodel\" version 2 \"target\" object"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:979
+msgid ""
+"A codemodel \"target\" object is referenced by a `\"codemodel\" version 2`_ "
+"object's ``targets`` array.  Each \"target\" object is a JSON object with "
+"members:"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:984
+msgid "A string specifying the logical name of the target."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:987
+msgid ""
+"A string uniquely identifying the target.  The format is unspecified and "
+"should not be interpreted by clients."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:991
+msgid ""
+"A string specifying the type of the target.  The value is one of "
+"``EXECUTABLE``, ``STATIC_LIBRARY``, ``SHARED_LIBRARY``, ``MODULE_LIBRARY``, "
+"``OBJECT_LIBRARY``, ``INTERFACE_LIBRARY``, or ``UTILITY``."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:997
+msgid ""
+"Optional member that is present when a CMake language backtrace to the "
+"command in the source code that created the target is available. The value "
+"is an unsigned integer 0-based index into the ``backtraceGraph`` member's "
+"``nodes`` array."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1002
+msgid "``folder``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1003
+msgid ""
+"Optional member that is present when the :prop_tgt:`FOLDER` target property "
+"is set.  The value is a JSON object with one member:"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1007
+msgid "A string specifying the name of the target folder."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1013
+msgid ""
+"A string specifying the path to the target's source directory, represented "
+"with forward slashes.  If the directory is inside the top-level source "
+"directory then the path is specified relative to that directory (with ``.`` "
+"for the top-level source directory itself). Otherwise the path is absolute."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1020
+msgid ""
+"A string specifying the path to the target's build directory, represented "
+"with forward slashes.  If the directory is inside the top-level build "
+"directory then the path is specified relative to that directory (with ``.`` "
+"for the top-level build directory itself). Otherwise the path is absolute."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1026
+msgid "``nameOnDisk``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1027
+msgid ""
+"Optional member that is present for executable and library targets that are "
+"linked or archived into a single primary artifact. The value is a string "
+"specifying the file name of that artifact on disk."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1031
+msgid "``artifacts``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1032
+msgid ""
+"Optional member that is present for executable and library targets that "
+"produce artifacts on disk meant for consumption by dependents. The value is "
+"a JSON array of entries corresponding to the artifacts. Each entry is a JSON "
+"object containing one member:"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1037
+#: ../../../manual/cmake-file-api.7.rst:1055
+#: ../../../manual/cmake-file-api.7.rst:1062
+#: ../../../manual/cmake-file-api.7.rst:1145
+#: ../../../manual/cmake-file-api.7.rst:1232
+#: ../../../manual/cmake-file-api.7.rst:1338
+#: ../../../manual/cmake-file-api.7.rst:1358
+#: ../../../manual/cmake-file-api.7.rst:1414
+#: ../../../manual/cmake-file-api.7.rst:1490
+#: ../../../manual/cmake-file-api.7.rst:1648
+#: ../../../manual/cmake-file-api.7.rst:1803
+msgid "``path``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1038
+msgid ""
+"A string specifying the path to the file on disk, represented with forward "
+"slashes.  If the file is inside the top-level build directory then the path "
+"is specified relative to that directory. Otherwise the path is absolute."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1043
+msgid "``isGeneratorProvided``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1044
+msgid ""
+"Optional member that is present with boolean value ``true`` if the target is "
+"provided by CMake's build system generator rather than by a command in the "
+"source code."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1048
+msgid "``install``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1049
+msgid ""
+"Optional member that is present when the target has an :command:`install` "
+"rule.  The value is a JSON object with members:"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1052
+msgid "``prefix``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1053
+msgid "A JSON object specifying the installation prefix.  It has one member:"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1056
+msgid "A string specifying the value of :variable:`CMAKE_INSTALL_PREFIX`."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1058
+msgid "``destinations``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1059
+msgid ""
+"A JSON array of entries specifying an install destination path. Each entry "
+"is a JSON object with members:"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1063
+msgid ""
+"A string specifying the install destination path.  The path may be absolute "
+"or relative to the install prefix."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1067
+msgid ""
+"Optional member that is present when a CMake language backtrace to the :"
+"command:`install` command invocation that specified this destination is "
+"available.  The value is an unsigned integer 0-based index into the "
+"``backtraceGraph`` member's ``nodes`` array."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1072
+msgid "``launchers``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1073
+msgid ""
+"Optional member that is present on executable targets that have at least one "
+"launcher specified by the project.  The value is a JSON array of entries "
+"corresponding to the specified launchers. Each entry is a JSON object with "
+"members:"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1078
+#: ../../../manual/cmake-file-api.7.rst:1441
+msgid "``command``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1079
+msgid ""
+"A string specifying the path to the launcher on disk, represented with "
+"forward slashes. If the file is inside the top-level source directory then "
+"the path is specified relative to that directory."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1083
+msgid "``arguments``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1084
+msgid ""
+"Optional member that is present when the launcher command has arguments "
+"preceding the executable to be launched.  The value is a JSON array of "
+"strings representing the arguments."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1089
+msgid ""
+"A string specifying the type of launcher.  The value is one of the following:"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1092
+msgid "``emulator``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1093
+msgid ""
+"An emulator for the target platform when cross-compiling. See the :prop_tgt:"
+"`CROSSCOMPILING_EMULATOR` target property."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1096
+msgid "``test``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1097
+msgid ""
+"A start program for the execution of tests. See the :prop_tgt:"
+"`TEST_LAUNCHER` target property."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1100
+msgid "This field was added in codemodel version 2.7."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1102
+msgid "``link``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1103
+msgid ""
+"Optional member that is present for executables and shared library targets "
+"that link into a runtime binary.  The value is a JSON object with members "
+"describing the link step:"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1107
+#: ../../../manual/cmake-file-api.7.rst:1293
+#: ../../../manual/cmake-file-api.7.rst:1794
+msgid "``language``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1108
+msgid ""
+"A string specifying the language (e.g. ``C``, ``CXX``, ``Fortran``) of the "
+"toolchain is used to invoke the linker."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1111
+#: ../../../manual/cmake-file-api.7.rst:1153
+msgid "``commandFragments``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1112
+msgid ""
+"Optional member that is present when fragments of the link command line "
+"invocation are available.  The value is a JSON array of entries specifying "
+"ordered fragments.  Each entry is a JSON object with members:"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1116
+#: ../../../manual/cmake-file-api.7.rst:1158
+#: ../../../manual/cmake-file-api.7.rst:1323
+msgid "``fragment``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1117
+msgid ""
+"A string specifying a fragment of the link command line invocation. The "
+"value is encoded in the build system's native shell format."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1120
+#: ../../../manual/cmake-file-api.7.rst:1162
+msgid "``role``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1121
+#: ../../../manual/cmake-file-api.7.rst:1163
+msgid "A string specifying the role of the fragment's content:"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1123
+msgid "``flags``: link flags."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1124
+msgid "``libraries``: link library file paths or flags."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1125
+msgid "``libraryPath``: library search path flags."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1126
+msgid "``frameworkPath``: macOS framework search path flags."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1129
+msgid ""
+"Optional member that is present when a CMake language backtrace to the :"
+"command:`target_link_libraries`, :command:`target_link_options`, or other "
+"command invocation that added this link fragment is available. The value is "
+"an unsigned integer 0-based index into the ``backtraceGraph`` member's "
+"``nodes`` array."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1135
+#: ../../../manual/cmake-file-api.7.rst:1167
+msgid "``lto``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1136
+#: ../../../manual/cmake-file-api.7.rst:1168
+msgid ""
+"Optional member that is present with boolean value ``true`` when link-time "
+"optimization (a.k.a. interprocedural optimization or link-time code "
+"generation) is enabled."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1140
+#: ../../../manual/cmake-file-api.7.rst:1409
+msgid "``sysroot``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1141
+msgid ""
+"Optional member that is present when the :variable:`CMAKE_SYSROOT_LINK` or :"
+"variable:`CMAKE_SYSROOT` variable is defined.  The value is a JSON object "
+"with one member:"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1146
+#: ../../../manual/cmake-file-api.7.rst:1415
+msgid ""
+"A string specifying the absolute path to the sysroot, represented with "
+"forward slashes."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1149
+msgid "``archive``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1150
+msgid ""
+"Optional member that is present for static library targets.  The value is a "
+"JSON object with members describing the archive step:"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1154
+msgid ""
+"Optional member that is present when fragments of the archiver command line "
+"invocation are available.  The value is a JSON array of entries specifying "
+"the fragments.  Each entry is a JSON object with members:"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1159
+msgid ""
+"A string specifying a fragment of the archiver command line invocation. The "
+"value is encoded in the build system's native shell format."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1165
+msgid "``flags``: archiver flags."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1172
+msgid "``debugger``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1173
+msgid ""
+"Optional member that is present when the target has one of the following "
+"fields set. The value is a JSON object of entries corresponding to debugger "
+"specific values set."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1178
+#: ../../../manual/cmake-file-api.7.rst:1186
+msgid "This field was added in codemodel version 2.8."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1180
+msgid "``workingDirectory``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1181
+msgid ""
+"Optional member that is present when the :prop_tgt:"
+"`DEBUGGER_WORKING_DIRECTORY` target property is set. The member will also be "
+"present in :ref:`Visual Studio Generators` when :prop_tgt:"
+"`VS_DEBUGGER_WORKING_DIRECTORY` is set."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1188
+msgid "``dependencies``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1189
+msgid ""
+"Optional member that is present when the target depends on other targets. "
+"The value is a JSON array of entries corresponding to the dependencies. Each "
+"entry is a JSON object with members:"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1194
+msgid ""
+"A string uniquely identifying the target on which this target depends. This "
+"matches the main ``id`` member of the other target."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1198
+msgid ""
+"Optional member that is present when a CMake language backtrace to the :"
+"command:`add_dependencies`, :command:`target_link_libraries`, or other "
+"command invocation that created this dependency is available.  The value is "
+"an unsigned integer 0-based index into the ``backtraceGraph`` member's "
+"``nodes`` array."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1204
+msgid "``fileSets``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1205
+msgid ""
+"An optional member that is present when a target defines one or more file "
+"sets.  The value is a JSON array of entries corresponding to the target's "
+"file sets.  Each entry is a JSON object with members:"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1210
+msgid "A string specifying the name of the file set."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1213
+msgid ""
+"A string specifying the type of the file set.  See :command:`target_sources` "
+"supported file set types."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1216
+msgid "``visibility``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1217
+msgid ""
+"A string specifying the visibility of the file set; one of ``PUBLIC``, "
+"``PRIVATE``, or ``INTERFACE``."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1220
+msgid "``baseDirectories``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1221
+msgid ""
+"A JSON array of strings, each specifying a base directory containing sources "
+"in the file set.  If the directory is inside the top-level source directory "
+"then the path is specified relative to that directory. Otherwise the path is "
+"absolute."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1228
+msgid "``sources``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1229
+msgid ""
+"A JSON array of entries corresponding to the target's source files. Each "
+"entry is a JSON object with members:"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1233
+msgid ""
+"A string specifying the path to the source file on disk, represented with "
+"forward slashes.  If the file is inside the top-level source directory then "
+"the path is specified relative to that directory. Otherwise the path is "
+"absolute."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1238
+msgid "``compileGroupIndex``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1239
+msgid ""
+"Optional member that is present when the source is compiled. The value is an "
+"unsigned integer 0-based index into the ``compileGroups`` array."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1243
+msgid "``sourceGroupIndex``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1244
+msgid ""
+"Optional member that is present when the source is part of a source group "
+"either via the :command:`source_group` command or by default. The value is "
+"an unsigned integer 0-based index into the ``sourceGroups`` array."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1249
+#: ../../../manual/cmake-file-api.7.rst:1654
+msgid "``isGenerated``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1250
+msgid ""
+"Optional member that is present with boolean value ``true`` if the source "
+"is :prop_sf:`GENERATED`."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1253
+msgid "``fileSetIndex``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1254
+msgid ""
+"Optional member that is present when the source is part of a file set. The "
+"value is an unsigned integer 0-based index into the ``fileSets`` array."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1261
+msgid ""
+"Optional member that is present when a CMake language backtrace to the :"
+"command:`target_sources`, :command:`add_executable`, :command:"
+"`add_library`, :command:`add_custom_target`, or other command invocation "
+"that added this source to the target is available.  The value is an unsigned "
+"integer 0-based index into the ``backtraceGraph`` member's ``nodes`` array."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1268
+msgid "``sourceGroups``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1269
+msgid ""
+"Optional member that is present when sources are grouped together by the :"
+"command:`source_group` command or by default.  The value is a JSON array of "
+"entries corresponding to the groups.  Each entry is a JSON object with "
+"members:"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1275
+msgid "A string specifying the name of the source group."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1277
+#: ../../../manual/cmake-file-api.7.rst:1288
+msgid "``sourceIndexes``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1278
+#: ../../../manual/cmake-file-api.7.rst:1289
+msgid ""
+"A JSON array listing the sources belonging to the group. Each entry is an "
+"unsigned integer 0-based index into the main ``sources`` array for the "
+"target."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1282
+msgid "``compileGroups``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1283
+msgid ""
+"Optional member that is present when the target has sources that compile. "
+"The value is a JSON array of entries corresponding to groups of sources that "
+"all compile with the same settings.  Each entry is a JSON object with "
+"members:"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1294
+msgid ""
+"A string specifying the language (e.g. ``C``, ``CXX``, ``Fortran``) of the "
+"toolchain is used to compile the source file."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1297
+msgid "``languageStandard``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1298
+msgid ""
+"Optional member that is present when the language standard is set explicitly "
+"(e.g. via :prop_tgt:`CXX_STANDARD`) or implicitly by compile features.  Each "
+"entry is a JSON object with two members:"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1302
+msgid "``backtraces``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1303
+msgid ""
+"Optional member that is present when a CMake language backtrace to the "
+"``<LANG>_STANDARD`` setting is available.  If the language standard was set "
+"implicitly by compile features those are used as the backtrace(s).  It's "
+"possible for multiple compile features to require the same language standard "
+"so there could be multiple backtraces. The value is a JSON array with each "
+"entry being an unsigned integer 0-based index into the ``backtraceGraph`` "
+"member's ``nodes`` array."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1312
+msgid "``standard``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1313
+msgid "String representing the language standard."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1315
+msgid "This field was added in codemodel version 2.2."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1317
+msgid "``compileCommandFragments``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1318
+msgid ""
+"Optional member that is present when fragments of the compiler command line "
+"invocation are available.  The value is a JSON array of entries specifying "
+"ordered fragments.  Each entry is a JSON object with one member:"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1324
+msgid ""
+"A string specifying a fragment of the compile command line invocation. The "
+"value is encoded in the build system's native shell format."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1328
+msgid ""
+"Optional member that is present when a CMake language backtrace to the "
+"command invocation that added this fragment is available. The value is an "
+"unsigned integer 0-based index into the ``backtraceGraph`` member's "
+"``nodes`` array."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1333
+msgid "``includes``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1334
+msgid ""
+"Optional member that is present when there are include directories. The "
+"value is a JSON array with an entry for each directory.  Each entry is a "
+"JSON object with members:"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1339
+msgid ""
+"A string specifying the path to the include directory, represented with "
+"forward slashes."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1342
+#: ../../../manual/cmake-file-api.7.rst:1362
+msgid "``isSystem``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1343
+msgid ""
+"Optional member that is present with boolean value ``true`` if the include "
+"directory is marked as a system include directory."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1347
+msgid ""
+"Optional member that is present when a CMake language backtrace to the :"
+"command:`target_include_directories` or other command invocation that added "
+"this include directory is available.  The value is an unsigned integer 0-"
+"based index into the ``backtraceGraph`` member's ``nodes`` array."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1353
+msgid "``frameworks``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1354
+msgid ""
+"Optional member that is present when, on Apple platforms, there are "
+"frameworks. The value is a JSON array with an entry for each directory. Each "
+"entry is a JSON object with members:"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1359
+msgid ""
+"A string specifying the path to the framework directory, represented with "
+"forward slashes."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1363
+msgid ""
+"Optional member that is present with boolean value ``true`` if the framework "
+"is marked as a system one."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1367
+msgid ""
+"Optional member that is present when a CMake language backtrace to the :"
+"command:`target_link_libraries` or other command invocation that added this "
+"framework is available.  The value is an unsigned integer 0-based index into "
+"the ``backtraceGraph`` member's ``nodes`` array."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1373
+msgid "This field was added in codemodel version 2.6."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1375
+msgid "``precompileHeaders``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1376
+msgid ""
+"Optional member that is present when :command:`target_precompile_headers` or "
+"other command invocations set :prop_tgt:`PRECOMPILE_HEADERS` on the target.  "
+"The value is a JSON array with an entry for each header.  Each entry is a "
+"JSON object with members:"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1381
+msgid "``header``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1382
+msgid "Full path to the precompile header file."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1385
+msgid ""
+"Optional member that is present when a CMake language backtrace to the :"
+"command:`target_precompile_headers` or other command invocation that added "
+"this precompiled header is available.  The value is an unsigned integer 0-"
+"based index into the ``backtraceGraph`` member's ``nodes`` array."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1391
+msgid "This field was added in codemodel version 2.1."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1393
+msgid "``defines``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1394
+msgid ""
+"Optional member that is present when there are preprocessor definitions. The "
+"value is a JSON array with an entry for each definition.  Each entry is a "
+"JSON object with members:"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1398
+msgid "``define``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1399
+msgid ""
+"A string specifying the preprocessor definition in the format "
+"``<name>[=<value>]``, e.g. ``DEF`` or ``DEF=1``."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1403
+msgid ""
+"Optional member that is present when a CMake language backtrace to the :"
+"command:`target_compile_definitions` or other command invocation that added "
+"this preprocessor definition is available.  The value is an unsigned integer "
+"0-based index into the ``backtraceGraph`` member's ``nodes`` array."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1410
+msgid ""
+"Optional member that is present when the :variable:`CMAKE_SYSROOT_COMPILE` "
+"or :variable:`CMAKE_SYSROOT` variable is defined.  The value is a JSON "
+"object with one member:"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1419
+msgid ""
+"A `\"codemodel\" version 2 \"backtrace graph\"`_ whose nodes are referenced "
+"from ``backtrace`` members elsewhere in this \"target\" object."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1423
+msgid "\"codemodel\" version 2 \"backtrace graph\""
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1425
+msgid ""
+"The ``backtraceGraph`` member of a `\"codemodel\" version 2 \"directory\" "
+"object`_, or `\"codemodel\" version 2 \"target\" object`_ is a JSON object "
+"describing a graph of backtraces.  Its nodes are referenced from "
+"``backtrace`` members elsewhere in the containing object.  The backtrace "
+"graph object members are:"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1430
+msgid "``nodes``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1431
+msgid ""
+"A JSON array listing nodes in the backtrace graph.  Each entry is a JSON "
+"object with members:"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1435
+msgid "An unsigned integer 0-based index into the backtrace ``files`` array."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1437
+msgid "``line``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1438
+msgid ""
+"An optional member present when the node represents a line within the file.  "
+"The value is an unsigned integer 1-based line number."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1442
+msgid ""
+"An optional member present when the node represents a command invocation "
+"within the file.  The value is an unsigned integer 0-based index into the "
+"backtrace ``commands`` array."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1446
+msgid "``parent``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1447
+msgid ""
+"An optional member present when the node is not the bottom of the call "
+"stack.  The value is an unsigned integer 0-based index of another entry in "
+"the backtrace ``nodes`` array."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1451
+msgid "``commands``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1452
+msgid ""
+"A JSON array listing command names referenced by backtrace nodes. Each entry "
+"is a string specifying a command name."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1455
+msgid "``files``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1456
+msgid ""
+"A JSON array listing CMake language files referenced by backtrace nodes. "
+"Each entry is a string specifying the path to a file, represented with "
+"forward slashes.  If the file is inside the top-level source directory then "
+"the path is specified relative to that directory. Otherwise the path is "
+"absolute."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1465
+msgid "Object Kind \"configureLog\""
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1469
+msgid ""
+"The ``configureLog`` object kind describes the location and contents of a :"
+"manual:`cmake-configure-log(7)` file."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1472
+msgid "There is only one ``configureLog`` object major version, version 1."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1475
+msgid "\"configureLog\" version 1"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1477
+msgid "``configureLog`` object version 1 is a JSON object:"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1479
+msgid ""
+"{\n"
+"  \"kind\": \"configureLog\",\n"
+"  \"version\": { \"major\": 1, \"minor\": 0 },\n"
+"  \"path\": \"/path/to/top-level-build-dir/CMakeFiles/CMakeConfigureLog."
+"yaml\",\n"
+"  \"eventKindNames\": [ \"try_compile-v1\", \"try_run-v1\" ]\n"
+"}"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1488
+msgid "The members specific to ``configureLog`` objects are:"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1491
+msgid ""
+"A string specifying the path to the configure log file. Clients must read "
+"the log file from this path, which may be different than the path documented "
+"by :manual:`cmake-configure-log(7)`. The log file may not exist if no events "
+"are logged."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1496
+msgid "``eventKindNames``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1497
+msgid ""
+"A JSON array whose entries are each a JSON string naming one of the :manual:"
+"`cmake-configure-log(7)` versioned event kinds. At most one version of each "
+"configure log event kind will be listed. Although the configure log may "
+"contain other (versioned) event kinds, clients must ignore those that are "
+"not listed in this field."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1504
+msgid "Object Kind \"cache\""
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1506
+msgid ""
+"The ``cache`` object kind lists cache entries.  These are the :ref:`CMake "
+"Language Variables` stored in the persistent cache (``CMakeCache.txt``) for "
+"the build tree."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1510
+msgid ""
+"There is only one ``cache`` object major version, version 2. Version 1 does "
+"not exist to avoid confusion with that from :manual:`cmake-server(7)` mode."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1515
+msgid "\"cache\" version 2"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1517
+msgid "``cache`` object version 2 is a JSON object:"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1519
+msgid ""
+"{\n"
+"  \"kind\": \"cache\",\n"
+"  \"version\": { \"major\": 2, \"minor\": 0 },\n"
+"  \"entries\": [\n"
+"    {\n"
+"      \"name\": \"BUILD_SHARED_LIBS\",\n"
+"      \"value\": \"ON\",\n"
+"      \"type\": \"BOOL\",\n"
+"      \"properties\": [\n"
+"        {\n"
+"          \"name\": \"HELPSTRING\",\n"
+"          \"value\": \"Build shared libraries\"\n"
+"        }\n"
+"      ]\n"
+"    },\n"
+"    {\n"
+"      \"name\": \"CMAKE_GENERATOR\",\n"
+"      \"value\": \"Unix Makefiles\",\n"
+"      \"type\": \"INTERNAL\",\n"
+"      \"properties\": [\n"
+"        {\n"
+"          \"name\": \"HELPSTRING\",\n"
+"          \"value\": \"Name of generator.\"\n"
+"        }\n"
+"      ]\n"
+"    }\n"
+"  ]\n"
+"}"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1550
+msgid "The members specific to ``cache`` objects are:"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1552
+msgid "``entries``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1553
+msgid ""
+"A JSON array whose entries are each a JSON object specifying a cache entry.  "
+"The members of each entry are:"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1557
+msgid "A string specifying the name of the entry."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1559
+#: ../../../manual/cmake-file-api.7.rst:1574
+msgid "``value``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1560
+msgid "A string specifying the value of the entry."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1563
+msgid ""
+"A string specifying the type of the entry used by :manual:`cmake-gui(1)` to "
+"choose a widget for editing."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1566
+msgid "``properties``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1567
+msgid ""
+"A JSON array of entries specifying associated :ref:`cache entry properties "
+"<Cache Entry Properties>`. Each entry is a JSON object containing members:"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1572
+msgid "A string specifying the name of the cache entry property."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1575
+msgid "A string specifying the value of the cache entry property."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1578
+msgid "Object Kind \"cmakeFiles\""
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1580
+msgid ""
+"The ``cmakeFiles`` object kind lists files used by CMake while configuring "
+"and generating the build system.  These include the ``CMakeLists.txt`` files "
+"as well as included ``.cmake`` files."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1584
+msgid "There is only one ``cmakeFiles`` object major version, version 1."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1587
+msgid "\"cmakeFiles\" version 1"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1589
+msgid "``cmakeFiles`` object version 1 is a JSON object:"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1591
+msgid ""
+"{\n"
+"  \"kind\": \"cmakeFiles\",\n"
+"  \"version\": { \"major\": 1, \"minor\": 1 },\n"
+"  \"paths\": {\n"
+"    \"build\": \"/path/to/top-level-build-dir\",\n"
+"    \"source\": \"/path/to/top-level-source-dir\"\n"
+"  },\n"
+"  \"inputs\": [\n"
+"    {\n"
+"      \"path\": \"CMakeLists.txt\"\n"
+"    },\n"
+"    {\n"
+"      \"isGenerated\": true,\n"
+"      \"path\": \"/path/to/top-level-build-dir/.../CMakeSystem.cmake\"\n"
+"    },\n"
+"    {\n"
+"      \"isExternal\": true,\n"
+"      \"path\": \"/path/to/external/third-party/module.cmake\"\n"
+"    },\n"
+"    {\n"
+"      \"isCMake\": true,\n"
+"      \"isExternal\": true,\n"
+"      \"path\": \"/path/to/cmake/Modules/CMakeGenericSystem.cmake\"\n"
+"    }\n"
+"  ],\n"
+"  \"globsDependent\": [\n"
+"    {\n"
+"      \"expression\": \"src/*.cxx\",\n"
+"      \"recurse\": true,\n"
+"      \"files\": [\n"
+"        \"src/foo.cxx\",\n"
+"        \"src/bar.cxx\"\n"
+"      ]\n"
+"    }\n"
+"  ]\n"
+"}"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1630
+msgid "The members specific to ``cmakeFiles`` objects are:"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1643
+msgid "``inputs``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1644
+msgid ""
+"A JSON array whose entries are each a JSON object specifying an input file "
+"used by CMake when configuring and generating the build system. The members "
+"of each entry are:"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1649
+msgid ""
+"A string specifying the path to an input file to CMake, represented with "
+"forward slashes.  If the file is inside the top-level source directory then "
+"the path is specified relative to that directory. Otherwise the path is "
+"absolute."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1655
+msgid ""
+"Optional member that is present with boolean value ``true`` if the path "
+"specifies a file that is under the top-level build directory and the build "
+"is out-of-source. This member is not available on in-source builds."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1660
+msgid "``isExternal``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1661
+msgid ""
+"Optional member that is present with boolean value ``true`` if the path "
+"specifies a file that is not under the top-level source or build directories."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1665
+msgid "``isCMake``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1666
+msgid ""
+"Optional member that is present with boolean value ``true`` if the path "
+"specifies a file in the CMake installation."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1669
+msgid "``globsDependent``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1670
+msgid ""
+"Optional member that is present when the project calls :command:`file(GLOB)` "
+"or :command:`file(GLOB_RECURSE)` with the ``CONFIGURE_DEPENDS`` option. The "
+"value is a JSON array of JSON objects, each specifying a globbing expression "
+"and the list of paths it matched.  If the globbing expression no longer "
+"matches the same list of paths, CMake considers the build system to be out "
+"of date."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1677
+msgid "This field was added in ``cmakeFiles`` version 1.1."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1679
+msgid "The members of each entry are:"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1681
+msgid "``expression``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1682
+msgid "A string specifying the globbing expression."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1684
+msgid "``recurse``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1685
+msgid ""
+"Optional member that is present with boolean value ``true`` if the entry "
+"corresponds to a :command:`file(GLOB_RECURSE)` call. Otherwise the entry "
+"corresponds to a :command:`file(GLOB)` call."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1689
+msgid "``listDirectories``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1690
+msgid ""
+"Optional member that is present with boolean value ``true`` if :command:"
+"`file(GLOB)` was called without ``LIST_DIRECTORIES false`` or :command:"
+"`file(GLOB_RECURSE)` was called with ``LIST_DIRECTORIES true``."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1694
+msgid "``followSymlinks``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1695
+msgid ""
+"Optional member that is present with boolean value ``true`` if :command:"
+"`file(GLOB)` was called with the ``FOLLOW_SYMLINKS`` option."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1698
+msgid "``relative``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1699
+msgid ""
+"Optional member that is present if :command:`file(GLOB)` was called with the "
+"``RELATIVE <path>`` option.  The value is a string containing the ``<path>`` "
+"given."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1704
+msgid ""
+"A JSON array of strings specifying the paths matched by the call to :command:"
+"`file(GLOB)` or :command:`file(GLOB_RECURSE)`."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1708
+msgid "Object Kind \"toolchains\""
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1710
+msgid ""
+"The ``toolchains`` object kind lists properties of the toolchains used "
+"during the build.  These include the language, compiler path, ID, and "
+"version."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1713
+msgid "There is only one ``toolchains`` object major version, version 1."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1716
+msgid "\"toolchains\" version 1"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1718
+msgid "``toolchains`` object version 1 is a JSON object:"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1720
+msgid ""
+"{\n"
+"  \"kind\": \"toolchains\",\n"
+"  \"version\": { \"major\": 1, \"minor\": 0 },\n"
+"  \"toolchains\": [\n"
+"    {\n"
+"      \"language\": \"C\",\n"
+"      \"compiler\": {\n"
+"        \"path\": \"/usr/bin/cc\",\n"
+"        \"id\": \"GNU\",\n"
+"        \"version\": \"9.3.0\",\n"
+"        \"implicit\": {\n"
+"          \"includeDirectories\": [\n"
+"            \"/usr/lib/gcc/x86_64-linux-gnu/9/include\",\n"
+"            \"/usr/local/include\",\n"
+"            \"/usr/include/x86_64-linux-gnu\",\n"
+"            \"/usr/include\"\n"
+"          ],\n"
+"          \"linkDirectories\": [\n"
+"            \"/usr/lib/gcc/x86_64-linux-gnu/9\",\n"
+"            \"/usr/lib/x86_64-linux-gnu\",\n"
+"            \"/usr/lib\",\n"
+"            \"/lib/x86_64-linux-gnu\",\n"
+"            \"/lib\"\n"
+"          ],\n"
+"          \"linkFrameworkDirectories\": [],\n"
+"          \"linkLibraries\": [ \"gcc\", \"gcc_s\", \"c\", \"gcc\", "
+"\"gcc_s\" ]\n"
+"        }\n"
+"      },\n"
+"      \"sourceFileExtensions\": [ \"c\", \"m\" ]\n"
+"    },\n"
+"    {\n"
+"      \"language\": \"CXX\",\n"
+"      \"compiler\": {\n"
+"        \"path\": \"/usr/bin/c++\",\n"
+"        \"id\": \"GNU\",\n"
+"        \"version\": \"9.3.0\",\n"
+"        \"implicit\": {\n"
+"          \"includeDirectories\": [\n"
+"            \"/usr/include/c++/9\",\n"
+"            \"/usr/include/x86_64-linux-gnu/c++/9\",\n"
+"            \"/usr/include/c++/9/backward\",\n"
+"            \"/usr/lib/gcc/x86_64-linux-gnu/9/include\",\n"
+"            \"/usr/local/include\",\n"
+"            \"/usr/include/x86_64-linux-gnu\",\n"
+"            \"/usr/include\"\n"
+"          ],\n"
+"          \"linkDirectories\": [\n"
+"            \"/usr/lib/gcc/x86_64-linux-gnu/9\",\n"
+"            \"/usr/lib/x86_64-linux-gnu\",\n"
+"            \"/usr/lib\",\n"
+"            \"/lib/x86_64-linux-gnu\",\n"
+"            \"/lib\"\n"
+"          ],\n"
+"          \"linkFrameworkDirectories\": [],\n"
+"          \"linkLibraries\": [\n"
+"            \"stdc++\", \"m\", \"gcc_s\", \"gcc\", \"c\", \"gcc_s\", "
+"\"gcc\"\n"
+"          ]\n"
+"        }\n"
+"      },\n"
+"      \"sourceFileExtensions\": [\n"
+"        \"C\", \"M\", \"c++\", \"cc\", \"cpp\", \"cxx\", \"mm\", \"CPP\"\n"
+"      ]\n"
+"    }\n"
+"  ]\n"
+"}"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1788
+msgid "The members specific to ``toolchains`` objects are:"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1790
+msgid "``toolchains``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1791
+msgid ""
+"A JSON array whose entries are each a JSON object specifying a toolchain "
+"associated with a particular language. The members of each entry are:"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1795
+msgid ""
+"A JSON string specifying the toolchain language, like C or CXX. Language "
+"names are the same as language names that can be passed to the :command:"
+"`project` command. Because CMake only supports a single toolchain per "
+"language, this field can be used as a key."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1800
+msgid "``compiler``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1804
+msgid ""
+"Optional member that is present when the :variable:`CMAKE_<LANG>_COMPILER` "
+"variable is defined for the current language. Its value is a JSON string "
+"holding the path to the compiler."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1809
+msgid ""
+"Optional member that is present when the :variable:"
+"`CMAKE_<LANG>_COMPILER_ID` variable is defined for the current language. Its "
+"value is a JSON string holding the ID (GNU, MSVC, etc.) of the compiler."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1815
+msgid ""
+"Optional member that is present when the :variable:"
+"`CMAKE_<LANG>_COMPILER_VERSION` variable is defined for the current "
+"language. Its value is a JSON string holding the version of the compiler."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1821
+msgid ""
+"Optional member that is present when the :variable:"
+"`CMAKE_<LANG>_COMPILER_TARGET` variable is defined for the current language. "
+"Its value is a JSON string holding the cross-compiling target of the "
+"compiler."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1826
+msgid "``implicit``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1829
+msgid "``includeDirectories``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1830
+msgid ""
+"Optional member that is present when the :variable:"
+"`CMAKE_<LANG>_IMPLICIT_INCLUDE_DIRECTORIES` variable is defined for the "
+"current language. Its value is a JSON array of JSON strings where each "
+"string holds a path to an implicit include directory for the compiler."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1836
+msgid "``linkDirectories``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1837
+msgid ""
+"Optional member that is present when the :variable:"
+"`CMAKE_<LANG>_IMPLICIT_LINK_DIRECTORIES` variable is defined for the current "
+"language. Its value is a JSON array of JSON strings where each string holds "
+"a path to an implicit link directory for the compiler."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1843
+msgid "``linkFrameworkDirectories``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1844
+msgid ""
+"Optional member that is present when the :variable:"
+"`CMAKE_<LANG>_IMPLICIT_LINK_FRAMEWORK_DIRECTORIES` variable is defined for "
+"the current language. Its value is a JSON array of JSON strings where each "
+"string holds a path to an implicit link framework directory for the compiler."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1850
+msgid "``linkLibraries``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1851
+msgid ""
+"Optional member that is present when the :variable:"
+"`CMAKE_<LANG>_IMPLICIT_LINK_LIBRARIES` variable is defined for the current "
+"language. Its value is a JSON array of JSON strings where each string holds "
+"a path to an implicit link library for the compiler."
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1857
+msgid "``sourceFileExtensions``"
+msgstr ""
+
+#: ../../../manual/cmake-file-api.7.rst:1858
+msgid ""
+"Optional member that is present when the :variable:"
+"`CMAKE_<LANG>_SOURCE_FILE_EXTENSIONS` variable is defined for the current "
+"language. Its value is a JSON array of JSON strings where each string holds "
+"a file extension (without the leading dot) for the language."
+msgstr ""

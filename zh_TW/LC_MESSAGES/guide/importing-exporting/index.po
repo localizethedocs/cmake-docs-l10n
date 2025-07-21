@@ -1,0 +1,1295 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2000-2025 Kitware, Inc. and Contributors
+# This file is distributed under the same license as the CMake package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CMake master\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-07-14 08:20+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../guide/importing-exporting/index.rst:2
+msgid "Importing and Exporting Guide"
+msgstr "匯入與匯出指南"
+
+#: ../../../guide/importing-exporting/index.rst:5
+msgid "Contents"
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:9
+msgid "Introduction"
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:11
+msgid ""
+"In this guide, we will present the concept of :prop_tgt:`IMPORTED` targets "
+"and demonstrate how to import existing executable or library files from disk "
+"into a CMake project. We will then show how CMake supports exporting targets "
+"from one CMake-based project and importing them into another. Finally, we "
+"will demonstrate how to package a project with a configuration file to allow "
+"for easy integration into other CMake projects. This guide and the complete "
+"example source code can be found in the ``Help/guide/importing-exporting`` "
+"directory of the CMake source code tree."
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:22
+msgid "Importing Targets"
+msgstr "匯入目標"
+
+#: ../../../guide/importing-exporting/index.rst:24
+msgid ""
+":prop_tgt:`IMPORTED` targets are used to convert files outside of a CMake "
+"project into logical targets inside of the project. :prop_tgt:`IMPORTED` "
+"targets are created using the ``IMPORTED`` option of the :command:"
+"`add_executable` and :command:`add_library` commands. No build files are "
+"generated for :prop_tgt:`IMPORTED` targets. Once imported, :prop_tgt:"
+"`IMPORTED` targets may be referenced like any other target within the "
+"project and provide a convenient, flexible reference to outside executables "
+"and libraries."
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:33
+msgid ""
+"By default, the :prop_tgt:`IMPORTED` target name has scope in the directory "
+"in which it is created and below. We can use the ``GLOBAL`` option to "
+"extended visibility so that the target is accessible globally in the build "
+"system."
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:37
+msgid ""
+"Details about the :prop_tgt:`IMPORTED` target are specified by setting "
+"properties whose names begin in ``IMPORTED_`` and ``INTERFACE_``. For "
+"example, :prop_tgt:`IMPORTED_LOCATION` contains the full path to the target "
+"on disk."
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:43
+msgid "Importing Executables"
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:45
+msgid ""
+"To start, we will walk through a simple example that creates an :prop_tgt:"
+"`IMPORTED` executable target and then references it from the :command:"
+"`add_custom_command` command."
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:49
+msgid ""
+"We'll need to do some setup to get started. We want to create an executable "
+"that when run creates a basic ``main.cc`` file in the current directory. The "
+"details of this project are not important. Navigate to ``Help/guide/"
+"importing-exporting/MyExe``, create a build directory, run :manual:`cmake "
+"<cmake(1)>` and build and install the project."
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:55
+msgid ""
+"$ cd Help/guide/importing-exporting/MyExe\n"
+"$ mkdir build\n"
+"$ cd build\n"
+"$ cmake ..\n"
+"$ cmake --build .\n"
+"$ cmake --install . --prefix <install location>\n"
+"$ <install location>/myexe\n"
+"$ ls\n"
+"[...] main.cc [...]"
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:67
+msgid ""
+"Now we can import this executable into another CMake project. The source "
+"code for this section is available in ``Help/guide/importing-exporting/"
+"Importing``. In the CMakeLists file, use the :command:`add_executable` "
+"command to create a new target called ``myexe``. Use the ``IMPORTED`` option "
+"to tell CMake that this target references an executable file located outside "
+"of the project. No rules will be generated to build it and the :prop_tgt:"
+"`IMPORTED` target property will be set  to ``true``."
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:75
+msgid ""
+"add_executable(myexe IMPORTED)\n"
+"\n"
+msgstr ""
+"add_executable(myexe IMPORTED)\n"
+"\n"
+
+#: ../../../guide/importing-exporting/index.rst:80
+msgid ""
+"Next, set the :prop_tgt:`IMPORTED_LOCATION` property of the target using "
+"the :command:`set_property` command. This will tell CMake the location of "
+"the target on disk. The location may need to be adjusted to the ``<install "
+"location>`` specified in the previous step."
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:85
+msgid ""
+"set_property(TARGET myexe PROPERTY\n"
+"             IMPORTED_LOCATION \"../InstallMyExe/bin/myexe\")\n"
+"\n"
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:90
+msgid ""
+"We can now reference this :prop_tgt:`IMPORTED` target just like any target "
+"built within the project. In this instance, let's imagine that we want to "
+"use the generated source file in our project. Use the :prop_tgt:`IMPORTED` "
+"target in the :command:`add_custom_command` command:"
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:95
+msgid ""
+"add_custom_command(OUTPUT main.cc COMMAND myexe)\n"
+"\n"
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:100
+msgid ""
+"As ``COMMAND`` specifies an executable target name, it will automatically be "
+"replaced by the location of the executable given by the :prop_tgt:"
+"`IMPORTED_LOCATION` property above."
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:104
+msgid "Finally, use the output from :command:`add_custom_command`:"
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:106
+msgid "add_executable(mynewexe main.cc)\n"
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:111
+msgid "Importing Libraries"
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:113
+msgid ""
+"In a similar manner, libraries from other projects may be accessed through :"
+"prop_tgt:`IMPORTED` targets."
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:116
+msgid ""
+"Note: The full source code for the examples in this section is not provided "
+"and is left as an exercise for the reader."
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:119
+msgid ""
+"In the CMakeLists file, add an :prop_tgt:`IMPORTED` library and specify its "
+"location on disk:"
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:122
+msgid ""
+"add_library(foo STATIC IMPORTED)\n"
+"set_property(TARGET foo PROPERTY\n"
+"             IMPORTED_LOCATION \"/path/to/libfoo.a\")"
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:128
+msgid "Then use the :prop_tgt:`IMPORTED` library inside of our project:"
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:130
+msgid ""
+"add_executable(myexe src1.c src2.c)\n"
+"target_link_libraries(myexe PRIVATE foo)"
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:136
+msgid ""
+"On Windows, a .dll and its .lib import library may be imported together:"
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:138
+msgid ""
+"add_library(bar SHARED IMPORTED)\n"
+"set_property(TARGET bar PROPERTY\n"
+"             IMPORTED_LOCATION \"c:/path/to/bar.dll\")\n"
+"set_property(TARGET bar PROPERTY\n"
+"             IMPORTED_IMPLIB \"c:/path/to/bar.lib\")\n"
+"add_executable(myexe src1.c src2.c)\n"
+"target_link_libraries(myexe PRIVATE bar)"
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:148
+msgid ""
+"A library with multiple configurations may be imported with a single target:"
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:150
+msgid ""
+"find_library(math_REL NAMES m)\n"
+"find_library(math_DBG NAMES md)\n"
+"add_library(math STATIC IMPORTED GLOBAL)\n"
+"set_target_properties(math PROPERTIES\n"
+"  IMPORTED_LOCATION \"${math_REL}\"\n"
+"  IMPORTED_LOCATION_DEBUG \"${math_DBG}\"\n"
+"  IMPORTED_CONFIGURATIONS \"RELEASE;DEBUG\"\n"
+")\n"
+"add_executable(myexe src1.c src2.c)\n"
+"target_link_libraries(myexe PRIVATE math)"
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:163
+msgid ""
+"The generated build system will link ``myexe`` to ``m.lib`` when built in "
+"the release configuration, and ``md.lib`` when built in the debug "
+"configuration."
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:167
+msgid "Exporting Targets"
+msgstr "匯出目標"
+
+#: ../../../guide/importing-exporting/index.rst:169
+msgid ""
+"While :prop_tgt:`IMPORTED` targets on their own are useful, they still "
+"require that the project that imports them knows the locations of the target "
+"files on disk. The real power of :prop_tgt:`IMPORTED`  targets is when the "
+"project providing the target files also provides a CMake file to help import "
+"them. A project can be setup to produce the necessary information so that it "
+"can easily be used by other CMake projects be it from a build directory, a "
+"local install or when packaged."
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:177
+msgid ""
+"In the remaining sections, we will walk through a set of example projects "
+"step-by-step. The first project will create and install a library and "
+"corresponding CMake configuration and package files. The second project will "
+"use the generated package."
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:182
+msgid ""
+"Let's start by looking at the ``MathFunctions`` project in the ``Help/guide/"
+"importing-exporting/MathFunctions`` directory. Here we have a header file "
+"``MathFunctions.h`` that declares a ``sqrt`` function:"
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:186
+msgid ""
+"#pragma once\n"
+"\n"
+"namespace MathFunctions {\n"
+"double sqrt(double x);\n"
+"}\n"
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:189
+msgid "And a corresponding source file ``MathFunctions.cxx``:"
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:191
+msgid ""
+"#include \"MathFunctions.h\"\n"
+"\n"
+"#include <cmath>\n"
+"\n"
+"namespace MathFunctions {\n"
+"double sqrt(double x)\n"
+"{\n"
+"  return std::sqrt(x);\n"
+"}\n"
+"}\n"
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:194
+msgid ""
+"Don't worry too much about the specifics of the C++ files, they are just "
+"meant to be a simple example that will compile and run on many build systems."
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:197
+msgid ""
+"Now we can create a ``CMakeLists.txt`` file for the ``MathFunctions`` "
+"project. Start by specifying the :command:`cmake_minimum_required` version "
+"and :command:`project` name:"
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:201
+msgid ""
+"cmake_minimum_required(VERSION 3.15)\n"
+"project(MathFunctions)\n"
+"\n"
+"# make cache variables for install destinations\n"
+"include(GNUInstallDirs)\n"
+"\n"
+"# specify the C++ standard\n"
+"set(CMAKE_CXX_STANDARD 11)\n"
+"set(CMAKE_CXX_STANDARD_REQUIRED True)\n"
+"\n"
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:205
+msgid ""
+"The :module:`GNUInstallDirs` module is included in order to provide the "
+"project with the flexibility to install into different platform layouts by "
+"making the directories available as cache variables."
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:209
+msgid ""
+"Create a library called ``MathFunctions`` with the :command:`add_library` "
+"command:"
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:212
+msgid ""
+"add_library(MathFunctions STATIC MathFunctions.cxx)\n"
+"\n"
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:217
+msgid ""
+"And then use the :command:`target_include_directories` command to specify "
+"the include directories for the target:"
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:220
+msgid ""
+"target_include_directories(MathFunctions\n"
+"                           PUBLIC\n"
+"                           \"$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}"
+">\"\n"
+"                           \"$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}"
+">\"\n"
+")\n"
+"\n"
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:225
+msgid ""
+"We need to tell CMake that we want to use different include directories "
+"depending on if we're building the library or using it from an installed "
+"location. If we don't do this, when CMake creates the export information it "
+"will export a path that is specific to the current build directory and will "
+"not be valid for other projects. We can use :manual:`generator expressions "
+"<cmake-generator-expressions(7)>` to specify that if we're building the "
+"library include the current source directory. Otherwise, when installed, "
+"include the ``include`` directory. See the `Creating Relocatable Packages`_ "
+"section for more details."
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:235
+msgid ""
+"The :command:`install(TARGETS)` and :command:`install(EXPORT)` commands work "
+"together to install both targets (a library in our case) and a CMake file "
+"designed to make it easy to import the targets into another CMake project."
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:239
+msgid ""
+"First, in the :command:`install(TARGETS)` command we will specify the "
+"target, the ``EXPORT`` name and the destinations that tell CMake where to "
+"install the targets."
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:243
+msgid ""
+"install(TARGETS MathFunctions\n"
+"        EXPORT MathFunctionsTargets\n"
+"        LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}\n"
+"        ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}\n"
+"        RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}\n"
+"        INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}\n"
+")\n"
+"\n"
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:248
+msgid ""
+"Here, the ``EXPORT`` option tells CMake to create an export called "
+"``MathFunctionsTargets``. The generated :prop_tgt:`IMPORTED` targets have "
+"appropriate properties set to define their :ref:`usage requirements <Target "
+"Usage Requirements>`, such as :prop_tgt:`INTERFACE_INCLUDE_DIRECTORIES`, :"
+"prop_tgt:`INTERFACE_COMPILE_DEFINITIONS` and other relevant built-in "
+"``INTERFACE_`` properties.  The ``INTERFACE`` variant of user-defined "
+"properties listed in :prop_tgt:`COMPATIBLE_INTERFACE_STRING` and other :ref:"
+"`Compatible Interface Properties` are also propagated to the generated :"
+"prop_tgt:`IMPORTED` targets. For example, in this case, the :prop_tgt:"
+"`IMPORTED` target will have its :prop_tgt:`INTERFACE_INCLUDE_DIRECTORIES` "
+"property populated with the directory specified by the ``INCLUDES "
+"DESTINATION`` property. As a relative path was given, it is treated as "
+"relative to the :variable:`CMAKE_INSTALL_PREFIX`."
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:264
+msgid "Note, we have *not* asked CMake to install the export yet."
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:266
+msgid ""
+"We don't want to forget to install the ``MathFunctions.h`` header file with "
+"the :command:`install(FILES)` command. The header file should be installed "
+"to the ``include`` directory, as specified by the :command:"
+"`target_include_directories` command above."
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:271
+msgid ""
+"install(FILES MathFunctions.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})\n"
+"\n"
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:276
+msgid ""
+"Now that the ``MathFunctions`` library and header file are installed, we "
+"also need to explicitly install the ``MathFunctionsTargets``  export "
+"details. Use the :command:`install(EXPORT)` command to export the targets in "
+"``MathFunctionsTargets``, as defined by the  :command:`install(TARGETS)` "
+"command."
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:282
+msgid ""
+"install(EXPORT MathFunctionsTargets\n"
+"        FILE MathFunctionsTargets.cmake\n"
+"        NAMESPACE MathFunctions::\n"
+"        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/MathFunctions\n"
+")\n"
+"\n"
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:287
+msgid ""
+"This command generates the ``MathFunctionsTargets.cmake`` file and arranges "
+"to install it to ``${CMAKE_INSTALL_LIBDIR}/cmake/MathFunctions``. The file "
+"contains code suitable for use by downstreams to import all targets listed "
+"in the install command from the installation tree."
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:292
+msgid ""
+"The ``NAMESPACE`` option will prepend ``MathFunctions::`` to  the target "
+"names as they are written to the export file. This convention of double-"
+"colons gives CMake a hint that the name is an  :prop_tgt:`IMPORTED` target "
+"when it is used by downstream projects. This way, CMake can issue a "
+"diagnostic message if the package providing it was not found."
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:298
+msgid ""
+"The generated export file contains code that creates an :prop_tgt:`IMPORTED` "
+"library."
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:300
+msgid ""
+"# Create imported target MathFunctions::MathFunctions\n"
+"add_library(MathFunctions::MathFunctions STATIC IMPORTED)\n"
+"\n"
+"set_target_properties(MathFunctions::MathFunctions PROPERTIES\n"
+"  INTERFACE_INCLUDE_DIRECTORIES \"${_IMPORT_PREFIX}/include\"\n"
+")"
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:309
+msgid ""
+"This code is very similar to the example we created by hand in the "
+"`Importing Libraries`_ section. Note that ``${_IMPORT_PREFIX}`` is computed "
+"relative to the file location."
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:313
+msgid ""
+"An outside project may load this file with the :command:`include` command "
+"and reference the ``MathFunctions`` library from the installation tree as if "
+"it were built in its own tree. For example:"
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:317
+msgid ""
+" include(GNUInstallDirs)\n"
+" include(${INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR}/cmake/MathFunctions/"
+"MathFunctionTargets.cmake)\n"
+" add_executable(myexe src1.c src2.c)\n"
+" target_link_libraries(myexe PRIVATE MathFunctions::MathFunctions)"
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:325
+msgid ""
+"Line 2 loads the target CMake file. Although we only exported a single "
+"target, this file may import any number of targets. Their locations are "
+"computed relative to the file location so that the install tree may be "
+"easily moved. Line 4 references the imported ``MathFunctions`` library. The "
+"resulting build system will link to the library from its installed location."
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:331
+msgid "Executables may also be exported and imported using the same process."
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:333
+msgid ""
+"Any number of target installations may be associated with the same export "
+"name. Export names are considered global so any directory may contribute a "
+"target installation. The :command:`install(EXPORT)` command only needs to be "
+"called once to install a file that references all targets. Below is an "
+"example of how multiple exports may be combined into a single export file, "
+"even if they are in different subdirectories of the project."
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:340
+msgid ""
+"# A/CMakeLists.txt\n"
+"add_executable(myexe src1.c)\n"
+"install(TARGETS myexe DESTINATION lib/myproj\n"
+"        EXPORT myproj-targets)\n"
+"\n"
+"# B/CMakeLists.txt\n"
+"add_library(foo STATIC foo1.c)\n"
+"install(TARGETS foo DESTINATION lib EXPORTS myproj-targets)\n"
+"\n"
+"# Top CMakeLists.txt\n"
+"add_subdirectory (A)\n"
+"add_subdirectory (B)\n"
+"install(EXPORT myproj-targets DESTINATION lib/myproj)"
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:357
+msgid "Creating Packages"
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:359
+msgid ""
+"At this point, the ``MathFunctions`` project is exporting the target "
+"information required to be used by other projects. We can make this project "
+"even easier for other projects to use by generating a configuration file so "
+"that the CMake :command:`find_package` command can find our project."
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:364
+msgid ""
+"To start, we will need to make a few additions to the ``CMakeLists.txt`` "
+"file. First, include the :module:`CMakePackageConfigHelpers` module to get "
+"access to some helper functions for creating config files."
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:368
+msgid ""
+"include(CMakePackageConfigHelpers)\n"
+"\n"
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:373
+msgid ""
+"Then we will create a package configuration file and a package version file."
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:376
+msgid "Creating a Package Configuration File"
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:378
+msgid ""
+"Use the :command:`configure_package_config_file` command provided by the :"
+"module:`CMakePackageConfigHelpers` to generate the package configuration "
+"file. Note that this command should be used instead of the plain :command:"
+"`configure_file` command. It helps to ensure that the resulting package is "
+"relocatable by avoiding hardcoded paths in the installed configuration file. "
+"The path given to ``INSTALL_DESTINATION`` must  be the destination where the "
+"``MathFunctionsConfig.cmake`` file will be installed. We will examine the "
+"contents of the package configuration file in the next section."
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:388
+msgid ""
+"configure_package_config_file(${CMAKE_CURRENT_SOURCE_DIR}/Config.cmake.in\n"
+"  \"${CMAKE_CURRENT_BINARY_DIR}/MathFunctionsConfig.cmake\"\n"
+"  INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/MathFunctions\n"
+")\n"
+"\n"
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:393
+msgid ""
+"Install the generated configuration files with the :command:`install(FILES)` "
+"command. Both ``MathFunctionsConfigVersion.cmake`` and ``MathFunctionsConfig."
+"cmake`` are installed to the same location, completing the package."
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:398
+msgid ""
+"install(FILES\n"
+"          \"${CMAKE_CURRENT_BINARY_DIR}/MathFunctionsConfig.cmake\"\n"
+"          \"${CMAKE_CURRENT_BINARY_DIR}/MathFunctionsConfigVersion.cmake\"\n"
+"        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/MathFunctions\n"
+")\n"
+"\n"
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:403
+msgid ""
+"Now we need to create the package configuration file itself. In this case, "
+"the ``Config.cmake.in`` file is very simple but sufficient to allow "
+"downstreams to use the :prop_tgt:`IMPORTED` targets."
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:407
+msgid ""
+"@PACKAGE_INIT@\n"
+"\n"
+"include(\"${CMAKE_CURRENT_LIST_DIR}/MathFunctionsTargets.cmake\")\n"
+"\n"
+"check_required_components(MathFunctions)\n"
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:409
+msgid ""
+"The first line of the file contains only the string ``@PACKAGE_INIT@``. This "
+"expands when the file is configured and allows the use of relocatable paths "
+"prefixed with ``PACKAGE_``. It also provides the ``set_and_check()`` and "
+"``check_required_components()`` macros."
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:414
+msgid ""
+"The ``check_required_components`` helper macro ensures that all requested, "
+"non-optional components have been found by checking the "
+"``<Package>_<Component>_FOUND`` variables for all required components. This "
+"macro should be called at the end of the package configuration file even if "
+"the package does not have any components. This way, CMake can make sure that "
+"the downstream project hasn't specified any non-existent components. If "
+"``check_required_components`` fails, the ``<Package>_FOUND`` variable is set "
+"to FALSE, and the package is considered to be not found."
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:423
+msgid ""
+"The ``set_and_check()`` macro should be used in configuration files instead "
+"of the normal ``set()`` command for setting directories and file locations. "
+"If a referenced file or directory does not exist, the macro will fail."
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:427
+msgid ""
+"If any macros should be provided by the ``MathFunctions`` package, they "
+"should be in a separate file which is installed to the same location as the "
+"``MathFunctionsConfig.cmake`` file, and included from there."
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:431
+msgid ""
+"**All required dependencies of a package must also be found in the package "
+"configuration file.** Let's imagine that we require the ``Stats`` library in "
+"our project. In the CMakeLists file, we would add:"
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:435
+msgid ""
+"find_package(Stats 2.6.4 REQUIRED)\n"
+"target_link_libraries(MathFunctions PUBLIC Stats::Types)"
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:440
+msgid ""
+"As the ``Stats::Types`` target is a ``PUBLIC`` dependency of "
+"``MathFunctions``, downstreams must also find the ``Stats`` package and link "
+"to the ``Stats::Types`` library.  The ``Stats`` package should be found in "
+"the configuration file to ensure this."
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:445
+msgid ""
+"include(CMakeFindDependencyMacro)\n"
+"find_dependency(Stats 2.6.4)"
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:450
+msgid ""
+"The ``find_dependency`` macro from the :module:`CMakeFindDependencyMacro` "
+"module helps by propagating  whether the package is ``REQUIRED``, or "
+"``QUIET``, etc. The ``find_dependency`` macro also sets "
+"``MathFunctions_FOUND`` to ``False`` if the dependency is not found, along "
+"with a diagnostic that the ``MathFunctions`` package cannot be used without "
+"the ``Stats`` package."
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:457
+msgid "**Exercise:** Add a required library to the ``MathFunctions`` project."
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:460
+msgid "Creating a Package Version File"
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:462
+msgid ""
+"The :module:`CMakePackageConfigHelpers` module provides the :command:"
+"`write_basic_package_version_file` command for creating a simple package "
+"version file.  This file is read by CMake when :command:`find_package` is "
+"called to determine the compatibility with the requested version, and to set "
+"some version-specific variables such as ``<PackageName>_VERSION``, "
+"``<PackageName>_VERSION_MAJOR``, ``<PackageName>_VERSION_MINOR``, etc. See :"
+"manual:`cmake-packages <cmake-packages(7)>` documentation for more details."
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:470
+msgid ""
+"set(version 3.4.1)\n"
+"\n"
+"set_property(TARGET MathFunctions PROPERTY VERSION ${version})\n"
+"set_property(TARGET MathFunctions PROPERTY SOVERSION 3)\n"
+"set_property(TARGET MathFunctions PROPERTY\n"
+"  INTERFACE_MathFunctions_MAJOR_VERSION 3)\n"
+"set_property(TARGET MathFunctions APPEND PROPERTY\n"
+"  COMPATIBLE_INTERFACE_STRING MathFunctions_MAJOR_VERSION\n"
+")\n"
+"\n"
+"# generate the version file for the config file\n"
+"write_basic_package_version_file(\n"
+"  \"${CMAKE_CURRENT_BINARY_DIR}/MathFunctionsConfigVersion.cmake\"\n"
+"  VERSION \"${version}\"\n"
+"  COMPATIBILITY AnyNewerVersion\n"
+")\n"
+"\n"
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:475
+msgid ""
+"In our example, ``MathFunctions_MAJOR_VERSION`` is defined as a :prop_tgt:"
+"`COMPATIBLE_INTERFACE_STRING` which means that it must be compatible among "
+"the dependencies of any depender. By setting this custom defined user "
+"property in this version and in the next version of ``MathFunctions``, :"
+"manual:`cmake <cmake(1)>` will issue a diagnostic if there is an attempt to "
+"use version 3 together with version 4.  Packages can choose to employ such a "
+"pattern if different major versions of the package are designed to be "
+"incompatible."
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:486
+msgid "Exporting Targets from the Build Tree"
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:488
+msgid ""
+"Typically, projects are built and installed before being used by an outside "
+"project. However, in some cases, it is desirable to export targets directly "
+"from a build tree. The targets may then be used by an outside project that "
+"references the build tree with no installation involved. The :command:"
+"`export` command is used to generate a file exporting targets from a project "
+"build tree."
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:494
+msgid ""
+"If we want our example project to also be used from a build directory we "
+"only have to add the following to ``CMakeLists.txt``:"
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:497
+msgid ""
+"export(EXPORT MathFunctionsTargets\n"
+"       FILE \"${CMAKE_CURRENT_BINARY_DIR}/cmake/MathFunctionsTargets."
+"cmake\"\n"
+"       NAMESPACE MathFunctions::\n"
+")\n"
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:501
+msgid ""
+"Here we use the :command:`export` command to generate the export targets for "
+"the build tree. In this case, we'll create a file called "
+"``MathFunctionsTargets.cmake`` in the ``cmake`` subdirectory of the build "
+"directory. The generated file contains the required code to import the "
+"target and may be loaded by an outside project that is aware of the project "
+"build tree. This file is specific to the build-tree, and **is not "
+"relocatable**."
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:508
+msgid ""
+"It is possible to create a suitable package configuration file and package "
+"version file to define a package for the build tree which may be used "
+"without installation.  Consumers of the build tree can simply ensure that "
+"the :variable:`CMAKE_PREFIX_PATH` contains the build directory, or set the "
+"``MathFunctions_DIR`` to ``<build_dir>/MathFunctions`` in the cache."
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:514
+msgid ""
+"An example application of this feature is for building an executable on a "
+"host platform when cross-compiling. The project containing the executable "
+"may be built on the host platform and then the project that is being cross-"
+"compiled for another platform may load it."
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:520
+msgid "Building and Installing a Package"
+msgstr "建置與安裝軟體包"
+
+#: ../../../guide/importing-exporting/index.rst:522
+msgid ""
+"At this point, we have generated a relocatable CMake configuration for our "
+"project that can be used after the project has been installed. Let's try to "
+"build the ``MathFunctions`` project:"
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:526
+msgid ""
+"mkdir MathFunctions_build\n"
+"cd MathFunctions_build\n"
+"cmake ../MathFunctions\n"
+"cmake --build ."
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:533
+msgid ""
+"In the build directory, notice that the file ``MathFunctionsTargets.cmake`` "
+"has been created in the ``cmake`` subdirectory."
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:536
+msgid "Now install the project:"
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:538
+msgid "$ cmake --install . --prefix \"/home/myuser/installdir\""
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:543
+msgid "Creating Relocatable Packages"
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:545
+msgid ""
+"Packages created by :command:`install(EXPORT)` are designed to be "
+"relocatable, using paths relative to the location of the package itself. "
+"They must not reference absolute paths of files on the machine where the "
+"package is built that will not exist on the machines where the package may "
+"be installed."
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:550
+msgid ""
+"When defining the interface of a target for ``EXPORT``, keep in mind that "
+"the include directories should be specified as relative paths to the :"
+"variable:`CMAKE_INSTALL_PREFIX` but should not explicitly include the :"
+"variable:`CMAKE_INSTALL_PREFIX`:"
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:555
+msgid ""
+"target_include_directories(tgt INTERFACE\n"
+"  # Wrong, not relocatable:\n"
+"  $<INSTALL_INTERFACE:${CMAKE_INSTALL_PREFIX}/include/TgtName>\n"
+")\n"
+"\n"
+"target_include_directories(tgt INTERFACE\n"
+"  # Ok, relocatable:\n"
+"  $<INSTALL_INTERFACE:include/TgtName>\n"
+")"
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:567
+msgid ""
+"The :genex:`$<INSTALL_PREFIX>` generator expression may be used as a "
+"placeholder for the install prefix without resulting in a non-relocatable "
+"package.  This is necessary if complex generator expressions are used:"
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:571
+msgid ""
+"target_include_directories(tgt INTERFACE\n"
+"  # Ok, relocatable:\n"
+"  $<INSTALL_INTERFACE:$<INSTALL_PREFIX>/include/TgtName>\n"
+")"
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:578
+msgid ""
+"This also applies to paths referencing external dependencies. It is not "
+"advisable to populate any properties which may contain paths, such as :"
+"prop_tgt:`INTERFACE_INCLUDE_DIRECTORIES` or :prop_tgt:"
+"`INTERFACE_LINK_LIBRARIES`, with paths relevant to dependencies. For "
+"example, this code may not work well for a relocatable package:"
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:584
+msgid ""
+"target_link_libraries(MathFunctions INTERFACE\n"
+"  ${Foo_LIBRARIES} ${Bar_LIBRARIES}\n"
+"  )\n"
+"target_include_directories(MathFunctions INTERFACE\n"
+"  \"$<INSTALL_INTERFACE:${Foo_INCLUDE_DIRS};${Bar_INCLUDE_DIRS}>\"\n"
+"  )"
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:593
+msgid ""
+"The referenced variables may contain the absolute paths to libraries and "
+"include directories **as found on the machine the package was made on**. "
+"This would create a package with hard-coded paths to dependencies not "
+"suitable for relocation."
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:598
+msgid ""
+"Ideally such dependencies should be used through their own :ref:`IMPORTED "
+"targets <Imported Targets>` that have their own :prop_tgt:"
+"`IMPORTED_LOCATION` and usage requirement properties such as :prop_tgt:"
+"`INTERFACE_INCLUDE_DIRECTORIES` populated appropriately.  Those imported "
+"targets may then be used with the :command:`target_link_libraries` command "
+"for ``MathFunctions``:"
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:605
+msgid "target_link_libraries(MathFunctions INTERFACE Foo::Foo Bar::Bar)"
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:609
+msgid ""
+"With this approach the package references its external dependencies only "
+"through the names of :ref:`IMPORTED targets <Imported Targets>`. When a "
+"consumer uses the installed package, the consumer will run the appropriate :"
+"command:`find_package` commands (via the ``find_dependency`` macro described "
+"above) to find the dependencies and populate the imported targets with "
+"appropriate paths on their own machine."
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:617
+msgid "Using the Package Configuration File"
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:619
+msgid ""
+"Now we're ready to create a project to use the installed ``MathFunctions`` "
+"library. In this section we will be using source code from "
+"``Help\\guide\\importing-exporting\\Downstream``. In this directory, there "
+"is a source file called ``main.cc`` that uses the ``MathFunctions`` library "
+"to calculate the square root of a given number and then prints the results:"
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:625
+msgid ""
+"// A simple program that outputs the square root of a number\n"
+"#include <iostream>\n"
+"#include <string>\n"
+"\n"
+"#include \"MathFunctions.h\"\n"
+"\n"
+"int main(int argc, char* argv[])\n"
+"{\n"
+"  if (argc < 2) {\n"
+"    std::cout << \"Usage: \" << argv[0] << \" number\" << std::endl;\n"
+"    return 1;\n"
+"  }\n"
+"\n"
+"  // convert input to double\n"
+"  double const inputValue = std::stod(argv[1]);\n"
+"\n"
+"  // calculate square root\n"
+"  double const sqrt = MathFunctions::sqrt(inputValue);\n"
+"  std::cout << \"The square root of \" << inputValue << \" is \" << sqrt\n"
+"            << std::endl;\n"
+"\n"
+"  return 0;\n"
+"}\n"
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:628
+msgid ""
+"As before, we'll start with the :command:`cmake_minimum_required` and :"
+"command:`project` commands in the ``CMakeLists.txt`` file. For this project, "
+"we'll also specify the C++ standard."
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:632
+msgid ""
+"cmake_minimum_required(VERSION 3.15)\n"
+"project(Downstream)\n"
+"\n"
+"# specify the C++ standard\n"
+"set(CMAKE_CXX_STANDARD 11)\n"
+"set(CMAKE_CXX_STANDARD_REQUIRED True)\n"
+"\n"
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:636
+msgid "We can use the :command:`find_package` command:"
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:638
+#: ../../../guide/importing-exporting/index.rst:732
+msgid ""
+"find_package(MathFunctions 3.4.1 EXACT)\n"
+"\n"
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:643
+msgid "Create an executable:"
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:645
+msgid ""
+"add_executable(myexe main.cc)\n"
+"\n"
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:650
+msgid "And link to the ``MathFunctions`` library:"
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:652
+#: ../../../guide/importing-exporting/index.rst:746
+msgid "target_link_libraries(myexe PRIVATE MathFunctions::MathFunctions)\n"
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:656
+msgid "That's it! Now let's try to build the ``Downstream`` project."
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:658
+msgid ""
+"mkdir Downstream_build\n"
+"cd Downstream_build\n"
+"cmake ../Downstream\n"
+"cmake --build ."
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:665
+msgid "A warning may have appeared during CMake configuration:"
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:667
+msgid ""
+"CMake Warning at CMakeLists.txt:4 (find_package):\n"
+"  By not providing \"FindMathFunctions.cmake\" in CMAKE_MODULE_PATH this\n"
+"  project has asked CMake to find a package configuration file provided by\n"
+"  \"MathFunctions\", but CMake did not find one.\n"
+"\n"
+"  Could not find a package configuration file provided by \"MathFunctions\"\n"
+"  with any of the following names:\n"
+"\n"
+"    MathFunctionsConfig.cmake\n"
+"    mathfunctions-config.cmake\n"
+"\n"
+"  Add the installation prefix of \"MathFunctions\" to CMAKE_PREFIX_PATH or "
+"set\n"
+"  \"MathFunctions_DIR\" to a directory containing one of the above files.  "
+"If\n"
+"  \"MathFunctions\" provides a separate development package or SDK, be sure "
+"it\n"
+"  has been installed."
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:685
+msgid ""
+"Set the ``CMAKE_PREFIX_PATH`` to where MathFunctions was installed "
+"previously and try again. Ensure that the newly created executable runs as "
+"expected."
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:689
+msgid "Adding Components"
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:691
+msgid ""
+"Let's edit the ``MathFunctions`` project to use components. The source code "
+"for this section can be found in ``Help\\guide\\importing-"
+"exporting\\MathFunctionsComponents``. The CMakeLists file for this project "
+"adds two subdirectories: ``Addition`` and ``SquareRoot``."
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:696
+msgid ""
+"cmake_minimum_required(VERSION 3.15)\n"
+"project(MathFunctionsComponents)\n"
+"\n"
+"# make cache variables for install destinations\n"
+"include(GNUInstallDirs)\n"
+"\n"
+"# specify the C++ standard\n"
+"set(CMAKE_CXX_STANDARD 11)\n"
+"set(CMAKE_CXX_STANDARD_REQUIRED True)\n"
+"\n"
+"add_subdirectory(Addition)\n"
+"add_subdirectory(SquareRoot)\n"
+"\n"
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:700
+msgid ""
+"Generate and install the package configuration and package version files:"
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:702
+msgid ""
+"include(CMakePackageConfigHelpers)\n"
+"\n"
+"# set version\n"
+"set(version 3.4.1)\n"
+"\n"
+"# generate the version file for the config file\n"
+"write_basic_package_version_file(\n"
+"  \"${CMAKE_CURRENT_BINARY_DIR}/MathFunctionsConfigVersion.cmake\"\n"
+"  VERSION \"${version}\"\n"
+"  COMPATIBILITY AnyNewerVersion\n"
+")\n"
+"\n"
+"# create config file\n"
+"configure_package_config_file(${CMAKE_CURRENT_SOURCE_DIR}/Config.cmake.in\n"
+"  \"${CMAKE_CURRENT_BINARY_DIR}/MathFunctionsConfig.cmake\"\n"
+"  INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/MathFunctions\n"
+"  NO_CHECK_REQUIRED_COMPONENTS_MACRO\n"
+")\n"
+"\n"
+"# install config files\n"
+"install(FILES\n"
+"          \"${CMAKE_CURRENT_BINARY_DIR}/MathFunctionsConfig.cmake\"\n"
+"          \"${CMAKE_CURRENT_BINARY_DIR}/MathFunctionsConfigVersion.cmake\"\n"
+"        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/MathFunctions\n"
+")\n"
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:706
+msgid ""
+"If ``COMPONENTS`` are specified when the downstream uses :command:"
+"`find_package`, they are listed in the ``<PackageName>_FIND_COMPONENTS`` "
+"variable. We can use this variable to verify that all necessary component "
+"targets are included in ``Config.cmake.in``. At the same time, this function "
+"will act as a custom ``check_required_components`` macro to ensure that the "
+"downstream only attempts to use supported components."
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:713
+msgid ""
+"@PACKAGE_INIT@\n"
+"\n"
+"set(_MathFunctions_supported_components Addition SquareRoot)\n"
+"\n"
+"foreach(_comp ${MathFunctions_FIND_COMPONENTS})\n"
+"  if (NOT _comp IN_LIST _MathFunctions_supported_components)\n"
+"    set(MathFunctions_FOUND False)\n"
+"    set(MathFunctions_NOT_FOUND_MESSAGE \"Unsupported component: "
+"${_comp}\")\n"
+"  endif()\n"
+"  include(\"${CMAKE_CURRENT_LIST_DIR}/MathFunctions${_comp}Targets.cmake\")\n"
+"endforeach()\n"
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:715
+msgid ""
+"Here, the ``MathFunctions_NOT_FOUND_MESSAGE`` is set to a diagnosis that the "
+"package could not be found because an invalid component was specified. This "
+"message variable can be set for any case where the ``_FOUND`` variable is "
+"set to ``False``, and will be displayed to the user."
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:720
+msgid ""
+"The ``Addition`` and ``SquareRoot`` directories are similar. Let's look at "
+"one of the CMakeLists files:"
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:723
+msgid ""
+"# create library\n"
+"add_library(SquareRoot STATIC SquareRoot.cxx)\n"
+"\n"
+"add_library(MathFunctions::SquareRoot ALIAS SquareRoot)\n"
+"\n"
+"# add include directories\n"
+"target_include_directories(SquareRoot\n"
+"                           PUBLIC\n"
+"                           \"$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}"
+">\"\n"
+"                           \"$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}"
+">\"\n"
+")\n"
+"\n"
+"# install the target and create export-set\n"
+"install(TARGETS SquareRoot\n"
+"        EXPORT SquareRootTargets\n"
+"        LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}\n"
+"        ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}\n"
+"        RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}\n"
+"        INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}\n"
+")\n"
+"\n"
+"# install header file\n"
+"install(FILES SquareRoot.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})\n"
+"\n"
+"# generate and install export file\n"
+"install(EXPORT SquareRootTargets\n"
+"        FILE MathFunctionsSquareRootTargets.cmake\n"
+"        NAMESPACE MathFunctions::\n"
+"        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/MathFunctions\n"
+")\n"
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:726
+msgid ""
+"Now we can build the project as described in earlier sections. To test using "
+"this package, we can use the project in ``Help\\guide\\importing-"
+"exporting\\DownstreamComponents``. There's two differences from the previous "
+"``Downstream`` project. First, we need to find the package components. "
+"Change the ``find_package`` line from:"
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:737
+#: ../../../guide/importing-exporting/index.rst:750
+msgid "To:"
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:739
+msgid ""
+"find_package(MathFunctions 3.4 COMPONENTS Addition SquareRoot)\n"
+"\n"
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:744
+msgid "and the ``target_link_libraries`` line from:"
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:752
+msgid ""
+"target_link_libraries(myexe PRIVATE MathFunctions::Addition MathFunctions::"
+"SquareRoot)\n"
+"\n"
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:757
+msgid "In ``main.cc``, replace ``#include MathFunctions.h`` with:"
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:759
+msgid ""
+"\n"
+"#include \"Addition.h\"\n"
+"#include \"SquareRoot.h\"\n"
+"\n"
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:764
+msgid "Finally, use the ``Addition`` library:"
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:766
+msgid ""
+"  double const sum = MathFunctions::add(inputValue, inputValue);\n"
+"  std::cout << inputValue << \" + \" << inputValue << \" = \" << sum << std::"
+"endl;\n"
+"\n"
+msgstr ""
+
+#: ../../../guide/importing-exporting/index.rst:771
+msgid ""
+"Build the ``Downstream`` project and confirm that it can find and use the "
+"package components."
+msgstr ""

@@ -1,0 +1,1169 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2000-2025 Kitware, Inc. and Contributors
+# This file is distributed under the same license as the CMake package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CMake master\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-07-14 08:20+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../manual/cmake-configure-log.7.rst:4
+msgid "cmake-configure-log(7)"
+msgstr "cmake-組態日誌(7)"
+
+#: ../../../manual/cmake-configure-log.7.rst:9
+msgid "Contents"
+msgstr "目次"
+
+#: ../../../manual/cmake-configure-log.7.rst:13
+msgid "Introduction"
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:15
+msgid ""
+"CMake writes a running log, known as the *configure log*, of certain events "
+"that occur during the Configure step. The configure log does *not* contain a "
+"log of all output, errors, or messages printed while configuring a project.  "
+"It is a log of detailed information about specific events, such as toolchain "
+"inspection by :command:`try_compile`, meant for use in debugging the "
+"configuration of a build tree."
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:23
+msgid ""
+"For human use, this version of CMake writes the configure log to the file:"
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:25
+msgid "${CMAKE_BINARY_DIR}/CMakeFiles/CMakeConfigureLog.yaml"
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:29
+msgid ""
+"However, the *location and name of the log file may change* in future "
+"versions of CMake.  Tools that read the configure log should get its "
+"location using a :ref:`configureLog <file-api configureLog>` query to the :"
+"manual:`cmake-file-api(7)`. See the `Log Versioning`_ section below for "
+"details."
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:36
+msgid "Log Structure"
+msgstr "日誌結構"
+
+#: ../../../manual/cmake-configure-log.7.rst:38
+msgid "The configure log is designed to be both machine- and human-readable."
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:40
+msgid ""
+"The log file is a YAML document stream containing zero or more YAML "
+"documents separated by document markers.  Each document begins with a ``---"
+"`` document marker line, contains a single YAML mapping that logs events "
+"from one CMake \"configure\" step, and, if the configure step finished "
+"normally, ends with a ``...`` document marker line:"
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:46
+msgid ""
+"---\n"
+"events:\n"
+"  -\n"
+"    kind: \"try_compile-v1\"\n"
+"    # (other fields omitted)\n"
+"  -\n"
+"    kind: \"try_compile-v1\"\n"
+"    # (other fields omitted)\n"
+"..."
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:58
+msgid ""
+"A new document is appended to the log every time CMake configures the build "
+"tree and logs new events."
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:61
+msgid "The keys of each document root mapping are:"
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:63
+msgid "``events``"
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:64
+msgid ""
+"A YAML block sequence of nodes corresponding to events logged during one "
+"CMake \"configure\" step.  Each event is a YAML node containing one of the "
+"`Event Kinds`_ documented below."
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:69
+msgid "Log Versioning"
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:71
+msgid ""
+"Each of the `Event Kinds`_ is versioned independently.  The set of keys an "
+"event's log entry provides is specific to its major version. When an event "
+"is logged, the latest version of its event kind that is known to the running "
+"version of CMake is always written to the log."
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:76
+msgid ""
+"Tools reading the configure log must ignore event kinds and versions they do "
+"not understand:"
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:79
+msgid "A future version of CMake may introduce a new event kind or version."
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:81
+msgid ""
+"If an existing build tree is re-configured with a different version of "
+"CMake, the log may contain different versions of the same event kind."
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:84
+msgid ""
+"If :manual:`cmake-file-api(7)` queries request one or more :ref:"
+"`configureLog <file-api configureLog>` object versions, the log may contain "
+"multiple entries for the same event, each with a different version of its "
+"event kind."
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:89
+msgid ""
+"IDEs should write a :manual:`cmake-file-api(7)` query requesting a specific :"
+"ref:`configureLog <file-api configureLog>` object version, before running "
+"CMake, and then read the configure log only as described by the file-api "
+"reply."
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:95
+msgid "Text Block Encoding"
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:97
+msgid ""
+"In order to make the log human-readable, text blocks are always represented "
+"using YAML literal block scalars (``|``). Since literal block scalars do not "
+"support escaping, backslashes and non-printable characters are encoded at "
+"the application layer:"
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:102
+msgid "``\\\\`` encodes a backslash."
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:103
+msgid "``\\xXX`` encodes a byte using two hexadecimal digits, ``XX``."
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:108
+msgid "Event Kinds"
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:110
+msgid "Every event kind is represented by a YAML mapping of the form:"
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:112
+msgid ""
+"kind: \"<kind>-v<major>\"\n"
+"backtrace:\n"
+"  - \"<file>:<line> (<function>)\"\n"
+"checks:\n"
+"  - \"Checking for something\"\n"
+"#...event-specific keys..."
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:121
+msgid "The keys common to all events are:"
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:123
+#: ../../../manual/cmake-configure-log.7.rst:566
+msgid "``kind``"
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:124
+msgid "A string identifying the event kind and major version."
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:126
+msgid "``backtrace``"
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:127
+msgid ""
+"A YAML block sequence reporting the call stack of CMake source locations at "
+"which the event occurred, from most-recent to least-recent.  Each node is a "
+"string specifying one location formatted as ``<file>:<line> (<function>)``."
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:132
+msgid "``checks``"
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:133
+msgid ""
+"An optional key that is present when the event occurred with at least one "
+"pending :command:`message(CHECK_START)`.  Its value is a YAML block sequence "
+"reporting the stack of pending checks, from most-recent to least-recent.  "
+"Each node is a string containing a pending check message."
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:139
+msgid ""
+"Additional mapping keys are specific to each (versioned) event kind, "
+"described below."
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:145
+msgid "Event Kind ``message``"
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:147
+msgid "The :command:`message(CONFIGURE_LOG)` command logs ``message`` events."
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:149
+msgid "There is only one ``message`` event major version, version 1."
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:154
+msgid "``message-v1`` Event"
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:156
+msgid "A ``message-v1`` event is a YAML mapping:"
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:158
+msgid ""
+"kind: \"message-v1\"\n"
+"backtrace:\n"
+"  - \"CMakeLists.txt:123 (message)\"\n"
+"checks:\n"
+"  - \"Checking for something\"\n"
+"message: |\n"
+"  # ..."
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:168
+msgid "The keys specific to ``message-v1`` mappings are:"
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:170
+#: ../../../manual/cmake-configure-log.7.rst:682
+msgid "``message``"
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:171
+msgid ""
+"A YAML literal block scalar containing the message text, represented using "
+"our `Text Block Encoding`_."
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:177
+msgid "Event Kind ``try_compile``"
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:179
+msgid "The :command:`try_compile` command logs ``try_compile`` events."
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:181
+msgid "There is only one ``try_compile`` event major version, version 1."
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:186
+msgid "``try_compile-v1`` Event"
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:188
+msgid "A ``try_compile-v1`` event is a YAML mapping:"
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:190
+msgid ""
+"kind: \"try_compile-v1\"\n"
+"backtrace:\n"
+"  - \"CMakeLists.txt:123 (try_compile)\"\n"
+"checks:\n"
+"  - \"Checking for something\"\n"
+"description: \"Explicit LOG_DESCRIPTION\"\n"
+"directories:\n"
+"  source: \"/path/to/.../TryCompile-01234\"\n"
+"  binary: \"/path/to/.../TryCompile-01234\"\n"
+"cmakeVariables:\n"
+"  SOME_VARIABLE: \"Some Value\"\n"
+"buildResult:\n"
+"  variable: \"COMPILE_RESULT\"\n"
+"  cached: true\n"
+"  stdout: |\n"
+"    # ...\n"
+"  exitCode: 0"
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:210
+msgid "The keys specific to ``try_compile-v1`` mappings are:"
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:212
+#: ../../../manual/cmake-configure-log.7.rst:395
+msgid "``description``"
+msgstr "``description``"
+
+#: ../../../manual/cmake-configure-log.7.rst:213
+msgid ""
+"An optional key that is present when the ``LOG_DESCRIPTION <text>`` option "
+"was used.  Its value is a string containing the description ``<text>``."
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:216
+msgid "``directories``"
+msgstr "``directories``"
+
+#: ../../../manual/cmake-configure-log.7.rst:217
+msgid ""
+"A mapping describing the directories associated with the compilation "
+"attempt.  It has the following keys:"
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:220
+msgid "``source``"
+msgstr "``source``"
+
+#: ../../../manual/cmake-configure-log.7.rst:221
+msgid ""
+"String specifying the source directory of the :command:`try_compile` project."
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:224
+msgid "``binary``"
+msgstr "``binary``"
+
+#: ../../../manual/cmake-configure-log.7.rst:225
+msgid ""
+"String specifying the binary directory of the :command:`try_compile` "
+"project. For non-project invocations, this is often the same as the source "
+"directory."
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:230
+msgid "``cmakeVariables``"
+msgstr "``cmakeVariables``"
+
+#: ../../../manual/cmake-configure-log.7.rst:231
+msgid ""
+"An optional key that is present when CMake propagates variables into the "
+"test project, either automatically or due to the :variable:"
+"`CMAKE_TRY_COMPILE_PLATFORM_VARIABLES` variable. Its value is a mapping from "
+"variable names to their values."
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:236
+msgid "``buildResult``"
+msgstr "``cmakeVariables``"
+
+#: ../../../manual/cmake-configure-log.7.rst:237
+msgid ""
+"A mapping describing the result of compiling the test code. It has the "
+"following keys:"
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:240
+#: ../../../manual/cmake-configure-log.7.rst:306
+#: ../../../manual/cmake-configure-log.7.rst:392
+msgid "``variable``"
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:241
+msgid ""
+"A string specifying the name of the CMake variable storing the result of "
+"trying to build the test project."
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:244
+#: ../../../manual/cmake-configure-log.7.rst:310
+msgid "``cached``"
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:245
+#: ../../../manual/cmake-configure-log.7.rst:311
+msgid ""
+"A boolean indicating whether the above result ``variable`` is stored in the "
+"CMake cache."
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:248
+#: ../../../manual/cmake-configure-log.7.rst:314
+msgid "``stdout``"
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:249
+msgid ""
+"A YAML literal block scalar containing the output from building the test "
+"project, represented using our `Text Block Encoding`_. This contains build "
+"output from both stdout and stderr."
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:253
+#: ../../../manual/cmake-configure-log.7.rst:333
+msgid "``exitCode``"
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:254
+msgid ""
+"An integer specifying the build tool exit code from trying to build the test "
+"project."
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:260
+msgid "Event Kind ``try_run``"
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:262
+msgid "The :command:`try_run` command logs ``try_run`` events."
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:264
+msgid "There is only one ``try_run`` event major version, version 1."
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:269
+msgid "``try_run-v1`` Event"
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:271
+msgid "A ``try_run-v1`` event is a YAML mapping:"
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:273
+msgid ""
+"kind: \"try_run-v1\"\n"
+"backtrace:\n"
+"  - \"CMakeLists.txt:456 (try_run)\"\n"
+"checks:\n"
+"  - \"Checking for something\"\n"
+"description: \"Explicit LOG_DESCRIPTION\"\n"
+"directories:\n"
+"  source: \"/path/to/.../TryCompile-56789\"\n"
+"  binary: \"/path/to/.../TryCompile-56789\"\n"
+"buildResult:\n"
+"  variable: \"COMPILE_RESULT\"\n"
+"  cached: true\n"
+"  stdout: |\n"
+"    # ...\n"
+"  exitCode: 0\n"
+"runResult:\n"
+"  variable: \"RUN_RESULT\"\n"
+"  cached: true\n"
+"  stdout: |\n"
+"    # ...\n"
+"  stderr: |\n"
+"    # ...\n"
+"  exitCode: 0"
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:299
+msgid ""
+"The keys specific to ``try_run-v1`` mappings include those documented by the "
+"`try_compile-v1 event`_, plus:"
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:302
+msgid "``runResult``"
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:303
+msgid ""
+"A mapping describing the result of running the test code. It has the "
+"following keys:"
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:307
+msgid ""
+"A string specifying the name of the CMake variable storing the result of "
+"trying to run the test executable."
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:315
+msgid ""
+"An optional key that is present when the test project built successfully. "
+"Its value is a YAML literal block scalar containing output from running the "
+"test executable, represented using our `Text Block Encoding`_."
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:319
+msgid ""
+"If ``RUN_OUTPUT_VARIABLE`` was used, stdout and stderr are captured "
+"together, so this will contain both.  Otherwise, this will contain only the "
+"stdout output."
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:323
+msgid "``stderr``"
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:324
+msgid ""
+"An optional key that is present when the test project built successfully and "
+"the ``RUN_OUTPUT_VARIABLE`` option was not used. Its value is a YAML literal "
+"block scalar containing output from running the test executable, represented "
+"using our `Text Block Encoding`_."
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:329
+msgid ""
+"If ``RUN_OUTPUT_VARIABLE`` was used, stdout and stderr are captured together "
+"in the ``stdout`` key, and this key will not be present. Otherwise, this "
+"will contain the stderr output."
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:334
+msgid ""
+"An optional key that is present when the test project built successfully. "
+"Its value is an integer specifying the exit code, or a string containing an "
+"error message, from trying to run the test executable."
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:341
+msgid "Event Kind ``find``"
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:343
+msgid ""
+"The :command:`find_file`, :command:`find_path`, :command:`find_library`, "
+"and :command:`find_program` commands log ``find`` events."
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:346
+msgid "There is only one ``find`` event major version, version 1."
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:351
+msgid "``find-v1`` Event"
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:355
+msgid "A ``find-v1`` event is a YAML mapping:"
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:357
+msgid ""
+"kind: \"find-v1\"\n"
+"backtrace:\n"
+"  - \"CMakeLists.txt:456 (find_program)\"\n"
+"mode: \"program\"\n"
+"variable: \"PROGRAM_PATH\"\n"
+"description: \"Docstring for variable\"\n"
+"settings:\n"
+"  SearchFramework: \"NEVER\"\n"
+"  SearchAppBundle: \"NEVER\"\n"
+"  CMAKE_FIND_USE_CMAKE_PATH: true\n"
+"  CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true\n"
+"  CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true\n"
+"  CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true\n"
+"  CMAKE_FIND_USE_INSTALL_PREFIX: true\n"
+"names:\n"
+"  - \"name1\"\n"
+"  - \"name2\"\n"
+"candidate_directories:\n"
+"  - \"/path/to/search\"\n"
+"  - \"/other/path/to/search\"\n"
+"  - \"/path/to/found\"\n"
+"  - \"/further/path/to/search\"\n"
+"searched_directories:\n"
+"  - \"/path/to/search\"\n"
+"  - \"/other/path/to/search\"\n"
+"found: \"/path/to/found/program\""
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:386
+msgid "The keys specific to ``find-v1`` mappings are:"
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:388
+#: ../../../manual/cmake-configure-log.7.rst:674
+#: ../../../manual/cmake-configure-log.7.rst:695
+msgid "``mode``"
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:389
+msgid ""
+"A string describing the command using the search performed. One of ``file``, "
+"``path``, ``program``, or ``library``."
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:393
+msgid "The variable to which the search stored its result."
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:396
+msgid "The documentation string of the variable."
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:398
+#: ../../../manual/cmake-configure-log.7.rst:589
+msgid "``settings``"
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:399
+#: ../../../manual/cmake-configure-log.7.rst:590
+msgid "Search settings active for the search."
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:401
+msgid "``SearchFramework``"
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:402
+msgid ""
+"A string describing how framework search is performed. One of ``FIRST``, "
+"``LAST``, ``ONLY``, or ``NEVER``. See :variable:`CMAKE_FIND_FRAMEWORK`."
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:405
+msgid "``SearchAppBundle``"
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:406
+msgid ""
+"A string describing how application bundle search is performed. One of "
+"``FIRST``, ``LAST``, ``ONLY``, or ``NEVER``. See :variable:"
+"`CMAKE_FIND_APPBUNDLE`."
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:410
+#: ../../../manual/cmake-configure-log.7.rst:630
+msgid "``CMAKE_FIND_USE_CMAKE_PATH``"
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:411
+#: ../../../manual/cmake-configure-log.7.rst:631
+msgid ""
+"A boolean indicating whether or not CMake-specific cache variables are used "
+"when searching. See :variable:`CMAKE_FIND_USE_CMAKE_PATH`."
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:414
+#: ../../../manual/cmake-configure-log.7.rst:634
+msgid "``CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH``"
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:415
+#: ../../../manual/cmake-configure-log.7.rst:635
+msgid ""
+"A boolean indicating whether or not CMake-specific environment variables are "
+"used when searching. See :variable:`CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH`."
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:419
+#: ../../../manual/cmake-configure-log.7.rst:639
+msgid "``CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH``"
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:420
+#: ../../../manual/cmake-configure-log.7.rst:640
+msgid ""
+"A boolean indicating whether or not platform-specific environment variables "
+"are used when searching. See :variable:"
+"`CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH`."
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:424
+#: ../../../manual/cmake-configure-log.7.rst:644
+msgid "``CMAKE_FIND_USE_CMAKE_SYSTEM_PATH``"
+msgstr "``CMAKE_FIND_USE_CMAKE_SYSTEM_PATH``"
+
+#: ../../../manual/cmake-configure-log.7.rst:425
+#: ../../../manual/cmake-configure-log.7.rst:645
+msgid ""
+"A boolean indicating whether or not platform-specific CMake variables are "
+"used when searching. See :variable:`CMAKE_FIND_USE_CMAKE_SYSTEM_PATH`."
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:428
+#: ../../../manual/cmake-configure-log.7.rst:648
+msgid "``CMAKE_FIND_USE_INSTALL_PREFIX``"
+msgstr "``CMAKE_FIND_USE_INSTALL_PREFIX``"
+
+#: ../../../manual/cmake-configure-log.7.rst:429
+#: ../../../manual/cmake-configure-log.7.rst:649
+msgid ""
+"A boolean indicating whether or not the install prefix is used when "
+"searching. See :variable:`CMAKE_FIND_USE_INSTALL_PREFIX`."
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:432
+#: ../../../manual/cmake-configure-log.7.rst:615
+msgid "``names``"
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:433
+msgid "The names to look for the queries."
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:435
+msgid "``candidate_directories``"
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:436
+msgid "Candidate directories, in order, to look in during the search."
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:438
+msgid "``searched_directories``"
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:439
+msgid "Directories, in order, looked at during the search process."
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:441
+#: ../../../manual/cmake-configure-log.7.rst:556
+#: ../../../manual/cmake-configure-log.7.rst:686
+msgid "``found``"
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:442
+msgid ""
+"Either a string representing the found value or ``false`` if it was not "
+"found."
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:445
+#: ../../../manual/cmake-configure-log.7.rst:702
+msgid "``search_context``"
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:446
+#: ../../../manual/cmake-configure-log.7.rst:703
+msgid ""
+"A mapping of variable names to search paths specified by them (either a "
+"string or an array of strings depending on the variable). Environment "
+"variables are wrapped with ``ENV{`` and ``}``, otherwise CMake variables are "
+"used. Only variables with any paths specified are used."
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:451
+#: ../../../manual/cmake-configure-log.7.rst:708
+msgid "``package_stack``"
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:452
+#: ../../../manual/cmake-configure-log.7.rst:709
+msgid ""
+"An array of objects with paths which come from the stack of paths made "
+"available by :command:`find_package` calls."
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:455
+#: ../../../manual/cmake-configure-log.7.rst:712
+msgid "``package_paths``"
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:456
+#: ../../../manual/cmake-configure-log.7.rst:713
+msgid ""
+"The paths made available by :command:`find_package` commands in the call "
+"stack."
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:462
+msgid "Event Kind ``find_package``"
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:466
+msgid "The :command:`find_package` command logs ``find_package`` events."
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:468
+msgid "There is only one ``find_package`` event major version, version 1."
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:473
+msgid "``find_package-v1`` Event"
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:475
+msgid "A ``find_package-v1`` event is a YAML mapping:"
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:477
+msgid ""
+"kind: \"find_package-v1\"\n"
+"backtrace:\n"
+"  - \"CMakeLists.txt:456 (find_program)\"\n"
+"name: \"PackageName\"\n"
+"components:\n"
+"  -\n"
+"    name: \"Component\"\n"
+"    required: true\n"
+"    found: true\n"
+"configs:\n"
+"  -\n"
+"    filename: PackageNameConfig.cmake\n"
+"    kind: \"cmake\"\n"
+"  -\n"
+"    filename: packagename-config.cmake\n"
+"    kind: \"cmake\"\n"
+"version_request:\n"
+"  version: \"1.0\"\n"
+"  version_complete: \"1.0...1.5\"\n"
+"  min: \"INCLUDE\"\n"
+"  max: \"INCLUDE\"\n"
+"  exact: false\n"
+"settings:\n"
+"  required: \"optional\"\n"
+"  quiet: false\n"
+"  global: false\n"
+"  policy_scope: true\n"
+"  bypass_provider: false\n"
+"  hints:\n"
+"    - \"/hint/path\"\n"
+"  names:\n"
+"    - \"name1\"\n"
+"    - \"name2\"\n"
+"  search_paths:\n"
+"    - \"/search/path\"\n"
+"  path_suffixes:\n"
+"    - \"\"\n"
+"    - \"suffix\"\n"
+"  registry_view: \"HOST\"\n"
+"  paths:\n"
+"    CMAKE_FIND_USE_CMAKE_PATH: true\n"
+"    CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true\n"
+"    CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true\n"
+"    CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true\n"
+"    CMAKE_FIND_USE_INSTALL_PREFIX: true\n"
+"    CMAKE_FIND_USE_PACKAGE_ROOT_PATH: true\n"
+"    CMAKE_FIND_USE_CMAKE_PACKAGE_REGISTRY: true\n"
+"    CMAKE_FIND_USE_SYSTEM_PACKAGE_REGISTRY: true\n"
+"    CMAKE_FIND_ROOT_PATH_MODE: \"BOTH\"\n"
+"  candidates:\n"
+"    -\n"
+"      path: \"/path/to/config/PackageName/PackageNameConfig.cmake\"\n"
+"      mode: \"config\"\n"
+"      reason: \"insufficient_version\"\n"
+"    -\n"
+"      path: \"/path/to/config/PackageName/packagename-config.cmake\"\n"
+"      mode: \"config\"\n"
+"      reason: \"no_exist\"\n"
+"  found:\n"
+"    path: \"/path/to/config/PackageName-2.5/PackageNameConfig.cmake\"\n"
+"    mode: \"config\"\n"
+"    version: \"2.5\""
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:542
+msgid "The keys specific to ``find_package-v1`` mappings are:"
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:544
+#: ../../../manual/cmake-configure-log.7.rst:550
+msgid "``name``"
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:545
+msgid "The name of the requested package."
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:547
+msgid "``components``"
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:548
+msgid "If present, an array of objects containing the fields:"
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:551
+msgid "The name of the component."
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:553
+#: ../../../manual/cmake-configure-log.7.rst:592
+msgid "``required``"
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:554
+msgid "A boolean indicating whether the component is required or optional."
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:557
+msgid "A boolean indicating whether the component was found or not."
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:559
+msgid "``configs``"
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:560
+msgid ""
+"If present, an array of objects indicating the configuration files to search "
+"for."
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:563
+msgid "``filename``"
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:564
+msgid "The filename of the configuration file."
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:567
+msgid "The kind of file. Either ``cmake`` or ``cps``."
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:569
+msgid "``version_request``"
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:570
+msgid "An object indicating the version constraints on the search."
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:572
+#: ../../../manual/cmake-configure-log.7.rst:699
+msgid "``version``"
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:573
+msgid "The minimum version required."
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:575
+msgid "``version_complete``"
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:576
+msgid "The user-provided version range."
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:578
+msgid "``min``"
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:579
+msgid ""
+"Whether to ``INCLUDE`` or ``EXCLUDE`` the lower bound on the version range."
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:582
+msgid "``max``"
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:583
+msgid ""
+"Whether to ``INCLUDE`` or ``EXCLUDE`` the upper bound on the version range."
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:586
+msgid "``exact``"
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:587
+msgid "A boolean indicating whether an ``EXACT`` version match was requested."
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:593
+msgid ""
+"The requirement request of the search. One of ``optional``, "
+"``optional_explicit``, ``required_explicit``, "
+"``required_from_package_variable``, or ``required_from_find_variable``."
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:597
+msgid "``quiet``"
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:598
+msgid "A boolean indicating whether the search is ``QUIET`` or not."
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:600
+msgid "``global``"
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:601
+msgid ""
+"A boolean indicating whether the ``GLOBAL`` keyword has been provided or not."
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:604
+msgid "``policy_scope``"
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:605
+msgid ""
+"A boolean indicating whether the ``NO_POLICY_SCOPE`` keyword has been "
+"provided or not."
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:608
+msgid "``bypass_provider``"
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:609
+msgid ""
+"A boolean indicating whether the ``BYPASS_PROVIDER`` keyword has been "
+"provided or not."
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:612
+msgid "``hints``"
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:613
+msgid "An array of paths provided as ``HINTS``."
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:616
+msgid "An array of package names to use when searching, provided by ``NAMES``."
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:618
+msgid "``search_paths``"
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:619
+msgid "An array of paths to search, provided by ``PATHS``."
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:621
+msgid "``path_suffixes``"
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:622
+msgid ""
+"An array of suffixes to use when searching, provided by ``PATH_SUFFIXES``."
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:624
+msgid "``registry_view``"
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:625
+msgid "The ``REGISTRY_VIEW`` requested for the search."
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:627
+msgid "``paths``"
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:628
+msgid "Path settings active for the search."
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:652
+msgid "``CMAKE_FIND_USE_CMAKE_PACKAGE_REGISTRY``"
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:653
+msgid ""
+"A boolean indicating whether or not to search the CMake package registry for "
+"the package. See :variable:`CMAKE_FIND_USE_PACKAGE_REGISTRY`."
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:656
+msgid "``CMAKE_FIND_USE_SYSTEM_PACKAGE_REGISTRY``"
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:657
+msgid ""
+"A boolean indicating whether or not to search the system CMake package "
+"registry for the package. See :variable:"
+"`CMAKE_FIND_USE_SYSTEM_PACKAGE_REGISTRY`."
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:661
+msgid "``CMAKE_FIND_ROOT_PATH_MODE``"
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:662
+msgid ""
+"A string indicating the root path mode in effect as selected by the "
+"``CMAKE_FIND_ROOT_PATH_BOTH``, ``ONLY_CMAKE_FIND_ROOT_PATH``, and "
+"``NO_CMAKE_FIND_ROOT_PATH`` arguments."
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:666
+msgid "``candidates``"
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:667
+msgid ""
+"An array of rejected candidate paths. Each element contains the following "
+"keys:"
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:670
+#: ../../../manual/cmake-configure-log.7.rst:690
+msgid "``path``"
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:671
+msgid ""
+"The path to the considered file. In the case of a dependency provider, the "
+"value is in the form of ``dependency_provider::<COMMAND_NAME>``."
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:675
+msgid ""
+"The mode which found the file. One of ``module``, ``cps``, ``cmake``, or "
+"``provider``."
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:678
+msgid "``reason``"
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:679
+msgid ""
+"The reason the path was rejected. One of ``insufficient_version``, "
+"``no_exist``, ``ignored``, ``no_config_file``, or ``not_found``."
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:683
+msgid ""
+"If present, a string describing why the package is considered as not found."
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:687
+msgid ""
+"If the package has been found, information on the found file. If it is not "
+"found, this is ``null``. Keys available:"
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:691
+msgid ""
+"The path to the module or configuration that found the package. In the case "
+"of a dependency provider, the value is in the form of ``dependency_provider::"
+"<COMMAND_NAME>``."
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:696
+msgid ""
+"The mode that considered the path. One of ``module``, ``cps``, ``cmake``, or "
+"``provider``."
+msgstr ""
+
+#: ../../../manual/cmake-configure-log.7.rst:700
+msgid "The reported version of the package."
+msgstr ""

@@ -1,0 +1,446 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2000-2025 Kitware, Inc. and Contributors
+# This file is distributed under the same license as the CMake package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CMake master\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-07-14 08:20+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../guide/tutorial/Adding Usage Requirements for a Library.rst:2
+msgid "Step 3: Adding Usage Requirements for a Library"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Usage Requirements for a Library.rst:5
+msgid "Exercise 1 - Adding Usage Requirements for a Library"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Usage Requirements for a Library.rst:7
+msgid ""
+":ref:`Usage requirements <Target Usage Requirements>` of a target parameters "
+"allow for far better control over a library or executable's link and include "
+"line while also giving more control over the transitive property of targets "
+"inside CMake. The primary commands that leverage usage requirements are:"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Usage Requirements for a Library.rst:13
+msgid ":command:`target_compile_definitions`"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Usage Requirements for a Library.rst:14
+msgid ":command:`target_compile_options`"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Usage Requirements for a Library.rst:15
+msgid ":command:`target_include_directories`"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Usage Requirements for a Library.rst:16
+msgid ":command:`target_link_directories`"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Usage Requirements for a Library.rst:17
+msgid ":command:`target_link_options`"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Usage Requirements for a Library.rst:18
+msgid ":command:`target_precompile_headers`"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Usage Requirements for a Library.rst:19
+msgid ":command:`target_sources`"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Usage Requirements for a Library.rst:23
+#: Library.rst:162
+msgid "Goal"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Usage Requirements for a Library.rst:25
+msgid "Add usage requirements for a library."
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Usage Requirements for a Library.rst:28
+msgid "Helpful Materials"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Usage Requirements for a Library.rst:30
+msgid ":variable:`CMAKE_CURRENT_SOURCE_DIR`"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Usage Requirements for a Library.rst:33
+#: Library.rst:174
+msgid "Files to Edit"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Usage Requirements for a Library.rst:35
+#: Library.rst:177
+msgid "``MathFunctions/CMakeLists.txt``"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Usage Requirements for a Library.rst:36
+#: Library.rst:176
+msgid "``CMakeLists.txt``"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Usage Requirements for a Library.rst:39
+#: Library.rst:180
+msgid "Getting Started"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Usage Requirements for a Library.rst:41
+msgid ""
+"In this exercise, we will refactor our code from :guide:`tutorial/Adding a "
+"Library` to use the modern CMake approach. We will let our library define "
+"its own usage requirements so they are passed transitively to other targets "
+"as necessary. In this case, ``MathFunctions`` will specify any needed "
+"include directories itself. Then, the consuming target ``Tutorial`` simply "
+"needs to link to ``MathFunctions`` and not worry about any additional "
+"include directories."
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Usage Requirements for a Library.rst:49
+msgid ""
+"The starting source code is provided in the ``Step3`` directory. In this "
+"exercise, complete ``TODO 1`` through ``TODO 3``."
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Usage Requirements for a Library.rst:52
+msgid ""
+"First, add a call to :command:`target_include_directories` in "
+"``MathFunctions/CMakeLists``. Remember that :variable:"
+"`CMAKE_CURRENT_SOURCE_DIR` is the path to the source directory currently "
+"being processed."
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Usage Requirements for a Library.rst:57
+msgid ""
+"Then, update (and simplify!) the call to :command:"
+"`target_include_directories` in the top-level ``CMakeLists.txt``."
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Usage Requirements for a Library.rst:61
+#: Library.rst:197
+msgid "Build and Run"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Usage Requirements for a Library.rst:63
+msgid ""
+"Make a new directory called ``Step3_build``, run the :manual:`cmake "
+"<cmake(1)>` executable or the :manual:`cmake-gui <cmake-gui(1)>` to "
+"configure the project and then build it with your chosen build tool or by "
+"using :option:`cmake --build . <cmake --build>` from the build directory. "
+"Here's a refresher of what that looks like from the command line:"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Usage Requirements for a Library.rst:69
+msgid ""
+"mkdir Step3_build\n"
+"cd Step3_build\n"
+"cmake ../Step3\n"
+"cmake --build ."
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Usage Requirements for a Library.rst:76
+#: Library.rst:207
+msgid ""
+"Next, use the newly built ``Tutorial`` and verify that it is working as "
+"expected."
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Usage Requirements for a Library.rst:80
+#: Library.rst:211
+msgid "Solution"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Usage Requirements for a Library.rst:82
+msgid ""
+"Let's update the code from the previous step to use the modern CMake "
+"approach of usage requirements."
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Usage Requirements for a Library.rst:85
+msgid ""
+"We want to state that anybody linking to ``MathFunctions`` needs to include "
+"the current source directory, while ``MathFunctions`` itself doesn't. This "
+"can be expressed with an ``INTERFACE`` usage requirement. Remember "
+"``INTERFACE`` means things that consumers require but the producer doesn't."
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Usage Requirements for a Library.rst:90
+msgid ""
+"At the end of ``MathFunctions/CMakeLists.txt``, use :command:"
+"`target_include_directories` with the ``INTERFACE`` keyword, as follows:"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Usage Requirements for a Library.rst:94
+msgid "<details><summary>TODO 1: Click to show/hide answer</summary>"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Usage Requirements for a Library.rst:98
+msgid "TODO 1: MathFunctions/CMakeLists.txt"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Usage Requirements for a Library.rst:98
+msgid ""
+"target_include_directories(MathFunctions\n"
+"                           INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}\n"
+"                           )\n"
+"\n"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Usage Requirements for a Library.rst:105
+#: Library.rst:126 Library.rst:142 Library.rst:243 Library.rst:263
+#: Library.rst:280 Library.rst:296
+msgid "</details>"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Usage Requirements for a Library.rst:109
+msgid ""
+"Now that we've specified usage requirements for ``MathFunctions`` we can "
+"safely remove our uses of the ``EXTRA_INCLUDES`` variable from the top-level "
+"``CMakeLists.txt``."
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Usage Requirements for a Library.rst:113
+msgid "Remove this line:"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Usage Requirements for a Library.rst:115
+msgid "<details><summary>TODO 2: Click to show/hide answer</summary>"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Usage Requirements for a Library.rst:119
+msgid "TODO 2: CMakeLists.txt"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Usage Requirements for a Library.rst:119
+msgid ""
+"list(APPEND EXTRA_INCLUDES \"${PROJECT_SOURCE_DIR}/MathFunctions\")\n"
+"\n"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Usage Requirements for a Library.rst:130
+msgid "And remove ``EXTRA_INCLUDES`` from ``target_include_directories``:"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Usage Requirements for a Library.rst:132
+msgid "<details><summary>TODO 3: Click to show/hide answer</summary>"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Usage Requirements for a Library.rst:136
+msgid "TODO 3: CMakeLists.txt"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Usage Requirements for a Library.rst:136
+msgid ""
+"target_include_directories(Tutorial PUBLIC\n"
+"                           \"${PROJECT_BINARY_DIR}\"\n"
+"                           )\n"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Usage Requirements for a Library.rst:146
+msgid ""
+"Notice that with this technique, the only thing our executable target does "
+"to use our library is call :command:`target_link_libraries` with the name of "
+"the library target. In larger projects, the classic method of specifying "
+"library dependencies manually becomes very complicated very quickly."
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Usage Requirements for a Library.rst:152
+msgid "Exercise 2 - Setting the C++ Standard with Interface Libraries"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Usage Requirements for a Library.rst:154
+msgid ""
+"Now that we have switched our code to a more modern approach, let's "
+"demonstrate a modern technique to set properties to multiple targets."
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Usage Requirements for a Library.rst:157
+msgid ""
+"Let's refactor our existing code to use an ``INTERFACE`` library. We will "
+"use that library in the next step to demonstrate a common use for :manual:"
+"`generator expressions <cmake-generator-expressions(7)>`."
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Usage Requirements for a Library.rst:164
+msgid ""
+"Add an ``INTERFACE`` library target to specify the required C++ standard."
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Usage Requirements for a Library.rst:167
+msgid "Helpful Resources"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Usage Requirements for a Library.rst:169
+msgid ":command:`add_library`"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Usage Requirements for a Library.rst:170
+msgid ":command:`target_compile_features`"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Usage Requirements for a Library.rst:171
+msgid ":command:`target_link_libraries`"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Usage Requirements for a Library.rst:182
+msgid ""
+"In this exercise, we will refactor our code to use an ``INTERFACE`` library "
+"to specify the C++ standard."
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Usage Requirements for a Library.rst:185
+msgid ""
+"Start this exercise from what we left at the end of Step3 exercise 1. You "
+"will have to complete ``TODO 4`` through ``TODO 7``."
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Usage Requirements for a Library.rst:188
+msgid ""
+"Start by editing the top level ``CMakeLists.txt`` file. Construct an "
+"``INTERFACE`` library target called ``tutorial_compiler_flags`` and specify "
+"``cxx_std_11`` as a target compiler feature."
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Usage Requirements for a Library.rst:192
+msgid ""
+"Modify ``CMakeLists.txt`` and ``MathFunctions/CMakeLists.txt`` so that all "
+"targets have a :command:`target_link_libraries` call to "
+"``tutorial_compiler_flags``."
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Usage Requirements for a Library.rst:199
+msgid ""
+"Since we have our build directory already configured from Exercise 1, simply "
+"rebuild our code by calling the following:"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Usage Requirements for a Library.rst:202
+msgid ""
+"cd Step3_build\n"
+"cmake --build ."
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Usage Requirements for a Library.rst:213
+msgid ""
+"Let's update our code from the previous step to use interface libraries to "
+"set our C++ requirements."
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Usage Requirements for a Library.rst:216
+msgid ""
+"To start, we need to remove the two :command:`set` calls on the variables :"
+"variable:`CMAKE_CXX_STANDARD` and :variable:`CMAKE_CXX_STANDARD_REQUIRED`. "
+"The specific lines to remove are as follows:"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Usage Requirements for a Library.rst:220
+msgid "CMakeLists.txt"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Usage Requirements for a Library.rst:220
+msgid ""
+"set(CMAKE_CXX_STANDARD 11)\n"
+"set(CMAKE_CXX_STANDARD_REQUIRED True)\n"
+"\n"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Usage Requirements for a Library.rst:227
+msgid ""
+"Next, we need to create an interface library, ``tutorial_compiler_flags``. "
+"And then use :command:`target_compile_features` to add the compiler feature "
+"``cxx_std_11``."
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Usage Requirements for a Library.rst:232
+msgid "<details><summary>TODO 4: Click to show/hide answer</summary>"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Usage Requirements for a Library.rst:236
+msgid "TODO 4: CMakeLists.txt"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Usage Requirements for a Library.rst:236
+msgid ""
+"add_library(tutorial_compiler_flags INTERFACE)\n"
+"target_compile_features(tutorial_compiler_flags INTERFACE cxx_std_11)\n"
+"\n"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Usage Requirements for a Library.rst:247
+msgid ""
+"Finally, with our interface library set up, we need to link our executable "
+"``Tutorial``, our ``SqrtLibrary`` library and our ``MathFunctions`` library "
+"to our new ``tutorial_compiler_flags`` library. Respectively, the code will "
+"look like this:"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Usage Requirements for a Library.rst:252
+msgid "<details><summary>TODO 5: Click to show/hide answer</summary>"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Usage Requirements for a Library.rst:256
+msgid "TODO 5: CMakeLists.txt"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Usage Requirements for a Library.rst:256
+msgid ""
+"\n"
+"target_link_libraries(Tutorial PUBLIC MathFunctions "
+"tutorial_compiler_flags)\n"
+"\n"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Usage Requirements for a Library.rst:267
+msgid "this:"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Usage Requirements for a Library.rst:269
+msgid "<details><summary>TODO 6: Click to show/hide answer</summary>"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Usage Requirements for a Library.rst:273
+msgid "TODO 6: MathFunctions/CMakeLists.txt"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Usage Requirements for a Library.rst:273
+msgid ""
+"  target_link_libraries(SqrtLibrary PUBLIC tutorial_compiler_flags)\n"
+"\n"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Usage Requirements for a Library.rst:284
+msgid "and this:"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Usage Requirements for a Library.rst:286
+msgid "<details><summary>TODO 7: Click to show/hide answer</summary>"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Usage Requirements for a Library.rst:290
+msgid "TODO 7: MathFunctions/CMakeLists.txt"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Usage Requirements for a Library.rst:290
+msgid "target_link_libraries(MathFunctions PUBLIC tutorial_compiler_flags)\n"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Usage Requirements for a Library.rst:301
+msgid ""
+"With this, all of our code still requires C++ 11 to build. Notice though "
+"that with this method, it gives us the ability to be specific about which "
+"targets get specific requirements. In addition, we create a single source of "
+"truth in our interface library."
+msgstr ""

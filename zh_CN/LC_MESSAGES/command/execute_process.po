@@ -1,0 +1,407 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2000-2025 Kitware, Inc. and Contributors
+# This file is distributed under the same license as the CMake package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CMake master\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-07-14 08:20+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../command/execute_process.rst:2
+msgid "execute_process"
+msgstr ""
+
+#: ../../../command/execute_process.rst:4
+msgid "Execute one or more child processes."
+msgstr ""
+
+#: ../../../command/execute_process.rst:6
+msgid ""
+"execute_process(COMMAND <cmd1> [<arguments>]\n"
+"                [COMMAND <cmd2> [<arguments>]]...\n"
+"                [WORKING_DIRECTORY <directory>]\n"
+"                [TIMEOUT <seconds>]\n"
+"                [RESULT_VARIABLE <variable>]\n"
+"                [RESULTS_VARIABLE <variable>]\n"
+"                [OUTPUT_VARIABLE <variable>]\n"
+"                [ERROR_VARIABLE <variable>]\n"
+"                [INPUT_FILE <file>]\n"
+"                [OUTPUT_FILE <file>]\n"
+"                [ERROR_FILE <file>]\n"
+"                [OUTPUT_QUIET]\n"
+"                [ERROR_QUIET]\n"
+"                [COMMAND_ECHO <where>]\n"
+"                [OUTPUT_STRIP_TRAILING_WHITESPACE]\n"
+"                [ERROR_STRIP_TRAILING_WHITESPACE]\n"
+"                [ENCODING <name>]\n"
+"                [ECHO_OUTPUT_VARIABLE]\n"
+"                [ECHO_ERROR_VARIABLE]\n"
+"                [COMMAND_ERROR_IS_FATAL <ANY|LAST|NONE>])"
+msgstr ""
+
+#: ../../../command/execute_process.rst:29
+msgid "Runs the given sequence of one or more commands."
+msgstr ""
+
+#: ../../../command/execute_process.rst:31
+msgid ""
+"Commands are executed concurrently as a pipeline, with the standard output "
+"of each process piped to the standard input of the next. A single standard "
+"error pipe is used for all processes."
+msgstr ""
+
+#: ../../../command/execute_process.rst:35
+msgid ""
+"``execute_process`` runs commands while CMake is configuring the project, "
+"prior to build system generation.  Use the :command:`add_custom_target` and :"
+"command:`add_custom_command` commands to create custom commands that run at "
+"build time."
+msgstr ""
+
+#: ../../../command/execute_process.rst:40
+msgid "Options:"
+msgstr ""
+
+#: ../../../command/execute_process.rst:42
+msgid "``COMMAND``"
+msgstr ""
+
+#: ../../../command/execute_process.rst:43
+msgid "A child process command line."
+msgstr ""
+
+#: ../../../command/execute_process.rst:45
+msgid "CMake executes the child process using operating system APIs directly:"
+msgstr ""
+
+#: ../../../command/execute_process.rst:47
+msgid ""
+"On POSIX platforms, the command line is passed to the child process in an "
+"``argv[]`` style array.  No intermediate shell is executed, so shell "
+"operators such as ``>`` are treated as normal arguments."
+msgstr ""
+
+#: ../../../command/execute_process.rst:51
+msgid ""
+"On Windows platforms, the command line is encoded as a string such that "
+"child processes using `CommandLineToArgvW`_ will decode the original "
+"arguments."
+msgstr ""
+
+#: ../../../command/execute_process.rst:55
+msgid ""
+"If the command runs a ``.exe``, ``.com``, or other executable, no "
+"intermediate command interpreter is executed, so shell operators such as "
+"``>`` are treated as normal arguments."
+msgstr ""
+
+#: ../../../command/execute_process.rst:59
+msgid ""
+"If the command runs a ``.bat`` or ``.cmd`` script, it is executed through "
+"the ``cmd`` command interpreter.  The command interpreter does not use "
+"`CommandLineToArgvW`_, so some arguments may be received by the script with "
+"extra quoting."
+msgstr ""
+
+#: ../../../command/execute_process.rst:64
+msgid ""
+"``.bat`` and ``.cmd`` scripts are now explicitly executed through the "
+"command interpreter by prepending ``cmd /c call`` to the command line. "
+"Previously, they were implicitly executed through ``cmd /c``, without "
+"``call``, by undocumented behavior of `CreateProcessW`_."
+msgstr ""
+
+#: ../../../command/execute_process.rst:70
+msgid ""
+"Use the ``INPUT_*``, ``OUTPUT_*``, and ``ERROR_*`` options to redirect "
+"stdin, stdout, and stderr."
+msgstr ""
+
+#: ../../../command/execute_process.rst:73
+msgid ""
+"For **sequential execution** of multiple commands use multiple "
+"``execute_process`` calls each with a single ``COMMAND`` argument."
+msgstr ""
+
+#: ../../../command/execute_process.rst:76
+msgid "``WORKING_DIRECTORY``"
+msgstr ""
+
+#: ../../../command/execute_process.rst:77
+msgid ""
+"The named directory will be set as the current working directory of the "
+"child processes."
+msgstr ""
+
+#: ../../../command/execute_process.rst:80
+msgid "``TIMEOUT``"
+msgstr ""
+
+#: ../../../command/execute_process.rst:81
+msgid ""
+"After the specified number of seconds (fractions allowed), all unfinished "
+"child processes will be terminated, and the ``RESULT_VARIABLE`` will be set "
+"to a string mentioning the \"timeout\"."
+msgstr ""
+
+#: ../../../command/execute_process.rst:85
+msgid "``RESULT_VARIABLE``"
+msgstr ""
+
+#: ../../../command/execute_process.rst:86
+msgid ""
+"The variable will be set to contain the result of last child process. This "
+"will be an integer return code from the last child or a string describing an "
+"error condition."
+msgstr ""
+
+#: ../../../command/execute_process.rst:90
+msgid "``RESULTS_VARIABLE <variable>``"
+msgstr ""
+
+#: ../../../command/execute_process.rst:93
+msgid ""
+"The variable will be set to contain the result of all processes as a :ref:"
+"`semicolon-separated list <CMake Language Lists>`, in order of the given "
+"``COMMAND`` arguments.  Each entry will be an integer return code from the "
+"corresponding child or a string describing an error condition."
+msgstr ""
+
+#: ../../../command/execute_process.rst:98
+msgid "``INPUT_FILE <file>``"
+msgstr ""
+
+#: ../../../command/execute_process.rst:99
+msgid ""
+"``<file>`` is attached to the standard input pipe of the *first* ``COMMAND`` "
+"process."
+msgstr ""
+
+#: ../../../command/execute_process.rst:102
+msgid "``OUTPUT_FILE <file>``"
+msgstr ""
+
+#: ../../../command/execute_process.rst:103
+msgid ""
+"``<file>`` is attached to the standard output pipe of the *last* ``COMMAND`` "
+"process."
+msgstr ""
+
+#: ../../../command/execute_process.rst:106
+msgid "``ERROR_FILE <file>``"
+msgstr ""
+
+#: ../../../command/execute_process.rst:107
+msgid ""
+"``<file>`` is attached to the standard error pipe of *all* ``COMMAND`` "
+"processes."
+msgstr ""
+
+#: ../../../command/execute_process.rst:110
+msgid ""
+"If the same ``<file>`` is named for both ``OUTPUT_FILE`` and ``ERROR_FILE`` "
+"then it will be used for both standard output and standard error pipes."
+msgstr ""
+
+#: ../../../command/execute_process.rst:114
+msgid "``OUTPUT_QUIET``, ``ERROR_QUIET``"
+msgstr ""
+
+#: ../../../command/execute_process.rst:115
+msgid ""
+"The standard output on ``OUTPUT_VARIABLE`` or standard error on "
+"``ERROR_VARIABLE`` are not connected (no variable content). The  ``*_FILE`` "
+"and ``ECHO_*_VARIABLE`` options are not affected."
+msgstr ""
+
+#: ../../../command/execute_process.rst:119
+msgid "``OUTPUT_VARIABLE``, ``ERROR_VARIABLE``"
+msgstr ""
+
+#: ../../../command/execute_process.rst:120
+msgid ""
+"The variable named will be set with the contents of the standard output and "
+"standard error pipes, respectively.  If the same variable is named for both "
+"pipes their output will be merged in the order produced."
+msgstr ""
+
+#: ../../../command/execute_process.rst:124
+msgid ""
+"``OUTPUT_STRIP_TRAILING_WHITESPACE``, ``ERROR_STRIP_TRAILING_WHITESPACE``"
+msgstr ""
+
+#: ../../../command/execute_process.rst:125
+msgid ""
+"Removes whitespace characters from the end of the values stored in the "
+"corresponding ``OUTPUT_VARIABLE`` and ``ERROR_VARIABLE`` variables."
+msgstr ""
+
+#: ../../../command/execute_process.rst:128
+msgid "``ECHO_OUTPUT_VARIABLE``, ``ECHO_ERROR_VARIABLE``"
+msgstr ""
+
+#: ../../../command/execute_process.rst:131
+msgid ""
+"The standard output or standard error will not be exclusively redirected to "
+"the specified variables."
+msgstr ""
+
+#: ../../../command/execute_process.rst:134
+msgid ""
+"The output will be duplicated into the specified variables and also onto "
+"standard output or standard error analogous to the ``tee`` Unix command."
+msgstr ""
+
+#: ../../../command/execute_process.rst:138
+msgid ""
+"If more than one ``OUTPUT_*`` or ``ERROR_*`` option is given for the same "
+"pipe the precedence is *not specified*. If no ``OUTPUT_*`` or ``ERROR_*`` "
+"options are given the output will be shared with the corresponding pipes of "
+"the CMake process itself."
+msgstr ""
+
+#: ../../../command/execute_process.rst:143
+msgid "``COMMAND_ECHO <where>``"
+msgstr ""
+
+#: ../../../command/execute_process.rst:146
+msgid ""
+"The command being run will be echo'ed to ``<where>`` with ``<where>`` being "
+"set to one of ``STDERR``, ``STDOUT`` or ``NONE``. See the :variable:"
+"`CMAKE_EXECUTE_PROCESS_COMMAND_ECHO` variable for a way to control the "
+"default behavior when this option is not present."
+msgstr ""
+
+#: ../../../command/execute_process.rst:151
+msgid "``ENCODING <name>``"
+msgstr ""
+
+#: ../../../command/execute_process.rst:154
+msgid ""
+"On Windows, the encoding that is used to decode output from the process. "
+"Ignored on other platforms. Valid encoding names are:"
+msgstr ""
+
+#: ../../../command/execute_process.rst:158
+#: ../../../command/execute_process.rst:205
+msgid "``NONE``"
+msgstr ""
+
+#: ../../../command/execute_process.rst:159
+msgid ""
+"Perform no decoding.  This assumes that the process output is encoded in the "
+"same way as CMake's internal encoding (UTF-8)."
+msgstr ""
+
+#: ../../../command/execute_process.rst:162
+msgid "This was the default in CMake 3.14 and older."
+msgstr ""
+
+#: ../../../command/execute_process.rst:164
+msgid "``AUTO``"
+msgstr ""
+
+#: ../../../command/execute_process.rst:165
+msgid ""
+"Use the current active console's codepage or if that isn't available then "
+"use ANSI."
+msgstr ""
+
+#: ../../../command/execute_process.rst:168
+msgid "This was the default in CMake 3.15 through 3.30."
+msgstr ""
+
+#: ../../../command/execute_process.rst:170
+msgid "``ANSI``"
+msgstr ""
+
+#: ../../../command/execute_process.rst:171
+msgid "Use the ANSI codepage."
+msgstr ""
+
+#: ../../../command/execute_process.rst:173
+msgid "``OEM``"
+msgstr ""
+
+#: ../../../command/execute_process.rst:174
+msgid "Use the original equipment manufacturer (OEM) code page."
+msgstr ""
+
+#: ../../../command/execute_process.rst:176
+msgid "``UTF-8``"
+msgstr ""
+
+#: ../../../command/execute_process.rst:179
+msgid "Use the UTF-8 codepage."
+msgstr ""
+
+#: ../../../command/execute_process.rst:181
+msgid "This is the default since CMake 3.31.  See policy :policy:`CMP0176`."
+msgstr ""
+
+#: ../../../command/execute_process.rst:183
+msgid "``UTF8``"
+msgstr ""
+
+#: ../../../command/execute_process.rst:184
+msgid ""
+"Use the UTF-8 codepage.  Use of this name is discouraged in favor of "
+"``UTF-8`` to match the `UTF-8 RFC <https://datatracker.ietf.org/doc/html/"
+"rfc3629>`_ naming convention."
+msgstr ""
+
+#: ../../../command/execute_process.rst:189
+msgid "``COMMAND_ERROR_IS_FATAL <ANY|LAST|NONE>``"
+msgstr ""
+
+#: ../../../command/execute_process.rst:192
+msgid ""
+"The option following ``COMMAND_ERROR_IS_FATAL`` determines the behavior when "
+"an error is encountered:"
+msgstr ""
+
+#: ../../../command/execute_process.rst:195
+msgid "``ANY``"
+msgstr ""
+
+#: ../../../command/execute_process.rst:196
+msgid ""
+"If any of the commands in the list of commands fail, the "
+"``execute_process()`` command halts with an error."
+msgstr ""
+
+#: ../../../command/execute_process.rst:199
+msgid "``LAST``"
+msgstr ""
+
+#: ../../../command/execute_process.rst:200
+msgid ""
+"If the last command in the list of commands fails, the ``execute_process()`` "
+"command halts with an error. Commands earlier in the list will not cause a "
+"fatal error."
+msgstr ""
+
+#: ../../../command/execute_process.rst:208
+msgid ""
+"Regardless of any of the commands failing, the ``execute_process()`` command "
+"will not halt with an error."
+msgstr ""
+
+#: ../../../command/execute_process.rst:213
+msgid ""
+"If not provided, the :variable:"
+"`CMAKE_EXECUTE_PROCESS_COMMAND_ERROR_IS_FATAL` variable is checked.  If the "
+"variable is not set, the default is ``NONE``. If ``RESULT_VARIABLE`` or "
+"``RESULTS_VARIABLE`` is supplied, :variable:"
+"`CMAKE_EXECUTE_PROCESS_COMMAND_ERROR_IS_FATAL` is ignored."
+msgstr ""

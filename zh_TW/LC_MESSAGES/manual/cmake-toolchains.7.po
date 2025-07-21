@@ -1,0 +1,1215 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2000-2025 Kitware, Inc. and Contributors
+# This file is distributed under the same license as the CMake package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CMake master\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-07-14 08:20+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../manual/cmake-toolchains.7.rst:4
+msgid "cmake-toolchains(7)"
+msgstr "cmake-工具鏈(7)"
+
+#: ../../../manual/cmake-toolchains.7.rst:7
+msgid "Contents"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:11
+msgid "Introduction"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:13
+msgid ""
+"CMake uses a toolchain of utilities to compile, link libraries and create "
+"archives, and other tasks to drive the build. The toolchain utilities "
+"available are determined by the languages enabled. In normal builds, CMake "
+"automatically determines the toolchain for host builds based on system "
+"introspection and defaults. In cross-compiling scenarios, a toolchain file "
+"may be specified with information about compiler and utility paths."
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:20
+msgid "One may use :manual:`cmake-presets(7)` to specify toolchain files."
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:24
+msgid "Languages"
+msgstr "語言"
+
+#: ../../../manual/cmake-toolchains.7.rst:26
+msgid ""
+"Languages are enabled by the :command:`project` command.  Language-specific "
+"built-in variables, such as :variable:`CMAKE_CXX_COMPILER "
+"<CMAKE_<LANG>_COMPILER>`, :variable:`CMAKE_CXX_COMPILER_ID "
+"<CMAKE_<LANG>_COMPILER_ID>` etc are set by invoking the :command:`project` "
+"command.  If no project command is in the top-level CMakeLists file, one "
+"will be implicitly generated. By default the enabled languages are ``C`` and "
+"``CXX``:"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:34
+msgid "project(C_Only C)"
+msgstr "project(C_Only C)"
+
+#: ../../../manual/cmake-toolchains.7.rst:38
+msgid ""
+"A special value of ``NONE`` can also be used with the :command:`project` "
+"command to enable no languages:"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:41
+msgid "project(MyProject NONE)"
+msgstr "project(MyProject NONE)"
+
+#: ../../../manual/cmake-toolchains.7.rst:45
+msgid ""
+"The :command:`enable_language` command can be used to enable languages after "
+"the :command:`project` command:"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:48
+msgid "enable_language(CXX)"
+msgstr "enable_language(CXX)"
+
+#: ../../../manual/cmake-toolchains.7.rst:52
+msgid ""
+"When a language is enabled, CMake finds a compiler for that language, and "
+"determines some information, such as the vendor and version of the compiler, "
+"the target architecture and bitwidth, the location of corresponding "
+"utilities etc."
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:57
+msgid ""
+"The :prop_gbl:`ENABLED_LANGUAGES` global property contains the languages "
+"which are currently enabled."
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:61
+msgid "Variables and Properties"
+msgstr "變數與屬性"
+
+#: ../../../manual/cmake-toolchains.7.rst:63
+msgid ""
+"Several variables relate to the language components of a toolchain which are "
+"enabled:"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:66
+#: ../../../manual/cmake-toolchains.7.rst:155
+msgid ":variable:`CMAKE_<LANG>_COMPILER`"
+msgstr ":variable:`CMAKE_<LANG>_COMPILER`"
+
+#: ../../../manual/cmake-toolchains.7.rst:67
+msgid "The full path to the compiler used for ``<LANG>``"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:68
+msgid ":variable:`CMAKE_<LANG>_COMPILER_ID`"
+msgstr ":variable:`CMAKE_<LANG>_COMPILER_ID`"
+
+#: ../../../manual/cmake-toolchains.7.rst:69
+msgid "The compiler identifier used by CMake"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:70
+msgid ":variable:`CMAKE_<LANG>_COMPILER_VERSION`"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:71
+msgid "The version of the compiler."
+msgstr "編譯器的版本。"
+
+#: ../../../manual/cmake-toolchains.7.rst:72
+msgid ":variable:`CMAKE_<LANG>_FLAGS`"
+msgstr ":variable:`CMAKE_<LANG>_FLAGS`"
+
+#: ../../../manual/cmake-toolchains.7.rst:73
+msgid ""
+"The variables and the configuration-specific equivalents contain flags that "
+"will be added to the compile command when compiling a file of a particular "
+"language."
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:77
+msgid ""
+"CMake needs a way to determine which compiler to use to invoke the linker. "
+"This is determined by the :prop_sf:`LANGUAGE` property of source files of "
+"the :manual:`target <cmake-buildsystem(7)>`, and in the case of static "
+"libraries, the ``LANGUAGE`` of the dependent libraries. The choice CMake "
+"makes may be overridden with the :prop_tgt:`LINKER_LANGUAGE` target property."
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:84
+msgid "Toolchain Features"
+msgstr "工具鏈功能"
+
+#: ../../../manual/cmake-toolchains.7.rst:86
+msgid ""
+"CMake provides the :command:`try_compile` command and modules such as :"
+"module:`CheckSourceCompiles`, :module:`CheckCXXSymbolExists` and :module:"
+"`CheckIncludeFile` to test capability and availability of various toolchain "
+"features. These APIs test the toolchain in some way and cache the result so "
+"that the test does not have to be performed again the next time CMake runs."
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:93
+msgid ""
+"Some toolchain features have built-in handling in CMake, and do not require "
+"compile-tests. For example, :prop_tgt:`POSITION_INDEPENDENT_CODE` allows "
+"specifying that a target should be built as position-independent code, if "
+"the compiler supports that feature. The :prop_tgt:`<LANG>_VISIBILITY_PRESET` "
+"and :prop_tgt:`VISIBILITY_INLINES_HIDDEN` target properties add flags for "
+"hidden visibility, if supported by the compiler."
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:103
+msgid "Cross Compiling"
+msgstr "交叉編譯"
+
+#: ../../../manual/cmake-toolchains.7.rst:105
+msgid ""
+"If :manual:`cmake(1)` is invoked with the command line parameter :option:`--"
+"toolchain path/to/file <cmake --toolchain>` or :option:`-"
+"DCMAKE_TOOLCHAIN_FILE=path/to/file <cmake -D>`, the file will be loaded "
+"early to set values for the compilers. The :variable:`CMAKE_CROSSCOMPILING` "
+"variable is set to true when CMake is cross-compiling."
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:112
+msgid ""
+"Note that using the :variable:`CMAKE_SOURCE_DIR` or :variable:"
+"`CMAKE_BINARY_DIR` variables inside a toolchain file is typically "
+"undesirable.  The toolchain file is used in contexts where these variables "
+"have different values when used in different places (e.g. as part of a call "
+"to :command:`try_compile`).  In most cases, where there is a need to "
+"evaluate paths inside a toolchain file, the more appropriate variable to use "
+"would be :variable:`CMAKE_CURRENT_LIST_DIR`, since it always has an "
+"unambiguous, predictable value."
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:121
+msgid "Cross Compiling for Linux"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:123
+msgid "A typical cross-compiling toolchain for Linux has content such as:"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:126
+msgid ""
+"set(CMAKE_SYSTEM_NAME Linux)\n"
+"set(CMAKE_SYSTEM_PROCESSOR arm)\n"
+"\n"
+"set(CMAKE_SYSROOT /home/devel/rasp-pi-rootfs)\n"
+"set(CMAKE_STAGING_PREFIX /home/devel/stage)\n"
+"\n"
+"set(tools /home/devel/gcc-4.7-linaro-rpi-gnueabihf)\n"
+"set(CMAKE_C_COMPILER ${tools}/bin/arm-linux-gnueabihf-gcc)\n"
+"set(CMAKE_CXX_COMPILER ${tools}/bin/arm-linux-gnueabihf-g++)\n"
+"\n"
+"set(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)\n"
+"set(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)\n"
+"set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)\n"
+"set(CMAKE_FIND_ROOT_PATH_MODE_PACKAGE ONLY)"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:143
+msgid "Where:"
+msgstr "其中："
+
+#: ../../../manual/cmake-toolchains.7.rst:145
+#: ../../../manual/cmake-toolchains.7.rst:408
+#: ../../../manual/cmake-toolchains.7.rst:492
+msgid ":variable:`CMAKE_SYSTEM_NAME`"
+msgstr ":variable:`CMAKE_SYSTEM_NAME`"
+
+#: ../../../manual/cmake-toolchains.7.rst:146
+msgid "is the CMake-identifier of the target platform to build for."
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:147
+msgid ":variable:`CMAKE_SYSTEM_PROCESSOR`"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:148
+msgid "is the CMake-identifier of the target architecture."
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:149
+msgid ":variable:`CMAKE_SYSROOT`"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:150
+msgid "is optional, and may be specified if a sysroot is available."
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:151
+msgid ":variable:`CMAKE_STAGING_PREFIX`"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:152
+msgid ""
+"is also optional. It may be used to specify a path on the host to install "
+"to. The :variable:`CMAKE_INSTALL_PREFIX` is always the runtime installation "
+"location, even when cross-compiling."
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:156
+msgid ""
+"variable may be set to full paths, or to names of compilers to search for in "
+"standard locations.  For toolchains that do not support linking binaries "
+"without custom flags or scripts one may set the :variable:"
+"`CMAKE_TRY_COMPILE_TARGET_TYPE` variable to ``STATIC_LIBRARY`` to tell CMake "
+"not to try to link executables during its checks."
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:162
+msgid ""
+"CMake ``find_*`` commands will look in the sysroot, and the :variable:"
+"`CMAKE_FIND_ROOT_PATH` entries by default in all cases, as well as looking "
+"in the host system root prefix. Although this can be controlled on a case-by-"
+"case basis, when cross-compiling, it can be useful to exclude looking in "
+"either the host or the target for particular artifacts. Generally, includes, "
+"libraries and packages should be found in the target system prefixes, "
+"whereas executables which must be run as part of the build should be found "
+"only on the host and not on the target. This is the purpose of the "
+"``CMAKE_FIND_ROOT_PATH_MODE_*`` variables."
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:174
+msgid "Cross Compiling for the Cray Linux Environment"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:176
+msgid ""
+"Cross compiling for compute nodes in the Cray Linux Environment can be done "
+"without needing a separate toolchain file.  Specifying ``-"
+"DCMAKE_SYSTEM_NAME=CrayLinuxEnvironment`` on the CMake command line will "
+"ensure that the appropriate build settings and search paths are configured. "
+"The platform will pull its configuration from the current environment "
+"variables and will configure a project to use the compiler wrappers from the "
+"Cray Programming Environment's ``PrgEnv-*`` modules if present and loaded."
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:184
+msgid ""
+"The default configuration of the Cray Programming Environment is to only "
+"support static libraries.  This can be overridden and shared libraries "
+"enabled by setting the ``CRAYPE_LINK_TYPE`` environment variable to "
+"``dynamic``."
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:189
+msgid ""
+"Running CMake without specifying :variable:`CMAKE_SYSTEM_NAME` will run the "
+"configure step in host mode assuming a standard Linux environment. If not "
+"overridden, the ``PrgEnv-*`` compiler wrappers will end up getting used, "
+"which if targeting the either the login node or compute node, is likely not "
+"the desired behavior.  The exception to this would be if you are building "
+"directly on a NID instead of cross-compiling from a login node. If trying to "
+"build software for a login node, you will need to either first unload the "
+"currently loaded ``PrgEnv-*`` module or explicitly tell CMake to use the "
+"system compilers in ``/usr/bin`` instead of the Cray wrappers.  If instead "
+"targeting a compute node is desired, just specify the :variable:"
+"`CMAKE_SYSTEM_NAME` as mentioned above."
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:202
+msgid "Cross Compiling using Clang"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:204
+msgid ""
+"Some compilers such as Clang are inherently cross compilers. The :variable:"
+"`CMAKE_<LANG>_COMPILER_TARGET` can be set to pass a value to those supported "
+"compilers when compiling:"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:208
+msgid ""
+"set(CMAKE_SYSTEM_NAME Linux)\n"
+"set(CMAKE_SYSTEM_PROCESSOR arm)\n"
+"\n"
+"set(triple arm-linux-gnueabihf)\n"
+"\n"
+"set(CMAKE_C_COMPILER clang)\n"
+"set(CMAKE_C_COMPILER_TARGET ${triple})\n"
+"set(CMAKE_CXX_COMPILER clang++)\n"
+"set(CMAKE_CXX_COMPILER_TARGET ${triple})"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:220
+msgid ""
+"Similarly, some compilers do not ship their own supplementary utilities such "
+"as linkers, but provide a way to specify the location of the external "
+"toolchain which will be used by the compiler driver. The :variable:"
+"`CMAKE_<LANG>_COMPILER_EXTERNAL_TOOLCHAIN` variable can be set in a "
+"toolchain file to pass the path to the compiler driver."
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:227
+msgid "Cross Compiling for QNX"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:229
+msgid ""
+"As the Clang compiler the QNX QCC compile is inherently a cross compiler. "
+"And the :variable:`CMAKE_<LANG>_COMPILER_TARGET` can be set to pass a value "
+"to those supported compilers when compiling:"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:233
+msgid ""
+"set(CMAKE_SYSTEM_NAME QNX)\n"
+"\n"
+"set(arch gcc_ntoarmv7le)\n"
+"\n"
+"set(CMAKE_C_COMPILER qcc)\n"
+"set(CMAKE_C_COMPILER_TARGET ${arch})\n"
+"set(CMAKE_CXX_COMPILER QCC)\n"
+"set(CMAKE_CXX_COMPILER_TARGET ${arch})\n"
+"\n"
+"set(CMAKE_SYSROOT $ENV{QNX_TARGET})"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:248
+msgid "Cross Compiling for Windows CE"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:250
+msgid ""
+"Cross compiling for Windows CE requires the corresponding SDK being "
+"installed on your system.  These SDKs are usually installed under ``C:/"
+"Program Files (x86)/Windows CE Tools/SDKs``."
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:254
+msgid ""
+"A toolchain file to configure :ref:`Visual Studio Generators` for Windows CE "
+"may look like this:"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:257
+msgid ""
+"set(CMAKE_SYSTEM_NAME WindowsCE)\n"
+"\n"
+"set(CMAKE_SYSTEM_VERSION 8.0)\n"
+"set(CMAKE_SYSTEM_PROCESSOR arm)\n"
+"\n"
+"set(CMAKE_GENERATOR_TOOLSET CE800) # Can be omitted for 8.0\n"
+"set(CMAKE_GENERATOR_PLATFORM SDK_AM335X_SK_WEC2013_V310)"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:267
+msgid ""
+"The :variable:`CMAKE_GENERATOR_PLATFORM` tells the generator which SDK to "
+"use. Further :variable:`CMAKE_SYSTEM_VERSION` tells the generator what "
+"version of Windows CE to use.  Currently version 8.0 (Windows Embedded "
+"Compact 2013) is supported out of the box.  Other versions may require one "
+"to set :variable:`CMAKE_GENERATOR_TOOLSET` to the correct value."
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:274
+msgid "Cross Compiling for Windows 10 Universal Applications"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:276
+msgid ""
+"A toolchain file to configure :ref:`Visual Studio Generators` for a Windows "
+"10 Universal Application may look like this:"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:279
+msgid ""
+"set(CMAKE_SYSTEM_NAME WindowsStore)\n"
+"set(CMAKE_SYSTEM_VERSION 10.0)"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:284
+msgid ""
+"A Windows 10 Universal Application targets both Windows Store and Windows "
+"Phone.  Specify the :variable:`CMAKE_SYSTEM_VERSION` variable to be ``10.0`` "
+"or higher."
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:288
+msgid ""
+"CMake selects a Windows SDK as described by documentation of the :variable:"
+"`CMAKE_VS_WINDOWS_TARGET_PLATFORM_VERSION` variable."
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:292
+msgid "Cross Compiling for Windows Phone"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:294
+msgid ""
+"A toolchain file to configure :ref:`Visual Studio Generators` for Windows "
+"Phone may look like this:"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:297
+msgid ""
+"set(CMAKE_SYSTEM_NAME WindowsPhone)\n"
+"set(CMAKE_SYSTEM_VERSION 8.1)"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:303
+msgid "Cross Compiling for Windows Store"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:305
+msgid ""
+"A toolchain file to configure a :ref:`Visual Studio Generators` for Windows "
+"Store may look like this:"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:308
+msgid ""
+"set(CMAKE_SYSTEM_NAME WindowsStore)\n"
+"set(CMAKE_SYSTEM_VERSION 8.1)"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:316
+msgid "Cross Compiling for ADSP SHARC/Blackfin"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:318
+msgid ""
+"Cross-compiling for ADSP SHARC or Blackfin can be configured by setting the :"
+"variable:`CMAKE_SYSTEM_NAME` variable to ``ADSP`` and the :variable:"
+"`CMAKE_SYSTEM_PROCESSOR` variable to the \"part number\", excluding the "
+"``ADSP-`` prefix, for example, ``21594``, ``SC589``, etc. This value is case "
+"insensitive."
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:325
+msgid ""
+"CMake will automatically search for CCES or VDSP++ installs in their default "
+"install locations and select the most recent version found. CCES will be "
+"selected over VDSP++ if both are installed. Custom install paths can be set "
+"via the :variable:`CMAKE_ADSP_ROOT` variable or the :envvar:`ADSP_ROOT` "
+"environment variable."
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:332
+msgid ""
+"The compiler (``cc21k`` vs. ``ccblkfn``) is selected automatically based on "
+"the :variable:`CMAKE_SYSTEM_PROCESSOR` value provided."
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:338
+msgid "Cross Compiling for Android"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:340
+msgid ""
+"A toolchain file may configure cross-compiling for Android by setting the :"
+"variable:`CMAKE_SYSTEM_NAME` variable to ``Android``.  Further configuration "
+"is specific to the Android development environment to be used."
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:344
+msgid ""
+"For :ref:`Visual Studio Generators`, CMake expects :ref:`NVIDIA Nsight Tegra "
+"Visual Studio Edition <Cross Compiling for Android with NVIDIA Nsight Tegra "
+"Visual Studio Edition>` or the :ref:`Visual Studio tools for Android <Cross "
+"Compiling for Android with the NDK>` to be installed. See those sections for "
+"further configuration details."
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:350
+msgid ""
+"For :ref:`Makefile Generators` and the :generator:`Ninja` generator, CMake "
+"expects one of these environments:"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:353
+msgid ":ref:`NDK <Cross Compiling for Android with the NDK>`"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:354
+msgid ""
+":ref:`Standalone Toolchain <Cross Compiling for Android with a Standalone "
+"Toolchain>`"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:356
+msgid "CMake uses the following steps to select one of the environments:"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:358
+msgid ""
+"If the :variable:`CMAKE_ANDROID_NDK` variable is set, the NDK at the "
+"specified location will be used."
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:361
+msgid ""
+"Else, if the :variable:`CMAKE_ANDROID_STANDALONE_TOOLCHAIN` variable is set, "
+"the Standalone Toolchain at the specified location will be used."
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:364
+msgid ""
+"Else, if the :variable:`CMAKE_SYSROOT` variable is set to a directory of the "
+"form ``<ndk>/platforms/android-<api>/arch-<arch>``, the ``<ndk>`` part will "
+"be used as the value of :variable:`CMAKE_ANDROID_NDK` and the NDK will be "
+"used."
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:369
+msgid ""
+"Else, if the :variable:`CMAKE_SYSROOT` variable is set to a directory of the "
+"form ``<standalone-toolchain>/sysroot``, the ``<standalone-toolchain>`` part "
+"will be used as the value of :variable:`CMAKE_ANDROID_STANDALONE_TOOLCHAIN` "
+"and the Standalone Toolchain will be used."
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:374
+msgid ""
+"Else, if a cmake variable ``ANDROID_NDK`` is set it will be used as the "
+"value of :variable:`CMAKE_ANDROID_NDK`, and the NDK will be used."
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:377
+msgid ""
+"Else, if a cmake variable ``ANDROID_STANDALONE_TOOLCHAIN`` is set, it will "
+"be used as the value of :variable:`CMAKE_ANDROID_STANDALONE_TOOLCHAIN`, and "
+"the Standalone Toolchain will be used."
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:381
+msgid ""
+"Else, if an environment variable ``ANDROID_NDK_ROOT`` or ``ANDROID_NDK`` is "
+"set, it will be used as the value of :variable:`CMAKE_ANDROID_NDK`, and the "
+"NDK will be used."
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:385
+msgid ""
+"Else, if an environment variable ``ANDROID_STANDALONE_TOOLCHAIN`` is set "
+"then it will be used as the value of :variable:"
+"`CMAKE_ANDROID_STANDALONE_TOOLCHAIN`, and the Standalone Toolchain will be "
+"used."
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:390
+msgid ""
+"Else, an error diagnostic will be issued that neither the NDK or Standalone "
+"Toolchain can be found."
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:393
+msgid ""
+"If an Android NDK is selected, its version number is reported in the :"
+"variable:`CMAKE_ANDROID_NDK_VERSION` variable."
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:400
+msgid "Cross Compiling for Android with the NDK"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:402
+msgid ""
+"A toolchain file may configure :ref:`Makefile Generators`, :ref:`Ninja "
+"Generators`, or :ref:`Visual Studio Generators` to target Android for cross-"
+"compiling."
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:406
+msgid "Configure use of an Android NDK with the following variables:"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:409
+#: ../../../manual/cmake-toolchains.7.rst:493
+msgid ""
+"Set to ``Android``.  Must be specified to enable cross compiling for Android."
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:412
+#: ../../../manual/cmake-toolchains.7.rst:514
+msgid ":variable:`CMAKE_SYSTEM_VERSION`"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:413
+msgid ""
+"Set to the Android API level.  If not specified, the value is determined as "
+"follows:"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:416
+msgid ""
+"If the :variable:`CMAKE_ANDROID_API` variable is set, its value is used as "
+"the API level."
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:418
+msgid ""
+"If the :variable:`CMAKE_SYSROOT` variable is set, the API level is detected "
+"from the NDK directory structure containing the sysroot."
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:420
+msgid "Otherwise, the latest API level available in the NDK is used."
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:422
+#: ../../../manual/cmake-toolchains.7.rst:517
+msgid ":variable:`CMAKE_ANDROID_ARCH_ABI`"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:423
+msgid ""
+"Set to the Android ABI (architecture).  If not specified, this variable will "
+"default to the first supported ABI in the list of ``armeabi``, ``armeabi-"
+"v7a`` and ``arm64-v8a``. The :variable:`CMAKE_ANDROID_ARCH` variable will be "
+"computed from ``CMAKE_ANDROID_ARCH_ABI`` automatically. Also see the :"
+"variable:`CMAKE_ANDROID_ARM_MODE` and :variable:`CMAKE_ANDROID_ARM_NEON` "
+"variables."
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:431
+msgid ":variable:`CMAKE_ANDROID_NDK`"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:432
+msgid ""
+"Set to the absolute path to the Android NDK root directory. If not "
+"specified, a default for this variable will be chosen as specified :ref:"
+"`above <Cross Compiling for Android>`."
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:436
+msgid ":variable:`CMAKE_ANDROID_NDK_DEPRECATED_HEADERS`"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:437
+msgid ""
+"Set to a true value to use the deprecated per-api-level headers instead of "
+"the unified headers.  If not specified, the default will be false unless "
+"using a NDK that does not provide unified headers."
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:441
+msgid ":variable:`CMAKE_ANDROID_NDK_TOOLCHAIN_VERSION`"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:442
+msgid ""
+"On NDK r19 or above, this variable must be unset or set to ``clang``. On NDK "
+"r18 or below, set this to the version of the NDK toolchain to be selected as "
+"the compiler.  If not specified, the default will be the latest available "
+"GCC toolchain."
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:447
+msgid ":variable:`CMAKE_ANDROID_STL_TYPE`"
+msgstr ":variable:`CMAKE_ANDROID_STL_TYPE`"
+
+#: ../../../manual/cmake-toolchains.7.rst:448
+msgid ""
+"Set to specify which C++ standard library to use.  If not specified, a "
+"default will be selected as described in the variable documentation."
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:451
+#: ../../../manual/cmake-toolchains.7.rst:512
+msgid "The following variables will be computed and provided automatically:"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:453
+#: ../../../manual/cmake-toolchains.7.rst:520
+msgid ":variable:`CMAKE_<LANG>_ANDROID_TOOLCHAIN_PREFIX`"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:454
+msgid "The absolute path prefix to the binutils in the NDK toolchain."
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:456
+#: ../../../manual/cmake-toolchains.7.rst:523
+msgid ":variable:`CMAKE_<LANG>_ANDROID_TOOLCHAIN_SUFFIX`"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:457
+msgid "The host platform suffix of the binutils in the NDK toolchain."
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:460
+#: ../../../manual/cmake-toolchains.7.rst:526
+msgid "For example, a toolchain file might contain:"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:462
+msgid ""
+"set(CMAKE_SYSTEM_NAME Android)\n"
+"set(CMAKE_SYSTEM_VERSION 21) # API level\n"
+"set(CMAKE_ANDROID_ARCH_ABI arm64-v8a)\n"
+"set(CMAKE_ANDROID_NDK /path/to/android-ndk)\n"
+"set(CMAKE_ANDROID_STL_TYPE gnustl_static)"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:470
+#: ../../../manual/cmake-toolchains.7.rst:533
+msgid "Alternatively one may specify the values without a toolchain file:"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:472
+msgid ""
+"$ cmake ../src \\\n"
+"  -DCMAKE_SYSTEM_NAME=Android \\\n"
+"  -DCMAKE_SYSTEM_VERSION=21 \\\n"
+"  -DCMAKE_ANDROID_ARCH_ABI=arm64-v8a \\\n"
+"  -DCMAKE_ANDROID_NDK=/path/to/android-ndk \\\n"
+"  -DCMAKE_ANDROID_STL_TYPE=gnustl_static"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:484
+msgid "Cross Compiling for Android with a Standalone Toolchain"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:486
+msgid ""
+"A toolchain file may configure :ref:`Makefile Generators` or the :generator:"
+"`Ninja` generator to target Android for cross-compiling using a standalone "
+"toolchain."
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:490
+msgid ""
+"Configure use of an Android standalone toolchain with the following "
+"variables:"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:496
+msgid ":variable:`CMAKE_ANDROID_STANDALONE_TOOLCHAIN`"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:497
+msgid ""
+"Set to the absolute path to the standalone toolchain root directory. A "
+"``${CMAKE_ANDROID_STANDALONE_TOOLCHAIN}/sysroot`` directory must exist. If "
+"not specified, a default for this variable will be chosen as specified :ref:"
+"`above <Cross Compiling for Android>`."
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:503
+msgid ":variable:`CMAKE_ANDROID_ARM_MODE`"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:504
+msgid ""
+"When the standalone toolchain targets ARM, optionally set this to ``ON`` to "
+"target 32-bit ARM instead of 16-bit Thumb. See variable documentation for "
+"details."
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:508
+msgid ":variable:`CMAKE_ANDROID_ARM_NEON`"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:509
+msgid ""
+"When the standalone toolchain targets ARM v7, optionally set thisto ``ON`` "
+"to target ARM NEON devices.  See variable documentation for details."
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:515
+msgid "The Android API level detected from the standalone toolchain."
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:518
+msgid "The Android ABI detected from the standalone toolchain."
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:521
+msgid ""
+"The absolute path prefix to the ``binutils`` in the standalone toolchain."
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:524
+msgid ""
+"The host platform suffix of the ``binutils`` in the standalone toolchain."
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:528
+msgid ""
+"set(CMAKE_SYSTEM_NAME Android)\n"
+"set(CMAKE_ANDROID_STANDALONE_TOOLCHAIN /path/to/android-toolchain)"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:535
+msgid ""
+"$ cmake ../src \\\n"
+"  -DCMAKE_SYSTEM_NAME=Android \\\n"
+"  -DCMAKE_ANDROID_STANDALONE_TOOLCHAIN=/path/to/android-toolchain"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:544
+msgid ""
+"Cross Compiling for Android with NVIDIA Nsight Tegra Visual Studio Edition"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:546
+msgid ""
+"A toolchain file to configure one of the :ref:`Visual Studio Generators` to "
+"build using NVIDIA Nsight Tegra targeting Android may look like this:"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:549
+msgid "set(CMAKE_SYSTEM_NAME Android)"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:553
+msgid ""
+"The :variable:`CMAKE_GENERATOR_TOOLSET` may be set to select the Nsight "
+"Tegra \"Toolchain Version\" value."
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:556
+msgid "See also target properties:"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:558
+msgid ":prop_tgt:`ANDROID_ANT_ADDITIONAL_OPTIONS`"
+msgstr ":prop_tgt:`ANDROID_ANT_ADDITIONAL_OPTIONS`"
+
+#: ../../../manual/cmake-toolchains.7.rst:559
+msgid ":prop_tgt:`ANDROID_API_MIN`"
+msgstr ":prop_tgt:`ANDROID_API_MIN`"
+
+#: ../../../manual/cmake-toolchains.7.rst:560
+msgid ":prop_tgt:`ANDROID_API`"
+msgstr ":prop_tgt:`ANDROID_API`"
+
+#: ../../../manual/cmake-toolchains.7.rst:561
+msgid ":prop_tgt:`ANDROID_ARCH`"
+msgstr ":prop_tgt:`ANDROID_ARCH`"
+
+#: ../../../manual/cmake-toolchains.7.rst:562
+msgid ":prop_tgt:`ANDROID_ASSETS_DIRECTORIES`"
+msgstr ":prop_tgt:`ANDROID_ASSETS_DIRECTORIES`"
+
+#: ../../../manual/cmake-toolchains.7.rst:563
+msgid ":prop_tgt:`ANDROID_GUI`"
+msgstr ":prop_tgt:`ANDROID_GUI`"
+
+#: ../../../manual/cmake-toolchains.7.rst:564
+msgid ":prop_tgt:`ANDROID_JAR_DEPENDENCIES`"
+msgstr ":prop_tgt:`ANDROID_JAR_DEPENDENCIES`"
+
+#: ../../../manual/cmake-toolchains.7.rst:565
+msgid ":prop_tgt:`ANDROID_JAR_DIRECTORIES`"
+msgstr ":prop_tgt:`ANDROID_JAR_DIRECTORIES`"
+
+#: ../../../manual/cmake-toolchains.7.rst:566
+msgid ":prop_tgt:`ANDROID_JAVA_SOURCE_DIR`"
+msgstr ":prop_tgt:`ANDROID_JAVA_SOURCE_DIR`"
+
+#: ../../../manual/cmake-toolchains.7.rst:567
+msgid ":prop_tgt:`ANDROID_NATIVE_LIB_DEPENDENCIES`"
+msgstr ":prop_tgt:`ANDROID_NATIVE_LIB_DEPENDENCIES`"
+
+#: ../../../manual/cmake-toolchains.7.rst:568
+msgid ":prop_tgt:`ANDROID_NATIVE_LIB_DIRECTORIES`"
+msgstr ":prop_tgt:`ANDROID_NATIVE_LIB_DIRECTORIES`"
+
+#: ../../../manual/cmake-toolchains.7.rst:569
+msgid ":prop_tgt:`ANDROID_PROCESS_MAX`"
+msgstr ":prop_tgt:`ANDROID_PROCESS_MAX`"
+
+#: ../../../manual/cmake-toolchains.7.rst:570
+msgid ":prop_tgt:`ANDROID_PROGUARD_CONFIG_PATH`"
+msgstr ":prop_tgt:`ANDROID_PROGUARD_CONFIG_PATH`"
+
+#: ../../../manual/cmake-toolchains.7.rst:571
+msgid ":prop_tgt:`ANDROID_PROGUARD`"
+msgstr ":prop_tgt:`ANDROID_PROGUARD`"
+
+#: ../../../manual/cmake-toolchains.7.rst:572
+msgid ":prop_tgt:`ANDROID_SECURE_PROPS_PATH`"
+msgstr ":prop_tgt:`ANDROID_SECURE_PROPS_PATH`"
+
+#: ../../../manual/cmake-toolchains.7.rst:573
+msgid ":prop_tgt:`ANDROID_SKIP_ANT_STEP`"
+msgstr ":prop_tgt:`ANDROID_SKIP_ANT_STEP`"
+
+#: ../../../manual/cmake-toolchains.7.rst:574
+msgid ":prop_tgt:`ANDROID_STL_TYPE`"
+msgstr ":prop_tgt:`ANDROID_STL_TYPE`"
+
+#: ../../../manual/cmake-toolchains.7.rst:579
+msgid "Cross Compiling for iOS, tvOS, visionOS, or watchOS"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:581
+msgid ""
+"For cross-compiling to iOS, tvOS, visionOS, or watchOS, the :generator:"
+"`Xcode` generator is recommended.  The :generator:`Unix Makefiles` or :"
+"generator:`Ninja` generators can also be used, but they require the project "
+"to handle more areas like target CPU selection and code signing."
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:586
+msgid ""
+"Any of the Apple device platforms can be targeted by setting the :variable:"
+"`CMAKE_SYSTEM_NAME` variable to a value from the table below. By default, "
+"the latest Device SDK is chosen.  As for all Apple platforms, a different "
+"SDK (e.g. a simulator) can be selected by setting the :variable:"
+"`CMAKE_OSX_SYSROOT` variable, although this should rarely be necessary (see :"
+"ref:`Switching Between Device and Simulator` below). A list of available "
+"SDKs can be obtained by running ``xcodebuild -showsdks``."
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:595
+msgid "OS"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:595
+msgid "CMAKE_SYSTEM_NAME"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:595
+msgid "Device SDK (default)"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:595
+msgid "Simulator SDK"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:595
+msgid "Catalyst SDK"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:597
+msgid "iOS"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:597
+msgid "iphoneos"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:597
+msgid "iphonesimulator"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:597
+msgid "macosx"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:598
+msgid "tvOS"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:598
+msgid "appletvos"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:598
+msgid "appletvsimulator"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:598
+#: ../../../manual/cmake-toolchains.7.rst:599
+#: ../../../manual/cmake-toolchains.7.rst:600
+msgid "N/A"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:599
+msgid "visionOS"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:599
+msgid "xros"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:599
+msgid "xrsimulator"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:600
+msgid "watchOS"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:600
+msgid "watchos"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:600
+msgid "watchsimulator"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:603
+msgid ""
+"For example, to create a CMake configuration for iOS, the following command "
+"is sufficient:"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:606
+msgid "cmake .. -GXcode -DCMAKE_SYSTEM_NAME=iOS"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:610
+msgid ""
+"Variable :variable:`CMAKE_OSX_ARCHITECTURES` can be used to set "
+"architectures for both device and simulator. Variable :variable:"
+"`CMAKE_OSX_DEPLOYMENT_TARGET` can be used to set an iOS/tvOS/visionOS/"
+"watchOS deployment target."
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:614
+msgid ""
+"The next example installs five architectures in a universal binary for an "
+"iOS library.  It adds the relevant ``-miphoneos-version-min=9.3`` or ``-mios-"
+"simulator-version-min=9.3`` compiler flag where appropriate. Note that the :"
+"variable:`CMAKE_IOS_INSTALL_COMBINED` variable used in the example is now "
+"deprecated, so this approach is no longer recommended."
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:620
+msgid ""
+"$ cmake -S. -B_builds -GXcode \\\n"
+"    -DCMAKE_SYSTEM_NAME=iOS \\\n"
+"    \"-DCMAKE_OSX_ARCHITECTURES=armv7;armv7s;arm64;i386;x86_64\" \\\n"
+"    -DCMAKE_OSX_DEPLOYMENT_TARGET=9.3 \\\n"
+"    -DCMAKE_INSTALL_PREFIX=`pwd`/_install \\\n"
+"    -DCMAKE_XCODE_ATTRIBUTE_ONLY_ACTIVE_ARCH=NO \\\n"
+"    -DCMAKE_IOS_INSTALL_COMBINED=YES"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:630
+msgid "Example:"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:632
+msgid ""
+"# CMakeLists.txt\n"
+"cmake_minimum_required(VERSION 3.14)\n"
+"project(foo)\n"
+"add_library(foo foo.cpp)\n"
+"install(TARGETS foo DESTINATION lib)"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:640
+msgid "Install:"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:642
+msgid "$ cmake --build _builds --config Release --target install"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:646
+msgid "Check library:"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:648
+msgid ""
+"$ lipo -info _install/lib/libfoo.a\n"
+"Architectures in the fat file: _install/lib/libfoo.a are: i386 armv7 armv7s "
+"x86_64 arm64"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:653
+msgid ""
+"$ otool -l _install/lib/libfoo.a | grep -A2 LC_VERSION_MIN_IPHONEOS\n"
+"      cmd LC_VERSION_MIN_IPHONEOS\n"
+"  cmdsize 16\n"
+"  version 9.3"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:661
+msgid "Code Signing"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:663
+msgid ""
+"Some build artifacts for the embedded Apple platforms require mandatory code "
+"signing.  If the :generator:`Xcode` generator is being used and code signing "
+"is required or desired, the development team ID can be specified via the "
+"``CMAKE_XCODE_ATTRIBUTE_DEVELOPMENT_TEAM`` CMake variable. This team ID will "
+"then be included in the generated Xcode project. By default, CMake avoids "
+"the need for code signing during the internal configuration phase (i.e "
+"compiler ID and feature detection)."
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:674
+msgid "Switching Between Device and Simulator"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:676
+msgid ""
+"When configuring for any of the embedded platforms, one can target either "
+"real devices or the simulator.  Both have their own separate SDK, but CMake "
+"only supports specifying a single SDK for the configuration phase.  This "
+"means the developer must select one or the other at configuration time. When "
+"using the :generator:`Xcode` generator, this is less of a limitation because "
+"Xcode still allows you to build for either a device or a simulator, even "
+"though configuration was only performed for one of the two.  From within the "
+"Xcode IDE, builds are performed for the selected \"destination\" platform.  "
+"When building from the command line, the desired sdk can be specified "
+"directly by passing a ``-sdk`` option to the underlying build tool "
+"(``xcodebuild``).  For example:"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:688
+msgid "$ cmake --build ... -- -sdk iphonesimulator"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:692
+msgid ""
+"Please note that checks made during configuration were performed against the "
+"configure-time SDK and might not hold true for other SDKs.  Commands like :"
+"command:`find_package`, :command:`find_library`, etc. store and use details "
+"only for the configured SDK/platform, so they can be problematic if wanting "
+"to switch between device and simulator builds. You can follow the next rules "
+"to make device + simulator configuration work:"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:699
+msgid ""
+"Use explicit ``-l`` linker flag, e.g. ``target_link_libraries(foo PUBLIC \"-"
+"lz\")``"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:702
+msgid ""
+"Use explicit ``-framework`` linker flag, e.g. ``target_link_libraries(foo "
+"PUBLIC \"-framework CoreFoundation\")``"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:705
+msgid ""
+"Use :command:`find_package` only for libraries installed with :variable:"
+"`CMAKE_IOS_INSTALL_COMBINED` feature"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:711
+msgid "Cross Compiling for Emscripten"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:715
+msgid ""
+"A toolchain file may configure cross-compiling for `Emscripten`_ by setting "
+"the :variable:`CMAKE_SYSTEM_NAME` variable to ``Emscripten``. For example, a "
+"toolchain file might contain:"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:719
+msgid ""
+"set(CMAKE_SYSTEM_NAME Emscripten)\n"
+"set(CMAKE_C_COMPILER /path/to/emcc)\n"
+"set(CMAKE_CXX_COMPILER /path/to/em++)"
+msgstr ""
