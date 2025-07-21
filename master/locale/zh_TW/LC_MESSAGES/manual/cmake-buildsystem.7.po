@@ -40,7 +40,7 @@ msgstr ""
 
 #: ../../../manual/cmake-buildsystem.7.rst:20
 msgid "Binary Targets"
-msgstr ""
+msgstr "二進位目標"
 
 #: ../../../manual/cmake-buildsystem.7.rst:22
 msgid ""
@@ -109,7 +109,7 @@ msgstr ""
 
 #: ../../../manual/cmake-buildsystem.7.rst:70
 msgid "Static Libraries"
-msgstr ""
+msgstr "靜態程式庫"
 
 #: ../../../manual/cmake-buildsystem.7.rst:72
 msgid ""
@@ -161,7 +161,7 @@ msgstr ""
 
 #: ../../../manual/cmake-buildsystem.7.rst:107
 msgid "Shared Libraries"
-msgstr ""
+msgstr "共享程式庫"
 
 #: ../../../manual/cmake-buildsystem.7.rst:109
 msgid ""
@@ -272,7 +272,7 @@ msgstr ""
 
 #: ../../../manual/cmake-buildsystem.7.rst:194
 msgid "Object Libraries"
-msgstr ""
+msgstr "物件程式庫"
 
 #: ../../../manual/cmake-buildsystem.7.rst:196
 msgid ""
@@ -350,7 +350,7 @@ msgstr ""
 
 #: ../../../manual/cmake-buildsystem.7.rst:245
 msgid "Build Specification and Usage Requirements"
-msgstr ""
+msgstr "建置規範與使用要求"
 
 #: ../../../manual/cmake-buildsystem.7.rst:247
 msgid ""
@@ -1587,7 +1587,7 @@ msgstr ""
 
 #: ../../../manual/cmake-buildsystem.7.rst:1107
 msgid "Link Libraries and Generator Expressions"
-msgstr ""
+msgstr "連結程式庫與生成器表達式"
 
 #: ../../../manual/cmake-buildsystem.7.rst:1109
 msgid ""
@@ -1757,7 +1757,7 @@ msgstr ""
 
 #: ../../../manual/cmake-buildsystem.7.rst:1226
 msgid "Directory-Scoped Commands"
-msgstr ""
+msgstr "目錄作用域的命令"
 
 #: ../../../manual/cmake-buildsystem.7.rst:1228
 msgid ""
@@ -1872,11 +1872,11 @@ msgstr ""
 
 #: ../../../manual/cmake-buildsystem.7.rst:1321
 msgid "Default And Custom Configurations"
-msgstr ""
+msgstr "預設與自訂組態"
 
 #: ../../../manual/cmake-buildsystem.7.rst:1323
 msgid "By default, CMake defines a number of standard configurations:"
-msgstr ""
+msgstr "預設情況下，CMake 定義了許多標準組態："
 
 #: ../../../manual/cmake-buildsystem.7.rst:1325
 msgid "``Debug``"
@@ -2094,6 +2094,16 @@ msgid ""
 "add_executable(exe1 exe1.cpp)\n"
 "target_link_libraries(exe1 Eigen)"
 msgstr ""
+"add_library(Eigen INTERFACE)\n"
+"\n"
+"target_sources(Eigen PUBLIC\n"
+"  FILE_SET HEADERS\n"
+"    BASE_DIRS src\n"
+"    FILES src/eigen.h src/vector.h src/matrix.h\n"
+")\n"
+"\n"
+"add_executable(exe1 exe1.cpp)\n"
+"target_link_libraries(exe1 Eigen)"
 
 #: ../../../manual/cmake-buildsystem.7.rst:1482
 msgid ""
@@ -2155,6 +2165,19 @@ msgid ""
 "  DESTINATION lib/cmake/Eigen\n"
 ")"
 msgstr ""
+"add_library(Eigen INTERFACE)\n"
+"\n"
+"target_sources(Eigen PUBLIC\n"
+"  FILE_SET HEADERS\n"
+"    BASE_DIRS src\n"
+"    FILES src/eigen.h src/vector.h src/matrix.h\n"
+")\n"
+"\n"
+"install(TARGETS Eigen EXPORT eigenExport\n"
+"  FILE_SET HEADERS DESTINATION include/Eigen)\n"
+"install(EXPORT eigenExport NAMESPACE Upstream::\n"
+"  DESTINATION lib/cmake/Eigen\n"
+")"
 
 #: ../../../manual/cmake-buildsystem.7.rst:1528
 msgid ""
