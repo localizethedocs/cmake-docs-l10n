@@ -68,7 +68,7 @@ This is a localization project of CMake Documentation. Translations are contribu
 <table>
   <thead>
     <tr>
-      <th rowspan="1" colspan="3" align="center" style="text-align: center;"><div>项目链接</div></th>
+      <th rowspan="1" colspan="2" align="center" style="text-align: center;"><div>项目链接</div></th>
     </tr>
   </thead>
   <tbody>

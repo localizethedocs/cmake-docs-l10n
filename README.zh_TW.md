@@ -20,7 +20,7 @@
 <h2 id="table-of-contents">目次表</h2>
 
 <ul>
-  <li><a href="#introduction">介紹</a></li>
+  <li><a href="#introduction">Introduction</a></li>
   <li><a href="#progress-of-translations">翻譯進度</a></li>
   <li><a href="#preview-translations">預覽翻譯</a></li>
   <li><a href="#maintainers">維護者</a></li>
@@ -32,7 +32,7 @@
   <li><a href="#licenses">授權條款</a></li>
 </ul>
 
-<h2 id="introduction"><a href="#table-of-contents">介紹</a></h2>
+<h2 id="introduction"><a href="#table-of-contents">Introduction</a></h2>
 
 <div align="center"><a href="https://github.com/localizethedocs/cmake-docs-l10n/stargazers" title="GitHub Stars" target="_blank">
   <img alt="GitHub Stars" src="https://img.shields.io/github/stars/localizethedocs/cmake-docs-l10n.svg?logo=github&style=flat&color=blue" />
@@ -68,7 +68,7 @@ This is a localization project of CMake Documentation. Translations are contribu
 <table>
   <thead>
     <tr>
-      <th rowspan="1" colspan="3" align="center" style="text-align: center;"><div>專案連結</div></th>
+      <th rowspan="1" colspan="2" align="center" style="text-align: center;"><div>專案連結</div></th>
     </tr>
   </thead>
   <tbody>
