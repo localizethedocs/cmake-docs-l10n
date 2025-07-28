@@ -1,0 +1,202 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2000-2025 Kitware, Inc. and Contributors
+# This file is distributed under the same license as the CMake package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CMake master\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-07-14 08:20+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../command/define_property.rst:2
+msgid "define_property"
+msgstr ""
+
+#: ../../../command/define_property.rst:4
+msgid "Define and document custom properties."
+msgstr ""
+
+#: ../../../command/define_property.rst:6
+msgid ""
+"define_property(<GLOBAL | DIRECTORY | TARGET | SOURCE |\n"
+"                 TEST | VARIABLE | CACHED_VARIABLE>\n"
+"                 PROPERTY <name> [INHERITED]\n"
+"                 [BRIEF_DOCS <brief-doc> [docs...]]\n"
+"                 [FULL_DOCS <full-doc> [docs...]]\n"
+"                 [INITIALIZE_FROM_VARIABLE <variable>])"
+msgstr ""
+
+#: ../../../command/define_property.rst:15
+msgid ""
+"Defines one property in a scope for use with the :command:`set_property` "
+"and :command:`get_property` commands. It is mainly useful for defining the "
+"way a property is initialized or inherited. Historically, the command also "
+"associated documentation with a property, but that is no longer considered a "
+"primary use case."
+msgstr ""
+
+#: ../../../command/define_property.rst:21
+msgid ""
+"The first argument determines the kind of scope in which the property should "
+"be used.  It must be one of the following:"
+msgstr ""
+
+#: ../../../command/define_property.rst:24
+msgid "``GLOBAL``          - associated with the global namespace."
+msgstr ""
+
+#: ../../../command/define_property.rst:25
+msgid "``DIRECTORY``       - associated with one directory."
+msgstr ""
+
+#: ../../../command/define_property.rst:26
+msgid "``TARGET``          - associated with one target."
+msgstr ""
+
+#: ../../../command/define_property.rst:27
+msgid "``SOURCE``          - associated with one source file."
+msgstr ""
+
+#: ../../../command/define_property.rst:28
+msgid ""
+"``TEST``            - associated with a test named with :command:`add_test`."
+msgstr ""
+
+#: ../../../command/define_property.rst:29
+msgid "``VARIABLE``        - documents a CMake language variable."
+msgstr ""
+
+#: ../../../command/define_property.rst:30
+msgid "``CACHED_VARIABLE`` - documents a CMake cache variable."
+msgstr ""
+
+#: ../../../command/define_property.rst:32
+msgid ""
+"Note that unlike :command:`set_property` and :command:`get_property` no "
+"actual scope needs to be given; only the kind of scope is important."
+msgstr ""
+
+#: ../../../command/define_property.rst:35
+msgid ""
+"The required ``PROPERTY`` option is immediately followed by the name of the "
+"property being defined."
+msgstr ""
+
+#: ../../../command/define_property.rst:38
+msgid ""
+"If the ``INHERITED`` option is given, then the :command:`get_property` "
+"command will chain up to the next higher scope when the requested property "
+"is not set in the scope given to the command."
+msgstr ""
+
+#: ../../../command/define_property.rst:42
+msgid ""
+"``DIRECTORY`` scope chains to its parent directory's scope, continuing the "
+"walk up parent directories until a directory has the property set or there "
+"are no more parents.  If still not found at the top level directory, it "
+"chains to the ``GLOBAL`` scope."
+msgstr ""
+
+#: ../../../command/define_property.rst:46
+msgid ""
+"``TARGET``, ``SOURCE`` and ``TEST`` properties chain to ``DIRECTORY`` scope, "
+"including further chaining up the directories, etc. as needed."
+msgstr ""
+
+#: ../../../command/define_property.rst:49
+msgid ""
+"Note that this scope chaining behavior only applies to calls to :command:"
+"`get_property`, :command:`get_directory_property`, :command:"
+"`get_target_property`, :command:`get_source_file_property` and :command:"
+"`get_test_property`.  There is no inheriting behavior when *setting* "
+"properties, so using ``APPEND`` or ``APPEND_STRING`` with the :command:"
+"`set_property` command will not consider inherited values when working out "
+"the contents to append to."
+msgstr ""
+
+#: ../../../command/define_property.rst:57
+msgid ""
+"The ``BRIEF_DOCS`` and ``FULL_DOCS`` options are followed by strings to be "
+"associated with the property as its brief and full documentation. CMake does "
+"not use this documentation other than making it available to the project via "
+"corresponding options to the :command:`get_property` command."
+msgstr ""
+
+#: ../../../command/define_property.rst:64
+msgid "The ``BRIEF_DOCS`` and ``FULL_DOCS`` options are optional."
+msgstr ""
+
+#: ../../../command/define_property.rst:68
+msgid ""
+"The ``INITIALIZE_FROM_VARIABLE`` option specifies a variable from which the "
+"property should be initialized. It can only be used with target properties. "
+"The ``<variable>`` name must end with the property name and must not begin "
+"with ``CMAKE_`` or ``_CMAKE_``. The property name must contain at least one "
+"underscore. It is recommended that the property name have a prefix specific "
+"to the project."
+msgstr ""
+
+#: ../../../command/define_property.rst:76
+msgid "Property Redefinition"
+msgstr ""
+
+#: ../../../command/define_property.rst:78
+msgid ""
+"Once a property is defined for a particular type of scope, it cannot be "
+"redefined. Attempts to redefine an existing property by calling :command:"
+"`define_property` with the same scope type and property name will be "
+"silently ignored. Defining the same property name for two different kinds of "
+"scope is valid."
+msgstr ""
+
+#: ../../../command/define_property.rst:84
+msgid ""
+":command:`get_property` can be used to determine whether a property is "
+"already defined for a particular kind of scope, and if so, to examine its "
+"definition. For example:"
+msgstr ""
+
+#: ../../../command/define_property.rst:88
+msgid ""
+"# Initial definition\n"
+"define_property(TARGET PROPERTY MY_NEW_PROP\n"
+"  BRIEF_DOCS \"My new custom property\"\n"
+")\n"
+"\n"
+"# Later examination\n"
+"get_property(my_new_prop_exists\n"
+"  TARGET NONE\n"
+"  PROPERTY MY_NEW_PROP\n"
+"  DEFINED\n"
+")\n"
+"\n"
+"if(my_new_prop_exists)\n"
+"  get_property(my_new_prop_docs\n"
+"    TARGET NONE\n"
+"    PROPERTY MY_NEW_PROP\n"
+"    BRIEF_DOCS\n"
+"  )\n"
+"  # ${my_new_prop_docs} is now set to \"My new custom property\"\n"
+"endif()"
+msgstr ""
+
+#: ../../../command/define_property.rst:112
+msgid "See Also"
+msgstr "另請參見"
+
+#: ../../../command/define_property.rst:114
+msgid ":command:`get_property`"
+msgstr ""
+
+#: ../../../command/define_property.rst:115
+msgid ":command:`set_property`"
+msgstr ""

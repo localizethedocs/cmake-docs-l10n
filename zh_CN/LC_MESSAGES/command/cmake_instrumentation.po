@@ -1,0 +1,111 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2000-2025 Kitware, Inc. and Contributors
+# This file is distributed under the same license as the CMake package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CMake master\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-07-14 08:20+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../command/cmake_instrumentation.rst:2
+msgid "cmake_instrumentation"
+msgstr ""
+
+#: ../../../command/cmake_instrumentation.rst:8
+msgid ""
+"This command is only available when experimental support for instrumentation "
+"has been enabled by the ``CMAKE_EXPERIMENTAL_INSTRUMENTATION`` gate."
+msgstr ""
+
+#: ../../../command/cmake_instrumentation.rst:11
+msgid ""
+"Enables interacting with the :manual:`CMake Instrumentation API <cmake-"
+"instrumentation(7)>`."
+msgstr ""
+
+#: ../../../command/cmake_instrumentation.rst:14
+msgid "This allows for configuring instrumentation at the project-level."
+msgstr ""
+
+#: ../../../command/cmake_instrumentation.rst:16
+msgid ""
+"cmake_instrumentation(\n"
+"  API_VERSION <version>\n"
+"  DATA_VERSION <version>\n"
+"  [HOOKS <hooks>...]\n"
+"  [QUERIES <queries>...]\n"
+"  [CALLBACK <callback>]\n"
+")"
+msgstr ""
+
+#: ../../../command/cmake_instrumentation.rst:26
+msgid ""
+"The ``API_VERSION`` and ``DATA_VERSION`` must always be given.  Currently, "
+"the only supported value for both fields is 1.  See :ref:`cmake-"
+"instrumentation API v1` for details of the ``API_VERSION`` and :ref:`cmake-"
+"instrumentation Data v1` for details of the ``DATA_VERSION``."
+msgstr ""
+
+#: ../../../command/cmake_instrumentation.rst:31
+msgid ""
+"Each of the optional keywords ``HOOKS``, ``QUERIES``, and ``CALLBACK`` "
+"correspond to one of the parameters to the :ref:`cmake-instrumentation v1 "
+"Query Files`. The ``CALLBACK`` keyword can be provided multiple times to "
+"create multiple callbacks."
+msgstr ""
+
+#: ../../../command/cmake_instrumentation.rst:35
+msgid ""
+"Whenever ``cmake_instrumentation`` is invoked, a query file is generated in "
+"``<build>/.cmake/instrumentation/v1/query/generated`` to enable "
+"instrumentation with the provided arguments."
+msgstr ""
+
+#: ../../../command/cmake_instrumentation.rst:40
+msgid "Example"
+msgstr ""
+
+#: ../../../command/cmake_instrumentation.rst:42
+msgid ""
+"The following example shows an invocation of the command and its equivalent "
+"JSON query file."
+msgstr ""
+
+#: ../../../command/cmake_instrumentation.rst:45
+msgid ""
+"cmake_instrumentation(\n"
+"  API_VERSION 1\n"
+"  DATA_VERSION 1\n"
+"  HOOKS postGenerate preCMakeBuild postCMakeBuild\n"
+"  QUERIES staticSystemInformation dynamicSystemInformation\n"
+"  CALLBACK ${CMAKE_COMMAND} -P /path/to/handle_data.cmake\n"
+"  CALLBACK ${CMAKE_COMMAND} -P /path/to/handle_data_2.cmake\n"
+")"
+msgstr ""
+
+#: ../../../command/cmake_instrumentation.rst:56
+msgid ""
+"{\n"
+"  \"version\": 1,\n"
+"  \"hooks\": [\n"
+"    \"postGenerate\", \"preCMakeBuild\", \"postCMakeBuild\"\n"
+"  ],\n"
+"  \"queries\": [\n"
+"    \"staticSystemInformation\", \"dynamicSystemInformation\"\n"
+"  ],\n"
+"  \"callbacks\": [\n"
+"    \"/path/to/cmake -P /path/to/handle_data.cmake\"\n"
+"    \"/path/to/cmake -P /path/to/handle_data_2.cmake\"\n"
+"  ]\n"
+"}"
+msgstr ""

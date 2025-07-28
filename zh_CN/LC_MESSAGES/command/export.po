@@ -1,0 +1,389 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2000-2025 Kitware, Inc. and Contributors
+# This file is distributed under the same license as the CMake package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CMake master\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-07-14 08:20+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../command/export.rst:2
+msgid "export"
+msgstr ""
+
+#: ../../../command/export.rst:4
+msgid ""
+"Export targets or packages for outside projects to use them directly from "
+"the current project's build tree, without installation."
+msgstr ""
+
+#: ../../../command/export.rst:7
+msgid ""
+"See the :command:`install(EXPORT)` command to export targets from an install "
+"tree."
+msgstr ""
+
+#: ../../../command/export.rst:11
+msgid "Synopsis"
+msgstr ""
+
+#: ../../../command/export.rst:15
+msgid ""
+"export(`TARGETS`_ <target>... [...])\n"
+"export(`EXPORT`_ <export-name> [...])\n"
+"export(`PACKAGE`_ <PackageName>)\n"
+"export(`SETUP`_ <export-name> [...])"
+msgstr ""
+
+#: ../../../command/export.rst:21
+msgid "Exporting Targets"
+msgstr ""
+
+#: ../../../command/export.rst:26
+msgid ""
+"export(TARGETS <target>... [NAMESPACE <namespace>]\n"
+"       [APPEND] FILE <filename> [EXPORT_LINK_INTERFACE_LIBRARIES]\n"
+"       [CXX_MODULES_DIRECTORY <directory>])"
+msgstr ""
+
+#: ../../../command/export.rst:32
+msgid ""
+"Creates a file ``<filename>`` that may be included by outside projects to "
+"import targets named by ``<target>...`` from the current project's build "
+"tree. This is useful during cross-compiling to build utility executables "
+"that can run on the host platform in one project and then import them into "
+"another project being compiled for the target platform."
+msgstr ""
+
+#: ../../../command/export.rst:38
+msgid ""
+"The file created by this command is specific to the build tree and should "
+"never be installed.  See the :command:`install(EXPORT)` command to export "
+"targets from an install tree."
+msgstr ""
+
+#: ../../../command/export.rst:42
+msgid "The options are:"
+msgstr ""
+
+#: ../../../command/export.rst:44
+msgid "``NAMESPACE <namespace>``"
+msgstr ""
+
+#: ../../../command/export.rst:45
+msgid ""
+"Prepend the ``<namespace>`` string to all target names written to the file."
+msgstr ""
+
+#: ../../../command/export.rst:47
+msgid "``APPEND``"
+msgstr ""
+
+#: ../../../command/export.rst:48
+msgid ""
+"Append to the file instead of overwriting it.  This can be used to "
+"incrementally export multiple targets to the same file."
+msgstr ""
+
+#: ../../../command/export.rst:51
+msgid "``EXPORT_LINK_INTERFACE_LIBRARIES``"
+msgstr ""
+
+#: ../../../command/export.rst:52
+msgid ""
+"Include the contents of the properties named with the pattern ``(IMPORTED_)?"
+"LINK_INTERFACE_LIBRARIES(_<CONFIG>)?`` in the export, even when policy :"
+"policy:`CMP0022` is NEW.  This is useful to support consumers using CMake "
+"versions older than 2.8.12."
+msgstr ""
+
+#: ../../../command/export.rst:57
+msgid "``CXX_MODULES_DIRECTORY <directory>``"
+msgstr ""
+
+#: ../../../command/export.rst:60
+msgid ""
+"Export C++ module properties to files under the given directory. Each file "
+"will be named according to the target's export name (without any namespace). "
+"These files will automatically be included from the export file."
+msgstr ""
+
+#: ../../../command/export.rst:64
+msgid ""
+"This signature requires all targets to be listed explicitly.  If a library "
+"target is included in the export, but a target to which it links is not "
+"included, the behavior is unspecified.  See the :command:`export(EXPORT)` "
+"signature to automatically export the same targets from the build tree as :"
+"command:`install(EXPORT)` would from an install tree."
+msgstr ""
+
+#: ../../../command/export.rst:72
+msgid ""
+":ref:`Object Libraries` under :generator:`Xcode` have special handling if "
+"multiple architectures are listed in :variable:`CMAKE_OSX_ARCHITECTURES`. In "
+"this case they will be exported as :ref:`Interface Libraries` with no object "
+"files available to clients.  This is sufficient to satisfy transitive usage "
+"requirements of other targets that link to the object libraries in their "
+"implementation."
+msgstr ""
+
+#: ../../../command/export.rst:79
+msgid ""
+"This command exports all :ref:`build configurations` from the build tree. "
+"See the :variable:`CMAKE_MAP_IMPORTED_CONFIG_<CONFIG>` variable to map "
+"configurations of dependent projects to the exported configurations."
+msgstr ""
+
+#: ../../../command/export.rst:84
+msgid "Exporting Targets to Android.mk"
+msgstr ""
+
+#: ../../../command/export.rst:86
+msgid "export(TARGETS <target>... ANDROID_MK <filename>)"
+msgstr ""
+
+#: ../../../command/export.rst:92
+msgid ""
+"This signature exports CMake built targets to the android ndk build system "
+"by creating an ``Android.mk`` file that references the prebuilt targets. The "
+"Android NDK supports the use of prebuilt libraries, both static and shared. "
+"This allows CMake to build the libraries of a project and make them "
+"available to an ndk build system complete with transitive dependencies, "
+"include flags and defines required to use the libraries. The signature takes "
+"a list of targets and puts them in the ``Android.mk`` file specified by the "
+"``<filename>`` given. This signature can only be used if policy :policy:"
+"`CMP0022` is NEW for all targets given. A error will be issued if that "
+"policy is set to OLD for one of the targets."
+msgstr ""
+
+#: ../../../command/export.rst:104
+msgid "Exporting Targets matching install(EXPORT)"
+msgstr ""
+
+#: ../../../command/export.rst:109
+msgid ""
+"export(EXPORT <export-name> [NAMESPACE <namespace>] [FILE <filename>]\n"
+"       [CXX_MODULES_DIRECTORY <directory>] [EXPORT_PACKAGE_DEPENDENCIES])"
+msgstr ""
+
+#: ../../../command/export.rst:114
+msgid ""
+"Creates a file ``<filename>`` that may be included by outside projects to "
+"import targets from the current project's build tree.  This is the same as "
+"the :command:`export(TARGETS)` signature, except that the targets are not "
+"explicitly listed.  Instead, it exports the targets associated with the "
+"installation export ``<export-name>``.  Target installations may be "
+"associated with the export ``<export-name>`` using the ``EXPORT`` option of "
+"the :command:`install(TARGETS)` command."
+msgstr ""
+
+#: ../../../command/export.rst:122
+msgid "``EXPORT_PACKAGE_DEPENDENCIES``"
+msgstr ""
+
+#: ../../../command/export.rst:125 ../../../command/export.rst:222
+msgid ""
+"Experimental. Gated by ``CMAKE_EXPERIMENTAL_EXPORT_PACKAGE_DEPENDENCIES``."
+msgstr ""
+
+#: ../../../command/export.rst:127
+msgid ""
+"Specify that :command:`find_dependency` calls should be exported. See :"
+"command:`install(EXPORT)` for details on how this works."
+msgstr ""
+
+#: ../../../command/export.rst:131
+msgid "Exporting Targets to the |CPS|"
+msgstr ""
+
+#: ../../../command/export.rst:133
+msgid ""
+"export(EXPORT <export-name> PACKAGE_INFO <package-name>\n"
+"       [PROJECT <project-name>|NO_PROJECT_METADATA]\n"
+"       [APPENDIX <appendix-name>]\n"
+"       [LOWER_CASE_FILE]\n"
+"       [VERSION <version>\n"
+"        [COMPAT_VERSION <version>]\n"
+"        [VERSION_SCHEMA <string>]]\n"
+"       [DEFAULT_TARGETS <target>...]\n"
+"       [DEFAULT_CONFIGURATIONS <config>...]\n"
+"       [LICENSE <license-string>]\n"
+"       [DEFAULT_LICENSE <license-string>]\n"
+"       [DESCRIPTION <description-string>]\n"
+"       [HOMEPAGE_URL <url-string>])"
+msgstr ""
+
+#: ../../../command/export.rst:152
+msgid "Experimental. Gated by ``CMAKE_EXPERIMENTAL_EXPORT_PACKAGE_INFO``."
+msgstr ""
+
+#: ../../../command/export.rst:154
+msgid ""
+"Creates a file in the |CPS|_ that may be included by outside projects to "
+"import targets named by ``<target>...`` from the current project's build "
+"tree.  See the :command:`install(PACKAGE_INFO)` command to export targets "
+"from an install tree.  The imported targets are implicitly in the namespace "
+"``<package-name>``."
+msgstr ""
+
+#: ../../../command/export.rst:159
+msgid ""
+"The default file name is ``<package-name>[-<appendix-name>].cps``. If the "
+"``LOWER_CASE_FILE`` option is given, the file name will use the package name "
+"converted to lower case."
+msgstr ""
+
+#: ../../../command/export.rst:163
+msgid ""
+"See :command:`install(PACKAGE_INFO)` for a description of the other options."
+msgstr ""
+
+#: ../../../command/export.rst:166
+msgid "Exporting Packages"
+msgstr ""
+
+#: ../../../command/export.rst:171
+msgid "export(PACKAGE <PackageName>)"
+msgstr ""
+
+#: ../../../command/export.rst:175
+msgid ""
+"Store the current build directory in the CMake user package registry for "
+"package ``<PackageName>``.  The :command:`find_package` command may consider "
+"the directory while searching for package ``<PackageName>``.  This helps "
+"dependent projects find and use a package from the current project's build "
+"tree without help from the user.  Note that the entry in the package "
+"registry that this command creates works only in conjunction with a package "
+"configuration file (``<PackageName>Config.cmake``) that works with the build "
+"tree. In some cases, for example for packaging and for system wide "
+"installations, it is not desirable to write the user package registry."
+msgstr ""
+
+#: ../../../command/export.rst:186
+msgid ""
+"If the :variable:`CMAKE_EXPORT_NO_PACKAGE_REGISTRY` variable is enabled, the "
+"``export(PACKAGE)`` command will do nothing."
+msgstr ""
+
+#: ../../../command/export.rst:190
+msgid ""
+"By default the ``export(PACKAGE)`` command does nothing (see policy :policy:"
+"`CMP0090`) because populating the user package registry has effects outside "
+"the source and build trees.  Set the :variable:"
+"`CMAKE_EXPORT_PACKAGE_REGISTRY` variable to add build directories to the "
+"CMake user package registry."
+msgstr ""
+
+#: ../../../command/export.rst:198
+msgid "Configuring Exports"
+msgstr ""
+
+#: ../../../command/export.rst:203
+msgid ""
+"export(SETUP <export-name>\n"
+"       [PACKAGE_DEPENDENCY <dep>\n"
+"        [ENABLED (<bool-true>|<bool-false>|AUTO)]\n"
+"        [EXTRA_ARGS <args>...]\n"
+"       ] [...]\n"
+"       [TARGET <target>\n"
+"        [XCFRAMEWORK_LOCATION <location>]\n"
+"       ] [...]\n"
+"       )"
+msgstr ""
+
+#: ../../../command/export.rst:217
+msgid "Configure the parameters of an export. The arguments are as follows:"
+msgstr ""
+
+#: ../../../command/export.rst:219
+msgid "``PACKAGE_DEPENDENCY <dep>``"
+msgstr ""
+
+#: ../../../command/export.rst:224
+msgid ""
+"Specify a package dependency to configure. This changes how :command:"
+"`find_dependency` calls are written during :command:`export(EXPORT)` and :"
+"command:`install(EXPORT)`. ``<dep>`` is the name of a package to export. "
+"This argument accepts the following additional arguments:"
+msgstr ""
+
+#: ../../../command/export.rst:230
+msgid "``ENABLED``"
+msgstr ""
+
+#: ../../../command/export.rst:231
+msgid ""
+"Manually control whether or not the dependency is exported. This accepts the "
+"following values:"
+msgstr ""
+
+#: ../../../command/export.rst:234
+msgid "``<bool-true>``"
+msgstr ""
+
+#: ../../../command/export.rst:235
+msgid ""
+"Any value that CMake recognizes as \"true\". Always export the dependency, "
+"even if no exported targets depend on it. This can be used to manually add :"
+"command:`find_dependency` calls to the export."
+msgstr ""
+
+#: ../../../command/export.rst:239
+msgid "``<bool-false>``"
+msgstr ""
+
+#: ../../../command/export.rst:240
+msgid ""
+"Any value that CMake recognizes as \"false\". Never export the dependency, "
+"even if an exported target depends on it."
+msgstr ""
+
+#: ../../../command/export.rst:243
+msgid "``AUTO``"
+msgstr ""
+
+#: ../../../command/export.rst:244
+msgid "Only export the dependency if an exported target depends on it."
+msgstr ""
+
+#: ../../../command/export.rst:246
+msgid "``EXTRA_ARGS <args>``"
+msgstr ""
+
+#: ../../../command/export.rst:247
+msgid ""
+"Specify additional arguments to pass to :command:`find_dependency` after the "
+"``REQUIRED`` argument."
+msgstr ""
+
+#: ../../../command/export.rst:250
+msgid "``TARGET <target>``"
+msgstr ""
+
+#: ../../../command/export.rst:251
+msgid ""
+"Specify a target to configure in this export. This argument accepts the "
+"following additional arguments:"
+msgstr ""
+
+#: ../../../command/export.rst:254
+msgid "``XCFRAMEWORK_LOCATION``"
+msgstr ""
+
+#: ../../../command/export.rst:255
+msgid ""
+"Specify the location of an ``.xcframework`` which contains the library from "
+"this target. If specified, the generated code will check to see if the ``."
+"xcframework`` exists, and if it does, it will use the ``.xcframework`` as "
+"its imported location instead of the installed library."
+msgstr ""

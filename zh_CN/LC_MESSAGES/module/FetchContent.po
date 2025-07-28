@@ -1,0 +1,1453 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2000-2025 Kitware, Inc. and Contributors
+# This file is distributed under the same license as the CMake package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CMake master\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-07-14 08:20+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../../Modules/FetchContent.cmake:6
+msgid "FetchContent"
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:11
+msgid "Contents"
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:14
+msgid ""
+"The :guide:`Using Dependencies Guide` provides a high-level introduction to "
+"this general topic. It provides a broader overview of where the "
+"``FetchContent`` module fits into the bigger picture, including its "
+"relationship to the :command:`find_package` command. The guide is "
+"recommended pre-reading before moving on to the details below."
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:21
+msgid "Overview"
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:23
+msgid ""
+"This module enables populating content at configure time via any method "
+"supported by the :module:`ExternalProject` module.  Whereas :command:"
+"`ExternalProject_Add` downloads at build time, the ``FetchContent`` module "
+"makes content available immediately, allowing the configure step to use the "
+"content in commands like :command:`add_subdirectory`, :command:`include` or :"
+"command:`file` operations."
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:30
+msgid ""
+"Content population details should be defined separately from the command "
+"that performs the actual population.  This separation ensures that all the "
+"dependency details are defined before anything might try to use them to "
+"populate content.  This is particularly important in more complex project "
+"hierarchies where dependencies may be shared between multiple projects."
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:36
+msgid ""
+"The following shows a typical example of declaring content details for some "
+"dependencies and then ensuring they are populated with a separate call:"
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:39
+msgid ""
+"FetchContent_Declare(\n"
+"  googletest\n"
+"  GIT_REPOSITORY https://github.com/google/googletest.git\n"
+"  GIT_TAG        703bd9caab50b139428cea1aaff9974ebee5742e # release-1.10.0\n"
+")\n"
+"FetchContent_Declare(\n"
+"  myCompanyIcons\n"
+"  URL      https://intranet.mycompany.com/assets/iconset_1.12.tar.gz\n"
+"  URL_HASH MD5=5588a7b18261c20068beabfb4f530b87\n"
+")\n"
+"\n"
+"FetchContent_MakeAvailable(googletest myCompanyIcons)"
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:54
+msgid ""
+"The :command:`FetchContent_MakeAvailable` command ensures the named "
+"dependencies have been populated, either by an earlier call, or by "
+"populating them itself.  When performing the population, it will also add "
+"them to the main build, if possible, so that the main build can use the "
+"populated projects' targets, etc.  See the command's documentation for how "
+"these steps are performed."
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:61
+msgid ""
+"When using a hierarchical project arrangement, projects at higher levels in "
+"the hierarchy are able to override the declared details of content specified "
+"anywhere lower in the project hierarchy.  The first details to be declared "
+"for a given dependency take precedence, regardless of where in the project "
+"hierarchy that occurs.  Similarly, the first call that tries to populate a "
+"dependency \"wins\", with subsequent populations reusing the result of the "
+"first instead of repeating the population again. See the :ref:`Examples "
+"<fetch-content-examples>` which demonstrate this scenario."
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:71
+msgid ""
+"The ``FetchContent`` module also supports defining and populating content in "
+"a single call, with no check for whether the content has been populated "
+"elsewhere already.  This should not be done in projects, but may be "
+"appropriate for populating content in :ref:`CMake script mode <Script "
+"Processing Mode>`. See :command:`FetchContent_Populate` for details."
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:79
+msgid "Commands"
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:83
+msgid ""
+"FetchContent_Declare(\n"
+"  <name>\n"
+"  <contentOptions>...\n"
+"  [EXCLUDE_FROM_ALL]\n"
+"  [SYSTEM]\n"
+"  [OVERRIDE_FIND_PACKAGE |\n"
+"   FIND_PACKAGE_ARGS args...]\n"
+")"
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:94
+msgid ""
+"The ``FetchContent_Declare()`` function records the options that describe "
+"how to populate the specified content.  If such details have already been "
+"recorded earlier in this project (regardless of where in the project "
+"hierarchy), this and all later calls for the same content ``<name>`` are "
+"ignored.  This \"first to record, wins\" approach is what allows "
+"hierarchical projects to have parent projects override content details of "
+"child projects."
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:101
+msgid ""
+"The content ``<name>`` can be any string without spaces, but good practice "
+"would be to use only letters, numbers, and underscores.  The name will be "
+"treated case-insensitively, and it should be obvious for the content it "
+"represents. It is often the name of the child project, or the value given to "
+"its top level :command:`project` command (if it is a CMake project). For "
+"well-known public projects, the name should generally be the official name "
+"of the project.  Choosing an unusual name makes it unlikely that other "
+"projects needing that same content will use the same name, leading to the "
+"content being populated multiple times."
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:111
+msgid ""
+"The ``<contentOptions>`` can be any of the download, update, or patch "
+"options that the :command:`ExternalProject_Add` command understands.  The "
+"configure, build, install, and test steps are explicitly disabled, so "
+"options related to those steps will be ignored.  The ``SOURCE_SUBDIR`` "
+"option is an exception, see :command:`FetchContent_MakeAvailable` for "
+"details on how that affects behavior."
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:118
+msgid ""
+"When policy :policy:`CMP0168` is set to ``NEW``, some output-related and "
+"directory-related options are ignored.  See the policy documentation for "
+"details."
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:123
+msgid ""
+"In most cases, ``<contentOptions>`` will just be a couple of options "
+"defining the download method and method-specific details like a commit tag "
+"or archive hash.  For example:"
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:127
+msgid ""
+"FetchContent_Declare(\n"
+"  googletest\n"
+"  GIT_REPOSITORY https://github.com/google/googletest.git\n"
+"  GIT_TAG        703bd9caab50b139428cea1aaff9974ebee5742e # release-1.10.0\n"
+")\n"
+"\n"
+"FetchContent_Declare(\n"
+"  myCompanyIcons\n"
+"  URL      https://intranet.mycompany.com/assets/iconset_1.12.tar.gz\n"
+"  URL_HASH MD5=5588a7b18261c20068beabfb4f530b87\n"
+")\n"
+"\n"
+"FetchContent_Declare(\n"
+"  myCompanyCertificates\n"
+"  SVN_REPOSITORY svn+ssh://svn.mycompany.com/srv/svn/trunk/certs\n"
+"  SVN_REVISION   -r12345\n"
+")"
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:147
+msgid ""
+"Where contents are being fetched from a remote location and you do not "
+"control that server, it is advisable to use a hash for ``GIT_TAG`` rather "
+"than a branch or tag name.  A commit hash is more secure and helps to "
+"confirm that the downloaded contents are what you expected."
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:152
+msgid ""
+"Commands for the download, update, or patch steps can access the terminal. "
+"This may be needed for things like password prompts or real-time display of "
+"command progress."
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:157
+msgid ""
+"The :variable:`CMAKE_TLS_VERIFY`, :variable:`CMAKE_TLS_CAINFO`, :variable:"
+"`CMAKE_NETRC`, and :variable:`CMAKE_NETRC_FILE` variables now provide the "
+"defaults for their corresponding content options, just like they do for :"
+"command:`ExternalProject_Add`. Previously, these variables were ignored by "
+"the ``FetchContent`` module."
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:166
+#: ../../../../Modules/FetchContent.cmake:433
+msgid "``FIND_PACKAGE_ARGS``"
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:167
+msgid ""
+"This option is for scenarios where the :command:`FetchContent_MakeAvailable` "
+"command may first try a call to :command:`find_package` to satisfy the "
+"dependency for ``<name>``. By default, such a call would be simply "
+"``find_package(<name>)``, but ``FIND_PACKAGE_ARGS`` can be used to provide "
+"additional arguments to be appended after the ``<name>``.  "
+"``FIND_PACKAGE_ARGS`` can also be given with nothing after it, which "
+"indicates that :command:`find_package` can still be called if :variable:"
+"`FETCHCONTENT_TRY_FIND_PACKAGE_MODE` is set to ``OPT_IN``, or is not set."
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:177
+msgid ""
+"It would not normally be appropriate to specify ``REQUIRED`` as one of the "
+"additional arguments after ``FIND_PACKAGE_ARGS``.  Doing so would mean the :"
+"command:`find_package` call must succeed, so none of the other details "
+"specified in the ``FetchContent_Declare()`` call would get a chance to be "
+"used as a fall-back."
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:183
+msgid ""
+"Everything after the ``FIND_PACKAGE_ARGS`` keyword is appended to the :"
+"command:`find_package` call, so all other ``<contentOptions>`` must come "
+"before the ``FIND_PACKAGE_ARGS`` keyword.  If the :variable:"
+"`CMAKE_FIND_PACKAGE_TARGETS_GLOBAL` variable is set to true at the time "
+"``FetchContent_Declare()`` is called, a ``GLOBAL`` keyword will be appended "
+"to the :command:`find_package` arguments if it was not already specified.  "
+"It will also be appended if ``FIND_PACKAGE_ARGS`` was not given, but :"
+"variable:`FETCHCONTENT_TRY_FIND_PACKAGE_MODE` was set to ``ALWAYS``."
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:193
+msgid ""
+"``OVERRIDE_FIND_PACKAGE`` cannot be used when ``FIND_PACKAGE_ARGS`` is given."
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:196
+msgid ""
+":ref:`dependency_providers` discusses another way that :command:"
+"`FetchContent_MakeAvailable` calls can be redirected. ``FIND_PACKAGE_ARGS`` "
+"is intended for project control, whereas dependency providers allow users to "
+"override project behavior."
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:201
+#: ../../../../Modules/FetchContent.cmake:432
+msgid "``OVERRIDE_FIND_PACKAGE``"
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:202
+msgid ""
+"When a ``FetchContent_Declare(<name> ...)`` call includes this option, "
+"subsequent calls to ``find_package(<name> ...)`` will ensure that "
+"``FetchContent_MakeAvailable(<name>)`` has been called, then use the config "
+"package files in the :variable:`CMAKE_FIND_PACKAGE_REDIRECTS_DIR` directory "
+"(which are usually created by ``FetchContent_MakeAvailable()``). This "
+"effectively makes :command:`FetchContent_MakeAvailable` override :command:"
+"`find_package` for the named dependency, allowing the former to satisfy the "
+"package requirements of the latter.  ``FIND_PACKAGE_ARGS`` cannot be used "
+"when ``OVERRIDE_FIND_PACKAGE`` is given."
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:212
+msgid ""
+"If a :ref:`dependency provider <dependency_providers>` has been set and the "
+"project calls :command:`find_package` for the ``<name>`` dependency, "
+"``OVERRIDE_FIND_PACKAGE`` will not prevent the provider from seeing that "
+"call.  Dependency providers always have the opportunity to intercept any "
+"direct call to :command:`find_package`, except if that call contains the "
+"``BYPASS_PROVIDER`` option."
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:221
+#: ../../../../Modules/FetchContent.cmake:431
+msgid "``SYSTEM``"
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:222
+msgid ""
+"If the ``SYSTEM`` argument is provided, the :prop_dir:`SYSTEM` directory "
+"property of a subdirectory added by :command:`FetchContent_MakeAvailable` "
+"will be set to true.  This will affect non-imported targets created as part "
+"of that command. See the :prop_tgt:`SYSTEM` target property documentation "
+"for a more detailed discussion of the effects."
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:231
+#: ../../../../Modules/FetchContent.cmake:430
+msgid "``EXCLUDE_FROM_ALL``"
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:232
+msgid ""
+"If the ``EXCLUDE_FROM_ALL`` argument is provided, then targets in the "
+"subdirectory added by :command:`FetchContent_MakeAvailable` will not be "
+"included in the ``ALL`` target by default, and may be excluded from IDE "
+"project files. See the documentation for the directory property :prop_dir:"
+"`EXCLUDE_FROM_ALL` for a detailed discussion of the effects."
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:242
+msgid "FetchContent_MakeAvailable(<name1> [<name2>...])"
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:246
+msgid ""
+"This command ensures that each of the named dependencies are made available "
+"to the project by the time it returns.  There must have been a call to :"
+"command:`FetchContent_Declare` for each dependency, and the first such call "
+"will control how that dependency will be made available, as described below."
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:251
+msgid "If ``<lowercaseName>_SOURCE_DIR`` is not set:"
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:255
+msgid ""
+"If a :ref:`dependency provider <dependency_providers>` is set, call the "
+"provider's command with ``FETCHCONTENT_MAKEAVAILABLE_SERIAL`` as the first "
+"argument, followed by the arguments of the first call to :command:"
+"`FetchContent_Declare` for ``<name>``.  If ``SOURCE_DIR`` or ``BINARY_DIR`` "
+"were not part of the original declared arguments, they will be added with "
+"their default values. If :variable:`FETCHCONTENT_TRY_FIND_PACKAGE_MODE` was "
+"set to ``NEVER`` when the details were declared, any ``FIND_PACKAGE_ARGS`` "
+"will be omitted.  The ``OVERRIDE_FIND_PACKAGE`` keyword is also always "
+"omitted. If the provider fulfilled the request, "
+"``FetchContent_MakeAvailable()`` will consider that dependency handled, skip "
+"the remaining steps below, and move on to the next dependency in the list."
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:270
+msgid ""
+"If permitted, :command:`find_package(<name> [<args>...]) <find_package>` "
+"will be called, where ``<args>...`` may be provided by the "
+"``FIND_PACKAGE_ARGS`` option in :command:`FetchContent_Declare`. The value "
+"of the :variable:`FETCHCONTENT_TRY_FIND_PACKAGE_MODE` variable at the time :"
+"command:`FetchContent_Declare` was called determines whether "
+"``FetchContent_MakeAvailable()`` can call :command:`find_package`. If the :"
+"variable:`CMAKE_FIND_PACKAGE_TARGETS_GLOBAL` variable is set to true when "
+"``FetchContent_MakeAvailable()`` is called, it still affects any imported "
+"targets created when that in turn calls :command:`find_package`, even if "
+"that variable was false when the corresponding details were declared."
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:282
+msgid ""
+"If the dependency was not satisfied by a provider or a :command:"
+"`find_package` call, ``FetchContent_MakeAvailable()`` then uses the "
+"following logic to make the dependency available:"
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:286
+msgid ""
+"If the dependency has already been populated earlier in this run, set the "
+"``<lowercaseName>_POPULATED``, ``<lowercaseName>_SOURCE_DIR``, and "
+"``<lowercaseName>_BINARY_DIR`` variables in the same way as a call to :"
+"command:`FetchContent_GetProperties`, then skip the remaining steps below "
+"and move on to the next dependency in the list."
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:292
+msgid ""
+"Populate the dependency using the details recorded by an earlier call to :"
+"command:`FetchContent_Declare`. Halt with a fatal error if no such details "
+"have been recorded. :variable:`FETCHCONTENT_SOURCE_DIR_<uppercaseName>` can "
+"be used to override the declared details and use content provided at the "
+"specified location instead."
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:301
+msgid ""
+"Ensure the :variable:`CMAKE_FIND_PACKAGE_REDIRECTS_DIR` directory contains a "
+"``<lowercaseName>-config.cmake`` and a ``<lowercaseName>-config-version."
+"cmake`` file (or equivalently, ``<name>Config.cmake`` and "
+"``<name>ConfigVersion.cmake``). The directory that the :variable:"
+"`CMAKE_FIND_PACKAGE_REDIRECTS_DIR` variable points to is cleared at the "
+"start of every CMake run. If no config file exists after populating the "
+"dependency in the previous step, a minimal one will be written which :"
+"command:`includes <include>` any ``<lowercaseName>-extra.cmake`` or "
+"``<name>Extra.cmake`` file with the ``OPTIONAL`` flag (so the files can be "
+"missing and won't generate a warning).  Similarly, if no config version file "
+"exists, a very simple one will be written which sets "
+"``PACKAGE_VERSION_COMPATIBLE`` and ``PACKAGE_VERSION_EXACT`` to true.  This "
+"ensures all future calls to :command:`find_package()` for the dependency "
+"will use the redirected config file, regardless of any version requirements. "
+"CMake cannot automatically determine an arbitrary dependency's version, so "
+"it cannot set ``PACKAGE_VERSION``. When a dependency is pulled in via :"
+"command:`add_subdirectory` in the next step, it may choose to overwrite the "
+"generated config version file in :variable:"
+"`CMAKE_FIND_PACKAGE_REDIRECTS_DIR` with one that also sets "
+"``PACKAGE_VERSION``. The dependency may also write a ``<lowercaseName>-extra."
+"cmake`` or ``<name>Extra.cmake`` file to perform custom processing, or "
+"define any variables that their normal (installed) package config file would "
+"otherwise usually define (many projects don't do any custom processing or "
+"set any variables and therefore have no need to do this). If required, the "
+"main project can write these files instead if the dependency project doesn't "
+"do so.  This allows the main project to add missing details from older "
+"dependencies that haven't or can't be updated to support this functionality. "
+"See `Integrating With find_package()`_ for examples."
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:333
+msgid ""
+"If the top directory of the populated content contains a ``CMakeLists.txt`` "
+"file, call :command:`add_subdirectory` to add it to the main build. It is "
+"not an error for there to be no ``CMakeLists.txt`` file, which allows the "
+"command to be used for dependencies that make downloaded content available "
+"at a known location, but which do not need or support being added directly "
+"to the build."
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:340
+msgid ""
+"The ``SOURCE_SUBDIR`` option can be given in the declared details to look "
+"somewhere below the top directory instead (i.e. the same way that "
+"``SOURCE_SUBDIR`` is used by the :command:`ExternalProject_Add` command).  "
+"The path provided with ``SOURCE_SUBDIR`` must be relative, and it will be "
+"treated as relative to the top directory.  It can also point to a directory "
+"that does not contain a ``CMakeLists.txt`` file, or even to a directory that "
+"doesn't exist.  This can be used to avoid adding a project that contains a "
+"``CMakeLists.txt`` file in its top directory."
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:351
+msgid ""
+"If the ``SYSTEM`` keyword was included in the call to :command:"
+"`FetchContent_Declare`, the ``SYSTEM`` keyword will be added to the :command:"
+"`add_subdirectory` command."
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:356
+msgid ""
+"If the ``EXCLUDE_FROM_ALL`` keyword was included in the call to :command:"
+"`FetchContent_Declare`, the ``EXCLUDE_FROM_ALL`` keyword will be added to "
+"the :command:`add_subdirectory` command."
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:361
+msgid ""
+":variable:`CMAKE_EXPORT_FIND_PACKAGE_NAME` is set to the dependency name "
+"before calling :command:`add_subdirectory`."
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:365
+msgid ""
+"Projects should aim to declare the details of all dependencies they might "
+"use before they call ``FetchContent_MakeAvailable()`` for any of them. This "
+"ensures that if any of the dependencies are also sub-dependencies of one or "
+"more of the others, the main project still controls the details that will be "
+"used (because it will declare them first before the dependencies get a "
+"chance to).  In the following code samples, assume that the ``uses_other`` "
+"dependency also uses ``FetchContent`` to add the ``other`` dependency "
+"internally:"
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:374
+msgid ""
+"# WRONG: Should declare all details first\n"
+"FetchContent_Declare(uses_other ...)\n"
+"FetchContent_MakeAvailable(uses_other)\n"
+"\n"
+"FetchContent_Declare(other ...)    # Will be ignored, uses_other beat us to "
+"it\n"
+"FetchContent_MakeAvailable(other)  # Would use details declared by uses_other"
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:383
+msgid ""
+"# CORRECT: All details declared first, so they will take priority\n"
+"FetchContent_Declare(uses_other ...)\n"
+"FetchContent_Declare(other ...)\n"
+"FetchContent_MakeAvailable(uses_other other)"
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:390
+msgid ""
+"Note that :variable:`CMAKE_VERIFY_INTERFACE_HEADER_SETS` is explicitly set "
+"to false upon entry to ``FetchContent_MakeAvailable()``, and is restored to "
+"its original value before the command returns.  Developers typically only "
+"want to verify header sets from the main project, not those from any "
+"dependencies.  This local manipulation of the :variable:"
+"`CMAKE_VERIFY_INTERFACE_HEADER_SETS` variable provides that intuitive "
+"behavior.  You can use variables like :variable:`CMAKE_PROJECT_INCLUDE` or :"
+"variable:`CMAKE_PROJECT_<PROJECT-NAME>_INCLUDE` to turn verification back on "
+"for all or some dependencies.  You can also set the :prop_tgt:"
+"`VERIFY_INTERFACE_HEADER_SETS` property of individual targets."
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:404
+msgid ""
+"The ``FetchContent_Populate()`` command is a self-contained call which can "
+"be used to perform content population as an isolated operation. It is rarely "
+"the right command to use, projects should almost always use :command:"
+"`FetchContent_Declare` and :command:`FetchContent_MakeAvailable` instead. "
+"The main use case for ``FetchContent_Populate()`` is in :ref:`CMake script "
+"mode <Script Processing Mode>` as part of implementing some other higher "
+"level custom feature."
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:412
+msgid ""
+"FetchContent_Populate(\n"
+"  <name>\n"
+"  [QUIET]\n"
+"  [SUBBUILD_DIR <subBuildDir>]\n"
+"  [SOURCE_DIR <srcDir>]\n"
+"  [BINARY_DIR <binDir>]\n"
+"  ...\n"
+")"
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:423
+msgid ""
+"At least one option must be specified after `<name>`, otherwise the call is "
+"interpreted differently (see :ref:`below <FetchContent_Populate-depName>`). "
+"The supported options for ``FetchContent_Populate()`` are the same as those "
+"for :command:`FetchContent_Declare()`, with a few exceptions. The following "
+"do not relate to populating content with ``FetchContent_Populate()`` and "
+"therefore are not supported:"
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:435
+msgid ""
+"The few options shown in the signature above are either specific to "
+"``FetchContent_Populate()``, or their behavior is slightly modified from "
+"how :command:`ExternalProject_Add` treats them:"
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:439
+msgid "``QUIET``"
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:440
+msgid ""
+"The ``QUIET`` option can be given to hide the output associated with "
+"populating the specified content.  If the population fails, the output will "
+"be shown regardless of whether this option was given or not so that the "
+"cause of the failure can be diagnosed.  The :variable:`FETCHCONTENT_QUIET` "
+"variable has no effect on ``FetchContent_Populate()`` calls of this form "
+"where the content details are provided directly."
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:447
+msgid ""
+"The ``QUIET`` option and :variable:`FETCHCONTENT_QUIET` variable have no "
+"effect when policy :policy:`CMP0168` is set to ``NEW``. The output is still "
+"quiet by default in that case, but verbosity is controlled by the message "
+"logging level (see :variable:`CMAKE_MESSAGE_LOG_LEVEL` and :option:`--log-"
+"level <cmake --log-level>`)."
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:454
+msgid "``SUBBUILD_DIR``"
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:455
+msgid ""
+"The ``SUBBUILD_DIR`` argument can be provided to change the location of the "
+"sub-build created to perform the population.  The default value is "
+"``${CMAKE_CURRENT_BINARY_DIR}/<lowercaseName>-subbuild``, and it would be "
+"unusual to need to override this default.  If a relative path is specified, "
+"it will be interpreted as relative to :variable:`CMAKE_CURRENT_BINARY_DIR`. "
+"This option should not be confused with the ``SOURCE_SUBDIR`` option, which "
+"only affects the :command:`FetchContent_MakeAvailable` command."
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:463
+msgid ""
+"``SUBBUILD_DIR`` is ignored when policy :policy:`CMP0168` is set to ``NEW``, "
+"since there is no sub-build in that case."
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:467
+msgid "``SOURCE_DIR``, ``BINARY_DIR``"
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:468
+msgid ""
+"The ``SOURCE_DIR`` and ``BINARY_DIR`` arguments are supported by :command:"
+"`ExternalProject_Add`, but different default values are used by "
+"``FetchContent_Populate()``.  ``SOURCE_DIR`` defaults to "
+"``${CMAKE_CURRENT_BINARY_DIR}/<lowercaseName>-src``, and ``BINARY_DIR`` "
+"defaults to ``${CMAKE_CURRENT_BINARY_DIR}/<lowercaseName>-build``. If a "
+"relative path is specified, it will be interpreted as relative to :variable:"
+"`CMAKE_CURRENT_BINARY_DIR`."
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:476
+msgid ""
+"In addition to the above explicit options, any other unrecognized options "
+"are passed through unmodified to :command:`ExternalProject_Add` to set up "
+"the download, patch, and update steps.  The following options are explicitly "
+"prohibited (they are disabled by the ``FetchContent_Populate()`` command):"
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:481
+msgid "``CONFIGURE_COMMAND``"
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:482
+msgid "``BUILD_COMMAND``"
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:483
+msgid "``INSTALL_COMMAND``"
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:484
+msgid "``TEST_COMMAND``"
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:486
+msgid ""
+"With this form, the :variable:`FETCHCONTENT_FULLY_DISCONNECTED` and :"
+"variable:`FETCHCONTENT_UPDATES_DISCONNECTED` variables and policy :policy:"
+"`CMP0170` are ignored."
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:490
+#: ../../../../Modules/FetchContent.cmake:541
+msgid ""
+"When this form of ``FetchContent_Populate()`` returns, the following "
+"variables will be set in the scope of the caller:"
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:493
+#: ../../../../Modules/FetchContent.cmake:547
+msgid "``<lowercaseName>_SOURCE_DIR``"
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:494
+#: ../../../../Modules/FetchContent.cmake:548
+msgid "The location where the populated content can be found upon return."
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:496
+#: ../../../../Modules/FetchContent.cmake:550
+msgid "``<lowercaseName>_BINARY_DIR``"
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:497
+msgid ""
+"A directory originally intended for use as a corresponding build directory, "
+"but is unlikely to be relevant when using this form of the command."
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:500
+msgid ""
+"If using ``FetchContent_Populate()`` within :ref:`CMake script mode <Script "
+"Processing Mode>`, be aware that the implementation sets up a sub-build "
+"which therefore requires a CMake generator and build tool to be available. "
+"If these cannot be found by default, then the :variable:`CMAKE_GENERATOR` "
+"and potentially the :variable:`CMAKE_MAKE_PROGRAM` variables will need to be "
+"set appropriately on the command line invoking the script."
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:508
+msgid ""
+"If policy :policy:`CMP0168` is set to ``NEW``, no sub-build is used. Within :"
+"ref:`CMake script mode <Script Processing Mode>`, that allows "
+"``FetchContent_Populate()`` to be called without any build tool or CMake "
+"generator."
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:514
+msgid "Added support for the ``DOWNLOAD_NO_EXTRACT`` option."
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:519
+msgid ""
+"The command supports another form, although it should no longer be used:"
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:521
+msgid "FetchContent_Populate(<name>)"
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:525
+msgid ""
+"This form is deprecated. Policy :policy:`CMP0169` provides backward "
+"compatibility for projects that still need to use this form, but projects "
+"should be updated to use :command:`FetchContent_MakeAvailable` instead."
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:530
+msgid ""
+"In this form, the only argument given to ``FetchContent_Populate()`` is the "
+"``<name>``.  When used this way, the command assumes the content details "
+"have been recorded by an earlier call to :command:`FetchContent_Declare`.  "
+"The details are stored in a global property, so they are unaffected by "
+"things like variable or directory scope.  Therefore, it doesn't matter where "
+"in the project the details were previously declared, as long as they have "
+"been declared before the call to ``FetchContent_Populate()``.  Those saved "
+"details are then used to populate the content using a method based on :"
+"command:`ExternalProject_Add` (see policy :policy:`CMP0168` for important "
+"behavioral aspects of how that is done)."
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:544
+msgid "``<lowercaseName>_POPULATED``"
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:545
+msgid "This will always be set to ``TRUE`` by the call."
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:551
+msgid "A directory intended for use as a corresponding build directory."
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:553
+msgid ""
+"The values of the three variables can also be retrieved from anywhere in the "
+"project hierarchy using the :command:`FetchContent_GetProperties` command."
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:556
+msgid ""
+"The implementation ensures that if the content has already been populated in "
+"a previous CMake run, that content will be reused rather than repopulating "
+"again.  For the common case where population involves downloading content, "
+"the cost of the download is only paid once. But note that it is an error to "
+"call ``FetchContent_Populate(<name>)`` with the same ``<name>`` more than "
+"once within a single CMake run. See :command:`FetchContent_GetProperties` "
+"for how to determine if population of a ``<name>`` has already been "
+"performed in the current run."
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:567
+msgid ""
+"When using saved content details, a call to :command:"
+"`FetchContent_MakeAvailable` or :command:`FetchContent_Populate` records "
+"information in global properties which can be queried at any time. This "
+"information may include the source and binary directories associated with "
+"the content, and also whether or not the content population has been "
+"processed during the current configure run."
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:574
+msgid ""
+"FetchContent_GetProperties(\n"
+"  <name>\n"
+"  [SOURCE_DIR <srcDirVar>]\n"
+"  [BINARY_DIR <binDirVar>]\n"
+"  [POPULATED <doneVar>]\n"
+")"
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:583
+msgid ""
+"The ``SOURCE_DIR``, ``BINARY_DIR``, and ``POPULATED`` options can be used to "
+"specify which properties should be retrieved.  Each option accepts a value "
+"which is the name of the variable in which to store that property.  Most of "
+"the time though, only ``<name>`` is given, in which case the call will then "
+"set the same variables as a call to :command:"
+"`FetchContent_MakeAvailable(name) <FetchContent_MakeAvailable>` or :command:"
+"`FetchContent_Populate(name) <FetchContent_Populate>`. Note that the "
+"``SOURCE_DIR`` and ``BINARY_DIR`` values can be empty if the call is "
+"fulfilled by a :ref:`dependency provider <dependency_providers>`."
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:593
+msgid ""
+"This command is rarely needed when using :command:"
+"`FetchContent_MakeAvailable`.  It is more commonly used as part of "
+"implementing the deprecated pattern with :command:`FetchContent_Populate`, "
+"which ensures that the relevant variables will always be defined regardless "
+"of whether or not the population has been performed elsewhere in the project "
+"already:"
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:600
+msgid ""
+"# WARNING: This pattern is deprecated, don't use it!\n"
+"#\n"
+"# Check if population has already been performed\n"
+"FetchContent_GetProperties(depname)\n"
+"if(NOT depname_POPULATED)\n"
+"  # Fetch the content using previously declared details\n"
+"  FetchContent_Populate(depname)\n"
+"\n"
+"  # Set custom variables, policies, etc.\n"
+"  # ...\n"
+"\n"
+"  # Bring the populated content into the build\n"
+"  add_subdirectory(${depname_SOURCE_DIR} ${depname_BINARY_DIR})\n"
+"endif()"
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:622
+msgid ""
+"This command should only be called by :ref:`dependency providers "
+"<dependency_providers>`.  Calling it in any other context is unsupported and "
+"future CMake versions may halt with a fatal error in such cases."
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:627
+msgid ""
+"FetchContent_SetPopulated(\n"
+"  <name>\n"
+"  [SOURCE_DIR <srcDir>]\n"
+"  [BINARY_DIR <binDir>]\n"
+")"
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:635
+msgid ""
+"If a provider command fulfills a ``FETCHCONTENT_MAKEAVAILABLE_SERIAL`` "
+"request, it must call this function before returning.  The ``SOURCE_DIR`` "
+"and ``BINARY_DIR`` arguments can be used to specify the values that :command:"
+"`FetchContent_GetProperties` should return for its corresponding arguments.  "
+"Only provide ``SOURCE_DIR`` and ``BINARY_DIR`` if they have the same meaning "
+"as if they had been populated by the built-in :command:"
+"`FetchContent_MakeAvailable` implementation."
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:645
+msgid "Variables"
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:647
+msgid ""
+"A number of cache variables can influence the behavior where details from a :"
+"command:`FetchContent_Declare` call are used to populate content."
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:651
+msgid ""
+"All of these variables are intended for the developer to customize behavior. "
+"They should not normally be set by the project."
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:656
+msgid ""
+"In most cases, the saved details do not specify any options relating to the "
+"directories to use for the internal sub-build, final source, and build "
+"areas. It is generally best to leave these decisions up to the "
+"``FetchContent`` module to handle on the project's behalf.  The "
+"``FETCHCONTENT_BASE_DIR`` cache variable controls the point under which all "
+"content population directories are collected, but in most cases, developers "
+"would not need to change this.  The default location is "
+"``${CMAKE_BINARY_DIR}/_deps``, but if developers change this value, they "
+"should aim to keep the path short and just below the top level of the build "
+"tree to avoid running into path length problems on Windows."
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:669
+msgid ""
+"The logging output during population can be quite verbose, making the "
+"configure stage quite noisy.  This cache option (``ON`` by default) hides "
+"all population output unless an error is encountered.  If experiencing "
+"problems with hung downloads, temporarily switching this option off may help "
+"diagnose which content population is causing the issue."
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:675
+msgid ""
+"``FETCHCONTENT_QUIET`` is ignored if policy :policy:`CMP0168` is set to "
+"``NEW``.  The output is still quiet by default in that case, but verbosity "
+"is controlled by the message logging level (see :variable:"
+"`CMAKE_MESSAGE_LOG_LEVEL` and :option:`--log-level <cmake --log-level>`)."
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:684
+msgid ""
+"When this option is enabled, no attempt is made to download or update any "
+"content.  It is assumed that all content has already been populated in a "
+"previous run, or the source directories have been pointed at existing "
+"contents the developer has provided manually (using options described "
+"further below).  When the developer knows that no changes have been made to "
+"any content details, turning this option ``ON`` can speed up the configure "
+"stage.  It is ``OFF`` by default."
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:694
+msgid ""
+"The ``FETCHCONTENT_FULLY_DISCONNECTED`` variable is not an appropriate way "
+"to prevent any network access on the first run in a build directory. Doing "
+"so can break projects, lead to misleading error messages, and hide subtle "
+"population failures.  This variable is specifically intended to only be "
+"turned on *after* the first time CMake has been run. If you want to prevent "
+"network access even on the first run, use a :ref:`dependency provider "
+"<dependency_providers>` and populate the dependency from local content "
+"instead."
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:703
+msgid ""
+"The constraint that the source directory has already been populated when "
+"``FETCHCONTENT_FULLY_DISCONNECTED`` is true is now enforced. See policy :"
+"policy:`CMP0170`."
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:710
+msgid ""
+"This is a less severe download/update control compared to :variable:"
+"`FETCHCONTENT_FULLY_DISCONNECTED`.  Instead of bypassing all download and "
+"update logic, ``FETCHCONTENT_UPDATES_DISCONNECTED`` only prevents the update "
+"step from making connections to remote servers when using the git or hg "
+"download methods.  Updates still occur if details about the update step "
+"change, but the update is attempted with only the information already "
+"available locally (so switching to a different tag or commit that is already "
+"fetched locally will succeed, but switching to an unknown commit hash will "
+"fail).  The download step is not affected, so if content has not been "
+"downloaded previously, it will still be downloaded when this option is "
+"enabled.  This can speed up the configure step, but not as much as :variable:"
+"`FETCHCONTENT_FULLY_DISCONNECTED`. ``FETCHCONTENT_UPDATES_DISCONNECTED`` is "
+"``OFF`` by default."
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:728
+msgid ""
+"This variable modifies the details that :command:`FetchContent_Declare` "
+"records for a given dependency.  While it ultimately controls the behavior "
+"of :command:`FetchContent_MakeAvailable`, it is the variable's value when :"
+"command:`FetchContent_Declare` is called that gets used.  It makes no "
+"difference what the variable is set to when :command:"
+"`FetchContent_MakeAvailable` is called.  Since the variable should only be "
+"set by the user and not by projects directly, it will typically have the "
+"same value throughout anyway, so this distinction is not usually noticeable."
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:738
+msgid ""
+"``FETCHCONTENT_TRY_FIND_PACKAGE_MODE`` ultimately controls whether :command:"
+"`FetchContent_MakeAvailable` is allowed to call :command:`find_package` to "
+"satisfy a dependency.  The variable can be set to one of the following "
+"values:"
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:743
+msgid "``OPT_IN``"
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:744
+msgid ""
+":command:`FetchContent_MakeAvailable` will only call :command:`find_package` "
+"if the :command:`FetchContent_Declare` call included a ``FIND_PACKAGE_ARGS`` "
+"keyword.  This is also the default behavior if "
+"``FETCHCONTENT_TRY_FIND_PACKAGE_MODE`` is not set."
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:749
+msgid "``ALWAYS``"
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:750
+msgid ""
+":command:`find_package` can be called by :command:"
+"`FetchContent_MakeAvailable` regardless of whether the :command:"
+"`FetchContent_Declare` call included a ``FIND_PACKAGE_ARGS`` keyword or "
+"not.  If no ``FIND_PACKAGE_ARGS`` keyword was given, the behavior will be as "
+"though ``FIND_PACKAGE_ARGS`` had been provided, with no additional arguments "
+"after it."
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:757
+msgid "``NEVER``"
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:758
+msgid ""
+":command:`FetchContent_MakeAvailable` will not call :command:"
+"`find_package`.  Any ``FIND_PACKAGE_ARGS`` given to the :command:"
+"`FetchContent_Declare` call will be ignored."
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:762
+msgid ""
+"As a special case, if the :variable:"
+"`FETCHCONTENT_SOURCE_DIR_<uppercaseName>` variable has a non-empty value for "
+"a dependency, it is assumed that the user is overriding all other methods of "
+"making that dependency available. ``FETCHCONTENT_TRY_FIND_PACKAGE_MODE`` "
+"will have no effect on that dependency and :command:"
+"`FetchContent_MakeAvailable` will not try to call :command:`find_package` "
+"for it."
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:769
+msgid ""
+"In addition to the above, the following variables are also defined for each "
+"content name:"
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:774
+msgid ""
+"If this is set, no download or update steps are performed for the specified "
+"content and the ``<lowercaseName>_SOURCE_DIR`` variable returned to the "
+"caller is pointed at this location.  This gives developers a way to have a "
+"separate checkout of the content that they can modify freely without "
+"interference from the build.  The build simply uses that existing source, "
+"but it still defines ``<lowercaseName>_BINARY_DIR`` to point inside its own "
+"build area.  Developers are strongly encouraged to use this mechanism rather "
+"than editing the sources populated in the default location, as changes to "
+"sources in the default location can be lost when content population details "
+"are changed by the project."
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:787
+msgid ""
+"This is the per-content equivalent of :variable:"
+"`FETCHCONTENT_UPDATES_DISCONNECTED`.  If the global option or this option is "
+"``ON``, then updates for the git and hg methods will not contact any remote "
+"for the named content.  They will only use information already available "
+"locally.  Disabling updates for individual content can be useful for content "
+"whose details rarely change, while still leaving other frequently changing "
+"content with updates enabled."
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:798
+msgid "Examples"
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:801
+msgid "Typical Case"
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:803
+msgid ""
+"This first fairly straightforward example ensures that some popular testing "
+"frameworks are available to the main build:"
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:806
+msgid ""
+"include(FetchContent)\n"
+"FetchContent_Declare(\n"
+"  googletest\n"
+"  GIT_REPOSITORY https://github.com/google/googletest.git\n"
+"  GIT_TAG        703bd9caab50b139428cea1aaff9974ebee5742e # release-1.10.0\n"
+")\n"
+"FetchContent_Declare(\n"
+"  Catch2\n"
+"  GIT_REPOSITORY https://github.com/catchorg/Catch2.git\n"
+"  GIT_TAG        605a34765aa5d5ecbf476b4598a862ada971b0cc # v3.0.1\n"
+")\n"
+"\n"
+"# After the following call, the CMake targets defined by googletest and\n"
+"# Catch2 will be available to the rest of the build\n"
+"FetchContent_MakeAvailable(googletest Catch2)"
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:827
+msgid "Integrating With find_package()"
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:829
+msgid ""
+"For the previous example, if the user wanted to try to find ``googletest`` "
+"and ``Catch2`` via :command:`find_package` first before trying to download "
+"and build them from source, they could set the :variable:"
+"`FETCHCONTENT_TRY_FIND_PACKAGE_MODE` variable to ``ALWAYS``. This would also "
+"affect any other calls to :command:`FetchContent_Declare` throughout the "
+"project, which might not be acceptable.  The behavior can be enabled for "
+"just these two dependencies instead by adding ``FIND_PACKAGE_ARGS`` to the "
+"declared details and leaving :variable:`FETCHCONTENT_TRY_FIND_PACKAGE_MODE` "
+"unset, or set to ``OPT_IN``:"
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:839
+msgid ""
+"include(FetchContent)\n"
+"FetchContent_Declare(\n"
+"  googletest\n"
+"  GIT_REPOSITORY https://github.com/google/googletest.git\n"
+"  GIT_TAG        703bd9caab50b139428cea1aaff9974ebee5742e # release-1.10.0\n"
+"  FIND_PACKAGE_ARGS NAMES GTest\n"
+")\n"
+"FetchContent_Declare(\n"
+"  Catch2\n"
+"  GIT_REPOSITORY https://github.com/catchorg/Catch2.git\n"
+"  GIT_TAG        605a34765aa5d5ecbf476b4598a862ada971b0cc # v3.0.1\n"
+"  FIND_PACKAGE_ARGS\n"
+")\n"
+"\n"
+"# This will try calling find_package() first for both dependencies\n"
+"FetchContent_MakeAvailable(googletest Catch2)"
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:858
+msgid ""
+"For ``Catch2``, no additional arguments to :command:`find_package` are "
+"needed, so no additional arguments are provided after the "
+"``FIND_PACKAGE_ARGS`` keyword.  For ``googletest``, its package is more "
+"commonly called ``GTest``, so arguments are added to support it being found "
+"by that name."
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:863
+msgid ""
+"If the user wanted to disable :command:`FetchContent_MakeAvailable` from "
+"calling :command:`find_package` for any dependency, even if it provided "
+"``FIND_PACKAGE_ARGS`` in its declared details, they could set :variable:"
+"`FETCHCONTENT_TRY_FIND_PACKAGE_MODE` to ``NEVER``."
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:868
+msgid ""
+"If the project wanted to indicate that these two dependencies should be "
+"downloaded and built from source and that :command:`find_package` calls "
+"should be redirected to use the built dependencies, the "
+"``OVERRIDE_FIND_PACKAGE`` option should be used when declaring the content "
+"details:"
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:874
+msgid ""
+"include(FetchContent)\n"
+"FetchContent_Declare(\n"
+"  googletest\n"
+"  GIT_REPOSITORY https://github.com/google/googletest.git\n"
+"  GIT_TAG        703bd9caab50b139428cea1aaff9974ebee5742e # release-1.10.0\n"
+"  OVERRIDE_FIND_PACKAGE\n"
+")\n"
+"FetchContent_Declare(\n"
+"  Catch2\n"
+"  GIT_REPOSITORY https://github.com/catchorg/Catch2.git\n"
+"  GIT_TAG        605a34765aa5d5ecbf476b4598a862ada971b0cc # v3.0.1\n"
+"  OVERRIDE_FIND_PACKAGE\n"
+")\n"
+"\n"
+"# The following will automatically forward through to "
+"FetchContent_MakeAvailable()\n"
+"find_package(googletest)\n"
+"find_package(Catch2)"
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:894
+msgid ""
+"CMake provides a FindGTest module which defines some variables that older "
+"projects may use instead of linking to the imported targets.  To support "
+"those cases, we can provide an extra file.  In keeping with the \"first to "
+"define, wins\" philosophy of ``FetchContent``, we only write out that file "
+"if something else hasn't already done so."
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:900
+msgid ""
+"FetchContent_MakeAvailable(googletest)\n"
+"\n"
+"if(NOT EXISTS ${CMAKE_FIND_PACKAGE_REDIRECTS_DIR}/googletest-extra.cmake "
+"AND\n"
+"   NOT EXISTS ${CMAKE_FIND_PACKAGE_REDIRECTS_DIR}/googletestExtra.cmake)\n"
+"  file(WRITE ${CMAKE_FIND_PACKAGE_REDIRECTS_DIR}/googletest-extra.cmake\n"
+"[=[\n"
+"if(\"${GTEST_LIBRARIES}\" STREQUAL \"\" AND TARGET GTest::gtest)\n"
+"  set(GTEST_LIBRARIES GTest::gtest)\n"
+"endif()\n"
+"if(\"${GTEST_MAIN_LIBRARIES}\" STREQUAL \"\" AND TARGET GTest::gtest_main)\n"
+"  set(GTEST_MAIN_LIBRARIES GTest::gtest_main)\n"
+"endif()\n"
+"if(\"${GTEST_BOTH_LIBRARIES}\" STREQUAL \"\")\n"
+"  set(GTEST_BOTH_LIBRARIES ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES})\n"
+"endif()\n"
+"]=])\n"
+"endif()"
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:920
+msgid ""
+"Projects will also likely be using ``find_package(GTest)`` rather than "
+"``find_package(googletest)``, but it is possible to make use of the :"
+"variable:`CMAKE_FIND_PACKAGE_REDIRECTS_DIR` area to pull in the latter as a "
+"dependency of the former.  This is likely to be sufficient to satisfy a "
+"typical ``find_package(GTest)`` call."
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:926
+msgid ""
+"FetchContent_MakeAvailable(googletest)\n"
+"\n"
+"if(NOT EXISTS ${CMAKE_FIND_PACKAGE_REDIRECTS_DIR}/gtest-config.cmake AND\n"
+"   NOT EXISTS ${CMAKE_FIND_PACKAGE_REDIRECTS_DIR}/GTestConfig.cmake)\n"
+"  file(WRITE ${CMAKE_FIND_PACKAGE_REDIRECTS_DIR}/gtest-config.cmake\n"
+"[=[\n"
+"include(CMakeFindDependencyMacro)\n"
+"find_dependency(googletest)\n"
+"]=])\n"
+"endif()\n"
+"\n"
+"if(NOT EXISTS ${CMAKE_FIND_PACKAGE_REDIRECTS_DIR}/gtest-config-version.cmake "
+"AND\n"
+"   NOT EXISTS ${CMAKE_FIND_PACKAGE_REDIRECTS_DIR}/GTestConfigVersion.cmake)\n"
+"  file(WRITE ${CMAKE_FIND_PACKAGE_REDIRECTS_DIR}/gtest-config-version.cmake\n"
+"[=[\n"
+"include(${CMAKE_FIND_PACKAGE_REDIRECTS_DIR}/googletest-config-version.cmake "
+"OPTIONAL)\n"
+"if(NOT PACKAGE_VERSION_COMPATIBLE)\n"
+"  include(${CMAKE_FIND_PACKAGE_REDIRECTS_DIR}/googletestConfigVersion.cmake "
+"OPTIONAL)\n"
+"endif()\n"
+"]=])\n"
+"endif()"
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:951
+msgid "Overriding Where To Find CMakeLists.txt"
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:953
+msgid ""
+"If the sub-project's ``CMakeLists.txt`` file is not at the top level of its "
+"source tree, the ``SOURCE_SUBDIR`` option can be used to tell "
+"``FetchContent`` where to find it.  The following example shows how to use "
+"that option, and it also sets a variable which is meaningful to the "
+"subproject before pulling it into the main build (set as an ``INTERNAL`` "
+"cache variable to avoid problems with policy :policy:`CMP0077`):"
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:960
+msgid ""
+"include(FetchContent)\n"
+"FetchContent_Declare(\n"
+"  protobuf\n"
+"  GIT_REPOSITORY https://github.com/protocolbuffers/protobuf.git\n"
+"  GIT_TAG        ae50d9b9902526efd6c7a1907d09739f959c6297 # v3.15.0\n"
+"  SOURCE_SUBDIR  cmake\n"
+")\n"
+"set(protobuf_BUILD_TESTS OFF CACHE INTERNAL \"\")\n"
+"FetchContent_MakeAvailable(protobuf)"
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:973
+msgid "Complex Dependency Hierarchies"
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:975
+msgid ""
+"In more complex project hierarchies, the dependency relationships can be "
+"more complicated.  Consider a hierarchy where ``projA`` is the top level "
+"project and it depends directly on projects ``projB`` and ``projC``.  Both "
+"``projB`` and ``projC`` can be built standalone and they also both depend on "
+"another project ``projD``.  ``projB`` additionally depends on ``projE``.  "
+"This example assumes that all five projects are available on a company git "
+"server.  The ``CMakeLists.txt`` of each project might have sections like the "
+"following:"
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:983
+msgid "*projA*"
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:983
+msgid ""
+"include(FetchContent)\n"
+"FetchContent_Declare(\n"
+"  projB\n"
+"  GIT_REPOSITORY git@mycompany.com:git/projB.git\n"
+"  GIT_TAG        4a89dc7e24ff212a7b5167bef7ab079d\n"
+")\n"
+"FetchContent_Declare(\n"
+"  projC\n"
+"  GIT_REPOSITORY git@mycompany.com:git/projC.git\n"
+"  GIT_TAG        4ad4016bd1d8d5412d135cf8ceea1bb9\n"
+")\n"
+"FetchContent_Declare(\n"
+"  projD\n"
+"  GIT_REPOSITORY git@mycompany.com:git/projD.git\n"
+"  GIT_TAG        origin/integrationBranch\n"
+")\n"
+"FetchContent_Declare(\n"
+"  projE\n"
+"  GIT_REPOSITORY git@mycompany.com:git/projE.git\n"
+"  GIT_TAG        v2.3-rc1\n"
+")\n"
+"\n"
+"# Order is important, see notes in the discussion further below\n"
+"FetchContent_MakeAvailable(projD projB projC)"
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:1012
+msgid "*projB*"
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:1012
+msgid ""
+"include(FetchContent)\n"
+"FetchContent_Declare(\n"
+"  projD\n"
+"  GIT_REPOSITORY git@mycompany.com:git/projD.git\n"
+"  GIT_TAG        20b415f9034bbd2a2e8216e9a5c9e632\n"
+")\n"
+"FetchContent_Declare(\n"
+"  projE\n"
+"  GIT_REPOSITORY git@mycompany.com:git/projE.git\n"
+"  GIT_TAG        68e20f674a48be38d60e129f600faf7d\n"
+")\n"
+"\n"
+"FetchContent_MakeAvailable(projD projE)"
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:1030
+msgid "*projC*"
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:1030
+msgid ""
+"include(FetchContent)\n"
+"FetchContent_Declare(\n"
+"  projD\n"
+"  GIT_REPOSITORY git@mycompany.com:git/projD.git\n"
+"  GIT_TAG        7d9a17ad2c962aa13e2fbb8043fb6b8a\n"
+")\n"
+"\n"
+"FetchContent_MakeAvailable(projD)"
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:1042
+msgid "A few key points should be noted in the above:"
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:1044
+msgid ""
+"``projB`` and ``projC`` define different content details for ``projD``, but "
+"``projA`` also defines a set of content details for ``projD``. Because "
+"``projA`` will define them first, the details from ``projB`` and ``projC`` "
+"will not be used.  The override details defined by ``projA`` are not "
+"required to match either of those from ``projB`` or ``projC``, but it is up "
+"to the higher level project to ensure that the details it does define still "
+"make sense for the child projects."
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:1051
+msgid ""
+"In the ``projA`` call to :command:`FetchContent_MakeAvailable`, ``projD`` is "
+"listed ahead of ``projB`` and ``projC``, so it will be populated before "
+"either ``projB`` or ``projC``. It isn't required for ``projA`` to do this, "
+"doing so ensures that ``projA`` fully controls the environment in which "
+"``projD`` is brought into the build (directory properties are particularly "
+"relevant)."
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:1057
+msgid ""
+"While ``projA`` defines content details for ``projE``, it does not need to "
+"explicitly call ``FetchContent_MakeAvailable(projE)`` or "
+"``FetchContent_Populate(projD)`` itself.  Instead, it leaves that to the "
+"child ``projB``.  For higher level projects, it is often enough to just "
+"define the override content details and leave the actual population to the "
+"child projects.  This saves repeating the same thing at each level of the "
+"project hierarchy unnecessarily, but it should only be done if directory "
+"properties set by dependencies are not expected to influence the population "
+"of the shared dependency (``projE`` in this case)."
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:1068
+msgid "Populating Content Without Adding It To The Build"
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:1070
+msgid ""
+"Projects don't always need to add the populated content to the build. "
+"Sometimes the project just wants to make the downloaded content available at "
+"a predictable location.  The next example ensures that a set of standard "
+"company toolchain files (and potentially even the toolchain binaries "
+"themselves) is available early enough to be used for that same build."
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:1076
+msgid ""
+"cmake_minimum_required(VERSION 3.14)\n"
+"\n"
+"include(FetchContent)\n"
+"FetchContent_Declare(\n"
+"  mycom_toolchains\n"
+"  URL  https://intranet.mycompany.com//toolchains_1.3.2.tar.gz\n"
+")\n"
+"FetchContent_MakeAvailable(mycom_toolchains)\n"
+"\n"
+"project(CrossCompileExample)"
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:1089
+msgid ""
+"The project could be configured to use one of the downloaded toolchains like "
+"so:"
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:1092
+msgid ""
+"cmake -DCMAKE_TOOLCHAIN_FILE=_deps/mycom_toolchains-src/toolchain_arm.cmake /"
+"path/to/src"
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:1096
+msgid ""
+"When CMake processes the ``CMakeLists.txt`` file, it will download and "
+"unpack the tarball into ``_deps/mycompany_toolchains-src`` relative to the "
+"build directory.  The :variable:`CMAKE_TOOLCHAIN_FILE` variable is not used "
+"until the :command:`project` command is reached, at which point CMake looks "
+"for the named toolchain file relative to the build directory.  Because the "
+"tarball has already been downloaded and unpacked by then, the toolchain file "
+"will be in place, even the very first time that :program:`cmake` is run in "
+"the build directory."
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:1105
+msgid "Populating Content In CMake Script Mode"
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:1107
+msgid ""
+"This last example demonstrates how one might download and unpack a firmware "
+"tarball using CMake's :ref:`script mode <Script Processing Mode>`. The call "
+"to :command:`FetchContent_Populate` specifies all the content details and "
+"the unpacked firmware will be placed in a ``firmware`` directory below the "
+"current working directory."
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:1113
+msgid ":file:`getFirmware.cmake`"
+msgstr ""
+
+#: ../../../../Modules/FetchContent.cmake:1113
+msgid ""
+"# NOTE: Intended to be run in script mode with cmake -P\n"
+"include(FetchContent)\n"
+"FetchContent_Populate(\n"
+"  firmware\n"
+"  URL        https://mycompany.com/assets/firmware-1.23-arm.tar.gz\n"
+"  URL_HASH   MD5=68247684da89b608d466253762b0ff11\n"
+"  SOURCE_DIR firmware\n"
+")"
+msgstr ""

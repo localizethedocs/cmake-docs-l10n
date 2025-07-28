@@ -1,0 +1,193 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2000-2025 Kitware, Inc. and Contributors
+# This file is distributed under the same license as the CMake package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CMake master\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-07-14 08:20+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../command/target_include_directories.rst:2
+msgid "target_include_directories"
+msgstr ""
+
+#: ../../../command/target_include_directories.rst:4
+msgid "Add include directories to a target."
+msgstr ""
+
+#: ../../../command/target_include_directories.rst:6
+msgid ""
+"target_include_directories(<target> [SYSTEM] [AFTER|BEFORE]\n"
+"  <INTERFACE|PUBLIC|PRIVATE> [items1...]\n"
+"  [<INTERFACE|PUBLIC|PRIVATE> [items2...] ...])"
+msgstr ""
+
+#: ../../../command/target_include_directories.rst:12
+msgid ""
+"Specifies include directories to use when compiling a given target. The "
+"named ``<target>`` must have been created by a command such as :command:"
+"`add_executable` or :command:`add_library` and must not be an :ref:`ALIAS "
+"target <Alias Targets>`."
+msgstr ""
+
+#: ../../../command/target_include_directories.rst:17
+msgid ""
+"By using ``AFTER`` or ``BEFORE`` explicitly, you can select between "
+"appending and prepending, independent of the default."
+msgstr ""
+
+#: ../../../command/target_include_directories.rst:20
+msgid ""
+"The ``INTERFACE``, ``PUBLIC`` and ``PRIVATE`` keywords are required to "
+"specify the :ref:`scope <Target Command Scope>` of the following arguments. "
+"``PRIVATE`` and ``PUBLIC`` items will populate the :prop_tgt:"
+"`INCLUDE_DIRECTORIES` property of ``<target>``. ``PUBLIC`` and ``INTERFACE`` "
+"items will populate the :prop_tgt:`INTERFACE_INCLUDE_DIRECTORIES` property "
+"of ``<target>``. The following arguments specify include directories."
+msgstr ""
+
+#: ../../../command/target_include_directories.rst:27
+msgid ""
+"Allow setting ``INTERFACE`` items on :ref:`IMPORTED targets <Imported "
+"Targets>`."
+msgstr ""
+
+#: ../../../command/target_include_directories.rst:30
+msgid ""
+"Repeated calls for the same ``<target>`` append items in the order called."
+msgstr ""
+
+#: ../../../command/target_include_directories.rst:32
+msgid ""
+"If ``SYSTEM`` is specified, the compiler will be told the directories are "
+"meant as system include directories on some platforms.  This may have "
+"effects such as suppressing warnings or skipping the contained headers in "
+"dependency calculations (see compiler documentation). Additionally, system "
+"include directories are searched after normal include directories regardless "
+"of the order specified."
+msgstr ""
+
+#: ../../../command/target_include_directories.rst:39
+msgid ""
+"If ``SYSTEM`` is used together with ``PUBLIC`` or ``INTERFACE``, the :"
+"prop_tgt:`INTERFACE_SYSTEM_INCLUDE_DIRECTORIES` target property will be "
+"populated with the specified directories."
+msgstr ""
+
+#: ../../../command/include/GENEX_NOTE.rst:4
+msgid ""
+"Arguments to |command_name| may use generator expressions with the syntax "
+"``$<...>``. See the :manual:`cmake-generator-expressions(7)` manual for "
+"available expressions.  |more_see_also|"
+msgstr ""
+
+#: ../../../command/target_include_directories.rst:46
+msgid ""
+"Specified include directories may be absolute paths or relative paths. A "
+"relative path will be interpreted as relative to the current source "
+"directory (i.e. :variable:`CMAKE_CURRENT_SOURCE_DIR`) and converted to an "
+"absolute path before storing it in the associated target property. If the "
+"path starts with a generator expression, it will always be assumed to be an "
+"absolute path (with one exception noted below) and will be used unmodified."
+msgstr ""
+
+#: ../../../command/target_include_directories.rst:54
+msgid ""
+"Include directories usage requirements commonly differ between the build-"
+"tree and the install-tree.  The :genex:`BUILD_INTERFACE` and :genex:"
+"`INSTALL_INTERFACE` generator expressions can be used to describe separate "
+"usage requirements based on the usage location.  Relative paths are allowed "
+"within the :genex:`INSTALL_INTERFACE` expression and are interpreted as "
+"relative to the installation prefix.  Relative paths should not be used in :"
+"genex:`BUILD_INTERFACE` expressions because they will not be converted to "
+"absolute.  For example:"
+msgstr ""
+
+#: ../../../command/target_include_directories.rst:63
+msgid ""
+"target_include_directories(mylib PUBLIC\n"
+"  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/mylib>\n"
+"  $<INSTALL_INTERFACE:include/mylib>  # <prefix>/include/mylib\n"
+")"
+msgstr ""
+
+#: ../../../command/target_include_directories.rst:71
+msgid "Creating Relocatable Packages"
+msgstr ""
+
+#: ../../../include/INTERFACE_INCLUDE_DIRECTORIES_WARNING.rst:2
+msgid ""
+"Note that it is not advisable to populate the :genex:`INSTALL_INTERFACE` of "
+"the |INTERFACE_PROPERTY_LINK| of a target with absolute paths to the include "
+"directories of dependencies.  That would hard-code into installed packages "
+"the include directory paths for dependencies **as found on the machine the "
+"package was made on**."
+msgstr ""
+
+#: ../../../include/INTERFACE_INCLUDE_DIRECTORIES_WARNING.rst:8
+msgid ""
+"The :genex:`INSTALL_INTERFACE` of the |INTERFACE_PROPERTY_LINK| is only "
+"suitable for specifying the required include directories for headers "
+"provided with the target itself, not those provided by the transitive "
+"dependencies listed in its :prop_tgt:`INTERFACE_LINK_LIBRARIES` target "
+"property.  Those dependencies should themselves be targets that specify "
+"their own header locations in |INTERFACE_PROPERTY_LINK|."
+msgstr ""
+
+#: ../../../include/INTERFACE_INCLUDE_DIRECTORIES_WARNING.rst:15
+msgid ""
+"See the :ref:`Creating Relocatable Packages` section of the :manual:`cmake-"
+"packages(7)` manual for discussion of additional care that must be taken "
+"when specifying usage requirements while creating packages for "
+"redistribution."
+msgstr ""
+
+#: ../../../command/target_include_directories.rst:77
+msgid "See Also"
+msgstr "另請參見"
+
+#: ../../../command/target_include_directories.rst:79
+msgid ":command:`include_directories`"
+msgstr ""
+
+#: ../../../command/target_include_directories.rst:80
+msgid ":command:`target_compile_definitions`"
+msgstr ":command:`target_compile_definitions`"
+
+#: ../../../command/target_include_directories.rst:81
+msgid ":command:`target_compile_features`"
+msgstr ""
+
+#: ../../../command/target_include_directories.rst:82
+msgid ":command:`target_compile_options`"
+msgstr ""
+
+#: ../../../command/target_include_directories.rst:83
+msgid ":command:`target_link_libraries`"
+msgstr ""
+
+#: ../../../command/target_include_directories.rst:84
+msgid ":command:`target_link_directories`"
+msgstr ""
+
+#: ../../../command/target_include_directories.rst:85
+msgid ":command:`target_link_options`"
+msgstr ""
+
+#: ../../../command/target_include_directories.rst:86
+msgid ":command:`target_precompile_headers`"
+msgstr ""
+
+#: ../../../command/target_include_directories.rst:87
+msgid ":command:`target_sources`"
+msgstr ""
