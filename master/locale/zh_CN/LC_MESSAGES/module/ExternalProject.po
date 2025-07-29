@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CMake master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-14 08:20+0000\n"
+"POT-Creation-Date: 2025-07-28 08:22+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1076,11 +1076,126 @@ msgid ""
 "needs to be rerun."
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:658
-msgid "Build Step Options"
+#: ../../../../Modules/ExternalProject.cmake:657
+msgid "``CONFIGURE_ENVIRONMENT_MODIFICATION <modification>...``"
 msgstr ""
 
 #: ../../../../Modules/ExternalProject.cmake:660
+msgid ""
+"Specify environment variables that should be modified for the configure step."
+msgstr ""
+
+#: ../../../../Modules/ExternalProject.cmake:662
+#: ../../../../Modules/ExternalProject.cmake:769
+#: ../../../../Modules/ExternalProject.cmake:840
+#: ../../../../Modules/ExternalProject.cmake:891
+#: ../../../../Modules/ExternalProject.cmake:1134
+msgid ""
+"Set a :ref:`semicolon-separated list <CMake Language Lists>` of environment "
+"variables and values of the form ``MYVAR=OP:VALUE``, where ``MYVAR`` is the "
+"case-sensitive name of an environment variable to be modified.  Entries are "
+"considered in the order specified in the property's value. The ``OP`` may be "
+"one of:"
+msgstr ""
+
+#: ../../../include/ENVIRONMENT_MODIFICATION_OPS.rst:1
+msgid ""
+"``reset``: Reset to the unmodified value, ignoring all modifications to "
+"``MYVAR`` prior to this entry. Note that this will reset the variable to the "
+"value set by :prop_test:`ENVIRONMENT`, if it was set, and otherwise to its "
+"state from the rest of the CTest execution."
+msgstr ""
+
+#: ../../../include/ENVIRONMENT_MODIFICATION_OPS.rst:5
+msgid "``set``: Replaces the current value of ``MYVAR`` with ``VALUE``."
+msgstr ""
+
+#: ../../../include/ENVIRONMENT_MODIFICATION_OPS.rst:6
+msgid "``unset``: Unsets the current value of ``MYVAR``."
+msgstr ""
+
+#: ../../../include/ENVIRONMENT_MODIFICATION_OPS.rst:7
+msgid ""
+"``string_append``: Appends singular ``VALUE`` to the current value of "
+"``MYVAR``."
+msgstr ""
+
+#: ../../../include/ENVIRONMENT_MODIFICATION_OPS.rst:9
+msgid ""
+"``string_prepend``: Prepends singular ``VALUE`` to the current value of "
+"``MYVAR``."
+msgstr ""
+
+#: ../../../include/ENVIRONMENT_MODIFICATION_OPS.rst:11
+msgid ""
+"``path_list_append``: Appends singular ``VALUE`` to the current value of "
+"``MYVAR`` using the host platform's path list separator (``;`` on Windows "
+"and ``:`` elsewhere)."
+msgstr ""
+
+#: ../../../include/ENVIRONMENT_MODIFICATION_OPS.rst:14
+msgid ""
+"``path_list_prepend``: Prepends singular ``VALUE`` to the current value of "
+"``MYVAR`` using the host platform's path list separator (``;`` on Windows "
+"and ``:`` elsewhere)."
+msgstr ""
+
+#: ../../../include/ENVIRONMENT_MODIFICATION_OPS.rst:17
+msgid ""
+"``cmake_list_append``: Appends singular ``VALUE`` to the current value of "
+"``MYVAR`` using ``;`` as the separator."
+msgstr ""
+
+#: ../../../include/ENVIRONMENT_MODIFICATION_OPS.rst:19
+msgid ""
+"``cmake_list_prepend``: Prepends singular ``VALUE`` to the current value of "
+"``MYVAR`` using ``;`` as the separator."
+msgstr ""
+
+#: ../../../../Modules/ExternalProject.cmake:670
+msgid ""
+"ExternalProject_Add(example\n"
+"  ... # Download options, etc...\n"
+"  CONFIGURE_ENVIRONMENT_MODIFICATION\n"
+"    SDKROOT=set:macosx\n"
+"    PKG_CONFIG_PATH=set:$ENV{PKG_CONFIG_PATH}\n"
+")"
+msgstr ""
+
+#: ../../../../Modules/ExternalProject.cmake:679
+msgid ""
+"This snippet defines two environment variables when configuring the example "
+"project. The ``SDKROOT`` environment variable is set to ``macosx`, while the "
+"value of ``PKG_CONFIG_PATH`` is forwarded to the external project."
+msgstr ""
+
+#: ../../../../Modules/ExternalProject.cmake:683
+msgid ""
+"Environment modifications work with ``LIST_SEPARATOR`` to replace the "
+"separator with a ``;`` in the environment variable."
+msgstr ""
+
+#: ../../../../Modules/ExternalProject.cmake:686
+msgid ""
+"ExternalProject_Add(example\n"
+"  ... # Download options, etc...\n"
+"  LIST_SEPARATOR ,\n"
+"  CONFIGURE_ENVIRONMENT_MODIFICATION\n"
+"    LIST_VAR=set:a,b,c\n"
+")"
+msgstr ""
+
+#: ../../../../Modules/ExternalProject.cmake:695
+msgid ""
+"This snippet and the environment variable ``LIST_VAR`` is passed to the "
+"configure command invocation with the value ``a;b;c``."
+msgstr ""
+
+#: ../../../../Modules/ExternalProject.cmake:700
+msgid "Build Step Options"
+msgstr ""
+
+#: ../../../../Modules/ExternalProject.cmake:702
 msgid ""
 "If the configure step assumed the external project uses CMake as its build "
 "system, the build step will also. Otherwise, the build step will assume a "
@@ -1089,7 +1204,7 @@ msgid ""
 "required."
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:666
+#: ../../../../Modules/ExternalProject.cmake:708
 msgid ""
 "If both the main project and the external project use make as their build "
 "tool, the build step of the external project is invoked as a recursive make "
@@ -1102,11 +1217,11 @@ msgid ""
 "tool)."
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:676
+#: ../../../../Modules/ExternalProject.cmake:718
 msgid "``BUILD_COMMAND <cmd>...``"
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:677
+#: ../../../../Modules/ExternalProject.cmake:719
 msgid ""
 "Overrides the default build command (:manual:`generator expressions <cmake-"
 "generator-expressions(7)>` are supported). If this option is not given, the "
@@ -1117,11 +1232,11 @@ msgid ""
 "do nothing."
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:686
+#: ../../../../Modules/ExternalProject.cmake:728
 msgid "``BUILD_IN_SOURCE <bool>``"
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:687
+#: ../../../../Modules/ExternalProject.cmake:729
 msgid ""
 "When this option is enabled, the build will be done directly within the "
 "external project's source tree. This should generally be avoided, the use of "
@@ -1130,11 +1245,11 @@ msgid ""
 "should not be specified if building in-source."
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:693
+#: ../../../../Modules/ExternalProject.cmake:735
 msgid "``BUILD_ALWAYS <bool>``"
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:694
+#: ../../../../Modules/ExternalProject.cmake:736
 msgid ""
 "Enabling this option forces the build step to always be run. This can be the "
 "easiest way to robustly ensure that the external project's own build "
@@ -1146,11 +1261,11 @@ msgid ""
 "the sources in ``SOURCE_DIR``)."
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:703
+#: ../../../../Modules/ExternalProject.cmake:745
 msgid "``BUILD_BYPRODUCTS <file>...``"
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:706
+#: ../../../../Modules/ExternalProject.cmake:748
 msgid ""
 "Specifies files that will be generated by the build command but which might "
 "or might not have their modification time updated by subsequent builds. This "
@@ -1160,11 +1275,11 @@ msgid ""
 "`add_custom_command`, which has additional documentation."
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:714
+#: ../../../../Modules/ExternalProject.cmake:756
 msgid "``BUILD_JOB_SERVER_AWARE <bool>``"
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:717
+#: ../../../../Modules/ExternalProject.cmake:759
 msgid ""
 "Specifies that the build step is aware of the GNU Make job server. See the :"
 "command:`add_custom_command` documentation of its ``JOB_SERVER_AWARE`` "
@@ -1172,11 +1287,20 @@ msgid ""
 "``BUILD_COMMAND`` is specified."
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:723
+#: ../../../../Modules/ExternalProject.cmake:764
+msgid "``BUILD_ENVIRONMENT_MODIFICATION <modification>...``"
+msgstr ""
+
+#: ../../../../Modules/ExternalProject.cmake:767
+msgid ""
+"Specify environment variables that should be modified for the build step."
+msgstr ""
+
+#: ../../../../Modules/ExternalProject.cmake:778
 msgid "Install Step Options"
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:725
+#: ../../../../Modules/ExternalProject.cmake:780
 msgid ""
 "If the configure step assumed the external project uses CMake as its build "
 "system, the install step will also. Otherwise, the install step will assume "
@@ -1184,11 +1308,11 @@ msgid ""
 "step. This can be overridden with custom install commands if required."
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:730
+#: ../../../../Modules/ExternalProject.cmake:785
 msgid "``INSTALL_COMMAND <cmd>...``"
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:731
+#: ../../../../Modules/ExternalProject.cmake:786
 msgid ""
 "The external project's own install step is invoked as part of the main "
 "project's *build*. It is done after the external project's build step and "
@@ -1204,11 +1328,11 @@ msgid ""
 "do nothing."
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:745
+#: ../../../../Modules/ExternalProject.cmake:800
 msgid "``INSTALL_BYPRODUCTS <file>...``"
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:748
+#: ../../../../Modules/ExternalProject.cmake:803
 msgid ""
 "Specifies files that will be generated by the install command but which "
 "might or might not have their modification time updated by subsequent "
@@ -1218,11 +1342,11 @@ msgid ""
 "`add_custom_command`, which has additional documentation."
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:756
+#: ../../../../Modules/ExternalProject.cmake:811
 msgid "``INSTALL_JOB_SERVER_AWARE <bool>``"
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:759
+#: ../../../../Modules/ExternalProject.cmake:814
 msgid ""
 "Specifies that the install step is aware of the GNU Make job server. See "
 "the :command:`add_custom_command` documentation of its ``JOB_SERVER_AWARE`` "
@@ -1230,20 +1354,20 @@ msgid ""
 "``INSTALL_COMMAND`` is specified."
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:765
+#: ../../../../Modules/ExternalProject.cmake:820
 msgid ""
 "If the :envvar:`CMAKE_INSTALL_MODE` environment variable is set when the "
 "main project is built, it will only have an effect if the following "
 "conditions are met:"
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:769
+#: ../../../../Modules/ExternalProject.cmake:824
 msgid ""
 "The main project's configure step assumed the external project uses CMake as "
 "its build system."
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:771
+#: ../../../../Modules/ExternalProject.cmake:826
 msgid ""
 "The external project's install command actually runs. Note that due to the "
 "way ``ExternalProject`` may use timestamps internally, if nothing the "
@@ -1251,27 +1375,36 @@ msgid ""
 "also not need to run."
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:776
+#: ../../../../Modules/ExternalProject.cmake:831
 msgid ""
 "Note also that ``ExternalProject`` does not check whether the :envvar:"
 "`CMAKE_INSTALL_MODE` environment variable changes from one run to another."
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:781
+#: ../../../../Modules/ExternalProject.cmake:835
+msgid "``INSTALL_ENVIRONMENT_MODIFICATION <modification>...``"
+msgstr ""
+
+#: ../../../../Modules/ExternalProject.cmake:838
+msgid ""
+"Specify environment variables that should be modified for the install step."
+msgstr ""
+
+#: ../../../../Modules/ExternalProject.cmake:849
 msgid "Test Step Options"
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:783
+#: ../../../../Modules/ExternalProject.cmake:851
 msgid ""
 "The test step is only defined if at least one of the following ``TEST_...`` "
 "options are provided."
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:786
+#: ../../../../Modules/ExternalProject.cmake:854
 msgid "``TEST_COMMAND <cmd>...``"
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:787
+#: ../../../../Modules/ExternalProject.cmake:855
 msgid ""
 "Overrides the default test command (:manual:`generator expressions <cmake-"
 "generator-expressions(7)>` are supported). If this option is not given, the "
@@ -1283,22 +1416,22 @@ msgid ""
 "options altogether if the test step target is not needed."
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:797
+#: ../../../../Modules/ExternalProject.cmake:865
 msgid "``TEST_BEFORE_INSTALL <bool>``"
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:798
+#: ../../../../Modules/ExternalProject.cmake:866
 msgid ""
 "When this option is enabled, the test step will be executed before the "
 "install step. The default behavior is for the test step to run after the "
 "install step."
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:802
+#: ../../../../Modules/ExternalProject.cmake:870
 msgid "``TEST_AFTER_INSTALL <bool>``"
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:803
+#: ../../../../Modules/ExternalProject.cmake:871
 msgid ""
 "This option is mainly useful as a way to indicate that the test step is "
 "desired but all default behavior is sufficient. Specifying this option with "
@@ -1307,11 +1440,11 @@ msgid ""
 "``TEST_AFTER_INSTALL`` are enabled, the latter is silently ignored."
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:809
+#: ../../../../Modules/ExternalProject.cmake:877
 msgid "``TEST_EXCLUDE_FROM_MAIN <bool>``"
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:812
+#: ../../../../Modules/ExternalProject.cmake:880
 msgid ""
 "If enabled, the main build's default ALL target will not depend on the test "
 "step. This can be a useful way of ensuring the test step is defined but only "
@@ -1320,11 +1453,20 @@ msgid ""
 "policy :policy:`CMP0114`."
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:819
+#: ../../../../Modules/ExternalProject.cmake:886
+msgid "``TEST_ENVIRONMENT_MODIFICATION <modification>...``"
+msgstr ""
+
+#: ../../../../Modules/ExternalProject.cmake:889
+msgid ""
+"Specify environment variables that should be modified for the test step."
+msgstr ""
+
+#: ../../../../Modules/ExternalProject.cmake:900
 msgid "Output Logging Options"
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:821
+#: ../../../../Modules/ExternalProject.cmake:902
 msgid ""
 "Each of the following ``LOG_...`` options can be used to wrap the relevant "
 "step in a script to capture its output to files. The log files will be "
@@ -1332,77 +1474,77 @@ msgid ""
 "with step-specific file names."
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:826
+#: ../../../../Modules/ExternalProject.cmake:907
 msgid "``LOG_DOWNLOAD <bool>``"
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:827
+#: ../../../../Modules/ExternalProject.cmake:908
 msgid "When enabled, the output of the download step is logged to files."
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:829
+#: ../../../../Modules/ExternalProject.cmake:910
 msgid "``LOG_UPDATE <bool>``"
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:830
+#: ../../../../Modules/ExternalProject.cmake:911
 msgid "When enabled, the output of the update step is logged to files."
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:832
+#: ../../../../Modules/ExternalProject.cmake:913
 msgid "``LOG_PATCH <bool>``"
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:835
+#: ../../../../Modules/ExternalProject.cmake:916
 msgid "When enabled, the output of the patch step is logged to files."
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:837
+#: ../../../../Modules/ExternalProject.cmake:918
 msgid "``LOG_CONFIGURE <bool>``"
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:838
+#: ../../../../Modules/ExternalProject.cmake:919
 msgid "When enabled, the output of the configure step is logged to files."
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:840
+#: ../../../../Modules/ExternalProject.cmake:921
 msgid "``LOG_BUILD <bool>``"
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:841
+#: ../../../../Modules/ExternalProject.cmake:922
 msgid "When enabled, the output of the build step is logged to files."
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:843
+#: ../../../../Modules/ExternalProject.cmake:924
 msgid "``LOG_INSTALL <bool>``"
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:844
+#: ../../../../Modules/ExternalProject.cmake:925
 msgid "When enabled, the output of the install step is logged to files."
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:846
+#: ../../../../Modules/ExternalProject.cmake:927
 msgid "``LOG_TEST <bool>``"
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:847
+#: ../../../../Modules/ExternalProject.cmake:928
 msgid "When enabled, the output of the test step is logged to files."
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:849
+#: ../../../../Modules/ExternalProject.cmake:930
 msgid "``LOG_MERGED_STDOUTERR <bool>``"
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:852
+#: ../../../../Modules/ExternalProject.cmake:933
 msgid ""
 "When enabled, stdout and stderr will be merged for any step whose output is "
 "being logged to files."
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:855
+#: ../../../../Modules/ExternalProject.cmake:936
 msgid "``LOG_OUTPUT_ON_FAILURE <bool>``"
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:858
+#: ../../../../Modules/ExternalProject.cmake:939
 msgid ""
 "This option only has an effect if at least one of the other ``LOG_<step>`` "
 "options is enabled.  If an error occurs for a step which has logging to file "
@@ -1412,11 +1554,11 @@ msgid ""
 "console."
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:866
+#: ../../../../Modules/ExternalProject.cmake:947
 msgid "Terminal Access Options"
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:870
+#: ../../../../Modules/ExternalProject.cmake:951
 msgid ""
 "Steps can be given direct access to the terminal in some cases. Giving a "
 "step access to the terminal may allow it to receive terminal input if "
@@ -1426,71 +1568,71 @@ msgid ""
 "to the terminal individually via the following options:"
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:877
+#: ../../../../Modules/ExternalProject.cmake:958
 msgid "``USES_TERMINAL_DOWNLOAD <bool>``"
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:878
+#: ../../../../Modules/ExternalProject.cmake:959
 msgid "Give the download step access to the terminal."
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:880
+#: ../../../../Modules/ExternalProject.cmake:961
 msgid "``USES_TERMINAL_UPDATE <bool>``"
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:881
+#: ../../../../Modules/ExternalProject.cmake:962
 msgid "Give the update step access to the terminal."
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:883
+#: ../../../../Modules/ExternalProject.cmake:964
 msgid "``USES_TERMINAL_PATCH <bool>``"
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:886
+#: ../../../../Modules/ExternalProject.cmake:967
 msgid "Give the patch step access to the terminal."
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:888
+#: ../../../../Modules/ExternalProject.cmake:969
 msgid "``USES_TERMINAL_CONFIGURE <bool>``"
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:889
+#: ../../../../Modules/ExternalProject.cmake:970
 msgid "Give the configure step access to the terminal."
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:891
+#: ../../../../Modules/ExternalProject.cmake:972
 msgid "``USES_TERMINAL_BUILD <bool>``"
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:892
+#: ../../../../Modules/ExternalProject.cmake:973
 msgid "Give the build step access to the terminal."
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:894
+#: ../../../../Modules/ExternalProject.cmake:975
 msgid "``USES_TERMINAL_INSTALL <bool>``"
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:895
+#: ../../../../Modules/ExternalProject.cmake:976
 msgid "Give the install step access to the terminal."
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:897
+#: ../../../../Modules/ExternalProject.cmake:978
 msgid "``USES_TERMINAL_TEST <bool>``"
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:898
+#: ../../../../Modules/ExternalProject.cmake:979
 msgid "Give the test step access to the terminal."
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:901
+#: ../../../../Modules/ExternalProject.cmake:982
 msgid "Target Options"
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:903
+#: ../../../../Modules/ExternalProject.cmake:984
 msgid "``DEPENDS <targets>...``"
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:904
+#: ../../../../Modules/ExternalProject.cmake:985
 msgid ""
 "Specify other targets on which the external project depends. The other "
 "targets will be brought up to date before any of the external project's "
@@ -1502,21 +1644,21 @@ msgid ""
 "``<targets>``."
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:913
+#: ../../../../Modules/ExternalProject.cmake:994
 msgid "``EXCLUDE_FROM_ALL <bool>``"
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:914
+#: ../../../../Modules/ExternalProject.cmake:995
 msgid ""
 "When enabled, this option excludes the external project from the default ALL "
 "target of the main build."
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:917
+#: ../../../../Modules/ExternalProject.cmake:998
 msgid "``STEP_TARGETS <step-target>...``"
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:918
+#: ../../../../Modules/ExternalProject.cmake:999
 msgid ""
 "Generate custom targets for the specified steps. This is required if the "
 "steps need to be triggered manually or if they need to be used as "
@@ -1526,15 +1668,15 @@ msgid ""
 "effects of this option."
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:925
+#: ../../../../Modules/ExternalProject.cmake:1006
 msgid "``INDEPENDENT_STEP_TARGETS <step-target>...``"
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:926
+#: ../../../../Modules/ExternalProject.cmake:1007
 msgid "This is allowed only if policy :policy:`CMP0114` is not set to ``NEW``."
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:929
+#: ../../../../Modules/ExternalProject.cmake:1010
 msgid ""
 "Generates custom targets for the specified steps and prevent these targets "
 "from having the usual dependencies applied to them. If this option is not "
@@ -1547,27 +1689,27 @@ msgid ""
 "effects of this option."
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:940
+#: ../../../../Modules/ExternalProject.cmake:1021
 msgid "Miscellaneous Options"
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:942
+#: ../../../../Modules/ExternalProject.cmake:1023
 msgid "``LIST_SEPARATOR <sep>``"
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:943
+#: ../../../../Modules/ExternalProject.cmake:1024
 msgid ""
-"For any of the various ``..._COMMAND`` options, and ``CMAKE_ARGS``, "
-"``ExternalProject`` will replace ``<sep>`` with ``;`` in the specified "
-"command lines. This can be used to ensure a command has a literal ``;`` in "
-"it where direct usage would otherwise be interpreted as argument separators "
-"to CMake APIs instead. Note that the separator should be chosen to avoid "
-"being confused for non-list-separator usages of the sequence. For example, "
-"using ``LIST_SEPARATOR`` allows for passing list values to CMake cache "
-"variables on the command line:"
+"For any of the various ``..._COMMAND`` options, ``CMAKE_ARGS``, and `..."
+"_ENVIRONMENT_MODIFICATION`` operations, ``ExternalProject`` will replace "
+"``<sep>`` with ``;`` in the specified command lines. This can be used to "
+"ensure a command has a literal ``;`` in it where direct usage would "
+"otherwise be interpreted as argument separators to CMake APIs instead. Note "
+"that the separator should be chosen to avoid being confused for non-list-"
+"separator usages of the sequence. For example, using ``LIST_SEPARATOR`` "
+"allows for passing list values to CMake cache variables on the command line:"
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:952
+#: ../../../../Modules/ExternalProject.cmake:1034
 msgid ""
 "ExternalProject_Add(example\n"
 "  ... # Download options, etc.\n"
@@ -1577,12 +1719,12 @@ msgid ""
 ")"
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:960
-#: ../../../../Modules/ExternalProject.cmake:1028
+#: ../../../../Modules/ExternalProject.cmake:1042
+#: ../../../../Modules/ExternalProject.cmake:1110
 msgid "``COMMAND <cmd>...``"
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:961
+#: ../../../../Modules/ExternalProject.cmake:1043
 msgid ""
 "Any of the other ``..._COMMAND`` options can have additional commands "
 "appended to them by following them with as many ``COMMAND ...`` options as "
@@ -1590,7 +1732,7 @@ msgid ""
 "supported). For example:"
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:967
+#: ../../../../Modules/ExternalProject.cmake:1049
 msgid ""
 "ExternalProject_Add(example\n"
 "  ... # Download options, etc.\n"
@@ -1600,45 +1742,45 @@ msgid ""
 ")"
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:976
+#: ../../../../Modules/ExternalProject.cmake:1058
 msgid ""
 "It should also be noted that each build step is created via a call to :"
 "command:`ExternalProject_Add_Step`. See that command's documentation for the "
 "automatic substitutions that are supported for some options."
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:981
+#: ../../../../Modules/ExternalProject.cmake:1063
 msgid "Obtaining Project Properties"
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:985
+#: ../../../../Modules/ExternalProject.cmake:1067
 msgid ""
 "The ``ExternalProject_Get_Property()`` function retrieves external project "
 "target properties:"
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:988
+#: ../../../../Modules/ExternalProject.cmake:1070
 msgid "ExternalProject_Get_Property(<name> <prop1> [<prop2>...])"
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:992
+#: ../../../../Modules/ExternalProject.cmake:1074
 msgid ""
 "The function stores property values in variables of the same name. Property "
 "names correspond to the keyword argument names of ``ExternalProject_Add()``. "
 "For example, the source directory might be retrieved like so:"
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:996
+#: ../../../../Modules/ExternalProject.cmake:1078
 msgid ""
 "ExternalProject_Get_property(myExtProj SOURCE_DIR)\n"
 "message(\"Source dir of myExtProj = ${SOURCE_DIR}\")"
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:1002
+#: ../../../../Modules/ExternalProject.cmake:1084
 msgid "Explicit Step Management"
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:1004
+#: ../../../../Modules/ExternalProject.cmake:1086
 msgid ""
 "The ``ExternalProject_Add()`` function on its own is often sufficient for "
 "incorporating an external project into the main build. Certain scenarios "
@@ -1649,18 +1791,18 @@ msgid ""
 "control needed to implement such step-level capabilities."
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:1014
+#: ../../../../Modules/ExternalProject.cmake:1096
 msgid ""
 "The ``ExternalProject_Add_Step()`` function specifies an additional custom "
 "step for an external project defined by an earlier call to :command:"
 "`ExternalProject_Add`:"
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:1018
+#: ../../../../Modules/ExternalProject.cmake:1100
 msgid "ExternalProject_Add_Step(<name> <step> [<option>...])"
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:1022
+#: ../../../../Modules/ExternalProject.cmake:1104
 msgid ""
 "``<name>`` is the same as the name passed to the original call to :command:"
 "`ExternalProject_Add`. The specified ``<step>`` must not be one of the pre-"
@@ -1669,7 +1811,7 @@ msgid ""
 "are:"
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:1029
+#: ../../../../Modules/ExternalProject.cmake:1111
 msgid ""
 "The command line to be executed by this custom step (:manual:`generator "
 "expressions <cmake-generator-expressions(7)>` are supported). This option "
@@ -1677,44 +1819,54 @@ msgid ""
 "in order."
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:1034
+#: ../../../../Modules/ExternalProject.cmake:1116
 msgid "``COMMENT \"<text>...\"``"
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:1035
+#: ../../../../Modules/ExternalProject.cmake:1117
 msgid "Text to be printed when the custom step executes."
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:1037
+#: ../../../../Modules/ExternalProject.cmake:1119
 msgid "``DEPENDEES <step>...``"
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:1038
+#: ../../../../Modules/ExternalProject.cmake:1120
 msgid "Other steps (custom or pre-defined) on which this step depends."
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:1040
+#: ../../../../Modules/ExternalProject.cmake:1122
 msgid "``DEPENDERS <step>...``"
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:1041
+#: ../../../../Modules/ExternalProject.cmake:1123
 msgid ""
 "Other steps (custom or pre-defined) that depend on this new custom step."
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:1043
+#: ../../../../Modules/ExternalProject.cmake:1125
 msgid "``DEPENDS <file>...``"
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:1044
+#: ../../../../Modules/ExternalProject.cmake:1126
 msgid "Files on which this custom step depends."
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:1046
+#: ../../../../Modules/ExternalProject.cmake:1128
+msgid "``ENVIRONMENT_MODIFICATION <modification>...``"
+msgstr ""
+
+#: ../../../../Modules/ExternalProject.cmake:1131
+msgid ""
+"Specify environment variables that should be modified while running the "
+"commands in the external project step."
+msgstr ""
+
+#: ../../../../Modules/ExternalProject.cmake:1142
 msgid "``INDEPENDENT <bool>``"
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:1049
+#: ../../../../Modules/ExternalProject.cmake:1145
 msgid ""
 "Specifies whether this step is independent of the external dependencies "
 "specified by the :command:`ExternalProject_Add`'s ``DEPENDS`` option. The "
@@ -1722,14 +1874,14 @@ msgid ""
 "steps marked independent.  See policy :policy:`CMP0114`."
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:1054
+#: ../../../../Modules/ExternalProject.cmake:1150
 msgid ""
 "Note that this use of the term \"independent\" refers only to independence "
 "from external targets specified by the ``DEPENDS`` option and is orthogonal "
 "to a step's dependencies on other steps."
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:1058
+#: ../../../../Modules/ExternalProject.cmake:1154
 msgid ""
 "If a step target is created for an independent step by the :command:"
 "`ExternalProject_Add` ``STEP_TARGETS`` option or by the :command:"
@@ -1737,11 +1889,11 @@ msgid ""
 "external targets, but may depend on targets for other steps."
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:1063
+#: ../../../../Modules/ExternalProject.cmake:1159
 msgid "``BYPRODUCTS <file>...``"
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:1066
+#: ../../../../Modules/ExternalProject.cmake:1162
 msgid ""
 "Files that will be generated by this custom step but which might or might "
 "not have their modification time updated by subsequent builds. This may also "
@@ -1751,32 +1903,32 @@ msgid ""
 "implement the custom step internally, which has additional documentation."
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:1074
+#: ../../../../Modules/ExternalProject.cmake:1170
 msgid "``ALWAYS <bool>``"
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:1075
+#: ../../../../Modules/ExternalProject.cmake:1171
 msgid ""
 "When enabled, this option specifies that the custom step should always be "
 "run (i.e. that it is always considered out of date)."
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:1078
+#: ../../../../Modules/ExternalProject.cmake:1174
 msgid "``JOB_SERVER_AWARE <bool>``"
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:1081
+#: ../../../../Modules/ExternalProject.cmake:1177
 msgid ""
 "Specifies that the custom step is aware of the GNU Make job server. See the :"
 "command:`add_custom_command` documentation of its ``JOB_SERVER_AWARE`` "
 "option for details."
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:1085
+#: ../../../../Modules/ExternalProject.cmake:1181
 msgid "``EXCLUDE_FROM_MAIN <bool>``"
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:1086
+#: ../../../../Modules/ExternalProject.cmake:1182
 msgid ""
 "When enabled, this option specifies that the external project's main target "
 "does not depend on the custom step. This may cause step targets to be "
@@ -1784,11 +1936,11 @@ msgid ""
 "policy:`CMP0114`."
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:1091
+#: ../../../../Modules/ExternalProject.cmake:1187
 msgid "``WORKING_DIRECTORY <dir>``"
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:1092
+#: ../../../../Modules/ExternalProject.cmake:1188
 msgid ""
 "Specifies the working directory to set before running the custom step's "
 "command. If this option is not specified, the directory will be the value of "
@@ -1796,27 +1948,27 @@ msgid ""
 "``ExternalProject_Add_Step()`` was called."
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:1097
+#: ../../../../Modules/ExternalProject.cmake:1193
 msgid "``LOG <bool>``"
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:1098
+#: ../../../../Modules/ExternalProject.cmake:1194
 msgid ""
 "If set, this causes the output from the custom step to be captured to files "
 "in the external project's ``LOG_DIR`` if supplied or ``STAMP_DIR``."
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:1101
+#: ../../../../Modules/ExternalProject.cmake:1197
 msgid "``USES_TERMINAL <bool>``"
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:1102
+#: ../../../../Modules/ExternalProject.cmake:1198
 msgid ""
 "If enabled, this gives the custom step direct access to the terminal if "
 "possible."
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:1105
+#: ../../../../Modules/ExternalProject.cmake:1201
 msgid ""
 "The command line, comment, working directory and byproducts of every "
 "standard and custom step are processed to replace the tokens "
@@ -1826,26 +1978,26 @@ msgid ""
 "`ExternalProject_Add`."
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:1112
+#: ../../../../Modules/ExternalProject.cmake:1208
 msgid "Token replacement is extended to byproducts."
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:1115
+#: ../../../../Modules/ExternalProject.cmake:1211
 msgid "The ``<DOWNLOAD_DIR>`` substitution token."
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:1120
+#: ../../../../Modules/ExternalProject.cmake:1216
 msgid ""
 "The ``ExternalProject_Add_StepTargets()`` function generates targets for the "
 "steps listed. The name of each created target will be of the form ``<name>-"
 "<step>``:"
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:1124
+#: ../../../../Modules/ExternalProject.cmake:1220
 msgid "ExternalProject_Add_StepTargets(<name> <step1> [<step2>...])"
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:1128
+#: ../../../../Modules/ExternalProject.cmake:1224
 msgid ""
 "Creating a target for a step allows it to be used as a dependency of another "
 "target or to be triggered manually. Having targets for specific steps also "
@@ -1858,7 +2010,7 @@ msgid ""
 "ensure everything is up to date."
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:1138
+#: ../../../../Modules/ExternalProject.cmake:1234
 msgid ""
 "Internally, :command:`ExternalProject_Add` calls :command:"
 "`ExternalProject_Add_Step` to create each step. If any ``STEP_TARGETS`` were "
@@ -1868,7 +2020,7 @@ msgid ""
 "still be called later to manually define a target for the step."
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:1146
+#: ../../../../Modules/ExternalProject.cmake:1242
 msgid ""
 "The ``STEP_TARGETS`` option for :command:`ExternalProject_Add` is generally "
 "the easiest way to ensure targets are created for specific steps of "
@@ -1880,7 +2032,7 @@ msgid ""
 "multiple external projects are being defined."
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:1155
+#: ../../../../Modules/ExternalProject.cmake:1251
 msgid ""
 "If :policy:`CMP0114` is set to ``NEW``, step targets are fully responsible "
 "for holding the custom commands implementing their steps.  The primary "
@@ -1893,13 +2045,13 @@ msgid ""
 "``mkdir``, ``download``, ``update``, and ``patch`` are independent."
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:1166
+#: ../../../../Modules/ExternalProject.cmake:1262
 msgid ""
 "If :policy:`CMP0114` is not ``NEW``, the following deprecated behavior is "
 "available:"
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:1169
+#: ../../../../Modules/ExternalProject.cmake:1265
 msgid ""
 "A deprecated ``NO_DEPENDS`` option may be specified immediately after the "
 "``<name>`` and before the first step. If the ``NO_DEPENDS`` option is "
@@ -1915,7 +2067,7 @@ msgid ""
 "installed."
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:1182
+#: ../../../../Modules/ExternalProject.cmake:1278
 msgid ""
 "The ``INDEPENDENT_STEP_TARGETS`` option for :command:`ExternalProject_Add`, "
 "or the ``EP_INDEPENDENT_STEP_TARGETS`` directory property, tells the "
@@ -1923,7 +2075,7 @@ msgid ""
 "``NO_DEPENDS`` option for the specified steps."
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:1191
+#: ../../../../Modules/ExternalProject.cmake:1287
 msgid ""
 "The ``ExternalProject_Add_StepDependencies()`` function can be used to add "
 "dependencies to a step. The dependencies added must be targets CMake already "
@@ -1931,12 +2083,12 @@ msgid ""
 "targets or even step targets of another external project):"
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:1196
+#: ../../../../Modules/ExternalProject.cmake:1292
 msgid ""
 "ExternalProject_Add_StepDependencies(<name> <step> <target1> [<target2>...])"
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:1200
+#: ../../../../Modules/ExternalProject.cmake:1296
 msgid ""
 "This function takes care to set both target and file level dependencies and "
 "will ensure that parallel builds will not break. It should be used instead "
@@ -1944,17 +2096,17 @@ msgid ""
 "step targets generated by the ``ExternalProject`` module."
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:1206
+#: ../../../../Modules/ExternalProject.cmake:1302
 msgid "Examples"
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:1208
+#: ../../../../Modules/ExternalProject.cmake:1304
 msgid ""
 "The following example shows how to download and build a hypothetical project "
 "called *FooBar* from github:"
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:1211
+#: ../../../../Modules/ExternalProject.cmake:1307
 msgid ""
 "include(ExternalProject)\n"
 "ExternalProject_Add(foobar\n"
@@ -1963,7 +2115,7 @@ msgid ""
 ")"
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:1219
+#: ../../../../Modules/ExternalProject.cmake:1315
 msgid ""
 "For the sake of the example, also define a second hypothetical external "
 "project called *SecretSauce*, which is downloaded from a web server. Two "
@@ -1973,7 +2125,7 @@ msgid ""
 "are overridden. The build is only required to build the *sauce* target:"
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:1226
+#: ../../../../Modules/ExternalProject.cmake:1322
 msgid ""
 "find_program(MAKE_EXE NAMES gmake nmake make)\n"
 "ExternalProject_Add(secretsauce\n"
@@ -1985,17 +2137,17 @@ msgid ""
 ")"
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:1237
+#: ../../../../Modules/ExternalProject.cmake:1333
 msgid ""
 "Suppose the build step of ``secretsauce`` requires that ``foobar`` must "
 "already be built. This could be enforced like so:"
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:1240
+#: ../../../../Modules/ExternalProject.cmake:1336
 msgid "ExternalProject_Add_StepDependencies(secretsauce build foobar)"
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:1244
+#: ../../../../Modules/ExternalProject.cmake:1340
 msgid ""
 "Another alternative would be to create a custom target for ``foobar``'s "
 "build step and make ``secretsauce`` depend on that rather than the whole "
@@ -2005,7 +2157,7 @@ msgid ""
 "project:"
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:1250
+#: ../../../../Modules/ExternalProject.cmake:1346
 msgid ""
 "ExternalProject_Add_StepTargets(foobar build)\n"
 "ExternalProject_Add(secretsauce\n"
@@ -2018,13 +2170,13 @@ msgid ""
 ")"
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:1262
+#: ../../../../Modules/ExternalProject.cmake:1358
 msgid ""
 "Instead of calling :command:`ExternalProject_Add_StepTargets`, the target "
 "could be defined along with the ``foobar`` project itself:"
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:1265
+#: ../../../../Modules/ExternalProject.cmake:1361
 msgid ""
 "ExternalProject_Add(foobar\n"
 "  GIT_REPOSITORY git@github.com:FooCo/FooBar.git\n"
@@ -2033,7 +2185,7 @@ msgid ""
 ")"
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:1273
+#: ../../../../Modules/ExternalProject.cmake:1369
 msgid ""
 "If many external projects should have the same set of step targets, setting "
 "a directory property may be more convenient. The ``build`` step target could "
@@ -2042,11 +2194,11 @@ msgid ""
 "`ExternalProject_Add`:"
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:1278
+#: ../../../../Modules/ExternalProject.cmake:1374
 msgid "set_property(DIRECTORY PROPERTY EP_STEP_TARGETS build)"
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:1282
+#: ../../../../Modules/ExternalProject.cmake:1378
 msgid ""
 "Lastly, suppose that ``secretsauce`` provides a script called ``makedoc`` "
 "which can be used to generate its own documentation. Further suppose that "
@@ -2055,7 +2207,7 @@ msgid ""
 "custom step and a custom target to trigger the script can be defined like so:"
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:1288
+#: ../../../../Modules/ExternalProject.cmake:1384
 msgid ""
 "ExternalProject_Add_Step(secretsauce docs\n"
 "  COMMAND           <SOURCE_DIR>/makedoc <BINARY_DIR>\n"
@@ -2067,10 +2219,10 @@ msgid ""
 "ExternalProject_Add_StepTargets(secretsauce docs)"
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:1299
+#: ../../../../Modules/ExternalProject.cmake:1395
 msgid "The custom step could then be triggered from the main build like so::"
 msgstr ""
 
-#: ../../../../Modules/ExternalProject.cmake:1301
+#: ../../../../Modules/ExternalProject.cmake:1397
 msgid "cmake --build . --target secretsauce-docs"
 msgstr ""
