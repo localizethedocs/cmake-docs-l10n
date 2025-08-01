@@ -27,7 +27,7 @@ msgstr "目次"
 
 #: ../../../manual/cmake-developer.7.rst:11
 msgid "Introduction"
-msgstr ""
+msgstr "簡介"
 
 #: ../../../manual/cmake-developer.7.rst:13
 msgid ""
@@ -45,7 +45,7 @@ msgstr ""
 
 #: ../../../manual/cmake-developer.7.rst:22
 msgid "Accessing Windows Registry"
-msgstr ""
+msgstr "存取 Windows 註冊表"
 
 #: ../../../manual/cmake-developer.7.rst:24
 msgid ""
@@ -54,7 +54,7 @@ msgstr ""
 
 #: ../../../manual/cmake-developer.7.rst:27
 msgid "Query Windows Registry"
-msgstr ""
+msgstr "查詢 Windows 註冊表"
 
 #: ../../../manual/cmake-developer.7.rst:31
 msgid ""
@@ -66,7 +66,7 @@ msgstr ""
 
 #: ../../../manual/cmake-developer.7.rst:39
 msgid "Find Using Windows Registry"
-msgstr ""
+msgstr "使用 Windows 註冊表尋找"
 
 #: ../../../manual/cmake-developer.7.rst:43
 msgid ""
@@ -750,6 +750,11 @@ msgid ""
 "  set(Foo_DEFINITIONS ${PC_Foo_CFLAGS_OTHER})\n"
 "endif()"
 msgstr ""
+"if(Foo_FOUND)\n"
+"  set(Foo_LIBRARIES ${Foo_LIBRARY})\n"
+"  set(Foo_INCLUDE_DIRS ${Foo_INCLUDE_DIR})\n"
+"  set(Foo_DEFINITIONS ${PC_Foo_CFLAGS_OTHER})\n"
+"endif()"
 
 #: ../../../manual/cmake-developer.7.rst:494
 msgid ""
@@ -778,6 +783,14 @@ msgid ""
 "  )\n"
 "endif()"
 msgstr ""
+"if(Foo_FOUND AND NOT TARGET Foo::Foo)\n"
+"  add_library(Foo::Foo UNKNOWN IMPORTED)\n"
+"  set_target_properties(Foo::Foo PROPERTIES\n"
+"    IMPORTED_LOCATION \"${Foo_LIBRARY}\"\n"
+"    INTERFACE_COMPILE_OPTIONS \"${PC_Foo_CFLAGS_OTHER}\"\n"
+"    INTERFACE_INCLUDE_DIRECTORIES \"${Foo_INCLUDE_DIR}\"\n"
+"  )\n"
+"endif()"
 
 #: ../../../manual/cmake-developer.7.rst:516
 msgid ""
@@ -830,6 +843,31 @@ msgid ""
 "  )\n"
 "endif()"
 msgstr ""
+"if(Foo_FOUND)\n"
+"  if (NOT TARGET Foo::Foo)\n"
+"    add_library(Foo::Foo UNKNOWN IMPORTED)\n"
+"  endif()\n"
+"  if (Foo_LIBRARY_RELEASE)\n"
+"    set_property(TARGET Foo::Foo APPEND PROPERTY\n"
+"      IMPORTED_CONFIGURATIONS RELEASE\n"
+"    )\n"
+"    set_target_properties(Foo::Foo PROPERTIES\n"
+"      IMPORTED_LOCATION_RELEASE \"${Foo_LIBRARY_RELEASE}\"\n"
+"    )\n"
+"  endif()\n"
+"  if (Foo_LIBRARY_DEBUG)\n"
+"    set_property(TARGET Foo::Foo APPEND PROPERTY\n"
+"      IMPORTED_CONFIGURATIONS DEBUG\n"
+"    )\n"
+"    set_target_properties(Foo::Foo PROPERTIES\n"
+"      IMPORTED_LOCATION_DEBUG \"${Foo_LIBRARY_DEBUG}\"\n"
+"    )\n"
+"  endif()\n"
+"  set_target_properties(Foo::Foo PROPERTIES\n"
+"    INTERFACE_COMPILE_OPTIONS \"${PC_Foo_CFLAGS_OTHER}\"\n"
+"    INTERFACE_INCLUDE_DIRECTORIES \"${Foo_INCLUDE_DIR}\"\n"
+"  )\n"
+"endif()"
 
 #: ../../../manual/cmake-developer.7.rst:559
 msgid ""
