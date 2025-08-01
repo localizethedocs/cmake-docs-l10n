@@ -19,15 +19,15 @@ msgstr ""
 
 #: ../../../manual/cmake-developer.7.rst:4
 msgid "cmake-developer(7)"
-msgstr ""
+msgstr "cmake-開發者(7)"
 
 #: ../../../manual/cmake-developer.7.rst:7
 msgid "Contents"
-msgstr ""
+msgstr "目次"
 
 #: ../../../manual/cmake-developer.7.rst:11
 msgid "Introduction"
-msgstr ""
+msgstr "介紹"
 
 #: ../../../manual/cmake-developer.7.rst:13
 msgid ""
@@ -816,7 +816,7 @@ msgstr ""
 
 #: ../../../manual/cmake-developer.7.rst:501
 msgid "Modules"
-msgstr ""
+msgstr "模組"
 
 #: ../../../manual/cmake-developer.7.rst:503
 msgid ""
@@ -1457,6 +1457,11 @@ msgid ""
 "  set(Foo_DEFINITIONS ${PC_Foo_CFLAGS_OTHER})\n"
 "endif()"
 msgstr ""
+"if(Foo_FOUND)\n"
+"  set(Foo_LIBRARIES ${Foo_LIBRARY})\n"
+"  set(Foo_INCLUDE_DIRS ${Foo_INCLUDE_DIR})\n"
+"  set(Foo_DEFINITIONS ${PC_Foo_CFLAGS_OTHER})\n"
+"endif()"
 
 #: ../../../manual/cmake-developer.7.rst:922
 msgid ""
@@ -1485,6 +1490,14 @@ msgid ""
 "  )\n"
 "endif()"
 msgstr ""
+"if(Foo_FOUND AND NOT TARGET Foo::Foo)\n"
+"  add_library(Foo::Foo UNKNOWN IMPORTED)\n"
+"  set_target_properties(Foo::Foo PROPERTIES\n"
+"    IMPORTED_LOCATION \"${Foo_LIBRARY}\"\n"
+"    INTERFACE_COMPILE_OPTIONS \"${PC_Foo_CFLAGS_OTHER}\"\n"
+"    INTERFACE_INCLUDE_DIRECTORIES \"${Foo_INCLUDE_DIR}\"\n"
+"  )\n"
+"endif()"
 
 #: ../../../manual/cmake-developer.7.rst:944
 msgid ""
@@ -1537,6 +1550,31 @@ msgid ""
 "  )\n"
 "endif()"
 msgstr ""
+"if(Foo_FOUND)\n"
+"  if (NOT TARGET Foo::Foo)\n"
+"    add_library(Foo::Foo UNKNOWN IMPORTED)\n"
+"  endif()\n"
+"  if (Foo_LIBRARY_RELEASE)\n"
+"    set_property(TARGET Foo::Foo APPEND PROPERTY\n"
+"      IMPORTED_CONFIGURATIONS RELEASE\n"
+"    )\n"
+"    set_target_properties(Foo::Foo PROPERTIES\n"
+"      IMPORTED_LOCATION_RELEASE \"${Foo_LIBRARY_RELEASE}\"\n"
+"    )\n"
+"  endif()\n"
+"  if (Foo_LIBRARY_DEBUG)\n"
+"    set_property(TARGET Foo::Foo APPEND PROPERTY\n"
+"      IMPORTED_CONFIGURATIONS DEBUG\n"
+"    )\n"
+"    set_target_properties(Foo::Foo PROPERTIES\n"
+"      IMPORTED_LOCATION_DEBUG \"${Foo_LIBRARY_DEBUG}\"\n"
+"    )\n"
+"  endif()\n"
+"  set_target_properties(Foo::Foo PROPERTIES\n"
+"    INTERFACE_COMPILE_OPTIONS \"${PC_Foo_CFLAGS_OTHER}\"\n"
+"    INTERFACE_INCLUDE_DIRECTORIES \"${Foo_INCLUDE_DIR}\"\n"
+"  )\n"
+"endif()"
 
 #: ../../../manual/cmake-developer.7.rst:987
 msgid ""
