@@ -9,6 +9,8 @@ message(STATUS "-------------------- ${SCRIPT_NAME} --------------------")
 
 
 set(CMAKE_MODULE_PATH   "${PROJ_CMAKE_MODULES_DIR}")
+set(CMAKE_PROGRAM_PATH  "${PROJ_CONDA_DIR}"
+                        "${PROJ_CONDA_DIR}/Library")
 include(LogUtils)
 include(JsonUtils)
 
