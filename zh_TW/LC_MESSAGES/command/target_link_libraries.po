@@ -1,0 +1,689 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2000-2025 Kitware, Inc. and Contributors
+# This file is distributed under the same license as the CMake package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CMake master\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-07-14 08:20+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../command/target_link_libraries.rst:2
+msgid "target_link_libraries"
+msgstr ""
+
+#: ../../../command/target_link_libraries.rst:5
+msgid "Contents"
+msgstr ""
+
+#: ../../../command/target_link_libraries.rst:8
+msgid ""
+"Specify libraries or flags to use when linking a given target and/or its "
+"dependents.  :ref:`Usage requirements <Target Usage Requirements>` from "
+"linked library targets will be propagated.  Usage requirements of a target's "
+"dependencies affect compilation of its own sources."
+msgstr ""
+
+#: ../../../command/target_link_libraries.rst:14
+msgid "Overview"
+msgstr "概覽"
+
+#: ../../../command/target_link_libraries.rst:16
+msgid ""
+"This command has several signatures as detailed in subsections below. All of "
+"them have the general form"
+msgstr ""
+
+#: ../../../command/target_link_libraries.rst:19
+msgid "target_link_libraries(<target> ... <item>... ...)"
+msgstr ""
+
+#: ../../../command/target_link_libraries.rst:23
+msgid ""
+"The named ``<target>`` must have been created by a command such as :command:"
+"`add_executable` or :command:`add_library` and must not be an :ref:`ALIAS "
+"target <Alias Targets>`.  If policy :policy:`CMP0079` is not set to ``NEW`` "
+"then the target must have been created in the current directory.  Repeated "
+"calls for the same ``<target>`` append items in the order called."
+msgstr ""
+
+#: ../../../command/target_link_libraries.rst:30
+msgid ""
+"The ``<target>`` doesn't have to be defined in the same directory as the "
+"``target_link_libraries`` call."
+msgstr ""
+
+#: ../../../command/target_link_libraries.rst:34
+msgid "Each ``<item>`` may be:"
+msgstr ""
+
+#: ../../../command/target_link_libraries.rst:36
+msgid ""
+"**A library target name**: The generated link line will have the full path "
+"to the linkable library file associated with the target. The buildsystem "
+"will have a dependency to re-link ``<target>`` if the library file changes."
+msgstr ""
+
+#: ../../../command/target_link_libraries.rst:41
+msgid ""
+"The named target must be created by :command:`add_library` within the "
+"project or as an :ref:`IMPORTED library <Imported Targets>`. If it is "
+"created within the project an ordering dependency will automatically be "
+"added in the build system to make sure the named library target is up-to-"
+"date before the ``<target>`` links."
+msgstr ""
+
+#: ../../../command/target_link_libraries.rst:47
+msgid ""
+"If an imported library has the :prop_tgt:`IMPORTED_NO_SONAME` target "
+"property set, CMake may ask the linker to search for the library instead of "
+"using the full path (e.g. ``/usr/lib/libfoo.so`` becomes ``-lfoo``)."
+msgstr ""
+
+#: ../../../command/target_link_libraries.rst:52
+msgid ""
+"The full path to the target's artifact will be quoted/escaped for the shell "
+"automatically."
+msgstr ""
+
+#: ../../../command/target_link_libraries.rst:55
+msgid ""
+"**A full path to a library file**: The generated link line will normally "
+"preserve the full path to the file. The buildsystem will have a dependency "
+"to re-link ``<target>`` if the library file changes."
+msgstr ""
+
+#: ../../../command/target_link_libraries.rst:59
+msgid ""
+"There are some cases where CMake may ask the linker to search for the "
+"library (e.g. ``/usr/lib/libfoo.so`` becomes ``-lfoo``), such as when a "
+"shared library is detected to have no ``SONAME`` field. In CMake versions "
+"prior to 4.0, see policy :policy:`CMP0060` for discussion of another case."
+msgstr ""
+
+#: ../../../command/target_link_libraries.rst:65
+msgid ""
+"If the library file is in a macOS framework, the ``Headers`` directory of "
+"the framework will also be processed as a :ref:`usage requirement <Target "
+"Usage Requirements>`.  This has the same effect as passing the framework "
+"directory as an include directory."
+msgstr ""
+
+#: ../../../command/target_link_libraries.rst:72
+msgid ""
+"The library file may point to a ``.xcframework`` folder on Apple platforms. "
+"If it does, the target will get the selected library's ``Headers`` directory "
+"as a usage requirement."
+msgstr ""
+
+#: ../../../command/target_link_libraries.rst:76
+msgid ""
+"On :ref:`Visual Studio Generators` for VS 2010 and above, library files "
+"ending in ``.targets`` will be treated as MSBuild targets files and imported "
+"into generated project files.  This is not supported by other generators."
+msgstr ""
+
+#: ../../../command/target_link_libraries.rst:82
+msgid ""
+"The full path to the library file will be quoted/escaped for the shell "
+"automatically."
+msgstr ""
+
+#: ../../../command/target_link_libraries.rst:85
+msgid ""
+"**A plain library name**: The generated link line will ask the linker to "
+"search for the library (e.g. ``foo`` becomes ``-lfoo`` or ``foo.lib``)."
+msgstr ""
+
+#: ../../../command/target_link_libraries.rst:88
+msgid ""
+"The library name/flag is treated as a command-line string fragment and will "
+"be used with no extra quoting or escaping."
+msgstr ""
+
+#: ../../../command/target_link_libraries.rst:91
+msgid ""
+"**A link flag**: Item names starting with ``-``, but not ``-l`` or ``-"
+"framework``, are treated as linker flags.  Note that such flags will be "
+"treated like any other library link item for purposes of transitive "
+"dependencies, so they are generally safe to specify only as private link "
+"items that will not propagate to dependents."
+msgstr ""
+
+#: ../../../command/target_link_libraries.rst:97
+msgid ""
+"Link flags specified here are inserted into the link command in the same "
+"place as the link libraries. This might not be correct, depending on the "
+"linker. Use the :prop_tgt:`LINK_OPTIONS` target property or :command:"
+"`target_link_options` command to add link flags explicitly. The flags will "
+"then be placed at the toolchain-defined flag position in the link command."
+msgstr ""
+
+#: ../../../command/target_link_libraries.rst:104
+msgid ""
+":prop_tgt:`LINK_OPTIONS` target property and :command:`target_link_options` "
+"command.  For earlier versions of CMake, use :prop_tgt:`LINK_FLAGS` property "
+"instead."
+msgstr ""
+
+#: ../../../command/target_link_libraries.rst:109
+msgid ""
+"The link flag is treated as a command-line string fragment and will be used "
+"with no extra quoting or escaping."
+msgstr ""
+
+#: ../../../command/target_link_libraries.rst:112
+msgid ""
+"**A generator expression**: A ``$<...>`` :manual:`generator expression "
+"<cmake-generator-expressions(7)>` may evaluate to any of the above items or "
+"to a :ref:`semicolon-separated list <CMake Language Lists>` of them. If the "
+"``...`` contains any ``;`` characters, e.g. after evaluation of a ``${list}"
+"`` variable, be sure to use an explicitly quoted argument ``\"$<...>\"`` so "
+"that this command receives it as a single ``<item>``."
+msgstr ""
+
+#: ../../../command/target_link_libraries.rst:120
+msgid ""
+"Additionally, a generator expression may be used as a fragment of any of the "
+"above items, e.g. ``foo$<1:_d>``."
+msgstr ""
+
+#: ../../../command/target_link_libraries.rst:123
+msgid ""
+"A ``debug``, ``optimized``, or ``general`` keyword immediately followed by "
+"another ``<item>``.  The item following such a keyword will be used only for "
+"the corresponding build configuration.  The ``debug`` keyword corresponds to "
+"the ``Debug`` configuration (or to configurations named in the :prop_gbl:"
+"`DEBUG_CONFIGURATIONS` global property if it is set). The ``optimized`` "
+"keyword corresponds to all other configurations.  The ``general`` keyword "
+"corresponds to all configurations, and is purely optional.  These keywords "
+"are interpreted immediately by this command and therefore have no special "
+"meaning when produced by a generator expression."
+msgstr ""
+
+#: ../../../command/target_link_libraries.rst:133
+msgid ""
+"Alternatively, generator expressions like :genex:`$<CONFIG>` provide finer "
+"per-configuration linking of ``<item>``.  For a more structured approach, "
+"higher granularity can be achieved by creating and linking to :ref:`IMPORTED "
+"library targets <Imported Targets>` with the :prop_tgt:"
+"`IMPORTED_CONFIGURATIONS` property set, particularly in find modules."
+msgstr ""
+
+#: ../../../command/target_link_libraries.rst:140
+msgid ""
+"Items containing ``::``, such as ``Foo::Bar``, are assumed to be :ref:"
+"`IMPORTED <Imported Targets>` or :ref:`ALIAS <Alias Targets>` library target "
+"names and will cause an error if no such target exists. See policy :policy:"
+"`CMP0028`."
+msgstr ""
+
+#: ../../../command/target_link_libraries.rst:145
+msgid ""
+"See the :variable:`CMAKE_LINK_LIBRARIES_STRATEGY` variable and "
+"corresponding :prop_tgt:`LINK_LIBRARIES_STRATEGY` target property for "
+"details on how CMake orders direct link dependencies on linker command lines."
+msgstr ""
+
+#: ../../../command/target_link_libraries.rst:150
+msgid ""
+"See the :manual:`cmake-buildsystem(7)` manual for more on defining "
+"buildsystem properties."
+msgstr ""
+
+#: ../../../command/include/LINK_LIBRARIES_LINKER.rst:2
+msgid "Handling Compiler Driver Differences"
+msgstr ""
+
+#: ../../../command/include/LINK_LIBRARIES_LINKER.rst:6
+msgid ""
+"To pass options to the linker tool, each compiler driver has its own syntax. "
+"The ``LINKER:`` prefix and ``,`` separator can be used to specify, in a "
+"portable way, options to pass to the linker tool. ``LINKER:`` is replaced by "
+"the appropriate driver option and ``,`` by the appropriate driver separator. "
+"The driver prefix and driver separator are given by the values of the :"
+"variable:`CMAKE_<LANG>_LINKER_WRAPPER_FLAG` and :variable:"
+"`CMAKE_<LANG>_LINKER_WRAPPER_FLAG_SEP` variables."
+msgstr ""
+
+#: ../../../command/include/LINK_LIBRARIES_LINKER.rst:14
+msgid ""
+"For example, ``\"LINKER:-z,defs\"`` becomes ``-Xlinker -z -Xlinker defs`` "
+"for ``Clang`` and ``-Wl,-z,defs`` for ``GNU GCC``."
+msgstr ""
+
+#: ../../../command/include/LINK_LIBRARIES_LINKER.rst:17
+msgid ""
+"The ``LINKER:`` prefix supports, as an alternative syntax, specification of "
+"arguments using the ``SHELL:`` prefix and space as separator. The previous "
+"example then becomes ``\"LINKER:SHELL:-z defs\"``."
+msgstr ""
+
+#: ../../../command/include/LINK_LIBRARIES_LINKER.rst:23
+msgid ""
+"Specifying the ``SHELL:`` prefix anywhere other than at the beginning of the "
+"``LINKER:`` prefix is not supported."
+msgstr ""
+
+#: ../../../command/target_link_libraries.rst:156
+msgid "Libraries for a Target and/or its Dependents"
+msgstr ""
+
+#: ../../../command/target_link_libraries.rst:158
+msgid ""
+"target_link_libraries(<target>\n"
+"                      <PRIVATE|PUBLIC|INTERFACE> <item>...\n"
+"                     [<PRIVATE|PUBLIC|INTERFACE> <item>...]...)"
+msgstr ""
+
+#: ../../../command/target_link_libraries.rst:164
+msgid ""
+"The ``PUBLIC``, ``PRIVATE`` and ``INTERFACE`` :ref:`scope <Target Command "
+"Scope>` keywords can be used to specify both the link dependencies and the "
+"link interface in one command."
+msgstr ""
+
+#: ../../../command/target_link_libraries.rst:168
+msgid ""
+"Libraries and targets following ``PUBLIC`` are linked to, and are made part "
+"of the link interface.  Libraries and targets following ``PRIVATE`` are "
+"linked to, but are not made part of the link interface.  Libraries following "
+"``INTERFACE`` are appended to the link interface and are not used for "
+"linking ``<target>``."
+msgstr ""
+
+#: ../../../command/target_link_libraries.rst:175
+msgid "Libraries for both a Target and its Dependents"
+msgstr ""
+
+#: ../../../command/target_link_libraries.rst:177
+msgid "target_link_libraries(<target> <item>...)"
+msgstr ""
+
+#: ../../../command/target_link_libraries.rst:181
+msgid ""
+"Library dependencies are transitive by default with this signature. When "
+"this target is linked into another target then the libraries linked to this "
+"target will appear on the link line for the other target too.  This "
+"transitive \"link interface\" is stored in the :prop_tgt:"
+"`INTERFACE_LINK_LIBRARIES` target property and may be overridden by setting "
+"the property directly."
+msgstr ""
+
+#: ../../../command/target_link_libraries.rst:188
+msgid ""
+"In CMake versions prior to 4.0, if :policy:`CMP0022` is not set to ``NEW``, "
+"transitive linking is built in but may be overridden by the :prop_tgt:"
+"`LINK_INTERFACE_LIBRARIES` property.  Calls to other signatures of this "
+"command may set the property making any libraries linked exclusively by this "
+"signature private."
+msgstr ""
+
+#: ../../../command/target_link_libraries.rst:195
+msgid "Libraries for a Target and/or its Dependents (Legacy)"
+msgstr ""
+
+#: ../../../command/target_link_libraries.rst:197
+msgid ""
+"This signature is for compatibility only.  Prefer the ``PUBLIC`` or "
+"``PRIVATE`` keywords instead."
+msgstr ""
+
+#: ../../../command/target_link_libraries.rst:200
+msgid ""
+"target_link_libraries(<target>\n"
+"                      <LINK_PRIVATE|LINK_PUBLIC> <lib>...\n"
+"                     [<LINK_PRIVATE|LINK_PUBLIC> <lib>...]...)"
+msgstr ""
+
+#: ../../../command/target_link_libraries.rst:206
+msgid ""
+"The ``LINK_PUBLIC`` and ``LINK_PRIVATE`` modes can be used to specify both "
+"the link dependencies and the link interface in one command."
+msgstr ""
+
+#: ../../../command/target_link_libraries.rst:209
+msgid ""
+"Libraries and targets following ``LINK_PUBLIC`` are linked to, and are made "
+"part of the :prop_tgt:`INTERFACE_LINK_LIBRARIES`."
+msgstr ""
+
+#: ../../../command/target_link_libraries.rst:212
+msgid ""
+"In CMake versions prior to 4.0, if policy :policy:`CMP0022` is not ``NEW``, "
+"they are also made part of the :prop_tgt:`LINK_INTERFACE_LIBRARIES`. "
+"Libraries and targets following ``LINK_PRIVATE`` are linked to, but are not "
+"made part of the :prop_tgt:`INTERFACE_LINK_LIBRARIES` (or :prop_tgt:"
+"`LINK_INTERFACE_LIBRARIES`)."
+msgstr ""
+
+#: ../../../command/target_link_libraries.rst:219
+msgid "Libraries for Dependents Only (Legacy)"
+msgstr ""
+
+#: ../../../command/target_link_libraries.rst:221
+msgid ""
+"This signature is for compatibility only.  Prefer the ``INTERFACE`` mode "
+"instead."
+msgstr ""
+
+#: ../../../command/target_link_libraries.rst:224
+msgid "target_link_libraries(<target> LINK_INTERFACE_LIBRARIES <item>...)"
+msgstr ""
+
+#: ../../../command/target_link_libraries.rst:228
+msgid ""
+"The ``LINK_INTERFACE_LIBRARIES`` mode appends the libraries to the :prop_tgt:"
+"`INTERFACE_LINK_LIBRARIES` target property instead of using them for linking."
+msgstr ""
+
+#: ../../../command/target_link_libraries.rst:232
+msgid ""
+"In CMake versions prior to 4.0, if policy :policy:`CMP0022` is not ``NEW``, "
+"then this mode also appends libraries to the :prop_tgt:"
+"`LINK_INTERFACE_LIBRARIES` and its per-configuration equivalent."
+msgstr ""
+
+#: ../../../command/target_link_libraries.rst:239
+msgid "Linking Object Libraries"
+msgstr ""
+
+#: ../../../command/target_link_libraries.rst:243
+msgid ""
+":ref:`Object Libraries` may be used as the ``<target>`` (first) argument of "
+"``target_link_libraries`` to specify dependencies of their sources on other "
+"libraries.  For example, the code"
+msgstr ""
+
+#: ../../../command/target_link_libraries.rst:247
+msgid ""
+"add_library(A SHARED a.c)\n"
+"target_compile_definitions(A PUBLIC A)\n"
+"\n"
+"add_library(obj OBJECT obj.c)\n"
+"target_compile_definitions(obj PUBLIC OBJ)\n"
+"target_link_libraries(obj PUBLIC A)"
+msgstr ""
+
+#: ../../../command/target_link_libraries.rst:256
+msgid ""
+"compiles ``obj.c`` with ``-DA -DOBJ`` and establishes usage requirements for "
+"``obj`` that propagate to its dependents."
+msgstr ""
+
+#: ../../../command/target_link_libraries.rst:259
+msgid ""
+"Normal libraries and executables may link to :ref:`Object Libraries` to get "
+"their objects and usage requirements.  Continuing the above example, the code"
+msgstr ""
+
+#: ../../../command/target_link_libraries.rst:263
+msgid ""
+"add_library(B SHARED b.c)\n"
+"target_link_libraries(B PUBLIC obj)"
+msgstr ""
+
+#: ../../../command/target_link_libraries.rst:268
+msgid ""
+"compiles ``b.c`` with ``-DA -DOBJ``, creates shared library ``B`` with "
+"object files from ``b.c`` and ``obj.c``, and links ``B`` to ``A``. "
+"Furthermore, the code"
+msgstr ""
+
+#: ../../../command/target_link_libraries.rst:272
+msgid ""
+"add_executable(main main.c)\n"
+"target_link_libraries(main B)"
+msgstr ""
+
+#: ../../../command/target_link_libraries.rst:277
+msgid ""
+"compiles ``main.c`` with ``-DA -DOBJ`` and links executable ``main`` to "
+"``B`` and ``A``.  The object library's usage requirements are propagated "
+"transitively through ``B``, but its object files are not."
+msgstr ""
+
+#: ../../../command/target_link_libraries.rst:281
+msgid ""
+":ref:`Object Libraries` may \"link\" to other object libraries to get usage "
+"requirements, but since they do not have a link step nothing is done with "
+"their object files.  Continuing from the above example, the code:"
+msgstr ""
+
+#: ../../../command/target_link_libraries.rst:286
+msgid ""
+"add_library(obj2 OBJECT obj2.c)\n"
+"target_link_libraries(obj2 PUBLIC obj)\n"
+"\n"
+"add_executable(main2 main2.c)\n"
+"target_link_libraries(main2 obj2)"
+msgstr ""
+
+#: ../../../command/target_link_libraries.rst:294
+msgid ""
+"compiles ``obj2.c`` with ``-DA -DOBJ``, creates executable ``main2`` with "
+"object files from ``main2.c`` and ``obj2.c``, and links ``main2`` to ``A``."
+msgstr ""
+
+#: ../../../command/target_link_libraries.rst:298
+msgid ""
+"In other words, when :ref:`Object Libraries` appear in a target's :prop_tgt:"
+"`INTERFACE_LINK_LIBRARIES` property they will be treated as :ref:`Interface "
+"Libraries`, but when they appear in a target's :prop_tgt:`LINK_LIBRARIES` "
+"property their object files will be included in the link too."
+msgstr ""
+
+#: ../../../command/target_link_libraries.rst:307
+msgid "Linking Object Libraries via ``$<TARGET_OBJECTS>``"
+msgstr ""
+
+#: ../../../command/target_link_libraries.rst:311
+msgid ""
+"The object files associated with an object library may be referenced by the :"
+"genex:`$<TARGET_OBJECTS>` generator expression.  Such object files are "
+"placed on the link line *before* all libraries, regardless of their relative "
+"order.  Additionally, an ordering dependency will be added to the build "
+"system to make sure the object library is up-to-date before the dependent "
+"target links.  For example, the code"
+msgstr ""
+
+#: ../../../command/target_link_libraries.rst:318
+msgid ""
+"add_library(obj3 OBJECT obj3.c)\n"
+"target_compile_definitions(obj3 PUBLIC OBJ3)\n"
+"\n"
+"add_executable(main3 main3.c)\n"
+"target_link_libraries(main3 PRIVATE a3 $<TARGET_OBJECTS:obj3> b3)"
+msgstr ""
+
+#: ../../../command/target_link_libraries.rst:326
+msgid ""
+"links executable ``main3`` with object files from ``main3.c`` and ``obj3.c`` "
+"followed by the ``a3`` and ``b3`` libraries. ``main3.c`` is *not* compiled "
+"with usage requirements from ``obj3``, such as ``-DOBJ3``."
+msgstr ""
+
+#: ../../../command/target_link_libraries.rst:331
+msgid ""
+"This approach can be used to achieve transitive inclusion of object files in "
+"link lines as usage requirements.  Continuing the above example, the code"
+msgstr ""
+
+#: ../../../command/target_link_libraries.rst:335
+msgid ""
+"add_library(iface_obj3 INTERFACE)\n"
+"target_link_libraries(iface_obj3 INTERFACE obj3 $<TARGET_OBJECTS:obj3>)"
+msgstr ""
+
+#: ../../../command/target_link_libraries.rst:340
+msgid ""
+"creates an interface library ``iface_obj3`` that forwards the ``obj3`` usage "
+"requirements and adds the ``obj3`` object files to dependents' link lines.  "
+"The code"
+msgstr ""
+
+#: ../../../command/target_link_libraries.rst:344
+msgid ""
+"add_executable(use_obj3 use_obj3.c)\n"
+"target_link_libraries(use_obj3 PRIVATE iface_obj3)"
+msgstr ""
+
+#: ../../../command/target_link_libraries.rst:349
+msgid ""
+"compiles ``use_obj3.c`` with ``-DOBJ3`` and links executable ``use_obj3`` "
+"with object files from ``use_obj3.c`` and ``obj3.c``."
+msgstr ""
+
+#: ../../../command/target_link_libraries.rst:352
+msgid ""
+"This also works transitively through a static library.  Since a static "
+"library does not link, it does not consume the object files from object "
+"libraries referenced this way.  Instead, the object files become transitive "
+"link dependencies of the static library. Continuing the above example, the "
+"code"
+msgstr ""
+
+#: ../../../command/target_link_libraries.rst:358
+msgid ""
+"add_library(static3 STATIC static3.c)\n"
+"target_link_libraries(static3 PRIVATE iface_obj3)\n"
+"\n"
+"add_executable(use_static3 use_static3.c)\n"
+"target_link_libraries(use_static3 PRIVATE static3)"
+msgstr ""
+
+#: ../../../command/target_link_libraries.rst:366
+msgid ""
+"compiles ``static3.c`` with ``-DOBJ3`` and creates ``libstatic3.a`` using "
+"only its own object file.  ``use_static3.c`` is compiled *without* ``-"
+"DOBJ3`` because the usage requirement is not transitive through the private "
+"dependency of ``static3``.  However, the link dependencies of ``static3`` "
+"are propagated, including the ``iface_obj3`` reference to ``$<TARGET_OBJECTS:"
+"obj3>``.  The ``use_static3`` executable is created with object files from "
+"``use_static3.c`` and ``obj3.c``, and linked to library ``libstatic3.a``."
+msgstr ""
+
+#: ../../../command/target_link_libraries.rst:375
+msgid ""
+"When using this approach, it is the project's responsibility to avoid "
+"linking multiple dependent binaries to ``iface_obj3``, because they will all "
+"get the ``obj3`` object files on their link lines."
+msgstr ""
+
+#: ../../../command/target_link_libraries.rst:381
+msgid ""
+"Referencing :genex:`$<TARGET_OBJECTS>` in ``target_link_libraries`` calls "
+"worked in versions of CMake prior to 3.21 for some cases, but was not fully "
+"supported:"
+msgstr ""
+
+#: ../../../command/target_link_libraries.rst:385
+msgid "It did not place the object files before libraries on link lines."
+msgstr ""
+
+#: ../../../command/target_link_libraries.rst:386
+msgid "It did not add an ordering dependency on the object library."
+msgstr ""
+
+#: ../../../command/target_link_libraries.rst:387
+msgid "It did not work in Xcode with multiple architectures."
+msgstr ""
+
+#: ../../../command/target_link_libraries.rst:390
+msgid "Cyclic Dependencies of Static Libraries"
+msgstr ""
+
+#: ../../../command/target_link_libraries.rst:392
+msgid ""
+"The library dependency graph is normally acyclic (a DAG), but in the case of "
+"mutually-dependent ``STATIC`` libraries CMake allows the graph to contain "
+"cycles (strongly connected components).  When another target links to one of "
+"the libraries, CMake repeats the entire connected component. For example, "
+"the code"
+msgstr ""
+
+#: ../../../command/target_link_libraries.rst:398
+msgid ""
+"add_library(A STATIC a.c)\n"
+"add_library(B STATIC b.c)\n"
+"target_link_libraries(A B)\n"
+"target_link_libraries(B A)\n"
+"add_executable(main main.c)\n"
+"target_link_libraries(main A)"
+msgstr ""
+
+#: ../../../command/target_link_libraries.rst:407
+msgid ""
+"links ``main`` to ``A B A B``.  While one repetition is usually sufficient, "
+"pathological object file and symbol arrangements can require more.  One may "
+"handle such cases by using the :prop_tgt:`LINK_INTERFACE_MULTIPLICITY` "
+"target property or by manually repeating the component in the last "
+"``target_link_libraries`` call. However, if two archives are really so "
+"interdependent they should probably be combined into a single archive, "
+"perhaps by using :ref:`Object Libraries`."
+msgstr ""
+
+#: ../../../command/target_link_libraries.rst:416
+msgid "Creating Relocatable Packages"
+msgstr ""
+
+#: ../../../include/INTERFACE_LINK_LIBRARIES_WARNING.rst:2
+msgid ""
+"Note that it is not advisable to populate the |INTERFACE_PROPERTY_LINK| of a "
+"target with absolute paths to dependencies. That would hard-code into "
+"installed packages the library file paths for dependencies **as found on the "
+"machine the package was made on**."
+msgstr ""
+
+#: ../../../include/INTERFACE_LINK_LIBRARIES_WARNING.rst:7
+msgid ""
+"See the :ref:`Creating Relocatable Packages` section of the :manual:`cmake-"
+"packages(7)` manual for discussion of additional care that must be taken "
+"when specifying usage requirements while creating packages for "
+"redistribution."
+msgstr ""
+
+#: ../../../command/target_link_libraries.rst:422
+msgid "See Also"
+msgstr "另請參見"
+
+#: ../../../command/target_link_libraries.rst:424
+msgid ":command:`target_compile_definitions`"
+msgstr ":command:`target_compile_definitions`"
+
+#: ../../../command/target_link_libraries.rst:425
+msgid ":command:`target_compile_features`"
+msgstr ""
+
+#: ../../../command/target_link_libraries.rst:426
+msgid ":command:`target_compile_options`"
+msgstr ""
+
+#: ../../../command/target_link_libraries.rst:427
+msgid ":command:`target_include_directories`"
+msgstr ""
+
+#: ../../../command/target_link_libraries.rst:428
+msgid ":command:`target_link_directories`"
+msgstr ""
+
+#: ../../../command/target_link_libraries.rst:429
+msgid ":command:`target_link_options`"
+msgstr ""
+
+#: ../../../command/target_link_libraries.rst:430
+msgid ":command:`target_precompile_headers`"
+msgstr ""
+
+#: ../../../command/target_link_libraries.rst:431
+msgid ":command:`target_sources`"
+msgstr ""

@@ -1,0 +1,368 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2000-2025 Kitware, Inc. and Contributors
+# This file is distributed under the same license as the CMake package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CMake master\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-07-14 08:20+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../command/target_sources.rst:2
+msgid "target_sources"
+msgstr ""
+
+#: ../../../command/target_sources.rst:6
+msgid "Add sources to a target."
+msgstr ""
+
+#: ../../../command/target_sources.rst:8
+msgid ""
+"target_sources(<target>\n"
+"  <INTERFACE|PUBLIC|PRIVATE> [items1...]\n"
+"  [<INTERFACE|PUBLIC|PRIVATE> [items2...] ...])"
+msgstr ""
+
+#: ../../../command/target_sources.rst:14
+msgid ""
+"Specifies sources to use when building a target and/or its dependents. The "
+"named ``<target>`` must have been created by a command such as :command:"
+"`add_executable` or :command:`add_library` or :command:`add_custom_target` "
+"and must not be an :ref:`ALIAS target <Alias Targets>`.  The ``<items>`` may "
+"use :manual:`generator expressions <cmake-generator-expressions(7)>`."
+msgstr ""
+
+#: ../../../command/target_sources.rst:21
+msgid "``<target>`` can be a custom target."
+msgstr ""
+
+#: ../../../command/target_sources.rst:24
+msgid ""
+"The ``INTERFACE``, ``PUBLIC`` and ``PRIVATE`` keywords are required to "
+"specify the :ref:`scope <Target Command Scope>` of the source file paths "
+"(``<items>``) that follow them.  ``PRIVATE`` and ``PUBLIC`` items will "
+"populate the :prop_tgt:`SOURCES` property of ``<target>``, which are used "
+"when building the target itself. ``PUBLIC`` and ``INTERFACE`` items will "
+"populate the :prop_tgt:`INTERFACE_SOURCES` property of ``<target>``, which "
+"are used when building dependents.  A target created by :command:"
+"`add_custom_target` can only have ``PRIVATE`` scope."
+msgstr ""
+
+#: ../../../command/target_sources.rst:33
+msgid ""
+"Repeated calls for the same ``<target>`` append items in the order called."
+msgstr ""
+
+#: ../../../command/target_sources.rst:35
+msgid "Allow exporting targets with :prop_tgt:`INTERFACE_SOURCES`."
+msgstr ""
+
+#: ../../../command/target_sources.rst:38
+msgid ""
+"Allow setting ``INTERFACE`` items on :ref:`IMPORTED targets <Imported "
+"Targets>`."
+msgstr ""
+
+#: ../../../command/target_sources.rst:42
+msgid ""
+"Relative source file paths are interpreted as being relative to the current "
+"source directory (i.e. :variable:`CMAKE_CURRENT_SOURCE_DIR`). See policy :"
+"policy:`CMP0076`."
+msgstr ""
+
+#: ../../../command/target_sources.rst:47
+msgid ""
+"A path that begins with a generator expression is left unmodified. When a "
+"target's :prop_tgt:`SOURCE_DIR` property differs from :variable:"
+"`CMAKE_CURRENT_SOURCE_DIR`, use absolute paths in generator expressions to "
+"ensure the sources are correctly assigned to the target."
+msgstr ""
+
+#: ../../../command/target_sources.rst:52
+msgid ""
+"# WRONG: starts with generator expression, but relative path used\n"
+"target_sources(MyTarget PRIVATE \"$<$<CONFIG:Debug>:dbgsrc.cpp>\")\n"
+"\n"
+"# CORRECT: absolute path used inside the generator expression\n"
+"target_sources(MyTarget PRIVATE \"$<$<CONFIG:Debug>:"
+"${CMAKE_CURRENT_SOURCE_DIR}/dbgsrc.cpp>\")"
+msgstr ""
+
+#: ../../../command/target_sources.rst:60
+msgid ""
+"See the :manual:`cmake-buildsystem(7)` manual for more on defining "
+"buildsystem properties."
+msgstr ""
+
+#: ../../../command/target_sources.rst:66
+msgid "File Sets"
+msgstr ""
+
+#: ../../../command/target_sources.rst:70
+msgid ""
+"target_sources(<target>\n"
+"  [<INTERFACE|PUBLIC|PRIVATE>\n"
+"   [FILE_SET <set> [TYPE <type>] [BASE_DIRS <dirs>...] [FILES "
+"<files>...]]...\n"
+"  ]...)"
+msgstr ""
+
+#: ../../../command/target_sources.rst:77
+msgid ""
+"Adds a file set to a target, or adds files to an existing file set. Targets "
+"have zero or more named file sets. Each file set has a name, a type, a scope "
+"of ``INTERFACE``, ``PUBLIC``, or ``PRIVATE``, one or more base directories, "
+"and files within those directories. The acceptable types include:"
+msgstr ""
+
+#: ../../../command/target_sources.rst:82
+msgid "``HEADERS``"
+msgstr ""
+
+#: ../../../command/target_sources.rst:84
+msgid "Sources intended to be used via a language's ``#include`` mechanism."
+msgstr ""
+
+#: ../../../command/target_sources.rst:86
+msgid "``CXX_MODULES``"
+msgstr ""
+
+#: ../../../command/target_sources.rst:89
+msgid ""
+"Sources which contain C++ interface module or partition units (i.e., those "
+"using the ``export`` keyword). This file set type may not have an "
+"``INTERFACE`` scope except on ``IMPORTED`` targets."
+msgstr ""
+
+#: ../../../command/target_sources.rst:93
+msgid ""
+"The optional default file sets are named after their type. The target may "
+"not be a custom target or :prop_tgt:`FRAMEWORK` target."
+msgstr ""
+
+#: ../../../command/target_sources.rst:96
+msgid ""
+"Files in a ``PRIVATE`` or ``PUBLIC`` file set are marked as source files for "
+"the purposes of IDE integration. Additionally, files in ``HEADERS`` file "
+"sets have their :prop_sf:`HEADER_FILE_ONLY` property set to ``TRUE``. Files "
+"in an ``INTERFACE`` or ``PUBLIC`` file set can be installed with the :"
+"command:`install(TARGETS)` command, and exported with the :command:"
+"`install(EXPORT)` and :command:`export` commands."
+msgstr ""
+
+#: ../../../command/target_sources.rst:103
+msgid ""
+"Each ``target_sources(FILE_SET)`` entry starts with ``INTERFACE``, "
+"``PUBLIC``, or ``PRIVATE`` and accepts the following arguments:"
+msgstr ""
+
+#: ../../../command/target_sources.rst:106
+msgid "``FILE_SET <set>``"
+msgstr ""
+
+#: ../../../command/target_sources.rst:108
+msgid ""
+"The name of the file set to create or add to. It must contain only letters, "
+"numbers and underscores. Names starting with a capital letter are reserved "
+"for built-in file sets predefined by CMake. The only predefined set names "
+"are those matching the acceptable types. All other set names must not start "
+"with a capital letter or underscore."
+msgstr ""
+
+#: ../../../command/target_sources.rst:115
+msgid "``TYPE <type>``"
+msgstr ""
+
+#: ../../../command/target_sources.rst:117
+msgid ""
+"Every file set is associated with a particular type of file. Only types "
+"specified above may be used and it is an error to specify anything else. As "
+"a special case, if the name of the file set is one of the types, the type "
+"does not need to be specified and the ``TYPE <type>`` arguments can be "
+"omitted. For all other file set names, ``TYPE`` is required."
+msgstr ""
+
+#: ../../../command/target_sources.rst:123
+msgid "``BASE_DIRS <dirs>...``"
+msgstr ""
+
+#: ../../../command/target_sources.rst:125
+msgid ""
+"An optional list of base directories of the file set. Any relative path is "
+"treated as relative to the current source directory (i.e. :variable:"
+"`CMAKE_CURRENT_SOURCE_DIR`). If no ``BASE_DIRS`` are specified when the file "
+"set is first created, the value of :variable:`CMAKE_CURRENT_SOURCE_DIR` is "
+"added. This argument supports :manual:`generator expressions <cmake-"
+"generator-expressions(7)>`."
+msgstr ""
+
+#: ../../../command/target_sources.rst:132
+msgid ""
+"No two base directories for a file set may be sub-directories of each other. "
+"This requirement must be met across all base directories added to a file "
+"set, not just those within a single call to ``target_sources()``."
+msgstr ""
+
+#: ../../../command/target_sources.rst:136
+msgid "``FILES <files>...``"
+msgstr ""
+
+#: ../../../command/target_sources.rst:138
+msgid ""
+"An optional list of files to add to the file set. Each file must be in one "
+"of the base directories, or a subdirectory of one of the base directories. "
+"This argument supports :manual:`generator expressions <cmake-generator-"
+"expressions(7)>`."
+msgstr ""
+
+#: ../../../command/target_sources.rst:143
+msgid ""
+"If relative paths are specified, they are considered relative to :variable:"
+"`CMAKE_CURRENT_SOURCE_DIR` at the time ``target_sources()`` is called. An "
+"exception to this is a path starting with ``$<``. Such paths are treated as "
+"relative to the target's source directory after evaluation of generator "
+"expressions."
+msgstr ""
+
+#: ../../../command/target_sources.rst:149
+msgid ""
+"The following target properties are set by ``target_sources(FILE_SET)``, but "
+"they should not generally be manipulated directly:"
+msgstr ""
+
+#: ../../../command/target_sources.rst:152
+msgid "For file sets of type ``HEADERS``:"
+msgstr ""
+
+#: ../../../command/target_sources.rst:154
+msgid ":prop_tgt:`HEADER_SETS`"
+msgstr ""
+
+#: ../../../command/target_sources.rst:155
+msgid ":prop_tgt:`INTERFACE_HEADER_SETS`"
+msgstr ""
+
+#: ../../../command/target_sources.rst:156
+msgid ":prop_tgt:`HEADER_SET`"
+msgstr ""
+
+#: ../../../command/target_sources.rst:157
+msgid ":prop_tgt:`HEADER_SET_<NAME>`"
+msgstr ""
+
+#: ../../../command/target_sources.rst:158
+msgid ":prop_tgt:`HEADER_DIRS`"
+msgstr ""
+
+#: ../../../command/target_sources.rst:159
+msgid ":prop_tgt:`HEADER_DIRS_<NAME>`"
+msgstr ""
+
+#: ../../../command/target_sources.rst:161
+msgid "For file sets of type ``CXX_MODULES``:"
+msgstr ""
+
+#: ../../../command/target_sources.rst:163
+msgid ":prop_tgt:`CXX_MODULE_SETS`"
+msgstr ""
+
+#: ../../../command/target_sources.rst:164
+msgid ":prop_tgt:`INTERFACE_CXX_MODULE_SETS`"
+msgstr ""
+
+#: ../../../command/target_sources.rst:165
+msgid ":prop_tgt:`CXX_MODULE_SET`"
+msgstr ""
+
+#: ../../../command/target_sources.rst:166
+msgid ":prop_tgt:`CXX_MODULE_SET_<NAME>`"
+msgstr ""
+
+#: ../../../command/target_sources.rst:167
+msgid ":prop_tgt:`CXX_MODULE_DIRS`"
+msgstr ""
+
+#: ../../../command/target_sources.rst:168
+msgid ":prop_tgt:`CXX_MODULE_DIRS_<NAME>`"
+msgstr ""
+
+#: ../../../command/target_sources.rst:170
+msgid ""
+"Target properties related to include directories are also modified by "
+"``target_sources(FILE_SET)`` as follows:"
+msgstr ""
+
+#: ../../../command/target_sources.rst:173
+msgid ":prop_tgt:`INCLUDE_DIRECTORIES`"
+msgstr ":prop_tgt:`INCLUDE_DIRECTORIES`"
+
+#: ../../../command/target_sources.rst:175
+msgid ""
+"If the ``TYPE`` is ``HEADERS``, and the scope of the file set is ``PRIVATE`` "
+"or ``PUBLIC``, all of the ``BASE_DIRS`` of the file set are wrapped in :"
+"genex:`$<BUILD_INTERFACE>` and appended to this property."
+msgstr ""
+
+#: ../../../command/target_sources.rst:179
+msgid ":prop_tgt:`INTERFACE_INCLUDE_DIRECTORIES`"
+msgstr ""
+
+#: ../../../command/target_sources.rst:181
+msgid ""
+"If the ``TYPE`` is ``HEADERS``, and the scope of the file set is "
+"``INTERFACE`` or ``PUBLIC``, all of the ``BASE_DIRS`` of the file set are "
+"wrapped in :genex:`$<BUILD_INTERFACE>` and appended to this property."
+msgstr ""
+
+#: ../../../command/target_sources.rst:186
+msgid "See Also"
+msgstr "另請參見"
+
+#: ../../../command/target_sources.rst:188
+msgid ":command:`add_executable`"
+msgstr ""
+
+#: ../../../command/target_sources.rst:189
+msgid ":command:`add_library`"
+msgstr ""
+
+#: ../../../command/target_sources.rst:190
+msgid ":command:`target_compile_definitions`"
+msgstr ":command:`target_compile_definitions`"
+
+#: ../../../command/target_sources.rst:191
+msgid ":command:`target_compile_features`"
+msgstr ""
+
+#: ../../../command/target_sources.rst:192
+msgid ":command:`target_compile_options`"
+msgstr ""
+
+#: ../../../command/target_sources.rst:193
+msgid ":command:`target_include_directories`"
+msgstr ""
+
+#: ../../../command/target_sources.rst:194
+msgid ":command:`target_link_libraries`"
+msgstr ""
+
+#: ../../../command/target_sources.rst:195
+msgid ":command:`target_link_directories`"
+msgstr ""
+
+#: ../../../command/target_sources.rst:196
+msgid ":command:`target_link_options`"
+msgstr ""
+
+#: ../../../command/target_sources.rst:197
+msgid ":command:`target_precompile_headers`"
+msgstr ""

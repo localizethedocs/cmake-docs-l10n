@@ -1,0 +1,243 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2000-2025 Kitware, Inc. and Contributors
+# This file is distributed under the same license as the CMake package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CMake master\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-07-14 08:20+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../command/macro.rst:2
+msgid "macro"
+msgstr ""
+
+#: ../../../command/macro.rst:4
+msgid "Start recording a macro for later invocation as a command"
+msgstr ""
+
+#: ../../../command/macro.rst:6
+msgid ""
+"macro(<name> [<arg1> ...])\n"
+"  <commands>\n"
+"endmacro()"
+msgstr ""
+
+#: ../../../command/macro.rst:12
+msgid ""
+"Defines a macro named ``<name>`` that takes arguments named ``<arg1>``, ... "
+"Commands listed after macro, but before the matching :command:`endmacro()`, "
+"are not executed until the macro is invoked."
+msgstr ""
+
+#: ../../../command/macro.rst:17
+msgid ""
+"Per legacy, the :command:`endmacro` command admits an optional ``<name>`` "
+"argument. If used, it must be a verbatim repeat of the argument of the "
+"opening ``macro`` command."
+msgstr ""
+
+#: ../../../command/macro.rst:21
+msgid ""
+"See the :command:`cmake_policy()` command documentation for the behavior of "
+"policies inside macros."
+msgstr ""
+
+#: ../../../command/macro.rst:24
+msgid ""
+"See the :ref:`Macro vs Function` section below for differences between CMake "
+"macros and :command:`functions <function>`."
+msgstr ""
+
+#: ../../../command/macro.rst:28
+msgid "Invocation"
+msgstr ""
+
+#: ../../../command/macro.rst:30
+msgid "The macro invocation is case-insensitive. A macro defined as"
+msgstr ""
+
+#: ../../../command/macro.rst:32
+msgid ""
+"macro(foo)\n"
+"  <commands>\n"
+"endmacro()"
+msgstr ""
+"macro(foo)\n"
+"  <commands>\n"
+"endmacro()"
+
+#: ../../../command/macro.rst:38
+msgid "can be invoked through any of"
+msgstr ""
+
+#: ../../../command/macro.rst:40
+msgid ""
+"foo()\n"
+"Foo()\n"
+"FOO()\n"
+"cmake_language(CALL foo)"
+msgstr ""
+
+#: ../../../command/macro.rst:47
+msgid ""
+"and so on. However, it is strongly recommended to stay with the case chosen "
+"in the macro definition.  Typically macros use all-lowercase names."
+msgstr ""
+
+#: ../../../command/macro.rst:51
+msgid ""
+"The :command:`cmake_language(CALL ...)` command can also be used to invoke "
+"the macro."
+msgstr ""
+
+#: ../../../command/macro.rst:56
+msgid "Arguments"
+msgstr "引數"
+
+#: ../../../command/macro.rst:58
+msgid ""
+"When a macro is invoked, the commands recorded in the macro are first "
+"modified by replacing formal parameters (``${arg1}``, ...) with the "
+"arguments passed, and then invoked as normal commands."
+msgstr ""
+
+#: ../../../command/macro.rst:62
+msgid ""
+"In addition to referencing the formal parameters you can reference the "
+"values ``${ARGC}`` which will be set to the number of arguments passed into "
+"the macro as well as ``${ARGV0}``, ``${ARGV1}``, ``${ARGV2}``, ...  which "
+"will have the actual values of the arguments passed in. This facilitates "
+"creating macros with optional arguments."
+msgstr ""
+
+#: ../../../command/macro.rst:68
+msgid ""
+"Furthermore, ``${ARGV}`` holds the list of all arguments given to the macro "
+"and ``${ARGN}`` holds the list of arguments past the last expected argument. "
+"Referencing to ``${ARGV#}`` arguments beyond ``${ARGC}`` have undefined "
+"behavior. Checking that ``${ARGC}`` is greater than ``#`` is the only way to "
+"ensure that ``${ARGV#}`` was passed to the function as an extra argument."
+msgstr ""
+
+#: ../../../command/macro.rst:79
+msgid "Macro vs Function"
+msgstr "巨集 vs 函式"
+
+#: ../../../command/macro.rst:81
+msgid ""
+"The ``macro`` command is very similar to the :command:`function` command. "
+"Nonetheless, there are a few important differences."
+msgstr ""
+
+#: ../../../command/macro.rst:84
+msgid ""
+"In a function, ``ARGN``, ``ARGC``, ``ARGV`` and ``ARGV0``, ``ARGV1``, ... "
+"are true variables in the usual CMake sense.  In a macro, they are not, they "
+"are string replacements much like the C preprocessor would do with a macro.  "
+"This has a number of consequences, as explained in the :ref:`Argument "
+"Caveats` section below."
+msgstr ""
+
+#: ../../../command/macro.rst:90
+msgid ""
+"Another difference between macros and functions is the control flow. A "
+"function is executed by transferring control from the calling statement to "
+"the function body.  A macro is executed as if the macro body were pasted in "
+"place of the calling statement.  This has the consequence that a :command:"
+"`return()` in a macro body does not just terminate execution of the macro; "
+"rather, control is returned from the scope of the macro call.  To avoid "
+"confusion, it is recommended to avoid :command:`return()` in macros "
+"altogether."
+msgstr ""
+
+#: ../../../command/macro.rst:99
+msgid ""
+"Unlike a function, the :variable:`CMAKE_CURRENT_FUNCTION`, :variable:"
+"`CMAKE_CURRENT_FUNCTION_LIST_DIR`, :variable:"
+"`CMAKE_CURRENT_FUNCTION_LIST_FILE`, :variable:"
+"`CMAKE_CURRENT_FUNCTION_LIST_LINE` variables are not set for a macro."
+msgstr ""
+
+#: ../../../command/macro.rst:108
+msgid "Argument Caveats"
+msgstr ""
+
+#: ../../../command/macro.rst:110
+msgid ""
+"Since ``ARGN``, ``ARGC``, ``ARGV``, ``ARGV0`` etc. are not variables, you "
+"will NOT be able to use commands like"
+msgstr ""
+
+#: ../../../command/macro.rst:113
+msgid ""
+"if(ARGV1) # ARGV1 is not a variable\n"
+"if(DEFINED ARGV2) # ARGV2 is not a variable\n"
+"if(ARGC GREATER 2) # ARGC is not a variable\n"
+"foreach(loop_var IN LISTS ARGN) # ARGN is not a variable"
+msgstr ""
+
+#: ../../../command/macro.rst:120
+msgid ""
+"In the first case, you can use ``if(${ARGV1})``.  In the second and third "
+"case, the proper way to check if an optional variable was passed to the "
+"macro is to use ``if(${ARGC} GREATER 2)``.  In the last case, you can use "
+"``foreach(loop_var ${ARGN})`` but this will skip empty arguments.  If you "
+"need to include them, you can use"
+msgstr ""
+
+#: ../../../command/macro.rst:126
+msgid ""
+"set(list_var \"${ARGN}\")\n"
+"foreach(loop_var IN LISTS list_var)"
+msgstr ""
+
+#: ../../../command/macro.rst:131
+msgid ""
+"Note that if you have a variable with the same name in the scope from which "
+"the macro is called, using unreferenced names will use the existing variable "
+"instead of the arguments. For example:"
+msgstr ""
+
+#: ../../../command/macro.rst:135
+msgid ""
+"macro(bar)\n"
+"  foreach(arg IN LISTS ARGN)\n"
+"    <commands>\n"
+"  endforeach()\n"
+"endmacro()\n"
+"\n"
+"function(foo)\n"
+"  bar(x y z)\n"
+"endfunction()\n"
+"\n"
+"foo(a b c)"
+msgstr ""
+
+#: ../../../command/macro.rst:149
+msgid ""
+"Will loop over ``a;b;c`` and not over ``x;y;z`` as one might have expected. "
+"If you want true CMake variables and/or better CMake scope control you "
+"should look at the function command."
+msgstr ""
+
+#: ../../../command/macro.rst:154
+msgid "See Also"
+msgstr "另請參見"
+
+#: ../../../command/macro.rst:156
+msgid ":command:`cmake_parse_arguments`"
+msgstr ":command:`cmake_parse_arguments`"
+
+#: ../../../command/macro.rst:157
+msgid ":command:`endmacro`"
+msgstr ":command:`endmacro`"
