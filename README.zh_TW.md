@@ -76,7 +76,7 @@
     <tr>
       <th rowspan="1" colspan="1" align="center" style="text-align: center;"><div>預覽翻譯</div></th>
       <td rowspan="1" colspan="1" align="center" style="text-align: center;">
-        <div><a href="https://localizethedocs.github.io/cmake-docs-l10n" target="_blank">cmake-docs-l10n</a></div>
+        <div><a href="https://projects.localizethedocs.org/cmake-docs-l10n" target="_blank">cmake-docs-l10n</a></div>
       </td>
     </tr>
     <!-- TMS -->
@@ -285,7 +285,7 @@
 
 <h2 id="preview-translations"><a href="#table-of-contents">預覽翻譯</a></h2>
 
-您可以在 <a href="https://localizethedocs.github.io/cmake-docs-l10n">GitHub 網頁</a>中預覽翻譯內容：
+You can preview translations in <a href="https://projects.localizethedocs.org/cmake-docs-l10n">GitHub Pages</a>:
 
 <div align="center">
 <table>
@@ -300,21 +300,21 @@
     <tr>
       <td rowspan="1" colspan="1" align="center" style="text-align: center;"><div><code>en_US</code></div></td>
       <td rowspan="1" colspan="1" align="left"   style="text-align: left;  ">
-        <div><a href="https://localizethedocs.github.io/cmake-docs-l10n/en-us">https://localizethedocs.github.io/cmake-docs-l10n/en-us</a></div>
+        <div><a href="https://projects.localizethedocs.org/cmake-docs-l10n/en-us">https://projects.localizethedocs.org/cmake-docs-l10n/en-us</a></div>
       </td>
     </tr>
     <!-- zh_CN -->
     <tr>
       <td rowspan="1" colspan="1" align="center" style="text-align: center;"><div><code>zh_CN</code></div></td>
       <td rowspan="1" colspan="1" align="left"   style="text-align: left;  ">
-        <div><a href="https://localizethedocs.github.io/cmake-docs-l10n/zh-cn">https://localizethedocs.github.io/cmake-docs-l10n/zh-cn</a></div>
+        <div><a href="https://projects.localizethedocs.org/cmake-docs-l10n/zh-cn">https://projects.localizethedocs.org/cmake-docs-l10n/zh-cn</a></div>
       </td>
     </tr>
     <!-- zh_TW -->
     <tr>
       <td rowspan="1" colspan="1" align="center" style="text-align: center;"><div><code>zh_TW</code></div></td>
       <td rowspan="1" colspan="1" align="left"   style="text-align: left;  ">
-        <div><a href="https://localizethedocs.github.io/cmake-docs-l10n/zh-tw">https://localizethedocs.github.io/cmake-docs-l10n/zh-tw</a></div>
+        <div><a href="https://projects.localizethedocs.org/cmake-docs-l10n/zh-tw">https://projects.localizethedocs.org/cmake-docs-l10n/zh-tw</a></div>
       </td>
     </tr>
   </tbody>
