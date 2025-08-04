@@ -20,7 +20,7 @@
 <h2 id="table-of-contents">目次表</h2>
 
 <ul>
-  <li><a href="#introduction">Introduction</a></li>
+  <li><a href="#introduction">簡介</a></li>
   <li><a href="#progress-of-translations">翻譯進度</a></li>
   <li><a href="#preview-translations">預覽翻譯</a></li>
   <li><a href="#maintainers">維護者</a></li>
@@ -32,7 +32,7 @@
   <li><a href="#licenses">授權條款</a></li>
 </ul>
 
-<h2 id="introduction"><a href="#table-of-contents">Introduction</a></h2>
+<h2 id="introduction"><a href="#table-of-contents">簡介</a></h2>
 
 <div align="center"><a href="https://github.com/localizethedocs/cmake-docs-l10n/stargazers" title="GitHub Stars" target="_blank">
   <img alt="GitHub Stars" src="https://img.shields.io/github/stars/localizethedocs/cmake-docs-l10n.svg?logo=github&style=flat&color=blue" />
@@ -62,7 +62,7 @@
 
 <p></p>
 
-This is a localization project of CMake Documentation. Translations are contributed via the Crowdin platform and automatically synchronized with the GitHub repository.
+這是一個 CMake 文件的在地化專案。 翻譯內容透過 Crowdin 平台貢獻，並自動與 GitHub 儲存庫同步。
 
 <div align="center">
 <table>
@@ -74,7 +74,7 @@ This is a localization project of CMake Documentation. Translations are contribu
   <tbody>
     <!-- Preview -->
     <tr>
-      <th rowspan="1" colspan="1" align="center" style="text-align: center;"><div>Preview</div></th>
+      <th rowspan="1" colspan="1" align="center" style="text-align: center;"><div>預覽翻譯</div></th>
       <td rowspan="1" colspan="1" align="center" style="text-align: center;">
         <div><a href="https://localizethedocs.github.io/cmake-docs-l10n" target="_blank">cmake-docs-l10n</a></div>
       </td>
@@ -325,13 +325,13 @@ This is a localization project of CMake Documentation. Translations are contribu
 
 <h2 id="maintainers"><a href="#table-of-contents">維護者</a></h2>
 
-This project is currently maintained by:
+這個專案目前由以下人員維護：
 
 <div align="center">
 <table>
   <thead>
     <tr>
-      <th rowspan="1" colspan="1" align="center" style="text-align: center;"><div>Name</div></th>
+      <th rowspan="1" colspan="1" align="center" style="text-align: center;"><div>姓名</div></th>
       <th rowspan="1" colspan="1" align="center" style="text-align: center;"><div>GitHub 使用者名稱</div></th>
     </tr>
   </thead>
@@ -399,7 +399,7 @@ It will facilitate the creation and ongoing maintenance of l10n projects for ope
 <h2 id="financial-contributors"><a href="#table-of-contents">財務貢獻者</a></h2>
 
 <div align="center">
-<h3 id="sponsors-to-haowei-hsu">Sponsors to Haowei Hsu</h3>
+<h3 id="sponsors-to-haowei-hsu">Haowei Hsu 的贊助者</h3>
 </div>
 
 <div align="center">
@@ -408,13 +408,13 @@ It will facilitate the creation and ongoing maintenance of l10n projects for ope
 
 <h2 id="translation-disclaimer"><a href="#table-of-contents">翻譯免責聲明</a></h2>
 
-參與該專案的翻譯者，絕不使用其翻譯的著作權，絕不禁止複製，也絕不要求任何形式的報酬。 Everyone will always be allowed to freely use, modify, and distribute these translations.
+參與該專案的翻譯者，絕不使用其翻譯的著作權，絕不禁止複製，也絕不要求任何形式的報酬。 每個人將始終被允許自由使用、修改和分發這些翻譯。
 
 <h2 id="licenses"><a href="#table-of-contents">授權條款</a></h2>
 
-All CMake script files (e.g., <code>CMakeLists.txt</code>, <code>CMakePresets.json</code>, and <code>cmake/\*\*/\*</code> files), GitHub workflow files (e.g., <code>.github/workflows/\*.yml</code> files), and configuration files (e.g., <code>versions.json</code>, <code>languages.json</code>, <code>crowdin.yml</code>, and so on) of this project are licensed under <a href="https://opensource.org/license/bsd-3-clause/">3-Clause BSD</a> license. See <a href="./LICENSE-BSD">LICENSE-BSD</a> for details.
+該專案的所有 CMake 腳本檔（例如：<code>CMakeLists.txt</code>、<code>CMakePresets.json</code> 和 <code>cmake/\*\*/\*</code> 檔案）、GitHub 工作流檔（例如： <code>.github/workflows/\*.yml</code> 檔案）以及組態檔（例如：<code>versions.json</code>、<code>languages.json</code>、<code>crowdin.yml</code> 等等）均採用 <a href="https://opensource.org/license/bsd-3-clause/">3 條款 BSD</a> 授權條款。 請參見 <a href="./LICENSE-BSD">LICENSE-BSD</a> 以獲取詳細資訊。
 
-All document files (e.g., <code>README.md</code>) of this project are licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International</a> license. See <a href="./LICENSE-CC">LICENSE-CC</a> for details.
+該專案的所有文件（例如：<code>README.md</code>）均授權於<a href="https://creativecommons.org/licenses/by-sa/4.0/">創用 CC 姓名標示-相同方式分享 4.0 國際</a>授權條款。 請參見 <a href="./LICENSE-CC">LICENSE-CC</a> 以獲取詳細資訊。
 
 <a href="http://creativecommons.org/licenses/by-sa/4.0/" title="CC BY SA 4.0" target="_blank">
   <img alt="CC BY SA 4.0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png"/>
