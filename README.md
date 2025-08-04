@@ -77,7 +77,7 @@ This is a localization project of CMake Documentation. Translations are contribu
     <tr>
       <th rowspan="1" colspan="1" align="center" style="text-align: center;"><div>Preview</div></th>
       <td rowspan="1" colspan="1" align="center" style="text-align: center;">
-        <div><a href="https://localizethedocs.github.io/cmake-docs-l10n" target="_blank">cmake-docs-l10n</a></div>
+        <div><a href="https://projects.localizethedocs.org/cmake-docs-l10n" target="_blank">cmake-docs-l10n</a></div>
       </td>
     </tr>
     <!-- TMS -->
@@ -287,7 +287,7 @@ This is a localization project of CMake Documentation. Translations are contribu
 
 <h2 id="preview-translations"><a href="#table-of-contents">Preview Translations</a></h2>
 
-You can preview translations in <a href="https://localizethedocs.github.io/cmake-docs-l10n">GitHub Pages</a>:
+You can preview translations in <a href="https://projects.localizethedocs.org/cmake-docs-l10n">GitHub Pages</a>:
 
 <div align="center">
 <table>
@@ -302,21 +302,21 @@ You can preview translations in <a href="https://localizethedocs.github.io/cmake
     <tr>
       <td rowspan="1" colspan="1" align="center" style="text-align: center;"><div><code>en_US</code></div></td>
       <td rowspan="1" colspan="1" align="left"   style="text-align: left;  ">
-        <div><a href="https://localizethedocs.github.io/cmake-docs-l10n/en-us">https://localizethedocs.github.io/cmake-docs-l10n/en-us</a></div>
+        <div><a href="https://projects.localizethedocs.org/cmake-docs-l10n/en-us">https://projects.localizethedocs.org/cmake-docs-l10n/en-us</a></div>
       </td>
     </tr>
     <!-- zh_CN -->
     <tr>
       <td rowspan="1" colspan="1" align="center" style="text-align: center;"><div><code>zh_CN</code></div></td>
       <td rowspan="1" colspan="1" align="left"   style="text-align: left;  ">
-        <div><a href="https://localizethedocs.github.io/cmake-docs-l10n/zh-cn">https://localizethedocs.github.io/cmake-docs-l10n/zh-cn</a></div>
+        <div><a href="https://projects.localizethedocs.org/cmake-docs-l10n/zh-cn">https://projects.localizethedocs.org/cmake-docs-l10n/zh-cn</a></div>
       </td>
     </tr>
     <!-- zh_TW -->
     <tr>
       <td rowspan="1" colspan="1" align="center" style="text-align: center;"><div><code>zh_TW</code></div></td>
       <td rowspan="1" colspan="1" align="left"   style="text-align: left;  ">
-        <div><a href="https://localizethedocs.github.io/cmake-docs-l10n/zh-tw">https://localizethedocs.github.io/cmake-docs-l10n/zh-tw</a></div>
+        <div><a href="https://projects.localizethedocs.org/cmake-docs-l10n/zh-tw">https://projects.localizethedocs.org/cmake-docs-l10n/zh-tw</a></div>
       </td>
     </tr>
   </tbody>
