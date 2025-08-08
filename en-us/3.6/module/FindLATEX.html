@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+
+<html lang="en-US" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>FindLATEX &mdash; CMake 3.6.3 Documentation</title>
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/cmake.css?v=d0fed63b" />
+    
+    <script src="../_static/documentation_options.js?v=bee1a1a4"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    
+    <link rel="canonical" href="https://projects.localizethedocs.org/cmake-docs-l10n/module/FindLATEX.html" />
+    <link rel="icon" href="../_static/cmake-favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="FindLibArchive" href="FindLibArchive.html" />
+    <link rel="prev" title="FindLAPACK" href="FindLAPACK.html" />
+    <script type="text/javascript" src="../ltd-current.js"></script>
+    <script type="text/javascript" src="../../../ltd-config.js"></script>
+    <script type="text/javascript" src="../../../ltd-flyout.js"></script>
+ 
+
+  </head><body>
+
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="FindLibArchive.html" title="FindLibArchive"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="FindLAPACK.html" title="FindLAPACK"
+             accesskey="P">previous</a> |</li>
+        <li>
+          <img src="../_static/cmake-logo-16.png" alt=""
+              style="vertical-align: middle; margin-top: -2px" />
+        </li>
+        <li>
+          <a href="https://cmake.org/">CMake</a> &#187;
+        </li>
+        <li>
+          <a href="../index.html">Documentation</a> &#187;
+        </li>
+
+          <li class="nav-item nav-item-1"><a href="../manual/cmake-modules.7.html" accesskey="U">cmake-modules(7)</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">FindLATEX</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="findlatex">
+<span id="module:FindLATEX"></span><h1>FindLATEX<a class="headerlink" href="#findlatex" title="Link to this heading">¶</a></h1>
+<p>Find Latex</p>
+<p>This module finds an installed Latex and determines the location
+of the compiler.  Additionally the module looks for Latex-related
+software like BibTeX.</p>
+<p>This module sets the following result variables:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">LATEX_FOUND</span><span class="p">:</span>          <span class="n">whether</span> <span class="n">found</span> <span class="n">Latex</span> <span class="ow">and</span> <span class="n">requested</span> <span class="n">components</span>
+<span class="n">LATEX_</span><span class="o">&lt;</span><span class="n">component</span><span class="o">&gt;</span><span class="n">_FOUND</span><span class="p">:</span>  <span class="n">whether</span> <span class="n">found</span> <span class="o">&lt;</span><span class="n">component</span><span class="o">&gt;</span>
+<span class="n">LATEX_COMPILER</span><span class="p">:</span>       <span class="n">path</span> <span class="n">to</span> <span class="n">the</span> <span class="n">LaTeX</span> <span class="n">compiler</span>
+<span class="n">PDFLATEX_COMPILER</span><span class="p">:</span>    <span class="n">path</span> <span class="n">to</span> <span class="n">the</span> <span class="n">PdfLaTeX</span> <span class="n">compiler</span>
+<span class="n">XELATEX_COMPILER</span><span class="p">:</span>     <span class="n">path</span> <span class="n">to</span> <span class="n">the</span> <span class="n">XeLaTeX</span> <span class="n">compiler</span>
+<span class="n">LUALATEX_COMPILER</span><span class="p">:</span>    <span class="n">path</span> <span class="n">to</span> <span class="n">the</span> <span class="n">LuaLaTeX</span> <span class="n">compiler</span>
+<span class="n">BIBTEX_COMPILER</span><span class="p">:</span>      <span class="n">path</span> <span class="n">to</span> <span class="n">the</span> <span class="n">BibTeX</span> <span class="n">compiler</span>
+<span class="n">BIBER_COMPILER</span><span class="p">:</span>       <span class="n">path</span> <span class="n">to</span> <span class="n">the</span> <span class="n">Biber</span> <span class="n">compiler</span>
+<span class="n">MAKEINDEX_COMPILER</span><span class="p">:</span>   <span class="n">path</span> <span class="n">to</span> <span class="n">the</span> <span class="n">MakeIndex</span> <span class="n">compiler</span>
+<span class="n">XINDY_COMPILER</span><span class="p">:</span>       <span class="n">path</span> <span class="n">to</span> <span class="n">the</span> <span class="n">xindy</span> <span class="n">compiler</span>
+<span class="n">DVIPS_CONVERTER</span><span class="p">:</span>      <span class="n">path</span> <span class="n">to</span> <span class="n">the</span> <span class="n">DVIPS</span> <span class="n">converter</span>
+<span class="n">DVIPDF_CONVERTER</span><span class="p">:</span>     <span class="n">path</span> <span class="n">to</span> <span class="n">the</span> <span class="n">DVIPDF</span> <span class="n">converter</span>
+<span class="n">PS2PDF_CONVERTER</span><span class="p">:</span>     <span class="n">path</span> <span class="n">to</span> <span class="n">the</span> <span class="n">PS2PDF</span> <span class="n">converter</span>
+<span class="n">PDFTOPS_CONVERTER</span><span class="p">:</span>    <span class="n">path</span> <span class="n">to</span> <span class="n">the</span> <span class="n">pdftops</span> <span class="n">converter</span>
+<span class="n">LATEX2HTML_CONVERTER</span><span class="p">:</span> <span class="n">path</span> <span class="n">to</span> <span class="n">the</span> <span class="n">LaTeX2Html</span> <span class="n">converter</span>
+<span class="n">HTLATEX_COMPILER</span><span class="p">:</span>     <span class="n">path</span> <span class="n">to</span> <span class="n">the</span> <span class="n">htlatex</span> <span class="n">compiler</span>
+</pre></div>
+</div>
+<p>Possible components are:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">PDFLATEX</span>
+<span class="n">XELATEX</span>
+<span class="n">LUALATEX</span>
+<span class="n">BIBTEX</span>
+<span class="n">BIBER</span>
+<span class="n">MAKEINDEX</span>
+<span class="n">XINDY</span>
+<span class="n">DVIPS</span>
+<span class="n">DVIPDF</span>
+<span class="n">PS2PDF</span>
+<span class="n">PDFTOPS</span>
+<span class="n">LATEX2HTML</span>
+<span class="n">HTLATEX</span>
+</pre></div>
+</div>
+<p>Example Usages:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">find_package</span><span class="p">(</span><span class="n">LATEX</span><span class="p">)</span>
+<span class="n">find_package</span><span class="p">(</span><span class="n">LATEX</span> <span class="n">COMPONENTS</span> <span class="n">PDFLATEX</span><span class="p">)</span>
+<span class="n">find_package</span><span class="p">(</span><span class="n">LATEX</span> <span class="n">COMPONENTS</span> <span class="n">BIBTEX</span> <span class="n">PS2PDF</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="FindLAPACK.html"
+                          title="previous chapter">FindLAPACK</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="FindLibArchive.html"
+                          title="next chapter">FindLibArchive</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/module/FindLATEX.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="FindLibArchive.html" title="FindLibArchive"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="FindLAPACK.html" title="FindLAPACK"
+             >previous</a> |</li>
+        <li>
+          <img src="../_static/cmake-logo-16.png" alt=""
+              style="vertical-align: middle; margin-top: -2px" />
+        </li>
+        <li>
+          <a href="https://cmake.org/">CMake</a> &#187;
+        </li>
+        <li>
+          <a href="../index.html">Documentation</a> &#187;
+        </li>
+
+          <li class="nav-item nav-item-1"><a href="../manual/cmake-modules.7.html" >cmake-modules(7)</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">FindLATEX</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2000-2016 Kitware, Inc..
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    </div>
+  </body>
+</html>

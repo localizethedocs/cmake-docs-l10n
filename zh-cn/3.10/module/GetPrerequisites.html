@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>GetPrerequisites &mdash; CMake 3.10.3 Documentation</title>
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/cmake.css?v=d0fed63b" />
+    
+    <script src="../_static/documentation_options.js?v=8246f08b"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/translations.js?v=beaddf03"></script>
+    
+    <link rel="canonical" href="https://projects.localizethedocs.org/cmake-docs-l10n/module/GetPrerequisites.html" />
+    <link rel="icon" href="../_static/cmake-favicon.ico"/>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="GNUInstallDirs" href="GNUInstallDirs.html" />
+    <link rel="prev" title="GenerateExportHeader" href="GenerateExportHeader.html" />
+    <script type="text/javascript" src="../ltd-current.js"></script>
+    <script type="text/javascript" src="../../../ltd-config.js"></script>
+    <script type="text/javascript" src="../../../ltd-flyout.js"></script>
+ 
+
+  </head><body>
+
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="总索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="GNUInstallDirs.html" title="GNUInstallDirs"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="GenerateExportHeader.html" title="GenerateExportHeader"
+             accesskey="P">上一页</a> |</li>
+        <li>
+          <img src="../_static/cmake-logo-16.png" alt=""
+              style="vertical-align: middle; margin-top: -2px" />
+        </li>
+        <li>
+          <a href="https://cmake.org/">CMake</a> &#187;
+        </li>
+        <li>
+          <a href="../index.html">Documentation</a> &#187;
+        </li>
+
+          <li class="nav-item nav-item-1"><a href="../manual/cmake-modules.7.html" accesskey="U">cmake-modules(7)</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">GetPrerequisites</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="getprerequisites">
+<span id="module:GetPrerequisites"></span><h1>GetPrerequisites<a class="headerlink" href="#getprerequisites" title="Link to this heading">¶</a></h1>
+<p>Functions to analyze and list executable file prerequisites.</p>
+<p>This module provides functions to list the .dll, .dylib or .so files
+that an executable or shared library file depends on.  (Its
+prerequisites.)</p>
+<p>It uses various tools to obtain the list of required shared library
+files:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dumpbin</span> <span class="p">(</span><span class="n">Windows</span><span class="p">)</span>
+<span class="n">objdump</span> <span class="p">(</span><span class="n">MinGW</span> <span class="n">on</span> <span class="n">Windows</span><span class="p">)</span>
+<span class="n">ldd</span> <span class="p">(</span><span class="n">Linux</span><span class="o">/</span><span class="n">Unix</span><span class="p">)</span>
+<span class="n">otool</span> <span class="p">(</span><span class="n">Mac</span> <span class="n">OSX</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The following functions are provided by this module:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">get_prerequisites</span>
+<span class="n">list_prerequisites</span>
+<span class="n">list_prerequisites_by_glob</span>
+<span class="n">gp_append_unique</span>
+<span class="n">is_file_executable</span>
+<span class="n">gp_item_default_embedded_path</span>
+  <span class="p">(</span><span class="n">projects</span> <span class="n">can</span> <span class="n">override</span> <span class="k">with</span> <span class="n">gp_item_default_embedded_path_override</span><span class="p">)</span>
+<span class="n">gp_resolve_item</span>
+  <span class="p">(</span><span class="n">projects</span> <span class="n">can</span> <span class="n">override</span> <span class="k">with</span> <span class="n">gp_resolve_item_override</span><span class="p">)</span>
+<span class="n">gp_resolved_file_type</span>
+  <span class="p">(</span><span class="n">projects</span> <span class="n">can</span> <span class="n">override</span> <span class="k">with</span> <span class="n">gp_resolved_file_type_override</span><span class="p">)</span>
+<span class="n">gp_file_type</span>
+</pre></div>
+</div>
+<p>Requires CMake 2.6 or greater because it uses function, break, return
+and PARENT_SCOPE.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">GET_PREREQUISITES</span><span class="p">(</span><span class="o">&lt;</span><span class="n">target</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">prerequisites_var</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">exclude_system</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">recurse</span><span class="o">&gt;</span>
+                  <span class="o">&lt;</span><span class="n">exepath</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">dirs</span><span class="o">&gt;</span> <span class="p">[</span><span class="o">&lt;</span><span class="n">rpaths</span><span class="o">&gt;</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>Get the list of shared library files required by &lt;target&gt;.  The list
+in the variable named &lt;prerequisites_var&gt; should be empty on first
+entry to this function.  On exit, &lt;prerequisites_var&gt; will contain the
+list of required shared library files.</p>
+<p>&lt;target&gt; is the full path to an executable file.  &lt;prerequisites_var&gt;
+is the name of a CMake variable to contain the results.
+&lt;exclude_system&gt; must be 0 or 1 indicating whether to include or
+exclude &quot;system&quot; prerequisites.  If &lt;recurse&gt; is set to 1 all
+prerequisites will be found recursively, if set to 0 only direct
+prerequisites are listed.  &lt;exepath&gt; is the path to the top level
+executable used for &#64;executable_path replacment on the Mac.  &lt;dirs&gt; is
+a list of paths where libraries might be found: these paths are
+searched first when a target without any path info is given.  Then
+standard system locations are also searched: PATH, Framework
+locations, /usr/lib...</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">LIST_PREREQUISITES</span><span class="p">(</span><span class="o">&lt;</span><span class="n">target</span><span class="o">&gt;</span> <span class="p">[</span><span class="o">&lt;</span><span class="n">recurse</span><span class="o">&gt;</span> <span class="p">[</span><span class="o">&lt;</span><span class="n">exclude_system</span><span class="o">&gt;</span> <span class="p">[</span><span class="o">&lt;</span><span class="n">verbose</span><span class="o">&gt;</span><span class="p">]]])</span>
+</pre></div>
+</div>
+<p>Print a message listing the prerequisites of &lt;target&gt;.</p>
+<p>&lt;target&gt; is the name of a shared library or executable target or the
+full path to a shared library or executable file.  If &lt;recurse&gt; is set
+to 1 all prerequisites will be found recursively, if set to 0 only
+direct prerequisites are listed.  &lt;exclude_system&gt; must be 0 or 1
+indicating whether to include or exclude &quot;system&quot; prerequisites.  With
+&lt;verbose&gt; set to 0 only the full path names of the prerequisites are
+printed, set to 1 extra informatin will be displayed.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">LIST_PREREQUISITES_BY_GLOB</span><span class="p">(</span><span class="o">&lt;</span><span class="n">glob_arg</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">glob_exp</span><span class="o">&gt;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Print the prerequisites of shared library and executable files
+matching a globbing pattern.  &lt;glob_arg&gt; is GLOB or GLOB_RECURSE and
+&lt;glob_exp&gt; is a globbing expression used with &quot;file(GLOB&quot; or
+&quot;file(GLOB_RECURSE&quot; to retrieve a list of matching files.  If a
+matching file is executable, its prerequisites are listed.</p>
+<p>Any additional (optional) arguments provided are passed along as the
+optional arguments to the list_prerequisites calls.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">GP_APPEND_UNIQUE</span><span class="p">(</span><span class="o">&lt;</span><span class="n">list_var</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">value</span><span class="o">&gt;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Append &lt;value&gt; to the list variable &lt;list_var&gt; only if the value is
+not already in the list.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">IS_FILE_EXECUTABLE</span><span class="p">(</span><span class="o">&lt;</span><span class="n">file</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">result_var</span><span class="o">&gt;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Return 1 in &lt;result_var&gt; if &lt;file&gt; is a binary executable, 0
+otherwise.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">GP_ITEM_DEFAULT_EMBEDDED_PATH</span><span class="p">(</span><span class="o">&lt;</span><span class="n">item</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">default_embedded_path_var</span><span class="o">&gt;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Return the path that others should refer to the item by when the item
+is embedded inside a bundle.</p>
+<p>Override on a per-project basis by providing a project-specific
+gp_item_default_embedded_path_override function.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">GP_RESOLVE_ITEM</span><span class="p">(</span><span class="o">&lt;</span><span class="n">context</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">item</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">exepath</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">dirs</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">resolved_item_var</span><span class="o">&gt;</span>
+                <span class="p">[</span><span class="o">&lt;</span><span class="n">rpaths</span><span class="o">&gt;</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>Resolve an item into an existing full path file.</p>
+<p>Override on a per-project basis by providing a project-specific
+gp_resolve_item_override function.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">GP_RESOLVED_FILE_TYPE</span><span class="p">(</span><span class="o">&lt;</span><span class="n">original_file</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">file</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">exepath</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">dirs</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">type_var</span><span class="o">&gt;</span>
+                      <span class="p">[</span><span class="o">&lt;</span><span class="n">rpaths</span><span class="o">&gt;</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>Return the type of &lt;file&gt; with respect to &lt;original_file&gt;.  String
+describing type of prerequisite is returned in variable named
+&lt;type_var&gt;.</p>
+<p>Use &lt;exepath&gt; and &lt;dirs&gt; if necessary to resolve non-absolute &lt;file&gt;
+values -- but only for non-embedded items.</p>
+<p>Possible types are:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">system</span>
+<span class="n">local</span>
+<span class="n">embedded</span>
+<span class="n">other</span>
+</pre></div>
+</div>
+<p>Override on a per-project basis by providing a project-specific
+gp_resolved_file_type_override function.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">GP_FILE_TYPE</span><span class="p">(</span><span class="o">&lt;</span><span class="n">original_file</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">file</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">type_var</span><span class="o">&gt;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Return the type of &lt;file&gt; with respect to &lt;original_file&gt;.  String
+describing type of prerequisite is returned in variable named
+&lt;type_var&gt;.</p>
+<p>Possible types are:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">system</span>
+<span class="n">local</span>
+<span class="n">embedded</span>
+<span class="n">other</span>
+</pre></div>
+</div>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h4>上一主题</h4>
+    <p class="topless"><a href="GenerateExportHeader.html"
+                          title="上一章">GenerateExportHeader</a></p>
+  </div>
+  <div>
+    <h4>下一主题</h4>
+    <p class="topless"><a href="GNUInstallDirs.html"
+                          title="下一章">GNUInstallDirs</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>本页</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/module/GetPrerequisites.rst.txt"
+            rel="nofollow">显示源代码</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="提交" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="总索引"
+             >索引</a></li>
+        <li class="right" >
+          <a href="GNUInstallDirs.html" title="GNUInstallDirs"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="GenerateExportHeader.html" title="GenerateExportHeader"
+             >上一页</a> |</li>
+        <li>
+          <img src="../_static/cmake-logo-16.png" alt=""
+              style="vertical-align: middle; margin-top: -2px" />
+        </li>
+        <li>
+          <a href="https://cmake.org/">CMake</a> &#187;
+        </li>
+        <li>
+          <a href="../index.html">Documentation</a> &#187;
+        </li>
+
+          <li class="nav-item nav-item-1"><a href="../manual/cmake-modules.7.html" >cmake-modules(7)</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">GetPrerequisites</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+    &#169; 版权所有 2000-2017 Kitware, Inc. and Contributors.
+      由 <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3创建。
+    </div>
+  </body>
+</html>
