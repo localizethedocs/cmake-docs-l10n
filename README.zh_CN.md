@@ -24,7 +24,7 @@
   <li><a href="#progress-of-translations">翻译进度</a></li>
   <li><a href="#preview-translations">预览翻译</a></li>
   <li><a href="#maintainers">维护者</a></li>
-  <li><a href="#support-this-project">Support this Project</a></li>
+  <li><a href="#support-this-project">支持此项目</a></li>
   <li><a href="#sponsorship">赞助</a></li>
   <li><a href="#code-contributors">代码贡献者</a></li>
   <li><a href="#financial-contributors">财务贡献者</a></li>
@@ -58,6 +58,9 @@
 <a href="http://creativecommons.org/licenses/by-sa/4.0/" title="License: CC-BY-SA-4.0" target="_blank">
   <img alt="License: CC-BY-SA-4.0" src="https://img.shields.io/badge/License-CC--BY--SA--4.0-blue.svg?logo=creativecommons&style=flat&logoColor=white" />
 </a>
+<a href="https://gitcode.com/localizethedocs/cmake-docs-l10n/stargazers" title="GitCode GStars" target="_blank">
+  <img alt="GitCode GStars" src="https://gitcode.com/localizethedocs/cmake-docs-l10n/star/badge.svg" />
+</a>
 </div>
 
 <p></p>
@@ -74,7 +77,7 @@ This is a localization project of CMake Documentation. Translations are contribu
   <tbody>
     <!-- Preview -->
     <tr>
-      <th rowspan="1" colspan="1" align="center" style="text-align: center;"><div>Preview</div></th>
+      <th rowspan="1" colspan="1" align="center" style="text-align: center;"><div>预览翻译</div></th>
       <td rowspan="1" colspan="1" align="center" style="text-align: center;">
         <div><a href="https://projects.localizethedocs.org/cmake-docs-l10n" target="_blank">cmake-docs-l10n</a></div>
       </td>
@@ -114,7 +117,7 @@ This is a localization project of CMake Documentation. Translations are contribu
 <table>
   <thead>
     <tr>
-      <th rowspan="1" colspan="2" align="center" style="text-align: center;"><div>GitHub Workflows</div></th>
+      <th rowspan="1" colspan="2" align="center" style="text-align: center;"><div>GitHub 工作流</div></th>
     </tr>
     <tr>
       <th rowspan="1" colspan="1" align="center" style="text-align: center;"><div>状态</div></th>
@@ -231,14 +234,14 @@ This is a localization project of CMake Documentation. Translations are contribu
       <th rowspan="1" colspan="1" align="center" style="text-align: center;"><div>Locale</div></th>
       <th rowspan="1" colspan="1" align="center" style="text-align: center;">
         <div>
-          <div>English Name</div>
-          <div>Native Name</div>
+          <div>英文名称</div>
+          <div>本地名称</div>
         </div>
       </th>
       <th rowspan="1" colspan="1" align="center" style="text-align: center;">
         <div>
-          <div>Translated</div>
-          <div>Proofread</div>
+          <div>已翻译</div>
+          <div>已校对</div>
         </div>
       </th>
     </tr>
@@ -285,14 +288,14 @@ This is a localization project of CMake Documentation. Translations are contribu
 
 <h2 id="preview-translations"><a href="#table-of-contents">预览翻译</a></h2>
 
-You can preview translations in <a href="https://projects.localizethedocs.org/cmake-docs-l10n">GitHub Pages</a>:
+您可以在 <a href="https://projects.localizethedocs.org/cmake-docs-l10n">GitHub 网页</a>中预览翻译：
 
 <div align="center">
 <table>
   <thead>
     <tr>
       <th rowspan="1" colspan="1" align="center" style="text-align: center;"><div>语言</div></th>
-      <th rowspan="1" colspan="1" align="center" style="text-align: center;"><div>GitHub Pages</div></th>
+      <th rowspan="1" colspan="1" align="center" style="text-align: center;"><div>GitHub 网页</div></th>
     </tr>
   </thead>
   <tbody>
@@ -399,7 +402,7 @@ You can sponsor the maintainers directly through the following platforms:
 <h2 id="financial-contributors"><a href="#table-of-contents">财务贡献者</a></h2>
 
 <div align="center">
-<h3 id="sponsors-to-haowei-hsu">Sponsors to Haowei Hsu</h3>
+<h3 id="sponsors-to-haowei-hsu">Haowei Hsu 的赞助者</h3>
 </div>
 
 <div align="center">
