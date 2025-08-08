@@ -23,7 +23,7 @@ msgstr "匯入與匯出指南"
 
 #: ../../../guide/importing-exporting/index.rst:5
 msgid "Contents"
-msgstr ""
+msgstr "目次"
 
 #: ../../../guide/importing-exporting/index.rst:9
 msgid "Introduction"
@@ -75,7 +75,7 @@ msgstr ""
 
 #: ../../../guide/importing-exporting/index.rst:43
 msgid "Importing Executables"
-msgstr ""
+msgstr "匯入執行檔"
 
 #: ../../../guide/importing-exporting/index.rst:45
 msgid ""
@@ -242,6 +242,16 @@ msgid ""
 "add_executable(myexe src1.c src2.c)\n"
 "target_link_libraries(myexe PRIVATE math)"
 msgstr ""
+"find_library(math_REL NAMES m)\n"
+"find_library(math_DBG NAMES md)\n"
+"add_library(math STATIC IMPORTED GLOBAL)\n"
+"set_target_properties(math PROPERTIES\n"
+"  IMPORTED_LOCATION \"${math_REL}\"\n"
+"  IMPORTED_LOCATION_DEBUG \"${math_DBG}\"\n"
+"  IMPORTED_CONFIGURATIONS \"RELEASE;DEBUG\"\n"
+")\n"
+"add_executable(myexe src1.c src2.c)\n"
+"target_link_libraries(myexe PRIVATE math)"
 
 #: ../../../guide/importing-exporting/index.rst:163
 msgid ""
@@ -549,7 +559,7 @@ msgstr ""
 
 #: ../../../guide/importing-exporting/index.rst:352
 msgid "Creating Packages"
-msgstr ""
+msgstr "建立軟體包"
 
 #: ../../../guide/importing-exporting/index.rst:354
 msgid ""
@@ -579,7 +589,7 @@ msgstr ""
 
 #: ../../../guide/importing-exporting/index.rst:371
 msgid "Creating a Package Configuration File"
-msgstr ""
+msgstr "建立軟體包組態檔"
 
 #: ../../../guide/importing-exporting/index.rst:373
 msgid ""
