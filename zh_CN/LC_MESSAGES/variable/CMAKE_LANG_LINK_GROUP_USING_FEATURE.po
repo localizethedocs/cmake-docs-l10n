@@ -1,0 +1,219 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2000-2025 Kitware, Inc. and Contributors
+# This file is distributed under the same license as the CMake package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CMake master\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-07-14 08:20+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../variable/CMAKE_LANG_LINK_GROUP_USING_FEATURE.rst:2
+msgid "CMAKE_<LANG>_LINK_GROUP_USING_<FEATURE>"
+msgstr ""
+
+#: ../../../variable/CMAKE_LANG_LINK_GROUP_USING_FEATURE.rst:6
+msgid ""
+"This variable defines how to link a group of libraries for the specified "
+"``<FEATURE>`` when a :genex:`LINK_GROUP` generator expression is used and "
+"the link language for the target is ``<LANG>``. For this variable to have "
+"any effect, the associated :variable:"
+"`CMAKE_<LANG>_LINK_GROUP_USING_<FEATURE>_SUPPORTED` variable must be set to "
+"true."
+msgstr ""
+
+#: ../../../variable/CMAKE_LANG_LINK_GROUP_USING_FEATURE.rst:13
+msgid ""
+"The :variable:`CMAKE_LINK_GROUP_USING_<FEATURE>` variable should be defined "
+"instead for features that are independent of the link language."
+msgstr ""
+
+#: ../../../variable/include/CMAKE_LINK_GROUP_USING_FEATURE.rst:1
+msgid ""
+"Feature names are case-sensitive and may only contain letters, numbers and "
+"underscores.  Feature names defined in all uppercase are reserved for "
+"CMake's own built-in features (see `Predefined Features`_ further below)."
+msgstr ""
+
+#: ../../../variable/include/CMAKE_LINK_GROUP_USING_FEATURE.rst:7
+msgid "Feature Definitions"
+msgstr ""
+
+#: ../../../variable/include/CMAKE_LINK_GROUP_USING_FEATURE.rst:9
+msgid ""
+"A group feature definition is a list that contains exactly two elements:"
+msgstr ""
+
+#: ../../../variable/include/CMAKE_LINK_GROUP_USING_FEATURE.rst:13
+msgid "<PREFIX> <SUFFIX>"
+msgstr ""
+
+#: ../../../variable/include/CMAKE_LINK_GROUP_USING_FEATURE.rst:15
+msgid ""
+"On the linker command line, ``<PREFIX>`` will precede the list of libraries "
+"in the group and ``<SUFFIX>`` will follow after."
+msgstr ""
+
+#: ../../../variable/include/CMAKE_LINK_GROUP_USING_FEATURE.rst:18
+msgid "For the elements of this variable, the ``LINKER:`` prefix can be used."
+msgstr ""
+
+#: ../../../command/include/LINK_OPTIONS_LINKER.rst:1
+msgid ""
+"To pass options to the linker tool, each compiler driver has its own syntax. "
+"The ``LINKER:`` prefix and ``,`` separator can be used to specify, in a "
+"portable way, options to pass to the linker tool. ``LINKER:`` is replaced by "
+"the appropriate driver option and ``,`` by the appropriate driver separator. "
+"The driver prefix and driver separator are given by the values of the :"
+"variable:`CMAKE_<LANG>_LINKER_WRAPPER_FLAG` and :variable:"
+"`CMAKE_<LANG>_LINKER_WRAPPER_FLAG_SEP` variables."
+msgstr ""
+
+#: ../../../command/include/LINK_OPTIONS_LINKER.rst:9
+msgid ""
+"For example, ``\"LINKER:-z,defs\"`` becomes ``-Xlinker -z -Xlinker defs`` "
+"for ``Clang`` and ``-Wl,-z,defs`` for ``GNU GCC``."
+msgstr ""
+
+#: ../../../command/include/LINK_OPTIONS_LINKER.rst:12
+msgid ""
+"The ``LINKER:`` prefix can be specified as part of a ``SHELL:`` prefix "
+"expression."
+msgstr ""
+
+#: ../../../command/include/LINK_OPTIONS_LINKER.rst:15
+msgid ""
+"The ``LINKER:`` prefix supports, as an alternative syntax, specification of "
+"arguments using the ``SHELL:`` prefix and space as separator. The previous "
+"example then becomes ``\"LINKER:SHELL:-z defs\"``."
+msgstr ""
+
+#: ../../../command/include/LINK_OPTIONS_LINKER.rst:21
+msgid ""
+"Specifying the ``SHELL:`` prefix anywhere other than at the beginning of the "
+"``LINKER:`` prefix is not supported."
+msgstr ""
+
+#: ../../../variable/include/CMAKE_LINK_GROUP_USING_FEATURE.rst:24
+msgid "Examples"
+msgstr ""
+
+#: ../../../variable/include/CMAKE_LINK_GROUP_USING_FEATURE.rst:27
+msgid "Solving cross-references between two static libraries"
+msgstr ""
+
+#: ../../../variable/include/CMAKE_LINK_GROUP_USING_FEATURE.rst:29
+msgid ""
+"A project may define two or more static libraries which have circular "
+"dependencies between them.  In order for the linker to resolve all symbols "
+"at link time, it may need to search repeatedly among the libraries until no "
+"new undefined references are created.  Different linkers use different "
+"syntax for achieving this.  The following example shows how this may be "
+"implemented for some linkers.  Note that this is for illustration purposes "
+"only. Projects should use the built-in ``RESCAN`` group feature instead (see "
+"`Predefined Features`_), which provides a more complete and more robust "
+"implementation of this functionality."
+msgstr ""
+
+#: ../../../variable/include/CMAKE_LINK_GROUP_USING_FEATURE.rst:39
+msgid ""
+"set(CMAKE_C_LINK_GROUP_USING_cross_refs_SUPPORTED TRUE)\n"
+"if(CMAKE_C_COMPILER_ID STREQUAL \"GNU\" AND CMAKE_SYSTEM_NAME STREQUAL "
+"\"Linux\")\n"
+"  set(CMAKE_C_LINK_GROUP_USING_cross_refs\n"
+"    \"LINKER:--start-group\"\n"
+"    \"LINKER:--end-group\"\n"
+"  )\n"
+"elseif(CMAKE_C_COMPILER_ID STREQUAL \"SunPro\" AND CMAKE_SYSTEM_NAME "
+"STREQUAL \"SunOS\")\n"
+"  set(CMAKE_C_LINK_GROUP_USING_cross_refs\n"
+"    \"LINKER:-z,rescan-start\"\n"
+"    \"LINKER:-z,rescan-end\"\n"
+"  )\n"
+"else()\n"
+"  # feature not yet supported for the other environments\n"
+"  set(CMAKE_C_LINK_GROUP_USING_cross_refs_SUPPORTED FALSE)\n"
+"endif()\n"
+"\n"
+"add_library(lib1 STATIC ...)\n"
+"add_library(lib2 SHARED ...)\n"
+"\n"
+"if(CMAKE_C_LINK_GROUP_USING_cross_refs_SUPPORTED)\n"
+"  target_link_libraries(lib2 PRIVATE \"$<LINK_GROUP:cross_refs,lib1,"
+"external>\")\n"
+"else()\n"
+"  target_link_libraries(lib2 PRIVATE lib1 external)\n"
+"endif()"
+msgstr ""
+
+#: ../../../variable/include/CMAKE_LINK_GROUP_USING_FEATURE.rst:66
+msgid ""
+"CMake will generate the following linker command line fragments when linking "
+"``lib2``:"
+msgstr ""
+
+#: ../../../variable/include/CMAKE_LINK_GROUP_USING_FEATURE.rst:69
+msgid ""
+"``GNU``: ``-Wl,--start-group /path/to/lib1.a -lexternal -Wl,--end-group``"
+msgstr ""
+
+#: ../../../variable/include/CMAKE_LINK_GROUP_USING_FEATURE.rst:70
+msgid ""
+"``SunPro``: ``-Wl,-z,rescan-start /path/to/lib1.a -lexternal -Wl,-z,rescan-"
+"end``"
+msgstr ""
+
+#: ../../../variable/include/CMAKE_LINK_GROUP_USING_FEATURE.rst:74
+msgid "Predefined Features"
+msgstr ""
+
+#: ../../../variable/include/CMAKE_LINK_GROUP_USING_FEATURE.rst:76
+msgid "The following built-in group features are pre-defined by CMake:"
+msgstr ""
+
+#: ../../../variable/include/LINK_GROUP_PREDEFINED_FEATURES.rst:1
+msgid "``RESCAN``"
+msgstr ""
+
+#: ../../../variable/include/LINK_GROUP_PREDEFINED_FEATURES.rst:2
+msgid ""
+"Some linkers are single-pass only.  For such linkers, circular references "
+"between libraries typically result in unresolved symbols.  This feature "
+"instructs the linker to search the specified static libraries repeatedly "
+"until no new undefined references are created."
+msgstr ""
+
+#: ../../../variable/include/LINK_GROUP_PREDEFINED_FEATURES.rst:7
+msgid ""
+"Normally, a static library is searched only once in the order that it is "
+"specified on the command line.  If a symbol in that library is needed to "
+"resolve an undefined symbol referred to by an object in a library that "
+"appears later on the command line, the linker would not be able to resolve "
+"that reference.  By grouping the static libraries with the ``RESCAN`` "
+"feature, they will all be searched repeatedly until all possible references "
+"are resolved.  This will use linker options like ``--start-group`` and ``--"
+"end-group``, or on SunOS, ``-z rescan-start`` and ``-z rescan-end``."
+msgstr ""
+
+#: ../../../variable/include/LINK_GROUP_PREDEFINED_FEATURES.rst:16
+msgid ""
+"Using this feature has a significant performance cost. It is best to use it "
+"only when there are unavoidable circular references between two or more "
+"static libraries."
+msgstr ""
+
+#: ../../../variable/include/LINK_GROUP_PREDEFINED_FEATURES.rst:20
+msgid ""
+"This feature is available when using toolchains that target Linux, BSD, and "
+"SunOS.  It can also be used when targeting Windows platforms if the GNU "
+"toolchain is used."
+msgstr ""

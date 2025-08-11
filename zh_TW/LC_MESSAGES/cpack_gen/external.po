@@ -1,0 +1,564 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2000-2025 Kitware, Inc. and Contributors
+# This file is distributed under the same license as the CMake package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CMake master\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-07-14 08:20+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../cpack_gen/external.rst:2
+msgid "CPack External Generator"
+msgstr "CPack 外部生成器"
+
+#: ../../../cpack_gen/external.rst:6
+msgid ""
+"CPack provides many generators to create packages for a variety of platforms "
+"and packaging systems. The intention is for CMake/CPack to be a complete end-"
+"to-end solution for building and packaging a software project. However, it "
+"may not always be possible to use CPack for the entire packaging process, "
+"due to either technical limitations or policies that require the use of "
+"certain tools. For this reason, CPack provides the \"External\" generator, "
+"which allows external packaging software to take advantage of some of the "
+"functionality provided by CPack, such as component installation and the "
+"dependency graph."
+msgstr ""
+
+#: ../../../cpack_gen/external.rst:16
+msgid "Integration with External Packaging Tools"
+msgstr ""
+
+#: ../../../cpack_gen/external.rst:18
+msgid ""
+"The CPack External generator generates a ``.json`` file containing the CPack "
+"internal metadata, which gives external software information on how to "
+"package the software. External packaging software may itself invoke CPack, "
+"consume the generated metadata, install and package files as required."
+msgstr ""
+
+#: ../../../cpack_gen/external.rst:24
+msgid ""
+"Alternatively CPack can invoke an external packaging software through an "
+"optional custom CMake script in :variable:`CPACK_EXTERNAL_PACKAGE_SCRIPT` "
+"instead."
+msgstr ""
+
+#: ../../../cpack_gen/external.rst:28
+msgid ""
+"Staging of installation files may also optionally be taken care of by the "
+"generator when enabled through the :variable:`CPACK_EXTERNAL_ENABLE_STAGING` "
+"variable."
+msgstr ""
+
+#: ../../../cpack_gen/external.rst:33
+msgid "JSON Format"
+msgstr ""
+
+#: ../../../cpack_gen/external.rst:35
+msgid ""
+"The JSON metadata file contains a list of CPack components and component "
+"groups, the various options passed to :command:`cpack_add_component` and :"
+"command:`cpack_add_component_group`, the dependencies between the components "
+"and component groups, and various other options passed to CPack."
+msgstr ""
+
+#: ../../../cpack_gen/external.rst:40
+msgid ""
+"The JSON's root object will always provide two fields: "
+"``formatVersionMajor`` and ``formatVersionMinor``, which are always integers "
+"that describe the output format of the generator. Backwards-compatible "
+"changes to the output format (for example, adding a new field that didn't "
+"exist before) cause the minor version to be incremented, and backwards-"
+"incompatible changes (for example, deleting a field or changing its meaning) "
+"cause the major version to be incremented and the minor version reset to 0. "
+"The format version is always of the format ``major.minor``. In other words, "
+"it always has exactly two parts, separated by a period."
+msgstr ""
+
+#: ../../../cpack_gen/external.rst:50
+msgid ""
+"You can request one or more specific versions of the output format as "
+"described below with :variable:`CPACK_EXTERNAL_REQUESTED_VERSIONS`. The "
+"output format will have a major version that exactly matches the requested "
+"major version, and a minor version that is greater than or equal to the "
+"requested minor version. If no version is requested with :variable:"
+"`CPACK_EXTERNAL_REQUESTED_VERSIONS`, the latest known major version is used "
+"by default. Currently, the only supported format is 1.0, which is described "
+"below."
+msgstr ""
+
+#: ../../../cpack_gen/external.rst:59
+msgid "Version 1.0"
+msgstr ""
+
+#: ../../../cpack_gen/external.rst:61
+msgid ""
+"In addition to the standard format fields, format version 1.0 provides the "
+"following fields in the root:"
+msgstr ""
+
+#: ../../../cpack_gen/external.rst:64 ../../../cpack_gen/external.rst:147
+msgid "``components``"
+msgstr ""
+
+#: ../../../cpack_gen/external.rst:65
+msgid ""
+"The ``components`` field is an object with component names as the keys and "
+"objects describing the components as the values. The component objects have "
+"the following fields:"
+msgstr ""
+
+#: ../../../cpack_gen/external.rst:69 ../../../cpack_gen/external.rst:122
+#: ../../../cpack_gen/external.rst:161
+msgid "``name``"
+msgstr ""
+
+#: ../../../cpack_gen/external.rst:70
+msgid ""
+"The name of the component. This is always the same as the key in the "
+"``components`` object."
+msgstr ""
+
+#: ../../../cpack_gen/external.rst:73 ../../../cpack_gen/external.rst:126
+#: ../../../cpack_gen/external.rst:165
+msgid "``displayName``"
+msgstr ""
+
+#: ../../../cpack_gen/external.rst:74
+msgid ""
+"The value of the ``DISPLAY_NAME`` field passed to :command:"
+"`cpack_add_component`."
+msgstr ""
+
+#: ../../../cpack_gen/external.rst:77 ../../../cpack_gen/external.rst:130
+msgid "``description``"
+msgstr "``description``"
+
+#: ../../../cpack_gen/external.rst:78
+msgid ""
+"The value of the ``DESCRIPTION`` field passed to :command:"
+"`cpack_add_component`."
+msgstr ""
+
+#: ../../../cpack_gen/external.rst:81
+msgid "``isHidden``"
+msgstr ""
+
+#: ../../../cpack_gen/external.rst:82
+msgid ""
+"True if ``HIDDEN`` was passed to :command:`cpack_add_component`, false if it "
+"was not."
+msgstr ""
+
+#: ../../../cpack_gen/external.rst:85
+msgid "``isRequired``"
+msgstr ""
+
+#: ../../../cpack_gen/external.rst:86
+msgid ""
+"True if ``REQUIRED`` was passed to :command:`cpack_add_component`, false if "
+"it was not."
+msgstr ""
+
+#: ../../../cpack_gen/external.rst:89
+msgid "``isDisabledByDefault``"
+msgstr ""
+
+#: ../../../cpack_gen/external.rst:90
+msgid ""
+"True if ``DISABLED`` was passed to :command:`cpack_add_component`, false if "
+"it was not."
+msgstr ""
+
+#: ../../../cpack_gen/external.rst:93
+msgid "``group``"
+msgstr ""
+
+#: ../../../cpack_gen/external.rst:94
+msgid ""
+"Only present if ``GROUP`` was passed to :command:`cpack_add_component`. If "
+"so, this field is a string value containing the component's group."
+msgstr ""
+
+#: ../../../cpack_gen/external.rst:97
+msgid "``dependencies``"
+msgstr ""
+
+#: ../../../cpack_gen/external.rst:98
+msgid ""
+"An array of components the component depends on. This contains the values in "
+"the ``DEPENDS`` argument passed to :command:`cpack_add_component`. If no "
+"``DEPENDS`` argument was passed, this is an empty list."
+msgstr ""
+
+#: ../../../cpack_gen/external.rst:102 ../../../cpack_gen/external.rst:156
+msgid "``installationTypes``"
+msgstr ""
+
+#: ../../../cpack_gen/external.rst:103
+msgid ""
+"An array of installation types the component is part of. This contains the "
+"values in the ``INSTALL_TYPES`` argument passed to :command:"
+"`cpack_add_component`. If no ``INSTALL_TYPES`` argument was passed, this is "
+"an empty list."
+msgstr ""
+
+#: ../../../cpack_gen/external.rst:108
+msgid "``isDownloaded``"
+msgstr ""
+
+#: ../../../cpack_gen/external.rst:109
+msgid ""
+"True if ``DOWNLOADED`` was passed to :command:`cpack_add_component`, false "
+"if it was not."
+msgstr ""
+
+#: ../../../cpack_gen/external.rst:112
+msgid "``archiveFile``"
+msgstr ""
+
+#: ../../../cpack_gen/external.rst:113
+msgid ""
+"The name of the archive file passed with the ``ARCHIVE_FILE`` argument to :"
+"command:`cpack_add_component`. If no ``ARCHIVE_FILE`` argument was passed, "
+"this is an empty string."
+msgstr ""
+
+#: ../../../cpack_gen/external.rst:117
+msgid "``componentGroups``"
+msgstr ""
+
+#: ../../../cpack_gen/external.rst:118
+msgid ""
+"The ``componentGroups`` field is an object with component group names as the "
+"keys and objects describing the component groups as the values. The "
+"component group objects have the following fields:"
+msgstr ""
+
+#: ../../../cpack_gen/external.rst:123
+msgid ""
+"The name of the component group. This is always the same as the key in the "
+"``componentGroups`` object."
+msgstr ""
+
+#: ../../../cpack_gen/external.rst:127
+msgid ""
+"The value of the ``DISPLAY_NAME`` field passed to :command:"
+"`cpack_add_component_group`."
+msgstr ""
+
+#: ../../../cpack_gen/external.rst:131
+msgid ""
+"The value of the ``DESCRIPTION`` field passed to :command:"
+"`cpack_add_component_group`."
+msgstr ""
+
+#: ../../../cpack_gen/external.rst:134
+msgid "``parentGroup``"
+msgstr ""
+
+#: ../../../cpack_gen/external.rst:135
+msgid ""
+"Only present if ``PARENT_GROUP`` was passed to :command:"
+"`cpack_add_component_group`. If so, this field is a string value containing "
+"the component group's parent group."
+msgstr ""
+
+#: ../../../cpack_gen/external.rst:139
+msgid "``isExpandedByDefault``"
+msgstr ""
+
+#: ../../../cpack_gen/external.rst:140
+msgid ""
+"True if ``EXPANDED`` was passed to :command:`cpack_add_component_group`, "
+"false if it was not."
+msgstr ""
+
+#: ../../../cpack_gen/external.rst:143
+msgid "``isBold``"
+msgstr ""
+
+#: ../../../cpack_gen/external.rst:144
+msgid ""
+"True if ``BOLD_TITLE`` was passed to :command:`cpack_add_component_group`, "
+"false if it was not."
+msgstr ""
+
+#: ../../../cpack_gen/external.rst:148
+msgid ""
+"An array of names of components that are direct members of the group "
+"(components that have this group as their ``GROUP``). Components of "
+"subgroups are not included."
+msgstr ""
+
+#: ../../../cpack_gen/external.rst:152
+msgid "``subgroups``"
+msgstr ""
+
+#: ../../../cpack_gen/external.rst:153
+msgid ""
+"An array of names of component groups that are subgroups of the group "
+"(groups that have this group as their ``PARENT_GROUP``)."
+msgstr ""
+
+#: ../../../cpack_gen/external.rst:157
+msgid ""
+"The ``installationTypes`` field is an object with installation type names as "
+"the keys and objects describing the installation types as the values. The "
+"installation type objects have the following fields:"
+msgstr ""
+
+#: ../../../cpack_gen/external.rst:162
+msgid ""
+"The name of the installation type. This is always the same as the key in the "
+"``installationTypes`` object."
+msgstr ""
+
+#: ../../../cpack_gen/external.rst:166
+msgid ""
+"The value of the ``DISPLAY_NAME`` field passed to :command:"
+"`cpack_add_install_type`."
+msgstr ""
+
+#: ../../../cpack_gen/external.rst:169
+msgid "``index``"
+msgstr ""
+
+#: ../../../cpack_gen/external.rst:170
+msgid "The integer index of the installation type in the list."
+msgstr ""
+
+#: ../../../cpack_gen/external.rst:172
+msgid "``projects``"
+msgstr ""
+
+#: ../../../cpack_gen/external.rst:173
+msgid ""
+"The ``projects`` field is an array of objects describing CMake projects "
+"which comprise the CPack project. The values in this field are derived from :"
+"variable:`CPACK_INSTALL_CMAKE_PROJECTS`. In most cases, this will be only a "
+"single project. The project objects have the following fields:"
+msgstr ""
+
+#: ../../../cpack_gen/external.rst:178
+msgid "``projectName``"
+msgstr ""
+
+#: ../../../cpack_gen/external.rst:179
+msgid "The project name passed to :variable:`CPACK_INSTALL_CMAKE_PROJECTS`."
+msgstr ""
+
+#: ../../../cpack_gen/external.rst:181
+msgid "``component``"
+msgstr ""
+
+#: ../../../cpack_gen/external.rst:182
+msgid "The name of the component or component set which comprises the project."
+msgstr ""
+
+#: ../../../cpack_gen/external.rst:184
+msgid "``directory``"
+msgstr ""
+
+#: ../../../cpack_gen/external.rst:185
+msgid ""
+"The build directory of the CMake project. This is the directory which "
+"contains the ``cmake_install.cmake`` script."
+msgstr ""
+
+#: ../../../cpack_gen/external.rst:188
+msgid "``subDirectory``"
+msgstr ""
+
+#: ../../../cpack_gen/external.rst:189
+msgid "The subdirectory to install the project into inside the CPack package."
+msgstr ""
+
+#: ../../../cpack_gen/external.rst:191
+msgid "``packageName``"
+msgstr ""
+
+#: ../../../cpack_gen/external.rst:192
+msgid ""
+"The package name given in :variable:`CPACK_PACKAGE_NAME`. Only present if "
+"this option is set."
+msgstr ""
+
+#: ../../../cpack_gen/external.rst:195
+msgid "``packageVersion``"
+msgstr ""
+
+#: ../../../cpack_gen/external.rst:196
+msgid ""
+"The package version given in :variable:`CPACK_PACKAGE_VERSION`. Only present "
+"if this option is set."
+msgstr ""
+
+#: ../../../cpack_gen/external.rst:199
+msgid "``packageDescriptionFile``"
+msgstr ""
+
+#: ../../../cpack_gen/external.rst:200
+msgid ""
+"The package description file given in :variable:"
+"`CPACK_PACKAGE_DESCRIPTION_FILE`. Only present if this option is set."
+msgstr ""
+
+#: ../../../cpack_gen/external.rst:204
+msgid "``packageDescriptionSummary``"
+msgstr ""
+
+#: ../../../cpack_gen/external.rst:205
+msgid ""
+"The package description summary given in :variable:"
+"`CPACK_PACKAGE_DESCRIPTION_SUMMARY`. Only present if this option is set."
+msgstr ""
+
+#: ../../../cpack_gen/external.rst:209
+msgid "``buildConfig``"
+msgstr ""
+
+#: ../../../cpack_gen/external.rst:210
+msgid ""
+"The build configuration given to CPack with the :option:`cpack -C` option. "
+"Only present if this option is set."
+msgstr ""
+
+#: ../../../cpack_gen/external.rst:213
+msgid "``defaultDirectoryPermissions``"
+msgstr ""
+
+#: ../../../cpack_gen/external.rst:214
+msgid ""
+"The default directory permissions given in :variable:"
+"`CPACK_INSTALL_DEFAULT_DIRECTORY_PERMISSIONS`. Only present if this option "
+"is set."
+msgstr ""
+
+#: ../../../cpack_gen/external.rst:218
+msgid "``setDestdir``"
+msgstr ""
+
+#: ../../../cpack_gen/external.rst:219
+msgid "True if :variable:`CPACK_SET_DESTDIR` is true, false if it is not."
+msgstr ""
+
+#: ../../../cpack_gen/external.rst:221
+msgid "``packagingInstallPrefix``"
+msgstr ""
+
+#: ../../../cpack_gen/external.rst:222
+msgid ""
+"The install prefix given in :variable:`CPACK_PACKAGING_INSTALL_PREFIX`. Only "
+"present if :variable:`CPACK_SET_DESTDIR` is true."
+msgstr ""
+
+#: ../../../cpack_gen/external.rst:225
+msgid "``stripFiles``"
+msgstr ""
+
+#: ../../../cpack_gen/external.rst:226
+msgid "True if :variable:`CPACK_STRIP_FILES` is true, false if it is not."
+msgstr ""
+
+#: ../../../cpack_gen/external.rst:228
+msgid "``warnOnAbsoluteInstallDestination``"
+msgstr ""
+
+#: ../../../cpack_gen/external.rst:229
+msgid ""
+"True if :variable:`CPACK_WARN_ON_ABSOLUTE_INSTALL_DESTINATION` is true, "
+"false if it is not."
+msgstr ""
+
+#: ../../../cpack_gen/external.rst:232
+msgid "``errorOnAbsoluteInstallDestination``"
+msgstr ""
+
+#: ../../../cpack_gen/external.rst:233
+msgid ""
+"True if :variable:`CPACK_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION` is true, "
+"false if it is not."
+msgstr ""
+
+#: ../../../cpack_gen/external.rst:237
+msgid "Variables specific to CPack External generator"
+msgstr ""
+
+#: ../../../cpack_gen/external.rst:241
+msgid ""
+"This variable is used to request a specific version of the CPack External "
+"generator. It is a list of ``major.minor`` values, separated by semicolons."
+msgstr ""
+
+#: ../../../cpack_gen/external.rst:244
+msgid ""
+"If this variable is set to a non-empty value, the CPack External generator "
+"will iterate through each item in the list to search for a version that it "
+"knows how to generate. Requested versions should be listed in order of "
+"descending preference by the client software, as the first matching version "
+"in the list will be generated."
+msgstr ""
+
+#: ../../../cpack_gen/external.rst:250
+msgid ""
+"The generator knows how to generate the version if it has a versioned "
+"generator whose major version exactly matches the requested major version, "
+"and whose minor version is greater than or equal to the requested minor "
+"version. For example, if ``CPACK_EXTERNAL_REQUESTED_VERSIONS`` contains 1.0, "
+"and the CPack External generator knows how to generate 1.1, it will generate "
+"1.1. If the generator doesn't know how to generate a version in the list, it "
+"skips the version and looks at the next one. If it doesn't know how to "
+"generate any of the requested versions, an error is thrown."
+msgstr ""
+
+#: ../../../cpack_gen/external.rst:259
+msgid ""
+"If this variable is not set, or is empty, the CPack External generator will "
+"generate the highest major and minor version that it knows how to generate."
+msgstr ""
+
+#: ../../../cpack_gen/external.rst:262
+msgid ""
+"If an invalid version is encountered in "
+"``CPACK_EXTERNAL_REQUESTED_VERSIONS`` (one that doesn't match ``major."
+"minor``, where ``major`` and ``minor`` are integers), it is ignored."
+msgstr ""
+
+#: ../../../cpack_gen/external.rst:268
+msgid ""
+"This variable can be set to true to enable optional installation into a "
+"temporary staging area which can then be picked up and packaged by an "
+"external packaging tool. The top level directory used by CPack for the "
+"current packaging task is contained in ``CPACK_TOPLEVEL_DIRECTORY``. It is "
+"automatically cleaned up on each run before packaging is initiated and can "
+"be used for custom temporary files required by the external packaging tool. "
+"It also contains the staging area ``CPACK_TEMPORARY_DIRECTORY`` into which "
+"CPack performs the installation when staging is enabled."
+msgstr ""
+
+#: ../../../cpack_gen/external.rst:281
+msgid ""
+"This variable can optionally specify the full path to a CMake script file to "
+"be run as part of the CPack invocation. It is invoked after (optional) "
+"staging took place and may run an external packaging tool. The script has "
+"access to the variables defined by the CPack config file."
+msgstr ""
+
+#: ../../../cpack_gen/external.rst:291
+msgid ""
+"The ``CPACK_EXTERNAL_PACKAGE_SCRIPT`` script may set this list variable to "
+"the full paths of generated package files.  CPack will copy these files from "
+"the staging directory back to the top build directory and possibly produce "
+"checksum files if the :variable:`CPACK_PACKAGE_CHECKSUM` is set."
+msgstr ""

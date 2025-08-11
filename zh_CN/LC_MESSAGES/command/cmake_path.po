@@ -1,0 +1,1020 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2000-2025 Kitware, Inc. and Contributors
+# This file is distributed under the same license as the CMake package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CMake master\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-07-14 08:20+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../command/cmake_path.rst:2
+msgid "cmake_path"
+msgstr ""
+
+#: ../../../command/cmake_path.rst:6
+msgid ""
+"This command is for the manipulation of paths.  Only syntactic aspects of "
+"paths are handled, there is no interaction of any kind with any underlying "
+"file system.  The path may represent a non-existing path or even one that is "
+"not allowed to exist on the current file system or platform. For operations "
+"that do interact with the filesystem, see the :command:`file` command."
+msgstr ""
+
+#: ../../../command/cmake_path.rst:15
+msgid ""
+"The ``cmake_path`` command handles paths in the format of the build system "
+"(i.e. the host platform), not the target system.  When cross-compiling, if "
+"the path contains elements that are not representable on the host platform "
+"(e.g. a drive letter when the host is not Windows), the results will be "
+"unpredictable."
+msgstr ""
+
+#: ../../../command/cmake_path.rst:22
+msgid "Synopsis"
+msgstr ""
+
+#: ../../../command/cmake_path.rst:26
+msgid ""
+"`Conventions`_\n"
+"\n"
+"`Path Structure And Terminology`_\n"
+"\n"
+"`Normalization`_\n"
+"\n"
+"`Decomposition`_\n"
+"  cmake_path(`GET`_ <path-var> :ref:`ROOT_NAME <GET_ROOT_NAME>` <out-var>)\n"
+"  cmake_path(`GET`_ <path-var> :ref:`ROOT_DIRECTORY <GET_ROOT_DIRECTORY>` "
+"<out-var>)\n"
+"  cmake_path(`GET`_ <path-var> :ref:`ROOT_PATH <GET_ROOT_PATH>` <out-var>)\n"
+"  cmake_path(`GET`_ <path-var> :ref:`FILENAME <GET_FILENAME>` <out-var>)\n"
+"  cmake_path(`GET`_ <path-var> :ref:`EXTENSION <GET_EXTENSION>` [LAST_ONLY] "
+"<out-var>)\n"
+"  cmake_path(`GET`_ <path-var> :ref:`STEM <GET_STEM>` [LAST_ONLY] <out-"
+"var>)\n"
+"  cmake_path(`GET`_ <path-var> :ref:`RELATIVE_PART <GET_RELATIVE_PART>` <out-"
+"var>)\n"
+"  cmake_path(`GET`_ <path-var> :ref:`PARENT_PATH <GET_PARENT_PATH>` <out-"
+"var>)\n"
+"\n"
+"`Query`_\n"
+"  cmake_path(`HAS_ROOT_NAME`_ <path-var> <out-var>)\n"
+"  cmake_path(`HAS_ROOT_DIRECTORY`_ <path-var> <out-var>)\n"
+"  cmake_path(`HAS_ROOT_PATH`_ <path-var> <out-var>)\n"
+"  cmake_path(`HAS_FILENAME`_ <path-var> <out-var>)\n"
+"  cmake_path(`HAS_EXTENSION`_ <path-var> <out-var>)\n"
+"  cmake_path(`HAS_STEM`_ <path-var> <out-var>)\n"
+"  cmake_path(`HAS_RELATIVE_PART`_ <path-var> <out-var>)\n"
+"  cmake_path(`HAS_PARENT_PATH`_ <path-var> <out-var>)\n"
+"  cmake_path(`IS_ABSOLUTE`_ <path-var> <out-var>)\n"
+"  cmake_path(`IS_RELATIVE`_ <path-var> <out-var>)\n"
+"  cmake_path(`IS_PREFIX`_ <path-var> <input> [NORMALIZE] <out-var>)\n"
+"  cmake_path(`COMPARE`_ <input1> <OP> <input2> <out-var>)\n"
+"\n"
+"`Modification`_\n"
+"  cmake_path(:ref:`SET <cmake_path-SET>` <path-var> [NORMALIZE] <input>)\n"
+"  cmake_path(`APPEND`_ <path-var> [<input>...] [OUTPUT_VARIABLE <out-var>])\n"
+"  cmake_path(`APPEND_STRING`_ <path-var> [<input>...] [OUTPUT_VARIABLE <out-"
+"var>])\n"
+"  cmake_path(`REMOVE_FILENAME`_ <path-var> [OUTPUT_VARIABLE <out-var>])\n"
+"  cmake_path(`REPLACE_FILENAME`_ <path-var> <input> [OUTPUT_VARIABLE <out-"
+"var>])\n"
+"  cmake_path(`REMOVE_EXTENSION`_ <path-var> [LAST_ONLY] [OUTPUT_VARIABLE "
+"<out-var>])\n"
+"  cmake_path(`REPLACE_EXTENSION`_ <path-var> [LAST_ONLY] <input> "
+"[OUTPUT_VARIABLE <out-var>])\n"
+"\n"
+"`Generation`_\n"
+"  cmake_path(`NORMAL_PATH`_ <path-var> [OUTPUT_VARIABLE <out-var>])\n"
+"  cmake_path(`RELATIVE_PATH`_ <path-var> [BASE_DIRECTORY <input>] "
+"[OUTPUT_VARIABLE <out-var>])\n"
+"  cmake_path(`ABSOLUTE_PATH`_ <path-var> [BASE_DIRECTORY <input>] "
+"[NORMALIZE] [OUTPUT_VARIABLE <out-var>])\n"
+"\n"
+"`Native Conversion`_\n"
+"  cmake_path(`NATIVE_PATH`_ <path-var> [NORMALIZE] <out-var>)\n"
+"  cmake_path(`CONVERT`_ <input> `TO_CMAKE_PATH_LIST`_ <out-var> "
+"[NORMALIZE])\n"
+"  cmake_path(`CONVERT`_ <input> `TO_NATIVE_PATH_LIST`_ <out-var> "
+"[NORMALIZE])\n"
+"\n"
+"`Hashing`_\n"
+"  cmake_path(`HASH`_ <path-var> <out-var>)"
+msgstr ""
+
+#: ../../../command/cmake_path.rst:79
+msgid "Conventions"
+msgstr ""
+
+#: ../../../command/cmake_path.rst:81
+msgid "The following conventions are used in this command's documentation:"
+msgstr ""
+
+#: ../../../command/cmake_path.rst:83
+msgid "``<path-var>``"
+msgstr ""
+
+#: ../../../command/cmake_path.rst:84
+msgid ""
+"Always the name of a variable.  For commands that expect a ``<path-var>`` as "
+"input, the variable must exist and it is expected to hold a single path."
+msgstr ""
+
+#: ../../../command/cmake_path.rst:87
+msgid "``<input>``"
+msgstr ""
+
+#: ../../../command/cmake_path.rst:88
+msgid ""
+"A string literal which may contain a path, path fragment, or multiple paths "
+"with a special separator depending on the command.  See the description of "
+"each command to see how this is interpreted."
+msgstr ""
+
+#: ../../../command/cmake_path.rst:92
+msgid "``<input>...``"
+msgstr ""
+
+#: ../../../command/cmake_path.rst:93
+msgid "Zero or more string literal arguments."
+msgstr ""
+
+#: ../../../command/cmake_path.rst:95
+msgid "``<out-var>``"
+msgstr ""
+
+#: ../../../command/cmake_path.rst:96
+msgid ""
+"The name of a variable into which the result of a command will be written."
+msgstr ""
+
+#: ../../../command/cmake_path.rst:102
+msgid "Path Structure And Terminology"
+msgstr ""
+
+#: ../../../command/cmake_path.rst:104
+msgid ""
+"A path has the following structure (all components are optional, with some "
+"constraints):"
+msgstr ""
+
+#: ../../../command/cmake_path.rst:109
+msgid ""
+"root-name root-directory-separator (item-name directory-separator)* filename"
+msgstr ""
+
+#: ../../../command/cmake_path.rst:111
+msgid "``root-name``"
+msgstr ""
+
+#: ../../../command/cmake_path.rst:112
+msgid ""
+"Identifies the root on a filesystem with multiple roots (such as ``\"C:\"`` "
+"or ``\"//myserver\"``). It is optional."
+msgstr ""
+
+#: ../../../command/cmake_path.rst:115
+msgid "``root-directory-separator``"
+msgstr ""
+
+#: ../../../command/cmake_path.rst:116
+msgid ""
+"A directory separator that, if present, indicates that this path is "
+"absolute.  If it is missing and the first element other than the ``root-"
+"name`` is an ``item-name``, then the path is relative."
+msgstr ""
+
+#: ../../../command/cmake_path.rst:120
+msgid "``item-name``"
+msgstr ""
+
+#: ../../../command/cmake_path.rst:121
+msgid ""
+"A sequence of characters that aren't directory separators.  This name may "
+"identify a file, a hard link, a symbolic link, or a directory.  Two special "
+"cases are recognized:"
+msgstr ""
+
+#: ../../../command/cmake_path.rst:125
+msgid ""
+"The item name consisting of a single dot character ``.`` is a directory name "
+"that refers to the current directory."
+msgstr ""
+
+#: ../../../command/cmake_path.rst:128
+msgid ""
+"The item name consisting of two dot characters ``..`` is a directory name "
+"that refers to the parent directory."
+msgstr ""
+
+#: ../../../command/cmake_path.rst:131
+msgid ""
+"The ``(...)*`` pattern shown above is to indicate that there can be zero or "
+"more item names, with multiple items separated by a ``directory-"
+"separator``.  The ``()*`` characters are not part of the path."
+msgstr ""
+
+#: ../../../command/cmake_path.rst:135
+msgid "``directory-separator``"
+msgstr ""
+
+#: ../../../command/cmake_path.rst:136
+msgid ""
+"The only recognized directory separator is a forward slash character ``/``. "
+"If this character is repeated, it is treated as a single directory "
+"separator.  In other words, ``/usr///////lib`` is the same as ``/usr/lib``."
+msgstr ""
+
+#: ../../../command/cmake_path.rst:144
+msgid "``filename``"
+msgstr ""
+
+#: ../../../command/cmake_path.rst:145
+msgid ""
+"A path has a ``filename`` if it does not end with a ``directory-separator``. "
+"The ``filename`` is effectively the last ``item-name`` of the path, so it "
+"can also be a hard link, symbolic link or a directory."
+msgstr ""
+
+#: ../../../command/cmake_path.rst:149
+msgid ""
+"A ``filename`` can have an *extension*.  By default, the extension is "
+"defined as the sub-string beginning at the left-most period (including the "
+"period) and until the end of the ``filename``.  In commands that accept a "
+"``LAST_ONLY`` keyword, ``LAST_ONLY`` changes the interpretation to the sub-"
+"string beginning at the right-most period."
+msgstr ""
+
+#: ../../../command/cmake_path.rst:155
+msgid "The following exceptions apply to the above interpretation:"
+msgstr ""
+
+#: ../../../command/cmake_path.rst:157
+msgid ""
+"If the first character in the ``filename`` is a period, that period is "
+"ignored (i.e. a ``filename`` like ``\".profile\"`` is treated as having no "
+"extension)."
+msgstr ""
+
+#: ../../../command/cmake_path.rst:161
+msgid "If the ``filename`` is either ``.`` or ``..``, it has no extension."
+msgstr ""
+
+#: ../../../command/cmake_path.rst:163
+msgid "The *stem* is the part of the ``filename`` before the extension."
+msgstr ""
+
+#: ../../../command/cmake_path.rst:165
+msgid ""
+"Some commands refer to a ``root-path``.  This is the concatenation of ``root-"
+"name`` and ``root-directory-separator``, either or both of which can be "
+"empty.  A ``relative-part`` refers to the full path with any ``root-path`` "
+"removed."
+msgstr ""
+
+#: ../../../command/cmake_path.rst:172
+msgid "Creating A Path Variable"
+msgstr ""
+
+#: ../../../command/cmake_path.rst:174
+msgid ""
+"While a path can be created with care using an ordinary :command:`set` "
+"command, it is recommended to use :ref:`cmake_path(SET) <cmake_path-SET>` "
+"instead, as it automatically converts the path to the required form where "
+"required.  The :ref:`cmake_path(APPEND) <APPEND>` subcommand may be another "
+"suitable alternative where a path needs to be constructed by joining "
+"fragments.  The following example compares the three methods for "
+"constructing the same path:"
+msgstr ""
+
+#: ../../../command/cmake_path.rst:182
+msgid ""
+"set(path1 \"${CMAKE_CURRENT_SOURCE_DIR}/data\")\n"
+"\n"
+"cmake_path(SET path2 \"${CMAKE_CURRENT_SOURCE_DIR}/data\")\n"
+"\n"
+"cmake_path(APPEND path3 \"${CMAKE_CURRENT_SOURCE_DIR}\" \"data\")"
+msgstr ""
+
+#: ../../../command/cmake_path.rst:190
+msgid ""
+"`Modification`_ and `Generation`_ sub-commands can either store the result "
+"in-place, or in a separate variable named after an ``OUTPUT_VARIABLE`` "
+"keyword.  All other sub-commands store the result in a mandatory ``<out-"
+"var>`` variable."
+msgstr ""
+
+#: ../../../command/cmake_path.rst:198
+msgid "Normalization"
+msgstr ""
+
+#: ../../../command/cmake_path.rst:200
+msgid ""
+"Some sub-commands support *normalizing* a path.  The algorithm used to "
+"normalize a path is as follows:"
+msgstr ""
+
+#: ../../../command/cmake_path.rst:203
+msgid ""
+"If the path is empty, stop (the normalized form of an empty path is also an "
+"empty path)."
+msgstr ""
+
+#: ../../../command/cmake_path.rst:205
+msgid ""
+"Replace each ``directory-separator``, which may consist of multiple "
+"separators, with a single ``/`` (``/a///b  --> /a/b``)."
+msgstr ""
+
+#: ../../../command/cmake_path.rst:207
+msgid ""
+"Remove each solitary period (``.``) and any immediately following "
+"``directory-separator`` (``/a/./b/. --> /a/b``)."
+msgstr ""
+
+#: ../../../command/cmake_path.rst:209
+msgid ""
+"Remove each ``item-name`` (other than ``..``) that is immediately followed "
+"by a ``directory-separator`` and a ``..``, along with any immediately "
+"following ``directory-separator`` (``/a/b/../c --> a/c``)."
+msgstr ""
+
+#: ../../../command/cmake_path.rst:212
+msgid ""
+"If there is a ``root-directory``, remove any ``..`` and any ``directory-"
+"separators`` immediately following them.  The parent of the root directory "
+"is treated as still the root directory (``/../a --> /a``)."
+msgstr ""
+
+#: ../../../command/cmake_path.rst:215
+msgid ""
+"If the last ``item-name`` is ``..``, remove any trailing ``directory-"
+"separator`` (``../ --> ..``)."
+msgstr ""
+
+#: ../../../command/cmake_path.rst:217
+msgid ""
+"If the path is empty by this stage, add a ``dot`` (normal form of ``./`` is "
+"``.``)."
+msgstr ""
+
+#: ../../../command/cmake_path.rst:224
+msgid "Decomposition"
+msgstr ""
+
+#: ../../../command/cmake_path.rst:236
+msgid ""
+"The following forms of the ``GET`` subcommand each retrieve a different "
+"component or group of components from a path.  See `Path Structure And "
+"Terminology`_ for the meaning of each path component."
+msgstr ""
+
+#: ../../../command/cmake_path.rst:240
+msgid ""
+"cmake_path(GET <path-var> ROOT_NAME <out-var>)\n"
+"cmake_path(GET <path-var> ROOT_DIRECTORY <out-var>)\n"
+"cmake_path(GET <path-var> ROOT_PATH <out-var>)\n"
+"cmake_path(GET <path-var> FILENAME <out-var>)\n"
+"cmake_path(GET <path-var> EXTENSION [LAST_ONLY] <out-var>)\n"
+"cmake_path(GET <path-var> STEM [LAST_ONLY] <out-var>)\n"
+"cmake_path(GET <path-var> RELATIVE_PART <out-var>)\n"
+"cmake_path(GET <path-var> PARENT_PATH <out-var>)"
+msgstr ""
+
+#: ../../../command/cmake_path.rst:251
+msgid ""
+"If a requested component is not present in the path, an empty string will be "
+"stored in ``<out-var>``.  For example, only Windows systems have the concept "
+"of a ``root-name``, so when the host machine is non-Windows, the "
+"``ROOT_NAME`` subcommand will always return an empty string."
+msgstr ""
+
+#: ../../../command/cmake_path.rst:256
+msgid ""
+"For ``PARENT_PATH``, if the `HAS_RELATIVE_PART`_ subcommand returns false, "
+"the result is a copy of ``<path-var>``.  Note that this implies that a root "
+"directory is considered to have a parent, with that parent being itself. "
+"Where `HAS_RELATIVE_PART`_ returns true, the result will essentially be "
+"``<path-var>`` with one less element."
+msgstr ""
+
+#: ../../../command/cmake_path.rst:263
+msgid "Root examples"
+msgstr ""
+
+#: ../../../command/cmake_path.rst:265
+msgid ""
+"set(path \"c:/a\")\n"
+"\n"
+"cmake_path(GET path ROOT_NAME rootName)\n"
+"cmake_path(GET path ROOT_DIRECTORY rootDir)\n"
+"cmake_path(GET path ROOT_PATH rootPath)\n"
+"\n"
+"message(\"Root name is \\\"${rootName}\\\"\")\n"
+"message(\"Root directory is \\\"${rootDir}\\\"\")\n"
+"message(\"Root path is \\\"${rootPath}\\\"\")"
+msgstr ""
+
+#: ../../../command/cmake_path.rst:279
+msgid ""
+"Root name is \"c:\"\n"
+"Root directory is \"/\"\n"
+"Root path is \"c:/\""
+msgstr ""
+
+#: ../../../command/cmake_path.rst:284
+msgid "Filename examples"
+msgstr ""
+
+#: ../../../command/cmake_path.rst:286
+msgid ""
+"set(path \"/a/b\")\n"
+"cmake_path(GET path FILENAME filename)\n"
+"message(\"First filename is \\\"${filename}\\\"\")\n"
+"\n"
+"# Trailing slash means filename is empty\n"
+"set(path \"/a/b/\")\n"
+"cmake_path(GET path FILENAME filename)\n"
+"message(\"Second filename is \\\"${filename}\\\"\")"
+msgstr ""
+
+#: ../../../command/cmake_path.rst:299
+msgid ""
+"First filename is \"b\"\n"
+"Second filename is \"\""
+msgstr ""
+
+#: ../../../command/cmake_path.rst:303
+msgid "Extension and stem examples"
+msgstr ""
+
+#: ../../../command/cmake_path.rst:305
+msgid ""
+"set(path \"name.ext1.ext2\")\n"
+"\n"
+"cmake_path(GET path EXTENSION fullExt)\n"
+"cmake_path(GET path STEM fullStem)\n"
+"message(\"Full extension is \\\"${fullExt}\\\"\")\n"
+"message(\"Full stem is \\\"${fullStem}\\\"\")\n"
+"\n"
+"# Effect of LAST_ONLY\n"
+"cmake_path(GET path EXTENSION LAST_ONLY lastExt)\n"
+"cmake_path(GET path STEM LAST_ONLY lastStem)\n"
+"message(\"Last extension is \\\"${lastExt}\\\"\")\n"
+"message(\"Last stem is \\\"${lastStem}\\\"\")\n"
+"\n"
+"# Special cases\n"
+"set(dotPath \"/a/.\")\n"
+"set(dotDotPath \"/a/..\")\n"
+"set(someMorePath \"/a/.some.more\")\n"
+"cmake_path(GET dotPath EXTENSION dotExt)\n"
+"cmake_path(GET dotPath STEM dotStem)\n"
+"cmake_path(GET dotDotPath EXTENSION dotDotExt)\n"
+"cmake_path(GET dotDotPath STEM dotDotStem)\n"
+"cmake_path(GET someMorePath EXTENSION someMoreExt)\n"
+"cmake_path(GET someMorePath STEM someMoreStem)\n"
+"message(\"Dot extension is \\\"${dotExt}\\\"\")\n"
+"message(\"Dot stem is \\\"${dotStem}\\\"\")\n"
+"message(\"Dot-dot extension is \\\"${dotDotExt}\\\"\")\n"
+"message(\"Dot-dot stem is \\\"${dotDotStem}\\\"\")\n"
+"message(\".some.more extension is \\\"${someMoreExt}\\\"\")\n"
+"message(\".some.more stem is \\\"${someMoreStem}\\\"\")"
+msgstr ""
+
+#: ../../../command/cmake_path.rst:339
+msgid ""
+"Full extension is \".ext1.ext2\"\n"
+"Full stem is \"name\"\n"
+"Last extension is \".ext2\"\n"
+"Last stem is \"name.ext1\"\n"
+"Dot extension is \"\"\n"
+"Dot stem is \".\"\n"
+"Dot-dot extension is \"\"\n"
+"Dot-dot stem is \"..\"\n"
+".some.more extension is \".more\"\n"
+".some.more stem is \".some\""
+msgstr ""
+
+#: ../../../command/cmake_path.rst:351
+msgid "Relative part examples"
+msgstr ""
+
+#: ../../../command/cmake_path.rst:353
+msgid ""
+"set(path \"c:/a/b\")\n"
+"cmake_path(GET path RELATIVE_PART result)\n"
+"message(\"Relative part is \\\"${result}\\\"\")\n"
+"\n"
+"set(path \"c/d\")\n"
+"cmake_path(GET path RELATIVE_PART result)\n"
+"message(\"Relative part is \\\"${result}\\\"\")\n"
+"\n"
+"set(path \"/\")\n"
+"cmake_path(GET path RELATIVE_PART result)\n"
+"message(\"Relative part is \\\"${result}\\\"\")"
+msgstr ""
+
+#: ../../../command/cmake_path.rst:369
+msgid ""
+"Relative part is \"a/b\"\n"
+"Relative part is \"c/d\"\n"
+"Relative part is \"\""
+msgstr ""
+
+#: ../../../command/cmake_path.rst:374
+msgid "Path traversal examples"
+msgstr ""
+
+#: ../../../command/cmake_path.rst:376
+msgid ""
+"set(path \"c:/a/b\")\n"
+"cmake_path(GET path PARENT_PATH result)\n"
+"message(\"Parent path is \\\"${result}\\\"\")\n"
+"\n"
+"set(path \"c:/\")\n"
+"cmake_path(GET path PARENT_PATH result)\n"
+"message(\"Parent path is \\\"${result}\\\"\")"
+msgstr ""
+
+#: ../../../command/cmake_path.rst:388
+msgid ""
+"Parent path is \"c:/a\"\n"
+"Parent path is \"c:/\""
+msgstr ""
+
+#: ../../../command/cmake_path.rst:395
+msgid "Query"
+msgstr ""
+
+#: ../../../command/cmake_path.rst:397
+msgid ""
+"Each of the ``GET`` subcommands has a corresponding ``HAS_...`` subcommand "
+"which can be used to discover whether a particular path component is "
+"present.  See `Path Structure And Terminology`_ for the meaning of each path "
+"component."
+msgstr ""
+
+#: ../../../command/cmake_path.rst:411
+msgid ""
+"cmake_path(HAS_ROOT_NAME <path-var> <out-var>)\n"
+"cmake_path(HAS_ROOT_DIRECTORY <path-var> <out-var>)\n"
+"cmake_path(HAS_ROOT_PATH <path-var> <out-var>)\n"
+"cmake_path(HAS_FILENAME <path-var> <out-var>)\n"
+"cmake_path(HAS_EXTENSION <path-var> <out-var>)\n"
+"cmake_path(HAS_STEM <path-var> <out-var>)\n"
+"cmake_path(HAS_RELATIVE_PART <path-var> <out-var>)\n"
+"cmake_path(HAS_PARENT_PATH <path-var> <out-var>)"
+msgstr ""
+
+#: ../../../command/cmake_path.rst:422
+msgid ""
+"Each of the above follows the predictable pattern of setting ``<out-var>`` "
+"to true if the path has the associated component, or false otherwise. Note "
+"the following special cases:"
+msgstr ""
+
+#: ../../../command/cmake_path.rst:426
+msgid ""
+"For ``HAS_ROOT_PATH``, a true result will only be returned if at least one "
+"of ``root-name`` or ``root-directory`` is non-empty."
+msgstr ""
+
+#: ../../../command/cmake_path.rst:429
+msgid ""
+"For ``HAS_PARENT_PATH``, the root directory is also considered to have a "
+"parent, which will be itself.  The result is true except if the path "
+"consists of just a :ref:`filename <FILENAME_DEF>`."
+msgstr ""
+
+#: ../../../command/cmake_path.rst:435
+msgid "cmake_path(IS_ABSOLUTE <path-var> <out-var>)"
+msgstr ""
+
+#: ../../../command/cmake_path.rst:439
+msgid ""
+"Sets ``<out-var>`` to true if ``<path-var>`` is absolute.  An absolute path "
+"is a path that unambiguously identifies the location of a file without "
+"reference to an additional starting location.  On Windows, this means the "
+"path must have both a ``root-name`` and a ``root-directory-separator`` to be "
+"considered absolute.  On other platforms, just a ``root-directory-"
+"separator`` is sufficient.  Note that this means on Windows, ``IS_ABSOLUTE`` "
+"can be false while ``HAS_ROOT_DIRECTORY`` can be true."
+msgstr ""
+
+#: ../../../command/cmake_path.rst:449
+msgid "cmake_path(IS_RELATIVE <path-var> <out-var>)"
+msgstr ""
+
+#: ../../../command/cmake_path.rst:453
+msgid "This will store the opposite of ``IS_ABSOLUTE`` in ``<out-var>``."
+msgstr ""
+
+#: ../../../command/cmake_path.rst:457
+msgid "cmake_path(IS_PREFIX <path-var> <input> [NORMALIZE] <out-var>)"
+msgstr ""
+
+#: ../../../command/cmake_path.rst:461
+msgid "Checks if ``<path-var>`` is the prefix of ``<input>``."
+msgstr ""
+
+#: ../../../command/cmake_path.rst:463
+msgid ""
+"When the ``NORMALIZE`` option is specified, ``<path-var>`` and ``<input>`` "
+"are :ref:`normalized <Normalization>` before the check."
+msgstr ""
+
+#: ../../../command/cmake_path.rst:466
+msgid ""
+"set(path \"/a/b/c\")\n"
+"cmake_path(IS_PREFIX path \"/a/b/c/d\" result) # result = true\n"
+"cmake_path(IS_PREFIX path \"/a/b\" result)     # result = false\n"
+"cmake_path(IS_PREFIX path \"/x/y/z\" result)   # result = false\n"
+"\n"
+"set(path \"/a/b\")\n"
+"cmake_path(IS_PREFIX path \"/a/c/../b\" NORMALIZE result)   # result = true"
+msgstr ""
+
+#: ../../../command/cmake_path.rst:479
+msgid ""
+"cmake_path(COMPARE <input1> EQUAL <input2> <out-var>)\n"
+"cmake_path(COMPARE <input1> NOT_EQUAL <input2> <out-var>)"
+msgstr ""
+
+#: ../../../command/cmake_path.rst:484
+msgid ""
+"Compares the lexical representations of two paths provided as string "
+"literals. No normalization is performed on either path, except multiple "
+"consecutive directory separators are effectively collapsed into a single "
+"separator. Equality is determined according to the following pseudo-code "
+"logic:"
+msgstr ""
+
+#: ../../../command/cmake_path.rst:491
+msgid ""
+"if(NOT <input1>.root_name() STREQUAL <input2>.root_name())\n"
+"  return FALSE\n"
+"\n"
+"if(<input1>.has_root_directory() XOR <input2>.has_root_directory())\n"
+"  return FALSE\n"
+"\n"
+"Return FALSE if a relative portion of <input1> is not lexicographically\n"
+"equal to the relative portion of <input2>. This comparison is performed "
+"path\n"
+"component-wise. If all of the components compare equal, then return TRUE."
+msgstr ""
+
+#: ../../../command/cmake_path.rst:502
+msgid ""
+"Unlike most other ``cmake_path()`` subcommands, the ``COMPARE`` subcommand "
+"takes literal strings as input, not the names of variables."
+msgstr ""
+
+#: ../../../command/cmake_path.rst:509
+msgid "Modification"
+msgstr ""
+
+#: ../../../command/cmake_path.rst:513
+msgid "cmake_path(SET <path-var> [NORMALIZE] <input>)"
+msgstr ""
+
+#: ../../../command/cmake_path.rst:517
+msgid ""
+"Assign the ``<input>`` path to ``<path-var>``.  If ``<input>`` is a native "
+"path, it is converted into a cmake-style path with forward-slashes (``/``). "
+"On Windows, the long filename marker is taken into account."
+msgstr ""
+
+#: ../../../command/cmake_path.rst:521
+msgid ""
+"When the ``NORMALIZE`` option is specified, the path is :ref:`normalized "
+"<Normalization>` after the conversion."
+msgstr ""
+
+#: ../../../command/cmake_path.rst:524 ../../../command/cmake_path.rst:593
+#: ../../../command/cmake_path.rst:770
+msgid "For example:"
+msgstr ""
+
+#: ../../../command/cmake_path.rst:526
+msgid ""
+"set(native_path \"c:\\\\a\\\\b/..\\\\c\")\n"
+"cmake_path(SET path \"${native_path}\")\n"
+"message(\"CMake path is \\\"${path}\\\"\")\n"
+"\n"
+"cmake_path(SET path NORMALIZE \"${native_path}\")\n"
+"message(\"Normalized CMake path is \\\"${path}\\\"\")"
+msgstr ""
+
+#: ../../../command/cmake_path.rst:535 ../../../command/cmake_path.rst:605
+msgid "Output::"
+msgstr ""
+
+#: ../../../command/cmake_path.rst:537
+msgid ""
+"CMake path is \"c:/a/b/../c\"\n"
+"Normalized CMake path is \"c:/a/c\""
+msgstr ""
+
+#: ../../../command/cmake_path.rst:542
+msgid "cmake_path(APPEND <path-var> [<input>...] [OUTPUT_VARIABLE <out-var>])"
+msgstr ""
+
+#: ../../../command/cmake_path.rst:546
+msgid ""
+"Append all the ``<input>`` arguments to the ``<path-var>`` using ``/`` as "
+"the ``directory-separator``.  Depending on the ``<input>``, the previous "
+"contents of ``<path-var>`` may be discarded.  For each ``<input>`` argument, "
+"the following algorithm (pseudo-code) applies:"
+msgstr ""
+
+#: ../../../command/cmake_path.rst:553
+msgid ""
+"# <path> is the contents of <path-var>\n"
+"\n"
+"if(<input>.is_absolute() OR\n"
+"   (<input>.has_root_name() AND\n"
+"    NOT <input>.root_name() STREQUAL <path>.root_name()))\n"
+"  replace <path> with <input>\n"
+"  return()\n"
+"endif()\n"
+"\n"
+"if(<input>.has_root_directory())\n"
+"  remove any root-directory and the entire relative path from <path>\n"
+"elseif(<path>.has_filename() OR\n"
+"       (NOT <path-var>.has_root_directory() OR <path>.is_absolute()))\n"
+"  append directory-separator to <path>\n"
+"endif()\n"
+"\n"
+"append <input> omitting any root-name to <path>"
+msgstr ""
+
+#: ../../../command/cmake_path.rst:573
+msgid ""
+"cmake_path(APPEND_STRING <path-var> [<input>...] [OUTPUT_VARIABLE <out-var>])"
+msgstr ""
+
+#: ../../../command/cmake_path.rst:577
+msgid ""
+"Append all the ``<input>`` arguments to the ``<path-var>`` without adding "
+"any ``directory-separator``."
+msgstr ""
+
+#: ../../../command/cmake_path.rst:582
+msgid "cmake_path(REMOVE_FILENAME <path-var> [OUTPUT_VARIABLE <out-var>])"
+msgstr ""
+
+#: ../../../command/cmake_path.rst:586
+msgid ""
+"Removes the :ref:`filename <FILENAME_DEF>` component (as returned by :ref:"
+"`GET ... FILENAME <GET_FILENAME>`) from ``<path-var>``.  After removal, any "
+"trailing ``directory-separator`` is left alone, if present."
+msgstr ""
+
+#: ../../../command/cmake_path.rst:590
+msgid ""
+"If ``OUTPUT_VARIABLE`` is not given, then after this function returns, "
+"`HAS_FILENAME`_ returns false for ``<path-var>``."
+msgstr ""
+
+#: ../../../command/cmake_path.rst:595
+msgid ""
+"set(path \"/a/b\")\n"
+"cmake_path(REMOVE_FILENAME path)\n"
+"message(\"First path is \\\"${path}\\\"\")\n"
+"\n"
+"# filename is now already empty, the following removes nothing\n"
+"cmake_path(REMOVE_FILENAME path)\n"
+"message(\"Second path is \\\"${path}\\\"\")"
+msgstr ""
+
+#: ../../../command/cmake_path.rst:607
+msgid ""
+"First path is \"/a/\"\n"
+"Second path is \"/a/\""
+msgstr ""
+
+#: ../../../command/cmake_path.rst:612
+msgid ""
+"cmake_path(REPLACE_FILENAME <path-var> <input> [OUTPUT_VARIABLE <out-var>])"
+msgstr ""
+
+#: ../../../command/cmake_path.rst:616
+msgid ""
+"Replaces the :ref:`filename <FILENAME_DEF>` component from ``<path-var>`` "
+"with ``<input>``.  If ``<path-var>`` has no filename component (i.e. "
+"`HAS_FILENAME`_ returns false), the path is unchanged.  The operation is "
+"equivalent to the following:"
+msgstr ""
+
+#: ../../../command/cmake_path.rst:621
+msgid ""
+"cmake_path(HAS_FILENAME path has_filename)\n"
+"if(has_filename)\n"
+"  cmake_path(REMOVE_FILENAME path)\n"
+"  cmake_path(APPEND path \"${input}\")\n"
+"endif()"
+msgstr ""
+
+#: ../../../command/cmake_path.rst:631
+msgid ""
+"cmake_path(REMOVE_EXTENSION <path-var> [LAST_ONLY]\n"
+"                                       [OUTPUT_VARIABLE <out-var>])"
+msgstr ""
+
+#: ../../../command/cmake_path.rst:636
+msgid ""
+"Removes the :ref:`extension <EXTENSION_DEF>`, if any, from ``<path-var>``."
+msgstr ""
+
+#: ../../../command/cmake_path.rst:640
+msgid ""
+"cmake_path(REPLACE_EXTENSION <path-var> [LAST_ONLY] <input>\n"
+"                             [OUTPUT_VARIABLE <out-var>])"
+msgstr ""
+
+#: ../../../command/cmake_path.rst:645
+msgid ""
+"Replaces the :ref:`extension <EXTENSION_DEF>` with ``<input>``.  Its effect "
+"is equivalent to the following:"
+msgstr ""
+
+#: ../../../command/cmake_path.rst:648
+msgid ""
+"cmake_path(REMOVE_EXTENSION path)\n"
+"if(NOT input MATCHES \"^\\\\.\")\n"
+"  cmake_path(APPEND_STRING path \".\")\n"
+"endif()\n"
+"cmake_path(APPEND_STRING path \"${input}\")"
+msgstr ""
+
+#: ../../../command/cmake_path.rst:660
+msgid "Generation"
+msgstr ""
+
+#: ../../../command/cmake_path.rst:664
+msgid "cmake_path(NORMAL_PATH <path-var> [OUTPUT_VARIABLE <out-var>])"
+msgstr ""
+
+#: ../../../command/cmake_path.rst:668
+msgid ""
+"Normalize ``<path-var>`` according the steps described in :ref:"
+"`Normalization`."
+msgstr ""
+
+#: ../../../command/cmake_path.rst:673
+msgid ""
+"cmake_path(RELATIVE_PATH <path-var> [BASE_DIRECTORY <input>]\n"
+"                                    [OUTPUT_VARIABLE <out-var>])"
+msgstr ""
+
+#: ../../../command/cmake_path.rst:678
+msgid ""
+"Modifies ``<path-var>`` to make it relative to the ``BASE_DIRECTORY`` "
+"argument. If ``BASE_DIRECTORY`` is not specified, the default base directory "
+"will be :variable:`CMAKE_CURRENT_SOURCE_DIR`."
+msgstr ""
+
+#: ../../../command/cmake_path.rst:682
+msgid ""
+"For reference, the algorithm used to compute the relative path is the same "
+"as that used by C++ `std::filesystem::path::lexically_relative <https://en."
+"cppreference.com/w/cpp/filesystem/path/lexically_normal>`_."
+msgstr ""
+
+#: ../../../command/cmake_path.rst:689
+msgid ""
+"cmake_path(ABSOLUTE_PATH <path-var> [BASE_DIRECTORY <input>] [NORMALIZE]\n"
+"                                    [OUTPUT_VARIABLE <out-var>])"
+msgstr ""
+
+#: ../../../command/cmake_path.rst:694
+msgid ""
+"If ``<path-var>`` is a relative path (`IS_RELATIVE`_ is true), it is "
+"evaluated relative to the given base directory specified by "
+"``BASE_DIRECTORY`` option. If ``BASE_DIRECTORY`` is not specified, the "
+"default base directory will be :variable:`CMAKE_CURRENT_SOURCE_DIR`."
+msgstr ""
+
+#: ../../../command/cmake_path.rst:699
+msgid ""
+"When the ``NORMALIZE`` option is specified, the path is :ref:`normalized "
+"<Normalization>` after the path computation."
+msgstr ""
+
+#: ../../../command/cmake_path.rst:702
+msgid ""
+"Because ``cmake_path()`` does not access the filesystem, symbolic links are "
+"not resolved and any leading tilde is not expanded.  To compute a real path "
+"with symbolic links resolved and leading tildes expanded, use the :command:"
+"`file(REAL_PATH)` command instead."
+msgstr ""
+
+#: ../../../command/cmake_path.rst:708
+msgid "Native Conversion"
+msgstr ""
+
+#: ../../../command/cmake_path.rst:710
+msgid ""
+"For commands in this section, *native* refers to the host platform, not the "
+"target platform when cross-compiling."
+msgstr ""
+
+#: ../../../command/cmake_path.rst:716
+msgid "cmake_path(NATIVE_PATH <path-var> [NORMALIZE] <out-var>)"
+msgstr ""
+
+#: ../../../command/cmake_path.rst:720
+msgid ""
+"Converts a cmake-style ``<path-var>`` into a native path with platform-"
+"specific slashes (``\\`` on Windows hosts and ``/`` elsewhere)."
+msgstr ""
+
+#: ../../../command/cmake_path.rst:723 ../../../command/cmake_path.rst:742
+#: ../../../command/cmake_path.rst:763
+msgid ""
+"When the ``NORMALIZE`` option is specified, the path is :ref:`normalized "
+"<Normalization>` before the conversion."
+msgstr ""
+
+#: ../../../command/cmake_path.rst:730
+msgid "cmake_path(CONVERT <input> TO_CMAKE_PATH_LIST <out-var> [NORMALIZE])"
+msgstr ""
+
+#: ../../../command/cmake_path.rst:734
+msgid ""
+"Converts a native ``<input>`` path into a cmake-style path with forward "
+"slashes (``/``).  On Windows hosts, the long filename marker is taken into "
+"account.  The input can be a single path or a system search path like "
+"``$ENV{PATH}``.  A search path will be converted to a cmake-style list "
+"separated by ``;`` characters (on non-Windows platforms, this essentially "
+"means ``:`` separators are replaced with ``;``).  The result of the "
+"conversion is stored in the ``<out-var>`` variable."
+msgstr ""
+
+#: ../../../command/cmake_path.rst:746 ../../../command/cmake_path.rst:767
+msgid ""
+"Unlike most other ``cmake_path()`` subcommands, the ``CONVERT`` subcommand "
+"takes a literal string as input, not the name of a variable."
+msgstr ""
+
+#: ../../../command/cmake_path.rst:752
+msgid "cmake_path(CONVERT <input> TO_NATIVE_PATH_LIST <out-var> [NORMALIZE])"
+msgstr ""
+
+#: ../../../command/cmake_path.rst:756
+msgid ""
+"Converts a cmake-style ``<input>`` path into a native path with platform-"
+"specific slashes (``\\`` on Windows hosts and ``/`` elsewhere). The input "
+"can be a single path or a cmake-style list.  A list will be converted into a "
+"native search path (``;``-separated on Windows, ``:``-separated on other "
+"platforms).  The result of the conversion is stored in the ``<out-var>`` "
+"variable."
+msgstr ""
+
+#: ../../../command/cmake_path.rst:772
+msgid ""
+"set(paths \"/a/b/c\" \"/x/y/z\")\n"
+"cmake_path(CONVERT \"${paths}\" TO_NATIVE_PATH_LIST native_paths)\n"
+"message(\"Native path list is \\\"${native_paths}\\\"\")"
+msgstr ""
+
+#: ../../../command/cmake_path.rst:778
+msgid "Output on Windows::"
+msgstr ""
+
+#: ../../../command/cmake_path.rst:780
+msgid "Native path list is \"\\a\\b\\c;\\x\\y\\z\""
+msgstr ""
+
+#: ../../../command/cmake_path.rst:782
+msgid "Output on all other platforms::"
+msgstr ""
+
+#: ../../../command/cmake_path.rst:784
+msgid "Native path list is \"/a/b/c:/x/y/z\""
+msgstr ""
+
+#: ../../../command/cmake_path.rst:787
+msgid "Hashing"
+msgstr ""
+
+#: ../../../command/cmake_path.rst:791
+msgid "cmake_path(HASH <path-var> <out-var>)"
+msgstr ""
+
+#: ../../../command/cmake_path.rst:795
+msgid ""
+"Compute a hash value of ``<path-var>`` such that for two paths ``p1`` and "
+"``p2`` that compare equal (:ref:`COMPARE ... EQUAL <COMPARE>`), the hash "
+"value of ``p1`` is equal to the hash value of ``p2``.  The path is always :"
+"ref:`normalized <Normalization>` before the hash is computed."
+msgstr ""

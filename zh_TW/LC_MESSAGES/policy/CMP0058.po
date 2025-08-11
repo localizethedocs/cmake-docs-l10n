@@ -1,0 +1,169 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2000-2025 Kitware, Inc. and Contributors
+# This file is distributed under the same license as the CMake package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CMake master\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-07-14 08:20+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../policy/CMP0058.rst:2
+msgid "CMP0058"
+msgstr ""
+
+#: ../../../policy/include/REMOVED_PROLOGUE.rst:2
+msgid ""
+"The ``OLD`` behavior of this policy was removed in CMake version |"
+"REMOVED_IN_CMAKE_VERSION|. This policy must be set to ``NEW`` by a call to :"
+"command:`cmake_minimum_required` or :command:`cmake_policy`."
+msgstr ""
+
+#: ../../../policy/CMP0058.rst:9
+msgid "Ninja requires custom command byproducts to be explicit."
+msgstr ""
+
+#: ../../../policy/CMP0058.rst:11
+msgid ""
+"When an intermediate file generated during the build is consumed by an "
+"expensive operation or a large tree of dependents, one may reduce the work "
+"needed for an incremental rebuild by updating the file timestamp only when "
+"its content changes.  With this approach the generation rule must have a "
+"separate output file that is always updated with a new timestamp that is "
+"newer than any dependencies of the rule so that the build tool re-runs the "
+"rule only when the input changes.  We refer to the separate output file as a "
+"rule's *witness* and the generated file as a rule's *byproduct*."
+msgstr ""
+
+#: ../../../policy/CMP0058.rst:21
+msgid ""
+"Byproducts may not be listed as outputs because their timestamps are allowed "
+"to be older than the inputs.  No build tools (like ``make``) that existed "
+"when CMake was designed have a way to express byproducts. Therefore CMake "
+"versions prior to 3.2 had no way to specify them. Projects typically left "
+"byproducts undeclared in the rules that generate them.  For example:"
+msgstr ""
+
+#: ../../../policy/CMP0058.rst:28
+msgid ""
+"add_custom_command(\n"
+"  OUTPUT witness.txt\n"
+"  COMMAND ${CMAKE_COMMAND} -E copy_if_different\n"
+"          ${CMAKE_CURRENT_SOURCE_DIR}/input.txt\n"
+"          byproduct.txt # timestamp may not change\n"
+"  COMMAND ${CMAKE_COMMAND} -E touch witness.txt\n"
+"  DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/input.txt\n"
+"  )\n"
+"add_custom_target(Provider DEPENDS witness.txt)\n"
+"add_custom_command(\n"
+"  OUTPUT generated.c\n"
+"  COMMAND expensive-task -i byproduct.txt -o generated.c\n"
+"  DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/byproduct.txt\n"
+"  )\n"
+"add_library(Consumer generated.c)\n"
+"add_dependencies(Consumer Provider)"
+msgstr ""
+
+#: ../../../policy/CMP0058.rst:47
+msgid ""
+"This works well for all generators except :generator:`Ninja`. The Ninja "
+"build tool sees a rule listing ``byproduct.txt`` as a dependency and no rule "
+"listing it as an output.  Ninja then complains that there is no way to "
+"satisfy the dependency and stops building even though there are order-only "
+"dependencies that ensure ``byproduct.txt`` will exist before its consumers "
+"need it.  See discussion of this problem in `Ninja Issue 760`_ for further "
+"details on why Ninja works this way."
+msgstr ""
+
+#: ../../../policy/CMP0058.rst:58
+msgid ""
+"Instead of leaving byproducts undeclared in the rules that generate them, "
+"Ninja expects byproducts to be listed along with other outputs. Such rules "
+"may be marked with a ``restat`` option that tells Ninja to check the "
+"timestamps of outputs after the rules run.  This prevents byproducts whose "
+"timestamps do not change from causing their dependents to re-build "
+"unnecessarily."
+msgstr ""
+
+#: ../../../policy/CMP0058.rst:65
+msgid ""
+"Since the above approach does not tell CMake what custom command generates "
+"``byproduct.txt``, the Ninja generator does not have enough information to "
+"add the byproduct as an output of any rule. CMake 2.8.12 and above work "
+"around this problem and allow projects using the above approach to build by "
+"generating ``phony`` build rules to tell Ninja to tolerate such missing "
+"files.  However, this workaround prevents Ninja from diagnosing a dependency "
+"that is really missing.  It also works poorly in in-source builds where "
+"every custom command dependency, even on source files, needs to be treated "
+"this way because CMake does not have enough information to know which files "
+"are generated as byproducts of custom commands."
+msgstr ""
+
+#: ../../../policy/CMP0058.rst:78
+msgid "Introducing Byproducts"
+msgstr ""
+
+#: ../../../policy/CMP0058.rst:80
+msgid ""
+"CMake 3.2 introduced the ``BYPRODUCTS`` option to the :command:"
+"`add_custom_command` and :command:`add_custom_target` commands.  This option "
+"allows byproducts to be specified explicitly:"
+msgstr ""
+
+#: ../../../policy/CMP0058.rst:84
+msgid ""
+"add_custom_command(\n"
+"  OUTPUT witness.txt\n"
+"  BYPRODUCTS byproduct.txt # explicit byproduct specification\n"
+"  COMMAND ${CMAKE_COMMAND} -E copy_if_different\n"
+"          ${CMAKE_CURRENT_SOURCE_DIR}/input.txt\n"
+"          byproduct.txt # timestamp may not change\n"
+"..."
+msgstr ""
+
+#: ../../../policy/CMP0058.rst:94
+msgid ""
+"The ``BYPRODUCTS`` option is used by the :generator:`Ninja` generator to "
+"list byproducts among the outputs of the custom commands that generate them, "
+"and is ignored by other generators."
+msgstr ""
+
+#: ../../../policy/CMP0058.rst:98
+msgid ""
+"CMake 3.3 and above prefer to require projects to specify custom command "
+"byproducts explicitly so that it can avoid using the ``phony`` rule "
+"workaround altogether.  Policy ``CMP0058`` was introduced to provide "
+"compatibility with existing projects that still need the workaround."
+msgstr ""
+
+#: ../../../policy/CMP0058.rst:104
+msgid ""
+"This policy has no effect on generators other than :generator:`Ninja`. The "
+"``OLD`` behavior for this policy is to generate Ninja ``phony`` rules for "
+"unknown dependencies in the build tree.  The ``NEW`` behavior for this "
+"policy is to not generate these and instead require projects to specify "
+"custom command ``BYPRODUCTS`` explicitly."
+msgstr ""
+
+#: ../../../policy/CMP0058.rst:110
+msgid ""
+"The policy setting must be in scope at the end of the top-level ``CMakeLists."
+"txt`` file of the project and has global effect."
+msgstr ""
+
+#: ../../../policy/include/REMOVED_EPILOGUE.rst:1
+msgid ""
+"This policy was introduced in CMake version |INTRODUCED_IN_CMAKE_VERSION|. "
+"Prior to removal in CMake version |REMOVED_IN_CMAKE_VERSION|, it could be "
+"set by :command:`cmake_policy` or :command:`cmake_minimum_required`. If it "
+"was not set, CMake |WARNED_OR_DID_NOT_WARN|, and used ``OLD`` behavior."
+msgstr ""

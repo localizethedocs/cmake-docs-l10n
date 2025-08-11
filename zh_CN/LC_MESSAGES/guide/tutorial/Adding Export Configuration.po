@@ -1,0 +1,253 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2000-2025 Kitware, Inc. and Contributors
+# This file is distributed under the same license as the CMake package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CMake master\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-07-14 08:20+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../guide/tutorial/Adding Export Configuration.rst:2
+msgid "Step 11: Adding Export Configuration"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Export Configuration.rst:4
+msgid ""
+"During :guide:`tutorial/Installing and Testing` of the tutorial we added the "
+"ability for CMake to install the library and headers of the project. During :"
+"guide:`tutorial/Packaging an Installer` we added the ability to package up "
+"this information so it could be distributed to other people."
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Export Configuration.rst:9
+msgid ""
+"The next step is to add the necessary information so that other CMake "
+"projects can use our project, be it from a build directory, a local install "
+"or when packaged."
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Export Configuration.rst:13
+msgid ""
+"The first step is to update our :command:`install(TARGETS)` commands to not "
+"only specify a ``DESTINATION`` but also an ``EXPORT``. The ``EXPORT`` "
+"keyword generates a CMake file containing code to import all targets listed "
+"in the install command from the installation tree. So let's go ahead and "
+"explicitly ``EXPORT`` the ``MathFunctions`` library by updating the "
+"``install`` command in ``MathFunctions/CMakeLists.txt`` to look like:"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Export Configuration.rst:20
+#: Configuration.rst:57
+msgid "MathFunctions/CMakeLists.txt"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Export Configuration.rst:20
+msgid ""
+"set(installable_libs MathFunctions tutorial_compiler_flags)\n"
+"if(TARGET SqrtLibrary)\n"
+"  list(APPEND installable_libs SqrtLibrary)\n"
+"endif()\n"
+"install(TARGETS ${installable_libs}\n"
+"        EXPORT MathFunctionsTargets\n"
+"        DESTINATION lib)\n"
+"# install include headers\n"
+"install(FILES MathFunctions.h DESTINATION include)\n"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Export Configuration.rst:26
+msgid ""
+"Now that we have ``MathFunctions`` being exported, we also need to "
+"explicitly install the generated ``MathFunctionsTargets.cmake`` file. This "
+"is done by adding the following to the bottom of the top-level ``CMakeLists."
+"txt``:"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Export Configuration.rst:30
+#: Configuration.rst:80 Configuration.rst:97 Configuration.rst:111
+#: Configuration.rst:120 Configuration.rst:132
+msgid "CMakeLists.txt"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Export Configuration.rst:30
+msgid ""
+"install(EXPORT MathFunctionsTargets\n"
+"  FILE MathFunctionsTargets.cmake\n"
+"  DESTINATION lib/cmake/MathFunctions\n"
+")\n"
+"\n"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Export Configuration.rst:37
+msgid ""
+"At this point you should try and run CMake. If everything is setup properly "
+"you will see that CMake will generate an error that looks like:"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Export Configuration.rst:40
+msgid ""
+"Target \"MathFunctions\" INTERFACE_INCLUDE_DIRECTORIES property contains\n"
+"path:\n"
+"\n"
+"  \"/Users/robert/Documents/CMakeClass/Tutorial/Step11/MathFunctions\"\n"
+"\n"
+"which is prefixed in the source directory."
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Export Configuration.rst:49
+msgid ""
+"CMake is telling you that during the generation of the export information it "
+"will export a path that is intrinsically tied to the current machine and "
+"will not be valid on other machines. The solution to this is to update the "
+"``MathFunctions`` :command:`target_include_directories` to understand that "
+"it needs different ``INTERFACE`` locations when being used from within the "
+"build directory and from an install / package. This means converting the :"
+"command:`target_include_directories` call for ``MathFunctions`` to look like:"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Export Configuration.rst:57
+msgid ""
+"target_include_directories(MathFunctions\n"
+"                           INTERFACE\n"
+"                            $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>\n"
+"                            $<INSTALL_INTERFACE:include>\n"
+"                           )\n"
+"\n"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Export Configuration.rst:64
+msgid ""
+"Once this has been updated, we can re-run CMake and verify that it doesn't "
+"warn anymore."
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Export Configuration.rst:67
+msgid ""
+"At this point, we have CMake properly packaging the target information that "
+"is required but we will still need to generate a ``MathFunctionsConfig."
+"cmake`` so that the CMake :command:`find_package` command can find our "
+"project. So let's go ahead and add a new file to the top-level of the "
+"project called ``Config.cmake.in`` with the following contents:"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Export Configuration.rst:73
+msgid "Config.cmake.in"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Export Configuration.rst:73
+msgid ""
+"\n"
+"@PACKAGE_INIT@\n"
+"\n"
+"include ( \"${CMAKE_CURRENT_LIST_DIR}/MathFunctionsTargets.cmake\" )\n"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Export Configuration.rst:77
+msgid ""
+"Then, to properly configure and install that file, add the following to the "
+"bottom of the top-level ``CMakeLists.txt``:"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Export Configuration.rst:80
+msgid ""
+"install(EXPORT MathFunctionsTargets\n"
+"  FILE MathFunctionsTargets.cmake\n"
+"  DESTINATION lib/cmake/MathFunctions\n"
+")\n"
+"\n"
+"include(CMakePackageConfigHelpers)\n"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Export Configuration.rst:88
+msgid ""
+"Next, we execute the :command:`configure_package_config_file`.  This command "
+"will configure a provided file but with a few specific differences from the "
+"standard :command:`configure_file` way. To properly utilize this function, "
+"the input file should have a single line with the text ``@PACKAGE_INIT@`` in "
+"addition to the content that is desired. That variable will be replaced with "
+"a block of code which turns set values into relative paths.  These values "
+"which are new can be referenced by the same name but prepended with a "
+"``PACKAGE_`` prefix."
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Export Configuration.rst:97
+msgid ""
+"install(EXPORT MathFunctionsTargets\n"
+"  FILE MathFunctionsTargets.cmake\n"
+"  DESTINATION lib/cmake/MathFunctions\n"
+")\n"
+"\n"
+"include(CMakePackageConfigHelpers)\n"
+"# generate the config file that includes the exports\n"
+"configure_package_config_file(${CMAKE_CURRENT_SOURCE_DIR}/Config.cmake.in\n"
+"  \"${CMAKE_CURRENT_BINARY_DIR}/MathFunctionsConfig.cmake\"\n"
+"  INSTALL_DESTINATION \"lib/cmake/MathFunctions\"\n"
+"  NO_SET_AND_CHECK_MACRO\n"
+"  NO_CHECK_REQUIRED_COMPONENTS_MACRO\n"
+"  )\n"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Export Configuration.rst:104
+msgid ""
+"The :command:`write_basic_package_version_file` is next.  This command "
+"writes a file which is used by :command:`find_package`, documenting the "
+"version and compatibility of the desired package.  Here, we use the "
+"``Tutorial_VERSION_*`` variables and say that it is compatible with "
+"``AnyNewerVersion``, which denotes that this version or any higher one are "
+"compatible with the requested version."
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Export Configuration.rst:111
+msgid ""
+"write_basic_package_version_file(\n"
+"  \"${CMAKE_CURRENT_BINARY_DIR}/MathFunctionsConfigVersion.cmake\"\n"
+"  VERSION \"${Tutorial_VERSION_MAJOR}.${Tutorial_VERSION_MINOR}\"\n"
+"  COMPATIBILITY AnyNewerVersion\n"
+")\n"
+"\n"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Export Configuration.rst:118
+msgid "Finally, set both generated files to be installed:"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Export Configuration.rst:120
+msgid ""
+"install(FILES\n"
+"  ${CMAKE_CURRENT_BINARY_DIR}/MathFunctionsConfig.cmake\n"
+"  ${CMAKE_CURRENT_BINARY_DIR}/MathFunctionsConfigVersion.cmake\n"
+"  DESTINATION lib/cmake/MathFunctions\n"
+"  )\n"
+"\n"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Export Configuration.rst:127
+msgid ""
+"At this point, we have generated a relocatable CMake Configuration for our "
+"project that can be used after the project has been installed or packaged. "
+"If we want our project to also be used from a build directory we only have "
+"to add the following to the bottom of the top level ``CMakeLists.txt``:"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Export Configuration.rst:132
+msgid ""
+"export(EXPORT MathFunctionsTargets\n"
+"  FILE \"${CMAKE_CURRENT_BINARY_DIR}/MathFunctionsTargets.cmake\"\n"
+")\n"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Export Configuration.rst:138
+msgid ""
+"With this export call we now generate a ``MathFunctionsTargets.cmake``, "
+"allowing the configured ``MathFunctionsConfig.cmake`` in the build directory "
+"to be used by other projects, without needing it to be installed."
+msgstr ""

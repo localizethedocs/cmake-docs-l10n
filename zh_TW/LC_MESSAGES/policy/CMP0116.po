@@ -1,0 +1,84 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2000-2025 Kitware, Inc. and Contributors
+# This file is distributed under the same license as the CMake package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CMake master\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-07-14 08:20+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../policy/CMP0116.rst:2
+msgid "CMP0116"
+msgstr ""
+
+#: ../../../policy/CMP0116.rst:6
+msgid ""
+"Ninja generators transform ``DEPFILE`` s from :command:`add_custom_command`."
+msgstr ""
+
+#: ../../../policy/CMP0116.rst:8
+msgid ""
+"In CMake 3.19 and below, files given to the ``DEPFILE`` argument of :command:"
+"`add_custom_command` were passed directly to Ninja's ``depfile`` variable "
+"without any path resolution. This meant that if :command:"
+"`add_custom_command` was called from a subdirectory (created by :command:"
+"`add_subdirectory`), the ``DEPFILE`` argument would have to be either an "
+"absolute path or a path relative to :variable:`CMAKE_BINARY_DIR`, rather "
+"than :variable:`CMAKE_CURRENT_BINARY_DIR`. In addition, no transformation "
+"was done on the file listed in ``DEPFILE``, which meant that the paths "
+"within the ``DEPFILE`` had the same restrictions."
+msgstr ""
+
+#: ../../../policy/CMP0116.rst:18
+msgid ""
+"Starting with CMake 3.20, the ``DEPFILE`` argument is relative to :variable:"
+"`CMAKE_CURRENT_BINARY_DIR` (unless it is absolute), and the paths in the "
+"``DEPFILE`` are also relative to :variable:`CMAKE_CURRENT_BINARY_DIR`. CMake "
+"automatically transforms the paths in the ``DEPFILE`` (unless they are "
+"absolute) after the custom command is run. The file listed in ``DEPFILE`` is "
+"not modified in any way. Instead, CMake writes the transformation to its own "
+"internal file, and passes this internal file to Ninja's ``depfile`` "
+"variable. This transformation happens regardless of whether or not "
+"``DEPFILE`` is relative, and regardless of whether or not :command:"
+"`add_custom_command` is called from a subdirectory."
+msgstr ""
+
+#: ../../../policy/CMP0116.rst:29
+msgid ""
+"The ``OLD`` behavior for this policy is to pass the ``DEPFILE`` to Ninja "
+"unaltered. The ``NEW`` behavior for this policy is to transform the "
+"``DEPFILE`` after running the custom command. The status of ``CMP0116`` is "
+"recorded at the time of the custom command's creation, and you can have "
+"custom commands in the same directory with different values for ``CMP0116`` "
+"by setting the policy before each custom command."
+msgstr ""
+
+#: ../../../policy/include/STANDARD_ADVICE.rst:1
+msgid ""
+"This policy was introduced in CMake version |INTRODUCED_IN_CMAKE_VERSION|. "
+"It may be set by :command:`cmake_policy` or :command:"
+"`cmake_minimum_required`. If it is not set, CMake |WARNS_OR_DOES_NOT_WARN|, "
+"and uses ``OLD`` behavior."
+msgstr ""
+
+#: ../../../policy/CMP0116.rst:41
+msgid ""
+"See documentation of the :variable:`CMAKE_POLICY_WARNING_CMP0116 "
+"<CMAKE_POLICY_WARNING_CMP<NNNN>>` variable to control the warning."
+msgstr ""
+
+#: ../../../policy/include/DEPRECATED.rst:2
+msgid ""
+"The ``OLD`` behavior of a policy is :manual:`deprecated by definition <cmake-"
+"policies(7)>` and may be removed in a future version of CMake."
+msgstr ""

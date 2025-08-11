@@ -1,0 +1,195 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2000-2025 Kitware, Inc. and Contributors
+# This file is distributed under the same license as the CMake package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CMake master\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-07-14 08:20+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../prop_tgt/AUTOMOC_DEPEND_FILTERS.rst:2
+msgid "AUTOMOC_DEPEND_FILTERS"
+msgstr ""
+
+#: ../../../prop_tgt/AUTOMOC_DEPEND_FILTERS.rst:6
+msgid ""
+"Filter definitions used by :prop_tgt:`AUTOMOC` to extract file names from a "
+"source file that are registered as additional dependencies for the ``moc`` "
+"file of the source file."
+msgstr ""
+
+#: ../../../prop_tgt/AUTOMOC_DEPEND_FILTERS.rst:10
+msgid ""
+"Filters are defined as ``KEYWORD;REGULAR_EXPRESSION`` pairs. First the file "
+"content is searched for ``KEYWORD``. If it is found at least once, then file "
+"names are extracted by successively searching for ``REGULAR_EXPRESSION`` and "
+"taking the first match group."
+msgstr ""
+
+#: ../../../prop_tgt/AUTOMOC_DEPEND_FILTERS.rst:15
+msgid "The file name found in the first match group is searched for"
+msgstr ""
+
+#: ../../../prop_tgt/AUTOMOC_DEPEND_FILTERS.rst:17
+msgid "first in the vicinity of the source file"
+msgstr ""
+
+#: ../../../prop_tgt/AUTOMOC_DEPEND_FILTERS.rst:18
+msgid "and afterwards in the target's :prop_tgt:`INCLUDE_DIRECTORIES`."
+msgstr ""
+
+#: ../../../prop_tgt/AUTOMOC_DEPEND_FILTERS.rst:20
+msgid ""
+"If any of the extracted files changes, then the ``moc`` file for the source "
+"file gets rebuilt even when the source file itself doesn't change."
+msgstr ""
+
+#: ../../../prop_tgt/AUTOMOC_DEPEND_FILTERS.rst:23
+msgid ""
+"If any of the extracted files is :prop_sf:`GENERATED` or if it is not in the "
+"target's sources, then it might be necessary to add it to the :ref:"
+"`<ORIGIN>_autogen` target  dependencies. See :prop_tgt:"
+"`AUTOGEN_TARGET_DEPENDS` for reference."
+msgstr ""
+
+#: ../../../prop_tgt/AUTOMOC_DEPEND_FILTERS.rst:28
+msgid ""
+"By default ``AUTOMOC_DEPEND_FILTERS`` is initialized from :variable:"
+"`CMAKE_AUTOMOC_DEPEND_FILTERS`, which is empty by default."
+msgstr ""
+
+#: ../../../prop_tgt/AUTOMOC_DEPEND_FILTERS.rst:31
+msgid ""
+"From Qt 5.15.0 on this variable is ignored as ``moc`` is able to output the "
+"correct dependencies."
+msgstr ""
+
+#: ../../../prop_tgt/AUTOMOC_DEPEND_FILTERS.rst:34
+msgid ""
+"See the :manual:`cmake-qt(7)` manual for more information on using CMake "
+"with Qt."
+msgstr ""
+
+#: ../../../prop_tgt/AUTOMOC_DEPEND_FILTERS.rst:39
+msgid "Example 1"
+msgstr ""
+
+#: ../../../prop_tgt/AUTOMOC_DEPEND_FILTERS.rst:41
+msgid ""
+"A header file ``my_class.hpp`` uses a custom macro ``JSON_FILE_MACRO`` which "
+"is defined in an other header ``macros.hpp``. We want the ``moc`` file of "
+"``my_class.hpp`` to depend on the file name argument of ``JSON_FILE_MACRO``:"
+msgstr ""
+
+#: ../../../prop_tgt/AUTOMOC_DEPEND_FILTERS.rst:46
+msgid ""
+"// my_class.hpp\n"
+"class My_Class : public QObject\n"
+"{\n"
+"  Q_OBJECT\n"
+"  JSON_FILE_MACRO ( \"info.json\" )\n"
+"...\n"
+"};"
+msgstr ""
+
+#: ../../../prop_tgt/AUTOMOC_DEPEND_FILTERS.rst:56
+msgid ""
+"In ``CMakeLists.txt`` we add a filter to :variable:"
+"`CMAKE_AUTOMOC_DEPEND_FILTERS` like this:"
+msgstr ""
+
+#: ../../../prop_tgt/AUTOMOC_DEPEND_FILTERS.rst:59
+msgid ""
+"list(APPEND CMAKE_AUTOMOC_DEPEND_FILTERS\n"
+"  \"JSON_FILE_MACRO\"\n"
+"  \"[\\n][ \\t]*JSON_FILE_MACRO[ \\t]*\\\\([ \\t]*\\\"([^\\\"]+)\\\"\"\n"
+")"
+msgstr ""
+
+#: ../../../prop_tgt/AUTOMOC_DEPEND_FILTERS.rst:66
+msgid ""
+"We assume ``info.json`` is a plain (not :prop_sf:`GENERATED`) file that is "
+"listed in the target's source.  Therefore we do not need to add it to :"
+"prop_tgt:`AUTOGEN_TARGET_DEPENDS`."
+msgstr ""
+
+#: ../../../prop_tgt/AUTOMOC_DEPEND_FILTERS.rst:71
+msgid "Example 2"
+msgstr ""
+
+#: ../../../prop_tgt/AUTOMOC_DEPEND_FILTERS.rst:73
+msgid ""
+"In the target ``my_target`` a header file ``complex_class.hpp`` uses a "
+"custom macro ``JSON_BASED_CLASS`` which is defined in an other header "
+"``macros.hpp``:"
+msgstr ""
+
+#: ../../../prop_tgt/AUTOMOC_DEPEND_FILTERS.rst:77
+msgid ""
+"// macros.hpp\n"
+"...\n"
+"#define JSON_BASED_CLASS(name, json) \\\n"
+"class name : public QObject \\\n"
+"{ \\\n"
+"  Q_OBJECT \\\n"
+"  Q_PLUGIN_METADATA(IID \"demo\" FILE json) \\\n"
+"  name() {} \\\n"
+"};\n"
+"..."
+msgstr ""
+
+#: ../../../prop_tgt/AUTOMOC_DEPEND_FILTERS.rst:90
+msgid ""
+"// complex_class.hpp\n"
+"#pragma once\n"
+"JSON_BASED_CLASS(Complex_Class, \"meta.json\")\n"
+"// end of file"
+msgstr ""
+
+#: ../../../prop_tgt/AUTOMOC_DEPEND_FILTERS.rst:97
+msgid ""
+"Since ``complex_class.hpp`` doesn't contain a ``Q_OBJECT`` macro it would be "
+"ignored by :prop_tgt:`AUTOMOC`.  We change this by adding "
+"``JSON_BASED_CLASS`` to :variable:`CMAKE_AUTOMOC_MACRO_NAMES`:"
+msgstr ""
+
+#: ../../../prop_tgt/AUTOMOC_DEPEND_FILTERS.rst:101
+msgid "list(APPEND CMAKE_AUTOMOC_MACRO_NAMES \"JSON_BASED_CLASS\")"
+msgstr ""
+
+#: ../../../prop_tgt/AUTOMOC_DEPEND_FILTERS.rst:105
+msgid ""
+"We want the ``moc`` file of ``complex_class.hpp`` to depend on ``meta."
+"json``.  So we add a filter to :variable:`CMAKE_AUTOMOC_DEPEND_FILTERS`:"
+msgstr ""
+
+#: ../../../prop_tgt/AUTOMOC_DEPEND_FILTERS.rst:109
+msgid ""
+"list(APPEND CMAKE_AUTOMOC_DEPEND_FILTERS\n"
+"  \"JSON_BASED_CLASS\"\n"
+"  \"[\\n^][ \\t]*JSON_BASED_CLASS[ \\t]*\\\\([^,]*,[ \\t]*\\\"([^\\\"]+)\\"
+"\"\"\n"
+")"
+msgstr ""
+
+#: ../../../prop_tgt/AUTOMOC_DEPEND_FILTERS.rst:116
+msgid ""
+"Additionally we assume ``meta.json`` is :prop_sf:`GENERATED` which is why we "
+"have to add it to :prop_tgt:`AUTOGEN_TARGET_DEPENDS`:"
+msgstr ""
+
+#: ../../../prop_tgt/AUTOMOC_DEPEND_FILTERS.rst:119
+msgid ""
+"set_property(TARGET my_target APPEND PROPERTY AUTOGEN_TARGET_DEPENDS \"meta."
+"json\")"
+msgstr ""
