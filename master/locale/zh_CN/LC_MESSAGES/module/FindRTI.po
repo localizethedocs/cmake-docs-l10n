@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CMake master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-14 08:20+0000\n"
+"POT-Creation-Date: 2025-08-11 08:21+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,10 +22,14 @@ msgid "FindRTI"
 msgstr ""
 
 #: ../../../../Modules/FindRTI.cmake:8
-msgid "Finds HLA RTI standard libraries and their include directories."
+msgid "Finds HLA RTI standard libraries and their include directories:"
 msgstr ""
 
 #: ../../../../Modules/FindRTI.cmake:10
+msgid "find_package(RTI [...])"
+msgstr ""
+
+#: ../../../../Modules/FindRTI.cmake:14
 msgid ""
 "`RTI <https://en.wikipedia.org/wiki/Run-time_infrastructure_(simulation)>`_ "
 "(Run-Time Infrastructure) is a simulation infrastructure standardized by "
@@ -34,64 +38,80 @@ msgid ""
 "applications remain independent of a particular RTI implementation."
 msgstr ""
 
-#: ../../../../Modules/FindRTI.cmake:17
+#: ../../../../Modules/FindRTI.cmake:21
 msgid "Result Variables"
 msgstr ""
 
-#: ../../../../Modules/FindRTI.cmake:19
+#: ../../../../Modules/FindRTI.cmake:23
 msgid "This module defines the following variables:"
 msgstr ""
 
-#: ../../../../Modules/FindRTI.cmake:21
+#: ../../../../Modules/FindRTI.cmake:25
 msgid "``RTI_FOUND``"
 msgstr ""
 
-#: ../../../../Modules/FindRTI.cmake:22
-msgid "Set to FALSE if any HLA RTI was not found."
+#: ../../../../Modules/FindRTI.cmake:26
+msgid "Boolean indicating whether HLA RTI is found."
 msgstr ""
 
-#: ../../../../Modules/FindRTI.cmake:23
+#: ../../../../Modules/FindRTI.cmake:27
 msgid "``RTI_LIBRARIES``"
 msgstr ""
 
-#: ../../../../Modules/FindRTI.cmake:24
+#: ../../../../Modules/FindRTI.cmake:28
 msgid "The libraries to link against to use RTI."
 msgstr ""
 
-#: ../../../../Modules/FindRTI.cmake:25
+#: ../../../../Modules/FindRTI.cmake:29
 msgid "``RTI_DEFINITIONS``"
 msgstr ""
 
-#: ../../../../Modules/FindRTI.cmake:26
+#: ../../../../Modules/FindRTI.cmake:30
 msgid ""
 "Compile definitions for using RTI.  Default value is set to ``-"
 "DRTI_USES_STD_FSTREAM``."
 msgstr ""
 
-#: ../../../../Modules/FindRTI.cmake:30
+#: ../../../../Modules/FindRTI.cmake:34
 msgid "Cache Variables"
 msgstr ""
 
-#: ../../../../Modules/FindRTI.cmake:32
+#: ../../../../Modules/FindRTI.cmake:36
 msgid "The following cache variables may also be set:"
 msgstr ""
 
-#: ../../../../Modules/FindRTI.cmake:34
+#: ../../../../Modules/FindRTI.cmake:38
 msgid "``RTI_INCLUDE_DIR``"
 msgstr ""
 
-#: ../../../../Modules/FindRTI.cmake:35
+#: ../../../../Modules/FindRTI.cmake:39
 msgid "Directory where RTI include files are found."
 msgstr ""
 
-#: ../../../../Modules/FindRTI.cmake:38
+#: ../../../../Modules/FindRTI.cmake:42
 msgid "Examples"
 msgstr ""
 
-#: ../../../../Modules/FindRTI.cmake:40
-msgid "Finding RTI:"
+#: ../../../../Modules/FindRTI.cmake:44
+msgid ""
+"Finding RTI and creating an imported interface target for linking it to a "
+"project target:"
 msgstr ""
 
-#: ../../../../Modules/FindRTI.cmake:42
-msgid "find_package(RTI)"
+#: ../../../../Modules/FindRTI.cmake:47
+msgid ""
+"find_package(RTI)\n"
+"\n"
+"if(RTI_FOUND AND NOT TARGET RTI::RTI)\n"
+"  add_library(RTI::RTI INTERFACE IMPORTED)\n"
+"  set_target_properties(\n"
+"    RTI::RTI\n"
+"    PROPERTIES\n"
+"      INTERFACE_INCLUDE_DIRECTORIES \"${RTI_INCLUDE_DIR}\"\n"
+"      INTERFACE_LINK_LIBRARIES \"${RTI_LIBRARIES}\"\n"
+"      INTERFACE_COMPILE_DEFINITIONS \"${RTI_DEFINITIONS}\"\n"
+"  )\n"
+"endif()\n"
+"\n"
+"target_link_libraries(example PRIVATE RTI::RTI)"
 msgstr ""
