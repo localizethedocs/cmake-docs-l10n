@@ -65,43 +65,81 @@ message("")
 restore_cmake_message_indent()
 
 
-if (VERSION VERSION_LESS_EQUAL    "3.18" AND
-    VERSION VERSION_GREATER_EQUAL "3.0")
-    message(STATUS "Copying 'cmake.py' file to the sphinx extensions directory...")
+if (NOT VERSION MATCHES "^master$")
+    message(STATUS "Patching 'conf.py.in' file to the sphinx directory...")
+    file(MAKE_DIRECTORY "${PROJ_OUT_REPO_UTILS_SPHINX_DIR}")
+    file(COPY_FILE
+        "${PROJ_CMAKE_CUSTOM_DIR}/patch/conf.py.in"
+        "${PROJ_OUT_REPO_UTILS_SPHINX_DIR}/conf.py.in")
+    remove_cmake_message_indent()
+    message("")
+    message("From:  ${PROJ_CMAKE_CUSTOM_DIR}/patch/conf.py.in")
+    message("To:    ${PROJ_OUT_REPO_UTILS_SPHINX_DIR}/conf.py.in")
+    message("")
+    restore_cmake_message_indent()
+
+
+    message(STATUS "Patching 'cmake.css' file to the sphinx static directory...")
+    file(MAKE_DIRECTORY "${PROJ_OUT_REPO_UTILS_SPHINX_DIR}/static")
+    file(COPY_FILE
+        "${PROJ_CMAKE_CUSTOM_DIR}/patch/cmake.css"
+        "${PROJ_OUT_REPO_UTILS_SPHINX_DIR}/static/cmake.css")
+    remove_cmake_message_indent()
+    message("")
+    message("From: ${PROJ_CMAKE_CUSTOM_DIR}/patch/cmake.css")
+    message("To:   ${PROJ_OUT_REPO_UTILS_SPHINX_DIR}/static/cmake.css")
+    message("")
+    restore_cmake_message_indent()
+
+
+    message(STATUS "Patching 'cmake.py' file to the sphinx extensions directory...")
     file(MAKE_DIRECTORY "${PROJ_OUT_REPO_DOCS_EXTNS_DIR}")
     file(COPY_FILE
-        "${PROJ_CMAKE_CUSTOM_DIR}/latest/cmake.py"
+        "${PROJ_CMAKE_CUSTOM_DIR}/patch/cmake.py"
         "${PROJ_OUT_REPO_DOCS_EXTNS_DIR}/cmake.py")
     remove_cmake_message_indent()
     message("")
-    message("From:  ${PROJ_CMAKE_CUSTOM_DIR}/latest/cmake.py")
+    message("From:  ${PROJ_CMAKE_CUSTOM_DIR}/patch/cmake.py")
     message("To:    ${PROJ_OUT_REPO_DOCS_EXTNS_DIR}/cmake.py")
     message("")
     restore_cmake_message_indent()
 
 
-    message(STATUS "Copying 'colors.py' file to the sphinx extensions directory...")
+    message(STATUS "Patching 'colors.py' file to the sphinx extensions directory...")
     file(MAKE_DIRECTORY "${PROJ_OUT_REPO_DOCS_EXTNS_DIR}")
     file(COPY_FILE
-        "${PROJ_CMAKE_CUSTOM_DIR}/latest/colors.py"
+        "${PROJ_CMAKE_CUSTOM_DIR}/patch/colors.py"
         "${PROJ_OUT_REPO_DOCS_EXTNS_DIR}/colors.py")
     remove_cmake_message_indent()
     message("")
-    message("From:  ${PROJ_CMAKE_CUSTOM_DIR}/latest/colors.py")
+    message("From:  ${PROJ_CMAKE_CUSTOM_DIR}/patch/colors.py")
     message("To:    ${PROJ_OUT_REPO_DOCS_EXTNS_DIR}/colors.py")
     message("")
     restore_cmake_message_indent()
 
 
-    message(STATUS "Copying 'conf.py.in' file to the sphinx extensions directory...")
-    file(MAKE_DIRECTORY "${PROJ_OUT_REPO_DOCS_EXTNS_DIR}")
+    message(STATUS "Patching 'layout.html' file to the sphinx templates directory...")
+    file(MAKE_DIRECTORY "${PROJ_OUT_REPO_DOCS_TMPLS_DIR}")
     file(COPY_FILE
-        "${PROJ_CMAKE_CUSTOM_DIR}/latest/conf.py.in"
-        "${PROJ_OUT_REPO_DOCS_EXTNS_DIR}/conf.py.in")
+        "${PROJ_CMAKE_CUSTOM_DIR}/patch/layout.html"
+        "${PROJ_OUT_REPO_DOCS_TMPLS_DIR}/layout.html")
     remove_cmake_message_indent()
     message("")
-    message("From:  ${PROJ_CMAKE_CUSTOM_DIR}/latest/conf.py.in")
-    message("To:    ${PROJ_OUT_REPO_DOCS_EXTNS_DIR}/conf.py.in")
+    message("From: ${PROJ_CMAKE_CUSTOM_DIR}/patch/layout.html")
+    message("To:   ${PROJ_OUT_REPO_DOCS_TMPLS_DIR}/layout.html")
+    message("")
+    restore_cmake_message_indent()
+
+
+    message(STATUS "Patching 'localtoc.html' file to the sphinx templates directory...")
+    file(MAKE_DIRECTORY "${PROJ_OUT_REPO_DOCS_TMPLS_DIR}")
+    file(COPY_FILE
+        "${PROJ_CMAKE_CUSTOM_DIR}/patch/localtoc.html"
+        "${PROJ_OUT_REPO_DOCS_TMPLS_DIR}/localtoc.html")
+    remove_cmake_message_indent()
+    message("")
+    message("From: ${PROJ_CMAKE_CUSTOM_DIR}/patch[/localtoc.html")
+    message("To:   ${PROJ_OUT_REPO_DOCS_TMPLS_DIR}/localtoc.html")
     message("")
     restore_cmake_message_indent()
 endif()
@@ -214,15 +252,15 @@ message("")
 restore_cmake_message_indent()
 
 
-message(STATUS "Copying 'layout.html' file to the sphinx templates directory...")
+message(STATUS "Copying 'page.html' file to the sphinx templates directory...")
 file(MAKE_DIRECTORY "${PROJ_OUT_REPO_DOCS_TMPLS_DIR}")
 file(COPY_FILE
-    "${PROJ_CMAKE_CUSTOM_DIR}/layout.html"
-    "${PROJ_OUT_REPO_DOCS_TMPLS_DIR}/layout.html")
+    "${PROJ_CMAKE_CUSTOM_DIR}/page.html"
+    "${PROJ_OUT_REPO_DOCS_TMPLS_DIR}/page.html")
 remove_cmake_message_indent()
 message("")
-message("From: ${PROJ_CMAKE_CUSTOM_DIR}/layout.html")
-message("To:   ${PROJ_OUT_REPO_DOCS_TMPLS_DIR}/layout.html")
+message("From: ${PROJ_CMAKE_CUSTOM_DIR}/page.html")
+message("To:   ${PROJ_OUT_REPO_DOCS_TMPLS_DIR}/page.html")
 message("")
 restore_cmake_message_indent()
 
