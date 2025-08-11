@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CMake master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-14 08:20+0000\n"
+"POT-Creation-Date: 2025-08-11 08:21+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,89 +22,195 @@ msgid "FindThreads"
 msgstr ""
 
 #: ../../../../Modules/FindThreads.cmake:8
-msgid "This module determines the thread library of the system."
+msgid ""
+"Finds and determines the thread library of the system for multithreading "
+"support:"
 msgstr ""
 
 #: ../../../../Modules/FindThreads.cmake:11
-msgid "Imported Targets"
+msgid "find_package(Threads [...])"
 msgstr ""
 
 #: ../../../../Modules/FindThreads.cmake:15
-msgid "This module defines the following :prop_tgt:`IMPORTED` target:"
+msgid ""
+"Multithreading enables concurrent execution within a single program, "
+"typically by creating multiple threads of execution.  Most commonly, this is "
+"done using libraries such as POSIX Threads (``pthreads``) on Unix-like "
+"systems or Windows threads on Windows."
 msgstr ""
 
-#: ../../../../Modules/FindThreads.cmake:17
-msgid "``Threads::Threads``"
-msgstr ""
-
-#: ../../../../Modules/FindThreads.cmake:18
-msgid "The thread library, if found."
-msgstr ""
-
-#: ../../../../Modules/FindThreads.cmake:21
-msgid "Result Variables"
-msgstr ""
-
-#: ../../../../Modules/FindThreads.cmake:23
-msgid "The following variables are set:"
-msgstr ""
-
-#: ../../../../Modules/FindThreads.cmake:25
-msgid "``Threads_FOUND``"
+#: ../../../../Modules/FindThreads.cmake:20
+msgid ""
+"This module abstracts the platform-specific differences and detects how to "
+"enable thread support - whether it requires linking to a specific library, "
+"adding compiler flags (like ``-pthread``), or both.  On some platforms, "
+"threading is also implicitly available in default libraries without the need "
+"to use additional flags or libraries."
 msgstr ""
 
 #: ../../../../Modules/FindThreads.cmake:26
-msgid "If a supported thread library was found."
-msgstr ""
-
-#: ../../../../Modules/FindThreads.cmake:27
-msgid "``CMAKE_THREAD_LIBS_INIT``"
-msgstr ""
-
-#: ../../../../Modules/FindThreads.cmake:28
 msgid ""
-"The thread library to use. This may be empty if the thread functions are "
-"provided by the system libraries and no special flags are needed to use them."
+"This module is suitable for use in both C and C++ projects (and occasionally "
+"other compiled languages) that rely on system-level threading APIs."
 msgstr ""
 
-#: ../../../../Modules/FindThreads.cmake:31
-msgid "``CMAKE_USE_WIN32_THREADS_INIT``"
-msgstr ""
-
-#: ../../../../Modules/FindThreads.cmake:32
-msgid "If the found thread library is the win32 one."
-msgstr ""
-
-#: ../../../../Modules/FindThreads.cmake:33
-msgid "``CMAKE_USE_PTHREADS_INIT``"
+#: ../../../../Modules/FindThreads.cmake:29
+msgid ""
+"Using this module ensures that project builds correctly across different "
+"platforms by handling the detection and setup of thread support in a "
+"portable way."
 msgstr ""
 
 #: ../../../../Modules/FindThreads.cmake:34
-msgid "If the found thread library is pthread compatible."
-msgstr ""
-
-#: ../../../../Modules/FindThreads.cmake:35
-msgid "``CMAKE_HP_PTHREADS_INIT``"
+msgid "C and C++ Language Standards"
 msgstr ""
 
 #: ../../../../Modules/FindThreads.cmake:36
-msgid "If the found thread library is the HP thread library."
-msgstr ""
-
-#: ../../../../Modules/FindThreads.cmake:39
-msgid "Variables Affecting Behavior"
-msgstr ""
-
-#: ../../../../Modules/FindThreads.cmake:45
 msgid ""
-"If the use of the -pthread compiler and linker flag is preferred then the "
-"caller can set this variable to TRUE. The compiler flag can only be used "
-"with the imported target. Use of both the imported target as well as this "
-"switch is highly recommended for new code."
+"The C11 standard introduced a minimal cross-platform thread API via "
+"``<threads.h>`` header file, and C++11 added ``<thread>`` header to the "
+"standard library, offering high-level multithreading support.  These "
+"standard headers allow writing portable threaded code at the language level, "
+"without directly using platform-specific APIs like ``pthreads`` or Windows "
+"threads."
+msgstr ""
+
+#: ../../../../Modules/FindThreads.cmake:42
+msgid ""
+"However, even with standard C11 or C++11 threads support available, there "
+"may still be a need for platform-specific compiler or linker flags (e.g., ``-"
+"pthread`` on Unix-like systems) for some applications.  This is where "
+"FindThreads remains relevant - it ensures these flags and any required "
+"libraries are correctly set up, even if not explicitly using system APIs."
+msgstr ""
+
+#: ../../../../Modules/FindThreads.cmake:48
+msgid "In short:"
 msgstr ""
 
 #: ../../../../Modules/FindThreads.cmake:50
 msgid ""
+"Use ``<thread>`` (C++11 and later) or ``<threads.h>`` (C11) in source code "
+"for portability and simpler syntax."
+msgstr ""
+
+#: ../../../../Modules/FindThreads.cmake:53
+msgid ""
+"Use ``find_package(Threads)`` in CMake project when application needs the "
+"traditional threading support and to ensure code compiles and links "
+"correctly across different platforms."
+msgstr ""
+
+#: ../../../../Modules/FindThreads.cmake:58
+msgid "Imported Targets"
+msgstr ""
+
+#: ../../../../Modules/FindThreads.cmake:60
+msgid "This module provides the following :ref:`Imported Targets`:"
+msgstr ""
+
+#: ../../../../Modules/FindThreads.cmake:62
+msgid "``Threads::Threads``"
+msgstr ""
+
+#: ../../../../Modules/FindThreads.cmake:65
+msgid ""
+"Target encapsulating the usage requirements to enable threading through "
+"flags or a threading library, if found.  This target is available if threads "
+"are detected as supported."
+msgstr ""
+
+#: ../../../../Modules/FindThreads.cmake:70
+msgid "Result Variables"
+msgstr ""
+
+#: ../../../../Modules/FindThreads.cmake:72
+msgid "This module defines the following variables:"
+msgstr ""
+
+#: ../../../../Modules/FindThreads.cmake:74
+msgid "``Threads_FOUND``"
+msgstr ""
+
+#: ../../../../Modules/FindThreads.cmake:75
+msgid ""
+"Boolean indicating whether Threads is supported, either through a separate "
+"library or a standard library."
+msgstr ""
+
+#: ../../../../Modules/FindThreads.cmake:77
+msgid "``CMAKE_THREAD_LIBS_INIT``"
+msgstr ""
+
+#: ../../../../Modules/FindThreads.cmake:78
+msgid ""
+"The thread library to use.  This may be empty if the thread functions are "
+"provided by the system libraries and no special flags are needed to use them."
+msgstr ""
+
+#: ../../../../Modules/FindThreads.cmake:81
+msgid "``CMAKE_USE_WIN32_THREADS_INIT``"
+msgstr ""
+
+#: ../../../../Modules/FindThreads.cmake:82
+msgid "If the found thread library is the win32 one."
+msgstr ""
+
+#: ../../../../Modules/FindThreads.cmake:83
+msgid "``CMAKE_USE_PTHREADS_INIT``"
+msgstr ""
+
+#: ../../../../Modules/FindThreads.cmake:84
+msgid "If the found thread library is pthread compatible."
+msgstr ""
+
+#: ../../../../Modules/FindThreads.cmake:85
+msgid "``CMAKE_HP_PTHREADS_INIT``"
+msgstr ""
+
+#: ../../../../Modules/FindThreads.cmake:86
+msgid "If the found thread library is the HP thread library."
+msgstr ""
+
+#: ../../../../Modules/FindThreads.cmake:89
+msgid "Variables Affecting Behavior"
+msgstr ""
+
+#: ../../../../Modules/FindThreads.cmake:91
+msgid ""
+"This module accepts the following variables before calling "
+"``find_package(Threads)``:"
+msgstr ""
+
+#: ../../../../Modules/FindThreads.cmake:94
+msgid "``THREADS_PREFER_PTHREAD_FLAG``"
+msgstr ""
+
+#: ../../../../Modules/FindThreads.cmake:97
+msgid ""
+"If the use of the ``-pthread`` compiler and linker flag is preferred then "
+"the caller can set this variable to boolean true.  The compiler flag can "
+"only be used with the imported target.  Use of both the imported target as "
+"well as this switch is highly recommended for new code."
+msgstr ""
+
+#: ../../../../Modules/FindThreads.cmake:102
+msgid ""
 "This variable has no effect if the system libraries provide the thread "
 "functions, i.e. when ``CMAKE_THREAD_LIBS_INIT`` will be empty."
+msgstr ""
+
+#: ../../../../Modules/FindThreads.cmake:106
+msgid "Examples"
+msgstr ""
+
+#: ../../../../Modules/FindThreads.cmake:108
+msgid "Finding Threads and linking the imported target to a project target:"
+msgstr ""
+
+#: ../../../../Modules/FindThreads.cmake:110
+msgid ""
+"set(THREADS_PREFER_PTHREAD_FLAG TRUE)\n"
+"find_package(Threads)\n"
+"target_link_libraries(example PRIVATE Threads::Threads)"
 msgstr ""

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CMake master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-14 08:20+0000\n"
+"POT-Creation-Date: 2025-08-11 08:21+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -24,74 +24,95 @@ msgstr ""
 #: ../../../../Modules/FindAVIFile.cmake:8
 msgid ""
 "Finds `AVIFile <https://avifile.sourceforge.net/>`_ library and include "
-"paths."
+"paths:"
 msgstr ""
 
 #: ../../../../Modules/FindAVIFile.cmake:10
+msgid "find_package(AVIFile [...])"
+msgstr ""
+
+#: ../../../../Modules/FindAVIFile.cmake:14
 msgid ""
 "AVIFile is a set of libraries for i386 machines to use various AVI codecs. "
 "Support is limited beyond Linux.  Windows provides native AVI support, and "
 "so doesn't need this library."
 msgstr ""
 
-#: ../../../../Modules/FindAVIFile.cmake:15
+#: ../../../../Modules/FindAVIFile.cmake:19
 msgid "Result Variables"
 msgstr ""
 
-#: ../../../../Modules/FindAVIFile.cmake:17
+#: ../../../../Modules/FindAVIFile.cmake:21
 msgid "This module defines the following variables:"
 msgstr ""
 
-#: ../../../../Modules/FindAVIFile.cmake:19
+#: ../../../../Modules/FindAVIFile.cmake:23
 msgid "``AVIFile_FOUND``"
 msgstr ""
 
-#: ../../../../Modules/FindAVIFile.cmake:20
+#: ../../../../Modules/FindAVIFile.cmake:24
 msgid ""
-"True if AVIFile is found.  For backward compatibility, the ``AVIFILE_FOUND`` "
-"variable is also set to the same value."
+"Boolean indicating whether AVIFile is found.  For backward compatibility, "
+"the ``AVIFILE_FOUND`` variable is also set to the same value."
 msgstr ""
 
-#: ../../../../Modules/FindAVIFile.cmake:22
+#: ../../../../Modules/FindAVIFile.cmake:26
 msgid "``AVIFILE_LIBRARIES``"
 msgstr ""
 
-#: ../../../../Modules/FindAVIFile.cmake:23
+#: ../../../../Modules/FindAVIFile.cmake:27
 msgid "The libraries to link against."
 msgstr ""
 
-#: ../../../../Modules/FindAVIFile.cmake:24
+#: ../../../../Modules/FindAVIFile.cmake:28
 msgid "``AVIFILE_DEFINITIONS``"
 msgstr ""
 
-#: ../../../../Modules/FindAVIFile.cmake:25
+#: ../../../../Modules/FindAVIFile.cmake:29
 msgid "Definitions to use when compiling."
 msgstr ""
 
-#: ../../../../Modules/FindAVIFile.cmake:28
+#: ../../../../Modules/FindAVIFile.cmake:32
 msgid "Cache Variables"
 msgstr ""
 
-#: ../../../../Modules/FindAVIFile.cmake:30
-msgid "The following cache variables may be also set:"
-msgstr ""
-
-#: ../../../../Modules/FindAVIFile.cmake:32
-msgid "``AVIFILE_INCLUDE_DIR``"
-msgstr ""
-
-#: ../../../../Modules/FindAVIFile.cmake:33
-msgid "Directory containing ``avifile.h`` and other AVIFile headers."
+#: ../../../../Modules/FindAVIFile.cmake:34
+msgid "The following cache variables may also be set:"
 msgstr ""
 
 #: ../../../../Modules/FindAVIFile.cmake:36
-msgid "Examples"
+msgid "``AVIFILE_INCLUDE_DIR``"
 msgstr ""
 
-#: ../../../../Modules/FindAVIFile.cmake:38
-msgid "Finding AVIFile:"
+#: ../../../../Modules/FindAVIFile.cmake:37
+msgid "Directory containing ``avifile.h`` and other AVIFile headers."
 msgstr ""
 
 #: ../../../../Modules/FindAVIFile.cmake:40
-msgid "find_package(AVIFile)"
+msgid "Examples"
+msgstr ""
+
+#: ../../../../Modules/FindAVIFile.cmake:42
+msgid ""
+"Finding AVIFile and conditionally creating an interface :ref:`Imported "
+"Target <Imported Targets>` that encapsulates its usage requirements for "
+"linking to a project target:"
+msgstr ""
+
+#: ../../../../Modules/FindAVIFile.cmake:46
+msgid ""
+"find_package(AVIFile)\n"
+"\n"
+"if(AVIFile_FOUND AND NOT TARGET AVIFile::AVIFile)\n"
+"  add_library(AVIFile::AVIFile INTERFACE IMPORTED)\n"
+"  set_target_properties(\n"
+"    AVIFile::AVIFile\n"
+"    PROPERTIES\n"
+"      INTERFACE_INCLUDE_DIRECTORIES \"${AVIFILE_INCLUDE_DIR}\"\n"
+"      INTERFACE_LINK_LIBRARIES \"${AVIFILE_LIBRARIES}\"\n"
+"      INTERFACE_COMPILE_DEFINITIONS \"${AVIFILE_DEFINITIONS}\"\n"
+"  )\n"
+"endif()\n"
+"\n"
+"target_link_libraries(example PRIVATE AVIFile::AVIFile)"
 msgstr ""

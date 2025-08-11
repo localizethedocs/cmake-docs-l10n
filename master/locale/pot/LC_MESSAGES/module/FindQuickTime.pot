@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CMake master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-14 08:20+0000\n"
+"POT-Creation-Date: 2025-08-11 08:21+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -24,72 +24,76 @@ msgstr ""
 #: ../../../../Modules/FindQuickTime.cmake:8
 msgid ""
 "Finds the QuickTime multimedia framework, which provides support for video, "
-"audio, and interactive media."
+"audio, and interactive media:"
 msgstr ""
 
-#: ../../../../Modules/FindQuickTime.cmake:13
+#: ../../../../Modules/FindQuickTime.cmake:11
+msgid "find_package(QuickTime [...])"
+msgstr ""
+
+#: ../../../../Modules/FindQuickTime.cmake:17
 msgid ""
 "This module is for the QuickTime framework, which has been deprecated by "
 "Apple and is no longer supported.  On Apple systems, use AVFoundation and "
 "AVKit instead."
 msgstr ""
 
-#: ../../../../Modules/FindQuickTime.cmake:18
+#: ../../../../Modules/FindQuickTime.cmake:22
 msgid "Result Variables"
 msgstr ""
 
-#: ../../../../Modules/FindQuickTime.cmake:20
+#: ../../../../Modules/FindQuickTime.cmake:24
 msgid "This module defines the following variables:"
 msgstr ""
 
-#: ../../../../Modules/FindQuickTime.cmake:22
+#: ../../../../Modules/FindQuickTime.cmake:26
 msgid "``QuickTime_FOUND``"
 msgstr ""
 
-#: ../../../../Modules/FindQuickTime.cmake:23
+#: ../../../../Modules/FindQuickTime.cmake:27
 msgid ""
 "Boolean indicating whether the QuickTime is found.  For backward "
 "compatibility, the ``QUICKTIME_FOUND`` variable is also set to the same "
 "value."
 msgstr ""
 
-#: ../../../../Modules/FindQuickTime.cmake:27
+#: ../../../../Modules/FindQuickTime.cmake:31
 msgid "Cache Variables"
 msgstr ""
 
-#: ../../../../Modules/FindQuickTime.cmake:29
+#: ../../../../Modules/FindQuickTime.cmake:33
 msgid "The following cache variables may also be set:"
 msgstr ""
 
-#: ../../../../Modules/FindQuickTime.cmake:31
+#: ../../../../Modules/FindQuickTime.cmake:35
 msgid "``QUICKTIME_LIBRARY``"
 msgstr ""
 
-#: ../../../../Modules/FindQuickTime.cmake:32
+#: ../../../../Modules/FindQuickTime.cmake:36
 msgid "The path to the QuickTime library."
 msgstr ""
 
-#: ../../../../Modules/FindQuickTime.cmake:34
+#: ../../../../Modules/FindQuickTime.cmake:38
 msgid "``QUICKTIME_INCLUDE_DIR``"
 msgstr ""
 
-#: ../../../../Modules/FindQuickTime.cmake:35
+#: ../../../../Modules/FindQuickTime.cmake:39
 msgid "Directory containing QuickTime headers."
 msgstr ""
 
-#: ../../../../Modules/FindQuickTime.cmake:38
+#: ../../../../Modules/FindQuickTime.cmake:42
 msgid "Hints"
 msgstr ""
 
-#: ../../../../Modules/FindQuickTime.cmake:40
+#: ../../../../Modules/FindQuickTime.cmake:44
 msgid "This module accepts the following variables:"
 msgstr ""
 
-#: ../../../../Modules/FindQuickTime.cmake:42
+#: ../../../../Modules/FindQuickTime.cmake:46
 msgid "``QUICKTIME_DIR``"
 msgstr ""
 
-#: ../../../../Modules/FindQuickTime.cmake:43
+#: ../../../../Modules/FindQuickTime.cmake:47
 msgid ""
 "Environment variable that can be set to help locate a QuickTime library "
 "installed in a custom location.  It should point to the installation "
@@ -97,14 +101,29 @@ msgid ""
 "QuickTime library: ``./configure --prefix=$QUICKTIME_DIR``."
 msgstr ""
 
-#: ../../../../Modules/FindQuickTime.cmake:49
+#: ../../../../Modules/FindQuickTime.cmake:53
 msgid "Examples"
 msgstr ""
 
-#: ../../../../Modules/FindQuickTime.cmake:51
-msgid "Finding QuickTime library:"
+#: ../../../../Modules/FindQuickTime.cmake:55
+msgid ""
+"Finding QuickTime library and creating an imported interface target for "
+"linking it to a project target:"
 msgstr ""
 
-#: ../../../../Modules/FindQuickTime.cmake:53
-msgid "find_package(QuickTime)"
+#: ../../../../Modules/FindQuickTime.cmake:58
+msgid ""
+"find_package(QuickTime)\n"
+"\n"
+"if(QuickTime_FOUND AND NOT TARGET QuickTime::QuickTime)\n"
+"  add_library(QuickTime::QuickTime INTERFACE IMPORTED)\n"
+"  set_target_properties(\n"
+"    QuickTime::QuickTime\n"
+"    PROPERTIES\n"
+"      INTERFACE_INCLUDE_DIRECTORIES \"${QUICKTIME_INCLUDE_DIR}\"\n"
+"      INTERFACE_LINK_LIBRARIES \"${QUICKTIME_LIBRARY}\"\n"
+"  )\n"
+"endif()\n"
+"\n"
+"target_link_libraries(example PRIVATE QuickTime::QuickTime)"
 msgstr ""
