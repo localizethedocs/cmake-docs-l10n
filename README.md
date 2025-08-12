@@ -66,7 +66,7 @@
 
 <p></p>
 
-This is a localization project of CMake Documentation. Translations are contributed via the Crowdin platform and automatically synchronized with the GitHub repository.
+The goal of this project is to translate the CMake documentation into multiple languages. Translations are contributed via the Crowdin platform and automatically synchronized with the GitHub repository. Translations can be previewed on GitHub Pages.
 
 <div align="center">
 <table>
