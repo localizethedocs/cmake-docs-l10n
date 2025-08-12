@@ -65,7 +65,7 @@
 
 <p></p>
 
-這是一個 CMake 文件的在地化專案。 翻譯內容透過 Crowdin 平台貢獻，並自動與 GitHub 儲存庫同步。
+The goal of this project is to translate the CMake documentation into multiple languages. 翻譯內容透過 Crowdin 平台貢獻，並自動與 GitHub 儲存庫同步。 Translations can be previewed on GitHub Pages.
 
 <div align="center">
 <table>
