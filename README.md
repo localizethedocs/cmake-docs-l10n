@@ -302,7 +302,7 @@ The goal of this project is to translate the CMake documentation into multiple l
 </div>
 
 <div align="center">
-<a href="https://localizethedocs.crowdin.com/cmake-docs-l10n"><img src="https://badges.awesome-crowdin.com/translation-200032568-1.png"></a>
+<a href="https://badges.awesome-crowdin.com/translation-200032568-1.png"><img src="https://badges.awesome-crowdin.com/translation-200032568-1.png"></a>
 </div>
 
 <h2 id="preview-translations"><a href="#table-of-contents">Preview Translations</a></h2>
