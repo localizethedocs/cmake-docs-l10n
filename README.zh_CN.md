@@ -426,7 +426,7 @@ You can sponsor the maintainers directly through the following platforms:
 <h2 id="financial-contributors"><a href="#table-of-contents">财务贡献者</a></h2>
 
 <div align="center">
-<h3 id="sponsors-to-haowei-hsu">Haowei Hsu 的赞助者</h3>
+<h3 id="sponsors-to-haowei-hsu">Sponsors to Haowei Hsu</h3>
 </div>
 
 <div align="center">

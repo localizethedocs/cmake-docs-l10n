@@ -155,7 +155,7 @@
         <div><a href="https://github.com/localizethedocs/cmake-docs-l10n/actions/workflows/ci-gettext-compendium.yml"><img alt="ci-gettext-compendium" src="https://github.com/localizethedocs/cmake-docs-l10n/actions/workflows/ci-gettext-compendium.yml/badge.svg" /></a></div>
       </td>
       <td rowspan="1" colspan="1" align="left" style="text-align: left;">
-        <div>Update <code>.po</code> files from the compendium by Gettext toolkit.</div>
+        <div>透過 Gettext 工具組從編目更新 <code>.po</code> 檔案。</div>
       </td>
     </tr>
     <tr>
@@ -163,7 +163,7 @@
         <div><a href="https://github.com/localizethedocs/cmake-docs-l10n/actions/workflows/ci-gettext-statistics.yml"><img alt="ci-gettext-statistics" src="https://github.com/localizethedocs/cmake-docs-l10n/actions/workflows/ci-gettext-statistics.yml/badge.svg" /></a></div>
       </td>
       <td rowspan="1" colspan="1" align="left" style="text-align: left;">
-        <div>Update statistics information of <code>.po</code> files by Gettext toolkit.</div>
+        <div>透過 Gettext 工具組更新 <code>.po</code> 檔案的統計資訊。</div>
       </td>
     </tr>
     <tr>
@@ -171,7 +171,7 @@
         <div><a href="https://github.com/localizethedocs/cmake-docs-l10n/actions/workflows/ci-crowdin-upload-pot.yml"><img alt="ci-crowdin-upload-pot" src="https://github.com/localizethedocs/cmake-docs-l10n/actions/workflows/ci-crowdin-upload-pot.yml/badge.svg" /></a></div>
       </td>
       <td rowspan="1" colspan="1" align="left" style="text-align: left;">
-        <div>Upload <code>.pot</code> files to Crowdin by its CLI tool.</div>
+        <div>透過 Crowdin 的 CLI 工具上傳 <code>.pot</code> 檔案到 Crowdin。</div>
       </td>
     </tr>
     <tr>
@@ -179,7 +179,7 @@
         <div><a href="https://github.com/localizethedocs/cmake-docs-l10n/actions/workflows/ci-crowdin-download-po.yml"><img alt="ci-crowdin-download-po" src="https://github.com/localizethedocs/cmake-docs-l10n/actions/workflows/ci-crowdin-download-po.yml/badge.svg" /></a></div>
       </td>
       <td rowspan="1" colspan="1" align="left" style="text-align: left;">
-        <div>Download <code>.po</code> files from Crowdin by its CLI tool.</div>
+        <div>透過 Crowdin 的 CLI 工具從 Crowdin 下載 <code>.po</code> 檔案。</div>
       </td>
     </tr>
     <tr>
@@ -187,15 +187,15 @@
         <div><a href="https://github.com/localizethedocs/cmake-docs-l10n/actions/workflows/ci-crowdin-update-docs.yml"><img alt="ci-crowdin-update-docs" src="https://github.com/localizethedocs/cmake-docs-l10n/actions/workflows/ci-crowdin-update-docs.yml/badge.svg" /></a></div>
       </td>
       <td rowspan="1" colspan="1" align="left" style="text-align: left;">
-        <div>Update <code>docs</code> translations by Crowdin CLI tool.</div>
+        <div>透過 Crowdin CLI 工具更新 <code>docs</code> 翻譯。</div>
       </td>
     </tr>
     <tr>
       <td rowspan="1" colspan="1" align="right" style="text-align: right;">
-        <div><a href="https://github.com/localizethedocs/cmake-docs-l10n/actions/workflows/ci-deploy-pages.yml"><img alt="ci-deploy-pages" src="https://github.com/localizethedocs/cmake-docs-l10n/actions/workflows/ci-deploy-pages.yml/badge.svg" /></a></div>
+        <div></div>
       </td>
       <td rowspan="1" colspan="1" align="left" style="text-align: left;">
-        <div>Download and deploy build artifacts to <code>pages</code> branch.</div>
+        <div>下載並將建置製品部暑至 <code>pages</code> 分支。</div>
       </td>
     </tr>
     <tr>
@@ -211,7 +211,7 @@
         <div><a href="https://github.com/localizethedocs/cmake-docs-l10n/actions/workflows/ci-update-license-year.yml"><img alt="ci-update-license-year" src="https://github.com/localizethedocs/cmake-docs-l10n/actions/workflows/ci-update-license-year.yml/badge.svg" /></a></div>
       </td>
       <td rowspan="1" colspan="1" align="left" style="text-align: left;">
-        <div>Update the copyright year in LICENSE to the current year.</div>
+        <div>將 LICENSE 中的著作權年份更新為當前年份。</div>
       </td>
     </tr>
     <tr>
@@ -219,7 +219,7 @@
         <div><a href="https://github.com/localizethedocs/cmake-docs-l10n/actions/workflows/ci-update-submodule.yml"><img alt="ci-update-submodule" src="https://github.com/localizethedocs/cmake-docs-l10n/actions/workflows/ci-update-submodule.yml/badge.svg" /></a></div>
       </td>
       <td rowspan="1" colspan="1" align="left" style="text-align: left;">
-        <div>Update each of the submodules to their latest commit.</div>
+        <div>將每個子模組更新到其最新送交。</div>
       </td>
     </tr>
   </tbody>
@@ -364,7 +364,7 @@
   </thead>
   <tbody>
     <tr>
-      <td rowspan="1" colspan="1" align="center" style="text-align: center;"><div>Haowei Hsu</div></td>
+      <td rowspan="1" colspan="1" align="center" style="text-align: center;"><div>徐浩瑋</div></td>
       <td rowspan="1" colspan="1" align="center" style="text-align: center;"><div>@hwhsu1231</div></td>
     </tr>
   </tbody>
@@ -373,17 +373,17 @@
 
 <h2 id="support-this-project"><a href="#table-of-contents">支援該專案</a></h2>
 
-You can contribute and support this project by doing any of the following:
+您可以透過以下任意方式來貢獻並支援該專案：
 
 <ul>
-  <li>Star the project on GitHub or other mirrors.</li>
-  <li>Submit issues on <a href="https://github.com/localizethedocs/cmake-docs-l10n/issues">GitHub</a> if you found any bug.</li>
-  <li>Submit pull requests on <a href="https://github.com/localizethedocs/cmake-docs-l10n/pulls">GitHub</a> if you know how to fix the bug.</li>
-  <li>Contribute your translations on <a href="https://localizethedocs.crowdin.com/cmake-docs-l10n">Crowdin</a>.</li>
-  <li>If you love this kind of l10n projects, please consider <a href="#sponsorship">sponsorship</a>.</li>
+  <li>在 GitHub 或其他鏡像上為該專案加星標。</li>
+  <li>若您發現任何臭蟲，請在 <a href="https://github.com/localizethedocs/cmake-docs-l10n/issues">GitHub</a> 上提交議題。</li>
+  <li>若您知道如何修復該臭蟲，請在 <a href="https://github.com/localizethedocs/cmake-docs-l10n/pulls">GitHub</a> 上提交拉取請求。</li>
+  <li>在 <a href="https://localizethedocs.crowdin.com/cmake-docs-l10n">Crowdin</a> 上貢獻您的翻譯。</li>
+  <li>若您喜歡這種 l10n 專案，請考慮<a href="#sponsorship">贊助</a>。</li>
 </ul>
 
-It will facilitate the creation and ongoing maintenance of l10n projects for open-source documentation.
+這將有助於開源文件在地化專案的建立與持續維護。
 
 <h2 id="sponsorship"><a href="#table-of-contents">贊助</a></h2>
 
@@ -426,7 +426,7 @@ It will facilitate the creation and ongoing maintenance of l10n projects for ope
 <h2 id="financial-contributors"><a href="#table-of-contents">財務貢獻者</a></h2>
 
 <div align="center">
-<h3 id="sponsors-to-haowei-hsu">Haowei Hsu 的贊助者</h3>
+<h3 id="sponsors-to-haowei-hsu">徐浩瑋的贊助者</h3>
 </div>
 
 <div align="center">
