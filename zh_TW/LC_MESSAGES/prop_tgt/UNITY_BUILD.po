@@ -1,0 +1,171 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2000-2025 Kitware, Inc. and Contributors
+# This file is distributed under the same license as the CMake package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CMake master\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-07-14 08:20+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../prop_tgt/UNITY_BUILD.rst:2
+msgid "UNITY_BUILD"
+msgstr ""
+
+#: ../../../prop_tgt/UNITY_BUILD.rst:6
+msgid ""
+"When this property is set to true, the target source files will be combined "
+"into batches for faster compilation.  This is done by creating a (set of) "
+"unity sources which ``#include`` the original sources, then compiling these "
+"unity sources instead of the originals.  This is known as a *Unity* or "
+"*Jumbo* build."
+msgstr ""
+
+#: ../../../prop_tgt/UNITY_BUILD.rst:12
+msgid ""
+"CMake provides different algorithms for selecting which sources are grouped "
+"together into a *bucket*. Algorithm selection is decided by the :prop_tgt:"
+"`UNITY_BUILD_MODE` target property, which has the following acceptable "
+"values:"
+msgstr ""
+
+#: ../../../prop_tgt/UNITY_BUILD.rst:17
+msgid ""
+"``BATCH`` When in this mode CMake determines which files are grouped "
+"together. The :prop_tgt:`UNITY_BUILD_BATCH_SIZE` property controls the upper "
+"limit on how many sources can be combined per unity source file."
+msgstr ""
+
+#: ../../../prop_tgt/UNITY_BUILD.rst:22
+msgid ""
+"``GROUP`` When in this mode each target explicitly specifies how to group "
+"source files. Each source file that has the same :prop_sf:`UNITY_GROUP` "
+"value will be grouped together. Any sources that don't have this property "
+"will be compiled individually. The :prop_tgt:`UNITY_BUILD_BATCH_SIZE` "
+"property is ignored when using this mode."
+msgstr ""
+
+#: ../../../prop_tgt/UNITY_BUILD.rst:30
+msgid ""
+"If no explicit :prop_tgt:`UNITY_BUILD_MODE` has been specified, CMake will "
+"default to ``BATCH``."
+msgstr ""
+
+#: ../../../prop_tgt/UNITY_BUILD.rst:33
+msgid "Unity builds are supported for the following languages:"
+msgstr ""
+
+#: ../../../prop_tgt/UNITY_BUILD.rst:35
+msgid "``C``"
+msgstr ""
+
+#: ../../../prop_tgt/UNITY_BUILD.rst:38
+msgid "``CXX``"
+msgstr ""
+
+#: ../../../prop_tgt/UNITY_BUILD.rst:41
+msgid "``CUDA``"
+msgstr ""
+
+#: ../../../prop_tgt/UNITY_BUILD.rst:44
+msgid "``OBJC``"
+msgstr ""
+
+#: ../../../prop_tgt/UNITY_BUILD.rst:47
+msgid "``OBJCXX``"
+msgstr ""
+
+#: ../../../prop_tgt/UNITY_BUILD.rst:50
+msgid ""
+"For targets that mix source files from more than one language, CMake "
+"separates the languages such that each generated unity source file only "
+"contains sources for a single language."
+msgstr ""
+
+#: ../../../prop_tgt/UNITY_BUILD.rst:54
+msgid ""
+"This property is initialized by the value of the :variable:"
+"`CMAKE_UNITY_BUILD` variable when a target is created."
+msgstr ""
+
+#: ../../../prop_tgt/UNITY_BUILD.rst:59
+msgid ""
+"Projects should not directly set the ``UNITY_BUILD`` property or its "
+"associated :variable:`CMAKE_UNITY_BUILD` variable to true.  Depending on the "
+"capabilities of the build machine and compiler used, it might or might not "
+"be appropriate to enable unity builds.  Therefore, this feature should be "
+"under developer control, which would normally be through the developer "
+"choosing whether or not to set the :variable:`CMAKE_UNITY_BUILD` variable on "
+"the :manual:`cmake(1)` command line or some other equivalent method.  "
+"However, it IS recommended to set the ``UNITY_BUILD`` target property to "
+"false if it is known that enabling unity builds for the target can lead to "
+"problems."
+msgstr ""
+
+#: ../../../prop_tgt/UNITY_BUILD.rst:71
+msgid "ODR (One definition rule) errors"
+msgstr ""
+
+#: ../../../prop_tgt/UNITY_BUILD.rst:73
+msgid ""
+"When multiple source files are included into one source file, as is done for "
+"unity builds, it can potentially lead to ODR errors.  CMake provides a "
+"number of measures to help address such problems:"
+msgstr ""
+
+#: ../../../prop_tgt/UNITY_BUILD.rst:77
+msgid ""
+"Any source file that has a non-empty :prop_sf:`COMPILE_OPTIONS`, :prop_sf:"
+"`COMPILE_DEFINITIONS`, :prop_sf:`COMPILE_FLAGS`, or :prop_sf:"
+"`INCLUDE_DIRECTORIES` source property will not be combined into a unity "
+"source."
+msgstr ""
+
+#: ../../../prop_tgt/UNITY_BUILD.rst:82
+msgid ""
+"Any source file which is scanned for C++ module sources via :prop_tgt:"
+"`CXX_SCAN_FOR_MODULES`, :prop_sf:`CXX_SCAN_FOR_MODULES`, or membership of a "
+"``CXX_MODULES`` file set will not be combined into a unity source.  See :"
+"manual:`cmake-cxxmodules(7)` for details."
+msgstr ""
+
+#: ../../../prop_tgt/UNITY_BUILD.rst:87
+msgid ""
+"Projects can prevent an individual source file from being combined into a "
+"unity source by setting its :prop_sf:`SKIP_UNITY_BUILD_INCLUSION` source "
+"property to true.  This can be a more effective way to prevent problems with "
+"specific files than disabling unity builds for an entire target."
+msgstr ""
+
+#: ../../../prop_tgt/UNITY_BUILD.rst:93
+msgid ""
+"Projects can set :prop_tgt:`UNITY_BUILD_UNIQUE_ID` to cause a valid C-"
+"identifier to be generated which is unique per file in a unity build.  This "
+"can be used to avoid problems with anonymous namespaces in unity builds."
+msgstr ""
+
+#: ../../../prop_tgt/UNITY_BUILD.rst:98
+msgid ""
+"The :prop_tgt:`UNITY_BUILD_CODE_BEFORE_INCLUDE` and :prop_tgt:"
+"`UNITY_BUILD_CODE_AFTER_INCLUDE` target properties can be used to inject "
+"code into the unity source files before and after every ``#include`` "
+"statement."
+msgstr ""
+
+#: ../../../prop_tgt/UNITY_BUILD.rst:103
+msgid ""
+"The order of source files added to the target via commands like :command:"
+"`add_library`, :command:`add_executable` or :command:`target_sources` will "
+"be preserved in the generated unity source files.  This can be used to "
+"manually enforce a specific grouping based on the :prop_tgt:"
+"`UNITY_BUILD_BATCH_SIZE` target property."
+msgstr ""

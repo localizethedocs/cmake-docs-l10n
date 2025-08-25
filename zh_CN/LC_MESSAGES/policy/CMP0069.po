@@ -1,0 +1,147 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2000-2025 Kitware, Inc. and Contributors
+# This file is distributed under the same license as the CMake package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CMake master\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-07-14 08:20+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../policy/CMP0069.rst:2
+msgid "CMP0069"
+msgstr ""
+
+#: ../../../policy/CMP0069.rst:6
+msgid ":prop_tgt:`INTERPROCEDURAL_OPTIMIZATION` is enforced when enabled."
+msgstr ""
+
+#: ../../../policy/CMP0069.rst:8
+msgid ""
+"CMake 3.9 and newer prefer to add IPO flags whenever the :prop_tgt:"
+"`INTERPROCEDURAL_OPTIMIZATION` target property is enabled and produce an "
+"error if flags are not known to CMake for the current compiler. Since a "
+"given compiler may not support IPO flags in all environments in which it is "
+"used, it is now the project's responsibility to use the :module:"
+"`CheckIPOSupported` module to check for support before enabling the :"
+"prop_tgt:`INTERPROCEDURAL_OPTIMIZATION` target property.  This approach "
+"allows a project to conditionally activate IPO when supported.  It also "
+"allows an end user to set the :variable:`CMAKE_INTERPROCEDURAL_OPTIMIZATION` "
+"variable in an environment known to support IPO even if the project does not "
+"enable the property."
+msgstr ""
+
+#: ../../../policy/CMP0069.rst:20
+msgid ""
+"Since CMake 3.8 and lower only honored :prop_tgt:"
+"`INTERPROCEDURAL_OPTIMIZATION` for the Intel compiler on Linux, some "
+"projects may unconditionally enable the target property.  Policy ``CMP0069`` "
+"provides compatibility with such projects."
+msgstr ""
+
+#: ../../../policy/CMP0069.rst:24
+msgid ""
+"This policy takes effect whenever the IPO property is enabled.  The ``OLD`` "
+"behavior for this policy is to add IPO flags only for Intel compiler on "
+"Linux. The ``NEW`` behavior for this policy is to add IPO flags for the "
+"current compiler or produce an error if CMake does not know the flags."
+msgstr ""
+
+#: ../../../policy/include/STANDARD_ADVICE.rst:1
+msgid ""
+"This policy was introduced in CMake version |INTRODUCED_IN_CMAKE_VERSION|. "
+"It may be set by :command:`cmake_policy` or :command:"
+"`cmake_minimum_required`. If it is not set, CMake |WARNS_OR_DOES_NOT_WARN|, "
+"and uses ``OLD`` behavior."
+msgstr ""
+
+#: ../../../policy/include/DEPRECATED.rst:2
+msgid ""
+"The ``OLD`` behavior of a policy is :manual:`deprecated by definition <cmake-"
+"policies(7)>` and may be removed in a future version of CMake."
+msgstr ""
+
+#: ../../../policy/CMP0069.rst:36
+msgid "Examples"
+msgstr ""
+
+#: ../../../policy/CMP0069.rst:38
+msgid ""
+"Behave like CMake 3.8 and do not apply any IPO flags except for Intel "
+"compiler on Linux:"
+msgstr ""
+
+#: ../../../policy/CMP0069.rst:41
+msgid ""
+"cmake_minimum_required(VERSION 3.8)\n"
+"project(foo)\n"
+"\n"
+"# ...\n"
+"\n"
+"set_property(TARGET ... PROPERTY INTERPROCEDURAL_OPTIMIZATION TRUE)"
+msgstr ""
+
+#: ../../../policy/CMP0069.rst:50
+msgid ""
+"Use the :module:`CheckIPOSupported` module to detect whether IPO is "
+"supported by the current compiler, environment, and CMake version. Produce a "
+"fatal error if support is not available:"
+msgstr ""
+
+#: ../../../policy/CMP0069.rst:54
+msgid ""
+"cmake_minimum_required(VERSION 3.9) # CMP0069 NEW\n"
+"project(foo)\n"
+"\n"
+"include(CheckIPOSupported)\n"
+"check_ipo_supported()\n"
+"\n"
+"# ...\n"
+"\n"
+"set_property(TARGET ... PROPERTY INTERPROCEDURAL_OPTIMIZATION TRUE)"
+msgstr ""
+
+#: ../../../policy/CMP0069.rst:66
+msgid "Apply IPO flags only if compiler supports it:"
+msgstr ""
+
+#: ../../../policy/CMP0069.rst:68
+msgid ""
+"cmake_minimum_required(VERSION 3.9) # CMP0069 NEW\n"
+"project(foo)\n"
+"\n"
+"include(CheckIPOSupported)\n"
+"\n"
+"# ...\n"
+"\n"
+"check_ipo_supported(RESULT result)\n"
+"if(result)\n"
+"  set_property(TARGET ... PROPERTY INTERPROCEDURAL_OPTIMIZATION TRUE)\n"
+"endif()"
+msgstr ""
+
+#: ../../../policy/CMP0069.rst:82
+msgid ""
+"Apply IPO flags without any checks.  This may lead to build errors if IPO is "
+"not supported by the compiler in the current environment.  Produce an error "
+"if CMake does not know IPO flags for the current compiler:"
+msgstr ""
+
+#: ../../../policy/CMP0069.rst:86
+msgid ""
+"cmake_minimum_required(VERSION 3.9) # CMP0069 NEW\n"
+"project(foo)\n"
+"\n"
+"# ...\n"
+"\n"
+"set_property(TARGET ... PROPERTY INTERPROCEDURAL_OPTIMIZATION TRUE)"
+msgstr ""

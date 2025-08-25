@@ -1,0 +1,206 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2000-2025 Kitware, Inc. and Contributors
+# This file is distributed under the same license as the CMake package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CMake master\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-07-14 08:20+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../command/foreach.rst:2
+msgid "foreach"
+msgstr ""
+
+#: ../../../command/foreach.rst:4
+msgid "Evaluate a group of commands for each value in a list."
+msgstr ""
+
+#: ../../../command/foreach.rst:6
+msgid ""
+"foreach(<loop_var> <items>)\n"
+"  <commands>\n"
+"endforeach()"
+msgstr ""
+
+#: ../../../command/foreach.rst:12
+msgid ""
+"where ``<items>`` is a list of items that are separated by semicolon or "
+"whitespace. All commands between ``foreach`` and the matching ``endforeach`` "
+"are recorded without being invoked.  Once the ``endforeach`` is evaluated, "
+"the recorded list of commands is invoked once for each item in ``<items>``. "
+"At the beginning of each iteration the variable ``<loop_var>`` will be set "
+"to the value of the current item."
+msgstr ""
+
+#: ../../../command/foreach.rst:20
+msgid ""
+"The scope of ``<loop_var>`` is restricted to the loop scope. See policy :"
+"policy:`CMP0124` for details."
+msgstr ""
+
+#: ../../../command/foreach.rst:23
+msgid ""
+"The commands :command:`break` and :command:`continue` provide means to "
+"escape from the normal control flow."
+msgstr ""
+
+#: ../../../command/foreach.rst:26
+msgid ""
+"Per legacy, the :command:`endforeach` command admits an optional "
+"``<loop_var>`` argument. If used, it must be a verbatim repeat of the "
+"argument of the opening ``foreach`` command."
+msgstr ""
+
+#: ../../../command/foreach.rst:32
+msgid "foreach(<loop_var> RANGE <stop>)"
+msgstr ""
+
+#: ../../../command/foreach.rst:36
+msgid ""
+"In this variant, ``foreach`` iterates over the numbers 0, 1, ... up to (and "
+"including) the nonnegative integer ``<stop>``."
+msgstr ""
+
+#: ../../../command/foreach.rst:39
+msgid "foreach(<loop_var> RANGE <start> <stop> [<step>])"
+msgstr ""
+
+#: ../../../command/foreach.rst:43
+msgid ""
+"In this variant, ``foreach`` iterates over the numbers from ``<start>`` up "
+"to at most ``<stop>`` in steps of ``<step>``. If ``<step>`` is not "
+"specified, then the step size is 1. The three arguments ``<start>`` "
+"``<stop>`` ``<step>`` must all be nonnegative integers, and ``<stop>`` must "
+"not be smaller than ``<start>``; otherwise you enter the danger zone of "
+"undocumented behavior that may change in future releases."
+msgstr ""
+
+#: ../../../command/foreach.rst:51
+msgid "foreach(<loop_var> IN [LISTS [<lists>]] [ITEMS [<items>]])"
+msgstr ""
+
+#: ../../../command/foreach.rst:55
+msgid ""
+"In this variant, ``<lists>`` is a whitespace or semicolon separated list of "
+"list-valued variables. The ``foreach`` command iterates over each item in "
+"each given list. The ``<items>`` following the ``ITEMS`` keyword are "
+"processed as in the first variant of the ``foreach`` command. The forms "
+"``LISTS A`` and ``ITEMS ${A}`` are equivalent."
+msgstr ""
+
+#: ../../../command/foreach.rst:63
+msgid "The following example shows how the ``LISTS`` option is processed:"
+msgstr ""
+
+#: ../../../command/foreach.rst:66
+msgid ""
+"set(A 0;1)\n"
+"set(B 2 3)\n"
+"set(C \"4 5\")\n"
+"set(D 6;7 8)\n"
+"set(E \"\")\n"
+"foreach(X IN LISTS A B C D E)\n"
+"    message(STATUS \"X=${X}\")\n"
+"endforeach()"
+msgstr ""
+
+#: ../../../command/foreach.rst:77 ../../../command/foreach.rst:123
+msgid "yields::"
+msgstr ""
+
+#: ../../../command/foreach.rst:79
+msgid ""
+"-- X=0\n"
+"-- X=1\n"
+"-- X=2\n"
+"-- X=3\n"
+"-- X=4 5\n"
+"-- X=6\n"
+"-- X=7\n"
+"-- X=8"
+msgstr ""
+
+#: ../../../command/foreach.rst:89
+msgid "foreach(<loop_var>... IN ZIP_LISTS <lists>)"
+msgstr ""
+
+#: ../../../command/foreach.rst:95
+msgid ""
+"In this variant, ``<lists>`` is a whitespace or semicolon separated list of "
+"list-valued variables. The ``foreach`` command iterates over each list "
+"simultaneously setting the iteration variables as follows:"
+msgstr ""
+
+#: ../../../command/foreach.rst:100
+msgid ""
+"if the only ``loop_var`` given, then it sets a series of ``loop_var_N`` "
+"variables to the current item from the corresponding list;"
+msgstr ""
+
+#: ../../../command/foreach.rst:103
+msgid ""
+"if multiple variable names passed, their count should match the lists "
+"variables count;"
+msgstr ""
+
+#: ../../../command/foreach.rst:105
+msgid ""
+"if any of the lists are shorter, the corresponding iteration variable is not "
+"defined for the current iteration."
+msgstr ""
+
+#: ../../../command/foreach.rst:110
+msgid ""
+"list(APPEND English one two three four)\n"
+"list(APPEND Bahasa satu dua tiga)\n"
+"\n"
+"foreach(num IN ZIP_LISTS English Bahasa)\n"
+"    message(STATUS \"num_0=${num_0}, num_1=${num_1}\")\n"
+"endforeach()\n"
+"\n"
+"foreach(en ba IN ZIP_LISTS English Bahasa)\n"
+"    message(STATUS \"en=${en}, ba=${ba}\")\n"
+"endforeach()"
+msgstr ""
+
+#: ../../../command/foreach.rst:125
+msgid ""
+"-- num_0=one, num_1=satu\n"
+"-- num_0=two, num_1=dua\n"
+"-- num_0=three, num_1=tiga\n"
+"-- num_0=four, num_1=\n"
+"-- en=one, ba=satu\n"
+"-- en=two, ba=dua\n"
+"-- en=three, ba=tiga\n"
+"-- en=four, ba="
+msgstr ""
+
+#: ../../../command/foreach.rst:137
+msgid "See Also"
+msgstr "另請參見"
+
+#: ../../../command/foreach.rst:139
+msgid ":command:`break`"
+msgstr ""
+
+#: ../../../command/foreach.rst:140
+msgid ":command:`continue`"
+msgstr ""
+
+#: ../../../command/foreach.rst:141
+msgid ":command:`endforeach`"
+msgstr ""
+
+#: ../../../command/foreach.rst:142
+msgid ":command:`while`"
+msgstr ""

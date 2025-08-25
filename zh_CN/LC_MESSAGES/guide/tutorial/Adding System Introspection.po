@@ -1,0 +1,271 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2000-2025 Kitware, Inc. and Contributors
+# This file is distributed under the same license as the CMake package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CMake master\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-07-14 08:20+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../guide/tutorial/Adding System Introspection.rst:2
+msgid "Step 7: Adding System Introspection"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding System Introspection.rst:4
+msgid ""
+"Let us consider adding some code to our project that depends on features the "
+"target platform may not have. For this example, we will add some code that "
+"depends on whether or not the target platform has the ``log`` and ``exp`` "
+"functions. Of course almost every platform has these functions but for this "
+"tutorial assume that they are not common."
+msgstr ""
+
+#: ../../../guide/tutorial/Adding System Introspection.rst:11
+msgid "Exercise 1 - Assessing Dependency Availability"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding System Introspection.rst:14
+msgid "Goal"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding System Introspection.rst:16
+msgid "Change implementation based on available system dependencies."
+msgstr ""
+
+#: ../../../guide/tutorial/Adding System Introspection.rst:19
+msgid "Helpful Resources"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding System Introspection.rst:21
+msgid ":module:`CheckCXXSourceCompiles`"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding System Introspection.rst:22
+msgid ":command:`target_compile_definitions`"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding System Introspection.rst:25
+msgid "Files to Edit"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding System Introspection.rst:27
+msgid "``MathFunctions/CMakeLists.txt``"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding System Introspection.rst:28
+msgid "``MathFunctions/mysqrt.cxx``"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding System Introspection.rst:31
+msgid "Getting Started"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding System Introspection.rst:33
+msgid ""
+"The starting source code is provided in the ``Step7`` directory. In this "
+"exercise, complete ``TODO 1`` through ``TODO 5``."
+msgstr ""
+
+#: ../../../guide/tutorial/Adding System Introspection.rst:36
+msgid ""
+"Start by editing ``MathFunctions/CMakeLists.txt``. Include the :module:"
+"`CheckCXXSourceCompiles` module. Then, use ``check_cxx_source_compiles()`` "
+"to determine whether ``log`` and ``exp`` are available from ``cmath``. If "
+"they are available, use :command:`target_compile_definitions` to specify "
+"``HAVE_LOG`` and ``HAVE_EXP`` as compile definitions."
+msgstr ""
+
+#: ../../../guide/tutorial/Adding System Introspection.rst:43
+msgid ""
+"In the ``MathFunctions/mysqrt.cxx``, include ``cmath``. Then, if the system "
+"has ``log`` and ``exp``, use them to compute the square root."
+msgstr ""
+
+#: ../../../guide/tutorial/Adding System Introspection.rst:47
+msgid "Build and Run"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding System Introspection.rst:49
+msgid ""
+"Make a new directory called ``Step7_build``. Run the :manual:`cmake  "
+"<cmake(1)>` executable or the :manual:`cmake-gui <cmake-gui(1)>` to "
+"configure the project and then build it with your chosen build tool and run "
+"the ``Tutorial`` executable."
+msgstr ""
+
+#: ../../../guide/tutorial/Adding System Introspection.rst:54
+msgid "This can look like the following:"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding System Introspection.rst:56
+msgid ""
+"mkdir Step7_build\n"
+"cd Step7_build\n"
+"cmake ../Step7\n"
+"cmake --build ."
+msgstr ""
+
+#: ../../../guide/tutorial/Adding System Introspection.rst:63
+msgid "Which function gives better results now, ``sqrt`` or ``mysqrt``?"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding System Introspection.rst:66
+msgid "Solution"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding System Introspection.rst:68
+msgid ""
+"In this exercise we will use functions from the :module:"
+"`CheckCXXSourceCompiles` module so first we must include it in "
+"``MathFunctions/CMakeLists.txt``."
+msgstr ""
+
+#: ../../../guide/tutorial/Adding System Introspection.rst:72
+msgid "<details><summary>TODO 1: Click to show/hide answer</summary>"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding System Introspection.rst:76
+msgid "TODO 1: MathFunctions/CMakeLists.txt"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding System Introspection.rst:76
+msgid "  include(CheckCXXSourceCompiles)\n"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding System Introspection.rst:83
+#: Introspection.rst:104 Introspection.rst:124 Introspection.rst:142
+#: Introspection.rst:161
+msgid "</details>"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding System Introspection.rst:87
+msgid ""
+"Then test for the availability of ``log`` and ``exp`` using "
+"``check_cxx_compiles_source``. This function lets us try compiling simple "
+"code with the required dependency prior to the true source code compilation. "
+"The resulting variables ``HAVE_LOG`` and ``HAVE_EXP`` represent whether "
+"those dependencies are available."
+msgstr ""
+
+#: ../../../guide/tutorial/Adding System Introspection.rst:93
+msgid "<details><summary>TODO 2: Click to show/hide answer</summary>"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding System Introspection.rst:97
+msgid "TODO 2: MathFunctions/CMakeLists.txt"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding System Introspection.rst:97
+msgid ""
+"  check_cxx_source_compiles(\"\n"
+"    #include <cmath>\n"
+"    int main() {\n"
+"      std::log(1.0);\n"
+"      return 0;\n"
+"    }\n"
+"  \" HAVE_LOG)\n"
+"  check_cxx_source_compiles(\"\n"
+"    #include <cmath>\n"
+"    int main() {\n"
+"      std::exp(1.0);\n"
+"      return 0;\n"
+"    }\n"
+"  \" HAVE_EXP)\n"
+"\n"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding System Introspection.rst:108
+msgid ""
+"Next, we need to pass these CMake variables to our source code. This way, "
+"our source code can tell what resources are available. If both ``log`` and "
+"``exp`` are available, use :command:`target_compile_definitions` to specify "
+"``HAVE_LOG`` and ``HAVE_EXP`` as ``PRIVATE`` compile definitions."
+msgstr ""
+
+#: ../../../guide/tutorial/Adding System Introspection.rst:113
+msgid "<details><summary>TODO 3: Click to show/hide answer</summary>"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding System Introspection.rst:117
+msgid "TODO 3: MathFunctions/CMakeLists.txt"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding System Introspection.rst:117
+msgid ""
+"  if(HAVE_LOG AND HAVE_EXP)\n"
+"    target_compile_definitions(SqrtLibrary\n"
+"                               PRIVATE \"HAVE_LOG\" \"HAVE_EXP\"\n"
+"                               )\n"
+"  endif()\n"
+"\n"
+"  target_link_libraries(MathFunctions PRIVATE SqrtLibrary)\n"
+"endif()\n"
+"\n"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding System Introspection.rst:128
+msgid ""
+"Since we may be using ``log`` and ``exp``, we need to modify ``mysqrt.cxx`` "
+"to include ``cmath``."
+msgstr ""
+
+#: ../../../guide/tutorial/Adding System Introspection.rst:131
+msgid "<details><summary>TODO 4: Click to show/hide answer</summary>"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding System Introspection.rst:135
+msgid "TODO 4: MathFunctions/mysqrt.cxx"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding System Introspection.rst:135
+msgid ""
+"\n"
+"#include <cmath>\n"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding System Introspection.rst:146
+msgid ""
+"If ``log`` and ``exp`` are available on the system, then use them to compute "
+"the square root in the ``mysqrt`` function. The ``mysqrt`` function in "
+"``MathFunctions/mysqrt.cxx`` will look as follows:"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding System Introspection.rst:150
+msgid "<details><summary>TODO 5: Click to show/hide answer</summary>"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding System Introspection.rst:154
+msgid "TODO 5: MathFunctions/mysqrt.cxx"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding System Introspection.rst:154
+msgid ""
+"#if defined(HAVE_LOG) && defined(HAVE_EXP)\n"
+"  double result = std::exp(std::log(x) * 0.5);\n"
+"  std::cout << \"Computing sqrt of \" << x << \" to be \" << result\n"
+"            << \" using log and exp\" << std::endl;\n"
+"#else\n"
+"  double result = x;\n"
+"\n"
+"  // do ten iterations\n"
+"  for (int i = 0; i < 10; ++i) {\n"
+"    if (result <= 0) {\n"
+"      result = 0.1;\n"
+"    }\n"
+"    double delta = x - (result * result);\n"
+"    result = result + 0.5 * delta / result;\n"
+"    std::cout << \"Computing sqrt of \" << x << \" to be \" << result << "
+"std::endl;\n"
+"  }\n"
+"#endif\n"
+msgstr ""

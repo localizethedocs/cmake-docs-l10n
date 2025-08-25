@@ -1,0 +1,120 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2000-2025 Kitware, Inc. and Contributors
+# This file is distributed under the same license as the CMake package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CMake master\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-07-14 08:20+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../policy/CMP0077.rst:2
+msgid "CMP0077"
+msgstr ""
+
+#: ../../../policy/CMP0077.rst:6
+msgid ":command:`option` honors normal variables."
+msgstr ""
+
+#: ../../../policy/CMP0077.rst:8
+msgid ""
+"The :command:`option` command is typically used to create a cache entry to "
+"allow users to set the option.  However, there are cases in which a normal "
+"(non-cached) variable of the same name as the option may be defined by the "
+"project prior to calling the :command:`option` command. For example, a "
+"project that embeds another project as a subdirectory may want to hard-code "
+"options of the subproject to build the way it needs."
+msgstr ""
+
+#: ../../../policy/CMP0077.rst:15
+msgid ""
+"For historical reasons in CMake 3.12 and below the :command:`option` command "
+"*removes* a normal (non-cached) variable of the same name when:"
+msgstr ""
+
+#: ../../../policy/CMP0077.rst:18
+msgid "a cache entry of the specified name does not exist at all, or"
+msgstr ""
+
+#: ../../../policy/CMP0077.rst:19
+msgid ""
+"a cache entry of the specified name exists but has not been given a type (e."
+"g. via ``-D<name>=ON`` on the command line)."
+msgstr ""
+
+#: ../../../policy/CMP0077.rst:22
+msgid ""
+"In both of these cases (typically on the first run in a new build tree), "
+"the :command:`option` command gives the cache entry type ``BOOL`` and "
+"removes any normal (non-cached) variable of the same name.  In the remaining "
+"case that the cache entry of the specified name already exists and has a "
+"type (typically on later runs in a build tree), the :command:`option` "
+"command changes nothing and any normal variable of the same name remains set."
+msgstr ""
+
+#: ../../../policy/CMP0077.rst:30
+msgid ""
+"In CMake 3.13 and above the :command:`option` command prefers to do nothing "
+"when a normal variable of the given name already exists. It does not create "
+"or update a cache entry or remove the normal variable. The new behavior is "
+"consistent between the first and later runs in a build tree.  This policy "
+"provides compatibility with projects that have not been updated to expect "
+"the new behavior."
+msgstr ""
+
+#: ../../../policy/CMP0077.rst:37
+msgid ""
+"When the :command:`option` command sees a normal variable of the given name:"
+msgstr ""
+
+#: ../../../policy/CMP0077.rst:40
+msgid ""
+"The ``OLD`` behavior for this policy is to proceed even when a normal "
+"variable of the same name exists.  If the cache entry does not already exist "
+"and have a type then it is created and/or given a type and the normal "
+"variable is removed."
+msgstr ""
+
+#: ../../../policy/CMP0077.rst:45
+msgid ""
+"The ``NEW`` behavior for this policy is to do nothing when a normal variable "
+"of the same name exists.  The normal variable is not removed. The cache "
+"entry is not created or updated and is ignored if it exists."
+msgstr ""
+
+#: ../../../policy/CMP0077.rst:49
+msgid ""
+"See :policy:`CMP0126` for a similar policy for the :command:`set(CACHE)` "
+"command, but note that there are some differences in ``NEW`` behavior "
+"between the two policies."
+msgstr ""
+
+#: ../../../policy/include/STANDARD_ADVICE.rst:1
+msgid ""
+"This policy was introduced in CMake version |INTRODUCED_IN_CMAKE_VERSION|. "
+"It may be set by :command:`cmake_policy` or :command:"
+"`cmake_minimum_required`. If it is not set, CMake |WARNS_OR_DOES_NOT_WARN|, "
+"and uses ``OLD`` behavior."
+msgstr ""
+
+#: ../../../policy/CMP0077.rst:57
+msgid ""
+"Use the :variable:`CMAKE_POLICY_DEFAULT_CMP0077 "
+"<CMAKE_POLICY_DEFAULT_CMP\\<NNNN\\>>` variable to set the policy for a third-"
+"party project in a subdirectory without modifying it."
+msgstr ""
+
+#: ../../../policy/include/DEPRECATED.rst:2
+msgid ""
+"The ``OLD`` behavior of a policy is :manual:`deprecated by definition <cmake-"
+"policies(7)>` and may be removed in a future version of CMake."
+msgstr ""

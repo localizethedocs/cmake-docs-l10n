@@ -1,0 +1,120 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2000-2025 Kitware, Inc. and Contributors
+# This file is distributed under the same license as the CMake package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CMake master\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-07-14 08:20+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../guide/tutorial/Packaging an Installer.rst:2
+msgid "Step 9: Packaging an Installer"
+msgstr ""
+
+#: ../../../guide/tutorial/Packaging an Installer.rst:4
+msgid ""
+"Next suppose that we want to distribute our project to other people so that "
+"they can use it. We want to provide both binary and source distributions on "
+"a variety of platforms. This is a little different from the install we did "
+"previously in :guide:`tutorial/Installing and Testing`, where we were "
+"installing the binaries that we had built from the source code. In this "
+"example we will be building installation packages that support binary "
+"installations and package management features. To accomplish this we will "
+"use CPack to create platform specific installers. Specifically we need to "
+"add a few lines to the bottom of our top-level ``CMakeLists.txt`` file."
+msgstr ""
+
+#: ../../../guide/tutorial/Packaging an Installer.rst:14
+msgid "CMakeLists.txt"
+msgstr ""
+
+#: ../../../guide/tutorial/Packaging an Installer.rst:14
+msgid ""
+"include(InstallRequiredSystemLibraries)\n"
+"set(CPACK_RESOURCE_FILE_LICENSE \"${CMAKE_CURRENT_SOURCE_DIR}/License."
+"txt\")\n"
+"set(CPACK_PACKAGE_VERSION_MAJOR \"${Tutorial_VERSION_MAJOR}\")\n"
+"set(CPACK_PACKAGE_VERSION_MINOR \"${Tutorial_VERSION_MINOR}\")\n"
+"set(CPACK_GENERATOR \"TGZ\")\n"
+"set(CPACK_SOURCE_GENERATOR \"TGZ\")\n"
+"include(CPack)\n"
+msgstr ""
+
+#: ../../../guide/tutorial/Packaging an Installer.rst:20
+msgid ""
+"That is all there is to it. We start by including :module:"
+"`InstallRequiredSystemLibraries`. This module will include any runtime "
+"libraries that are needed by the project for the current platform. Next we "
+"set some CPack variables to where we have stored the license and version "
+"information for this project. The version information was set earlier in "
+"this tutorial and the ``License.txt`` has been included in the top-level "
+"source directory for this step.  The :variable:`CPACK_GENERATOR` and :"
+"variable:`CPACK_SOURCE_GENERATOR` variables select the generators used for "
+"binary and source installations, respectively."
+msgstr ""
+
+#: ../../../guide/tutorial/Packaging an Installer.rst:30
+msgid ""
+"Finally we include the :module:`CPack module <CPack>` which will use these "
+"variables and some other properties of the current system to setup an "
+"installer."
+msgstr ""
+
+#: ../../../guide/tutorial/Packaging an Installer.rst:34
+msgid ""
+"The next step is to build the project in the usual manner and then run the :"
+"manual:`cpack <cpack(1)>` executable. To build a binary distribution, from "
+"the binary directory run:"
+msgstr ""
+
+#: ../../../guide/tutorial/Packaging an Installer.rst:38
+msgid "cpack"
+msgstr ""
+
+#: ../../../guide/tutorial/Packaging an Installer.rst:42
+msgid ""
+"To specify the binary generator, use the :option:`-G <cpack -G>` option. For "
+"multi-config builds, use :option:`-C <cpack -C>` to specify the "
+"configuration. For example:"
+msgstr ""
+
+#: ../../../guide/tutorial/Packaging an Installer.rst:46
+msgid "cpack -G ZIP -C Debug"
+msgstr ""
+
+#: ../../../guide/tutorial/Packaging an Installer.rst:50
+msgid ""
+"For a list of available generators, see :manual:`cpack-generators(7)` or "
+"call :option:`cpack --help`. An :cpack_gen:`archive generator <CPack Archive "
+"Generator>` like ZIP creates a compressed archive of all *installed* files."
+msgstr ""
+
+#: ../../../guide/tutorial/Packaging an Installer.rst:54
+msgid "To create an archive of the *full* source tree you would type:"
+msgstr ""
+
+#: ../../../guide/tutorial/Packaging an Installer.rst:56
+msgid "cpack --config CPackSourceConfig.cmake"
+msgstr ""
+
+#: ../../../guide/tutorial/Packaging an Installer.rst:60
+msgid ""
+"Alternatively, run ``make package`` or right click the ``Package`` target "
+"and ``Build Project`` from an IDE."
+msgstr ""
+
+#: ../../../guide/tutorial/Packaging an Installer.rst:63
+msgid ""
+"Run the installer found in the binary directory. Then run the installed "
+"executable and verify that it works."
+msgstr ""
