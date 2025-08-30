@@ -66,7 +66,7 @@
 
 <p></p>
 
-該專案的目標是將 CMake 文件翻譯為多個語言。 翻譯內容透過 Crowdin 平台貢獻，並自動與 GitHub 儲存庫同步。 使用者可以在 GitHub 網頁上預覽翻譯。
+該專案的目標是將 CMake 文件翻譯為多個語言。 Translations are contributed via the Crowdin platform, automatically synchronized with the GitHub repository, and can be previewed on GitHub Pages.
 
 <div align="center">
 <table>
