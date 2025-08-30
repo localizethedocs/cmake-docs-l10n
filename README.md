@@ -67,7 +67,7 @@
 
 <p></p>
 
-The goal of this project is to translate the CMake documentation into multiple languages. Translations are contributed via the Crowdin platform and automatically synchronized with the GitHub repository. Translations can be previewed on GitHub Pages.
+The goal of this project is to translate the CMake documentation into multiple languages. Translations are contributed via the Crowdin platform, automatically synchronized with the GitHub repository, and can be previewed on GitHub Pages.
 
 <div align="center">
 <table>
