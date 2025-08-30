@@ -162,7 +162,7 @@ unset(_LANGUAGE)
 
 
 set(REDIRECT_LANGTAG    "en-us")
-set(REDIRECT_VERSION    "latest")
+set(REDIRECT_VERSION    "master")
 
 
 message(STATUS "Configuring 'index.html' file to the root of the builder directory...")
