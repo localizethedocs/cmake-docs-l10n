@@ -104,7 +104,7 @@ msgstr ""
 #: ../../../guide/tutorial/Selecting Static or Shared Libraries.rst:36
 #: Libraries.rst:70
 msgid "MathFunctions/CMakeLists.txt"
-msgstr ""
+msgstr "MathFunctions/CMakeLists.txt"
 
 #: ../../../guide/tutorial/Selecting Static or Shared Libraries.rst:36
 msgid ""
@@ -238,7 +238,7 @@ msgstr ""
 
 #: ../../../guide/tutorial/Selecting Static or Shared Libraries.rst:59
 msgid "MathFunctions/MathFunctions.h"
-msgstr ""
+msgstr "MathFunctions/MathFunctions.h"
 
 #: ../../../guide/tutorial/Selecting Static or Shared Libraries.rst:59
 msgid ""
@@ -257,6 +257,20 @@ msgid ""
 "double DECLSPEC sqrt(double x);\n"
 "}\n"
 msgstr ""
+"\n"
+"#if defined(_WIN32)\n"
+"#  if defined(EXPORTING_MYMATH)\n"
+"#    define DECLSPEC __declspec(dllexport)\n"
+"#  else\n"
+"#    define DECLSPEC __declspec(dllimport)\n"
+"#  endif\n"
+"#else // non windows\n"
+"#  define DECLSPEC\n"
+"#endif\n"
+"\n"
+"namespace mathfunctions {\n"
+"double DECLSPEC sqrt(double x);\n"
+"}\n"
 
 #: ../../../guide/tutorial/Selecting Static or Shared Libraries.rst:64
 msgid ""
