@@ -532,6 +532,12 @@ msgid ""
 "  set(result \"${dir}/${result}\")\n"
 "endif()"
 msgstr ""
+"set(linkname \"/path/to/foo.sym\")\n"
+"file(READ_SYMLINK \"${linkname}\" result)\n"
+"if(NOT IS_ABSOLUTE \"${result}\")\n"
+"  get_filename_component(dir \"${linkname}\" DIRECTORY)\n"
+"  set(result \"${dir}/${result}\")\n"
+"endif()"
 
 #: ../../../command/file.rst:374
 msgid ""
