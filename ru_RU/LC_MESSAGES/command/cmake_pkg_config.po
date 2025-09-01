@@ -1,0 +1,636 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2000-2024 Kitware, Inc. and Contributors
+# This file is distributed under the same license as the CMake package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CMake 3.31\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-07-08 02:47+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: ru_RU\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../command/cmake_pkg_config.rst:2
+msgid "cmake_pkg_config"
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:7
+msgid "Contents"
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:10
+msgid "Process pkg-config format package files."
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:13
+msgid "Synopsis"
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:17
+msgid "cmake_pkg_config(EXTRACT <package> [<version>] [...])"
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:20
+msgid "Introduction"
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:22
+msgid ""
+"This command generates CMake variables and targets from pkg-config format "
+"package files natively, without needing to invoke or even require the "
+"presence of a pkg-config implementation. A ``<package>`` is either an "
+"absolute path to a package file, or a package name to be searched for using "
+"the typical pkg-config search patterns. The optional ``<version>`` string "
+"has the same format and semantics as a pkg-config style version specifier, "
+"with the exception that if no comparison operator is specified ``=`` is "
+"assumed."
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:32
+msgid ""
+"There are multiple signatures for this command, and some of the options are "
+"common between them. They are:"
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:35
+msgid "``EXACT`` / ``QUIET`` / ``REQUIRED``"
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:36
+msgid ""
+"The ``EXACT`` option requests that the version string be matched exactly "
+"(including empty string, if no version is provided), overriding the typical "
+"pkg-config version comparison algorithm. This will ignore any comparison "
+"operator attached to the version string."
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:41
+msgid ""
+"The ``QUIET`` option disables informational messages, including those "
+"indicating that the package cannot be found if it is not ``REQUIRED``. The "
+"``REQUIRED`` option stops processing with an error message if the package "
+"cannot be found."
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:46
+msgid "``STRICTNESS <mode>``"
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:47
+msgid ""
+"Specify how strictly the contents of the package files will be verified "
+"during parsing and resolution. An invalid file, under the provided "
+"strictness mode, will cause the command to fail. Possible modes are:"
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:51
+msgid ""
+"``STRICT``: Closely mirrors the behavior of the original FDO pkg-config. "
+"Variables and keywords must be unique. Variables must be defined before they "
+"are used. The Name, Description, and Version keywords must be present. The "
+"overall structure of the file must be valid and parsable."
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:56
+msgid ""
+"``PERMISSIVE``: Closely mirrors the behavior of the pkgconf implementation. "
+"Duplicate variables are overridden. Duplicate keywords are appended. "
+"Undefined variables resolve to empty strings. The Name, Description, and "
+"Version keywords must be present. The overall structure of the file must be "
+"valid and parsable."
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:62
+msgid ""
+"``BEST_EFFORT``: Same behavior as ``PERMISSIVE`` with regards to duplicate "
+"or uninitialized variables and keywords, but will not fail under any "
+"conditions. Package files which require BEST_EFFORT will fail validation "
+"under all other major implementations and should be fixed."
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:67
+msgid "The default strictness is ``PERMISSIVE``."
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:69
+msgid "``ENV_MODE``"
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:70
+msgid ""
+"Specifies which environment variables will be queried when running a given "
+"command. Possible modes are:"
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:73
+msgid ""
+"``FDO``: Queries only the original set of ``PKG_CONFIG_*`` environment "
+"variables used by the freedesktop.org ``pkg-config`` implementation."
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:76
+msgid ""
+"``PKGCONF``: Queries the more extensive set of environment variables used by "
+"the ``pkgconf`` implementation."
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:79
+msgid ""
+"``IGNORE``: Ignores the presence, absence, and value of environment "
+"variables entirely. In all cases an environment variable would be queried "
+"its treated as defined, but with a value of empty string for the purpose of "
+"the operation. This does not modify the current environment. For boolean "
+"environment variables, such as ``PKG_CONFIG_ALLOW_*``, this means they are "
+"evaluated as truthy."
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:86
+msgid ""
+"``PKG_CONFIG_SYSROOT_PATH`` is a minor exception. When ``ENV_MODE IGNORE`` "
+"is used, no root path prepending will occur by default and ``pc_sysrootdir`` "
+"remains defaulted to ``/``."
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:90
+msgid ""
+"Target-generating subcommands always ignore flag-filtering environment "
+"variables. The default environment mode is ``PKGCONF``."
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:93
+msgid "``PC_LIBDIR <path>...``"
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:94
+msgid ""
+"Overrides the default search location for package files; also used to derive "
+"the ``pc_path`` package variable."
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:97
+msgid ""
+"When this option is not provided, the default library directory is the first "
+"available of the following values:"
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:100
+msgid "``CMAKE_PKG_CONFIG_PC_LIB_DIRS``"
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:101
+msgid "The ``PKG_CONFIG_LIBDIR`` environment variable"
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:102
+msgid "The output of ``pkg-config --variable pc_path pkg-config``"
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:103
+#: ../../../command/cmake_pkg_config.rst:212
+#: ../../../command/cmake_pkg_config.rst:235
+msgid "A platform-dependent default value"
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:105
+msgid "``PC_PATH <path>...``"
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:106
+msgid ""
+"Overrides the supplemental package file directories which will be prepended "
+"to the search path; also used to derive the ``pc_path`` package variable."
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:109
+msgid ""
+"When this option is not provided, the default paths are the first available "
+"of the following values:"
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:112
+msgid "``CMAKE_PKG_CONFIG_PC_PATH``"
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:113
+msgid "The ``PKG_CONFIG_PATH`` environment variable"
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:114
+msgid "Empty list"
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:116
+msgid "``DISABLE_UNINSTALLED <bool>``"
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:117
+msgid ""
+"Overrides the search behavior for \"uninstalled\" package files. These are "
+"package files with an \"-uninstalled\" suffix which describe packages "
+"integrated directly from a build tree."
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:121
+msgid ""
+"Normally such package files have higher priority than \"installed\" "
+"packages. When ``DISABLE_UNINSTALLED`` is true, searching for "
+"\"uninstalled\" packages is disabled."
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:125
+msgid ""
+"When this option is not provided, the default search behavior is determined "
+"by the first available of the following values:"
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:128
+msgid "``CMAKE_PKG_CONFIG_DISABLE_UNINSTALLED``"
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:129
+msgid ""
+"If the ``PKG_CONFIG_DISABLE_UNINSTALLED`` environment variable is defined "
+"the search is disabled, otherwise it is enabled."
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:132
+msgid "``PC_SYSROOT_DIR <path>``"
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:133
+msgid ""
+"Overrides the root path which will be prepended to paths specified by ``-I`` "
+"compile flags and ``-L`` library search locations; also used to derive the "
+"``pc_sysrootdir`` package variable."
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:137
+msgid ""
+"When this option is not provided, the default root path is provided by the "
+"first available of the following values:"
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:140
+msgid "``CMAKE_PKG_CONFIG_SYSROOT_DIR``"
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:141
+msgid "The ``PKG_CONFIG_SYSROOT_DIR`` environment variable"
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:142
+msgid ""
+"If no root path is available, nothing will be prepended to include or "
+"library directory paths and ``pc_sysrootdir`` will be set to ``/``"
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:145
+msgid "``TOP_BUILD_DIR <path>``"
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:146
+msgid ""
+"Overrides the top build directory path used to derived the "
+"``pc_top_builddir`` package variable."
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:149
+msgid ""
+"When this option is not provided, the default top build directory path is "
+"the first available of the following values:"
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:152
+msgid "``CMAKE_PKG_CONFIG_TOP_BUILD_DIR``"
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:153
+msgid "The ``PKG_CONFIG_TOP_BUILD_DIR`` environment variable"
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:154
+msgid ""
+"If no top build directory path is available, the ``pc_top_builddir`` package "
+"variable is not set"
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:158
+msgid "Signatures"
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:163
+msgid "Extract the contents of the package into variables."
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:165
+msgid ""
+"cmake_pkg_config(EXTRACT <package> [<version>]\n"
+"                [REQUIRED] [EXACT] [QUIET]\n"
+"                [STRICTNESS <mode>]\n"
+"                [ENV_MODE <mode>]\n"
+"                [PC_LIBDIR <path>...]\n"
+"                [PC_PATH <path>...]\n"
+"                [DISABLE_UNINSTALLED <bool>]\n"
+"                [PC_SYSROOT_DIR <path>]\n"
+"                [TOP_BUILD_DIR <path>]\n"
+"                [SYSTEM_INCLUDE_DIRS <path>...]\n"
+"                [SYSTEM_LIBRARY_DIRS <path>...]\n"
+"                [ALLOW_SYSTEM_INCLUDES <bool>]\n"
+"                [ALLOW_SYSTEM_LIBS <bool>])"
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:181
+msgid ""
+"The following variables will be populated from the contents of package file:"
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:184
+msgid "Variable"
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:184
+msgid "Type"
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:184
+msgid "Definition"
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:186
+msgid "``CMAKE_PKG_CONFIG_NAME``"
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:186
+#: ../../../command/cmake_pkg_config.rst:187
+#: ../../../command/cmake_pkg_config.rst:188
+#: ../../../command/cmake_pkg_config.rst:192
+#: ../../../command/cmake_pkg_config.rst:195
+msgid "String"
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:186
+msgid "Value of the ``Name`` keyword"
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:187
+msgid "``CMAKE_PKG_CONFIG_DESCRIPTION``"
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:187
+msgid "Value of the ``Description`` keyword"
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:188
+msgid "``CMAKE_PKG_CONFIG_VERSION``"
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:188
+msgid "Value of the ``Version`` keyword"
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:189
+msgid "``CMAKE_PKG_CONFIG_PROVIDES``"
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:189
+#: ../../../command/cmake_pkg_config.rst:190
+#: ../../../command/cmake_pkg_config.rst:191
+#: ../../../command/cmake_pkg_config.rst:193
+#: ../../../command/cmake_pkg_config.rst:194
+#: ../../../command/cmake_pkg_config.rst:196
+#: ../../../command/cmake_pkg_config.rst:197
+#: ../../../command/cmake_pkg_config.rst:198
+msgid "List"
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:189
+msgid "Value of the ``Provides`` keyword"
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:190
+msgid "``CMAKE_PKG_CONFIG_REQUIRES``"
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:190
+msgid "Value of the ``Requires`` keyword"
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:191
+msgid "``CMAKE_PKG_CONFIG_CONFLICTS``"
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:191
+msgid "Value of the ``Conflicts`` keyword"
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:192
+msgid "``CMAKE_PKG_CONFIG_CFLAGS``"
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:192
+msgid "Value of the ``CFlags`` / ``Cflags`` keyword"
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:193
+msgid "``CMAKE_PKG_CONFIG_INCLUDES``"
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:193
+msgid "All ``-I`` prefixed flags from ``CMAKE_PKG_CONFIG_CFLAGS``"
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:194
+msgid "``CMAKE_PKG_CONFIG_COMPILE_OPTIONS``"
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:194
+msgid "All flags not prefixed with ``-I`` from ``CMAKE_PKG_CONFIG_CFLAGS``"
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:195
+msgid "``CMAKE_PKG_CONFIG_LIBS``"
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:195
+msgid "Value of the ``Libs`` keyword"
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:196
+msgid "``CMAKE_PKG_CONFIG_LIBDIRS``"
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:196
+msgid "All ``-L`` prefixed flags from ``CMAKE_PKG_CONFIG_LIBS``"
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:197
+msgid "``CMAKE_PKG_CONFIG_LIBNAMES``"
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:197
+msgid "All ``-l`` prefixed flags from ``CMAKE_PKG_CONFIG_LIBS``"
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:198
+msgid "``CMAKE_PKG_CONFIG_LINK_OPTIONS``"
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:198
+msgid ""
+"All flags not prefixed with ``-L`` or ``-l`` from ``CMAKE_PKG_CONFIG_LIBS``"
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:199
+msgid "``CMAKE_PKG_CONFIG_*_PRIVATE``"
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:199
+msgid "\\*"
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:199
+msgid ""
+"``CFLAGS`` / ``LIBS`` / ``REQUIRES`` and derived, but in their ``.private`` "
+"suffix forms"
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:202
+msgid "``SYSTEM_INCLUDE_DIRS``"
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:203
+msgid ""
+"Overrides the \"system\" directories for the purpose of flag mangling "
+"include directories in ``CMAKE_PKG_CONFIG_CFLAGS`` and derived variables."
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:206
+#: ../../../command/cmake_pkg_config.rst:229
+msgid ""
+"When this option is not provided, the default directories are provided by "
+"the first available of the following values:"
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:209
+msgid "``CMAKE_PKG_CONFIG_SYS_INCLUDE_DIRS``"
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:210
+msgid "The ``PKG_CONFIG_SYSTEM_INCLUDE_PATH`` environment variable"
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:211
+msgid "The output of ``pkgconf --variable pc_system_includedirs pkg-config``"
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:214
+msgid ""
+"Additionally, when the ``ENV_MODE`` is ``PKGCONF`` the "
+"``CMAKE_PKG_CONFIG_PKGCONF_INCLUDES`` variable will be concatenated to the "
+"list if available. If it is not available, the following environment "
+"variables will be queried and concatenated:"
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:219
+msgid "``CPATH``"
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:220
+msgid "``C_INCLUDE_PATH``"
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:221
+msgid "``CPLUS_INCLUDE_PATH``"
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:222
+msgid "``OBJC_INCLUDE_PATH``"
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:223
+msgid "``INCLUDE`` (Windows Only)"
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:225
+msgid "``SYSTEM_LIBRARY_DIRS``"
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:226
+msgid ""
+"Overrides the \"system\" directories for the purpose of flag mangling "
+"library directories in ``CMAKE_PKG_CONFIG_LIBS`` and derived variables."
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:232
+msgid "``CMAKE_PKG_CONFIG_SYS_LIB_DIRS``"
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:233
+msgid "The ``PKG_CONFIG_SYSTEM_LIBRARY_PATH`` environment variable"
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:234
+msgid "The output of ``pkgconf --variable pc_system_libdirs pkg-config``"
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:237
+msgid ""
+"Additionally, when the ``ENV_MODE`` is ``PKGCONF`` the "
+"``CMAKE_PKG_CONFIG_PKGCONF_LIB_DIRS`` variable will be concatenated to the "
+"list if available. If it is not available, the ``LIBRARY_PATH`` environment "
+"variable will be queried and concatenated."
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:242
+msgid "``ALLOW_SYSTEM_INCLUDES``"
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:243
+msgid ""
+"Preserves \"system\" directories during flag mangling of include directories "
+"in ``CMAKE_PKG_CONFIG_CFLAGS`` and derived variables."
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:246
+#: ../../../command/cmake_pkg_config.rst:258
+msgid ""
+"When this option is not provided, the default value is determined by the "
+"first available of the following values:"
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:249
+msgid "``CMAKE_PKG_CONFIG_ALLOW_SYS_INCLUDES``"
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:250
+msgid ""
+"If the ``PKG_CONFIG_ALLOW_SYSTEM_CFLAGS`` environment variable is defined "
+"the flags are preserved, otherwise they are filtered during flag mangling."
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:254
+msgid "``ALLOW_SYSTEM_LIBS``"
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:255
+msgid ""
+"Preserves \"system\" directories during flag mangling of library directories "
+"in ``CMAKE_PKG_CONFIG_LIBS`` and derived variables."
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:261
+msgid "``CMAKE_PKG_CONFIG_ALLOW_SYS_LIBS``"
+msgstr ""
+
+#: ../../../command/cmake_pkg_config.rst:262
+msgid ""
+"If the ``PKG_CONFIG_ALLOW_SYSTEM_LIBS`` environment variable is defined the "
+"flags are preserved, otherwise they are filtered during flag mangling."
+msgstr ""
