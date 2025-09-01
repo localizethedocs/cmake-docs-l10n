@@ -556,6 +556,19 @@ msgid ""
 "add_subdirectory (B)\n"
 "install(EXPORT myproj-targets DESTINATION lib/myproj)"
 msgstr ""
+"# A/CMakeLists.txt\n"
+"add_executable(myexe src1.c)\n"
+"install(TARGETS myexe DESTINATION lib/myproj\n"
+"        EXPORT myproj-targets)\n"
+"\n"
+"# B/CMakeLists.txt\n"
+"add_library(foo STATIC foo1.c)\n"
+"install(TARGETS foo DESTINATION lib EXPORTS myproj-targets)\n"
+"\n"
+"# Top CMakeLists.txt\n"
+"add_subdirectory (A)\n"
+"add_subdirectory (B)\n"
+"install(EXPORT myproj-targets DESTINATION lib/myproj)"
 
 #: ../../../guide/importing-exporting/index.rst:352
 msgid "Creating Packages"
@@ -856,7 +869,7 @@ msgstr ""
 
 #: ../../../guide/importing-exporting/index.rst:533
 msgid "$ cmake --install . --prefix \"/home/myuser/installdir\""
-msgstr ""
+msgstr "$ cmake --install . --prefix \"/home/myuser/installdir\""
 
 #: ../../../guide/importing-exporting/index.rst:538
 msgid "Creating Relocatable Packages"
@@ -1027,6 +1040,8 @@ msgid ""
 "find_package(MathFunctions 3.4.1 EXACT)\n"
 "\n"
 msgstr ""
+"find_package(MathFunctions 3.4.1 EXACT)\n"
+"\n"
 
 #: ../../../guide/importing-exporting/index.rst:639
 msgid "Create an exectuable:"
@@ -1269,6 +1284,10 @@ msgid ""
 "#include \"SquareRoot.h\"\n"
 "\n"
 msgstr ""
+"\n"
+"#include \"Addition.h\"\n"
+"#include \"SquareRoot.h\"\n"
+"\n"
 
 #: ../../../guide/importing-exporting/index.rst:760
 msgid "Finally, use the ``Addition`` library:"
