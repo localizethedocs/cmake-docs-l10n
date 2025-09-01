@@ -195,7 +195,7 @@
     </tr>
     <tr>
       <td rowspan="1" colspan="1" align="right" style="text-align: right;">
-        <div></div>
+        <div><a href="https://github.com/localizethedocs/cmake-docs-l10n/actions/workflows/ci-deploy-pages.yml"><img alt="ci-deploy-pages" src="https://github.com/localizethedocs/cmake-docs-l10n/actions/workflows/ci-deploy-pages.yml/badge.svg" /></a></div>
       </td>
       <td rowspan="1" colspan="1" align="left" style="text-align: left;">
         <div>下載並將建置製品部暑至 <code>pages</code> 分支。</div>
