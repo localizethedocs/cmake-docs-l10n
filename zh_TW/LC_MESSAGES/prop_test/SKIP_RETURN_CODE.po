@@ -1,0 +1,82 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2000-2025 Kitware, Inc. and Contributors
+# This file is distributed under the same license as the CMake package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CMake master\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-07-14 08:20+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../prop_test/SKIP_RETURN_CODE.rst:2
+msgid "SKIP_RETURN_CODE"
+msgstr ""
+
+#: ../../../prop_test/SKIP_RETURN_CODE.rst:4
+msgid "Return code to mark a test as skipped."
+msgstr ""
+
+#: ../../../prop_test/SKIP_RETURN_CODE.rst:6
+msgid ""
+"Sometimes only a test itself can determine if all requirements for the test "
+"are met. If such a situation should not be considered a hard failure a "
+"return code of the process can be specified that will mark the test as ``Not "
+"Run`` if it is encountered. Valid values are in the range of 0 to 255, "
+"inclusive."
+msgstr ""
+
+#: ../../../prop_test/SKIP_RETURN_CODE.rst:12
+msgid ""
+"Tests that exceed the timeout specified by :prop_test:`TIMEOUT` still fail "
+"regardless of ``SKIP_RETURN_CODE``. System-level test failures including "
+"segmentation faults, signal abort, or heap errors may fail the test even if "
+"the return code matches."
+msgstr ""
+
+#: ../../../prop_test/SKIP_RETURN_CODE.rst:17
+msgid ""
+"# cmake (1) defines this to return code 1\n"
+"add_test(NAME r1 COMMAND ${CMAKE_COMMAND} -E false)\n"
+"\n"
+"set_tests_properties(r1 PROPERTIES SKIP_RETURN_CODE 1)"
+msgstr ""
+
+#: ../../../prop_test/SKIP_RETURN_CODE.rst:25
+msgid ""
+"To run a test that may have a system-level failure, but still skip if "
+"``SKIP_RETURN_CODE`` matches, use a CMake command to wrap the executable "
+"run. Note that this will prevent automatic handling of the :prop_tgt:"
+"`CROSSCOMPILING_EMULATOR` and :prop_tgt:`TEST_LAUNCHER` target property."
+msgstr ""
+
+#: ../../../prop_test/SKIP_RETURN_CODE.rst:31
+msgid ""
+"add_executable(main main.c)\n"
+"\n"
+"# cmake -E env <command> returns 1 if the command fails in any way\n"
+"add_test(NAME sigabrt COMMAND ${CMAKE_COMMAND} -E env $<TARGET_FILE:main>)\n"
+"\n"
+"set_property(TEST sigabrt PROPERTY SKIP_RETURN_CODE 1)"
+msgstr ""
+
+#: ../../../prop_test/SKIP_RETURN_CODE.rst:40
+msgid ""
+"#include <signal.h>\n"
+"\n"
+"int main(void){ raise(SIGABRT); return 0; }"
+msgstr ""
+
+#: ../../../prop_test/SKIP_RETURN_CODE.rst:47
+msgid ""
+"To handle multiple types of cases that may need to be skipped, consider the :"
+"prop_test:`SKIP_REGULAR_EXPRESSION` property."
+msgstr ""
