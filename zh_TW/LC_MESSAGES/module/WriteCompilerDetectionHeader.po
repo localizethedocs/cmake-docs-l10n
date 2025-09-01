@@ -1,0 +1,501 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2000-2020 Kitware, Inc. and Contributors
+# This file is distributed under the same license as the CMake package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CMake 3.19\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-07-07 19:02+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../../Modules/WriteCompilerDetectionHeader.cmake:6
+msgid "WriteCompilerDetectionHeader"
+msgstr ""
+
+#: ../../../../Modules/WriteCompilerDetectionHeader.cmake:10
+msgid ""
+"This module provides the function ``write_compiler_detection_header()``."
+msgstr ""
+
+#: ../../../../Modules/WriteCompilerDetectionHeader.cmake:12
+msgid ""
+"This function can be used to generate a file suitable for preprocessor "
+"inclusion which contains macros to be used in source code::"
+msgstr ""
+
+#: ../../../../Modules/WriteCompilerDetectionHeader.cmake:15
+msgid ""
+"write_compiler_detection_header(\n"
+"          FILE <file>\n"
+"          PREFIX <prefix>\n"
+"          [OUTPUT_FILES_VAR <output_files_var> OUTPUT_DIR <output_dir>]\n"
+"          COMPILERS <compiler> [...]\n"
+"          FEATURES <feature> [...]\n"
+"          [BARE_FEATURES <feature> [...]]\n"
+"          [VERSION <version>]\n"
+"          [PROLOG <prolog>]\n"
+"          [EPILOG <epilog>]\n"
+"          [ALLOW_UNKNOWN_COMPILERS]\n"
+"          [ALLOW_UNKNOWN_COMPILER_VERSIONS]\n"
+")"
+msgstr ""
+
+#: ../../../../Modules/WriteCompilerDetectionHeader.cmake:29
+msgid ""
+"This generates the file ``<file>`` with macros which all have the prefix "
+"``<prefix>``."
+msgstr ""
+
+#: ../../../../Modules/WriteCompilerDetectionHeader.cmake:32
+msgid ""
+"By default, all content is written directly to the ``<file>``.  The "
+"``OUTPUT_FILES_VAR`` may be specified to cause the compiler-specific content "
+"to be written to separate files.  The separate files are then available in "
+"the ``<output_files_var>`` and may be consumed by the caller for "
+"installation for example.  The ``OUTPUT_DIR`` specifies a relative path from "
+"the main ``<file>`` to the compiler-specific files. For example:"
+msgstr ""
+
+#: ../../../../Modules/WriteCompilerDetectionHeader.cmake:39
+msgid ""
+"write_compiler_detection_header(\n"
+"  FILE climbingstats_compiler_detection.h\n"
+"  PREFIX ClimbingStats\n"
+"  OUTPUT_FILES_VAR support_files\n"
+"  OUTPUT_DIR compilers\n"
+"  COMPILERS GNU Clang MSVC Intel\n"
+"  FEATURES cxx_variadic_templates\n"
+")\n"
+"install(FILES\n"
+"  ${CMAKE_CURRENT_BINARY_DIR}/climbingstats_compiler_detection.h\n"
+"  DESTINATION include\n"
+")\n"
+"install(FILES\n"
+"  ${support_files}\n"
+"  DESTINATION include/compilers\n"
+")"
+msgstr ""
+
+#: ../../../../Modules/WriteCompilerDetectionHeader.cmake:59
+msgid ""
+"``VERSION`` may be used to specify the API version to be generated. Future "
+"versions of CMake may introduce alternative APIs.  A given API is selected "
+"by any ``<version>`` value greater than or equal to the version of CMake "
+"that introduced the given API and less than the version of CMake that "
+"introduced its succeeding API. The value of the :variable:"
+"`CMAKE_MINIMUM_REQUIRED_VERSION` variable is used if no explicit version is "
+"specified. (As of CMake version |release| there is only one API version.)"
+msgstr ""
+
+#: ../../../../Modules/WriteCompilerDetectionHeader.cmake:68
+msgid ""
+"``PROLOG`` may be specified as text content to write at the start of the "
+"header. ``EPILOG`` may be specified as text content to write at the end of "
+"the header"
+msgstr ""
+
+#: ../../../../Modules/WriteCompilerDetectionHeader.cmake:72
+msgid ""
+"At least one ``<compiler>`` and one ``<feature>`` must be listed.  Compilers "
+"which are known to CMake, but not specified are detected and a preprocessor "
+"``#error`` is generated for them.  A preprocessor macro matching "
+"``<PREFIX>_COMPILER_IS_<compiler>`` is generated for each compiler known to "
+"CMake to contain the value ``0`` or ``1``."
+msgstr ""
+
+#: ../../../../Modules/WriteCompilerDetectionHeader.cmake:78
+msgid ""
+"Possible compiler identifiers are documented with the :variable:"
+"`CMAKE_<LANG>_COMPILER_ID` variable. Available features in this version of "
+"CMake are listed in the :prop_gbl:`CMAKE_C_KNOWN_FEATURES` and :prop_gbl:"
+"`CMAKE_CXX_KNOWN_FEATURES` global properties. The ``{c,cxx}_std_*`` meta-"
+"features are ignored if requested."
+msgstr ""
+
+#: ../../../../Modules/WriteCompilerDetectionHeader.cmake:85
+msgid ""
+"See the :manual:`cmake-compile-features(7)` manual for information on "
+"compile features."
+msgstr ""
+
+#: ../../../../Modules/WriteCompilerDetectionHeader.cmake:88
+msgid ""
+"``BARE_FEATURES`` will define the compatibility macros with the name used in "
+"newer versions of the language standard, so the code can use the new feature "
+"name unconditionally."
+msgstr ""
+
+#: ../../../../Modules/WriteCompilerDetectionHeader.cmake:92
+msgid ""
+"``ALLOW_UNKNOWN_COMPILERS`` and ``ALLOW_UNKNOWN_COMPILER_VERSIONS`` cause "
+"the module to generate conditions that treat unknown compilers as simply "
+"lacking all features.  Without these options the default behavior is to "
+"generate a ``#error`` for unknown compilers and versions."
+msgstr ""
+
+#: ../../../../Modules/WriteCompilerDetectionHeader.cmake:98
+msgid "Feature Test Macros"
+msgstr ""
+
+#: ../../../../Modules/WriteCompilerDetectionHeader.cmake:100
+msgid ""
+"For each compiler, a preprocessor macro is generated matching "
+"``<PREFIX>_COMPILER_IS_<compiler>`` which has the content either ``0`` or "
+"``1``, depending on the compiler in use. Preprocessor macros for compiler "
+"version components are generated matching "
+"``<PREFIX>_COMPILER_VERSION_MAJOR`` ``<PREFIX>_COMPILER_VERSION_MINOR`` and "
+"``<PREFIX>_COMPILER_VERSION_PATCH`` containing decimal values for the "
+"corresponding compiler version components, if defined."
+msgstr ""
+
+#: ../../../../Modules/WriteCompilerDetectionHeader.cmake:108
+msgid ""
+"A preprocessor test is generated based on the compiler version denoting "
+"whether each feature is enabled.  A preprocessor macro matching "
+"``<PREFIX>_COMPILER_<FEATURE>``, where ``<FEATURE>`` is the upper-case "
+"``<feature>`` name, is generated to contain the value ``0`` or ``1`` "
+"depending on whether the compiler in use supports the feature:"
+msgstr ""
+
+#: ../../../../Modules/WriteCompilerDetectionHeader.cmake:115
+msgid ""
+"write_compiler_detection_header(\n"
+"  FILE climbingstats_compiler_detection.h\n"
+"  PREFIX ClimbingStats\n"
+"  COMPILERS GNU Clang AppleClang MSVC Intel\n"
+"  FEATURES cxx_variadic_templates\n"
+")"
+msgstr ""
+
+#: ../../../../Modules/WriteCompilerDetectionHeader.cmake:124
+msgid ""
+"#if ClimbingStats_COMPILER_CXX_VARIADIC_TEMPLATES\n"
+"template<typename... T>\n"
+"void someInterface(T t...) { /* ... */ }\n"
+"#else\n"
+"// Compatibility versions\n"
+"template<typename T1>\n"
+"void someInterface(T1 t1) { /* ... */ }\n"
+"template<typename T1, typename T2>\n"
+"void someInterface(T1 t1, T2 t2) { /* ... */ }\n"
+"template<typename T1, typename T2, typename T3>\n"
+"void someInterface(T1 t1, T2 t2, T3 t3) { /* ... */ }\n"
+"#endif"
+msgstr ""
+
+#: ../../../../Modules/WriteCompilerDetectionHeader.cmake:140
+msgid "Symbol Macros"
+msgstr ""
+
+#: ../../../../Modules/WriteCompilerDetectionHeader.cmake:142
+msgid ""
+"Some additional symbol-defines are created for particular features for use "
+"as symbols which may be conditionally defined empty:"
+msgstr ""
+
+#: ../../../../Modules/WriteCompilerDetectionHeader.cmake:145
+msgid ""
+"class MyClass ClimbingStats_FINAL\n"
+"{\n"
+"    ClimbingStats_CONSTEXPR int someInterface() { return 42; }\n"
+"};"
+msgstr ""
+
+#: ../../../../Modules/WriteCompilerDetectionHeader.cmake:152
+msgid ""
+"The ``ClimbingStats_FINAL`` macro will expand to ``final`` if the compiler "
+"(and its flags) support the ``cxx_final`` feature, and the "
+"``ClimbingStats_CONSTEXPR`` macro will expand to ``constexpr`` if "
+"``cxx_constexpr`` is supported."
+msgstr ""
+
+#: ../../../../Modules/WriteCompilerDetectionHeader.cmake:157
+msgid ""
+"If ``BARE_FEATURES cxx_final`` was given as argument the ``final`` keyword "
+"will be defined for old compilers, too."
+msgstr ""
+
+#: ../../../../Modules/WriteCompilerDetectionHeader.cmake:160
+msgid ""
+"The following features generate corresponding symbol defines and if they are "
+"available as ``BARE_FEATURES``:"
+msgstr ""
+
+#: ../../../../Modules/WriteCompilerDetectionHeader.cmake:164
+#: ../../../../Modules/WriteCompilerDetectionHeader.cmake:209
+msgid "Feature"
+msgstr ""
+
+#: ../../../../Modules/WriteCompilerDetectionHeader.cmake:164
+#: ../../../../Modules/WriteCompilerDetectionHeader.cmake:209
+msgid "Define"
+msgstr ""
+
+#: ../../../../Modules/WriteCompilerDetectionHeader.cmake:164
+#: ../../../../Modules/WriteCompilerDetectionHeader.cmake:209
+msgid "Symbol"
+msgstr ""
+
+#: ../../../../Modules/WriteCompilerDetectionHeader.cmake:164
+#: ../../../../Modules/WriteCompilerDetectionHeader.cmake:209
+msgid "bare"
+msgstr ""
+
+#: ../../../../Modules/WriteCompilerDetectionHeader.cmake:166
+msgid "``c_restrict``"
+msgstr ""
+
+#: ../../../../Modules/WriteCompilerDetectionHeader.cmake:166
+msgid "``<PREFIX>_RESTRICT``"
+msgstr ""
+
+#: ../../../../Modules/WriteCompilerDetectionHeader.cmake:166
+msgid "``restrict``"
+msgstr ""
+
+#: ../../../../Modules/WriteCompilerDetectionHeader.cmake:166
+#: ../../../../Modules/WriteCompilerDetectionHeader.cmake:167
+#: ../../../../Modules/WriteCompilerDetectionHeader.cmake:170
+#: ../../../../Modules/WriteCompilerDetectionHeader.cmake:171
+#: ../../../../Modules/WriteCompilerDetectionHeader.cmake:173
+#: ../../../../Modules/WriteCompilerDetectionHeader.cmake:213
+msgid "yes"
+msgstr ""
+
+#: ../../../../Modules/WriteCompilerDetectionHeader.cmake:167
+msgid "``cxx_constexpr``"
+msgstr ""
+
+#: ../../../../Modules/WriteCompilerDetectionHeader.cmake:167
+msgid "``<PREFIX>_CONSTEXPR``"
+msgstr ""
+
+#: ../../../../Modules/WriteCompilerDetectionHeader.cmake:167
+msgid "``constexpr``"
+msgstr ""
+
+#: ../../../../Modules/WriteCompilerDetectionHeader.cmake:168
+msgid "``cxx_deleted_functions``"
+msgstr ""
+
+#: ../../../../Modules/WriteCompilerDetectionHeader.cmake:168
+msgid "``<PREFIX>_DELETED_FUNCTION``"
+msgstr ""
+
+#: ../../../../Modules/WriteCompilerDetectionHeader.cmake:168
+msgid "``= delete``"
+msgstr ""
+
+#: ../../../../Modules/WriteCompilerDetectionHeader.cmake:169
+msgid "``cxx_extern_templates``"
+msgstr ""
+
+#: ../../../../Modules/WriteCompilerDetectionHeader.cmake:169
+msgid "``<PREFIX>_EXTERN_TEMPLATE``"
+msgstr ""
+
+#: ../../../../Modules/WriteCompilerDetectionHeader.cmake:169
+msgid "``extern``"
+msgstr ""
+
+#: ../../../../Modules/WriteCompilerDetectionHeader.cmake:170
+msgid "``cxx_final``"
+msgstr ""
+
+#: ../../../../Modules/WriteCompilerDetectionHeader.cmake:170
+msgid "``<PREFIX>_FINAL``"
+msgstr ""
+
+#: ../../../../Modules/WriteCompilerDetectionHeader.cmake:170
+msgid "``final``"
+msgstr ""
+
+#: ../../../../Modules/WriteCompilerDetectionHeader.cmake:171
+#: ../../../../Modules/WriteCompilerDetectionHeader.cmake:172
+msgid "``cxx_noexcept``"
+msgstr ""
+
+#: ../../../../Modules/WriteCompilerDetectionHeader.cmake:171
+msgid "``<PREFIX>_NOEXCEPT``"
+msgstr ""
+
+#: ../../../../Modules/WriteCompilerDetectionHeader.cmake:171
+msgid "``noexcept``"
+msgstr ""
+
+#: ../../../../Modules/WriteCompilerDetectionHeader.cmake:172
+msgid "``<PREFIX>_NOEXCEPT_EXPR(X)``"
+msgstr ""
+
+#: ../../../../Modules/WriteCompilerDetectionHeader.cmake:172
+msgid "``noexcept(X)``"
+msgstr ""
+
+#: ../../../../Modules/WriteCompilerDetectionHeader.cmake:173
+msgid "``cxx_override``"
+msgstr ""
+
+#: ../../../../Modules/WriteCompilerDetectionHeader.cmake:173
+msgid "``<PREFIX>_OVERRIDE``"
+msgstr ""
+
+#: ../../../../Modules/WriteCompilerDetectionHeader.cmake:173
+msgid "``override``"
+msgstr ""
+
+#: ../../../../Modules/WriteCompilerDetectionHeader.cmake:177
+msgid "Compatibility Implementation Macros"
+msgstr ""
+
+#: ../../../../Modules/WriteCompilerDetectionHeader.cmake:179
+msgid ""
+"Some features are suitable for wrapping in a macro with a backward "
+"compatibility implementation if the compiler does not support the feature."
+msgstr ""
+
+#: ../../../../Modules/WriteCompilerDetectionHeader.cmake:182
+msgid ""
+"When the ``cxx_static_assert`` feature is not provided by the compiler, a "
+"compatibility implementation is available via the "
+"``<PREFIX>_STATIC_ASSERT(COND)`` and ``<PREFIX>_STATIC_ASSERT_MSG(COND, "
+"MSG)`` function-like macros. The macros expand to ``static_assert`` where "
+"that compiler feature is available, and to a compatibility implementation "
+"otherwise. In the first form, the condition is stringified in the message "
+"field of ``static_assert``.  In the second form, the message ``MSG`` is "
+"passed to the message field of ``static_assert``, or ignored if using the "
+"backward compatibility implementation."
+msgstr ""
+
+#: ../../../../Modules/WriteCompilerDetectionHeader.cmake:193
+msgid ""
+"The ``cxx_attribute_deprecated`` feature provides a macro definition "
+"``<PREFIX>_DEPRECATED``, which expands to either the standard "
+"``[[deprecated]]`` attribute or a compiler-specific decorator such as "
+"``__attribute__((__deprecated__))`` used by GNU compilers."
+msgstr ""
+
+#: ../../../../Modules/WriteCompilerDetectionHeader.cmake:198
+msgid ""
+"The ``cxx_alignas`` feature provides a macro definition ``<PREFIX>_ALIGNAS`` "
+"which expands to either the standard ``alignas`` decorator or a compiler-"
+"specific decorator such as ``__attribute__ ((__aligned__))`` used by GNU "
+"compilers."
+msgstr ""
+
+#: ../../../../Modules/WriteCompilerDetectionHeader.cmake:203
+msgid ""
+"The ``cxx_alignof`` feature provides a macro definition ``<PREFIX>_ALIGNOF`` "
+"which expands to either the standard ``alignof`` decorator or a compiler-"
+"specific decorator such as ``__alignof__`` used by GNU compilers."
+msgstr ""
+
+#: ../../../../Modules/WriteCompilerDetectionHeader.cmake:211
+msgid "``cxx_alignas``"
+msgstr ""
+
+#: ../../../../Modules/WriteCompilerDetectionHeader.cmake:211
+msgid "``<PREFIX>_ALIGNAS``"
+msgstr ""
+
+#: ../../../../Modules/WriteCompilerDetectionHeader.cmake:211
+msgid "``alignas``"
+msgstr ""
+
+#: ../../../../Modules/WriteCompilerDetectionHeader.cmake:212
+msgid "``cxx_alignof``"
+msgstr ""
+
+#: ../../../../Modules/WriteCompilerDetectionHeader.cmake:212
+msgid "``<PREFIX>_ALIGNOF``"
+msgstr ""
+
+#: ../../../../Modules/WriteCompilerDetectionHeader.cmake:212
+msgid "``alignof``"
+msgstr ""
+
+#: ../../../../Modules/WriteCompilerDetectionHeader.cmake:213
+msgid "``cxx_nullptr``"
+msgstr ""
+
+#: ../../../../Modules/WriteCompilerDetectionHeader.cmake:213
+msgid "``<PREFIX>_NULLPTR``"
+msgstr ""
+
+#: ../../../../Modules/WriteCompilerDetectionHeader.cmake:213
+msgid "``nullptr``"
+msgstr ""
+
+#: ../../../../Modules/WriteCompilerDetectionHeader.cmake:214
+#: ../../../../Modules/WriteCompilerDetectionHeader.cmake:215
+msgid "``cxx_static_assert``"
+msgstr ""
+
+#: ../../../../Modules/WriteCompilerDetectionHeader.cmake:214
+msgid "``<PREFIX>_STATIC_ASSERT``"
+msgstr ""
+
+#: ../../../../Modules/WriteCompilerDetectionHeader.cmake:214
+#: ../../../../Modules/WriteCompilerDetectionHeader.cmake:215
+msgid "``static_assert``"
+msgstr ""
+
+#: ../../../../Modules/WriteCompilerDetectionHeader.cmake:215
+msgid "``<PREFIX>_STATIC_ASSERT_MSG``"
+msgstr ""
+
+#: ../../../../Modules/WriteCompilerDetectionHeader.cmake:216
+#: ../../../../Modules/WriteCompilerDetectionHeader.cmake:217
+msgid "``cxx_attribute_deprecated``"
+msgstr ""
+
+#: ../../../../Modules/WriteCompilerDetectionHeader.cmake:216
+msgid "``<PREFIX>_DEPRECATED``"
+msgstr ""
+
+#: ../../../../Modules/WriteCompilerDetectionHeader.cmake:216
+#: ../../../../Modules/WriteCompilerDetectionHeader.cmake:217
+msgid "``[[deprecated]]``"
+msgstr ""
+
+#: ../../../../Modules/WriteCompilerDetectionHeader.cmake:217
+msgid "``<PREFIX>_DEPRECATED_MSG``"
+msgstr ""
+
+#: ../../../../Modules/WriteCompilerDetectionHeader.cmake:218
+msgid "``cxx_thread_local``"
+msgstr ""
+
+#: ../../../../Modules/WriteCompilerDetectionHeader.cmake:218
+msgid "``<PREFIX>_THREAD_LOCAL``"
+msgstr ""
+
+#: ../../../../Modules/WriteCompilerDetectionHeader.cmake:218
+msgid "``thread_local``"
+msgstr ""
+
+#: ../../../../Modules/WriteCompilerDetectionHeader.cmake:221
+msgid ""
+"A use-case which arises with such deprecation macros is the deprecation of "
+"an entire library.  In that case, all public API in the library may be "
+"decorated with the ``<PREFIX>_DEPRECATED`` macro.  This results in very "
+"noisy build output when building the library itself, so the macro may be may "
+"be defined to empty in that case when building the deprecated library:"
+msgstr ""
+
+#: ../../../../Modules/WriteCompilerDetectionHeader.cmake:228
+msgid ""
+"add_library(compat_support ${srcs})\n"
+"target_compile_definitions(compat_support\n"
+"  PRIVATE\n"
+"    CompatSupport_DEPRECATED=\n"
+")"
+msgstr ""

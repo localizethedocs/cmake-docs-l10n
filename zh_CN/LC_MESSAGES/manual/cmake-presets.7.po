@@ -1,0 +1,682 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2000-2020 Kitware, Inc. and Contributors
+# This file is distributed under the same license as the CMake package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CMake 3.19\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-07-07 19:02+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../manual/cmake-presets.7.rst:4
+msgid "cmake-presets(7)"
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:7
+msgid "Contents"
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:11
+msgid "Introduction"
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:13
+msgid ""
+"One problem that CMake users often face is sharing settings with other "
+"people for common ways to configure a project. This may be done to support "
+"CI builds, or for users who frequently use the same build. CMake supports "
+"two files, ``CMakePresets.json`` and ``CMakeUserPresets.json``, that allow "
+"users to specify common configure options and share them with others."
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:19
+msgid ""
+"``CMakePresets.json`` and ``CMakeUserPresets.json`` live in the project's "
+"root directory. They both have exactly the same format, and both are "
+"optional (though at least one must be present if ``--preset`` is specified.) "
+"``CMakePresets.json`` is meant to save project-wide builds, while "
+"``CMakeUserPresets.json`` is meant for developers to save their own local "
+"builds. ``CMakePresets.json`` may be checked into a version control system, "
+"and ``CMakeUserPresets.json`` should NOT be checked in. For example, if a "
+"project is using Git, ``CMakePresets.json`` may be tracked, and "
+"``CMakeUserPresets.json`` should be added to the ``.gitignore``."
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:30
+msgid "Format"
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:32
+msgid "The files are a JSON document with an object as the root:"
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:34
+msgid ""
+"{\n"
+"  \"version\": 1,\n"
+"  \"cmakeMinimumRequired\": {\n"
+"    \"major\": 3,\n"
+"    \"minor\": 19,\n"
+"    \"patch\": 0\n"
+"  },\n"
+"  \"configurePresets\": [\n"
+"    {\n"
+"      \"name\": \"default\",\n"
+"      \"displayName\": \"Default Config\",\n"
+"      \"description\": \"Default build using Ninja generator\",\n"
+"      \"generator\": \"Ninja\",\n"
+"      \"binaryDir\": \"${sourceDir}/build/default\",\n"
+"      \"cacheVariables\": {\n"
+"        \"FIRST_CACHE_VARIABLE\": {\n"
+"          \"type\": \"BOOL\",\n"
+"          \"value\": \"OFF\"\n"
+"        },\n"
+"        \"SECOND_CACHE_VARIABLE\": \"ON\"\n"
+"      },\n"
+"      \"environment\": {\n"
+"        \"MY_ENVIRONMENT_VARIABLE\": \"Test\",\n"
+"        \"PATH\": \"$env{HOME}/ninja/bin:$penv{PATH}\"\n"
+"      },\n"
+"      \"vendor\": {\n"
+"        \"example.com/ExampleIDE/1.0\": {\n"
+"          \"autoFormat\": true\n"
+"        }\n"
+"      }\n"
+"    },\n"
+"    {\n"
+"      \"name\": \"ninja-multi\",\n"
+"      \"inherits\": \"default\",\n"
+"      \"displayName\": \"Ninja Multi-Config\",\n"
+"      \"description\": \"Default build using Ninja Multi-Config "
+"generator\",\n"
+"      \"generator\": \"Ninja Multi-Config\"\n"
+"    }\n"
+"  ],\n"
+"  \"vendor\": {\n"
+"    \"example.com/ExampleIDE/1.0\": {\n"
+"      \"autoFormat\": false\n"
+"    }\n"
+"  }\n"
+"}\n"
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:37
+msgid "The root object recognizes the following fields:"
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:39
+msgid "``version``"
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:41
+msgid ""
+"A required integer representing the version of the JSON schema. Currently, "
+"the only supported version is 1."
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:44
+msgid "``cmakeMinimumRequired``"
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:46
+msgid ""
+"An optional object representing the minimum version of CMake needed to build "
+"this project. This object consists of the following fields:"
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:49
+msgid "``major``"
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:51
+msgid "An optional integer representing the major version."
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:53
+msgid "``minor``"
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:55
+msgid "An optional integer representing the minor version."
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:57
+msgid "``patch``"
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:59
+msgid "An optional integer representing the patch version."
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:61
+#: ../../../manual/cmake-presets.7.rst:105
+msgid "``vendor``"
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:63
+msgid ""
+"An optional map containing vendor-specific information. CMake does not "
+"interpret the contents of this field except to verify that it is a map if it "
+"does exist. However, the keys should be a vendor-specific domain name "
+"followed by a ``/``-separated path. For example, the Example IDE 1.0 could "
+"use ``example.com/ExampleIDE/1.0``. The value of each field can be anything "
+"desired by the vendor, though will typically be a map."
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:70
+msgid "``configurePresets``"
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:72
+msgid ""
+"An optional array of configure preset objects. Each preset may contain the "
+"following fields:"
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:75
+msgid "``name``"
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:77
+msgid ""
+"A required string representing the machine-friendly name of the preset. This "
+"identifier is used in the ``--preset`` argument. There must not be two "
+"presets in the union of ``CMakePresets.json`` and ``CMakeUserPresets.json`` "
+"in the same directory with the same name."
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:82
+msgid "``hidden``"
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:84
+msgid ""
+"An optional boolean specifying whether or not a preset should be hidden. If "
+"a preset is hidden, it cannot be used in the ``--preset=`` argument, will "
+"not show up in the :manual:`CMake GUI <cmake-gui(1)>`, and does not have to "
+"have a valid ``generator`` or ``binaryDir``, even from inheritance. "
+"``hidden`` presets are intended to be used as a base for other presets to "
+"inherit via the ``inherits`` field."
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:91
+msgid "``inherits``"
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:93
+msgid ""
+"An optional array of strings representing the names of presets to inherit "
+"from. The preset will inherit all of the fields from the ``inherits`` "
+"presets by default (except ``name``, ``hidden``, ``inherits``, "
+"``description``, and ``displayName``), but can override them as desired. If "
+"multiple ``inherits`` presets provide conflicting values for the same field, "
+"the earlier preset in the ``inherits`` list will be preferred. Presets in "
+"``CMakePresets.json`` may not inherit from presets in ``CMakeUserPresets."
+"json``."
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:102
+msgid ""
+"This field can also be a string, which is equivalent to an array containing "
+"one string."
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:107
+msgid ""
+"An optional map containing vendor-specific information. CMake does not "
+"interpret the contents of this field except to verify that it is a map if it "
+"does exist. However, it should follow the same conventions as the root-level "
+"``vendor`` field. If vendors use their own per-preset ``vendor`` field, they "
+"should implement inheritance in a sensible manner when appropriate."
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:114
+msgid "``displayName``"
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:116
+msgid "An optional string with a human-friendly name of the preset."
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:118
+msgid "``description``"
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:120
+msgid "An optional string with a human-friendly description of the preset."
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:122
+msgid "``generator``"
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:124
+msgid ""
+"An optional string representing the generator to use for the preset. If "
+"``generator`` is not specified, it must be inherited from the ``inherits`` "
+"preset (unless this preset is ``hidden``)."
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:128
+msgid ""
+"Note that for Visual Studio generators, unlike in the command line ``-G`` "
+"argument, you cannot include the platform name in the generator name. Use "
+"the ``architecture`` field instead."
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:132
+msgid "``architecture`` ``toolset``"
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:135
+msgid ""
+"Optional fields representing the platform and toolset, respectively, for "
+"generators that support them. Each may be either a string or an object with "
+"the following fields:"
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:139
+#: ../../../manual/cmake-presets.7.rst:188
+msgid "``value``"
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:141
+msgid "An optional string representing the value."
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:143
+msgid "``strategy``"
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:145
+msgid ""
+"An optional string telling CMake how to handle the ``architecture`` or "
+"``toolset`` field. Valid values are:"
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:148
+msgid "``\"set\"``"
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:150
+msgid ""
+"Set the respective value. This will result in an error for generators that "
+"do not support the respective field."
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:153
+msgid "``\"external\"``"
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:155
+msgid ""
+"Do not set the value, even if the generator supports it. This is useful if, "
+"for example, a preset uses the Ninja generator, and an IDE knows how to set "
+"up the Visual C++ environment from the ``architecture`` and ``toolset`` "
+"fields. In that case, CMake will ignore the field, but the IDE can use them "
+"to set up the environment before invoking CMake."
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:162
+msgid "``binaryDir``"
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:164
+msgid ""
+"An optional string representing the path to the output binary directory. "
+"This field supports macro expansion. If a relative path is specified, it is "
+"calculated relative to the source directory. If ``binaryDir`` is not "
+"specified, it must be inherited from the ``inherits`` preset (unless this "
+"preset is ``hidden``)."
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:170
+msgid "``cmakeExecutable``"
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:172
+msgid ""
+"An optional string representing the path to the CMake executable to use for "
+"this preset. This is reserved for use by IDEs, and is not used by CMake "
+"itself. IDEs that use this field should expand any macros in it."
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:176
+msgid "``cacheVariables``"
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:178
+msgid ""
+"An optional map of cache variables. The key is the variable name (which may "
+"not be an empty string), and the value is either ``null``, a boolean (which "
+"is equivalent to a value of ``\"TRUE\"`` or ``\"FALSE\"`` and a type of "
+"``BOOL``), a string representing the value of the variable (which supports "
+"macro expansion), or an object with the following fields:"
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:184
+msgid "``type``"
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:186
+msgid "An optional string representing the type of the variable."
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:190
+msgid ""
+"A required string or boolean representing the value of the variable. A "
+"boolean is equivalent to ``\"TRUE\"`` or ``\"FALSE\"``. This field supports "
+"macro expansion."
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:194
+msgid ""
+"Cache variables are inherited through the ``inherits`` field, and the "
+"preset's variables will be the union of its own ``cacheVariables`` and the "
+"``cacheVariables`` from all its parents. If multiple presets in this union "
+"define the same variable, the standard rules of ``inherits`` are applied. "
+"Setting a variable to ``null`` causes it to not be set, even if a value was "
+"inherited from another preset."
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:201
+msgid "``environment``"
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:203
+msgid ""
+"An optional map of environment variables. The key is the variable name "
+"(which may not be an empty string), and the value is either ``null`` or a "
+"string representing the value of the variable. Each variable is set "
+"regardless of whether or not a value was given to it by the process's "
+"environment. This field supports macro expansion, and environment variables "
+"in this map may reference each other, and may be listed in any order, as "
+"long as such references do not cause a cycle (for example, if ``ENV_1`` is "
+"``$env{ENV_2}``, ``ENV_2`` may not be ``$env{ENV_1}``.)"
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:212
+msgid ""
+"Environment variables are inherited through the ``inherits`` field, and the "
+"preset's environment will be the union of its own ``environment`` and the "
+"``environment`` from all its parents. If multiple presets in this union "
+"define the same variable, the standard rules of ``inherits`` are applied. "
+"Setting a variable to ``null`` causes it to not be set, even if a value was "
+"inherited from another preset."
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:219
+msgid "``warnings``"
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:221
+msgid ""
+"An optional object specifying the warnings to enable. The object may contain "
+"the following fields:"
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:224
+#: ../../../manual/cmake-presets.7.rst:256
+msgid "``dev``"
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:226
+msgid ""
+"An optional boolean. Equivalent to passing ``-Wdev`` or ``-Wno-dev`` on the "
+"command line. This may not be set to ``false`` if ``errors.dev`` is set to "
+"``true``."
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:230
+#: ../../../manual/cmake-presets.7.rst:262
+msgid "``deprecated``"
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:232
+msgid ""
+"An optional boolean. Equivalent to passing ``-Wdeprecated`` or ``-Wno-"
+"deprecated`` on the command line. This may not be set to ``false`` if "
+"``errors.deprecated`` is set to ``true``."
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:236
+msgid "``uninitialized``"
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:238
+msgid ""
+"An optional boolean. Setting this to ``true`` is equivalent to passing ``--"
+"warn-uninitialized`` on the command line."
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:241
+msgid "``unusedCli``"
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:243
+msgid ""
+"An optional boolean. Setting this to ``false`` is equivalent to passing ``--"
+"no-warn-unused-cli`` on the command line."
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:246
+msgid "``systemVars``"
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:248
+msgid ""
+"An optional boolean. Setting this to ``true`` is equivalent to passing ``--"
+"check-system-vars`` on the command line."
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:251
+msgid "``errors``"
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:253
+msgid ""
+"An optional object specifying the errors to enable. The object may contain "
+"the following fields:"
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:258
+msgid ""
+"An optional boolean. Equivalent to passing ``-Werror=dev`` or ``-Wno-"
+"error=dev`` on the command line. This may not be set to ``true`` if "
+"``warnings.dev`` is set to ``false``."
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:264
+msgid ""
+"An optional boolean. Equivalent to passing ``-Werror=deprecated`` or ``-Wno-"
+"error=deprecated`` on the command line. This may not be set to ``true`` if "
+"``warnings.deprecated`` is set to ``false``."
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:268
+msgid "``debug``"
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:270
+msgid ""
+"An optional object specifying debug options. The object may contain the "
+"following fields:"
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:273
+msgid "``output``"
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:275
+msgid ""
+"An optional boolean. Setting this to ``true`` is equivalent to passing ``--"
+"debug-output`` on the command line."
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:278
+msgid "``tryCompile``"
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:280
+msgid ""
+"An optional boolean. Setting this to ``true`` is equivalent to passing ``--"
+"debug-trycompile`` on the command line."
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:283
+msgid "``find``"
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:285
+msgid ""
+"An optional boolean. Setting this to ``true`` is equivalent to passing ``--"
+"debug-find`` on the command line."
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:288
+msgid ""
+"As mentioned above, some fields support macro expansion. Macros are "
+"recognized in the form ``$<macro-namespace>{<macro-name>}``. All macros are "
+"evaluated in the context of the preset being used, even if the macro is in a "
+"field that was inherited from another preset. For example, if the ``Base`` "
+"preset sets variable ``PRESET_NAME`` to ``${presetName}``, and the "
+"``Derived`` preset inherits from ``Base``, ``PRESET_NAME`` will be set to "
+"``Derived``."
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:296
+msgid ""
+"It is an error to not put a closing brace at the end of a macro name. For "
+"example, ``${sourceDir`` is invalid. A dollar sign (``$``) followed by "
+"anything other than a left curly brace (``{``) with a possible namespace is "
+"interpreted as a literal dollar sign."
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:301
+msgid "Recognized macros include:"
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:303
+msgid "``${sourceDir}``"
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:305
+msgid "Path to the project source directory."
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:307
+msgid "``${sourceParentDir}``"
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:309
+msgid "Path to the project source directory's parent directory."
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:311
+msgid "``${sourceDirName}``"
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:313
+msgid ""
+"The last filename component of ``${sourceDir}``. For example, if "
+"``${sourceDir}`` is ``/path/to/source``, this would be ``source``."
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:316
+msgid "``${presetName}``"
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:318
+msgid "Name specified in the preset's ``name`` field."
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:320
+msgid "``${generator}``"
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:322
+msgid "Generator specified in the preset's ``generator`` field."
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:324
+msgid "``${dollar}``"
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:326
+msgid "A literal dollar sign (``$``)."
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:328
+msgid "``$env{<variable-name>}``"
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:330
+msgid ""
+"Environment variable with name ``<variable-name>``. The variable name may "
+"not be an empty string. If the variable is defined in the ``environment`` "
+"field, that value is used instead of the value from the parent environment. "
+"If the environment variable is not defined, this evaluates as an empty "
+"string."
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:336
+msgid ""
+"Note that while Windows environment variable names are case-insensitive, "
+"variable names within a preset are still case-sensitive. This may lead to "
+"unexpected results when using inconsistent casing. For best results, keep "
+"the casing of environment variable names consistent."
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:341
+msgid "``$penv{<variable-name>}``"
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:343
+msgid ""
+"Similar to ``$env{<variable-name>}``, except that the value only comes from "
+"the parent environment, and never from the ``environment`` field. This "
+"allows you to prepend or append values to existing environment variables. "
+"For example, setting ``PATH`` to ``/path/to/ninja/bin:$penv{PATH}`` will "
+"prepend ``/path/to/ninja/bin`` to the ``PATH`` environment variable. This is "
+"needed because ``$env{<variable-name>}`` does not allow circular references."
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:351
+msgid "``$vendor{<macro-name>}``"
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:353
+msgid ""
+"An extension point for vendors to insert their own macros. CMake will not be "
+"able to use presets which have a ``$vendor{<macro-name>}`` macro, and "
+"effectively ignores such presets. However, it will still be able to use "
+"other presets from the same file."
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:358
+msgid ""
+"CMake does not make any attempt to interpret ``$vendor{<macro-name>}`` "
+"macros. However, to avoid name collisions, IDE vendors should prefix "
+"``<macro-name>`` with a very short (preferably <= 4 characters) vendor "
+"identifier prefix, followed by a ``.``, followed by the macro name. For "
+"example, the Example IDE could have ``$vendor{xide.ideInstallDir}``."
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:365
+msgid "Schema"
+msgstr ""
+
+#: ../../../manual/cmake-presets.7.rst:367
+msgid ""
+":download:`This file </manual/presets/schema.json>` provides a machine-"
+"readable JSON schema for the ``CMakePresets.json`` format."
+msgstr ""
