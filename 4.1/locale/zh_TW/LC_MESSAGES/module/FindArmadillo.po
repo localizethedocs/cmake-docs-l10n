@@ -19,7 +19,7 @@ msgstr ""
 
 #: ../../../../Modules/FindArmadillo.cmake:6
 msgid "FindArmadillo"
-msgstr ""
+msgstr "FindArmadillo"
 
 #: ../../../../Modules/FindArmadillo.cmake:8
 msgid ""
@@ -78,31 +78,31 @@ msgstr ""
 
 #: ../../../../Modules/FindArmadillo.cmake:30
 msgid "``ARMADILLO_VERSION_MAJOR``"
-msgstr ""
+msgstr "``ARMADILLO_VERSION_MAJOR``"
 
 #: ../../../../Modules/FindArmadillo.cmake:31
 msgid "Major version number."
-msgstr ""
+msgstr "主版本號。"
 
 #: ../../../../Modules/FindArmadillo.cmake:32
 msgid "``ARMADILLO_VERSION_MINOR``"
-msgstr ""
+msgstr "``ARMADILLO_VERSION_MINOR``"
 
 #: ../../../../Modules/FindArmadillo.cmake:33
 msgid "Minor version number."
-msgstr ""
+msgstr "次版本號。"
 
 #: ../../../../Modules/FindArmadillo.cmake:34
 msgid "``ARMADILLO_VERSION_PATCH``"
-msgstr ""
+msgstr "``ARMADILLO_VERSION_PATCH``"
 
 #: ../../../../Modules/FindArmadillo.cmake:35
 msgid "Patch version number."
-msgstr ""
+msgstr "補丁版本號。"
 
 #: ../../../../Modules/FindArmadillo.cmake:36
 msgid "``ARMADILLO_VERSION_NAME``"
-msgstr ""
+msgstr "``ARMADILLO_VERSION_NAME``"
 
 #: ../../../../Modules/FindArmadillo.cmake:37
 msgid "Name of the version (ex: ``Antipodean Antileech``)."
@@ -133,3 +133,17 @@ msgid ""
 "add_executable(foo foo.cc)\n"
 "target_link_libraries(foo PRIVATE Armadillo::Armadillo)"
 msgstr ""
+"find_package(Armadillo REQUIRED)\n"
+"\n"
+"if(Armadillo_FOUND AND NOT TARGET Armadillo::Armadillo)\n"
+"  add_library(Armadillo::Armadillo INTERFACE IMPORTED)\n"
+"  set_target_properties(\n"
+"    Armadillo::Armadillo\n"
+"    PROPERTIES\n"
+"      INTERFACE_LINK_LIBRARIES \"${ARMADILLO_LIBRARIES}\"\n"
+"      INTERFACE_INCLUDE_DIRECTORIES \"${ARMADILLO_INCLUDE_DIRS}\"\n"
+"  )\n"
+"endif()\n"
+"\n"
+"add_executable(foo foo.cc)\n"
+"target_link_libraries(foo PRIVATE Armadillo::Armadillo)"
