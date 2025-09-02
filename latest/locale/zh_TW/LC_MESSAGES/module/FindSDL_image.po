@@ -44,7 +44,7 @@ msgstr "結果變數"
 
 #: ../../../../Modules/FindSDL_image.cmake:23
 msgid "This module defines the following variables:"
-msgstr ""
+msgstr "該模組定義了以下變數："
 
 #: ../../../../Modules/FindSDL_image.cmake:25
 msgid "``SDL_image_FOUND``"
@@ -160,6 +160,19 @@ msgid ""
 "\n"
 "target_link_libraries(project_target PRIVATE SDL::SDL_image)"
 msgstr ""
+"find_package(SDL_image)\n"
+"\n"
+"if(SDL_image_FOUND AND NOT TARGET SDL::SDL_image)\n"
+"  add_library(SDL::SDL_image INTERFACE IMPORTED)\n"
+"  set_target_properties(\n"
+"    SDL::SDL_image\n"
+"    PROPERTIES\n"
+"      INTERFACE_INCLUDE_DIRECTORIES \"${SDL_IMAGE_INCLUDE_DIRS}\"\n"
+"      INTERFACE_LINK_LIBRARIES \"${SDL_IMAGE_LIBRARIES}\"\n"
+"  )\n"
+"endif()\n"
+"\n"
+"target_link_libraries(project_target PRIVATE SDL::SDL_image)"
 
 #: ../../../../Modules/FindSDL_image.cmake:89
 msgid ""
@@ -173,6 +186,8 @@ msgid ""
 "find_package(SDL2_image)\n"
 "target_link_libraries(project_target PRIVATE SDL2_image::SDL2_image)"
 msgstr ""
+"find_package(SDL2_image)\n"
+"target_link_libraries(project_target PRIVATE SDL2_image::SDL2_image)"
 
 #: ../../../../Modules/FindSDL_image.cmake:98
 msgid "Similarly, for SDL_image version 3:"
