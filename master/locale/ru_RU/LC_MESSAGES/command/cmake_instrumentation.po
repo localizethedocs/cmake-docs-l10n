@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CMake master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-28 08:22+0000\n"
+"POT-Creation-Date: 2025-09-01 08:21+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -45,10 +45,11 @@ msgid ""
 "  [HOOKS <hooks>...]\n"
 "  [OPTIONS <options>...]\n"
 "  [CALLBACK <callback>]\n"
+"  [CUSTOM_CONTENT <name> <type> <content>]\n"
 ")"
 msgstr ""
 
-#: ../../../command/cmake_instrumentation.rst:26
+#: ../../../command/cmake_instrumentation.rst:27
 msgid ""
 "The ``API_VERSION`` and ``DATA_VERSION`` must always be given.  Currently, "
 "the only supported value for both fields is 1.  See :ref:`cmake-"
@@ -56,7 +57,7 @@ msgid ""
 "instrumentation Data v1` for details of the ``DATA_VERSION``."
 msgstr ""
 
-#: ../../../command/cmake_instrumentation.rst:31
+#: ../../../command/cmake_instrumentation.rst:32
 msgid ""
 "Each of the optional keywords ``HOOKS``, ``OPTIONS``, and ``CALLBACK`` "
 "correspond to one of the parameters to the :ref:`cmake-instrumentation v1 "
@@ -64,24 +65,81 @@ msgid ""
 "create multiple callbacks."
 msgstr ""
 
-#: ../../../command/cmake_instrumentation.rst:35
+#: ../../../command/cmake_instrumentation.rst:36
 msgid ""
 "Whenever ``cmake_instrumentation`` is invoked, a query file is generated in "
 "``<build>/.cmake/instrumentation/v1/query/generated`` to enable "
 "instrumentation with the provided arguments."
 msgstr ""
 
-#: ../../../command/cmake_instrumentation.rst:40
+#: ../../../command/cmake_instrumentation.rst:43
+msgid "Custom Configure Content"
+msgstr ""
+
+#: ../../../command/cmake_instrumentation.rst:45
+msgid ""
+"The ``CUSTOM_CONTENT`` argument specifies certain data from configure time "
+"to include in each :ref:`cmake-instrumentation v1 Snippet File` that "
+"corresponds to the configure step associated with the command. This may be "
+"used to associate instrumentation data with certain information about its "
+"configuration, such as the optimization level or whether it is part of a "
+"coverage build."
+msgstr ""
+
+#: ../../../command/cmake_instrumentation.rst:52
+msgid ""
+"``CUSTOM_CONTENT`` expects ``name``, ``type`` and ``content`` arguments."
+msgstr ""
+
+#: ../../../command/cmake_instrumentation.rst:54
+msgid "``name`` is a specifier to identify the content being reported."
+msgstr ""
+
+#: ../../../command/cmake_instrumentation.rst:56
+msgid ""
+"``type`` specifies how the content should be interpreted. Supported values "
+"are:"
+msgstr ""
+
+#: ../../../command/cmake_instrumentation.rst:57
+msgid "``STRING`` the content is a string."
+msgstr ""
+
+#: ../../../command/cmake_instrumentation.rst:58
+msgid ""
+"``BOOL`` the content should be interpreted as a boolean. It will be ``true`` "
+"under the same conditions that ``if()`` would be true for the given value."
+msgstr ""
+
+#: ../../../command/cmake_instrumentation.rst:60
+msgid ""
+"``LIST`` the content is a CMake ``;`` separated list that should be parsed."
+msgstr ""
+
+#: ../../../command/cmake_instrumentation.rst:61
+msgid ""
+"``JSON`` the content should be parsed as a JSON string. This can be a number "
+"such as ``1`` or ``5.0``, a quoted string such as ``\\\"string\\\"``, a "
+"boolean value ``true``/``false``, or a JSON object such as ``{ \\\"key\\\" : "
+"\\\"value\\\" }`` that may be constructed using ``string(JSON ...)`` "
+"commands."
+msgstr ""
+
+#: ../../../command/cmake_instrumentation.rst:67
+msgid "``content`` is the actual content to report."
+msgstr ""
+
+#: ../../../command/cmake_instrumentation.rst:70
 msgid "Example"
 msgstr ""
 
-#: ../../../command/cmake_instrumentation.rst:42
+#: ../../../command/cmake_instrumentation.rst:72
 msgid ""
 "The following example shows an invocation of the command and its equivalent "
 "JSON query file."
 msgstr ""
 
-#: ../../../command/cmake_instrumentation.rst:45
+#: ../../../command/cmake_instrumentation.rst:75
 msgid ""
 "cmake_instrumentation(\n"
 "  API_VERSION 1\n"
@@ -90,10 +148,13 @@ msgid ""
 "  OPTIONS staticSystemInformation dynamicSystemInformation\n"
 "  CALLBACK ${CMAKE_COMMAND} -P /path/to/handle_data.cmake\n"
 "  CALLBACK ${CMAKE_COMMAND} -P /path/to/handle_data_2.cmake\n"
+"  CUSTOM_CONTENT myString STRING string\n"
+"  CUSTOM_CONTENT myList   LIST   \"item1;item2\"\n"
+"  CUSTOM_CONTENT myObject JSON   \"{ \\\"key\\\" : \\\"value\\\" }\"\n"
 ")"
 msgstr ""
 
-#: ../../../command/cmake_instrumentation.rst:56
+#: ../../../command/cmake_instrumentation.rst:89
 msgid ""
 "{\n"
 "  \"version\": 1,\n"
@@ -107,5 +168,24 @@ msgid ""
 "    \"/path/to/cmake -P /path/to/handle_data.cmake\"\n"
 "    \"/path/to/cmake -P /path/to/handle_data_2.cmake\"\n"
 "  ]\n"
+"}"
+msgstr ""
+
+#: ../../../command/cmake_instrumentation.rst:105
+msgid ""
+"This will also result in a configure content JSON being reported in each :"
+"ref:`cmake-instrumentation v1 Snippet File` with the following contents:"
+msgstr ""
+
+#: ../../../command/cmake_instrumentation.rst:108
+msgid ""
+"{\n"
+"  \"myString\": \"string\",\n"
+"  \"myList\": [\n"
+"    \"item1\", \"item2\"\n"
+"  ],\n"
+"  \"myObject\": {\n"
+"    \"key\": \"value\"\n"
+"  }\n"
 "}"
 msgstr ""
