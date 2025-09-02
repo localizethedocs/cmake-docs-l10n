@@ -209,7 +209,7 @@ restore_cmake_message_indent()
 
 set(UPSTREAM_DOCS   "https://cmake.org/cmake/help/latest")
 set(UPSTREAM_REPO   "https://gitlab.kitware.com/cmake/cmake")
-set(INSERT_POINT    "div[class=\"body\"]")
+set(INSERT_POINT    "div[role=\"main\"]")
 
 
 message(STATUS "Configuring 'ltd-provenance.js' file to the version subdir of the builder directory...")
