@@ -1,0 +1,73 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2000-2025 Kitware, Inc. and Contributors
+# This file is distributed under the same license as the CMake package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CMake master\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-07-14 08:20+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../prop_test/REQUIRED_FILES.rst:2
+msgid "REQUIRED_FILES"
+msgstr ""
+
+#: ../../../prop_test/REQUIRED_FILES.rst:4
+msgid ""
+"List of files required to run the test.  The filenames are relative to the "
+"test :prop_test:`WORKING_DIRECTORY` unless an absolute path is specified."
+msgstr ""
+
+#: ../../../prop_test/REQUIRED_FILES.rst:7
+msgid ""
+"If set to a list of files, the test will not be run unless all of the files "
+"exist."
+msgstr ""
+
+#: ../../../prop_test/REQUIRED_FILES.rst:11
+msgid "Examples"
+msgstr "範例"
+
+#: ../../../prop_test/REQUIRED_FILES.rst:13
+msgid ""
+"Suppose that ``test.txt`` is created by test ``baseTest`` and ``none.txt`` "
+"does not exist:"
+msgstr ""
+
+#: ../../../prop_test/REQUIRED_FILES.rst:16
+msgid ""
+"add_test(NAME baseTest ...)   # Assumed to create test.txt\n"
+"add_test(NAME fileTest ...)\n"
+"\n"
+"# The following ensures that if baseTest is successful, test.txt will\n"
+"# have been created before fileTest is run\n"
+"set_tests_properties(fileTest PROPERTIES\n"
+"  DEPENDS baseTest\n"
+"  REQUIRED_FILES test.txt\n"
+")\n"
+"\n"
+"add_test(NAME notRunTest ...)\n"
+"\n"
+"# The following makes notRunTest depend on two files. Nothing creates\n"
+"# the none.txt file, so notRunTest will fail with status \"Not Run\".\n"
+"set_tests_properties(notRunTest PROPERTIES\n"
+"  REQUIRED_FILES \"test.txt;none.txt\"\n"
+")"
+msgstr ""
+
+#: ../../../prop_test/REQUIRED_FILES.rst:36
+msgid ""
+"The above example demonstrates how ``REQUIRED_FILES`` works, but it is not "
+"the most robust way to implement test ordering with failure detection.  For "
+"that, test fixtures are a better alternative (see :prop_test:"
+"`FIXTURES_REQUIRED`)."
+msgstr ""
