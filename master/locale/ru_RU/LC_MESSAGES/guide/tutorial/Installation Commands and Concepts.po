@@ -1,0 +1,874 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2000-2025 Kitware, Inc. and Contributors
+# This file is distributed under the same license as the CMake package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CMake master\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-09-22 08:20+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: ru_RU\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:2
+msgid "Step 9: Installation Commands and Concepts"
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:4
+msgid ""
+"Projects need to do more than build and test their code, they need to make "
+"it available to consumers. The layout of files in the build tree is "
+"unsuitable for consumption by other projects, binaries are in unexpected "
+"places, header files are located far away in the source tree, and there's no "
+"clear way to discover what targets are provided or how to use them."
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:10
+msgid ""
+"This translation, moving artifacts from the source and build trees into a "
+"final layout suitable for consumption, is known as installation. CMake "
+"supports a complete installation workflow as part of the project "
+"description, controlling both the layout of artifacts in the install tree, "
+"and reconstructing targets for other CMake projects which want to consume "
+"the libraries provided by the install tree."
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:18
+msgid "Background"
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:20
+msgid ""
+"All CMake installation goes through a single command, :command:`install`, "
+"which is split into many subcommands responsible for various aspects of the "
+"installation process. For target-based CMake workflows, it is mostly "
+"sufficient to rely on installing targets themselves with :command:"
+"`install(TARGETS)` instead of resorting to manually moving files with :"
+"command:`install(FILES)` or :command:`install(DIRECTORY)`."
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:28
+msgid ""
+"This is why we need to add ``FILES`` to header sets which are intended to be "
+"installed. CMake needs to be able to locate the files when their associated "
+"target is installed."
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:32
+msgid ""
+"CMake divides target-based installation into various artifact kinds. The "
+"available artifact kinds (in CMake 3.23) are:"
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:35
+#: Concepts.rst:77
+msgid "``ARCHIVE``"
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:36
+msgid ""
+"Static libraries (``.a`` / ``.lib``), DLL import libraries (``.lib``), and a "
+"handful of other \"archive-like\" objects."
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:39
+#: Concepts.rst:76
+msgid "``LIBRARY``"
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:40
+msgid ""
+"Shared libraries (``.so``), modules, and other dynamically loadable objects. "
+"**Not** Window's DLL files (``.dll``) or MacOS frameworks."
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:43
+#: Concepts.rst:75
+msgid "``RUNTIME``"
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:44
+msgid ""
+"Executables of all kinds except MacOS bundles; and Window's DLLs (``.dll``)."
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:46
+msgid "``OBJECT``"
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:47
+msgid "Objects from ``OBJECT`` libraries."
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:49
+msgid "``FRAMEWORK``"
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:50
+msgid "Both static and shared MacOS frameworks"
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:52
+msgid "``BUNDLE``"
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:53
+msgid "MacOS bundle executables"
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:55
+msgid "``PUBLIC_HEADER`` / ``PRIVATE_HEADER`` / ``RESOURCE``"
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:56
+msgid ""
+"Files described by the :prop_tgt:`PUBLIC_HEADER`, :prop_tgt:`PRIVATE_HEADER` "
+"and :prop_tgt:`RESOURCE` target properties, typically used with MacOS "
+"frameworks"
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:60
+msgid "``FILE_SET <set-name>``"
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:61
+msgid ""
+"A file set associated with the target. This is how headers are typically "
+"installed."
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:64
+msgid ""
+"Most important artifact kinds have known destinations which CMake will "
+"default to unless instructed to do otherwise. For example, ``RUNTIME`` will "
+"be installed to the location named by :module:`CMAKE_INSTALL_BINDIR "
+"<GNUInstallDirs>`, if the variable is available, otherwise they default to "
+"``bin``."
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:69
+msgid ""
+"The full list of artifact kind default destinations is described in the "
+"following table."
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:73
+msgid "Target Type"
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:73
+msgid "Variable"
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:73
+msgid "Built-In Default"
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:75
+msgid "``${CMAKE_INSTALL_BINDIR}``"
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:75
+msgid "``bin``"
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:76
+#: Concepts.rst:77
+msgid "``${CMAKE_INSTALL_LIBDIR}``"
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:76
+#: Concepts.rst:77
+msgid "``lib``"
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:78
+msgid "``PRIVATE_HEADER``"
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:78
+#: Concepts.rst:79 Concepts.rst:80
+msgid "``${CMAKE_INSTALL_INCLUDEDIR}``"
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:78
+#: Concepts.rst:79 Concepts.rst:80
+msgid "``include``"
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:79
+msgid "``PUBLIC_HEADER``"
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:80
+msgid "``FILE_SET`` (type ``HEADERS``)"
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:83
+msgid ""
+"For the most part, projects should leave the defaults alone unless they need "
+"to install to a specific subdirectory of a default location."
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:86
+msgid ""
+"CMake does not define the ``CMAKE_INSTALL_<dir>`` variables by default. If a "
+"project wishes to dictate installing to a subdirectory of one of these "
+"locations, it is necessary to include the :module:`GNUInstallDirs` module, "
+"which will provide values for all ``CMAKE_INSTALL_<dir>`` variables that "
+"have not already been defined."
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:93
+msgid "Exercise 1 - Installing Artifacts"
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:95
+msgid ""
+"For modern, target-based CMake projects installation of artifacts is trivial "
+"and consists of a single call to :command:`install(targets)`."
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:98
+msgid ""
+"install(\n"
+"  TARGETS MyApp MyLib\n"
+"\n"
+"  FILE_SET HEADERS\n"
+"  FILE_SET AnotherHeaderFileSet\n"
+")"
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:107
+msgid ""
+"Most artifact kinds are installed by default and do not need to be listed in "
+"the :command:`install` command. However, ``FILE_SET``s must be named to let "
+"CMake know you want to install. In the above example we install two file "
+"sets, one named ``HEADERS`` and another named ``AnotherHeaderFileSet``."
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:112
+msgid ""
+"When named, an artifact kind can be given various options, such as a "
+"destination."
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:114
+msgid ""
+"include(GNUInstallDirs)\n"
+"\n"
+"install(\n"
+"  TARGETS MyApp MyLib\n"
+"\n"
+"  RUNTIME\n"
+"    DESTINATION ${CMAKE_INSTALL_BINDIR}/Subfolder\n"
+"\n"
+"  FILE_SET HEADERS\n"
+")"
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:127
+msgid ""
+"This will install the ``MyApp`` target to ``bin/Subfolder`` (if the packager "
+"hasn't changed :module:`CMAKE_INSTALL_BINDIR <GNUInstallDirs>`)."
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:130
+msgid ""
+"Importantly, if the ``OBJECT`` artifact kind is never given a destination, "
+"it will act like an ``INTERFACE`` library, only installing its headers."
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:134
+#: Concepts.rst:298 Concepts.rst:505
+msgid "Goal"
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:136
+msgid ""
+"Install the artifacts for the libraries and executables (except tests) "
+"described in the tutorial project."
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:140
+#: Concepts.rst:303 Concepts.rst:510
+msgid "Helpful Resources"
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:142
+#: Concepts.rst:305 Concepts.rst:513
+msgid ":command:`install`"
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:145
+#: Concepts.rst:310 Concepts.rst:518
+msgid "Files to Edit"
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:147
+#: Concepts.rst:312 Concepts.rst:520
+msgid "``CMakeLists.txt``"
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:150
+#: Concepts.rst:316 Concepts.rst:523
+msgid "Getting Started"
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:152
+msgid ""
+"The ``Help/guide/tutorial/Step9`` directory contains the complete, "
+"recommended solution to ``Step8``. Complete ``TODO 1`` and ``TODO 2``."
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:156
+#: Concepts.rst:322 Concepts.rst:529
+msgid "Build and Run"
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:158
+msgid "No special configuration is needed, configure and build as usual."
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:160
+msgid ""
+"cmake --preset tutorial\n"
+"cmake --build build"
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:165
+#: Concepts.rst:330
+msgid ""
+"We can verify the installation is correct with :option:`cmake --install`."
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:167
+#: Concepts.rst:341
+msgid "cmake --install build --prefix install"
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:171
+msgid "The ``install`` folder should be populated correctly for our artifacts."
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:174
+#: Concepts.rst:353 Concepts.rst:542
+msgid "Solution"
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:176
+msgid ""
+"First we add an :command:`install(TARGETS)` for the conditionally built, "
+"thus conditionally installed, ``Tutorial`` executable."
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:179
+msgid "<details><summary>TODO 1 Click to show/hide answer</summary>"
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:183
+msgid "TODO 1: CMakeLists.txt"
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:183
+msgid ""
+"if(TUTORIAL_BUILD_UTILITIES)\n"
+"  add_subdirectory(Tutorial)\n"
+"  install(\n"
+"    TARGETS Tutorial\n"
+"  )\n"
+"endif()"
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:194
+#: Concepts.rst:213 Concepts.rst:368 Concepts.rst:386 Concepts.rst:404
+#: Concepts.rst:424 Concepts.rst:445 Concepts.rst:462 Concepts.rst:557
+#: Concepts.rst:576 Concepts.rst:594
+msgid "</details>"
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:198
+msgid "Then we can install the rest of the targets."
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:200
+msgid "<details><summary>TODO 2 Click to show/hide answer</summary>"
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:204
+msgid "TODO 2: CMakeLists.txt"
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:204
+msgid ""
+"install(\n"
+"  TARGETS MathFunctions OpAdd OpMul OpSub MathLogger SqrtTable\n"
+"  FILE_SET HEADERS\n"
+")"
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:218
+msgid ""
+"We could add :command:`install(TARGETS)` commands locally to each subfolder "
+"where the targets are defined. This would be typical in very large projects "
+"where keeping track of all the installable targets is difficult."
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:222
+msgid ""
+"It might seem unnecessary to install the ``SqrtTable`` and ``MathLogger``, "
+"and it is at this stage. Due to how CMake models target relationships, when "
+"we reconstruct the target model in the next exercise we will need these "
+"targets to be available."
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:228
+msgid "Exercise 2 - Exporting Targets"
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:230
+msgid ""
+"This raw collection of installed files is a good start, but we lose the "
+"CMake target model. These are effectively no better than the pre-compiled "
+"vendored libraries we discussed in ``Step 4``. We need some way for other "
+"projects to reconstruct our targets from what we have provided in the "
+"install tree."
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:235
+msgid ""
+"The mechanism CMake provides to solve this is a CMakeLang file known as a "
+"\"target export file\". It is created by the :command:`install(EXPORT)` "
+"command."
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:239
+msgid ""
+"install(\n"
+"  TARGETS MyApp MyLib\n"
+"  EXPORT MyProjectTargets\n"
+")\n"
+"\n"
+"include(GNUInstallDirs)\n"
+"\n"
+"install(\n"
+"  EXPORT MyProjectTargets\n"
+"  DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/MyProject\n"
+"  NAMESPACE MyProject::\n"
+")"
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:254
+msgid ""
+"There are several parts to the above example. Firstly the :command:"
+"`install(TARGETS)` command takes an export name, basically a list to add the "
+"installed targets to."
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:258
+msgid ""
+"Later, the :command:`install(EXPORT)` command consumes this list of targets "
+"to generate the target export file. This will be a file named ``<ExportName>."
+"cmake`` located in the provided ``DESTINATION``. The ``DESTINATION`` "
+"provided in this example is the conventional one, but any location searched "
+"by the :command:`find_package` command is valid."
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:264
+msgid ""
+"Finally, the targets created by the target export file will be prefixed with "
+"the ``NAMESPACE`` string, ie they will be of the form "
+"``<NAMESPACE><TargetName>``. It is conventional for this to be the project "
+"name followed by two colons."
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:268
+msgid ""
+"For reasons that will become more obvious in future steps, we typically "
+"don't consume this file directly. Instead we have a file named "
+"``<ProjectName>Config.cmake`` consume it via :command:`include()`."
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:272
+msgid "include(${CMAKE_CURRENT_LIST_DIR}/MyProjectTargets.cmake)"
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:277
+msgid ""
+"The :variable:`CMAKE_CURRENT_LIST_DIR` variable names the directory that the "
+"currently running CMake Language file is inside of, regardless of how that "
+"file was included or launched."
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:281
+msgid ""
+"Then this file is installed alongside the target export with :command:"
+"`install(FILES)`."
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:284
+msgid ""
+"install(\n"
+"  FILES\n"
+"    cmake/MyProjectConfig.cmake\n"
+"  DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/MyProject\n"
+")"
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:293
+msgid ""
+"The name of this file and its location are dictated by the discovery "
+"semantics of the :command:`find_package` command, which we will discuss more "
+"in the next step."
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:300
+msgid "Export the Tutorial project targets so other projects may consume them."
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:306
+msgid ":module:`GNUInstallDirs`"
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:307
+msgid ":variable:`CMAKE_CURRENT_LIST_DIR`"
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:313
+msgid "``cmake/TutorialConfig.cmake``"
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:318
+msgid ""
+"Continue editing the files in the ``Help/guide/tutorial/Step9`` directory. "
+"Complete ``TODO 3`` through ``TODO 8``."
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:324
+msgid "The build command is sufficient to reconfigure the project."
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:326
+msgid "cmake --build build"
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:334
+msgid ""
+"As with CTest, when using multi-config generator, eg Visual Studio, it will "
+"be necessary to specify a configuration with ``cmake --install --config "
+"<config> <remaining flags>``, where ``<config>`` is a value like ``Debug`` "
+"or ``Release``. This is true whenever using a multi-config generator, and "
+"won't be called out specifically in future commands."
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:346
+msgid ""
+"CMake won't update files which have not changed, only installing new or "
+"updated files from the build and source trees."
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:349
+msgid ""
+"The ``install`` folder should be populated correctly for our artifacts and "
+"export files. We'll demonstrate how to use these files in the next step."
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:355
+msgid "First we add the ``Tutorial`` target to the ``TutorialTargets`` export."
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:357
+msgid "<details><summary>TODO 3 Click to show/hide answer</summary>"
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:361
+msgid "TODO 3: CMakeLists.txt"
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:361
+msgid ""
+"  install(\n"
+"    TARGETS Tutorial\n"
+"    EXPORT TutorialTargets\n"
+"  )\n"
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:372
+msgid ""
+"Soon we will need access to the ``CMAKE_INSTALL_<dir>`` variables, so next "
+"we include the :module:`GNUInstallDirs` module."
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:375
+msgid "<details><summary>TODO 4 Click to show/hide answer</summary>"
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:379
+msgid "TODO 4: CMakeLists.txt"
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:379
+msgid "include(GNUInstallDirs)\n"
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:390
+msgid "Now we add the rest of our targets to the ``TutorialTargets`` export."
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:392
+msgid "<details><summary>TODO 5 Click to show/hide answer</summary>"
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:396
+msgid "TODO 5: CMakeLists.txt"
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:396
+msgid ""
+"install(\n"
+"  TARGETS MathFunctions OpAdd OpMul OpSub MathLogger SqrtTable\n"
+"  EXPORT TutorialTargets\n"
+"  FILE_SET HEADERS\n"
+")\n"
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:408
+msgid "Next we install the export itself, to generate our target export file."
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:410
+msgid "<details><summary>TODO 6 Click to show/hide answer</summary>"
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:414
+msgid "TODO 6: CMakeLists.txt"
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:414
+msgid ""
+"install(\n"
+"  EXPORT TutorialTargets\n"
+"  DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/Tutorial\n"
+"  NAMESPACE Tutorial::\n"
+")"
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:428
+msgid ""
+"And then we install our \"config\" file, which we will use to include our "
+"target export file."
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:431
+msgid "<details><summary>TODO 7 Click to show/hide answer</summary>"
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:435
+msgid "TODO 7: CMakeLists.txt"
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:435
+msgid ""
+"install(\n"
+"  FILES\n"
+"    cmake/TutorialConfig.cmake\n"
+"  DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/Tutorial\n"
+")"
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:449
+msgid ""
+"Finally we can add the necessary :command:`include` command to the config "
+"file."
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:451
+msgid "<details><summary>TODO 8 Click to show/hide answer</summary>"
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:455
+msgid "TODO 8: cmake/TutorialConfig.cmake"
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:455
+msgid "include(${CMAKE_CURRENT_LIST_DIR}/TutorialTargets.cmake)\n"
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:467
+msgid "Exercise 3 - Exporting a Version File"
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:469
+msgid ""
+"When importing CMake targets from a target export file, there is no way to "
+"\"bail out\" or \"undo\" the operation. If it turns out a package is a wrong "
+"or incompatible version for the one we requested, we'll be stuck with any "
+"side-effects incurred while we learned that version information."
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:474
+msgid ""
+"The answer CMake provides for this problem is a light-weight version file "
+"which only describes this version compatibility information, which can be "
+"checked before CMake commits to fully importing the file."
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:478
+msgid ""
+"CMake provides helper modules and scripts for generating these version "
+"files, namely the :module:`CMakePackageConfigHelpers` module."
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:481
+msgid ""
+"include(CMakePackageConfigHelpers)\n"
+"\n"
+"write_basic_package_version_file(\n"
+"  ${CMAKE_CURRENT_BINARY_DIR}/MyProjectConfigVersion.cmake\n"
+"  COMPATIBILITY ExactVersion\n"
+")"
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:490
+msgid "The available versions are:"
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:492
+msgid "``AnyNewerVersion``"
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:493
+msgid "``SameMajorVersion``"
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:494
+msgid "``SameMinorVersion``"
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:495
+msgid "``ExactVersion``"
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:497
+msgid ""
+"Additionally packages can mark themselves as ``ARCH_INDEPENDENT``, intended "
+"for packages which ship no binaries which would tie them to a specific "
+"machine architecture."
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:501
+msgid ""
+"By default, the ``VERSION`` used by ``write_basic_package_version_file()`` "
+"is the ``VERSION`` number given to the :command:`project` command."
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:507
+msgid "Export a version file for the Tutorial project."
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:512
+msgid ":command:`project`"
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:514
+msgid ":module:`CMakePackageConfigHelpers`"
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:515
+msgid ":variable:`PROJECT_VERSION`"
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:525
+msgid ""
+"Continue editing the files in the ``Help/guide/tutorial/Step9`` directory. "
+"Complete ``TODO 9`` through ``TODO 12``."
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:531
+msgid "Rebuild and install as done previously."
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:533
+msgid ""
+"cmake --build build\n"
+"cmake --install build --prefix install"
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:538
+msgid ""
+"The ``install`` folder should be populated correctly with our newly "
+"generated and installed version file."
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:544
+msgid "First we add a ``VERSION`` parameter to the :command:`project` command."
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:546
+msgid "<details><summary>TODO 9 Click to show/hide answer</summary>"
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:550
+msgid "TODO 9: CMakeLists.txt"
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:550
+msgid ""
+"project(Tutorial\n"
+"  VERSION 1.0.0\n"
+")\n"
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:561
+msgid ""
+"Next we include the :module:`CMakePackageConfigHelpers` modules and use it "
+"to generate the config version file."
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:564
+msgid "<details><summary>TODO 10-11 Click to show/hide answer</summary>"
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:568
+msgid "TODO 10-11: CMakeLists.txt"
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:568
+msgid ""
+"include(CMakePackageConfigHelpers)\n"
+"\n"
+"write_basic_package_version_file(\n"
+"  ${CMAKE_CURRENT_BINARY_DIR}/TutorialConfigVersion.cmake\n"
+"  COMPATIBILITY ExactVersion\n"
+")\n"
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:580
+msgid ""
+"Finally we add the config version file to the list of files to be installed."
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:582
+msgid "<details><summary>TODO 12 Click to show/hide answer</summary>"
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:586
+msgid "TODO 12: CMakeLists.txt"
+msgstr ""
+
+#: ../../../guide/tutorial/Installation Commands and Concepts.rst:586
+msgid ""
+"install(\n"
+"  FILES\n"
+"    cmake/TutorialConfig.cmake\n"
+"    ${CMAKE_CURRENT_BINARY_DIR}/TutorialConfigVersion.cmake\n"
+"  DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/Tutorial\n"
+")\n"
+msgstr ""
