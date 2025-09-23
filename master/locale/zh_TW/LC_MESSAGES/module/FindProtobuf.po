@@ -310,7 +310,7 @@ msgstr ""
 
 #: ../../../../Modules/FindProtobuf.cmake:148
 msgid "Generating Source Files"
-msgstr ""
+msgstr "生成來源檔"
 
 #: ../../../../Modules/FindProtobuf.cmake:154
 msgid ""
@@ -338,10 +338,27 @@ msgid ""
 "  [DESCRIPTORS]\n"
 ")"
 msgstr ""
+"protobuf_generate(\n"
+"  [TARGET <target>]\n"
+"  [LANGUAGE <lang>]\n"
+"  [OUT_VAR <variable>]\n"
+"  [EXPORT_MACRO <macro>]\n"
+"  [PROTOC_OUT_DIR <out-dir>]\n"
+"  [PLUGIN <plugin>]\n"
+"  [PLUGIN_OPTIONS <plugin-options>]\n"
+"  [DEPENDENCIES <dependencies>...]\n"
+"  [PROTOS <proto-files>...]\n"
+"  [IMPORT_DIRS <dirs>...]\n"
+"  [APPEND_PATH]\n"
+"  [GENERATE_EXTENSIONS <extensions>...]\n"
+"  [PROTOC_OPTIONS <options>...]\n"
+"  [PROTOC_EXE <executable>]\n"
+"  [DESCRIPTORS]\n"
+")"
 
 #: ../../../../Modules/FindProtobuf.cmake:177
 msgid "``TARGET <target>``"
-msgstr ""
+msgstr "``TARGET <target>``"
 
 #: ../../../../Modules/FindProtobuf.cmake:178
 msgid ""
@@ -460,7 +477,7 @@ msgstr ""
 
 #: ../../../../Modules/FindProtobuf.cmake:238
 msgid "``APPEND_PATH``"
-msgstr ""
+msgstr "``APPEND_PATH``"
 
 #: ../../../../Modules/FindProtobuf.cmake:239
 msgid ""
@@ -481,7 +498,7 @@ msgstr ""
 
 #: ../../../../Modules/FindProtobuf.cmake:247
 msgid "``PROTOC_OPTIONS <options>...``"
-msgstr ""
+msgstr "``PROTOC_OPTIONS <options>...``"
 
 #: ../../../../Modules/FindProtobuf.cmake:250
 msgid ""
@@ -491,7 +508,7 @@ msgstr ""
 
 #: ../../../../Modules/FindProtobuf.cmake:253
 msgid "``PROTOC_EXE <executable>``"
-msgstr ""
+msgstr "``PROTOC_EXE <executable>``"
 
 #: ../../../../Modules/FindProtobuf.cmake:256
 msgid ""
@@ -502,7 +519,7 @@ msgstr ""
 
 #: ../../../../Modules/FindProtobuf.cmake:260
 msgid "``DESCRIPTORS``"
-msgstr ""
+msgstr "``DESCRIPTORS``"
 
 #: ../../../../Modules/FindProtobuf.cmake:261
 msgid ""
@@ -565,7 +582,7 @@ msgstr ""
 
 #: ../../../../Modules/FindProtobuf.cmake:307
 msgid "``<sources-variable>``"
-msgstr ""
+msgstr "``<sources-variable>``"
 
 #: ../../../../Modules/FindProtobuf.cmake:308
 msgid ""
@@ -575,7 +592,7 @@ msgstr ""
 
 #: ../../../../Modules/FindProtobuf.cmake:311
 msgid "``<headers-variable>``"
-msgstr ""
+msgstr "``<headers-variable>``"
 
 #: ../../../../Modules/FindProtobuf.cmake:312
 msgid ""
@@ -890,6 +907,21 @@ msgid ""
 "\n"
 "target_link_libraries(example PRIVATE protobuf::libprotobuf)"
 msgstr ""
+"find_package(Protobuf)\n"
+"\n"
+"if(Protobuf_FOUND)\n"
+"  protobuf_generate(\n"
+"    TARGET example\n"
+"    EXPORT_MACRO DLL_EXPORT\n"
+"    IMPORT_DIRS src/protocol\n"
+"    DESCRIPTORS\n"
+"    PROTOS\n"
+"      src/protocol/Proto1.proto\n"
+"      src/protocol/Proto2.proto\n"
+"  )\n"
+"endif()\n"
+"\n"
+"target_link_libraries(example PRIVATE protobuf::libprotobuf)"
 
 #: ../../../../Modules/FindProtobuf.cmake:547
 msgid ""
@@ -907,6 +939,13 @@ msgid ""
 "\n"
 "add_custom_target(proto_files DEPENDS ${python_sources})"
 msgstr ""
+"find_package(Protobuf)\n"
+"\n"
+"if(Protobuf_FOUND)\n"
+"  protobuf_generate_python(python_sources foo.proto)\n"
+"endif()\n"
+"\n"
+"add_custom_target(proto_files DEPENDS ${python_sources})"
 
 #: ../../../../Modules/FindProtobuf.cmake:561
 msgid ""
@@ -922,3 +961,14 @@ msgid ""
 "\n"
 "add_custom_target(proto_files DEPENDS ${python_sources})"
 msgstr ""
+"find_package(Protobuf)\n"
+"\n"
+"if(Protobuf_FOUND)\n"
+"  protobuf_generate(\n"
+"    LANGUAGE python\n"
+"    PROTOS foo.proto\n"
+"    OUT_VAR python_sources\n"
+"  )\n"
+"endif()\n"
+"\n"
+"add_custom_target(proto_files DEPENDS ${python_sources})"
