@@ -351,6 +351,19 @@ The goal of this project is to translate the CMake documentation into multiple l
 </table>
 </div>
 
+Alternatively, you can preview translations locally by running the following commands:
+
+```bash
+# Please make sure the following prerequisites are installed:
+# CMake (3.25~), Git, Conda, Gettext
+VERSION=master
+LANGUAGE=zh_TW
+git clone --recurse-submodule https://github.com/localizethedocs/cmake-docs-l10n.git
+cd cmake-docs-l10n
+cmake --preset ${LANGUAGE} -DVERSION=${VERSION}
+cmake --build out/build/${LANGUAGE}
+```
+
 You can switch to other available languages and versions by the flyout navigation menu.
 
 <h2 id="maintainers"><a href="#table-of-contents">维护者</a></h2>

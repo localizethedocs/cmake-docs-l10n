@@ -351,6 +351,19 @@
 </table>
 </div>
 
+Alternatively, you can preview translations locally by running the following commands:
+
+```bash
+# Please make sure the following prerequisites are installed:
+# CMake (3.25~), Git, Conda, Gettext
+VERSION=master
+LANGUAGE=zh_TW
+git clone --recurse-submodule https://github.com/localizethedocs/cmake-docs-l10n.git
+cd cmake-docs-l10n
+cmake --preset ${LANGUAGE} -DVERSION=${VERSION}
+cmake --build out/build/${LANGUAGE}
+```
+
 您可以透過飛出式導航選單切換到其他可用的語言和版本。
 
 <h2 id="maintainers"><a href="#table-of-contents">維護者</a></h2>
