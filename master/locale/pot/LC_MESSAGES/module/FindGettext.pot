@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CMake master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-11 08:21+0000\n"
+"POT-Creation-Date: 2025-09-29 08:20+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -84,11 +84,10 @@ msgstr ""
 msgid "``Gettext_FOUND``"
 msgstr ""
 
-#: ../../../../Modules/FindGettext.cmake:39
+#: ../../../../Modules/FindGettext.cmake:41
+#: ../../../../Modules/FindGettext.cmake:208
 msgid ""
-"Boolean indicating whether (the requested version of) gettext is found.  For "
-"backward compatibility, the ``GETTEXT_FOUND`` variable is also set to the "
-"same value."
+"Boolean indicating whether (the requested version of) gettext was found."
 msgstr ""
 
 #: ../../../../Modules/FindGettext.cmake:43
@@ -96,7 +95,7 @@ msgid "``Gettext_VERSION``"
 msgstr ""
 
 #: ../../../../Modules/FindGettext.cmake:46
-#: ../../../../Modules/FindGettext.cmake:208
+#: ../../../../Modules/FindGettext.cmake:214
 msgid "The version of gettext found."
 msgstr ""
 
@@ -345,63 +344,71 @@ msgid "The following variables are provided for backward compatibility:"
 msgstr ""
 
 #: ../../../../Modules/FindGettext.cmake:204
-msgid "``GETTEXT_VERSION_STRING``"
+msgid "``GETTEXT_FOUND``"
 msgstr ""
 
 #: ../../../../Modules/FindGettext.cmake:205
-msgid "Superseded by the ``Gettext_VERSION``."
+msgid "Use ``Gettext_FOUND``, which has the same value."
+msgstr ""
+
+#: ../../../../Modules/FindGettext.cmake:210
+msgid "``GETTEXT_VERSION_STRING``"
 msgstr ""
 
 #: ../../../../Modules/FindGettext.cmake:211
+msgid "Superseded by the ``Gettext_VERSION``."
+msgstr ""
+
+#: ../../../../Modules/FindGettext.cmake:217
 msgid "Examples"
 msgstr ""
 
-#: ../../../../Modules/FindGettext.cmake:214
+#: ../../../../Modules/FindGettext.cmake:220
 msgid "Examples: Finding gettext"
 msgstr ""
 
-#: ../../../../Modules/FindGettext.cmake:216
+#: ../../../../Modules/FindGettext.cmake:222
 msgid "Finding the GNU gettext tools:"
 msgstr ""
 
-#: ../../../../Modules/FindGettext.cmake:218
+#: ../../../../Modules/FindGettext.cmake:224
 msgid "find_package(Gettext)"
 msgstr ""
 
-#: ../../../../Modules/FindGettext.cmake:222
+#: ../../../../Modules/FindGettext.cmake:228
 msgid "Or, finding gettext and specifying a minimum required version:"
 msgstr ""
 
-#: ../../../../Modules/FindGettext.cmake:224
+#: ../../../../Modules/FindGettext.cmake:230
 msgid "find_package(Gettext 0.21)"
 msgstr ""
 
-#: ../../../../Modules/FindGettext.cmake:228
+#: ../../../../Modules/FindGettext.cmake:234
 msgid ""
 "Or, finding gettext and making it required (if not found, processing stops "
 "with an error message):"
 msgstr ""
 
-#: ../../../../Modules/FindGettext.cmake:231
+#: ../../../../Modules/FindGettext.cmake:237
 msgid "find_package(Gettext REQUIRED)"
 msgstr ""
 
-#: ../../../../Modules/FindGettext.cmake:236
+#: ../../../../Modules/FindGettext.cmake:242
 msgid "Example: Working With gettext in CMake"
 msgstr ""
 
-#: ../../../../Modules/FindGettext.cmake:238
+#: ../../../../Modules/FindGettext.cmake:244
 msgid ""
 "When starting with gettext, ``.pot`` file is considered to be created "
 "manually. For example, using a ``xgettext`` tool on the provided ``main."
 "cxx`` source code file:"
 msgstr ""
 
-#: ../../../../Modules/FindGettext.cmake:242
+#: ../../../../Modules/FindGettext.cmake:248
 msgid "``main.cxx``"
 msgstr ""
 
-#: ../../../../Modules/FindGettext.cmake:242
+#: ../../../../Modules/FindGettext.cmake:248
 msgid ""
 "#include <iostream>\n"
 "#include <libintl.h>\n"
@@ -426,39 +433,39 @@ msgid ""
 "}"
 msgstr ""
 
-#: ../../../../Modules/FindGettext.cmake:268
+#: ../../../../Modules/FindGettext.cmake:274
 msgid ""
 "The ``xgettext`` tool extracts all strings from ``gettext()`` calls in "
 "provided source code and creates translatable strings:"
 msgstr ""
 
-#: ../../../../Modules/FindGettext.cmake:271
+#: ../../../../Modules/FindGettext.cmake:277
 msgid "$ xgettext -o MyApp.pot main.cxx"
 msgstr ""
 
-#: ../../../../Modules/FindGettext.cmake:275
+#: ../../../../Modules/FindGettext.cmake:281
 msgid ""
 "Translatable files can be initialized by the project manually using "
 "``msginit`` tool:"
 msgstr ""
 
-#: ../../../../Modules/FindGettext.cmake:278
+#: ../../../../Modules/FindGettext.cmake:284
 msgid ""
 "$ mkdir -p locale/de_DE\n"
 "$ msginit -l de_DE.UTF8 -o locale/de_DE/MyApp.po -i MyApp.pot --no-translator"
 msgstr ""
 
-#: ../../../../Modules/FindGettext.cmake:283
+#: ../../../../Modules/FindGettext.cmake:289
 msgid ""
 "which creates a human-readable file that can be translated into a desired "
 "language (adjust as needed):"
 msgstr ""
 
-#: ../../../../Modules/FindGettext.cmake:286
+#: ../../../../Modules/FindGettext.cmake:292
 msgid "``locale/de_DE/MyApp.po``"
 msgstr ""
 
-#: ../../../../Modules/FindGettext.cmake:286
+#: ../../../../Modules/FindGettext.cmake:292
 msgid ""
 "msgid \"\"\n"
 "msgstr \"\"\n"
@@ -471,7 +478,7 @@ msgid ""
 "msgstr \"Hallo, Welt\""
 msgstr ""
 
-#: ../../../../Modules/FindGettext.cmake:300
+#: ../../../../Modules/FindGettext.cmake:306
 msgid ""
 "In CMake, the :command:`gettext_process_po_files` command provided by this "
 "module automatically creates the needed ``.mo`` files that application loads "
@@ -480,13 +487,13 @@ msgid ""
 "to provide the ``CMAKE_INSTALL_LOCALEDIR`` variable:"
 msgstr ""
 
-#: ../../../../Modules/FindGettext.cmake:306
-#: ../../../../Modules/FindGettext.cmake:355
-#: ../../../../Modules/FindGettext.cmake:381
+#: ../../../../Modules/FindGettext.cmake:312
+#: ../../../../Modules/FindGettext.cmake:361
+#: ../../../../Modules/FindGettext.cmake:387
 msgid "``CMakeLists.txt``"
 msgstr ""
 
-#: ../../../../Modules/FindGettext.cmake:306
+#: ../../../../Modules/FindGettext.cmake:312
 msgid ""
 "cmake_minimum_required(VERSION 3.24)\n"
 "project(GettextExample)\n"
@@ -514,36 +521,36 @@ msgid ""
 "install(TARGETS example)"
 msgstr ""
 
-#: ../../../../Modules/FindGettext.cmake:335
+#: ../../../../Modules/FindGettext.cmake:341
 msgid ""
 "$ cmake -B build\n"
 "$ cmake --build build\n"
 "$ DESTDIR=$(pwd)/stage cmake --install build"
 msgstr ""
 
-#: ../../../../Modules/FindGettext.cmake:341
+#: ../../../../Modules/FindGettext.cmake:347
 msgid ""
 "To utilize the translations, the ``de_DE`` locale needs to be enabled on the "
 "system (see ``locale -a``).  And then the localized output can be run:"
 msgstr ""
 
-#: ../../../../Modules/FindGettext.cmake:344
+#: ../../../../Modules/FindGettext.cmake:350
 msgid ""
 "$ LANG=de_DE.UTF-8 TEXTDOMAINDIR=./stage/usr/local/share/locale \\\n"
 "  ./stage/usr/local/bin/example"
 msgstr ""
 
-#: ../../../../Modules/FindGettext.cmake:350
+#: ../../../../Modules/FindGettext.cmake:356
 msgid "Example: Processing POT File"
 msgstr ""
 
-#: ../../../../Modules/FindGettext.cmake:352
+#: ../../../../Modules/FindGettext.cmake:358
 msgid ""
 "The :command:`gettext_process_pot_file` command processes ``.po`` "
 "translation files located in the current binary directory into ``.mo`` files:"
 msgstr ""
 
-#: ../../../../Modules/FindGettext.cmake:355
+#: ../../../../Modules/FindGettext.cmake:361
 msgid ""
 "find_package(Gettext)\n"
 "\n"
@@ -563,17 +570,17 @@ msgid ""
 "endif()"
 msgstr ""
 
-#: ../../../../Modules/FindGettext.cmake:376
+#: ../../../../Modules/FindGettext.cmake:382
 msgid "Example: Creating Translations"
 msgstr ""
 
-#: ../../../../Modules/FindGettext.cmake:378
+#: ../../../../Modules/FindGettext.cmake:384
 msgid ""
 "Using a simplified :command:`gettext_create_translations` command to create "
 "``.mo`` files:"
 msgstr ""
 
-#: ../../../../Modules/FindGettext.cmake:381
+#: ../../../../Modules/FindGettext.cmake:387
 msgid ""
 "find_package(Gettext)\n"
 "\n"
@@ -588,11 +595,11 @@ msgid ""
 "endif()"
 msgstr ""
 
-#: ../../../../Modules/FindGettext.cmake:397
+#: ../../../../Modules/FindGettext.cmake:403
 msgid "See Also"
 msgstr ""
 
-#: ../../../../Modules/FindGettext.cmake:399
+#: ../../../../Modules/FindGettext.cmake:405
 msgid ""
 "The :module:`FindIntl` module to find the Gettext runtime library (libintl)."
 msgstr ""
