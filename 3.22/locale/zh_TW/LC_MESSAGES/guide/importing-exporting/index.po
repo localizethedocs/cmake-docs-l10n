@@ -105,6 +105,15 @@ msgid ""
 "$ ls\n"
 "[...] main.cc [...]"
 msgstr ""
+"$ cd Help/guide/importing-exporting/MyExe\n"
+"$ mkdir build\n"
+"$ cd build\n"
+"$ cmake ..\n"
+"$ cmake --build .\n"
+"$ cmake --install . --prefix <install location>\n"
+"$ <install location>/myexe\n"
+"$ ls\n"
+"[...] main.cc [...]"
 
 #: ../../../guide/importing-exporting/index.rst:67
 msgid ""
@@ -139,6 +148,9 @@ msgid ""
 "             IMPORTED_LOCATION \"../InstallMyExe/bin/myexe\")\n"
 "\n"
 msgstr ""
+"set_property(TARGET myexe PROPERTY\n"
+"             IMPORTED_LOCATION \"../InstallMyExe/bin/myexe\")\n"
+"\n"
 
 #: ../../../guide/importing-exporting/index.rst:90
 msgid ""
@@ -167,11 +179,11 @@ msgstr ""
 
 #: ../../../guide/importing-exporting/index.rst:106
 msgid "add_executable(mynewexe main.cc)\n"
-msgstr ""
+msgstr "add_executable(mynewexe main.cc)\n"
 
 #: ../../../guide/importing-exporting/index.rst:111
 msgid "Importing Libraries"
-msgstr ""
+msgstr "匯入程式庫"
 
 #: ../../../guide/importing-exporting/index.rst:113
 msgid ""
@@ -197,6 +209,9 @@ msgid ""
 "set_property(TARGET foo PROPERTY\n"
 "             IMPORTED_LOCATION \"/path/to/libfoo.a\")"
 msgstr ""
+"add_library(foo STATIC IMPORTED)\n"
+"set_property(TARGET foo PROPERTY\n"
+"             IMPORTED_LOCATION \"/path/to/libfoo.a\")"
 
 #: ../../../guide/importing-exporting/index.rst:128
 msgid "Then use the :prop_tgt:`IMPORTED` library inside of our project:"
@@ -207,6 +222,8 @@ msgid ""
 "add_executable(myexe src1.c src2.c)\n"
 "target_link_libraries(myexe PRIVATE foo)"
 msgstr ""
+"add_executable(myexe src1.c src2.c)\n"
+"target_link_libraries(myexe PRIVATE foo)"
 
 #: ../../../guide/importing-exporting/index.rst:136
 msgid ""
@@ -298,6 +315,11 @@ msgid ""
 "double sqrt(double x);\n"
 "}\n"
 msgstr ""
+"#pragma once\n"
+"\n"
+"namespace MathFunctions {\n"
+"double sqrt(double x);\n"
+"}\n"
 
 #: ../../../guide/importing-exporting/index.rst:189
 msgid "And a corresponding source file ``MathFunctions.cxx``:"
@@ -362,6 +384,8 @@ msgid ""
 "add_library(MathFunctions STATIC MathFunctions.cxx)\n"
 "\n"
 msgstr ""
+"add_library(MathFunctions STATIC MathFunctions.cxx)\n"
+"\n"
 
 #: ../../../guide/importing-exporting/index.rst:217
 msgid ""
@@ -621,6 +645,8 @@ msgid ""
 "include(CMakePackageConfigHelpers)\n"
 "\n"
 msgstr ""
+"include(CMakePackageConfigHelpers)\n"
+"\n"
 
 #: ../../../guide/importing-exporting/index.rst:372
 msgid ""
@@ -684,6 +710,11 @@ msgid ""
 "\n"
 "check_required_components(MathFunctions)\n"
 msgstr ""
+"@PACKAGE_INIT@\n"
+"\n"
+"include(\"${CMAKE_CURRENT_LIST_DIR}/MathFunctionsTargets.cmake\")\n"
+"\n"
+"check_required_components(MathFunctions)\n"
 
 #: ../../../guide/importing-exporting/index.rst:408
 msgid ""
@@ -731,6 +762,8 @@ msgid ""
 "find_package(Stats 2.6.4 REQUIRED)\n"
 "target_link_libraries(MathFunctions PUBLIC Stats::Types)"
 msgstr ""
+"find_package(Stats 2.6.4 REQUIRED)\n"
+"target_link_libraries(MathFunctions PUBLIC Stats::Types)"
 
 #: ../../../guide/importing-exporting/index.rst:439
 msgid ""
@@ -764,7 +797,7 @@ msgstr ""
 
 #: ../../../guide/importing-exporting/index.rst:459
 msgid "Creating a Package Version File"
-msgstr ""
+msgstr "建立軟體包版本檔"
 
 #: ../../../guide/importing-exporting/index.rst:461
 msgid ""
@@ -1086,6 +1119,8 @@ msgid ""
 "add_executable(myexe main.cc)\n"
 "\n"
 msgstr ""
+"add_executable(myexe main.cc)\n"
+"\n"
 
 #: ../../../guide/importing-exporting/index.rst:650
 msgid "And link to the ``MathFunctions`` library:"
@@ -1107,6 +1142,10 @@ msgid ""
 "cmake ../Downstream\n"
 "cmake --build ."
 msgstr ""
+"mkdir Downstream_build\n"
+"cd Downstream_build\n"
+"cmake ../Downstream\n"
+"cmake --build ."
 
 #: ../../../guide/importing-exporting/index.rst:665
 msgid "A warning may have appeared during CMake configuration:"
@@ -1299,6 +1338,8 @@ msgid ""
 "find_package(MathFunctions 3.4 COMPONENTS Addition SquareRoot)\n"
 "\n"
 msgstr ""
+"find_package(MathFunctions 3.4 COMPONENTS Addition SquareRoot)\n"
+"\n"
 
 #: ../../../guide/importing-exporting/index.rst:744
 msgid "and the ``target_link_libraries`` line from:"
