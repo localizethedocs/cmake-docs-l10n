@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CMake master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-14 08:20+0000\n"
+"POT-Creation-Date: 2025-10-06 08:24+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -81,7 +81,7 @@ msgid ""
 msgstr ""
 
 #: ../../../command/add_library.rst:39 ../../../command/add_library.rst:184
-#: ../../../command/add_library.rst:260
+#: ../../../command/add_library.rst:284
 msgid "The options are:"
 msgstr ""
 
@@ -302,11 +302,38 @@ msgid ""
 "`INTERFACE_SOURCES` target property."
 msgstr ""
 
-#: ../../../command/add_library.rst:202
+#: ../../../command/add_library.rst:205
+msgid ""
+"Add a symbolic :ref:`Interface Library <Interface Libraries>` target. "
+"Symbolic interface libraries are useful for representing optional components "
+"or features in a package.  They have no usage requirements, do not compile "
+"sources, and do not produce a library artifact on disk, but they may be "
+"exported and installed.  They can also be tested for existence with the "
+"regular :command:`if(TARGET)` subcommand."
+msgstr ""
+
+#: ../../../command/add_library.rst:212
+msgid ""
+"A symbolic interface library may be used as a linkable target to enforce the "
+"presence of optional components in a dependency.  For example, if a library "
+"``libgui`` may or may not provide a feature ``widget``, a consumer package "
+"can link against ``widget`` to express that it requires this component to be "
+"available.  This allows :command:`find_package` calls that declare required "
+"components to be validated by linking against the corresponding symbolic "
+"targets."
+msgstr ""
+
+#: ../../../command/add_library.rst:220
+msgid ""
+"A symbolic interface library has the :prop_tgt:`SYMBOLIC` target property "
+"set to true."
+msgstr ""
+
+#: ../../../command/add_library.rst:226
 msgid "Imported Libraries"
 msgstr ""
 
-#: ../../../command/add_library.rst:208
+#: ../../../command/add_library.rst:232
 msgid ""
 "Add an :ref:`IMPORTED library target <Imported Targets>` called ``<name>``. "
 "The target name may be referenced like any target built within the project, "
@@ -314,15 +341,15 @@ msgid ""
 "created, and below."
 msgstr ""
 
-#: ../../../command/add_library.rst:213
+#: ../../../command/add_library.rst:237
 msgid "The ``<type>`` must be one of:"
 msgstr ""
 
-#: ../../../command/add_library.rst:215
+#: ../../../command/add_library.rst:239
 msgid "``STATIC``, ``SHARED``, ``MODULE``, ``UNKNOWN``"
 msgstr ""
 
-#: ../../../command/add_library.rst:216
+#: ../../../command/add_library.rst:240
 msgid ""
 "References a library file located outside the project.  The :prop_tgt:"
 "`IMPORTED_LOCATION` target property (or its per-configuration variant :"
@@ -330,7 +357,7 @@ msgid ""
 "library file on disk:"
 msgstr ""
 
-#: ../../../command/add_library.rst:221
+#: ../../../command/add_library.rst:245
 msgid ""
 "For a ``SHARED`` library on most non-Windows platforms, the main library "
 "file is the ``.so`` or ``.dylib`` file used by both linkers and dynamic "
@@ -341,7 +368,7 @@ msgid ""
 "the :prop_tgt:`IMPORTED_NO_SONAME` target property should be set."
 msgstr ""
 
-#: ../../../command/add_library.rst:230
+#: ../../../command/add_library.rst:254
 msgid ""
 "For a ``SHARED`` library on Windows, the :prop_tgt:`IMPORTED_IMPLIB` target "
 "property (or its per-configuration variant :prop_tgt:"
@@ -351,12 +378,12 @@ msgid ""
 "the :genex:`TARGET_RUNTIME_DLLS` generator expression)."
 msgstr ""
 
-#: ../../../command/add_library.rst:238
+#: ../../../command/add_library.rst:262
 msgid ""
 "Additional usage requirements may be specified in ``INTERFACE_*`` properties."
 msgstr ""
 
-#: ../../../command/add_library.rst:241
+#: ../../../command/add_library.rst:265
 msgid ""
 "An ``UNKNOWN`` library type is typically only used in the implementation of :"
 "ref:`Find Modules`.  It allows the path to an imported library (often found "
@@ -365,11 +392,11 @@ msgid ""
 "static library and a DLL's import library both have the same file extension."
 msgstr ""
 
-#: ../../../command/add_library.rst:248
+#: ../../../command/add_library.rst:272
 msgid "``OBJECT``"
 msgstr ""
 
-#: ../../../command/add_library.rst:249
+#: ../../../command/add_library.rst:273
 msgid ""
 "References a set of object files located outside the project. The :prop_tgt:"
 "`IMPORTED_OBJECTS` target property (or its per-configuration variant :"
@@ -378,43 +405,43 @@ msgid ""
 "``INTERFACE_*`` properties."
 msgstr ""
 
-#: ../../../command/add_library.rst:256
+#: ../../../command/add_library.rst:280
 msgid "``INTERFACE``"
 msgstr ""
 
-#: ../../../command/add_library.rst:257
+#: ../../../command/add_library.rst:281
 msgid ""
 "Does not reference any library or object files on disk, but may specify "
 "usage requirements in ``INTERFACE_*`` properties."
 msgstr ""
 
-#: ../../../command/add_library.rst:262
+#: ../../../command/add_library.rst:286
 msgid "``GLOBAL``"
 msgstr ""
 
-#: ../../../command/add_library.rst:263
+#: ../../../command/add_library.rst:287
 msgid "Make the target name globally visible."
 msgstr ""
 
-#: ../../../command/add_library.rst:265
+#: ../../../command/add_library.rst:289
 msgid ""
 "No rules are generated to build imported targets, and the :prop_tgt:"
 "`IMPORTED` target property is ``True``.  Imported libraries are useful for "
 "convenient reference from commands like :command:`target_link_libraries`."
 msgstr ""
 
-#: ../../../command/add_library.rst:269
+#: ../../../command/add_library.rst:293
 msgid ""
 "Details about the imported library are specified by setting properties whose "
 "names begin in ``IMPORTED_`` and ``INTERFACE_``.  See documentation of such "
 "properties for more information."
 msgstr ""
 
-#: ../../../command/add_library.rst:274
+#: ../../../command/add_library.rst:298
 msgid "Alias Libraries"
 msgstr ""
 
-#: ../../../command/add_library.rst:280
+#: ../../../command/add_library.rst:304
 msgid ""
 "Creates an :ref:`Alias Target <Alias Targets>`, such that ``<name>`` can be "
 "used to refer to ``<target>`` in subsequent commands.  The ``<name>`` does "
@@ -422,13 +449,13 @@ msgid ""
 "may not be an ``ALIAS``."
 msgstr ""
 
-#: ../../../command/add_library.rst:285
+#: ../../../command/add_library.rst:309
 msgid ""
 "An ``ALIAS`` can target a ``GLOBAL`` :ref:`Imported Target <Imported "
 "Targets>`"
 msgstr ""
 
-#: ../../../command/add_library.rst:288
+#: ../../../command/add_library.rst:312
 msgid ""
 "An ``ALIAS`` can target a non-``GLOBAL`` Imported Target. Such alias is "
 "scoped to the directory in which it is created and below. The :prop_tgt:"
@@ -436,7 +463,7 @@ msgid ""
 "or not."
 msgstr ""
 
-#: ../../../command/add_library.rst:294
+#: ../../../command/add_library.rst:318
 msgid ""
 "``ALIAS`` targets can be used as linkable targets and as targets to read "
 "properties from.  They can also be tested for existence with the regular :"
@@ -447,10 +474,10 @@ msgid ""
 "exported."
 msgstr ""
 
-#: ../../../command/add_library.rst:303
+#: ../../../command/add_library.rst:327
 msgid "See Also"
 msgstr ""
 
-#: ../../../command/add_library.rst:305
+#: ../../../command/add_library.rst:329
 msgid ":command:`add_executable`"
 msgstr ""
