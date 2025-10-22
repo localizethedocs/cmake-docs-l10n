@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CMake master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-25 08:20+0000\n"
+"POT-Creation-Date: 2025-10-20 12:12+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,8 +23,8 @@ msgstr ""
 
 #: ../../../../Modules/CPackIFWConfigureFile.cmake:10
 msgid ""
-"This module defines :command:`configure_file` similar command to configure "
-"file templates prepared in QtIFW/SDK/Creator style."
+"This module provides a command similar to :command:`configure_file` for "
+"configuring file templates prepared in QtIFW/SDK/Creator style."
 msgstr ""
 
 #: ../../../../Modules/CPackIFWConfigureFile.cmake:13
@@ -40,21 +40,140 @@ msgid "Commands"
 msgstr ""
 
 #: ../../../../Modules/CPackIFWConfigureFile.cmake:22
-msgid "The module defines the following commands:"
+msgid "This module provides the following command:"
 msgstr ""
 
 #: ../../../../Modules/CPackIFWConfigureFile.cmake:26
-msgid "Copy a file to another location and modify its contents."
+msgid ""
+"Copies a file template to output file and substitutes variable values "
+"referenced as ``%{VAR}`` or ``%VAR%`` from the input file template content:"
 msgstr ""
 
-#: ../../../../Modules/CPackIFWConfigureFile.cmake:28
+#: ../../../../Modules/CPackIFWConfigureFile.cmake:30
 msgid "cpack_ifw_configure_file(<input> <output>)"
 msgstr ""
 
-#: ../../../../Modules/CPackIFWConfigureFile.cmake:32
+#: ../../../../Modules/CPackIFWConfigureFile.cmake:34
+msgid "``<input>``"
+msgstr ""
+
+#: ../../../../Modules/CPackIFWConfigureFile.cmake:35
 msgid ""
-"Copies an ``<input>`` file to an ``<output>`` file and substitutes variable "
-"values referenced as ``%{VAR}`` or ``%VAR%`` in the input file content. Each "
-"variable reference will be replaced with the current value of the variable, "
-"or the empty string if the variable is not defined."
+"Input file template.  If given as a relative path, it is interpreted as "
+"relative to the current source directory (:variable:"
+"`CMAKE_CURRENT_SOURCE_DIR`)."
+msgstr ""
+
+#: ../../../../Modules/CPackIFWConfigureFile.cmake:39
+msgid "``<output>``"
+msgstr ""
+
+#: ../../../../Modules/CPackIFWConfigureFile.cmake:40
+msgid ""
+"Output file.  If given as a relative path, it is interpreted as relative to "
+"the current binary directory (:variable:`CMAKE_CURRENT_BINARY_DIR`)."
+msgstr ""
+
+#: ../../../../Modules/CPackIFWConfigureFile.cmake:43
+msgid ""
+"Qt Installer Framework (QtIFW) uses ``@`` characters for embedding "
+"predefined variables (``TargetDir``, ``StartMenuDir``, etc.) in Qt installer "
+"scripts:"
+msgstr ""
+
+#: ../../../../Modules/CPackIFWConfigureFile.cmake:47
+msgid "``example.qs``"
+msgstr ""
+
+#: ../../../../Modules/CPackIFWConfigureFile.cmake:47
+msgid ""
+"component.addOperation(\n"
+"  \"CreateShortcut\",\n"
+"  \"@TargetDir@/example.com.html\",\n"
+"  \"@StartMenuDir@/Example Web Site.lnk\"\n"
+");"
+msgstr ""
+
+#: ../../../../Modules/CPackIFWConfigureFile.cmake:56
+msgid ""
+"The purpose of this command is to preserve the QtIFW predefined variables "
+"containing the ``@`` characters (``@VAR@``), and instead use the ``%`` "
+"characters for template placeholders (``%VAR%``, ``%{VAR}``) in Qt/IFW/SDK/"
+"Creator templates.  The :command:`configure_file` command would otherwise "
+"replace all variable references containing the ``@`` characters."
+msgstr ""
+
+#: ../../../../Modules/CPackIFWConfigureFile.cmake:63
+msgid ""
+"Each variable reference will be replaced with the current value of the "
+"variable, or the empty string if the variable is not defined."
+msgstr ""
+
+#: ../../../../Modules/CPackIFWConfigureFile.cmake:67
+msgid "Examples"
+msgstr ""
+
+#: ../../../../Modules/CPackIFWConfigureFile.cmake:69
+msgid ""
+"In the following example this module is used to create an IFW component "
+"script from a given template file ``qt.tools.foo.qs.in``, where "
+"``%FOO_DOC_DIR%`` variable reference will be replaced by the values of the "
+"``FOO_DOC_DIR`` CMake variable."
+msgstr ""
+
+#: ../../../../Modules/CPackIFWConfigureFile.cmake:74
+msgid "``CMakeLists.txt``"
+msgstr ""
+
+#: ../../../../Modules/CPackIFWConfigureFile.cmake:74
+msgid ""
+"cmake_minimum_required(VERSION 3.8)\n"
+"\n"
+"project(Foo)\n"
+"\n"
+"# ...\n"
+"\n"
+"include(CPackIFWConfigureFile)\n"
+"\n"
+"set(FOO_DOC_DIR \"doc/foo\")\n"
+"\n"
+"cpack_ifw_configure_file(qt.tools.foo.qs.in qt.tools.foo.qs)"
+msgstr ""
+
+#: ../../../../Modules/CPackIFWConfigureFile.cmake:89
+msgid "``qt.tools.foo.qs.in``"
+msgstr ""
+
+#: ../../../../Modules/CPackIFWConfigureFile.cmake:89
+msgid ""
+"function Component()\n"
+"{\n"
+"}\n"
+"\n"
+"Component.prototype.createOperations = function()\n"
+"{\n"
+"  if (installer.value(\"os\") === \"win\") {\n"
+"    component.addOperation(\n"
+"      \"CreateShortcut\",\n"
+"      \"@TargetDir@/%FOO_DOC_DIR%/example.com.html\",\n"
+"      \"@StartMenuDir@/Example Web Site.lnk\"\n"
+"    );\n"
+"  }\n"
+"\n"
+"  component.createOperations();\n"
+"}\n"
+"\n"
+"// ..."
+msgstr ""
+
+#: ../../../../Modules/CPackIFWConfigureFile.cmake:112
+msgid "See Also"
+msgstr ""
+
+#: ../../../../Modules/CPackIFWConfigureFile.cmake:114
+msgid "The :cpack_gen:`CPack IFW Generator`."
+msgstr ""
+
+#: ../../../../Modules/CPackIFWConfigureFile.cmake:115
+msgid "The :module:`CPackIFW` module."
 msgstr ""
