@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+
+<html lang="zh-TW" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>FindMPI &mdash; CMake 3.3.2 Documentation</title>
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a3862c66" />
+    <link rel="stylesheet" type="text/css" href="../_static/cmake.css?v=4d06bd55" />
+    
+    <script src="../_static/documentation_options.js?v=e2b4337b"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/translations.js?v=cbf116e0"></script>
+    
+    <link rel="canonical" href="https://projects.localizethedocs.org/cmake-docs-l10n/module/FindMPI.html" />
+    <link rel="icon" href="../_static/cmake-favicon.ico"/>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜尋" href="../search.html" />
+    <link rel="next" title="FindOpenAL" href="FindOpenAL.html" />
+    <link rel="prev" title="FindMPEG" href="FindMPEG.html" />
+
+ 
+
+    <script type="text/javascript" src="../ltd-provenance.js"></script>
+    <script type="text/javascript" src="../ltd-current.js"></script>
+    <script type="text/javascript" src="../../../ltd-config.js"></script>
+    <script type="text/javascript" src="../../../ltd-flyout.js"></script>
+
+  </head><body>
+    <input id="sidebar-check" type="checkbox" />
+    <label id="sidebar-overlay" for="sidebar-check"></label>
+
+
+
+    <div class="related relbar1" role="navigation" aria-label="Related">
+      <h3>瀏覽</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="總索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="FindOpenAL.html" title="FindOpenAL"
+             accesskey="N">下一頁</a> |</li>
+        <li class="right" >
+          <a href="FindMPEG.html" title="FindMPEG"
+             accesskey="P">上一頁</a> |</li>
+  <li>
+    <label class="sidebar-toggle" for="sidebar-check"></label>
+  </li>
+  <li class="rootlink">
+    <img src="../_static/cmake-logo-16.png" width="16" height="16" alt=""/>
+    <a href="https://cmake.org/">CMake 3.3.2</a>
+    <span class="reldelim1"> &#187;</span>
+  </li>
+  <li>
+    <a href="../index.html">文件</a> &#187;
+  </li>
+
+          <li class="nav-item nav-item-1"><a href="../manual/cmake-modules.7.html" accesskey="U">cmake-模組(7)</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">FindMPI</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="findmpi">
+<span id="module:FindMPI"></span><h1>FindMPI<a class="headerlink" href="#findmpi" title="連結到這個標頭">¶</a></h1>
+<p>Find a Message Passing Interface (MPI) implementation</p>
+<p>The Message Passing Interface (MPI) is a library used to write
+high-performance distributed-memory parallel applications, and is
+typically deployed on a cluster.  MPI is a standard interface (defined
+by the MPI forum) for which many implementations are available.  All
+of them have somewhat different include paths, libraries to link
+against, etc., and this module tries to smooth out those differences.</p>
+<p>=== Variables ===</p>
+<p>This module will set the following variables per language in your
+project, where &lt;lang&gt; is one of C, CXX, or Fortran:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>MPI_&lt;lang&gt;_FOUND           TRUE if FindMPI found MPI flags for &lt;lang&gt;
+MPI_&lt;lang&gt;_COMPILER        MPI Compiler wrapper for &lt;lang&gt;
+MPI_&lt;lang&gt;_COMPILE_FLAGS   Compilation flags for MPI programs
+MPI_&lt;lang&gt;_INCLUDE_PATH    Include path(s) for MPI header
+MPI_&lt;lang&gt;_LINK_FLAGS      Linking flags for MPI programs
+MPI_&lt;lang&gt;_LIBRARIES       All libraries to link MPI programs against
+</pre></div>
+</div>
+<p>Additionally, FindMPI sets the following variables for running MPI
+programs from the command line:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>MPIEXEC                    Executable for running MPI programs
+MPIEXEC_NUMPROC_FLAG       Flag to pass to MPIEXEC before giving
+                           it the number of processors to run on
+MPIEXEC_PREFLAGS           Flags to pass to MPIEXEC directly
+                           before the executable to run.
+MPIEXEC_POSTFLAGS          Flags to pass to MPIEXEC after other flags
+</pre></div>
+</div>
+<p>=== Usage ===</p>
+<p>To use this module, simply call FindMPI from a CMakeLists.txt file, or
+run find_package(MPI), then run CMake.  If you are happy with the
+auto- detected configuration for your language, then you're done.  If
+not, you have two options:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>1. Set MPI_&lt;lang&gt;_COMPILER to the MPI wrapper (mpicc, etc.) of your
+   choice and reconfigure.  FindMPI will attempt to determine all the
+   necessary variables using THAT compiler&#39;s compile and link flags.
+2. If this fails, or if your MPI implementation does not come with
+   a compiler wrapper, then set both MPI_&lt;lang&gt;_LIBRARIES and
+   MPI_&lt;lang&gt;_INCLUDE_PATH.  You may also set any other variables
+   listed above, but these two are required.  This will circumvent
+   autodetection entirely.
+</pre></div>
+</div>
+<p>When configuration is successful, MPI_&lt;lang&gt;_COMPILER will be set to
+the compiler wrapper for &lt;lang&gt;, if it was found.  MPI_&lt;lang&gt;_FOUND
+and other variables above will be set if any MPI implementation was
+found for &lt;lang&gt;, regardless of whether a compiler was found.</p>
+<p>When using MPIEXEC to execute MPI applications, you should typically
+use all of the MPIEXEC flags as follows:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>${MPIEXEC} ${MPIEXEC_NUMPROC_FLAG} PROCS
+  ${MPIEXEC_PREFLAGS} EXECUTABLE ${MPIEXEC_POSTFLAGS} ARGS
+</pre></div>
+</div>
+<p>where PROCS is the number of processors on which to execute the
+program, EXECUTABLE is the MPI program, and ARGS are the arguments to
+pass to the MPI program.</p>
+<p>=== Backward Compatibility ===</p>
+<p>For backward compatibility with older versions of FindMPI, these
+variables are set, but deprecated:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>MPI_FOUND           MPI_COMPILER        MPI_LIBRARY
+MPI_COMPILE_FLAGS   MPI_INCLUDE_PATH    MPI_EXTRA_LIBRARY
+MPI_LINK_FLAGS      MPI_LIBRARIES
+</pre></div>
+</div>
+<p>In new projects, please use the MPI_&lt;lang&gt;_XXX equivalents.</p>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h4>上個話題</h4>
+    <p class="topless"><a href="FindMPEG.html"
+                          title="上個章節">FindMPEG</a></p>
+  </div>
+  <div>
+    <h4>下個話題</h4>
+    <p class="topless"><a href="FindOpenAL.html"
+                          title="下個章節">FindOpenAL</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>本頁</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/module/FindMPI.rst.txt"
+            rel="nofollow">顯示來源碼</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜尋</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="前往" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>瀏覽</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="總索引"
+             >索引</a></li>
+        <li class="right" >
+          <a href="FindOpenAL.html" title="FindOpenAL"
+             >下一頁</a> |</li>
+        <li class="right" >
+          <a href="FindMPEG.html" title="FindMPEG"
+             >上一頁</a> |</li>
+  <li>
+    <label class="sidebar-toggle" for="sidebar-check"></label>
+  </li>
+  <li class="rootlink">
+    <img src="../_static/cmake-logo-16.png" width="16" height="16" alt=""/>
+    <a href="https://cmake.org/">CMake 3.3.2</a>
+    <span class="reldelim1"> &#187;</span>
+  </li>
+  <li>
+    <a href="../index.html">文件</a> &#187;
+  </li>
+
+          <li class="nav-item nav-item-1"><a href="../manual/cmake-modules.7.html" >cmake-模組(7)</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">FindMPI</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+    &#169; 著作權 2000-2015 Kitware, Inc..
+      使用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3 建立。
+    </div>
+<script type="text/javascript">
+(function() {
+  "use strict";
+  const hide = () => document.getElementById("sidebar-check").checked = false;
+  addEventListener("keydown", e => (e.key === "Escape") && hide());
+  addEventListener("click", e => (e.target.tagName === "A") && hide());
+  addEventListener("hashchange", hide)
+})();
+</script>
+  </body>
+</html>

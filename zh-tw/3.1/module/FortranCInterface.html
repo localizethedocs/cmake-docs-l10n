@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+
+<html lang="zh-TW" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>FortranCInterface &mdash; CMake 3.1.3 Documentation</title>
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a3862c66" />
+    <link rel="stylesheet" type="text/css" href="../_static/cmake.css?v=4d06bd55" />
+    
+    <script src="../_static/documentation_options.js?v=15862014"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/translations.js?v=cbf116e0"></script>
+    
+    <link rel="canonical" href="https://projects.localizethedocs.org/cmake-docs-l10n/module/FortranCInterface.html" />
+    <link rel="icon" href="../_static/cmake-favicon.ico"/>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜尋" href="../search.html" />
+    <link rel="next" title="GenerateExportHeader" href="GenerateExportHeader.html" />
+    <link rel="prev" title="FindZLIB" href="FindZLIB.html" />
+
+ 
+
+    <script type="text/javascript" src="../ltd-provenance.js"></script>
+    <script type="text/javascript" src="../ltd-current.js"></script>
+    <script type="text/javascript" src="../../../ltd-config.js"></script>
+    <script type="text/javascript" src="../../../ltd-flyout.js"></script>
+
+  </head><body>
+    <input id="sidebar-check" type="checkbox" />
+    <label id="sidebar-overlay" for="sidebar-check"></label>
+
+
+
+    <div class="related relbar1" role="navigation" aria-label="Related">
+      <h3>瀏覽</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="總索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="GenerateExportHeader.html" title="GenerateExportHeader"
+             accesskey="N">下一頁</a> |</li>
+        <li class="right" >
+          <a href="FindZLIB.html" title="FindZLIB"
+             accesskey="P">上一頁</a> |</li>
+  <li>
+    <label class="sidebar-toggle" for="sidebar-check"></label>
+  </li>
+  <li class="rootlink">
+    <img src="../_static/cmake-logo-16.png" width="16" height="16" alt=""/>
+    <a href="https://cmake.org/">CMake 3.1.3</a>
+    <span class="reldelim1"> &#187;</span>
+  </li>
+  <li>
+    <a href="../index.html">文件</a> &#187;
+  </li>
+
+          <li class="nav-item nav-item-1"><a href="../manual/cmake-modules.7.html" accesskey="U">cmake-模組(7)</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">FortranCInterface</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="fortrancinterface">
+<span id="module:FortranCInterface"></span><h1>FortranCInterface<a class="headerlink" href="#fortrancinterface" title="連結到這個標頭">¶</a></h1>
+<p>Fortran/C Interface Detection</p>
+<p>This module automatically detects the API by which C and Fortran
+languages interact.  Variables indicate if the mangling is found:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>FortranCInterface_GLOBAL_FOUND = Global subroutines and functions
+FortranCInterface_MODULE_FOUND = Module subroutines and functions
+                                 (declared by &quot;MODULE PROCEDURE&quot;)
+</pre></div>
+</div>
+<p>A function is provided to generate a C header file containing macros
+to mangle symbol names:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>FortranCInterface_HEADER(&lt;file&gt;
+                         [MACRO_NAMESPACE &lt;macro-ns&gt;]
+                         [SYMBOL_NAMESPACE &lt;ns&gt;]
+                         [SYMBOLS [&lt;module&gt;:]&lt;function&gt; ...])
+</pre></div>
+</div>
+<p>It generates in &lt;file&gt; definitions of the following macros:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>#define FortranCInterface_GLOBAL (name,NAME) ...
+#define FortranCInterface_GLOBAL_(name,NAME) ...
+#define FortranCInterface_MODULE (mod,name, MOD,NAME) ...
+#define FortranCInterface_MODULE_(mod,name, MOD,NAME) ...
+</pre></div>
+</div>
+<p>These macros mangle four categories of Fortran symbols, respectively:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>- Global symbols without &#39;_&#39;: call mysub()
+- Global symbols with &#39;_&#39;   : call my_sub()
+- Module symbols without &#39;_&#39;: use mymod; call mysub()
+- Module symbols with &#39;_&#39;   : use mymod; call my_sub()
+</pre></div>
+</div>
+<p>If mangling for a category is not known, its macro is left undefined.
+All macros require raw names in both lower case and upper case.  The
+MACRO_NAMESPACE option replaces the default &quot;<a class="reference internal" href="#fortrancinterface">FortranCInterface</a>&quot;
+prefix with a given namespace &quot;&lt;macro-ns&gt;&quot;.</p>
+<p>The SYMBOLS option lists symbols to mangle automatically with C
+preprocessor definitions:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;function&gt;          ==&gt; #define &lt;ns&gt;&lt;function&gt; ...
+&lt;module&gt;:&lt;function&gt; ==&gt; #define &lt;ns&gt;&lt;module&gt;_&lt;function&gt; ...
+</pre></div>
+</div>
+<p>If the mangling for some symbol is not known then no preprocessor
+definition is created, and a warning is displayed.  The
+SYMBOL_NAMESPACE option prefixes all preprocessor definitions
+generated by the SYMBOLS option with a given namespace &quot;&lt;ns&gt;&quot;.</p>
+<p>Example usage:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>include(FortranCInterface)
+FortranCInterface_HEADER(FC.h MACRO_NAMESPACE &quot;FC_&quot;)
+</pre></div>
+</div>
+<p>This creates a &quot;FC.h&quot; header that defines mangling macros FC_GLOBAL(),
+FC_GLOBAL_(), FC_MODULE(), and FC_MODULE_().</p>
+<p>Example usage:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>include(FortranCInterface)
+FortranCInterface_HEADER(FCMangle.h
+                         MACRO_NAMESPACE &quot;FC_&quot;
+                         SYMBOL_NAMESPACE &quot;FC_&quot;
+                         SYMBOLS mysub mymod:my_sub)
+</pre></div>
+</div>
+<p>This creates a &quot;FCMangle.h&quot; header that defines the same FC_*()
+mangling macros as the previous example plus preprocessor symbols
+FC_mysub and FC_mymod_my_sub.</p>
+<p>Another function is provided to verify that the Fortran and C/C++
+compilers work together:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>FortranCInterface_VERIFY([CXX] [QUIET])
+</pre></div>
+</div>
+<p>It tests whether a simple test executable using Fortran and C (and C++
+when the CXX option is given) compiles and links successfully.  The
+result is stored in the cache entry FortranCInterface_VERIFIED_C (or
+FortranCInterface_VERIFIED_CXX if CXX is given) as a boolean.  If the
+check fails and QUIET is not given the function terminates with a
+FATAL_ERROR message describing the problem.  The purpose of this check
+is to stop a build early for incompatible compiler combinations.  The
+test is built in the Release configuration.</p>
+<p>FortranCInterface is aware of possible GLOBAL and MODULE manglings for
+many Fortran compilers, but it also provides an interface to specify
+new possible manglings.  Set the variables</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>FortranCInterface_GLOBAL_SYMBOLS
+FortranCInterface_MODULE_SYMBOLS
+</pre></div>
+</div>
+<p>before including FortranCInterface to specify manglings of the symbols
+&quot;MySub&quot;, &quot;My_Sub&quot;, &quot;MyModule:MySub&quot;, and &quot;My_Module:My_Sub&quot;.  For
+example, the code:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>set(FortranCInterface_GLOBAL_SYMBOLS mysub_ my_sub__ MYSUB_)
+  #                                  ^^^^^  ^^^^^^   ^^^^^
+set(FortranCInterface_MODULE_SYMBOLS
+    __mymodule_MOD_mysub __my_module_MOD_my_sub)
+  #   ^^^^^^^^     ^^^^^   ^^^^^^^^^     ^^^^^^
+include(FortranCInterface)
+</pre></div>
+</div>
+<p>tells FortranCInterface to try given GLOBAL and MODULE manglings.
+(The carets point at raw symbol names for clarity in this example but
+are not needed.)</p>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h4>上個話題</h4>
+    <p class="topless"><a href="FindZLIB.html"
+                          title="上個章節">FindZLIB</a></p>
+  </div>
+  <div>
+    <h4>下個話題</h4>
+    <p class="topless"><a href="GenerateExportHeader.html"
+                          title="下個章節">GenerateExportHeader</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>本頁</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/module/FortranCInterface.rst.txt"
+            rel="nofollow">顯示來源碼</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜尋</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="前往" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>瀏覽</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="總索引"
+             >索引</a></li>
+        <li class="right" >
+          <a href="GenerateExportHeader.html" title="GenerateExportHeader"
+             >下一頁</a> |</li>
+        <li class="right" >
+          <a href="FindZLIB.html" title="FindZLIB"
+             >上一頁</a> |</li>
+  <li>
+    <label class="sidebar-toggle" for="sidebar-check"></label>
+  </li>
+  <li class="rootlink">
+    <img src="../_static/cmake-logo-16.png" width="16" height="16" alt=""/>
+    <a href="https://cmake.org/">CMake 3.1.3</a>
+    <span class="reldelim1"> &#187;</span>
+  </li>
+  <li>
+    <a href="../index.html">文件</a> &#187;
+  </li>
+
+          <li class="nav-item nav-item-1"><a href="../manual/cmake-modules.7.html" >cmake-模組(7)</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">FortranCInterface</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+    &#169; 著作權 2000-2015 Kitware, Inc..
+      使用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3 建立。
+    </div>
+<script type="text/javascript">
+(function() {
+  "use strict";
+  const hide = () => document.getElementById("sidebar-check").checked = false;
+  addEventListener("keydown", e => (e.key === "Escape") && hide());
+  addEventListener("click", e => (e.target.tagName === "A") && hide());
+  addEventListener("hashchange", hide)
+})();
+</script>
+  </body>
+</html>
