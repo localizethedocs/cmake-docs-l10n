@@ -29,7 +29,6 @@
   <li><a href="#sponsorship">赞助</a></li>
   <li><a href="#code-contributors">代码贡献者</a></li>
   <li><a href="#financial-contributors">财务贡献者</a></li>
-  <li><a href="#translation-disclaimer">翻译免责声明</a></li>
   <li><a href="#licenses">许可证</a></li>
 </ul>
 
@@ -449,11 +448,9 @@ You can sponsor the maintainers directly through the following platforms:
 <img width="100%" alt="Sponsors to Haowei Hsu" src="https://cdn.jsdelivr.net/gh/hwhsu1231/sponsors/static/sponsors.svg" />
 </div>
 
-<h2 id="translation-disclaimer"><a href="#table-of-contents">翻译免责声明</a></h2>
-
-Translators who contribute to this project will never make use of the copyright on his or her translations, will never forbid copying them, and will never ask for some kind of compensation. Everyone will always be allowed to freely use, modify, and distribute these translations.
-
 <h2 id="licenses"><a href="#table-of-contents">许可证</a></h2>
+
+All original and translated text in the <code>.pot</code> and<code>.po</code> files stored in the <code>l10n</code> branch is made available under the same license as <a href="https://gitlab.kitware.com/cmake/cmake">the upstream project</a>.
 
 All CMake script files (e.g., <code>CMakeLists.txt</code>, <code>CMakePresets.json</code>, and <code>cmake/\*\*/\*</code> files), GitHub workflow files (e.g., <code>.github/workflows/\*.yml</code> files), and configuration files (e.g., <code>versions.json</code>, <code>languages.json</code>, <code>crowdin.yml</code>, and so on) of this project are licensed under <a href="https://opensource.org/license/bsd-3-clause/">3-Clause BSD</a> license. See <a href="./LICENSE-BSD">LICENSE-BSD</a> for details.
 

@@ -29,7 +29,6 @@
   <li><a href="#sponsorship">贊助</a></li>
   <li><a href="#code-contributors">程式碼貢獻者</a></li>
   <li><a href="#financial-contributors">財務貢獻者</a></li>
-  <li><a href="#translation-disclaimer">翻譯免責聲明</a></li>
   <li><a href="#licenses">授權條款</a></li>
 </ul>
 
@@ -449,11 +448,9 @@ cmake --build out/build/${LANGUAGE}
 <img width="100%" alt="Sponsors to Haowei Hsu" src="https://cdn.jsdelivr.net/gh/hwhsu1231/sponsors/static/sponsors.svg" />
 </div>
 
-<h2 id="translation-disclaimer"><a href="#table-of-contents">翻譯免責聲明</a></h2>
-
-參與該專案的翻譯者，絕不使用其翻譯的著作權，絕不禁止複製，也絕不要求任何形式的報酬。 每個人將始終被允許自由使用、修改和分發這些翻譯。
-
 <h2 id="licenses"><a href="#table-of-contents">授權條款</a></h2>
+
+All original and translated text in the <code>.pot</code> and<code>.po</code> files stored in the <code>l10n</code> branch is made available under the same license as <a href="https://gitlab.kitware.com/cmake/cmake">the upstream project</a>.
 
 該專案的所有 CMake 腳本檔（例如：<code>CMakeLists.txt</code>、<code>CMakePresets.json</code> 和 <code>cmake/\*\*/\*</code> 檔案）、GitHub 工作流檔（例如： <code>.github/workflows/\*.yml</code> 檔案）以及組態檔（例如：<code>versions.json</code>、<code>languages.json</code>、<code>crowdin.yml</code> 等等）均採用 <a href="https://opensource.org/license/bsd-3-clause/">3 條款 BSD</a> 授權條款。 請參見 <a href="./LICENSE-BSD">LICENSE-BSD</a> 以獲取詳細資訊。
 
