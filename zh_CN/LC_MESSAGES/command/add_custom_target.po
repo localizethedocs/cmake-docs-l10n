@@ -1,0 +1,204 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2000-2016 Kitware, Inc.
+# This file is distributed under the same license as the CMake package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CMake 3.6\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-07-08 02:57+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../command/add_custom_target.rst:2
+msgid "add_custom_target"
+msgstr ""
+
+#: ../../../command/add_custom_target.rst:4
+msgid "Add a target with no output so it will always be built."
+msgstr ""
+
+#: ../../../command/add_custom_target.rst:8
+msgid ""
+"add_custom_target(Name [ALL] [command1 [args1...]]\n"
+"                  [COMMAND command2 [args2...] ...]\n"
+"                  [DEPENDS depend depend depend ... ]\n"
+"                  [BYPRODUCTS [files...]]\n"
+"                  [WORKING_DIRECTORY dir]\n"
+"                  [COMMENT comment]\n"
+"                  [VERBATIM] [USES_TERMINAL]\n"
+"                  [SOURCES src1 [src2...]])"
+msgstr ""
+
+#: ../../../command/add_custom_target.rst:17
+msgid ""
+"Adds a target with the given name that executes the given commands. The "
+"target has no output file and is *always considered out of date* even if the "
+"commands try to create a file with the name of the target. Use the :command:"
+"`add_custom_command` command to generate a file with dependencies.  By "
+"default nothing depends on the custom target.  Use the :command:"
+"`add_dependencies` command to add dependencies to or from other targets."
+msgstr ""
+
+#: ../../../command/add_custom_target.rst:25
+msgid "The options are:"
+msgstr ""
+
+#: ../../../command/add_custom_target.rst:27
+msgid "``ALL``"
+msgstr ""
+
+#: ../../../command/add_custom_target.rst:28
+msgid ""
+"Indicate that this target should be added to the default build target so "
+"that it will be run every time (the command cannot be called ``ALL``)."
+msgstr ""
+
+#: ../../../command/add_custom_target.rst:32
+msgid "``BYPRODUCTS``"
+msgstr ""
+
+#: ../../../command/add_custom_target.rst:33
+msgid ""
+"Specify the files the command is expected to produce but whose modification "
+"time may or may not be updated on subsequent builds. If a byproduct name is "
+"a relative path it will be interpreted relative to the build tree directory "
+"corresponding to the current source directory. Each byproduct file will be "
+"marked with the :prop_sf:`GENERATED` source file property automatically."
+msgstr ""
+
+#: ../../../command/add_custom_target.rst:41
+msgid ""
+"Explicit specification of byproducts is supported by the :generator:`Ninja` "
+"generator to tell the ``ninja`` build tool how to regenerate byproducts when "
+"they are missing.  It is also useful when other build rules (e.g. custom "
+"commands) depend on the byproducts.  Ninja requires a build rule for any "
+"generated file on which another rule depends even if there are order-only "
+"dependencies to ensure the byproducts will be available before their "
+"dependents build."
+msgstr ""
+
+#: ../../../command/add_custom_target.rst:50
+msgid ""
+"The ``BYPRODUCTS`` option is ignored on non-Ninja generators except to mark "
+"byproducts ``GENERATED``."
+msgstr ""
+
+#: ../../../command/add_custom_target.rst:53
+msgid "``COMMAND``"
+msgstr ""
+
+#: ../../../command/add_custom_target.rst:54
+msgid ""
+"Specify the command-line(s) to execute at build time. If more than one "
+"``COMMAND`` is specified they will be executed in order, but *not* "
+"necessarily composed into a stateful shell or batch script. (To run a full "
+"script, use the :command:`configure_file` command or the :command:"
+"`file(GENERATE)` command to create it, and then specify a ``COMMAND`` to "
+"launch it.)"
+msgstr ""
+
+#: ../../../command/add_custom_target.rst:61
+msgid ""
+"If ``COMMAND`` specifies an executable target name (created by the :command:"
+"`add_executable` command) it will automatically be replaced by the location "
+"of the executable created at build time. If set, the :prop_tgt:"
+"`CROSSCOMPILING_EMULATOR` executable target property will also be prepended "
+"to the command to allow the executable to run on the host. Additionally a "
+"target-level dependency will be added so that the executable target will be "
+"built before this custom target."
+msgstr ""
+
+#: ../../../command/add_custom_target.rst:70
+msgid ""
+"Arguments to ``COMMAND`` may use :manual:`generator expressions <cmake-"
+"generator-expressions(7)>`. References to target names in generator "
+"expressions imply target-level dependencies."
+msgstr ""
+
+#: ../../../command/add_custom_target.rst:75
+msgid ""
+"The command and arguments are optional and if not specified an empty target "
+"will be created."
+msgstr ""
+
+#: ../../../command/add_custom_target.rst:78
+msgid "``COMMENT``"
+msgstr ""
+
+#: ../../../command/add_custom_target.rst:79
+msgid ""
+"Display the given message before the commands are executed at build time."
+msgstr ""
+
+#: ../../../command/add_custom_target.rst:82
+msgid "``DEPENDS``"
+msgstr ""
+
+#: ../../../command/add_custom_target.rst:83
+msgid ""
+"Reference files and outputs of custom commands created with :command:"
+"`add_custom_command` command calls in the same directory (``CMakeLists.txt`` "
+"file).  They will be brought up to date when the target is built."
+msgstr ""
+
+#: ../../../command/add_custom_target.rst:88
+msgid ""
+"Use the :command:`add_dependencies` command to add dependencies on other "
+"targets."
+msgstr ""
+
+#: ../../../command/add_custom_target.rst:91
+msgid "``SOURCES``"
+msgstr ""
+
+#: ../../../command/add_custom_target.rst:92
+msgid ""
+"Specify additional source files to be included in the custom target. "
+"Specified source files will be added to IDE project files for convenience in "
+"editing even if they have no build rules."
+msgstr ""
+
+#: ../../../command/add_custom_target.rst:96
+msgid "``VERBATIM``"
+msgstr ""
+
+#: ../../../command/add_custom_target.rst:97
+msgid ""
+"All arguments to the commands will be escaped properly for the build tool so "
+"that the invoked command receives each argument unchanged.  Note that one "
+"level of escapes is still used by the CMake language processor before "
+"``add_custom_target`` even sees the arguments.  Use of ``VERBATIM`` is "
+"recommended as it enables correct behavior.  When ``VERBATIM`` is not given "
+"the behavior is platform specific because there is no protection of tool-"
+"specific special characters."
+msgstr ""
+
+#: ../../../command/add_custom_target.rst:106
+msgid "``USES_TERMINAL``"
+msgstr ""
+
+#: ../../../command/add_custom_target.rst:107
+msgid ""
+"The command will be given direct access to the terminal if possible. With "
+"the :generator:`Ninja` generator, this places the command in the "
+"``console`` :prop_gbl:`pool <JOB_POOLS>`."
+msgstr ""
+
+#: ../../../command/add_custom_target.rst:111
+msgid "``WORKING_DIRECTORY``"
+msgstr ""
+
+#: ../../../command/add_custom_target.rst:112
+msgid ""
+"Execute the command with the given current working directory. If it is a "
+"relative path it will be interpreted relative to the build tree directory "
+"corresponding to the current source directory."
+msgstr ""
