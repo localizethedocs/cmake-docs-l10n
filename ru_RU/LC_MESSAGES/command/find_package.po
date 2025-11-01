@@ -1,0 +1,826 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2000-2020 Kitware, Inc. and Contributors
+# This file is distributed under the same license as the CMake package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CMake 3.18\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-07-08 02:55+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: ru_RU\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../command/find_package.rst:2
+msgid "find_package"
+msgstr ""
+
+#: ../../../command/find_package.rst:5
+msgid "Contents"
+msgstr ""
+
+#: ../../../command/find_package.rst:8
+msgid "Find an external project, and load its settings."
+msgstr ""
+
+#: ../../../command/find_package.rst:13
+msgid "Basic Signature and Module Mode"
+msgstr ""
+
+#: ../../../command/find_package.rst:15
+msgid ""
+"find_package(<PackageName> [version] [EXACT] [QUIET] [MODULE]\n"
+"             [REQUIRED] [[COMPONENTS] [components...]]\n"
+"             [OPTIONAL_COMPONENTS components...]\n"
+"             [NO_POLICY_SCOPE])"
+msgstr ""
+
+#: ../../../command/find_package.rst:22
+msgid ""
+"Finds and loads settings from an external project.  ``<PackageName>_FOUND`` "
+"will be set to indicate whether the package was found.  When the package is "
+"found package-specific information is provided through variables and :ref:"
+"`Imported Targets` documented by the package itself.  The ``QUIET`` option "
+"disables informational messages, including those indicating that the package "
+"cannot be found if it is not ``REQUIRED``.  The ``REQUIRED`` option stops "
+"processing with an error message if the package cannot be found."
+msgstr ""
+
+#: ../../../command/find_package.rst:30
+msgid ""
+"A package-specific list of required components may be listed after the "
+"``COMPONENTS`` option (or after the ``REQUIRED`` option if present). "
+"Additional optional components may be listed after ``OPTIONAL_COMPONENTS``.  "
+"Available components and their influence on whether a package is considered "
+"to be found are defined by the target package."
+msgstr ""
+
+#: ../../../command/find_package.rst:37
+msgid ""
+"The ``[version]`` argument requests a version with which the package found "
+"should be compatible (format is ``major[.minor[.patch[.tweak]]]``).  The "
+"``EXACT`` option requests that the version be matched exactly.  If no "
+"``[version]`` and/or component list is given to a recursive invocation "
+"inside a find-module, the corresponding arguments are forwarded "
+"automatically from the outer call (including the ``EXACT`` flag for "
+"``[version]``).  Version support is currently provided only on a package-by-"
+"package basis (see the `Version Selection`_ section below)."
+msgstr ""
+
+#: ../../../command/find_package.rst:46
+msgid ""
+"See the :command:`cmake_policy` command documentation for discussion of the "
+"``NO_POLICY_SCOPE`` option."
+msgstr ""
+
+#: ../../../command/find_package.rst:49
+msgid ""
+"The command has two modes by which it searches for packages: \"Module\" mode "
+"and \"Config\" mode.  The above signature selects Module mode. If no module "
+"is found the command falls back to Config mode, described below. This fall "
+"back is disabled if the ``MODULE`` option is given."
+msgstr ""
+
+#: ../../../command/find_package.rst:54
+msgid ""
+"In Module mode, CMake searches for a file called ``Find<PackageName>."
+"cmake``. The file is first searched in the :variable:`CMAKE_MODULE_PATH`, "
+"then among the :ref:`Find Modules` provided by the CMake installation. If "
+"the file is found, it is read and processed by CMake.  It is responsible for "
+"finding the package, checking the version, and producing any needed "
+"messages.  Some find-modules provide limited or no support for versioning; "
+"check the module documentation."
+msgstr ""
+
+#: ../../../command/find_package.rst:62
+msgid ""
+"If the ``MODULE`` option is not specified in the above signature, CMake "
+"first searches for the package using Module mode. Then, if the package is "
+"not found, it searches again using Config mode. A user may set the variable :"
+"variable:`CMAKE_FIND_PACKAGE_PREFER_CONFIG` to ``TRUE`` to direct CMake "
+"first search using Config mode before falling back to Module mode."
+msgstr ""
+
+#: ../../../command/find_package.rst:70
+msgid "Full Signature and Config Mode"
+msgstr ""
+
+#: ../../../command/find_package.rst:72
+msgid ""
+"User code should generally look for packages using the above `basic "
+"signature`_.  The remainder of this command documentation specifies the full "
+"command signature and details of the search process.  Project maintainers "
+"wishing to provide a package to be found by this command are encouraged to "
+"read on."
+msgstr ""
+
+#: ../../../command/find_package.rst:78
+msgid "The complete Config mode command signature is"
+msgstr ""
+
+#: ../../../command/find_package.rst:80
+msgid ""
+"find_package(<PackageName> [version] [EXACT] [QUIET]\n"
+"             [REQUIRED] [[COMPONENTS] [components...]]\n"
+"             [OPTIONAL_COMPONENTS components...]\n"
+"             [CONFIG|NO_MODULE]\n"
+"             [NO_POLICY_SCOPE]\n"
+"             [NAMES name1 [name2 ...]]\n"
+"             [CONFIGS config1 [config2 ...]]\n"
+"             [HINTS path1 [path2 ... ]]\n"
+"             [PATHS path1 [path2 ... ]]\n"
+"             [PATH_SUFFIXES suffix1 [suffix2 ...]]\n"
+"             [NO_DEFAULT_PATH]\n"
+"             [NO_PACKAGE_ROOT_PATH]\n"
+"             [NO_CMAKE_PATH]\n"
+"             [NO_CMAKE_ENVIRONMENT_PATH]\n"
+"             [NO_SYSTEM_ENVIRONMENT_PATH]\n"
+"             [NO_CMAKE_PACKAGE_REGISTRY]\n"
+"             [NO_CMAKE_BUILDS_PATH] # Deprecated; does nothing.\n"
+"             [NO_CMAKE_SYSTEM_PATH]\n"
+"             [NO_CMAKE_SYSTEM_PACKAGE_REGISTRY]\n"
+"             [CMAKE_FIND_ROOT_PATH_BOTH |\n"
+"              ONLY_CMAKE_FIND_ROOT_PATH |\n"
+"              NO_CMAKE_FIND_ROOT_PATH])"
+msgstr ""
+
+#: ../../../command/find_package.rst:105
+msgid ""
+"The ``CONFIG`` option, the synonymous ``NO_MODULE`` option, or the use of "
+"options not specified in the `basic signature`_ all enforce pure Config "
+"mode.  In pure Config mode, the command skips Module mode search and "
+"proceeds at once with Config mode search."
+msgstr ""
+
+#: ../../../command/find_package.rst:110
+msgid ""
+"Config mode search attempts to locate a configuration file provided by the "
+"package to be found.  A cache entry called ``<PackageName>_DIR`` is created "
+"to hold the directory containing the file.  By default the command searches "
+"for a package with the name ``<PackageName>``.  If the ``NAMES`` option is "
+"given the names following it are used instead of ``<PackageName>``. The "
+"command searches for a file called ``<PackageName>Config.cmake`` or ``<lower-"
+"case-package-name>-config.cmake`` for each name specified. A replacement set "
+"of possible configuration file names may be given using the ``CONFIGS`` "
+"option.  The search procedure is specified below. Once found, the "
+"configuration file is read and processed by CMake. Since the file is "
+"provided by the package it already knows the location of package contents.  "
+"The full path to the configuration file is stored in the cmake variable "
+"``<PackageName>_CONFIG``."
+msgstr ""
+
+#: ../../../command/find_package.rst:124
+msgid ""
+"All configuration files which have been considered by CMake while searching "
+"for an installation of the package with an appropriate version are stored in "
+"the cmake variable ``<PackageName>_CONSIDERED_CONFIGS``, the associated "
+"versions in ``<PackageName>_CONSIDERED_VERSIONS``."
+msgstr ""
+
+#: ../../../command/find_package.rst:129
+msgid ""
+"If the package configuration file cannot be found CMake will generate an "
+"error describing the problem unless the ``QUIET`` argument is specified.  If "
+"``REQUIRED`` is specified and the package is not found a fatal error is "
+"generated and the configure step stops executing.  If ``<PackageName>_DIR`` "
+"has been set to a directory not containing a configuration file CMake will "
+"ignore it and search from scratch."
+msgstr ""
+
+#: ../../../command/find_package.rst:136
+msgid ""
+"Package maintainers providing CMake package configuration files are "
+"encouraged to name and install them such that the `Search Procedure`_ "
+"outlined below will find them without requiring use of additional options."
+msgstr ""
+
+#: ../../../command/find_package.rst:141
+msgid "Version Selection"
+msgstr ""
+
+#: ../../../command/find_package.rst:143
+msgid ""
+"When the ``[version]`` argument is given Config mode will only find a "
+"version of the package that claims compatibility with the requested version "
+"(format is ``major[.minor[.patch[.tweak]]]``).  If the ``EXACT`` option is "
+"given only a version of the package claiming an exact match of the requested "
+"version may be found.  CMake does not establish any convention for the "
+"meaning of version numbers.  Package version numbers are checked by "
+"\"version\" files provided by the packages themselves.  For a candidate "
+"package configuration file ``<config-file>.cmake`` the corresponding version "
+"file is located next to it and named either ``<config-file>-version.cmake`` "
+"or ``<config-file>Version.cmake``.  If no such version file is available "
+"then the configuration file is assumed to not be compatible with any "
+"requested version.  A basic version file containing generic version matching "
+"code can be created using the :module:`CMakePackageConfigHelpers` module.  "
+"When a version file is found it is loaded to check the requested version "
+"number.  The version file is loaded in a nested scope in which the following "
+"variables have been defined:"
+msgstr ""
+
+#: ../../../command/find_package.rst:162
+msgid "``PACKAGE_FIND_NAME``"
+msgstr ""
+
+#: ../../../command/find_package.rst:163
+msgid "the ``<PackageName>``"
+msgstr ""
+
+#: ../../../command/find_package.rst:164
+msgid "``PACKAGE_FIND_VERSION``"
+msgstr ""
+
+#: ../../../command/find_package.rst:165 ../../../command/find_package.rst:400
+msgid "full requested version string"
+msgstr ""
+
+#: ../../../command/find_package.rst:166
+msgid "``PACKAGE_FIND_VERSION_MAJOR``"
+msgstr ""
+
+#: ../../../command/find_package.rst:167 ../../../command/find_package.rst:402
+msgid "major version if requested, else 0"
+msgstr ""
+
+#: ../../../command/find_package.rst:168
+msgid "``PACKAGE_FIND_VERSION_MINOR``"
+msgstr ""
+
+#: ../../../command/find_package.rst:169 ../../../command/find_package.rst:404
+msgid "minor version if requested, else 0"
+msgstr ""
+
+#: ../../../command/find_package.rst:170
+msgid "``PACKAGE_FIND_VERSION_PATCH``"
+msgstr ""
+
+#: ../../../command/find_package.rst:171 ../../../command/find_package.rst:406
+msgid "patch version if requested, else 0"
+msgstr ""
+
+#: ../../../command/find_package.rst:172
+msgid "``PACKAGE_FIND_VERSION_TWEAK``"
+msgstr ""
+
+#: ../../../command/find_package.rst:173 ../../../command/find_package.rst:408
+msgid "tweak version if requested, else 0"
+msgstr ""
+
+#: ../../../command/find_package.rst:174
+msgid "``PACKAGE_FIND_VERSION_COUNT``"
+msgstr ""
+
+#: ../../../command/find_package.rst:175 ../../../command/find_package.rst:205
+#: ../../../command/find_package.rst:410
+msgid "number of version components, 0 to 4"
+msgstr ""
+
+#: ../../../command/find_package.rst:177
+msgid ""
+"The version file checks whether it satisfies the requested version and sets "
+"these variables:"
+msgstr ""
+
+#: ../../../command/find_package.rst:180
+msgid "``PACKAGE_VERSION``"
+msgstr ""
+
+#: ../../../command/find_package.rst:181 ../../../command/find_package.rst:195
+msgid "full provided version string"
+msgstr ""
+
+#: ../../../command/find_package.rst:182
+msgid "``PACKAGE_VERSION_EXACT``"
+msgstr ""
+
+#: ../../../command/find_package.rst:183
+msgid "true if version is exact match"
+msgstr ""
+
+#: ../../../command/find_package.rst:184
+msgid "``PACKAGE_VERSION_COMPATIBLE``"
+msgstr ""
+
+#: ../../../command/find_package.rst:185
+msgid "true if version is compatible"
+msgstr ""
+
+#: ../../../command/find_package.rst:186
+msgid "``PACKAGE_VERSION_UNSUITABLE``"
+msgstr ""
+
+#: ../../../command/find_package.rst:187
+msgid "true if unsuitable as any version"
+msgstr ""
+
+#: ../../../command/find_package.rst:189
+msgid ""
+"These variables are checked by the ``find_package`` command to determine "
+"whether the configuration file provides an acceptable version.  They are not "
+"available after the ``find_package`` call returns.  If the version is "
+"acceptable the following variables are set:"
+msgstr ""
+
+#: ../../../command/find_package.rst:194
+msgid "``<PackageName>_VERSION``"
+msgstr ""
+
+#: ../../../command/find_package.rst:196
+msgid "``<PackageName>_VERSION_MAJOR``"
+msgstr ""
+
+#: ../../../command/find_package.rst:197
+msgid "major version if provided, else 0"
+msgstr ""
+
+#: ../../../command/find_package.rst:198
+msgid "``<PackageName>_VERSION_MINOR``"
+msgstr ""
+
+#: ../../../command/find_package.rst:199
+msgid "minor version if provided, else 0"
+msgstr ""
+
+#: ../../../command/find_package.rst:200
+msgid "``<PackageName>_VERSION_PATCH``"
+msgstr ""
+
+#: ../../../command/find_package.rst:201
+msgid "patch version if provided, else 0"
+msgstr ""
+
+#: ../../../command/find_package.rst:202
+msgid "``<PackageName>_VERSION_TWEAK``"
+msgstr ""
+
+#: ../../../command/find_package.rst:203
+msgid "tweak version if provided, else 0"
+msgstr ""
+
+#: ../../../command/find_package.rst:204
+msgid "``<PackageName>_VERSION_COUNT``"
+msgstr ""
+
+#: ../../../command/find_package.rst:207
+msgid ""
+"and the corresponding package configuration file is loaded. When multiple "
+"package configuration files are available whose version files claim "
+"compatibility with the version requested it is unspecified which one is "
+"chosen: unless the variable :variable:`CMAKE_FIND_PACKAGE_SORT_ORDER` is set "
+"no attempt is made to choose a highest or closest version number."
+msgstr ""
+
+#: ../../../command/find_package.rst:213
+msgid ""
+"To control the order in which ``find_package`` checks for compatibility use "
+"the two variables :variable:`CMAKE_FIND_PACKAGE_SORT_ORDER` and :variable:"
+"`CMAKE_FIND_PACKAGE_SORT_DIRECTION`. For instance in order to select the "
+"highest version one can set"
+msgstr ""
+
+#: ../../../command/find_package.rst:218
+msgid ""
+"SET(CMAKE_FIND_PACKAGE_SORT_ORDER NATURAL)\n"
+"SET(CMAKE_FIND_PACKAGE_SORT_DIRECTION DEC)"
+msgstr ""
+
+#: ../../../command/find_package.rst:223
+msgid "before calling ``find_package``."
+msgstr ""
+
+#: ../../../command/find_package.rst:226
+msgid "Search Procedure"
+msgstr ""
+
+#: ../../../command/find_package.rst:228
+msgid ""
+"CMake constructs a set of possible installation prefixes for the package.  "
+"Under each prefix several directories are searched for a configuration "
+"file.  The tables below show the directories searched. Each entry is meant "
+"for installation trees following Windows (``W``), UNIX (``U``), or Apple "
+"(``A``) conventions::"
+msgstr ""
+
+#: ../../../command/find_package.rst:234
+msgid ""
+"<prefix>/                                                       (W)\n"
+"<prefix>/(cmake|CMake)/                                         (W)\n"
+"<prefix>/<name>*/                                               (W)\n"
+"<prefix>/<name>*/(cmake|CMake)/                                 (W)\n"
+"<prefix>/(lib/<arch>|lib*|share)/cmake/<name>*/                 (U)\n"
+"<prefix>/(lib/<arch>|lib*|share)/<name>*/                       (U)\n"
+"<prefix>/(lib/<arch>|lib*|share)/<name>*/(cmake|CMake)/         (U)\n"
+"<prefix>/<name>*/(lib/<arch>|lib*|share)/cmake/<name>*/         (W/U)\n"
+"<prefix>/<name>*/(lib/<arch>|lib*|share)/<name>*/               (W/U)\n"
+"<prefix>/<name>*/(lib/<arch>|lib*|share)/<name>*/(cmake|CMake)/ (W/U)"
+msgstr ""
+
+#: ../../../command/find_package.rst:245
+msgid ""
+"On systems supporting macOS :prop_tgt:`FRAMEWORK` and :prop_tgt:`BUNDLE`, "
+"the following directories are searched for Frameworks or Application Bundles "
+"containing a configuration file::"
+msgstr ""
+
+#: ../../../command/find_package.rst:249
+msgid ""
+"<prefix>/<name>.framework/Resources/                    (A)\n"
+"<prefix>/<name>.framework/Resources/CMake/              (A)\n"
+"<prefix>/<name>.framework/Versions/*/Resources/         (A)\n"
+"<prefix>/<name>.framework/Versions/*/Resources/CMake/   (A)\n"
+"<prefix>/<name>.app/Contents/Resources/                 (A)\n"
+"<prefix>/<name>.app/Contents/Resources/CMake/           (A)"
+msgstr ""
+
+#: ../../../command/find_package.rst:256
+msgid ""
+"In all cases the ``<name>`` is treated as case-insensitive and corresponds "
+"to any of the names specified (``<PackageName>`` or names given by "
+"``NAMES``)."
+msgstr ""
+
+#: ../../../command/find_package.rst:259
+msgid ""
+"Paths with ``lib/<arch>`` are enabled if the :variable:"
+"`CMAKE_LIBRARY_ARCHITECTURE` variable is set. ``lib*`` includes one or more "
+"of the values ``lib64``, ``lib32``, ``libx32`` or ``lib`` (searched in that "
+"order)."
+msgstr ""
+
+#: ../../../command/find_package.rst:264
+msgid ""
+"Paths with ``lib64`` are searched on 64 bit platforms if the :prop_gbl:"
+"`FIND_LIBRARY_USE_LIB64_PATHS` property is set to ``TRUE``."
+msgstr ""
+
+#: ../../../command/find_package.rst:266
+msgid ""
+"Paths with ``lib32`` are searched on 32 bit platforms if the :prop_gbl:"
+"`FIND_LIBRARY_USE_LIB32_PATHS` property is set to ``TRUE``."
+msgstr ""
+
+#: ../../../command/find_package.rst:268
+msgid ""
+"Paths with ``libx32`` are searched on platforms using the x32 ABI if the :"
+"prop_gbl:`FIND_LIBRARY_USE_LIBX32_PATHS` property is set to ``TRUE``."
+msgstr ""
+
+#: ../../../command/find_package.rst:270
+msgid "The ``lib`` path is always searched."
+msgstr ""
+
+#: ../../../command/find_package.rst:272
+msgid ""
+"If ``PATH_SUFFIXES`` is specified, the suffixes are appended to each (``W``) "
+"or (``U``) directory entry one-by-one."
+msgstr ""
+
+#: ../../../command/find_package.rst:275
+msgid ""
+"This set of directories is intended to work in cooperation with projects "
+"that provide configuration files in their installation trees. Directories "
+"above marked with (``W``) are intended for installations on Windows where "
+"the prefix may point at the top of an application's installation directory.  "
+"Those marked with (``U``) are intended for installations on UNIX platforms "
+"where the prefix is shared by multiple packages.  This is merely a "
+"convention, so all (``W``) and (``U``) directories are still searched on all "
+"platforms.  Directories marked with (``A``) are intended for installations "
+"on Apple platforms.  The :variable:`CMAKE_FIND_FRAMEWORK` and :variable:"
+"`CMAKE_FIND_APPBUNDLE` variables determine the order of preference."
+msgstr ""
+
+#: ../../../command/find_package.rst:287
+msgid ""
+"The set of installation prefixes is constructed using the following steps.  "
+"If ``NO_DEFAULT_PATH`` is specified all ``NO_*`` options are enabled."
+msgstr ""
+
+#: ../../../command/find_package.rst:291
+msgid ""
+"Search paths specified in the :variable:`<PackageName>_ROOT` CMake variable "
+"and the :envvar:`<PackageName>_ROOT` environment variable, where "
+"``<PackageName>`` is the package to be found. The package root variables are "
+"maintained as a stack so if called from within a find module, root paths "
+"from the parent's find module will also be searched after paths for the "
+"current package. This can be skipped if ``NO_PACKAGE_ROOT_PATH`` is passed "
+"or by setting the :variable:`CMAKE_FIND_USE_PACKAGE_ROOT_PATH` to ``FALSE``. "
+"See policy :policy:`CMP0074`."
+msgstr ""
+
+#: ../../../command/find_package.rst:301
+msgid ""
+"Search paths specified in cmake-specific cache variables.  These are "
+"intended to be used on the command line with a ``-DVAR=value``. The values "
+"are interpreted as :ref:`semicolon-separated lists <CMake Language Lists>`. "
+"This can be skipped if ``NO_CMAKE_PATH`` is passed or by setting the :"
+"variable:`CMAKE_FIND_USE_CMAKE_PATH` to ``FALSE``:"
+msgstr ""
+
+#: ../../../command/find_package.rst:307
+msgid ":variable:`CMAKE_PREFIX_PATH`"
+msgstr ""
+
+#: ../../../command/find_package.rst:308
+msgid ":variable:`CMAKE_FRAMEWORK_PATH`"
+msgstr ""
+
+#: ../../../command/find_package.rst:309
+msgid ":variable:`CMAKE_APPBUNDLE_PATH`"
+msgstr ""
+
+#: ../../../command/find_package.rst:311
+msgid ""
+"Search paths specified in cmake-specific environment variables. These are "
+"intended to be set in the user's shell configuration, and therefore use the "
+"host's native path separator (``;`` on Windows and ``:`` on UNIX). This can "
+"be skipped if ``NO_CMAKE_ENVIRONMENT_PATH`` is passed or by setting the :"
+"variable:`CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH` to ``FALSE``:"
+msgstr ""
+
+#: ../../../command/find_package.rst:318
+msgid "``<PackageName>_DIR``"
+msgstr ""
+
+#: ../../../command/find_package.rst:319
+msgid ":envvar:`CMAKE_PREFIX_PATH`"
+msgstr ""
+
+#: ../../../command/find_package.rst:320
+msgid "``CMAKE_FRAMEWORK_PATH``"
+msgstr ""
+
+#: ../../../command/find_package.rst:321
+msgid "``CMAKE_APPBUNDLE_PATH``"
+msgstr ""
+
+#: ../../../command/find_package.rst:323
+msgid ""
+"Search paths specified by the ``HINTS`` option.  These should be paths "
+"computed by system introspection, such as a hint provided by the location of "
+"another item already found.  Hard-coded guesses should be specified with the "
+"``PATHS`` option."
+msgstr ""
+
+#: ../../../command/find_package.rst:328
+msgid ""
+"Search the standard system environment variables.  This can be skipped if "
+"``NO_SYSTEM_ENVIRONMENT_PATH`` is passed  or by setting the :variable:"
+"`CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH` to ``FALSE``. Path entries ending "
+"in ``/bin`` or ``/sbin`` are automatically converted to their parent "
+"directories:"
+msgstr ""
+
+#: ../../../command/find_package.rst:334
+msgid "``PATH``"
+msgstr ""
+
+#: ../../../command/find_package.rst:336
+msgid ""
+"Search paths stored in the CMake :ref:`User Package Registry`. This can be "
+"skipped if ``NO_CMAKE_PACKAGE_REGISTRY`` is passed or by setting the "
+"variable :variable:`CMAKE_FIND_USE_PACKAGE_REGISTRY` to ``FALSE`` or the "
+"deprecated variable :variable:`CMAKE_FIND_PACKAGE_NO_PACKAGE_REGISTRY` to "
+"``TRUE``."
+msgstr ""
+
+#: ../../../command/find_package.rst:342
+msgid ""
+"See the :manual:`cmake-packages(7)` manual for details on the user package "
+"registry."
+msgstr ""
+
+#: ../../../command/find_package.rst:345
+msgid ""
+"Search cmake variables defined in the Platform files for the current "
+"system.  This can be skipped if ``NO_CMAKE_SYSTEM_PATH`` is passed or by "
+"setting the :variable:`CMAKE_FIND_USE_CMAKE_SYSTEM_PATH` to ``FALSE``:"
+msgstr ""
+
+#: ../../../command/find_package.rst:350
+msgid ":variable:`CMAKE_SYSTEM_PREFIX_PATH`"
+msgstr ""
+
+#: ../../../command/find_package.rst:351
+msgid ":variable:`CMAKE_SYSTEM_FRAMEWORK_PATH`"
+msgstr ""
+
+#: ../../../command/find_package.rst:352
+msgid ":variable:`CMAKE_SYSTEM_APPBUNDLE_PATH`"
+msgstr ""
+
+#: ../../../command/find_package.rst:354
+msgid ""
+"The platform paths that these variables contain are locations that typically "
+"include installed software. An example being ``/usr/local`` for UNIX based "
+"platforms."
+msgstr ""
+
+#: ../../../command/find_package.rst:358
+msgid ""
+"Search paths stored in the CMake :ref:`System Package Registry`. This can be "
+"skipped if ``NO_CMAKE_SYSTEM_PACKAGE_REGISTRY`` is passed or by setting the :"
+"variable:`CMAKE_FIND_USE_SYSTEM_PACKAGE_REGISTRY` variable to ``FALSE`` or "
+"the deprecated variable :variable:"
+"`CMAKE_FIND_PACKAGE_NO_SYSTEM_PACKAGE_REGISTRY` to ``TRUE``."
+msgstr ""
+
+#: ../../../command/find_package.rst:364
+msgid ""
+"See the :manual:`cmake-packages(7)` manual for details on the system package "
+"registry."
+msgstr ""
+
+#: ../../../command/find_package.rst:367
+msgid ""
+"Search paths specified by the ``PATHS`` option.  These are typically hard-"
+"coded guesses."
+msgstr ""
+
+#: ../../../command/FIND_XXX_ROOT.txt:1
+msgid ""
+"The CMake variable :variable:`CMAKE_FIND_ROOT_PATH` specifies one or more "
+"directories to be prepended to all other search directories.  This "
+"effectively \"re-roots\" the entire search under given locations. Paths "
+"which are descendants of the :variable:`CMAKE_STAGING_PREFIX` are excluded "
+"from this re-rooting, because that variable is always a path on the host "
+"system. By default the :variable:`CMAKE_FIND_ROOT_PATH` is empty."
+msgstr ""
+
+#: ../../../command/FIND_XXX_ROOT.txt:8
+msgid ""
+"The :variable:`CMAKE_SYSROOT` variable can also be used to specify exactly "
+"one directory to use as a prefix.  Setting :variable:`CMAKE_SYSROOT` also "
+"has other effects.  See the documentation for that variable for more."
+msgstr ""
+
+#: ../../../command/FIND_XXX_ROOT.txt:12
+msgid ""
+"These variables are especially useful when cross-compiling to point to the "
+"root directory of the target environment and CMake will search there too.  "
+"By default at first the directories listed in :variable:"
+"`CMAKE_FIND_ROOT_PATH` are searched, then the :variable:`CMAKE_SYSROOT` "
+"directory is searched, and then the non-rooted directories will be "
+"searched.  The default behavior can be adjusted by setting |"
+"CMAKE_FIND_ROOT_PATH_MODE_XXX|.  This behavior can be manually overridden on "
+"a per-call basis using options:"
+msgstr ""
+
+#: ../../../command/FIND_XXX_ROOT.txt:21
+msgid "``CMAKE_FIND_ROOT_PATH_BOTH``"
+msgstr ""
+
+#: ../../../command/FIND_XXX_ROOT.txt:22
+msgid "Search in the order described above."
+msgstr ""
+
+#: ../../../command/FIND_XXX_ROOT.txt:24
+msgid "``NO_CMAKE_FIND_ROOT_PATH``"
+msgstr ""
+
+#: ../../../command/FIND_XXX_ROOT.txt:25
+msgid "Do not use the :variable:`CMAKE_FIND_ROOT_PATH` variable."
+msgstr ""
+
+#: ../../../command/FIND_XXX_ROOT.txt:27
+msgid "``ONLY_CMAKE_FIND_ROOT_PATH``"
+msgstr ""
+
+#: ../../../command/FIND_XXX_ROOT.txt:28
+msgid ""
+"Search only the re-rooted directories and directories below :variable:"
+"`CMAKE_STAGING_PREFIX`."
+msgstr ""
+
+#: ../../../command/FIND_XXX_ORDER.txt:1
+msgid ""
+"The default search order is designed to be most-specific to least-specific "
+"for common use cases. Projects may override the order by simply calling the "
+"command multiple times and using the ``NO_*`` options:"
+msgstr ""
+
+#: ../../../command/FIND_XXX_ORDER.txt:419
+msgid ""
+"|FIND_XXX| (|FIND_ARGS_XXX| PATHS paths... NO_DEFAULT_PATH)\n"
+"|FIND_XXX| (|FIND_ARGS_XXX|)"
+msgstr ""
+
+#: ../../../command/FIND_XXX_ORDER.txt:11
+msgid ""
+"Once one of the calls succeeds the result variable will be set and stored in "
+"the cache so that no call will search again."
+msgstr ""
+
+#: ../../../command/find_package.rst:378
+msgid ""
+"By default the value stored in the result variable will be the path at which "
+"the file is found.  The :variable:`CMAKE_FIND_PACKAGE_RESOLVE_SYMLINKS` "
+"variable may be set to ``TRUE`` before calling ``find_package`` in order to "
+"resolve symbolic links and store the real path to the file."
+msgstr ""
+
+#: ../../../command/find_package.rst:383
+msgid ""
+"Every non-REQUIRED ``find_package`` call can be disabled by setting the :"
+"variable:`CMAKE_DISABLE_FIND_PACKAGE_<PackageName>` variable to ``TRUE``."
+msgstr ""
+
+#: ../../../command/find_package.rst:387
+msgid "Package File Interface Variables"
+msgstr ""
+
+#: ../../../command/find_package.rst:389
+msgid ""
+"When loading a find module or package configuration file ``find_package`` "
+"defines variables to provide information about the call arguments (and "
+"restores their original state before returning):"
+msgstr ""
+
+#: ../../../command/find_package.rst:393
+msgid "``CMAKE_FIND_PACKAGE_NAME``"
+msgstr ""
+
+#: ../../../command/find_package.rst:394
+msgid "the ``<PackageName>`` which is searched for"
+msgstr ""
+
+#: ../../../command/find_package.rst:395
+msgid "``<PackageName>_FIND_REQUIRED``"
+msgstr ""
+
+#: ../../../command/find_package.rst:396
+msgid "true if ``REQUIRED`` option was given"
+msgstr ""
+
+#: ../../../command/find_package.rst:397
+msgid "``<PackageName>_FIND_QUIETLY``"
+msgstr ""
+
+#: ../../../command/find_package.rst:398
+msgid "true if ``QUIET`` option was given"
+msgstr ""
+
+#: ../../../command/find_package.rst:399
+msgid "``<PackageName>_FIND_VERSION``"
+msgstr ""
+
+#: ../../../command/find_package.rst:401
+msgid "``<PackageName>_FIND_VERSION_MAJOR``"
+msgstr ""
+
+#: ../../../command/find_package.rst:403
+msgid "``<PackageName>_FIND_VERSION_MINOR``"
+msgstr ""
+
+#: ../../../command/find_package.rst:405
+msgid "``<PackageName>_FIND_VERSION_PATCH``"
+msgstr ""
+
+#: ../../../command/find_package.rst:407
+msgid "``<PackageName>_FIND_VERSION_TWEAK``"
+msgstr ""
+
+#: ../../../command/find_package.rst:409
+msgid "``<PackageName>_FIND_VERSION_COUNT``"
+msgstr ""
+
+#: ../../../command/find_package.rst:411
+msgid "``<PackageName>_FIND_VERSION_EXACT``"
+msgstr ""
+
+#: ../../../command/find_package.rst:412
+msgid "true if ``EXACT`` option was given"
+msgstr ""
+
+#: ../../../command/find_package.rst:413
+msgid "``<PackageName>_FIND_COMPONENTS``"
+msgstr ""
+
+#: ../../../command/find_package.rst:414
+msgid "list of requested components"
+msgstr ""
+
+#: ../../../command/find_package.rst:415
+msgid "``<PackageName>_FIND_REQUIRED_<c>``"
+msgstr ""
+
+#: ../../../command/find_package.rst:416
+msgid ""
+"true if component ``<c>`` is required, false if component ``<c>`` is optional"
+msgstr ""
+
+#: ../../../command/find_package.rst:419
+msgid ""
+"In Module mode the loaded find module is responsible to honor the request "
+"detailed by these variables; see the find module for details. In Config mode "
+"``find_package`` handles ``REQUIRED``, ``QUIET``, and ``[version]`` options "
+"automatically but leaves it to the package configuration file to handle "
+"components in a way that makes sense for the package.  The package "
+"configuration file may set ``<PackageName>_FOUND`` to false to tell "
+"``find_package`` that component requirements are not satisfied."
+msgstr ""
