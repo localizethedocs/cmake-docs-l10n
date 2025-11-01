@@ -1,0 +1,133 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2000-2021 Kitware, Inc. and Contributors
+# This file is distributed under the same license as the CMake package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CMake 3.22\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-07-08 02:55+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../guide/tutorial/Adding System Introspection.rst:2
+msgid "Step 5: Adding System Introspection"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding System Introspection.rst:4
+msgid ""
+"Let us consider adding some code to our project that depends on features the "
+"target platform may not have. For this example, we will add some code that "
+"depends on whether or not the target platform has the ``log`` and ``exp`` "
+"functions. Of course almost every platform has these functions but for this "
+"tutorial assume that they are not common."
+msgstr ""
+
+#: ../../../guide/tutorial/Adding System Introspection.rst:10
+msgid ""
+"If the platform has ``log`` and ``exp`` then we will use them to compute the "
+"square root in the ``mysqrt`` function. We first test for the availability "
+"of these functions using the :module:`CheckSymbolExists` module in "
+"``MathFunctions/CMakeLists.txt``. On some platforms, we will need to link to "
+"the ``m`` library. If ``log`` and ``exp`` are not initially found, require "
+"the ``m`` library and try again."
+msgstr ""
+
+#: ../../../guide/tutorial/Adding System Introspection.rst:17
+msgid ""
+"Add the checks for ``log`` and ``exp`` to ``MathFunctions/CMakeLists.txt``, "
+"after the call to :command:`target_include_directories`:"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding System Introspection.rst:20
+#: Introspection.rst:30
+msgid "MathFunctions/CMakeLists.txt"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding System Introspection.rst:20
+msgid ""
+"target_include_directories(MathFunctions\n"
+"          INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}\n"
+"          )\n"
+"\n"
+"# does this system provide the log and exp functions?\n"
+"include(CheckSymbolExists)\n"
+"check_symbol_exists(log \"math.h\" HAVE_LOG)\n"
+"check_symbol_exists(exp \"math.h\" HAVE_EXP)\n"
+"if(NOT (HAVE_LOG AND HAVE_EXP))\n"
+"  unset(HAVE_LOG CACHE)\n"
+"  unset(HAVE_EXP CACHE)\n"
+"  set(CMAKE_REQUIRED_LIBRARIES \"m\")\n"
+"  check_symbol_exists(log \"math.h\" HAVE_LOG)\n"
+"  check_symbol_exists(exp \"math.h\" HAVE_EXP)\n"
+"  if(HAVE_LOG AND HAVE_EXP)\n"
+"    target_link_libraries(MathFunctions PRIVATE m)\n"
+"  endif()\n"
+"endif()\n"
+"\n"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding System Introspection.rst:27
+msgid ""
+"If available, use :command:`target_compile_definitions` to specify "
+"``HAVE_LOG`` and ``HAVE_EXP`` as ``PRIVATE`` compile definitions."
+msgstr ""
+
+#: ../../../guide/tutorial/Adding System Introspection.rst:30
+msgid ""
+"if(HAVE_LOG AND HAVE_EXP)\n"
+"  target_compile_definitions(MathFunctions\n"
+"                             PRIVATE \"HAVE_LOG\" \"HAVE_EXP\")\n"
+"endif()\n"
+"\n"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding System Introspection.rst:37
+msgid ""
+"If ``log`` and ``exp`` are available on the system, then we will use them to "
+"compute the square root in the ``mysqrt`` function. Add the following code "
+"to the ``mysqrt`` function in ``MathFunctions/mysqrt.cxx`` (don't forget the "
+"``#endif`` before returning the result!):"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding System Introspection.rst:42
+#: Introspection.rst:51
+msgid "MathFunctions/mysqrt.cxx"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding System Introspection.rst:42
+msgid ""
+"#if defined(HAVE_LOG) && defined(HAVE_EXP)\n"
+"  double result = exp(log(x) * 0.5);\n"
+"  std::cout << \"Computing sqrt of \" << x << \" to be \" << result\n"
+"            << \" using log and exp\" << std::endl;\n"
+"#else\n"
+"  double result = x;\n"
+"\n"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding System Introspection.rst:49
+msgid "We will also need to modify ``mysqrt.cxx`` to include ``cmath``."
+msgstr ""
+
+#: ../../../guide/tutorial/Adding System Introspection.rst:51
+msgid "#include <cmath>\n"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding System Introspection.rst:57
+msgid ""
+"Run the :manual:`cmake  <cmake(1)>` executable or the :manual:`cmake-gui "
+"<cmake-gui(1)>` to configure the project and then build it with your chosen "
+"build tool and run the Tutorial executable."
+msgstr ""
+
+#: ../../../guide/tutorial/Adding System Introspection.rst:61
+msgid "Which function gives better results now, ``sqrt`` or ``mysqrt``?"
+msgstr ""
