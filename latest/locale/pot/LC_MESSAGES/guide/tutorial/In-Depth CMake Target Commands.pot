@@ -1,0 +1,759 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2000-2025 Kitware, Inc. and Contributors
+# This file is distributed under the same license as the CMake package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CMake latest\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-11-02 08:20+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:2
+msgid "Step 4: In-Depth CMake Target Commands"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:4
+msgid ""
+"There are several target commands within CMake we can use to describe "
+"requirements. As a reminder, a target command is one which modifies the "
+"properties of the target it is applied to. These properties describe "
+"requirements needed to build the software, such as sources, compile flags, "
+"and output names; or properties necessary to consume the target, such as "
+"header includes, library directories, and linkage rules."
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:12
+msgid ""
+"As discussed in ``Step1``, properties required to build a target should be "
+"described with the ``PRIVATE`` :ref:`scope keyword <Target Command Scope>`, "
+"those required to consume the target with ``INTERFACE``, and properties "
+"needed for both are described with ``PUBLIC``."
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:17
+msgid ""
+"In this step we will go over all the available target commands in CMake. Not "
+"all target commands are created equal. We have already discussed the two "
+"most important target commands, :command:`target_sources` and :command:"
+"`target_link_libraries`. Of the remaining commands, some are almost as "
+"common as these two, others have more advanced applications, and a couple "
+"should only be used as a last resort when other options are not available."
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:25
+msgid "Background"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:27
+msgid ""
+"Before going any further, let's name all of the CMake target commands. We'll "
+"split these into three groups: the recommended and generally useful "
+"commands, the advanced and cautionary commands, and the \"footgun\" commands "
+"which should be avoided unless necessary."
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:33
+msgid "Common/Recommended"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:33
+msgid "Advanced/Caution"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:33
+msgid "Esoteric/Footguns"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:35
+msgid ""
+":command:`target_compile_definitions` :command:`target_compile_features` :"
+"command:`target_link_libraries` :command:`target_sources`"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:35
+msgid ""
+":command:`get_target_property` :command:`set_target_properties` :command:"
+"`target_compile_options` :command:`target_link_options` :command:"
+"`target_precompile_headers`"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:35
+msgid ""
+":command:`target_include_directories` :command:`target_link_directories`"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:43
+msgid ""
+"There's no such thing as a \"bad\" CMake target command. They all have valid "
+"use cases. This categorization is provided to give newcomers a simple "
+"intuition about which commands they should consider first when tackling a "
+"problem."
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:48
+msgid ""
+"We'll demonstrate most of these in the following exercises. The three we "
+"won't be using are :command:`get_target_property`, :command:"
+"`set_target_properties` and :command:`target_precompile_headers`, so we will "
+"briefly discuss their purpose here."
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:53
+msgid ""
+"The :command:`get_target_property` and :command:`set_target_properties` "
+"commands give direct access to a target's properties by name. They can even "
+"be used to attach arbitrary property names to a target."
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:57
+msgid ""
+"add_library(Example)\n"
+"set_target_properties(Example\n"
+"  PROPERTIES\n"
+"    Key Value\n"
+"    Hello World\n"
+")\n"
+"\n"
+"get_target_property(KeyVar Example Key)\n"
+"get_target_property(HelloVar Example Hello)\n"
+"\n"
+"message(\"Key: ${KeyVar}\")\n"
+"message(\"Hello: ${HelloVar}\")"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:72
+msgid ""
+"$ cmake -B build\n"
+"...\n"
+"Key: Value\n"
+"Hello: World"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:79
+msgid ""
+"The full list of target properties which are semantically meaningful to "
+"CMake are documented at :manual:`cmake-properties(7)`, however most of these "
+"should be modified with their dedicated commands. For example, it is "
+"unnecessary to directly manipulate ``LINK_LIBRARIES`` and "
+"``INTERFACE_LINK_LIBRARIES``, as these are handled by :command:"
+"`target_link_libraries`."
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:85
+msgid ""
+"Conversely, some lesser-used properties are only accessible via these "
+"commands. The :prop_tgt:`DEPRECATION` property, used to attach deprecation "
+"notices to targets, can only be set via :command:`set_target_properties`; as "
+"can the :prop_tgt:`ADDITIONAL_CLEAN_FILES`, for describing additional files "
+"to be removed by CMake's ``clean`` target; and other properties of this sort."
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:91
+msgid ""
+"The :command:`target_precompile_headers` command takes a list of header "
+"files, similar to :command:`target_sources`, and creates a precompiled "
+"header from them. This precompiled header is then force included into all "
+"translation units in the target. This can be useful for build performance."
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:97
+msgid "Exercise 1 - Features and Definitions"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:99
+msgid ""
+"In earlier steps we cautioned against globally setting :variable:"
+"`CMAKE_<LANG>_STANDARD` and overriding packagers' decision concerning which "
+"language standard to use. On the other hand, many libraries have a minimum "
+"required feature set they need in order to build, and for these it is "
+"appropriate to use the :command:`target_compile_features` command to "
+"communicate those requirements."
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:106
+msgid "target_compile_features(MyApp PRIVATE cxx_std_20)"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:110
+msgid ""
+"The :command:`target_compile_features` command describes a minimum language "
+"standard as a target property. If the :variable:`CMAKE_<LANG>_STANDARD` is "
+"above this version, or the compiler default already provides this language "
+"standard, no action is taken. If additional flags are necessary to enable "
+"the standard, these will be added by CMake."
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:117
+msgid ""
+":command:`target_compile_features` manipulates the same style of interface "
+"and non-interface properties as the other target commands. This means it is "
+"possible to *inherit* a language standard requirement specified with "
+"``INTERFACE`` or ``PUBLIC`` scope keywords."
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:122
+msgid ""
+"If language features are used only in implementation files, then the "
+"respective compile features should be ``PRIVATE``. If the target's headers "
+"use the features, then ``PUBLIC`` or ``INTERFACE`` should be used."
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:126
+msgid ""
+"For C++, the compile features are of the form ``cxx_std_YY`` where ``YY`` is "
+"the standardization year, e.g. ``14``, ``17``, ``20``, etc."
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:129
+msgid ""
+"The :command:`target_compile_definitions` command describes compile "
+"definitions as target properties. It is the most common mechanism for "
+"communicating build configuration information to the source code itself. As "
+"with all properties, the scope keywords apply as we have discussed."
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:134
+msgid ""
+"target_compile_definitions(MyLibrary\n"
+"  PRIVATE\n"
+"    MYLIBRARY_USE_EXPERIMENTAL_IMPLEMENTATION\n"
+"\n"
+"  PUBLIC\n"
+"    MYLIBRARY_EXCLUDE_DEPRECATED_FUNCTIONS\n"
+")"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:144
+msgid ""
+"It is neither required nor desired that we attach ``-D`` prefixes to compile "
+"definitions described with :command:`target_compile_definitions`. CMake will "
+"determine the correct flag for the current compiler."
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:149
+#: Commands.rst:332 Commands.rst:426
+msgid "Goal"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:151
+msgid ""
+"Use :command:`target_compile_features` and :command:"
+"`target_compile_definitions` to communicate language standard and compile "
+"definition requirements."
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:155
+#: Commands.rst:338 Commands.rst:433
+msgid "Helpful Resources"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:157
+msgid ":command:`target_compile_features`"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:158
+msgid ":command:`target_compile_definitions`"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:159
+msgid ":command:`option`"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:160
+msgid ":command:`if`"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:163
+#: Commands.rst:343 Commands.rst:440
+msgid "Files to Edit"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:165
+#: Commands.rst:345 Commands.rst:443
+msgid "``Tutorial/CMakeLists.txt``"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:166
+msgid "``MathFunctions/CMakeLists.txt``"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:167
+msgid "``MathFunctions/MathFunctions.cxx``"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:168
+msgid "``CMakePresets.json``"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:171
+#: Commands.rst:348 Commands.rst:446
+msgid "Getting Started"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:173
+msgid ""
+"The ``Help/guide/tutorial/Step4`` directory contains the complete, "
+"recommended solution to ``Step3`` and relevant ``TODOs`` for this step. "
+"Complete ``TODO 1`` through ``TODO 8``."
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:178
+#: Commands.rst:355 Commands.rst:469
+msgid "Build and Run"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:180
+msgid ""
+"We can run CMake using our ``tutorial`` preset, and then build as usual."
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:182
+msgid ""
+"cmake --preset tutorial\n"
+"cmake --build build"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:187
+msgid ""
+"Verify that the output of ``Tutorial`` is what we would expect for ``std::"
+"sqrt``."
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:190
+#: Commands.rst:367 Commands.rst:482
+msgid "Solution"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:192
+msgid "First we add a new option to the top-level CML."
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:194
+msgid "<details><summary>TODO 1: Click to show/hide answer</summary>"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:198
+msgid "TODO 1: CMakeLists.txt"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:198
+msgid ""
+"option(TUTORIAL_BUILD_UTILITIES \"Build the Tutorial executable\" ON)\n"
+"option(TUTORIAL_USE_STD_SQRT \"Use std::sqrt\" OFF)\n"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:205
+#: Commands.rst:222 Commands.rst:239 Commands.rst:264 Commands.rst:284
+#: Commands.rst:383 Commands.rst:510 Commands.rst:530
+msgid "</details>"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:209
+msgid "Then we add the compile feature and definitions to ``MathFunctions``."
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:211
+msgid "<details><summary>TODO 2-3: Click to show/hide answer</summary>"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:215
+msgid "TODO 2-3: MathFunctions/CMakeLists.txt"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:215
+msgid ""
+"target_compile_features(MathFunctions PRIVATE cxx_std_20)\n"
+"\n"
+"if(TUTORIAL_USE_STD_SQRT)\n"
+"  target_compile_definitions(MathFunctions PRIVATE TUTORIAL_USE_STD_SQRT)\n"
+"endif()\n"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:226
+msgid "And the compile feature for ``Tutorial``."
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:228
+msgid "<details><summary>TODO 4: Click to show/hide answer</summary>"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:232
+msgid "TODO 4: Tutorial/CMakeLists.txt"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:232
+msgid "target_compile_features(Tutorial PRIVATE cxx_std_20)\n"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:243
+msgid ""
+"Now we can modify ``MathFunctions`` to take advantage of the new definition."
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:245
+msgid "<details><summary>TODO 5-6: Click to show/hide answer</summary>"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:249
+msgid "TODO 5: MathFunctions/MathFunctions.cxx"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:249
+msgid ""
+"#include <cmath>\n"
+"#include <format>\n"
+"#include <iostream>\n"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:257
+msgid "TODO 6: MathFunctions/MathFunctions.cxx"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:257
+msgid ""
+"double sqrt(double x)\n"
+"{\n"
+"#ifdef TUTORIAL_USE_STD_SQRT\n"
+"  return std::sqrt(x);\n"
+"#else\n"
+"  return mysqrt(x);\n"
+"#endif\n"
+"}\n"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:268
+msgid ""
+"Finally we can update our ``CMakePresets.json``. We don't need to set "
+"``CMAKE_CXX_STANDARD`` anymore, but we do want to try out our new compile "
+"definition."
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:272
+msgid "<details><summary>TODO 7-8: Click to show/hide answer</summary>"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:276
+msgid "TODO 7-8: CMakePresets.json"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:276
+msgid ""
+"\"cacheVariables\": {\n"
+"  \"TUTORIAL_USE_STD_SQRT\": \"ON\"\n"
+"}"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:289
+msgid "Exercise 2 - Compile and Link Options"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:291
+msgid ""
+"Sometimes, we need to exercise specific control over the exact options being "
+"passed on the compile and link line. These situations are addressed by :"
+"command:`target_compile_options` and :command:`target_link_options`."
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:295
+msgid ""
+"target_compile_options(MyApp PRIVATE -Wall -Werror)\n"
+"target_link_options(MyApp PRIVATE -T LinksScript.ld)"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:300
+msgid ""
+"There are several problems with unconditionally calling :command:"
+"`target_compile_options` or :command:`target_link_options`. The primary "
+"problem is compiler flags are specific to the compiler frontend being used. "
+"In order to ensure that our project supports multiple compiler frontends, we "
+"must only pass compatible flags to the compiler."
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:306
+msgid ""
+"We can achieve this by checking the :variable:"
+"`CMAKE_<LANG>_COMPILER_FRONTEND_VARIANT` variable which tells us the style "
+"of flags supported by the compiler frontend."
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:310
+msgid ""
+"Prior to CMake 3.26, :variable:`CMAKE_<LANG>_COMPILER_FRONTEND_VARIANT` was "
+"only set for compilers with multiple frontend variants. In versions after "
+"CMake 3.26 checking this variable alone is sufficient."
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:314
+msgid ""
+"However this tutorial targets CMake 3.23. As such, the logic is more "
+"complicated than we have time for here. This tutorial step already includes "
+"correct logic for checking the compiler variant for MSVC, GCC, Clang, and "
+"AppleClang on CMake 3.23."
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:319
+msgid ""
+"Even if a compiler accepts the flags we pass, the semantics of compiler "
+"flags change over time. This is especially true with regards to warnings. "
+"Projects should not turn warnings-as-error flags by default, as this can "
+"break their build on otherwise innocuous compiler warnings included in later "
+"releases."
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:325
+msgid ""
+"For errors and warnings, consider placing flags in :variable:"
+"`CMAKE_<LANG>_FLAGS` for local development builds and during CI runs (via "
+"preset or :option:`-D <cmake -D>` flags). We know exactly which compiler and "
+"toolchain are being used in these contexts, so we can customize the behavior "
+"precisely without risking build breakages on other platforms."
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:334
+msgid ""
+"Add appropriate warning flags to the ``Tutorial`` executable for MSVC-style "
+"and GNU-style compiler frontends."
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:340
+msgid ":command:`target_compile_options`"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:350
+msgid ""
+"Continue editing files in the ``Step4`` directory. The conditional for "
+"checking the frontend variant has already been written. Complete ``TODO 9`` "
+"and ``TODO 10`` to add warning flags to ``Tutorial``."
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:357
+msgid ""
+"Since we have already configured for this step, we can build with the usual "
+"command."
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:360
+#: Commands.rst:474
+msgid "cmake --build build"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:364
+msgid ""
+"This should reveal a simple warning in the build. You can go ahead and fix "
+"it."
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:369
+msgid ""
+"We need to add two compile options to ``Tutorial``, one MSVC-style flag and "
+"one GNU-style flag."
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:372
+msgid "<details><summary>TODO 9-10: Click to show/hide answer</summary>"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:376
+msgid "TODO 9-10: Tutorial/CMakeLists.txt"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:376
+msgid ""
+"if(\n"
+"  (CMAKE_CXX_COMPILER_ID STREQUAL \"MSVC\") OR\n"
+"  (CMAKE_CXX_COMPILER_FRONTEND_VARIANT STREQUAL \"MSVC\")\n"
+")\n"
+"\n"
+"  target_compile_options(Tutorial PRIVATE /W3)\n"
+"\n"
+"elseif(\n"
+"  (CMAKE_CXX_COMPILER_ID STREQUAL \"GNU\") OR\n"
+"  (CMAKE_CXX_COMPILER_ID MATCHES \"Clang\")\n"
+")\n"
+"\n"
+"  target_compile_options(Tutorial PRIVATE -Wall)\n"
+"\n"
+"endif()\n"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:388
+msgid "Exercise 3 - Include and Link Directories"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:391
+msgid ""
+"This exercise requires building an archive using a compiler directly on the "
+"command line. It is not used in later steps. It is included only to "
+"demonstrate a use case for :command:`target_include_directories` and :"
+"command:`target_link_directories`."
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:396
+msgid ""
+"If you cannot complete this exercise for whatever reason feel free to treat "
+"it as informational-only, or skip it entirely."
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:399
+msgid ""
+"It is generally unnecessary to directly describe include and link "
+"directories, as these requirements are inherited when linking together "
+"targets generated within CMake, or from external dependencies imported into "
+"CMake with commands we will cover in later steps."
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:404
+msgid ""
+"If we happen to have some libraries or header files which are not described "
+"by a CMake target which we need to bring into the build, perhaps pre-"
+"compiled binaries provided by a vendor, we can incorporate with the :command:"
+"`target_link_directories` and :command:`target_include_directories` commands."
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:410
+msgid ""
+"target_link_directories(MyApp PRIVATE Vendor/lib)\n"
+"target_include_directories(MyApp PRIVATE Vendor/include)"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:416
+msgid ""
+"These commands use properties which map to the ``-L`` and ``-I`` compiler "
+"flags (or whatever flags the compiler uses for link and include directories)."
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:419
+msgid ""
+"Of course, passing a link directory doesn't tell the compiler to link "
+"anything into the build. For that we need :command:`target_link_libraries`. "
+"When :command:`target_link_libraries` is given an argument which does not "
+"map to a target name, it will add the string directly to the link line as a "
+"library to be linked into the build (prepending any appropriate flags, such "
+"a ``-l``)."
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:428
+msgid ""
+"Describe a pre-compiled, vendored, static library and its headers inside a "
+"project using :command:`target_link_directories` and :command:"
+"`target_include_directories`."
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:435
+msgid ":command:`target_link_directories`"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:436
+msgid ":command:`target_include_directories`"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:437
+msgid ":command:`target_link_libraries`"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:442
+msgid "``Vendor/CMakeLists.txt``"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:448
+msgid ""
+"You will need to build the vendor library into a static archive to complete "
+"this exercise. Navigate to the ``Help/guide/tutorial/Step4/Vendor/lib`` "
+"directory and build the code as appropriate for your platform. On Unix-like "
+"operating systems the appropriate commands are usually:"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:453
+msgid ""
+"g++ -c Vendors.cxx\n"
+"ar rvs libVendor.a Vendor.o"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:458
+msgid "Then complete ``TODO 11`` through ``TODO 14``."
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:461
+msgid ""
+"``VendorLib`` is an ``INTERFACE`` library, meaning it has no build "
+"requirements (because it has already been built). All of its properties "
+"should also be interface properties."
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:465
+msgid ""
+"We'll discuss ``INTERFACE`` libraries in greater depth during the next step."
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:471
+msgid ""
+"If you have successfully built ``libVendor``, you can rebuild ``Tutorial`` "
+"using the normal command."
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:478
+msgid ""
+"Running ``Tutorial`` should now output a message about the acceptability of "
+"the result to the vendor."
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:484
+msgid ""
+"We need to use the target link and include commands to describe the archive "
+"and its headers as ``INTERFACE`` requirements of ``VendorLib``."
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:487
+msgid "<details><summary>TODO 11-13: Click to show/hide answer</summary>"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:491
+msgid "TODO 11-13: Vendor/CMakeLists.txt"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:491
+msgid ""
+"target_include_directories(VendorLib\n"
+"  INTERFACE\n"
+"    include\n"
+")\n"
+"\n"
+"target_link_directories(VendorLib\n"
+"  INTERFACE\n"
+"    lib\n"
+")\n"
+"\n"
+"target_link_libraries(VendorLib\n"
+"  INTERFACE\n"
+"    Vendor\n"
+")"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:514
+msgid "Then we can add ``VendorLib`` to ``Tutorial``'s linked libraries."
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:516
+msgid "<details><summary>TODO 14: Click to show/hide answer</summary>"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:520
+msgid "TODO 14: Tutorial/CMakeLists.txt"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:520
+msgid ""
+"target_link_libraries(Tutorial\n"
+"  PRIVATE\n"
+"    MathFunctions\n"
+"    VendorLib\n"
+")"
+msgstr ""
