@@ -83,7 +83,7 @@ msgstr "該模組定義了以下變數："
 
 #: ../../../../Modules/FindosgShadow.cmake:49
 msgid "``osgShadow_FOUND``"
-msgstr ""
+msgstr "``osgShadow_FOUND``"
 
 #: ../../../../Modules/FindosgShadow.cmake:50
 msgid ""
@@ -94,7 +94,7 @@ msgstr ""
 
 #: ../../../../Modules/FindosgShadow.cmake:54
 msgid "``OSGSHADOW_LIBRARIES``"
-msgstr ""
+msgstr "``OSGSHADOW_LIBRARIES``"
 
 #: ../../../../Modules/FindosgShadow.cmake:55
 msgid "The libraries needed to link against to use osgShadow."
@@ -102,7 +102,7 @@ msgstr ""
 
 #: ../../../../Modules/FindosgShadow.cmake:57
 msgid "``OSGSHADOW_LIBRARY``"
-msgstr ""
+msgstr "``OSGSHADOW_LIBRARY``"
 
 #: ../../../../Modules/FindosgShadow.cmake:58
 msgid ""
@@ -120,7 +120,7 @@ msgstr ""
 
 #: ../../../../Modules/FindosgShadow.cmake:66
 msgid "``OSGSHADOW_INCLUDE_DIR``"
-msgstr ""
+msgstr "``OSGSHADOW_INCLUDE_DIR``"
 
 #: ../../../../Modules/FindosgShadow.cmake:67
 msgid "The include directory containing headers needed to use osgShadow."
@@ -128,7 +128,7 @@ msgstr ""
 
 #: ../../../../Modules/FindosgShadow.cmake:69
 msgid "``OSGSHADOW_LIBRARY_DEBUG``"
-msgstr ""
+msgstr "``OSGSHADOW_LIBRARY_DEBUG``"
 
 #: ../../../../Modules/FindosgShadow.cmake:70
 msgid "The path to the osgShadow debug library."
@@ -136,7 +136,7 @@ msgstr ""
 
 #: ../../../../Modules/FindosgShadow.cmake:73
 msgid "Hints"
-msgstr ""
+msgstr "提示"
 
 #: ../../../../Modules/FindosgShadow.cmake:75
 msgid "This module accepts the following variables:"
@@ -144,7 +144,7 @@ msgstr ""
 
 #: ../../../../Modules/FindosgShadow.cmake:77
 msgid "``OSGDIR``"
-msgstr ""
+msgstr "``OSGDIR``"
 
 #: ../../../../Modules/FindosgShadow.cmake:78
 msgid ""
@@ -182,6 +182,19 @@ msgid ""
 "\n"
 "target_link_libraries(example PRIVATE osgShadow::osgShadow)"
 msgstr ""
+"find_package(osgShadow)\n"
+"\n"
+"if(osgShadow_FOUND AND NOT TARGET osgShadow::osgShadow)\n"
+"  add_library(osgShadow::osgShadow INTERFACE IMPORTED)\n"
+"  set_target_properties(\n"
+"    osgShadow::osgShadow\n"
+"    PROPERTIES\n"
+"      INTERFACE_INCLUDE_DIRECTORIES \"${OSGSHADOW_INCLUDE_DIR}\"\n"
+"      INTERFACE_LINK_LIBRARIES \"${OSGSHADOW_LIBRARIES}\"\n"
+"  )\n"
+"endif()\n"
+"\n"
+"target_link_libraries(example PRIVATE osgShadow::osgShadow)"
 
 #: ../../../../Modules/FindosgShadow.cmake:107
 msgid "See Also"
