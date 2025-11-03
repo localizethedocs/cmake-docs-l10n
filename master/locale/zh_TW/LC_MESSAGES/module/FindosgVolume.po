@@ -83,7 +83,7 @@ msgstr "該模組定義了以下變數："
 
 #: ../../../../Modules/FindosgVolume.cmake:49
 msgid "``osgVolume_FOUND``"
-msgstr ""
+msgstr "``osgVolume_FOUND``"
 
 #: ../../../../Modules/FindosgVolume.cmake:52
 #: ../../../../Modules/FindosgVolume.cmake:93
@@ -120,7 +120,7 @@ msgstr ""
 
 #: ../../../../Modules/FindosgVolume.cmake:67
 msgid "``OSGVOLUME_INCLUDE_DIR``"
-msgstr ""
+msgstr "``OSGVOLUME_INCLUDE_DIR``"
 
 #: ../../../../Modules/FindosgVolume.cmake:68
 msgid "The include directory containing headers needed to use osgVolume."
@@ -128,7 +128,7 @@ msgstr ""
 
 #: ../../../../Modules/FindosgVolume.cmake:70
 msgid "``OSGVOLUME_LIBRARY_DEBUG``"
-msgstr ""
+msgstr "``OSGVOLUME_LIBRARY_DEBUG``"
 
 #: ../../../../Modules/FindosgVolume.cmake:71
 msgid "The path to the osgVolume debug library."
@@ -165,7 +165,7 @@ msgstr ""
 
 #: ../../../../Modules/FindosgVolume.cmake:89
 msgid "``OSGVOLUME_FOUND``"
-msgstr ""
+msgstr "``OSGVOLUME_FOUND``"
 
 #: ../../../../Modules/FindosgVolume.cmake:90
 msgid "Use ``osgVolume_FOUND``, which has the same value."
@@ -198,6 +198,19 @@ msgid ""
 "\n"
 "target_link_libraries(example PRIVATE osgVolume::osgVolume)"
 msgstr ""
+"find_package(osgVolume)\n"
+"\n"
+"if(osgVolume_FOUND AND NOT TARGET osgVolume::osgVolume)\n"
+"  add_library(osgVolume::osgVolume INTERFACE IMPORTED)\n"
+"  set_target_properties(\n"
+"    osgVolume::osgVolume\n"
+"    PROPERTIES\n"
+"      INTERFACE_INCLUDE_DIRECTORIES \"${OSGVOLUME_INCLUDE_DIR}\"\n"
+"      INTERFACE_LINK_LIBRARIES \"${OSGVOLUME_LIBRARIES}\"\n"
+"  )\n"
+"endif()\n"
+"\n"
+"target_link_libraries(example PRIVATE osgVolume::osgVolume)"
 
 #: ../../../../Modules/FindosgVolume.cmake:120
 msgid "See Also"
