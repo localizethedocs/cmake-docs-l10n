@@ -1,0 +1,734 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2000-2025 Kitware, Inc. and Contributors
+# This file is distributed under the same license as the CMake package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CMake latest\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-11-02 08:20+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:2
+msgid "Step 10: Finding Dependencies"
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:4
+msgid ""
+"In C/C++ software development, managing build dependencies is consistently "
+"one of the highest ranked challenges facing modern developers. CMake "
+"provides an extensive toolset for discovering and validating dependencies of "
+"different kinds."
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:9
+msgid ""
+"However, for correctly packaged projects there is no need to use these "
+"advanced tools. Many popular library and utility projects today produce "
+"correct install trees, like the one we set up in ``Step 9``, which are easy "
+"is to integrate into CMake."
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:14
+msgid ""
+"In this best-case scenario, we only need the :command:`find_package` to "
+"import dependencies into our project."
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:18
+msgid "Background"
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:20
+msgid ""
+"There are five principle commands used for discovering dependencies with "
+"CMake, the first four are:"
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:23
+msgid ":command:`find_file`"
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:24
+msgid ""
+"Finds and reports the full path to a named file, this tends to be the most "
+"flexible of the ``find`` commands."
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:27
+msgid ":command:`find_library`"
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:28
+msgid ""
+"Finds and reports the full path to a static archive or shared object "
+"suitable for use with :command:`target_link_libraries`."
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:31 Dependencies.rst:443
+msgid ":command:`find_path`"
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:32
+msgid ""
+"Finds and reports the full path to a directory *containing* a file. This is "
+"most commonly used for headers in combination with :command:"
+"`target_include_directories`."
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:36
+msgid ":command:`find_program`"
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:37
+msgid ""
+"Finds and reports and invocable name or path for a program. Often used in "
+"combination with :command:`execute_process` or :command:`add_custom_command`."
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:40
+msgid ""
+"These commands should be considered \"backup\", used when the primary find "
+"command is unsuitable. The primary find command is :command:`find_package`. "
+"It uses comprehensive built-in heuristics and upstream-provided packaging "
+"files to provide the best interface to the requested dependency."
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:46
+msgid "Exercise 1 - Using ``find_package()``"
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:48
+msgid ""
+"The search paths and behaviors used by :command:`find_package` are fully "
+"described in its documentation, but much too verbose to replicate here. "
+"Suffice to say it searches well known, lesser known, obscure, and user-"
+"provided locations attempting to find a package which meets the requirements "
+"given to it."
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:53
+msgid "find_package(ForeignLibrary)"
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:57
+msgid ""
+"The best way to use :command:`find_package` is to ensure all dependencies "
+"have been installed to a single install tree prior to the build, and then "
+"make the location of that install tree known to :command:`find_package` via "
+"the :variable:`CMAKE_PREFIX_PATH` variable."
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:63
+msgid ""
+"Building and installing dependencies can itself be an immense amount of "
+"labor. While this tutorial will do so for illustration purposes, it is "
+"**extremely** recommended that a package manager be used for project-local "
+"dependency management."
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:68
+msgid ""
+":command:`find_package` accepts several parameters besides the package to be "
+"found. The most notable are:"
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:71
+msgid ""
+"A positional ``<version>`` argument, for describing a version to be checked "
+"against the package's config version file. This should be used sparingly, it "
+"is better to control the version of the dependency being installed via a "
+"package manager than possibly break the build on otherwise innocuous version "
+"updates."
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:77
+msgid ""
+"If the package is known to rely on an older version of a dependency, it may "
+"be appropriate to use a version requirement."
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:80
+msgid ""
+"``REQUIRED`` for non-optional dependencies which should abort the build if "
+"not found."
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:83
+msgid ""
+"``QUIET`` for optional dependencies which should not report anything to "
+"users when not found."
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:86
+msgid ""
+":command:`find_package` reports its results via ``<PackageName>_FOUND`` "
+"variables, which will be set to a true or false value for found and not "
+"found packages respectively."
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:91 Dependencies.rst:291
+#: Dependencies.rst:435
+msgid "Goal"
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:93
+msgid ""
+"Integrate an externally installed test framework into the Tutorial project."
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:96 Dependencies.rst:297
+#: Dependencies.rst:441
+msgid "Helpful Resources"
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:98 Dependencies.rst:300
+msgid ":command:`find_package`"
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:99 Dependencies.rst:301
+msgid ":command:`target_link_libraries`"
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:102 Dependencies.rst:304
+#: Dependencies.rst:447
+msgid "Files to Edit"
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:104
+msgid "``TutorialProject/CMakePresets.json``"
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:105
+msgid "``TutorialProject/Tests/CMakeLists.txt``"
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:106
+msgid "``TutorialProject/Tests/TestMathFunctions.cxx``"
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:109 Dependencies.rst:310
+#: Dependencies.rst:453
+msgid "Getting Started"
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:111
+msgid ""
+"The ``Step10`` folder is organized differently than previous steps. The "
+"tutorial project we need to edit is under ``Step10/TutorialProject``. "
+"Another project is now present, ``SimpleTest``, as well as a partially "
+"populated install tree which we will use in later exercises. You do not need "
+"to edit anything in these other directories for this exercise, all ``TODOs`` "
+"and solution steps are for ``TutorialProject``."
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:118
+msgid ""
+"The ``SimpleTest`` package provides two useful constructs, the ``SimpleTest::"
+"SimpleTest`` target to be linked into a test binary, and the "
+"``simpletest_discover_tests`` function for automatically adding tests to "
+"CTest."
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:123
+msgid ""
+"Similar to other test frameworks, ``simpletest_discover_tests`` only needs "
+"to be passed the name of the executable target containing the tests."
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:126
+msgid "simpletest_discover_tests(MyTestExe)"
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:130
+msgid ""
+"The ``TestMathFunctions.cxx`` file has been updated to use the "
+"``SimpleTest`` framework in the vein of GoogleTest or Catch2. Perform ``TODO "
+"1`` through ``TODO 5`` in order to use the new test framework."
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:135
+msgid ""
+"It may go without saying, but ``SimpleTest`` is a very poor test framework "
+"which only facially resembles a functional testing library. While much of "
+"the CMake code in this tutorial could be used unaltered in other projects, "
+"you should not use ``SimpleTest`` outside this tutorial, or try to learn "
+"from the CMake code it provides."
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:142 Dependencies.rst:324
+#: Dependencies.rst:462
+msgid "Build and Run"
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:144
+msgid ""
+"First we must install the ``SimpleTest`` framework. Navigate to the ``Help/"
+"guide/Step10/SimpleTest`` directory and run the following commands"
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:147 Dependencies.rst:329
+msgid ""
+"cmake --preset tutorial\n"
+"cmake --install build"
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:153
+msgid ""
+"The ``SimpleTest`` preset sets up everything needed to install "
+"``SimpleTest`` for the tutorial. For reasons that are beyond the scope of "
+"this tutorial, there is no need to build or provide any other configuration "
+"for ``SimpleTest``."
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:158
+msgid ""
+"We can observe that the ``Step10/install`` directory has now been populated "
+"by the ``SimpleTest`` header and package files."
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:161
+msgid ""
+"Now we can configure and build the Tutorial project as per usual, navigating "
+"to the ``Help/guide/Step10/TutorialProject`` and running:"
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:164 Dependencies.rst:337
+msgid ""
+"cmake --preset tutorial\n"
+"cmake --build build"
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:169
+msgid ""
+"Verify that the ``SimpleTest`` framework has been consumed correctly by "
+"running the tests with CTest."
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:173 Dependencies.rst:349
+#: Dependencies.rst:475
+msgid "Solution"
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:175
+msgid ""
+"First we call :command:`find_package` to discover the ``SimpleTest`` "
+"package. We do this with ``REQUIRED`` because the tests cannot build without "
+"``SimpleTest``."
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:179
+msgid "<details><summary>TODO 1 Click to show/hide answer</summary>"
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:183
+msgid "TODO 1: TutorialProject/Tests/CMakeLists.txt"
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:183
+msgid "find_package(SimpleTest REQUIRED)\n"
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:190 Dependencies.rst:207
+#: Dependencies.rst:225 Dependencies.rst:245 Dependencies.rst:263
+#: Dependencies.rst:365 Dependencies.rst:382 Dependencies.rst:492
+#: Dependencies.rst:510 Dependencies.rst:527
+msgid "</details>"
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:194
+msgid ""
+"Next we add the ``SimpleTest::SimpleTest`` target to ``TestMathFunctions``"
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:196
+msgid "<details><summary>TODO 2 Click to show/hide answer</summary>"
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:200
+msgid "TODO 2: TutorialProject/Tests/CMakeLists.txt"
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:200
+msgid ""
+"target_link_libraries(TestMathFunctions\n"
+"  PRIVATE\n"
+"    MathFunctions\n"
+"    SimpleTest::SimpleTest\n"
+")\n"
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:211
+msgid ""
+"Now we can replace our test description code with a call to "
+"``simpletest_discover_tests``."
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:214
+msgid "<details><summary>TODO 3 Click to show/hide answer</summary>"
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:218
+msgid "TODO 3: TutorialProject/Tests/CMakeLists.txt"
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:218
+msgid "simpletest_discover_tests(TestMathFunctions)\n"
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:229
+msgid ""
+"We ensure :command:`find_package` can discover ``SimpleTest`` by adding the "
+"install tree to :variable:`CMAKE_PREFIX_PATH`."
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:232
+msgid "<details><summary>TODO 4 Click to show/hide answer</summary>"
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:236
+msgid "TODO 4: TutorialProject/CMakePresets.json"
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:236
+msgid ""
+"\"cacheVariables\": {\n"
+"  \"CMAKE_PREFIX_PATH\": \"${sourceParentDir}/install\",\n"
+"  \"TUTORIAL_USE_STD_SQRT\": \"OFF\",\n"
+"  \"TUTORIAL_ENABLE_IPO\": \"OFF\"\n"
+"}\n"
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:249
+msgid ""
+"Finally, we update the tests to use the macros provided by ``SimpleTest`` by "
+"removing the placeholders and including the appropriate header."
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:252
+msgid "<details><summary>TODO 5 Click to show/hide answer</summary>"
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:256
+msgid "TODO 5: TutorialProject/Tests/TestMathFunctions.cxx"
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:256
+msgid ""
+"#include <MathFunctions.h>\n"
+"#include <SimpleTest.h>\n"
+"\n"
+"TEST(\"add\")\n"
+"{\n"
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:268
+msgid "Exercise 2 - Transitive Dependencies"
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:270
+msgid ""
+"Libraries often build on one another. A multimedia application may depend on "
+"a library which provides support for various container formats, which may in "
+"turn rely on one or more other libraries for compression algorithms."
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:274
+msgid ""
+"We need to express these transitive requirements inside the package config "
+"files we place in the install tree. We do so with the :module:"
+"`CMakeFindDependencyMacro` module, which provides a safe mechanism for "
+"installed packages to recursively discover one another."
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:279
+msgid ""
+"include(CMakeFindDependencyMacro)\n"
+"find_dependency(zlib)"
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:284
+msgid ""
+":module:`find_dependency() <CMakeFindDependencyMacro>` also forwards "
+"arguments from the top-level :command:`find_package` call. If :command:"
+"`find_package` is called with ``QUIET`` or ``REQUIRED``, :module:"
+"`find_dependency() <CMakeFindDependencyMacro>` will also use ``QUIET`` and/"
+"or ``REQUIRED``."
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:293
+msgid ""
+"Add a dependency to ``SimpleTest`` and ensure that packages which rely on "
+"``SimpleTest`` also discover this transitive dependency."
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:299
+msgid ":module:`CMakeFindDependencyMacro`"
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:306
+msgid "``SimpleTest/CMakeLists.txt``"
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:307
+msgid "``SimpleTest/cmake/SimpleTestConfig.cmake``"
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:312
+msgid ""
+"For this step we will only be editing the ``SimpleTest`` project. The "
+"transitive dependency, ``TransitiveDep``, is a dummy dependency which "
+"provides no behavior. However CMake doesn't know this and the "
+"``TutorialProject`` tests will fail to configure and build if CMake cannot "
+"find all required dependencies."
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:317
+msgid ""
+"The ``TransitiveDep`` package has already been installed to the ``Step10/"
+"install`` tree. We do not need to install it as we did with ``SimpleTest``."
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:321
+msgid "Complete ``TODO 6`` through ``TODO 8``."
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:326
+msgid ""
+"We need to reinstall the SimpleTest framework. Navigate to the ``Help/guide/"
+"Step10/SimpleTest`` directory and run the same commands as before."
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:334
+msgid ""
+"Now we can reconfigure and rebuild the ``TutorialProject``, navigate to "
+"``Help/guide/Step10/TutorialProject`` and perform the usual steps to do so."
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:342
+msgid ""
+"If the build passed we have likely successfully propagated the transitive "
+"dependency. Verify this by searching the ``CMakeCache.txt`` of "
+"``TutorialProject`` for an entry named ``TransitiveDep_DIR``. This "
+"demonstrates the ``TutorialProject`` searched for an found ``TransitiveDep`` "
+"even though it has no direct requirement for it."
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:351
+msgid ""
+"First we call :command:`find_package` to discover the ``TransitiveDep`` "
+"package. We use ``REQUIRED`` to verify we have found ``TransitiveDep``."
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:354
+msgid "<details><summary>TODO 6 Click to show/hide answer</summary>"
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:358
+msgid "TODO 6: SimpleTest/CMakeLists.txt"
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:358
+msgid "find_package(TransitiveDep REQUIRED)\n"
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:369
+msgid ""
+"Next we add the ``TransitiveDep::TransitiveDep`` target to ``SimpleTest``."
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:371
+msgid "<details><summary>TODO 7 Click to show/hide answer</summary>"
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:375
+msgid "TODO 7: SimpleTest/CMakeLists.txt"
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:375
+msgid ""
+"target_link_libraries(SimpleTest\n"
+"  INTERFACE\n"
+"    TransitiveDep::TransitiveDep\n"
+")\n"
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:387
+msgid ""
+"If we built ``TutorialProject`` at this point, we would expect the "
+"configuration to fail due to the ``TransitiveDep::TransitiveDep`` target "
+"being unavailable inside that project."
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:391
+msgid ""
+"Finally, we include the :module:`CMakeFindDependencyMacro` and call :module:"
+"`find_dependency() <CMakeFindDependencyMacro>` inside the ``SimpleTest`` "
+"package config file to propagate the transitive dependency."
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:395
+msgid "<details><summary>TODO 8 Click to show/hide answer</summary>"
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:399
+msgid "TODO 8: SimpleTest/cmake/SimpleTestConfig.cmake"
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:399
+msgid ""
+"include(CMakeFindDependencyMacro)\n"
+"find_dependency(TransitiveDep)\n"
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:406
+msgid ""
+"</details>\n"
+"\n"
+"</details>"
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:413
+msgid "Exercise 3 - Finding Other Kinds of Files"
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:415
+msgid ""
+"In a perfect world every dependency we care about would be packaged "
+"correctly, or at least some other developer would have written a module that "
+"discovers it for us. We do not live in a perfect world, and sometimes we "
+"will have to get our hands dirty and discover build requirements manually."
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:420
+msgid ""
+"For this we have the other find commands enumerated earlier in the step, "
+"such as :command:`find_path`."
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:423
+msgid ""
+"find_path(PackageIncludeFolder Package.h REQUIRED\n"
+"  PATH_SUFFIXES\n"
+"    Package\n"
+")\n"
+"target_include_directories(MyApp\n"
+"  PRIVATE\n"
+"    ${PackageIncludeFolder}\n"
+")"
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:437
+msgid ""
+"Add an unpackaged header to the ``Tutorial`` executable of the "
+"``TutorialProject``."
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:444
+msgid ":command:`target_include_directories`"
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:449
+msgid "``TutorialProject/Tutorial/CMakeLists.txt``"
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:450
+msgid "``TutorialProject/Tutorial/Tutorial.cxx``"
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:455
+msgid ""
+"For this step we will only be editing the ``TutorialProject`` project. The "
+"unpackaged header, ``Unpackaged/Unpackaged.h`` has already been installed to "
+"the ``Step10/install`` tree."
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:459
+msgid "Complete ``TODO 9`` through ``TODO 11``."
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:464
+msgid ""
+"There are no special build steps for this exercise, navigate to ``Help/guide/"
+"Step10/TutorialProject`` and perform the usual build."
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:467
+msgid "cmake --build build"
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:471
+msgid ""
+"If the build passed we have successfully added the ``Unpackaged`` include "
+"directory to the project."
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:477
+msgid ""
+"First we call :command:`find_path` to discover the ``Unpackaged`` include "
+"directory. We use ``REQUIRED`` because building ``Tutorial`` will fail if we "
+"cannot locate the ``Unpackaged.h`` header."
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:481
+msgid "<details><summary>TODO 9 Click to show/hide answer</summary>"
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:485
+msgid "TODO 9: TutorialProject/Tutorial/CMakeLists.txt"
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:485
+msgid ""
+"find_path(UnpackagedIncludeFolder Unpackaged.h REQUIRED\n"
+"  PATH_SUFFIXES\n"
+"    Unpackaged\n"
+")\n"
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:496
+msgid ""
+"Next we add the discovered path to ``Tutorial`` using :command:"
+"`target_include_directories`."
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:499
+msgid "<details><summary>TODO 10 Click to show/hide answer</summary>"
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:503
+msgid "TODO 10: TutorialProject/Tutorial/CMakeLists.txt"
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:503
+msgid ""
+"target_include_directories(Tutorial\n"
+"  PRIVATE\n"
+"    ${UnpackagedIncludeFolder}\n"
+")\n"
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:514
+msgid "Finally, we edit ``Tutorial.cxx`` to include the discovered header."
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:516
+msgid "<details><summary>TODO 11 Click to show/hide answer</summary>"
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:520
+msgid "TODO 11: TutorialProject/Tutorial/Tutorial.cxx"
+msgstr ""
+
+#: ../../../guide/tutorial/Finding Dependencies.rst:520
+msgid ""
+"#include <MathFunctions.h>\n"
+"#include <Unpackaged.h>\n"
+msgstr ""
