@@ -1,0 +1,587 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2000-2025 Kitware, Inc. and Contributors
+# This file is distributed under the same license as the CMake package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CMake latest\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-11-02 08:20+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../guide/tutorial/In-Depth System Introspection.rst:2
+msgid "Step 6: In-Depth System Introspection"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth System Introspection.rst:4
+msgid ""
+"In order to discover information about the system environment and the "
+"toolchain, CMake will often compile small test programs to verify the "
+"availability of compiler flags, headers, and builtins or other language "
+"constructs."
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth System Introspection.rst:8
+msgid ""
+"In this step, we will take advantage of the same test program mechanisms "
+"that CMake uses in our own project code."
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth System Introspection.rst:12
+msgid "Background"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth System Introspection.rst:14
+msgid ""
+"An old trick going back to the oldest days of configuration and build "
+"systems is to verify the availability of some feature by compiling a small "
+"program which uses that feature."
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth System Introspection.rst:18
+msgid ""
+"CMake makes this unnecessary for many contexts. As we will address in later "
+"steps, if CMake can find a library dependency, we can rely on it having all "
+"the facilities (headers, code generators, test utilities, etc) we expect it "
+"to have. Conversely, if CMake can't find a dependency, attempting to use the "
+"dependency anyway will almost certainly fail."
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth System Introspection.rst:24
+msgid ""
+"However, there are other kinds of information about the toolchain which "
+"CMake doesn't communicate readily. For these advanced cases, we can write "
+"our own test programs and compile commands to check for availability."
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth System Introspection.rst:28
+msgid ""
+"CMake provides modules to simplify these checks. These are documented at :"
+"manual:`cmake-modules(7)`. Any module that begins with ``Check`` is a system "
+"introspection module we can use to interrogate the toolchain and system "
+"environment. Some notable ones include:"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth System Introspection.rst:33
+msgid "``CheckIncludeFiles``"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth System Introspection.rst:34
+msgid "Check one or more C/C++ header files."
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth System Introspection.rst:36
+msgid "``CheckCompilerFlag``"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth System Introspection.rst:37
+msgid "Check whether the compiler supports a given flag."
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth System Introspection.rst:39
+msgid "``CheckSourceCompiles``"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth System Introspection.rst:40
+msgid "Checks whether source code can be built for a given language."
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth System Introspection.rst:42
+msgid "``CheckIPOSupported``"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth System Introspection.rst:43
+msgid ""
+"Check whether the compiler supports interprocedural optimization (IPO/LTO)."
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth System Introspection.rst:47
+msgid "Exercise 1 - Check Include File"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth System Introspection.rst:49
+msgid ""
+"A fast and easy check to perform is if a given header file is available on a "
+"certain platform, for which CMake provides :module:`CheckIncludeFiles`. This "
+"is most appropriate for system and intrinsic headers, which may not be "
+"provided by a specific package by are expected to be available in many build "
+"environments."
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth System Introspection.rst:54
+msgid ""
+"include(CheckIncludeFiles)\n"
+"check_include_files(sys/socket.h HAVE_SYS_SOCKET_H LANGUAGE CXX)"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth System Introspection.rst:60
+msgid ""
+"These functions are not immediately available in CMake, they must be added "
+"via :command:`include`'ing their associated module (aka, a CMakeLang file). "
+"Many modules live inside CMake's own ``Modules`` folder. This built-in "
+"``Modules`` folder is one of the places CMake searches when evaluating an :"
+"command:`include` command. You can think of these modules like standard "
+"library headers, they're expected to be available."
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth System Introspection.rst:67
+msgid ""
+"Once a header file is known to exist, we can communicate that to our code "
+"using the same mechanisms of conditionals and target commands already "
+"covered."
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth System Introspection.rst:71
+#: Introspection.rst:207 Introspection.rst:336
+msgid "Goal"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth System Introspection.rst:73
+msgid ""
+"Check if the x86 SSE2 intrinsic header is available, and if so use it to "
+"improve ``mathfunctions::sqrt``."
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth System Introspection.rst:77
+#: Introspection.rst:213 Introspection.rst:342
+msgid "Helpful Resources"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth System Introspection.rst:79
+msgid ":module:`CheckIncludeFiles`"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth System Introspection.rst:80
+#: Introspection.rst:216
+msgid ":command:`target_compile_definitions`"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth System Introspection.rst:83
+#: Introspection.rst:219 Introspection.rst:348
+msgid "Files to Edit"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth System Introspection.rst:85
+#: Introspection.rst:221
+msgid "``MathFunctions/CMakeLists.txt``"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth System Introspection.rst:86
+msgid "``MathFunctions/MathFunctions.cxx``"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth System Introspection.rst:89
+#: Introspection.rst:224 Introspection.rst:353
+msgid "Getting Started"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth System Introspection.rst:91
+msgid ""
+"The ``Help/guide/tutorial/Step6`` directory contains the complete, "
+"recommended solution to ``Step5`` and relevant ``TODOs`` for this step. It "
+"also contains specialized implementations of the ``sqrt`` function for "
+"various conditions, which you will find in ``MathFunctions/MathFunctions."
+"cxx``."
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth System Introspection.rst:96
+msgid ""
+"Complete ``TODO 1`` through ``TODO 3``. Note that some ``#ifdef`` directives "
+"have already been added to the library, which will change its operation as "
+"we work through the step."
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth System Introspection.rst:101
+#: Introspection.rst:230 Introspection.rst:358
+msgid "Build and Run"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth System Introspection.rst:103
+msgid "We can use our usual commands to configure."
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth System Introspection.rst:105
+msgid ""
+"cmake --preset tutorial\n"
+"cmake --build build"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth System Introspection.rst:110
+msgid ""
+"In the output of the configuration step we should observe CMake checking for "
+"the ``emmintrin.h`` header."
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth System Introspection.rst:113
+msgid ""
+"-- Looking for include file emmintrin.h\n"
+"-- Looking for include file emmintrin.h - found"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth System Introspection.rst:118
+msgid ""
+"If the header is available on your system, verify the ``Tutorial`` output "
+"contains the message about using SSE2. Conversely, if the header is not "
+"available you should see the usual behavior from ``Tutorial``."
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth System Introspection.rst:123
+#: Introspection.rst:257 Introspection.rst:374
+msgid "Solution"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth System Introspection.rst:125
+msgid ""
+"First we include and use the ``CheckIncludeFiles`` module, verifying the "
+"``emmintrin.h`` header is available."
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth System Introspection.rst:128
+msgid "<details><summary>TODO 1: Click to show/hide answer</summary>"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth System Introspection.rst:132
+msgid "TODO 1: MathFunctions/CMakeLists.txt"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth System Introspection.rst:132
+msgid ""
+"include(CheckIncludeFiles)\n"
+"check_include_files(emmintrin.h HAS_EMMINTRIN LANGUAGE CXX)\n"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth System Introspection.rst:139
+#: Introspection.rst:157 Introspection.rst:174 Introspection.rst:278
+#: Introspection.rst:296 Introspection.rst:389 Introspection.rst:409
+msgid "</details>"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth System Introspection.rst:143
+#: Introspection.rst:282
+msgid ""
+"Then we use the result of the check to conditionally set a compile "
+"definition on ``MathFunctions``."
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth System Introspection.rst:146
+msgid "<details><summary>TODO 2: Click to show/hide answer</summary>"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth System Introspection.rst:150
+msgid "TODO 2: MathFunctions/CMakeLists.txt"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth System Introspection.rst:150
+msgid ""
+"if(HAS_EMMINTRIN)\n"
+"  target_compile_definitions(MathFunctions PRIVATE TUTORIAL_USE_SSE2)\n"
+"endif()\n"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth System Introspection.rst:161
+msgid ""
+"Finally we can conditionally include the header in the ``MathFunctions`` "
+"library."
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth System Introspection.rst:163
+msgid "<details><summary>TODO 3: Click to show/hide answer</summary>"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth System Introspection.rst:167
+msgid "TODO 3: MathFunctions/MathFunctions.cxx"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth System Introspection.rst:167
+msgid ""
+"#ifdef TUTORIAL_USE_SSE2\n"
+"#  include <emmintrin.h>\n"
+"#endif\n"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth System Introspection.rst:180
+msgid "Exercise 2 - Check Source Compiles"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth System Introspection.rst:182
+msgid ""
+"Sometimes it is insufficient to merely check for a header. This is "
+"especially true when no header is available to check, such is the case with "
+"compiler-builtins. For these scenarios we have :module:`CheckSourceCompiles`."
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth System Introspection.rst:186
+msgid ""
+"include(CheckSourceCompiles)\n"
+"check_source_compiles(CXX\n"
+"  \"\n"
+"    int main() {\n"
+"      int a, b, c;\n"
+"      __builtin_add_overflow(a, b, &c);\n"
+"    }\n"
+"  \"\n"
+"  HAS_CHECKED_ADDITION\n"
+")"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth System Introspection.rst:200
+msgid ""
+"By default :module:`CheckSourceCompiles` builds and links an executable. The "
+"code to be check must provide a valid ``int main()`` in order to succeed."
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth System Introspection.rst:203
+msgid ""
+"After performing the check, this system introspection can be applied "
+"identically to how we discussed with header files."
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth System Introspection.rst:209
+msgid ""
+"Check if the GNU SSE2 builtins are available, and if so use them to improve "
+"``mathfunctions::sqrt``."
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth System Introspection.rst:215
+msgid ":module:`CheckSourceCompiles`"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth System Introspection.rst:226
+msgid ""
+"Complete ``TODO 4`` and ``TODO 5``. No code changes to the ``MathFunctions`` "
+"implementation are necessary, as these have already been provided."
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth System Introspection.rst:232
+#: Introspection.rst:360
+msgid "We need only rebuild the tutorial."
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth System Introspection.rst:234
+#: Introspection.rst:362
+msgid "cmake --build build"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth System Introspection.rst:239
+msgid ""
+"If a check fails and you think it should succeed, you will need to clear the "
+"CMake Cache by deleting the ``CMakeCache.txt`` file. CMake will not rerun "
+"compile checks on subsequent runs if it has a cached result."
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth System Introspection.rst:243
+msgid ""
+"In the output of the configuration step we should observe CMake checking if "
+"the provided source code compiles, which will be reported under the variable "
+"name we provided to ``check_source_compiles()``."
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth System Introspection.rst:247
+msgid ""
+"-- Performing Test HAS_GNU_BUILTIN\n"
+"-- Performing Test HAS_GNU_BUILTIN - Success"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth System Introspection.rst:252
+msgid ""
+"If the builtins are available on your compiler, verify the ``Tutorial`` "
+"output contains the message about using GNU-builting. Conversely, if the "
+"builtins are not available you should see the previous behavior from "
+"``Tutorial``."
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth System Introspection.rst:259
+msgid ""
+"First we include and use the ``CheckSourceCompiles`` module, verifying the "
+"provided source code can be built."
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth System Introspection.rst:266
+msgid "<details><summary>TODO 4: Click to show/hide answer</summary>"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth System Introspection.rst:270
+msgid "TODO 4: MathFunctions/CMakeLists.txt"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth System Introspection.rst:270
+msgid ""
+"include(CheckSourceCompiles)\n"
+"check_source_compiles(CXX\n"
+"  [=[\n"
+"    typedef double v2df __attribute__((vector_size(16)));\n"
+"    int main() {\n"
+"      __builtin_ia32_sqrtsd(v2df{});\n"
+"    }\n"
+"  ]=]\n"
+"  HAS_GNU_BUILTIN\n"
+")\n"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth System Introspection.rst:285
+msgid "<details><summary>TODO 5: Click to show/hide answer</summary>"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth System Introspection.rst:289
+msgid "TODO 5: MathFunctions/CMakeLists.txt"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth System Introspection.rst:289
+msgid ""
+"if(HAS_GNU_BUILTIN)\n"
+"  target_compile_definitions(MathFunctions PRIVATE "
+"TUTORIAL_USE_GNU_BUILTIN)\n"
+"endif()\n"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth System Introspection.rst:301
+msgid "Exercise 3 - Check Interprocedural Optimization"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth System Introspection.rst:303
+msgid ""
+"Interprocedural and link time optimizations can provide significant "
+"performance improvements to some software. CMake has the capacity to check "
+"for the availability of IPO flags via :module:`CheckIPOSupported`."
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth System Introspection.rst:307
+msgid ""
+"include(CheckIPOSupported)\n"
+"check_ipo_supported() # fatal error if IPO is not supported\n"
+"set_target_properties(MyApp\n"
+"  PROPERTIES\n"
+"    INTERPROCEDURAL_OPTIMIZATION TRUE\n"
+")"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth System Introspection.rst:317
+msgid ""
+"There a couple important caveats with regard to in-project IPO configuration:"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth System Introspection.rst:319
+msgid ""
+"CMake does not know about every IPO/LTO flag on every compiler, better "
+"results can often be achieved with individual tuning for a known toolchain."
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth System Introspection.rst:321
+msgid ""
+"Setting the :prop_tgt:`INTERPROCEDURAL_OPTIMIZATION` property on a target "
+"does not alter any of the targets it links to, or dependencies from other "
+"projects. IPO can only \"see\" into other targets which are also compiled "
+"appropriately."
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth System Introspection.rst:326
+msgid ""
+"For these reasons, serious consideration should be given to manually setting "
+"up IPO/LTO flags across all projects in the dependency tree via external "
+"mechanisms (presets, :option:`-D <cmake -D>` flags, :manual:`toolchain files "
+"<cmake-toolchains(7)>`, etc) instead of in-project control."
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth System Introspection.rst:332
+msgid ""
+"However, especially for extremely large projects, it can be useful to have "
+"an in-project mechanism to use IPO whenever it is available."
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth System Introspection.rst:338
+msgid ""
+"Enable IPO for the entire tutorial project when it is available from the "
+"toolchain."
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth System Introspection.rst:344
+msgid ":module:`CheckIPOSupported`"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth System Introspection.rst:345
+msgid ":variable:`CMAKE_INTERPROCEDURAL_OPTIMIZATION`"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth System Introspection.rst:350
+msgid "``CMakeLists.txt``"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth System Introspection.rst:355
+msgid ""
+"Continue editing the files in ``Step6``. Complete ``TODO 6`` and ``TODO 7``."
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth System Introspection.rst:366
+msgid ""
+"If IPO is unavailable, we will see an error message during configuration. "
+"Otherwise nothing will change."
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth System Introspection.rst:370
+msgid ""
+"Regardless of the result of the IPO check, we shouldn't expect any change in "
+"behavior from ``Tutorial`` or ``MathFunctions``."
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth System Introspection.rst:376
+msgid "The first ``TODO`` is easy, we add another option to our project."
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth System Introspection.rst:378
+msgid "<details><summary>TODO 6: Click to show/hide answer</summary>"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth System Introspection.rst:382
+msgid "TODO 6: MathFunctions/CMakeLists.txt"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth System Introspection.rst:382
+msgid "option(TUTORIAL_ENABLE_IPO \"Check for and use IPO support\" ON)\n"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth System Introspection.rst:393
+msgid ""
+"The next step is involved, however the documentation for :module:"
+"`CheckIPOSupported` has an almost complete example of what we need to do. "
+"The only difference is we are going to enable IPO project-wide instead of "
+"for a single target."
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth System Introspection.rst:397
+msgid "<details><summary>TODO 7: Click to show/hide answer</summary>"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth System Introspection.rst:401
+msgid "TODO 7: CMakeLists.txt"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth System Introspection.rst:401
+msgid ""
+"if(TUTORIAL_ENABLE_IPO)\n"
+"  include(CheckIPOSupported)\n"
+"  check_ipo_supported(RESULT result OUTPUT output)\n"
+"  if(result)\n"
+"    message(\"IPO is supported, enabling IPO\")\n"
+"    set(CMAKE_INTERPROCEDURAL_OPTIMIZATION ON)\n"
+"  else()\n"
+"    message(WARNING \"IPO is not supported: ${output}\")\n"
+"  endif()\n"
+"endif()\n"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth System Introspection.rst:414
+msgid ""
+"Normally we have discouraged setting ``CMAKE_`` variables inside the "
+"project. Here, we are controlling that behavior with an :command:`option()`. "
+"This allows packagers to opt-out of our override. This is an imperfect, but "
+"acceptable solution to situations where we want to provide options to "
+"control project-wide behavior controlled by ``CMAKE_`` variables."
+msgstr ""

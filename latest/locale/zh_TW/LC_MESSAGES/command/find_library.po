@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CMake latest\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-02 08:22+0000\n"
+"POT-Creation-Date: 2025-11-02 08:20+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -60,52 +60,78 @@ msgid ""
 msgstr ""
 
 #: ../../../command/include/FIND_XXX.rst:34
-msgid ""
-"This command is used to find a |SEARCH_XXX_DESC|. A cache entry, or a normal "
-"variable if ``NO_CACHE`` is specified, named by ``<VAR>`` is created to "
-"store the result of this command. If the |SEARCH_XXX| is found the result is "
-"stored in the variable and the search will not be repeated unless the "
-"variable is cleared. If nothing is found, the result will be ``<VAR>-"
-"NOTFOUND``."
+msgid "This command is used to find a |SEARCH_XXX_DESC|."
 msgstr ""
 
-#: ../../../command/include/FIND_XXX.rst:41
-msgid "Options include:"
+#: ../../../command/include/FIND_XXX.rst:36
+msgid ""
+"Prior to searching, |FIND_XXX| checks if variable ``<VAR>`` is defined. If "
+"the variable is not defined, the search will be performed. If the variable "
+"is defined and its value is ``NOTFOUND``, or ends in ``-NOTFOUND``, the "
+"search will be performed. If the variable contains any other value the "
+"search is not performed."
 msgstr ""
 
 #: ../../../command/include/FIND_XXX.rst:43
+msgid ""
+"``VAR`` is considered defined if it is available in the current scope. See "
+"the :ref:`cmake-language(7) variables <CMake Language Variables>` "
+"documentation for details on scopes, and the interaction of normal variables "
+"and cache entries."
+msgstr ""
+
+#: ../../../command/include/FIND_XXX.rst:48
+msgid ""
+"The results of the search will be stored in a cache entry named ``<VAR>``. "
+"Future calls to |FIND_XXX| will inspect this cache entry when specifying the "
+"same ``<VAR>``. This optimization ensures successful searches will not be "
+"repeated unless the cache entry is :command:`unset`."
+msgstr ""
+
+#: ../../../command/include/FIND_XXX.rst:53
+msgid ""
+"If the |SEARCH_XXX| is found the recorded value in cache entry ``<VAR>`` "
+"will be the result of the search. If nothing is found, the recorded value "
+"will be ``<VAR>-NOTFOUND``."
+msgstr ""
+
+#: ../../../command/include/FIND_XXX.rst:57
+msgid "Options include:"
+msgstr ""
+
+#: ../../../command/include/FIND_XXX.rst:59
 msgid "``NAMES``"
 msgstr ""
 
-#: ../../../command/include/FIND_XXX.rst:44
+#: ../../../command/include/FIND_XXX.rst:60
 msgid "Specify one or more possible names for the |SEARCH_XXX|."
 msgstr ""
 
-#: ../../../command/include/FIND_XXX.rst:46
+#: ../../../command/include/FIND_XXX.rst:62
 msgid ""
 "When using this to specify names with and without a version suffix, we "
 "recommend specifying the unversioned name first so that locally-built "
 "packages can be found before those provided by distributions."
 msgstr ""
 
-#: ../../../command/include/FIND_XXX.rst:51
+#: ../../../command/include/FIND_XXX.rst:67
 msgid "``HINTS``, ``PATHS``"
 msgstr ""
 
-#: ../../../command/include/FIND_XXX.rst:52
+#: ../../../command/include/FIND_XXX.rst:68
 msgid ""
 "Specify directories to search in addition to the default locations. The "
 "``ENV var`` sub-option reads paths from a system environment variable."
 msgstr ""
 
-#: ../../../command/include/FIND_XXX.rst:56
+#: ../../../command/include/FIND_XXX.rst:72
 msgid ""
 "On ``Windows`` platform, it is possible to include registry queries as part "
 "of the directories, using a :ref:`dedicated syntax <Find Using Windows "
 "Registry>`. Such specifications will be ignored on all other platforms."
 msgstr ""
 
-#: ../../../command/include/FIND_XXX.rst:61
+#: ../../../command/include/FIND_XXX.rst:77
 msgid "``REGISTRY_VIEW``"
 msgstr ""
 
@@ -205,21 +231,21 @@ msgstr ""
 msgid "32-bit: ``32``"
 msgstr ""
 
-#: ../../../command/include/FIND_XXX.rst:66
+#: ../../../command/include/FIND_XXX.rst:82
 msgid "``PATH_SUFFIXES``"
 msgstr ""
 
-#: ../../../command/include/FIND_XXX.rst:67
+#: ../../../command/include/FIND_XXX.rst:83
 msgid ""
 "Specify additional subdirectories to check below each directory location "
 "otherwise considered."
 msgstr ""
 
-#: ../../../command/include/FIND_XXX.rst:70
+#: ../../../command/include/FIND_XXX.rst:86
 msgid "``VALIDATOR``"
 msgstr ""
 
-#: ../../../command/include/FIND_XXX.rst:73
+#: ../../../command/include/FIND_XXX.rst:89
 msgid ""
 "Specify a :command:`function` to be called for each candidate item found (a :"
 "command:`macro` cannot be provided, that will result in an error). Two "
@@ -230,7 +256,7 @@ msgid ""
 "hold a true value when the validator function is entered."
 msgstr ""
 
-#: ../../../command/include/FIND_XXX.rst:177
+#: ../../../command/include/FIND_XXX.rst:193
 msgid ""
 "function(my_check validator_result_var item)\n"
 "  if(NOT item MATCHES ...)\n"
@@ -248,114 +274,115 @@ msgstr ""
 "\n"
 "|FIND_XXX| (result NAMES ... VALIDATOR my_check)"
 
-#: ../../../command/include/FIND_XXX.rst:91
+#: ../../../command/include/FIND_XXX.rst:107
 msgid ""
 "Note that if a cached result is used, the search is skipped and any "
 "``VALIDATOR`` is ignored.  The cached result is not required to pass the "
 "validation function."
 msgstr ""
 
-#: ../../../command/include/FIND_XXX.rst:95
+#: ../../../command/include/FIND_XXX.rst:111
 msgid "``DOC``"
 msgstr ""
 
-#: ../../../command/include/FIND_XXX.rst:96
+#: ../../../command/include/FIND_XXX.rst:112
 msgid "Specify the documentation string for the ``<VAR>`` cache entry."
 msgstr ""
 
-#: ../../../command/include/FIND_XXX.rst:98
+#: ../../../command/include/FIND_XXX.rst:114
 msgid "``NO_CACHE``"
 msgstr ""
 
-#: ../../../command/include/FIND_XXX.rst:101
+#: ../../../command/include/FIND_XXX.rst:117
 msgid ""
 "The result of the search will be stored in a normal variable rather than a "
 "cache entry."
 msgstr ""
 
-#: ../../../command/include/FIND_XXX.rst:106
+#: ../../../command/include/FIND_XXX.rst:122
 msgid ""
-"If the variable is already set before the call (as a normal or cache "
-"variable) then the search will not occur."
+"|FIND_XXX| will still check for ``<VAR>`` as usual, checking first for a "
+"variable, and then a cache entry. If either indicate a previous successful "
+"search, the search will not be performed."
 msgstr ""
 
-#: ../../../command/include/FIND_XXX.rst:111
+#: ../../../command/include/FIND_XXX.rst:128
 msgid ""
 "This option should be used with caution because it can greatly increase the "
 "cost of repeated configure steps."
 msgstr ""
 
-#: ../../../command/include/FIND_XXX.rst:114
+#: ../../../command/include/FIND_XXX.rst:131
 msgid "``REQUIRED``"
 msgstr ""
 
-#: ../../../command/include/FIND_XXX.rst:117
+#: ../../../command/include/FIND_XXX.rst:134
 msgid ""
 "Stop processing with an error message if nothing is found, otherwise the "
 "search will be attempted again the next time |FIND_XXX| is invoked with the "
 "same variable."
 msgstr ""
 
-#: ../../../command/include/FIND_XXX.rst:123
+#: ../../../command/include/FIND_XXX.rst:140
 msgid ""
 "Every |FIND_XXX| command will be treated as ``REQUIRED`` when the :variable:"
 "`CMAKE_FIND_REQUIRED` variable is enabled."
 msgstr ""
 
-#: ../../../command/include/FIND_XXX.rst:126
+#: ../../../command/include/FIND_XXX.rst:143
 msgid "``OPTIONAL``"
 msgstr ""
 
-#: ../../../command/include/FIND_XXX.rst:129
+#: ../../../command/include/FIND_XXX.rst:146
 msgid ""
 "Ignore the value of :variable:`CMAKE_FIND_REQUIRED` and continue without an "
 "error message if nothing is found. Incompatible with ``REQUIRED``."
 msgstr ""
 
-#: ../../../command/include/FIND_XXX.rst:133
+#: ../../../command/include/FIND_XXX.rst:150
 msgid ""
 "If ``NO_DEFAULT_PATH`` is specified, then no additional paths are added to "
 "the search. If ``NO_DEFAULT_PATH`` is not specified, the search process is "
 "as follows:"
 msgstr ""
 
-#: ../../../command/include/FIND_XXX.rst:158
+#: ../../../command/include/FIND_XXX.rst:175
 msgid ""
 "If called from within a find module or any other script loaded by a call to :"
 "command:`find_package(<PackageName>)`, search prefixes unique to the current "
 "package being found.  See policy :policy:`CMP0074`."
 msgstr ""
 
-#: ../../../command/include/FIND_XXX.rst:164
+#: ../../../command/include/FIND_XXX.rst:181
 msgid ""
 "Specifically, search paths specified by the following variables, in order:"
 msgstr ""
 
-#: ../../../command/include/FIND_XXX.rst:166
+#: ../../../command/include/FIND_XXX.rst:183
 msgid ""
 ":variable:`<PackageName>_ROOT` CMake variable, where ``<PackageName>`` is "
 "the case-preserved package name."
 msgstr ""
 
-#: ../../../command/include/FIND_XXX.rst:169
+#: ../../../command/include/FIND_XXX.rst:186
 msgid ""
 ":variable:`<PACKAGENAME>_ROOT` CMake variable, where ``<PACKAGENAME>`` is "
 "the upper-cased package name. See policy :policy:`CMP0144`."
 msgstr ""
 
-#: ../../../command/include/FIND_XXX.rst:175
+#: ../../../command/include/FIND_XXX.rst:192
 msgid ""
 ":envvar:`<PackageName>_ROOT` environment variable, where ``<PackageName>`` "
 "is the case-preserved package name."
 msgstr ""
 
-#: ../../../command/include/FIND_XXX.rst:178
+#: ../../../command/include/FIND_XXX.rst:195
 msgid ""
 ":envvar:`<PACKAGENAME>_ROOT` environment variable, where ``<PACKAGENAME>`` "
 "is the upper-cased package name. See policy :policy:`CMP0144`."
 msgstr ""
 
-#: ../../../command/include/FIND_XXX.rst:184
+#: ../../../command/include/FIND_XXX.rst:201
 msgid ""
 "The package root variables are maintained as a stack, so if called from "
 "nested find modules or config packages, root paths from the parent's find "
@@ -367,11 +394,11 @@ msgid ""
 "`CMAKE_FIND_USE_PACKAGE_ROOT_PATH` to ``FALSE``."
 msgstr ""
 
-#: ../../../command/include/FIND_XXX.rst:193
+#: ../../../command/include/FIND_XXX.rst:210
 msgid "|FIND_PACKAGE_ROOT_PREFIX_PATH_XXX|"
 msgstr ""
 
-#: ../../../command/include/FIND_XXX.rst:195
+#: ../../../command/include/FIND_XXX.rst:212
 msgid ""
 "Search paths specified in cmake-specific cache variables. These are intended "
 "to be used on the command line with a ``-DVAR=value``. The values are "
@@ -380,19 +407,19 @@ msgid ""
 "`CMAKE_FIND_USE_CMAKE_PATH` to ``FALSE``."
 msgstr ""
 
-#: ../../../command/include/FIND_XXX.rst:201
+#: ../../../command/include/FIND_XXX.rst:218
 msgid "|CMAKE_PREFIX_PATH_XXX|"
 msgstr "|CMAKE_PREFIX_PATH_XXX|"
 
-#: ../../../command/include/FIND_XXX.rst:202
+#: ../../../command/include/FIND_XXX.rst:219
 msgid "|CMAKE_XXX_PATH|"
 msgstr "|CMAKE_XXX_PATH|"
 
-#: ../../../command/include/FIND_XXX.rst:203
+#: ../../../command/include/FIND_XXX.rst:220
 msgid "|CMAKE_XXX_MAC_PATH|"
 msgstr "|CMAKE_XXX_MAC_PATH|"
 
-#: ../../../command/include/FIND_XXX.rst:205
+#: ../../../command/include/FIND_XXX.rst:222
 msgid ""
 "Search paths specified in cmake-specific environment variables. These are "
 "intended to be set in the user's shell configuration, and therefore use the "
@@ -401,19 +428,19 @@ msgid ""
 "variable:`CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH` to ``FALSE``."
 msgstr ""
 
-#: ../../../command/include/FIND_XXX.rst:212
+#: ../../../command/include/FIND_XXX.rst:229
 msgid "|ENV_CMAKE_PREFIX_PATH_XXX|"
 msgstr ""
 
-#: ../../../command/include/FIND_XXX.rst:213
+#: ../../../command/include/FIND_XXX.rst:230
 msgid "|ENV_CMAKE_XXX_PATH|"
 msgstr ""
 
-#: ../../../command/include/FIND_XXX.rst:214
+#: ../../../command/include/FIND_XXX.rst:231
 msgid "|ENV_CMAKE_XXX_MAC_PATH|"
 msgstr ""
 
-#: ../../../command/include/FIND_XXX.rst:216
+#: ../../../command/include/FIND_XXX.rst:233
 msgid ""
 "Search the paths specified by the ``HINTS`` option. These should be paths "
 "computed by system introspection, such as a hint provided by the location of "
@@ -421,22 +448,22 @@ msgid ""
 "``PATHS`` option."
 msgstr ""
 
-#: ../../../command/include/FIND_XXX.rst:221
+#: ../../../command/include/FIND_XXX.rst:238
 msgid ""
 "Search the standard system environment variables. This can be skipped if "
 "``NO_SYSTEM_ENVIRONMENT_PATH`` is passed or by setting the :variable:"
 "`CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH` to ``FALSE``."
 msgstr ""
 
-#: ../../../command/include/FIND_XXX.rst:225
+#: ../../../command/include/FIND_XXX.rst:242
 msgid "|SYSTEM_ENVIRONMENT_PATH_XXX|"
 msgstr ""
 
-#: ../../../command/include/FIND_XXX.rst:227
+#: ../../../command/include/FIND_XXX.rst:244
 msgid "|SYSTEM_ENVIRONMENT_PATH_WINDOWS_XXX|"
 msgstr ""
 
-#: ../../../command/include/FIND_XXX.rst:229
+#: ../../../command/include/FIND_XXX.rst:246
 msgid ""
 "Search cmake variables defined in the Platform files for the current "
 "system.  The searching of ``CMAKE_INSTALL_PREFIX`` and "
@@ -447,32 +474,32 @@ msgid ""
 "``FALSE``."
 msgstr ""
 
-#: ../../../command/include/FIND_XXX.rst:237
+#: ../../../command/include/FIND_XXX.rst:254
 msgid "|CMAKE_SYSTEM_PREFIX_PATH_XXX|"
 msgstr "|CMAKE_SYSTEM_PREFIX_PATH_XXX|"
 
-#: ../../../command/include/FIND_XXX.rst:238
+#: ../../../command/include/FIND_XXX.rst:255
 msgid "|CMAKE_SYSTEM_XXX_PATH|"
 msgstr "|CMAKE_SYSTEM_XXX_PATH|"
 
-#: ../../../command/include/FIND_XXX.rst:239
+#: ../../../command/include/FIND_XXX.rst:256
 msgid "|CMAKE_SYSTEM_XXX_MAC_PATH|"
 msgstr "|CMAKE_SYSTEM_XXX_MAC_PATH|"
 
-#: ../../../command/include/FIND_XXX.rst:241
+#: ../../../command/include/FIND_XXX.rst:258
 msgid ""
 "The platform paths that these variables contain are locations that typically "
 "include installed software. An example being ``/usr/local`` for UNIX based "
 "platforms."
 msgstr ""
 
-#: ../../../command/include/FIND_XXX.rst:245
+#: ../../../command/include/FIND_XXX.rst:262
 msgid ""
 "Search the paths specified by the PATHS option or in the short-hand version "
 "of the command. These are typically hard-coded guesses."
 msgstr ""
 
-#: ../../../command/include/FIND_XXX.rst:249
+#: ../../../command/include/FIND_XXX.rst:266
 msgid ""
 "The :variable:`CMAKE_IGNORE_PATH`, :variable:`CMAKE_IGNORE_PREFIX_PATH`, :"
 "variable:`CMAKE_SYSTEM_IGNORE_PATH` and :variable:"
@@ -480,13 +507,13 @@ msgid ""
 "locations to be ignored."
 msgstr ""
 
-#: ../../../command/include/FIND_XXX.rst:254
+#: ../../../command/include/FIND_XXX.rst:271
 msgid ""
 "Added ``CMAKE_FIND_USE_<CATEGORY>_PATH`` variables to globally disable "
 "various search locations."
 msgstr ""
 
-#: ../../../command/include/FIND_XXX.rst:260
+#: ../../../command/include/FIND_XXX.rst:277
 msgid ""
 "On macOS the :variable:`CMAKE_FIND_FRAMEWORK` and :variable:"
 "`CMAKE_FIND_APPBUNDLE` variables determine the order of preference between "
@@ -555,7 +582,7 @@ msgid ""
 "command multiple times and using the ``NO_*`` options:"
 msgstr ""
 
-#: ../../../command/include/FIND_XXX_ORDER.rst:402
+#: ../../../command/include/FIND_XXX_ORDER.rst:419
 msgid ""
 "|FIND_XXX| (|FIND_ARGS_XXX| PATHS paths... NO_DEFAULT_PATH)\n"
 "|FIND_XXX| (|FIND_ARGS_XXX|)"

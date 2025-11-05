@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CMake latest\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-02 08:22+0000\n"
+"POT-Creation-Date: 2025-11-02 08:20+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -54,4 +54,107 @@ msgid ""
 "If :variable:`CMAKE_OSX_ARCHITECTURES` specifies multiple architectures, the "
 "value of ``CMAKE_<LANG>_BYTE_ORDER`` is non-empty only if all architectures "
 "share the same byte order."
+msgstr ""
+
+#: ../../../variable/CMAKE_LANG_BYTE_ORDER.rst:23
+msgid "Examples"
+msgstr ""
+
+#: ../../../variable/CMAKE_LANG_BYTE_ORDER.rst:26
+msgid "Example: Checking Endianness"
+msgstr ""
+
+#: ../../../variable/CMAKE_LANG_BYTE_ORDER.rst:28
+msgid ""
+"Checking endianness (byte order) of the target architecture in a CMake "
+"project, where ``C`` language is one of the enabled languages, and storing "
+"the result in a variable ``WORDS_BIGENDIAN``:"
+msgstr ""
+
+#: ../../../variable/CMAKE_LANG_BYTE_ORDER.rst:32
+msgid ""
+"if(CMAKE_C_BYTE_ORDER STREQUAL \"BIG_ENDIAN\")\n"
+"  set(WORDS_BIGENDIAN TRUE)\n"
+"elseif(CMAKE_C_BYTE_ORDER STREQUAL \"LITTLE_ENDIAN\")\n"
+"  set(WORDS_BIGENDIAN FALSE)\n"
+"else()\n"
+"  set(WORDS_BIGENDIAN FALSE)\n"
+"  message(WARNING \"Endianness could not be determined.\")\n"
+"endif()"
+msgstr ""
+
+#: ../../../variable/CMAKE_LANG_BYTE_ORDER.rst:43
+msgid ""
+"Or, if the project doesn't have ``C`` language enabled, it can be replaced "
+"with some other enabled language.  For example, if ``CXX`` is enabled:"
+msgstr ""
+
+#: ../../../variable/CMAKE_LANG_BYTE_ORDER.rst:46
+msgid ""
+"if(CMAKE_CXX_BYTE_ORDER STREQUAL \"BIG_ENDIAN\")\n"
+"  set(WORDS_BIGENDIAN TRUE)\n"
+"elseif(CMAKE_CXX_BYTE_ORDER STREQUAL \"LITTLE_ENDIAN\")\n"
+"  set(WORDS_BIGENDIAN FALSE)\n"
+"else()\n"
+"  set(WORDS_BIGENDIAN FALSE)\n"
+"  message(WARNING \"Endianness could not be determined.\")\n"
+"endif()"
+msgstr ""
+
+#: ../../../variable/CMAKE_LANG_BYTE_ORDER.rst:57
+msgid ""
+"Note, that in most cases this can be simplified by only checking for a big-"
+"endian target:"
+msgstr ""
+
+#: ../../../variable/CMAKE_LANG_BYTE_ORDER.rst:60
+msgid ""
+"if(CMAKE_C_BYTE_ORDER STREQUAL \"BIG_ENDIAN\")\n"
+"  set(WORDS_BIGENDIAN TRUE)\n"
+"else()\n"
+"  set(WORDS_BIGENDIAN FALSE)\n"
+"endif()"
+msgstr ""
+
+#: ../../../variable/CMAKE_LANG_BYTE_ORDER.rst:69
+msgid "Example: Per-language Endianness Check"
+msgstr ""
+
+#: ../../../variable/CMAKE_LANG_BYTE_ORDER.rst:71
+msgid ""
+"Most of the time, architectures used today are consistent in endianness "
+"across compilers.  But here's when per-language endianness check can matter:"
+msgstr ""
+
+#: ../../../variable/CMAKE_LANG_BYTE_ORDER.rst:74
+msgid ""
+"Cross-compilation to different architectures (e.g., big-endian embedded "
+"system)."
+msgstr ""
+
+#: ../../../variable/CMAKE_LANG_BYTE_ORDER.rst:77
+msgid ""
+"Heterogeneous toolchains where one target architecture is for C language and "
+"another target is for different language."
+msgstr ""
+
+#: ../../../variable/CMAKE_LANG_BYTE_ORDER.rst:80
+msgid ""
+"Static libraries or binaries reused across platforms (e.g., distributing "
+"precompiled CUDA kernels)."
+msgstr ""
+
+#: ../../../variable/CMAKE_LANG_BYTE_ORDER.rst:83
+msgid ""
+"if(CMAKE_C_BYTE_ORDER)\n"
+"  message(STATUS \"C byte order: ${CMAKE_C_BYTE_ORDER}\")\n"
+"endif()\n"
+"\n"
+"if(CMAKE_CXX_BYTE_ORDER)\n"
+"  message(STATUS \"C++ byte order: ${CMAKE_CXX_BYTE_ORDER}\")\n"
+"endif()\n"
+"\n"
+"if(CMAKE_CUDA_BYTE_ORDER)\n"
+"  message(STATUS \"CUDA byte order: ${CMAKE_CUDA_BYTE_ORDER}\")\n"
+"endif()"
 msgstr ""
