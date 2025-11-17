@@ -1,0 +1,77 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2000-2025 Kitware, Inc. and Contributors
+# This file is distributed under the same license as the CMake package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CMake master\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-07-14 08:20+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../policy/CMP0177.rst:2
+msgid "CMP0177"
+msgstr ""
+
+#: ../../../policy/CMP0177.rst:6
+msgid ":command:`install` ``DESTINATION`` paths are normalized."
+msgstr ""
+
+#: ../../../policy/CMP0177.rst:8
+msgid ""
+"The :command:`install` command has a number of different forms, and most of "
+"them take a ``DESTINATION`` keyword, some in more than one place. CMake 3.30 "
+"and earlier used the value given after the ``DESTINATION`` keyword as "
+"provided with no transformations.  The :command:`install(EXPORT)` form "
+"assumes the path contains no ``..`` or ``.`` path components when computing "
+"a path relative to the ``DESTINATION``, and if the project provided a path "
+"that violated that assumption, the computed path would be incorrect."
+msgstr ""
+
+#: ../../../policy/CMP0177.rst:16
+msgid ""
+"CMake 3.31 normalizes all ``DESTINATION`` values given in any form of the :"
+"command:`install` command, except for the ``INCLUDES DESTINATION`` of the :"
+"command:`install(TARGETS)` form.  The normalization performed is the same as "
+"for the :command:`cmake_path` command (see :ref:`Normalization`)."
+msgstr ""
+
+#: ../../../policy/CMP0177.rst:21
+msgid ""
+"The ``OLD`` behavior of this policy performs no translation on the "
+"``DESTINATION`` values of any :command:`install` command.  They are used "
+"exactly as provided.  If a destination path contains ``..`` or ``.`` path "
+"components, :command:`install(EXPORT)` will use the same wrong paths as "
+"CMake 3.30 and earlier."
+msgstr ""
+
+#: ../../../policy/CMP0177.rst:27
+msgid ""
+"The ``NEW`` behavior will normalize all ``DESTINATION`` values except for "
+"``INCLUDES DESTINATION``.  If a destination path contains a generator "
+"expression, it will be wrapped in a ``$<PATH:CMAKE_PATH,NORMALIZE,...>`` "
+"generator expression."
+msgstr ""
+
+#: ../../../policy/CMP0177.rst:32
+msgid ""
+"This policy was introduced in CMake version 3.31. It may be set by :command:"
+"`cmake_policy` or :command:`cmake_minimum_required`. If it is not set, CMake "
+"will warn if it detects a path that would be different if normalized, and "
+"uses ``OLD`` behavior.  If a destination path contains a generator "
+"expression, no such warning will be issued regardless of the value."
+msgstr ""
+
+#: ../../../policy/include/DEPRECATED.rst:2
+msgid ""
+"The ``OLD`` behavior of a policy is :manual:`deprecated by definition <cmake-"
+"policies(7)>` and may be removed in a future version of CMake."
+msgstr ""

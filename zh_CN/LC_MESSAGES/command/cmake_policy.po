@@ -1,0 +1,267 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2000-2025 Kitware, Inc. and Contributors
+# This file is distributed under the same license as the CMake package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CMake master\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-07-14 08:20+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../command/cmake_policy.rst:2
+msgid "cmake_policy"
+msgstr ""
+
+#: ../../../command/cmake_policy.rst:4
+msgid ""
+"Manage CMake Policy settings.  See the :manual:`cmake-policies(7)` manual "
+"for defined policies."
+msgstr ""
+
+#: ../../../command/cmake_policy.rst:7
+msgid ""
+"As CMake evolves it is sometimes necessary to change existing behavior in "
+"order to fix bugs or improve implementations of existing features. The CMake "
+"Policy mechanism is designed to help keep existing projects building as new "
+"versions of CMake introduce changes in behavior.  Each new policy "
+"(behavioral change) is given an identifier of the form ``CMP<NNNN>`` where "
+"``<NNNN>`` is an integer index.  Documentation associated with each policy "
+"describes the ``OLD`` and ``NEW`` behavior and the reason the policy was "
+"introduced.  Projects may set each policy to select the desired behavior.  "
+"When CMake needs to know which behavior to use it checks for a setting "
+"specified by the project.  If no setting is available the ``OLD`` behavior "
+"is assumed and a warning is produced requesting that the policy be set."
+msgstr ""
+
+#: ../../../command/cmake_policy.rst:21
+msgid "Setting Policies by CMake Version"
+msgstr ""
+
+#: ../../../command/cmake_policy.rst:23
+msgid ""
+"The ``cmake_policy`` command is used to set policies to ``OLD`` or ``NEW`` "
+"behavior.  While setting policies individually is supported, we encourage "
+"projects to set policies based on CMake versions:"
+msgstr ""
+
+#: ../../../command/cmake_policy.rst:30
+msgid "The optional ``<max>`` version."
+msgstr ""
+
+#: ../../../command/cmake_policy.rst:33
+msgid ""
+"``<min>`` and the optional ``<max>`` are each CMake versions of the form "
+"``major.minor[.patch[.tweak]]``, and the ``...`` is literal.  The ``<min>`` "
+"version must be at least ``2.4`` and at most the running version of CMake. "
+"The ``<max>`` version, if specified, must be at least the ``<min>`` version "
+"but may exceed the running version of CMake.  If the running version of "
+"CMake is older than 3.12, the extra ``...`` dots will be seen as version "
+"component separators, resulting in the ``...<max>`` part being ignored and "
+"preserving the pre-3.12 behavior of basing policies on ``<min>``."
+msgstr ""
+
+#: ../../../command/include/POLICY_VERSION.rst:1
+msgid ""
+"This specifies that the current CMake code is written for the given range of "
+"CMake versions, ``<min>[...<max>]``. It sets the \"policy version\" to:"
+msgstr ""
+
+#: ../../../command/include/POLICY_VERSION.rst:4
+msgid "the range's ``<max>`` version, if specified, or to"
+msgstr ""
+
+#: ../../../command/include/POLICY_VERSION.rst:5
+msgid "the ``<min>`` version, or to"
+msgstr ""
+
+#: ../../../command/include/POLICY_VERSION.rst:6
+msgid ""
+"the value of the :variable:`CMAKE_POLICY_VERSION_MINIMUM` variable if it is "
+"higher than the other two versions."
+msgstr ""
+
+#: ../../../command/include/POLICY_VERSION.rst:9
+msgid ""
+"The policy version effectively requests behavior preferred as of a given "
+"CMake version and tells newer CMake versions to warn about their new "
+"policies. All policies known to the running version of CMake and introduced "
+"in that version or earlier will be set to use ``NEW`` behavior. All policies "
+"introduced in later versions will be unset (unless the :variable:"
+"`CMAKE_POLICY_DEFAULT_CMP<NNNN>` variable sets a default). This effectively "
+"requests behavior preferred as of a given CMake version and tells newer "
+"CMake versions to warn about their new policies."
+msgstr ""
+
+#: ../../../command/cmake_policy.rst:44
+msgid ""
+"Note that the :command:`cmake_minimum_required(VERSION)` command implicitly "
+"calls ``cmake_policy(VERSION)`` too."
+msgstr ""
+
+#: ../../../command/include/DEPRECATED_POLICY_VERSIONS.rst:3
+msgid ""
+"Compatibility with versions of CMake older than 3.5 is removed. Calls to :"
+"command:`cmake_minimum_required(VERSION)` or :command:"
+"`cmake_policy(VERSION)` that do not specify at least 3.5 as their policy "
+"version (optionally via ``...<max>``) will produce an error in CMake 4.0 and "
+"above."
+msgstr ""
+
+#: ../../../command/include/DEPRECATED_POLICY_VERSIONS.rst:11
+msgid ""
+"Compatibility with versions of CMake older than 3.10 is deprecated. Calls "
+"to :command:`cmake_minimum_required(VERSION)` or :command:"
+"`cmake_policy(VERSION)` that do not specify at least 3.10 as their policy "
+"version (optionally via ``...<max>``) will produce a deprecation warning in "
+"CMake 3.31 and above."
+msgstr ""
+
+#: ../../../command/include/DEPRECATED_POLICY_VERSIONS.rst:19
+msgid ""
+"Compatibility with versions of CMake older than 3.5 is deprecated. Calls to :"
+"command:`cmake_minimum_required(VERSION)` or :command:"
+"`cmake_policy(VERSION)` that do not specify at least 3.5 as their policy "
+"version (optionally via ``...<max>``) will produce a deprecation warning in "
+"CMake 3.27 and above."
+msgstr ""
+
+#: ../../../command/include/DEPRECATED_POLICY_VERSIONS.rst:27
+msgid ""
+"Compatibility with versions of CMake older than 2.8.12 is deprecated. Calls "
+"to :command:`cmake_minimum_required(VERSION)` or :command:"
+"`cmake_policy(VERSION)` that do not specify at least 2.8.12 as their policy "
+"version (optionally via ``...<max>``) will produce a deprecation warning in "
+"CMake 3.19 and above."
+msgstr ""
+
+#: ../../../command/cmake_policy.rst:50
+msgid "Setting Policies Explicitly"
+msgstr ""
+
+#: ../../../command/cmake_policy.rst:55
+msgid ""
+"Tell CMake to use the ``OLD`` or ``NEW`` behavior for a given policy. "
+"Projects depending on the old behavior of a given policy may silence a "
+"policy warning by setting the policy state to ``OLD``.  Alternatively one "
+"may fix the project to work with the new behavior and set the policy state "
+"to ``NEW``."
+msgstr ""
+
+#: ../../../policy/include/DEPRECATED.rst:2
+msgid ""
+"The ``OLD`` behavior of a policy is :manual:`deprecated by definition <cmake-"
+"policies(7)>` and may be removed in a future version of CMake."
+msgstr ""
+
+#: ../../../command/cmake_policy.rst:64
+msgid "Checking Policy Settings"
+msgstr ""
+
+#: ../../../command/cmake_policy.rst:69
+msgid ""
+"Check whether a given policy is set to ``OLD`` or ``NEW`` behavior. The "
+"output ``<variable>`` value will be ``OLD`` or ``NEW`` if the policy is set, "
+"and empty otherwise."
+msgstr ""
+
+#: ../../../command/cmake_policy.rst:74
+msgid "CMake Policy Stack"
+msgstr ""
+
+#: ../../../command/cmake_policy.rst:76
+msgid ""
+"CMake keeps policy settings on a stack, so changes made by the "
+"``cmake_policy`` command affect only the top of the stack.  A new entry on "
+"the policy stack is managed automatically for each subdirectory to protect "
+"its parents and siblings.  CMake also manages a new entry for scripts loaded "
+"by :command:`include` and :command:`find_package` commands except when "
+"invoked with the ``NO_POLICY_SCOPE`` option (see also policy :policy:"
+"`CMP0011`). The ``cmake_policy`` command provides an interface to manage "
+"custom entries on the policy stack:"
+msgstr ""
+
+#: ../../../command/cmake_policy.rst:89
+msgid "Create a new entry on the policy stack."
+msgstr ""
+
+#: ../../../command/cmake_policy.rst:94
+msgid "Remove the last policy stack entry created with ``cmake_policy(PUSH)``."
+msgstr ""
+
+#: ../../../command/cmake_policy.rst:96
+msgid ""
+"Each ``PUSH`` must have a matching ``POP`` to erase any changes. This is "
+"useful to make temporary changes to policy settings. Calls to the :command:"
+"`cmake_minimum_required(VERSION)`, :command:`cmake_policy(VERSION)`, or :"
+"command:`cmake_policy(SET)` commands influence only the current top of the "
+"policy stack."
+msgstr ""
+
+#: ../../../command/cmake_policy.rst:102
+msgid ""
+"The :command:`block(SCOPE_FOR POLICIES)` command offers a more flexible and "
+"more secure way to manage the policy stack. The pop action is done "
+"automatically when leaving the block scope, so there is no need to precede "
+"each :command:`return` with a call to :command:`cmake_policy(POP)`."
+msgstr ""
+
+#: ../../../command/cmake_policy.rst:108
+msgid ""
+"# stack management with cmake_policy()\n"
+"function(my_func)\n"
+"  cmake_policy(PUSH)\n"
+"  cmake_policy(SET ...)\n"
+"  if (<cond1>)\n"
+"    ...\n"
+"    cmake_policy(POP)\n"
+"    return()\n"
+"  elseif(<cond2>)\n"
+"    ...\n"
+"    cmake_policy(POP)\n"
+"    return()\n"
+"  endif()\n"
+"  ...\n"
+"  cmake_policy(POP)\n"
+"endfunction()\n"
+"\n"
+"# stack management with block()/endblock()\n"
+"function(my_func)\n"
+"  block(SCOPE_FOR POLICIES)\n"
+"    cmake_policy(SET ...)\n"
+"    if (<cond1>)\n"
+"      ...\n"
+"      return()\n"
+"    elseif(<cond2>)\n"
+"      ...\n"
+"      return()\n"
+"    endif()\n"
+"    ...\n"
+"  endblock()\n"
+"endfunction()"
+msgstr ""
+
+#: ../../../command/cmake_policy.rst:142
+msgid ""
+"Commands created by the :command:`function` and :command:`macro` commands "
+"record policy settings when they are created and use the pre-record policies "
+"when they are invoked.  If the function or macro implementation sets "
+"policies, the changes automatically propagate up through callers until they "
+"reach the closest nested policy stack entry."
+msgstr ""
+
+#: ../../../command/cmake_policy.rst:150
+msgid "See Also"
+msgstr ""
+
+#: ../../../command/cmake_policy.rst:152
+msgid ":command:`cmake_minimum_required`"
+msgstr ""
