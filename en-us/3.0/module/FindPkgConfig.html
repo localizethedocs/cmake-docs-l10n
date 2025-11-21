@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+
+<html lang="en-US" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>FindPkgConfig &mdash; CMake 3.0.2 Documentation</title>
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a3862c66" />
+    <link rel="stylesheet" type="text/css" href="../_static/cmake.css?v=4d06bd55" />
+    
+    <script src="../_static/documentation_options.js?v=594aea60"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    
+    <link rel="canonical" href="https://projects.localizethedocs.org/cmake-docs-l10n/module/FindPkgConfig.html" />
+    <link rel="icon" href="../_static/cmake-favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="FindPNG" href="FindPNG.html" />
+    <link rel="prev" title="FindPike" href="FindPike.html" />
+
+ 
+
+    <script type="text/javascript" src="../ltd-provenance.js"></script>
+    <script type="text/javascript" src="../ltd-current.js"></script>
+    <script type="text/javascript" src="../../../ltd-config.js"></script>
+    <script type="text/javascript" src="../../../ltd-flyout.js"></script>
+
+  </head><body>
+    <input id="sidebar-check" type="checkbox" />
+    <label id="sidebar-overlay" for="sidebar-check"></label>
+
+
+
+    <div class="related relbar1" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="FindPNG.html" title="FindPNG"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="FindPike.html" title="FindPike"
+             accesskey="P">previous</a> |</li>
+  <li>
+    <label class="sidebar-toggle" for="sidebar-check"></label>
+  </li>
+  <li class="rootlink">
+    <img src="../_static/cmake-logo-16.png" width="16" height="16" alt=""/>
+    <a href="https://cmake.org/">CMake 3.0.2</a>
+    <span class="reldelim1"> &#187;</span>
+  </li>
+  <li>
+    <a href="../index.html">Documentation</a> &#187;
+  </li>
+
+          <li class="nav-item nav-item-1"><a href="../manual/cmake-modules.7.html" accesskey="U">cmake-modules(7)</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">FindPkgConfig</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="findpkgconfig">
+<span id="module:FindPkgConfig"></span><h1>FindPkgConfig<a class="headerlink" href="#findpkgconfig" title="Link to this heading">¶</a></h1>
+<p>a pkg-config module for CMake</p>
+<p>Usage:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>pkg_check_modules(&lt;PREFIX&gt; [REQUIRED] [QUIET] &lt;MODULE&gt; [&lt;MODULE&gt;]*)
+  checks for all the given modules
+</pre></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>pkg_search_module(&lt;PREFIX&gt; [REQUIRED] [QUIET] &lt;MODULE&gt; [&lt;MODULE&gt;]*)
+  checks for given modules and uses the first working one
+</pre></div>
+</div>
+<p>When the 'REQUIRED' argument was set, macros will fail with an error
+when module(s) could not be found</p>
+<p>When the 'QUIET' argument is set, no status messages will be printed.</p>
+<p>It sets the following variables:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>PKG_CONFIG_FOUND          ... if pkg-config executable was found
+PKG_CONFIG_EXECUTABLE     ... pathname of the pkg-config program
+PKG_CONFIG_VERSION_STRING ... the version of the pkg-config program found
+                              (since CMake 2.8.8)
+</pre></div>
+</div>
+<p>For the following variables two sets of values exist; first one is the
+common one and has the given PREFIX.  The second set contains flags
+which are given out when pkgconfig was called with the '--static'
+option.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;XPREFIX&gt;_FOUND          ... set to 1 if module(s) exist
+&lt;XPREFIX&gt;_LIBRARIES      ... only the libraries (w/o the &#39;-l&#39;)
+&lt;XPREFIX&gt;_LIBRARY_DIRS   ... the paths of the libraries (w/o the &#39;-L&#39;)
+&lt;XPREFIX&gt;_LDFLAGS        ... all required linker flags
+&lt;XPREFIX&gt;_LDFLAGS_OTHER  ... all other linker flags
+&lt;XPREFIX&gt;_INCLUDE_DIRS   ... the &#39;-I&#39; preprocessor flags (w/o the &#39;-I&#39;)
+&lt;XPREFIX&gt;_CFLAGS         ... all required cflags
+&lt;XPREFIX&gt;_CFLAGS_OTHER   ... the other compiler flags
+</pre></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;XPREFIX&gt; = &lt;PREFIX&gt;        for common case
+&lt;XPREFIX&gt; = &lt;PREFIX&gt;_STATIC for static linking
+</pre></div>
+</div>
+<p>There are some special variables whose prefix depends on the count of
+given modules.  When there is only one module, &lt;PREFIX&gt; stays
+unchanged.  When there are multiple modules, the prefix will be
+changed to &lt;PREFIX&gt;_&lt;MODNAME&gt;:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;XPREFIX&gt;_VERSION    ... version of the module
+&lt;XPREFIX&gt;_PREFIX     ... prefix-directory of the module
+&lt;XPREFIX&gt;_INCLUDEDIR ... include-dir of the module
+&lt;XPREFIX&gt;_LIBDIR     ... lib-dir of the module
+</pre></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;XPREFIX&gt; = &lt;PREFIX&gt;  when |MODULES| == 1, else
+&lt;XPREFIX&gt; = &lt;PREFIX&gt;_&lt;MODNAME&gt;
+</pre></div>
+</div>
+<p>A &lt;MODULE&gt; parameter can have the following formats:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>{MODNAME}            ... matches any version
+{MODNAME}&gt;={VERSION} ... at least version &lt;VERSION&gt; is required
+{MODNAME}={VERSION}  ... exactly version &lt;VERSION&gt; is required
+{MODNAME}&lt;={VERSION} ... modules must not be newer than &lt;VERSION&gt;
+</pre></div>
+</div>
+<p>Examples</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>pkg_check_modules (GLIB2   glib-2.0)
+</pre></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>pkg_check_modules (GLIB2   glib-2.0&gt;=2.10)
+  requires at least version 2.10 of glib2 and defines e.g.
+    GLIB2_VERSION=2.10.3
+</pre></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>pkg_check_modules (FOO     glib-2.0&gt;=2.10 gtk+-2.0)
+  requires both glib2 and gtk2, and defines e.g.
+    FOO_glib-2.0_VERSION=2.10.3
+    FOO_gtk+-2.0_VERSION=2.8.20
+</pre></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>pkg_check_modules (XRENDER REQUIRED xrender)
+  defines e.g.:
+    XRENDER_LIBRARIES=Xrender;X11
+    XRENDER_STATIC_LIBRARIES=Xrender;X11;pthread;Xau;Xdmcp
+</pre></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>pkg_search_module (BAR     libxml-2.0 libxml2 libxml&gt;=2)
+</pre></div>
+</div>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="FindPike.html"
+                          title="previous chapter">FindPike</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="FindPNG.html"
+                          title="next chapter">FindPNG</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/module/FindPkgConfig.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="FindPNG.html" title="FindPNG"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="FindPike.html" title="FindPike"
+             >previous</a> |</li>
+  <li>
+    <label class="sidebar-toggle" for="sidebar-check"></label>
+  </li>
+  <li class="rootlink">
+    <img src="../_static/cmake-logo-16.png" width="16" height="16" alt=""/>
+    <a href="https://cmake.org/">CMake 3.0.2</a>
+    <span class="reldelim1"> &#187;</span>
+  </li>
+  <li>
+    <a href="../index.html">Documentation</a> &#187;
+  </li>
+
+          <li class="nav-item nav-item-1"><a href="../manual/cmake-modules.7.html" >cmake-modules(7)</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">FindPkgConfig</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2000-2014 Kitware, Inc..
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    </div>
+<script type="text/javascript">
+(function() {
+  "use strict";
+  const hide = () => document.getElementById("sidebar-check").checked = false;
+  addEventListener("keydown", e => (e.key === "Escape") && hide());
+  addEventListener("click", e => (e.target.tagName === "A") && hide());
+  addEventListener("hashchange", hide)
+})();
+</script>
+  </body>
+</html>

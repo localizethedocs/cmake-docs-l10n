@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+
+<html lang="zh-TW" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>set_target_properties &mdash; CMake 3.2.3 Documentation</title>
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a3862c66" />
+    <link rel="stylesheet" type="text/css" href="../_static/cmake.css?v=4d06bd55" />
+    
+    <script src="../_static/documentation_options.js?v=6f309bfb"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/translations.js?v=cbf116e0"></script>
+    
+    <link rel="canonical" href="https://projects.localizethedocs.org/cmake-docs-l10n/command/set_target_properties.html" />
+    <link rel="icon" href="../_static/cmake-favicon.ico"/>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜尋" href="../search.html" />
+    <link rel="next" title="set_tests_properties" href="set_tests_properties.html" />
+    <link rel="prev" title="set_source_files_properties" href="set_source_files_properties.html" />
+
+ 
+
+    <script type="text/javascript" src="../ltd-provenance.js"></script>
+    <script type="text/javascript" src="../ltd-current.js"></script>
+    <script type="text/javascript" src="../../../ltd-config.js"></script>
+    <script type="text/javascript" src="../../../ltd-flyout.js"></script>
+
+  </head><body>
+    <input id="sidebar-check" type="checkbox" />
+    <label id="sidebar-overlay" for="sidebar-check"></label>
+
+
+
+    <div class="related relbar1" role="navigation" aria-label="Related">
+      <h3>瀏覽</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="總索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="set_tests_properties.html" title="set_tests_properties"
+             accesskey="N">下一頁</a> |</li>
+        <li class="right" >
+          <a href="set_source_files_properties.html" title="set_source_files_properties"
+             accesskey="P">上一頁</a> |</li>
+  <li>
+    <label class="sidebar-toggle" for="sidebar-check"></label>
+  </li>
+  <li class="rootlink">
+    <img src="../_static/cmake-logo-16.png" width="16" height="16" alt=""/>
+    <a href="https://cmake.org/">CMake 3.2.3</a>
+    <span class="reldelim1"> &#187;</span>
+  </li>
+  <li>
+    <a href="../index.html">文件</a> &#187;
+  </li>
+
+          <li class="nav-item nav-item-1"><a href="../manual/cmake-commands.7.html" accesskey="U">cmake-命令(7)</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">set_target_properties</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="set-target-properties">
+<span id="command:set_target_properties"></span><h1>set_target_properties<a class="headerlink" href="#set-target-properties" title="連結到這個標頭">¶</a></h1>
+<p>Targets can have properties that affect how they are built.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>set_target_properties(target1 target2 ...
+                      PROPERTIES prop1 value1
+                      prop2 value2 ...)
+</pre></div>
+</div>
+<p>Set properties on a target.  The syntax for the command is to list all
+the files you want to change, and then provide the values you want to
+set next.  You can use any prop value pair you want and extract it
+later with the GET_TARGET_PROPERTY command.</p>
+<p>Properties that affect the name of a target's output file are as
+follows.  The PREFIX and SUFFIX properties override the default target
+name prefix (such as &quot;lib&quot;) and suffix (such as &quot;.so&quot;).  IMPORT_PREFIX
+and IMPORT_SUFFIX are the equivalent properties for the import library
+corresponding to a DLL (for SHARED library targets).  OUTPUT_NAME sets
+the real name of a target when it is built and can be used to help
+create two targets of the same name even though CMake requires unique
+logical target names.  There is also a &lt;CONFIG&gt;_OUTPUT_NAME that can
+set the output name on a per-configuration basis.  &lt;CONFIG&gt;_POSTFIX
+sets a postfix for the real name of the target when it is built under
+the configuration named by &lt;CONFIG&gt; (in upper-case, such as
+&quot;DEBUG_POSTFIX&quot;).  The value of this property is initialized when the
+target is created to the value of the variable CMAKE_&lt;CONFIG&gt;_POSTFIX
+(except for executable targets because earlier CMake versions which
+did not use this variable for executables).</p>
+<p>The LINK_FLAGS property can be used to add extra flags to the link
+step of a target.  LINK_FLAGS_&lt;CONFIG&gt; will add to the configuration
+&lt;CONFIG&gt;, for example, DEBUG, RELEASE, MINSIZEREL, RELWITHDEBINFO.
+DEFINE_SYMBOL sets the name of the preprocessor symbol defined when
+compiling sources in a shared library.  If not set here then it is set
+to target_EXPORTS by default (with some substitutions if the target is
+not a valid C identifier).  This is useful for headers to know whether
+they are being included from inside their library or outside to
+properly setup dllexport/dllimport decorations.  The COMPILE_FLAGS
+property sets additional compiler flags used to build sources within
+the target.  It may also be used to pass additional preprocessor
+definitions.</p>
+<p>The LINKER_LANGUAGE property is used to change the tool used to link
+an executable or shared library.  The default is set the language to
+match the files in the library.  CXX and C are common values for this
+property.</p>
+<p>For shared libraries VERSION and SOVERSION can be used to specify the
+build version and API version respectively.  When building or
+installing appropriate symlinks are created if the platform supports
+symlinks and the linker supports so-names.  If only one of both is
+specified the missing is assumed to have the same version number.  For
+executables VERSION can be used to specify the build version.  When
+building or installing appropriate symlinks are created if the
+platform supports symlinks.  For shared libraries and executables on
+Windows the VERSION attribute is parsed to extract a &quot;major.minor&quot;
+version number.  These numbers are used as the image version of the
+binary.</p>
+<p>There are a few properties used to specify RPATH rules.  INSTALL_RPATH
+is a semicolon-separated list specifying the rpath to use in installed
+targets (for platforms that support it).  INSTALL_RPATH_USE_LINK_PATH
+is a boolean that if set to true will append directories in the linker
+search path and outside the project to the INSTALL_RPATH.
+SKIP_BUILD_RPATH is a boolean specifying whether to skip automatic
+generation of an rpath allowing the target to run from the build tree.
+BUILD_WITH_INSTALL_RPATH is a boolean specifying whether to link the
+target in the build tree with the INSTALL_RPATH.  This takes
+precedence over SKIP_BUILD_RPATH and avoids the need for relinking
+before installation.  INSTALL_NAME_DIR is a string specifying the
+directory portion of the &quot;install_name&quot; field of shared libraries on
+Mac OSX to use in the installed targets.  When the target is created
+the values of the variables CMAKE_INSTALL_RPATH,
+CMAKE_INSTALL_RPATH_USE_LINK_PATH, CMAKE_SKIP_BUILD_RPATH,
+CMAKE_BUILD_WITH_INSTALL_RPATH, and CMAKE_INSTALL_NAME_DIR are used to
+initialize these properties.</p>
+<p>PROJECT_LABEL can be used to change the name of the target in an IDE
+like visual studio.  VS_KEYWORD can be set to change the visual studio
+keyword, for example Qt integration works better if this is set to
+Qt4VSv1.0.</p>
+<p>VS_SCC_PROJECTNAME, VS_SCC_LOCALPATH, VS_SCC_PROVIDER and
+VS_SCC_AUXPATH can be set to add support for source control bindings
+in a Visual Studio project file.</p>
+<p>VS_GLOBAL_&lt;variable&gt; can be set to add a Visual Studio
+project-specific global variable.  Qt integration works better if
+VS_GLOBAL_QtVersion is set to the Qt version FindQt4.cmake found.  For
+example, &quot;4.7.3&quot;</p>
+<p>The PRE_INSTALL_SCRIPT and POST_INSTALL_SCRIPT properties are the old
+way to specify CMake scripts to run before and after installing a
+target.  They are used only when the old INSTALL_TARGETS command is
+used to install the target.  Use the INSTALL command instead.</p>
+<p>The EXCLUDE_FROM_DEFAULT_BUILD property is used by the visual studio
+generators.  If it is set to 1 the target will not be part of the
+default build when you select &quot;Build Solution&quot;.  This can also be set
+on a per-configuration basis using
+EXCLUDE_FROM_DEFAULT_BUILD_&lt;CONFIG&gt;.</p>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h4>上個話題</h4>
+    <p class="topless"><a href="set_source_files_properties.html"
+                          title="上個章節">set_source_files_properties</a></p>
+  </div>
+  <div>
+    <h4>下個話題</h4>
+    <p class="topless"><a href="set_tests_properties.html"
+                          title="下個章節">set_tests_properties</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>本頁</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/command/set_target_properties.rst.txt"
+            rel="nofollow">顯示來源碼</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜尋</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="前往" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>瀏覽</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="總索引"
+             >索引</a></li>
+        <li class="right" >
+          <a href="set_tests_properties.html" title="set_tests_properties"
+             >下一頁</a> |</li>
+        <li class="right" >
+          <a href="set_source_files_properties.html" title="set_source_files_properties"
+             >上一頁</a> |</li>
+  <li>
+    <label class="sidebar-toggle" for="sidebar-check"></label>
+  </li>
+  <li class="rootlink">
+    <img src="../_static/cmake-logo-16.png" width="16" height="16" alt=""/>
+    <a href="https://cmake.org/">CMake 3.2.3</a>
+    <span class="reldelim1"> &#187;</span>
+  </li>
+  <li>
+    <a href="../index.html">文件</a> &#187;
+  </li>
+
+          <li class="nav-item nav-item-1"><a href="../manual/cmake-commands.7.html" >cmake-命令(7)</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">set_target_properties</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+    &#169; 著作權 2000-2015 Kitware, Inc..
+      使用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3 建立。
+    </div>
+<script type="text/javascript">
+(function() {
+  "use strict";
+  const hide = () => document.getElementById("sidebar-check").checked = false;
+  addEventListener("keydown", e => (e.key === "Escape") && hide());
+  addEventListener("click", e => (e.target.tagName === "A") && hide());
+  addEventListener("hashchange", hide)
+})();
+</script>
+  </body>
+</html>
