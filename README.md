@@ -59,8 +59,8 @@
 <a href="http://creativecommons.org/licenses/by-sa/4.0/" title="License: CC-BY-SA-4.0" target="_blank">
   <img alt="License: CC-BY-SA-4.0" src="https://img.shields.io/badge/License-CC--BY--SA--4.0-blue.svg?logo=creativecommons&style=flat&logoColor=white" />
 </a>
-<a href="https://gitcode.com/localizethedocs/cmake-docs-l10n/stargazers" title="GitCode GStars" target="_blank">
-  <img alt="GitCode GStars" src="https://gitcode.com/localizethedocs/cmake-docs-l10n/star/badge.svg" />
+<a href="https://atomgit.com/localizethedocs/cmake-docs-l10n/stargazers" title="AtomGit GStars" target="_blank">
+  <img alt="AtomGit GStars" src="https://atomgit.com/localizethedocs/cmake-docs-l10n/star/badge.svg" />
 </a>
 </div>
 
@@ -102,9 +102,9 @@ The goal of this project is to translate the CMake documentation into multiple l
     </tr>
     <!-- Mirror -->
     <tr>
-      <th rowspan="1" colspan="1" align="center" style="text-align: center;"><div>GitCode</div></th>
+      <th rowspan="1" colspan="1" align="center" style="text-align: center;"><div>AtomGit</div></th>
       <td rowspan="1" colspan="1" align="center" style="text-align: center;">
-        <div><a href="https://gitcode.com/localizethedocs/cmake-docs-l10n" target="_blank">cmake-docs-l10n</a></div>
+        <div><a href="https://atomgit.com/localizethedocs/cmake-docs-l10n" target="_blank">cmake-docs-l10n</a></div>
       </td>
     </tr>
     <tr>
