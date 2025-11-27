@@ -90,6 +90,13 @@ jobs:
 
   check-crowdin-update-readme:
     needs: [ 'before-check' ]
+    if: ${{ ( github.repository == 'localizethedocs/cmake-docs-l10n' ) &&
+            ( ( github.event_name   == 'pull_request' ) &&
+              ( github.base_ref     == 'main' ||
+                github.base_ref     == 'l10n' ) &&
+              ( github.event.action == 'opened' ||
+                github.event.action == 'synchronize' ||
+                github.event.action == 'reopened' ) ) }}
     uses: localizethedocs/ci-common/.github/workflows/use-crowdin-update-readme.yml@main
     with:
       ENABLE: ${{ needs.before-check.outputs.DOCUMENT_CHANGE == 'true' }}
