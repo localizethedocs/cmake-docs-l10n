@@ -5,10 +5,10 @@
 </div>
 
 <div align="center">
-<h1 id="localization-of-cmake-documentation">CMake 文档的本地化</h1>
+<h1 id="localization-of-cmake-documentation">Localization of CMake Documentation</h1>
 </div>
 
-<details><summary><strong>切换语言</strong></summary>
+<details><summary><strong>Switch Languages</strong></summary>
 <p></p>
 <ul>
   <li><a href="./README.md"><code>en_US</code> : English</a></li>
@@ -21,18 +21,18 @@
 <h2 id="table-of-contents">Table of Contents</h2>
 
 <ul>
-  <li><a href="#introduction">简介</a></li>
-  <li><a href="#progress-of-translations">翻译进度</a></li>
-  <li><a href="#preview-translations">预览翻译</a></li>
-  <li><a href="#maintainers">维护者</a></li>
-  <li><a href="#support-this-project">支持此项目</a></li>
-  <li><a href="#sponsorship">赞助</a></li>
-  <li><a href="#code-contributors">代码贡献者</a></li>
-  <li><a href="#financial-contributors">财务贡献者</a></li>
-  <li><a href="#licenses">许可证</a></li>
+  <li><a href="#introduction">Introduction</a></li>
+  <li><a href="#progress-of-translations">Progress of Translations</a></li>
+  <li><a href="#preview-translations">Preview Translations</a></li>
+  <li><a href="#maintainers">Maintainers</a></li>
+  <li><a href="#support-this-project">Support this Project</a></li>
+  <li><a href="#sponsorship">Sponsorship</a></li>
+  <li><a href="#code-contributors">Code Contributors</a></li>
+  <li><a href="#financial-contributors">Financial Contributors</a></li>
+  <li><a href="#licenses">Licenses</a></li>
 </ul>
 
-<h2 id="introduction"><a href="#table-of-contents">简介</a></h2>
+<h2 id="introduction"><a href="#table-of-contents">Introduction</a></h2>
 
 <div align="center"><a href="https://github.com/localizethedocs/cmake-docs-l10n/stargazers" title="GitHub Stars" target="_blank">
   <img alt="GitHub Stars" src="https://img.shields.io/github/stars/localizethedocs/cmake-docs-l10n.svg?logo=github&style=flat&color=blue" />
@@ -74,13 +74,13 @@ The goal of this project is to translate the CMake documentation into multiple l
 <table>
   <thead>
     <tr>
-      <th rowspan="1" colspan="2" align="center" style="text-align: center;"><div>项目链接</div></th>
+      <th rowspan="1" colspan="2" align="center" style="text-align: center;"><div>Project Links</div></th>
     </tr>
   </thead>
   <tbody>
     <!-- Preview -->
     <tr>
-      <th rowspan="1" colspan="1" align="center" style="text-align: center;"><div>预览翻译</div></th>
+      <th rowspan="1" colspan="1" align="center" style="text-align: center;"><div>Preview</div></th>
       <td rowspan="1" colspan="1" align="center" style="text-align: center;">
         <div><a href="https://projects.localizethedocs.org/cmake-docs-l10n" target="_blank">cmake-docs-l10n</a></div>
       </td>
@@ -120,11 +120,11 @@ The goal of this project is to translate the CMake documentation into multiple l
 <table>
   <thead>
     <tr>
-      <th rowspan="1" colspan="2" align="center" style="text-align: center;"><div>GitHub 工作流</div></th>
+      <th rowspan="1" colspan="2" align="center" style="text-align: center;"><div>GitHub Workflows</div></th>
     </tr>
     <tr>
-      <th rowspan="1" colspan="1" align="center" style="text-align: center;"><div>状态</div></th>
-      <th rowspan="1" colspan="1" align="center" style="text-align: center;"><div>描述</div></th>
+      <th rowspan="1" colspan="1" align="center" style="text-align: center;"><div>Status</div></th>
+      <th rowspan="1" colspan="1" align="center" style="text-align: center;"><div>Description</div></th>
     </tr>
   </thead>
   <tbody>
@@ -186,10 +186,10 @@ The goal of this project is to translate the CMake documentation into multiple l
     </tr>
     <tr>
       <td rowspan="1" colspan="1" align="right" style="text-align: right;">
-        <div><a href="https://github.com/localizethedocs/cmake-docs-l10n/actions/workflows/ci-crowdin-update-docs.yml"><img alt="ci-crowdin-update-docs" src="https://github.com/localizethedocs/cmake-docs-l10n/actions/workflows/ci-crowdin-update-docs.yml/badge.svg" /></a></div>
+        <div><a href="https://github.com/localizethedocs/cmake-docs-l10n/actions/workflows/ci-crowdin-update-readme.yml"><img alt="ci-crowdin-update-readme" src="https://github.com/localizethedocs/cmake-docs-l10n/actions/workflows/ci-crowdin-update-readme.yml/badge.svg" /></a></div>
       </td>
       <td rowspan="1" colspan="1" align="left" style="text-align: left;">
-        <div>Update <code>docs</code> translations by Crowdin CLI tool.</div>
+        <div>Update README translations by Crowdin CLI tool.</div>
       </td>
     </tr>
     <tr>
@@ -228,7 +228,7 @@ The goal of this project is to translate the CMake documentation into multiple l
 </table>
 </div>
 
-<h2 id="progress-of-translations"><a href="#table-of-contents">翻译进度</a></h2>
+<h2 id="progress-of-translations"><a href="#table-of-contents">Progress of Translations</a></h2>
 
 <div align="center">
 <table>
@@ -237,14 +237,14 @@ The goal of this project is to translate the CMake documentation into multiple l
       <th rowspan="1" colspan="1" align="center" style="text-align: center;"><div>Locale</div></th>
       <th rowspan="1" colspan="1" align="center" style="text-align: center;">
         <div>
-          <div>英文名称</div>
-          <div>本地名称</div>
+          <div>English Name</div>
+          <div>Native Name</div>
         </div>
       </th>
       <th rowspan="1" colspan="1" align="center" style="text-align: center;">
         <div>
-          <div>已翻译</div>
-          <div>已校对</div>
+          <div>Translated</div>
+          <div>Proofread</div>
         </div>
       </th>
     </tr>
@@ -305,16 +305,16 @@ The goal of this project is to translate the CMake documentation into multiple l
 <div align="center"><a href="https://localizethedocs.crowdin.com/cmake-docs-l10n"><img src="https://badges.awesome-crowdin.com/translation-200032568-1.png"></a>
 </div>
 
-<h2 id="preview-translations"><a href="#table-of-contents">预览翻译</a></h2>
+<h2 id="preview-translations"><a href="#table-of-contents">Preview Translations</a></h2>
 
-您可以在 <a href="https://projects.localizethedocs.org/cmake-docs-l10n">GitHub 网页</a>中预览翻译：
+You can preview translations in <a href="https://projects.localizethedocs.org/cmake-docs-l10n">GitHub Pages</a>:
 
 <div align="center">
 <table>
   <thead>
     <tr>
-      <th rowspan="1" colspan="1" align="center" style="text-align: center;"><div>语言</div></th>
-      <th rowspan="1" colspan="1" align="center" style="text-align: center;"><div>GitHub 网页</div></th>
+      <th rowspan="1" colspan="1" align="center" style="text-align: center;"><div>Language</div></th>
+      <th rowspan="1" colspan="1" align="center" style="text-align: center;"><div>GitHub Pages</div></th>
     </tr>
   </thead>
   <tbody>
@@ -365,7 +365,7 @@ cmake --build out/build/${LANGUAGE}
 
 You can switch to other available languages and versions by the flyout navigation menu.
 
-<h2 id="maintainers"><a href="#table-of-contents">维护者</a></h2>
+<h2 id="maintainers"><a href="#table-of-contents">Maintainers</a></h2>
 
 This project is currently maintained by:
 
@@ -374,7 +374,7 @@ This project is currently maintained by:
   <thead>
     <tr>
       <th rowspan="1" colspan="1" align="center" style="text-align: center;"><div>Name</div></th>
-      <th rowspan="1" colspan="1" align="center" style="text-align: center;"><div>GitHub 用户名</div></th>
+      <th rowspan="1" colspan="1" align="center" style="text-align: center;"><div>GitHub Username</div></th>
     </tr>
   </thead>
   <tbody>
@@ -400,7 +400,7 @@ You can contribute and support this project by doing any of the following:
 
 It will facilitate the creation and ongoing maintenance of l10n projects for open-source documentation.
 
-<h2 id="sponsorship"><a href="#table-of-contents">赞助</a></h2>
+<h2 id="sponsorship"><a href="#table-of-contents">Sponsorship</a></h2>
 
 You can sponsor the projects through the following platforms:
 
@@ -410,7 +410,7 @@ You can sponsor the projects through the following platforms:
     <!-- Row 1 -->
     <tr>
       <th rowspan="1" colspan="1" align="center" style="text-align: center; width: 50%;"><div>Patreon</div></th>
-      <th rowspan="1" colspan="1" align="center" style="text-align: center; width: 50%;"><div>爱发电</div></th>
+      <th rowspan="1" colspan="1" align="center" style="text-align: center; width: 50%;"><div>Afdian</div></th>
     </tr>
     <!-- Row 2 -->
     <tr>
@@ -440,7 +440,7 @@ Alternatively, you can sponsor the maintainers directly through the following pl
     <!-- Row 1 -->
     <tr>
       <th rowspan="1" colspan="1" align="center" style="text-align: center; width: 50%;"><div>Patreon</div></th>
-      <th rowspan="1" colspan="1" align="center" style="text-align: center; width: 50%;"><div>爱发电</div></th>
+      <th rowspan="1" colspan="1" align="center" style="text-align: center; width: 50%;"><div>Afdian</div></th>
     </tr>
     <!-- Row 2 -->
     <tr>
@@ -459,13 +459,13 @@ Alternatively, you can sponsor the maintainers directly through the following pl
 </table>
 </div>
 
-<h2 id="code-contributors"><a href="#table-of-contents">代码贡献者</a></h2>
+<h2 id="code-contributors"><a href="#table-of-contents">Code Contributors</a></h2>
 
 <div align="center">
 <img width="100%" alt="GitHub Contributors SVG" src="https://contrib.nn.ci/api?repo=localizethedocs/cmake-docs-l10n&no_bot=true" />
 </div>
 
-<h2 id="financial-contributors"><a href="#table-of-contents">财务贡献者</a></h2>
+<h2 id="financial-contributors"><a href="#table-of-contents">Financial Contributors</a></h2>
 
 <div align="center">
 <h3 id="localize-the-docs">Localize The Docs</h3>
@@ -483,7 +483,7 @@ Alternatively, you can sponsor the maintainers directly through the following pl
 <img width="100%" alt="Haowei Hsu" src="https://cdn.jsdelivr.net/gh/hwhsu1231/sponsors/static/sponsors.svg" />
 </div>
 
-<h2 id="licenses"><a href="#table-of-contents">许可证</a></h2>
+<h2 id="licenses"><a href="#table-of-contents">Licenses</a></h2>
 
 All original and translated text in the <code>.pot</code> and<code>.po</code> files stored in the <code>l10n</code> branch is made available under the same license as <a href="https://gitlab.kitware.com/cmake/cmake">the upstream project</a>.
 

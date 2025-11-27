@@ -5,10 +5,10 @@
 </div>
 
 <div align="center">
-<h1 id="localization-of-cmake-documentation">CMake 文件的在地化</h1>
+<h1 id="localization-of-cmake-documentation">Localization of CMake Documentation</h1>
 </div>
 
-<details><summary><strong>切換語言</strong></summary>
+<details><summary><strong>Switch Languages</strong></summary>
 <p></p>
 <ul>
   <li><a href="./README.md"><code>en_US</code> : English</a></li>
@@ -18,21 +18,21 @@
 </ul>
 </details>
 
-<h2 id="table-of-contents">目次表</h2>
+<h2 id="table-of-contents">Table of Contents</h2>
 
 <ul>
-  <li><a href="#introduction">簡介</a></li>
-  <li><a href="#progress-of-translations">翻譯進度</a></li>
-  <li><a href="#preview-translations">預覽翻譯</a></li>
-  <li><a href="#maintainers">維護者</a></li>
-  <li><a href="#support-this-project">支援該專案</a></li>
-  <li><a href="#sponsorship">贊助</a></li>
-  <li><a href="#code-contributors">程式碼貢獻者</a></li>
-  <li><a href="#financial-contributors">財務貢獻者</a></li>
-  <li><a href="#licenses">授權條款</a></li>
+  <li><a href="#introduction">Introduction</a></li>
+  <li><a href="#progress-of-translations">Progress of Translations</a></li>
+  <li><a href="#preview-translations">Preview Translations</a></li>
+  <li><a href="#maintainers">Maintainers</a></li>
+  <li><a href="#support-this-project">Support this Project</a></li>
+  <li><a href="#sponsorship">Sponsorship</a></li>
+  <li><a href="#code-contributors">Code Contributors</a></li>
+  <li><a href="#financial-contributors">Financial Contributors</a></li>
+  <li><a href="#licenses">Licenses</a></li>
 </ul>
 
-<h2 id="introduction"><a href="#table-of-contents">簡介</a></h2>
+<h2 id="introduction"><a href="#table-of-contents">Introduction</a></h2>
 
 <div align="center"><a href="https://github.com/localizethedocs/cmake-docs-l10n/stargazers" title="GitHub Stars" target="_blank">
   <img alt="GitHub Stars" src="https://img.shields.io/github/stars/localizethedocs/cmake-docs-l10n.svg?logo=github&style=flat&color=blue" />
@@ -65,7 +65,7 @@
 
 <p></p>
 
-該專案的目標是將 CMake 文件翻譯為多個語言。 Translations are contributed via the Crowdin platform, automatically synchronized with the GitHub repository, and can be previewed on GitHub Pages.
+The goal of this project is to translate the CMake documentation into multiple languages. Translations are contributed via the Crowdin platform, automatically synchronized with the GitHub repository, and can be previewed on GitHub Pages.
 
 > [!NOTE]
 > The translation is community-driven. If you find any inaccuracies, always refer to the <a href="https://cmake.org/cmake/help/latest/">official documentation</a> or the <a href="https://gitlab.kitware.com/cmake/cmake">source repository</a> of the upstream project for the most reliable information.
@@ -74,13 +74,13 @@
 <table>
   <thead>
     <tr>
-      <th rowspan="1" colspan="2" align="center" style="text-align: center;"><div>專案連結</div></th>
+      <th rowspan="1" colspan="2" align="center" style="text-align: center;"><div>Project Links</div></th>
     </tr>
   </thead>
   <tbody>
     <!-- Preview -->
     <tr>
-      <th rowspan="1" colspan="1" align="center" style="text-align: center;"><div>預覽翻譯</div></th>
+      <th rowspan="1" colspan="1" align="center" style="text-align: center;"><div>Preview</div></th>
       <td rowspan="1" colspan="1" align="center" style="text-align: center;">
         <div><a href="https://projects.localizethedocs.org/cmake-docs-l10n" target="_blank">cmake-docs-l10n</a></div>
       </td>
@@ -120,11 +120,11 @@
 <table>
   <thead>
     <tr>
-      <th rowspan="1" colspan="2" align="center" style="text-align: center;"><div>GitHub 工作流</div></th>
+      <th rowspan="1" colspan="2" align="center" style="text-align: center;"><div>GitHub Workflows</div></th>
     </tr>
     <tr>
-      <th rowspan="1" colspan="1" align="center" style="text-align: center;"><div>狀態</div></th>
-      <th rowspan="1" colspan="1" align="center" style="text-align: center;"><div>描述</div></th>
+      <th rowspan="1" colspan="1" align="center" style="text-align: center;"><div>Status</div></th>
+      <th rowspan="1" colspan="1" align="center" style="text-align: center;"><div>Description</div></th>
     </tr>
   </thead>
   <tbody>
@@ -133,7 +133,7 @@
         <div><a href="https://github.com/localizethedocs/cmake-docs-l10n/actions/workflows/ci-sphinx-build-docs.yml" ><img alt="ci-sphinx-build-docs" src="https://github.com/localizethedocs/cmake-docs-l10n/actions/workflows/ci-sphinx-build-docs.yml/badge.svg" /></a></div>
       </td>
       <td rowspan="1" colspan="1" align="left" style="text-align: left;">
-        <div>透過 Sphinx 建置文件並上傳建置製品。</div>
+        <div>Build documents by Sphinx and upload build artifacts.</div>
       </td>
     </tr>
     <tr>
@@ -141,7 +141,7 @@
         <div><a href="https://github.com/localizethedocs/cmake-docs-l10n/actions/workflows/ci-sphinx-update-pot.yml" ><img alt="ci-sphinx-update-pot" src="https://github.com/localizethedocs/cmake-docs-l10n/actions/workflows/ci-sphinx-update-pot.yml/badge.svg" /></a></div>
       </td>
       <td rowspan="1" colspan="1" align="left" style="text-align: left;">
-        <div>透過 Sphinx 使用 <code>gettext</code> 建置器更新 <code>.pot</code> 檔案。</div>
+        <div>Update <code>.pot</code> files by Sphinx with <code>gettext</code> builder.</div>
       </td>
     </tr>
     <tr>
@@ -149,7 +149,7 @@
         <div><a href="https://github.com/localizethedocs/cmake-docs-l10n/actions/workflows/ci-gettext-update-po.yml" ><img alt="ci-gettext-update-po" src="https://github.com/localizethedocs/cmake-docs-l10n/actions/workflows/ci-gettext-update-po.yml/badge.svg" /></a></div>
       </td>
       <td rowspan="1" colspan="1" align="left" style="text-align: left;">
-        <div>透過 Gettext 工具組從 <code>.pot</code> 檔案更新 <code>.po</code> 檔案。</div>
+        <div>Update <code>.po</code> files from <code>.pot</code> files by Gettext toolkit.</div>
       </td>
     </tr>
     <tr>
@@ -157,7 +157,7 @@
         <div><a href="https://github.com/localizethedocs/cmake-docs-l10n/actions/workflows/ci-gettext-compendium.yml"><img alt="ci-gettext-compendium" src="https://github.com/localizethedocs/cmake-docs-l10n/actions/workflows/ci-gettext-compendium.yml/badge.svg" /></a></div>
       </td>
       <td rowspan="1" colspan="1" align="left" style="text-align: left;">
-        <div>透過 Gettext 工具組從編目更新 <code>.po</code> 檔案。</div>
+        <div>Update <code>.po</code> files from the compendium by Gettext toolkit.</div>
       </td>
     </tr>
     <tr>
@@ -165,7 +165,7 @@
         <div><a href="https://github.com/localizethedocs/cmake-docs-l10n/actions/workflows/ci-gettext-statistics.yml"><img alt="ci-gettext-statistics" src="https://github.com/localizethedocs/cmake-docs-l10n/actions/workflows/ci-gettext-statistics.yml/badge.svg" /></a></div>
       </td>
       <td rowspan="1" colspan="1" align="left" style="text-align: left;">
-        <div>透過 Gettext 工具組更新 <code>.po</code> 檔案的統計資訊。</div>
+        <div>Update statistics information of <code>.po</code> files by Gettext toolkit.</div>
       </td>
     </tr>
     <tr>
@@ -173,7 +173,7 @@
         <div><a href="https://github.com/localizethedocs/cmake-docs-l10n/actions/workflows/ci-crowdin-upload-pot.yml"><img alt="ci-crowdin-upload-pot" src="https://github.com/localizethedocs/cmake-docs-l10n/actions/workflows/ci-crowdin-upload-pot.yml/badge.svg" /></a></div>
       </td>
       <td rowspan="1" colspan="1" align="left" style="text-align: left;">
-        <div>透過 Crowdin 的 CLI 工具上傳 <code>.pot</code> 檔案到 Crowdin。</div>
+        <div>Upload <code>.pot</code> files to Crowdin by its CLI tool.</div>
       </td>
     </tr>
     <tr>
@@ -181,15 +181,15 @@
         <div><a href="https://github.com/localizethedocs/cmake-docs-l10n/actions/workflows/ci-crowdin-download-po.yml"><img alt="ci-crowdin-download-po" src="https://github.com/localizethedocs/cmake-docs-l10n/actions/workflows/ci-crowdin-download-po.yml/badge.svg" /></a></div>
       </td>
       <td rowspan="1" colspan="1" align="left" style="text-align: left;">
-        <div>透過 Crowdin 的 CLI 工具從 Crowdin 下載 <code>.po</code> 檔案。</div>
+        <div>Download <code>.po</code> files from Crowdin by its CLI tool.</div>
       </td>
     </tr>
     <tr>
       <td rowspan="1" colspan="1" align="right" style="text-align: right;">
-        <div><a href="https://github.com/localizethedocs/cmake-docs-l10n/actions/workflows/ci-crowdin-update-docs.yml"><img alt="ci-crowdin-update-docs" src="https://github.com/localizethedocs/cmake-docs-l10n/actions/workflows/ci-crowdin-update-docs.yml/badge.svg" /></a></div>
+        <div><a href="https://github.com/localizethedocs/cmake-docs-l10n/actions/workflows/ci-crowdin-update-readme.yml"><img alt="ci-crowdin-update-readme" src="https://github.com/localizethedocs/cmake-docs-l10n/actions/workflows/ci-crowdin-update-readme.yml/badge.svg" /></a></div>
       </td>
       <td rowspan="1" colspan="1" align="left" style="text-align: left;">
-        <div>透過 Crowdin CLI 工具更新 <code>docs</code> 翻譯。</div>
+        <div>Update README translations by Crowdin CLI tool.</div>
       </td>
     </tr>
     <tr>
@@ -197,7 +197,7 @@
         <div><a href="https://github.com/localizethedocs/cmake-docs-l10n/actions/workflows/ci-deploy-pages.yml"><img alt="ci-deploy-pages" src="https://github.com/localizethedocs/cmake-docs-l10n/actions/workflows/ci-deploy-pages.yml/badge.svg" /></a></div>
       </td>
       <td rowspan="1" colspan="1" align="left" style="text-align: left;">
-        <div>下載並將建置製品部暑至 <code>pages</code> 分支。</div>
+        <div>Download and deploy build artifacts to <code>pages</code> branch.</div>
       </td>
     </tr>
     <tr>
@@ -205,7 +205,7 @@
         <div><a href="https://github.com/localizethedocs/cmake-docs-l10n/actions/workflows/ci-deploy-po-version.yml"><img alt="ci-deploy-po-version" src="https://github.com/localizethedocs/cmake-docs-l10n/actions/workflows/ci-deploy-po-version.yml/badge.svg" /></a></div>
       </td>
       <td rowspan="1" colspan="1" align="left" style="text-align: left;">
-        <div>將 <code>.po</code> 檔案部暑到 <code>po/${VERSION}</code> 分支。</div>
+        <div>Deploy <code>.po</code> files to <code>po/${VERSION}</code> branch.</div>
       </td>
     </tr>
     <tr>
@@ -213,7 +213,7 @@
         <div><a href="https://github.com/localizethedocs/cmake-docs-l10n/actions/workflows/ci-update-license-year.yml"><img alt="ci-update-license-year" src="https://github.com/localizethedocs/cmake-docs-l10n/actions/workflows/ci-update-license-year.yml/badge.svg" /></a></div>
       </td>
       <td rowspan="1" colspan="1" align="left" style="text-align: left;">
-        <div>將 LICENSE 中的著作權年份更新為當前年份。</div>
+        <div>Update the copyright year in LICENSE to the current year.</div>
       </td>
     </tr>
     <tr>
@@ -221,30 +221,30 @@
         <div><a href="https://github.com/localizethedocs/cmake-docs-l10n/actions/workflows/ci-update-submodule.yml"><img alt="ci-update-submodule" src="https://github.com/localizethedocs/cmake-docs-l10n/actions/workflows/ci-update-submodule.yml/badge.svg" /></a></div>
       </td>
       <td rowspan="1" colspan="1" align="left" style="text-align: left;">
-        <div>將每個子模組更新到其最新送交。</div>
+        <div>Update each of the submodules to their latest commit.</div>
       </td>
     </tr>
   </tbody>
 </table>
 </div>
 
-<h2 id="progress-of-translations"><a href="#table-of-contents">翻譯進度</a></h2>
+<h2 id="progress-of-translations"><a href="#table-of-contents">Progress of Translations</a></h2>
 
 <div align="center">
 <table>
   <thead>
     <tr>
-      <th rowspan="1" colspan="1" align="center" style="text-align: center;"><div>語區</div></th>
+      <th rowspan="1" colspan="1" align="center" style="text-align: center;"><div>Locale</div></th>
       <th rowspan="1" colspan="1" align="center" style="text-align: center;">
         <div>
-          <div>英文名稱</div>
-          <div>在地名稱</div>
+          <div>English Name</div>
+          <div>Native Name</div>
         </div>
       </th>
       <th rowspan="1" colspan="1" align="center" style="text-align: center;">
         <div>
-          <div>已翻譯</div>
-          <div>已校對</div>
+          <div>Translated</div>
+          <div>Proofread</div>
         </div>
       </th>
     </tr>
@@ -305,16 +305,16 @@
 <div align="center"><a href="https://localizethedocs.crowdin.com/cmake-docs-l10n"><img src="https://badges.awesome-crowdin.com/translation-200032568-1.png"></a>
 </div>
 
-<h2 id="preview-translations"><a href="#table-of-contents">預覽翻譯</a></h2>
+<h2 id="preview-translations"><a href="#table-of-contents">Preview Translations</a></h2>
 
-您可以在 <a href="https://projects.localizethedocs.org/cmake-docs-l10n">GitHub 網頁</a>中預覽翻譯內容：
+You can preview translations in <a href="https://projects.localizethedocs.org/cmake-docs-l10n">GitHub Pages</a>:
 
 <div align="center">
 <table>
   <thead>
     <tr>
-      <th rowspan="1" colspan="1" align="center" style="text-align: center;"><div>語言</div></th>
-      <th rowspan="1" colspan="1" align="center" style="text-align: center;"><div>GitHub 網頁</div></th>
+      <th rowspan="1" colspan="1" align="center" style="text-align: center;"><div>Language</div></th>
+      <th rowspan="1" colspan="1" align="center" style="text-align: center;"><div>GitHub Pages</div></th>
     </tr>
   </thead>
   <tbody>
@@ -363,44 +363,44 @@ cmake --preset ${LANGUAGE} -DVERSION=${VERSION}
 cmake --build out/build/${LANGUAGE}
 ```
 
-您可以透過飛出式導航選單切換到其他可用的語言和版本。
+You can switch to other available languages and versions by the flyout navigation menu.
 
-<h2 id="maintainers"><a href="#table-of-contents">維護者</a></h2>
+<h2 id="maintainers"><a href="#table-of-contents">Maintainers</a></h2>
 
-這個專案目前由以下人員維護：
+This project is currently maintained by:
 
 <div align="center">
 <table>
   <thead>
     <tr>
-      <th rowspan="1" colspan="1" align="center" style="text-align: center;"><div>姓名</div></th>
-      <th rowspan="1" colspan="1" align="center" style="text-align: center;"><div>GitHub 使用者名稱</div></th>
+      <th rowspan="1" colspan="1" align="center" style="text-align: center;"><div>Name</div></th>
+      <th rowspan="1" colspan="1" align="center" style="text-align: center;"><div>GitHub Username</div></th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td rowspan="1" colspan="1" align="center" style="text-align: center;"><div>徐浩瑋</div></td>
+      <td rowspan="1" colspan="1" align="center" style="text-align: center;"><div>Haowei Hsu</div></td>
       <td rowspan="1" colspan="1" align="center" style="text-align: center;"><div>@hwhsu1231</div></td>
     </tr>
   </tbody>
 </table>
 </div>
 
-<h2 id="support-this-project"><a href="#table-of-contents">支援該專案</a></h2>
+<h2 id="support-this-project"><a href="#table-of-contents">Support this Project</a></h2>
 
-您可以透過以下任意方式來貢獻並支援該專案：
+You can contribute and support this project by doing any of the following:
 
 <ul>
-  <li>在 GitHub 或其他鏡像上為該專案加星標。</li>
-  <li>若您發現任何臭蟲，請在 <a href="https://github.com/localizethedocs/cmake-docs-l10n/issues">GitHub</a> 上提交議題。</li>
-  <li>若您知道如何修復該臭蟲，請在 <a href="https://github.com/localizethedocs/cmake-docs-l10n/pulls">GitHub</a> 上提交拉取請求。</li>
-  <li>在 <a href="https://localizethedocs.crowdin.com/cmake-docs-l10n">Crowdin</a> 上貢獻您的翻譯。</li>
-  <li>若您喜歡這種 l10n 專案，請考慮<a href="#sponsorship">贊助</a>。</li>
+  <li>Star the project on GitHub or other mirrors.</li>
+  <li>Submit issues on <a href="https://github.com/localizethedocs/cmake-docs-l10n/issues">GitHub</a> if you found any bug.</li>
+  <li>Submit pull requests on <a href="https://github.com/localizethedocs/cmake-docs-l10n/pulls">GitHub</a> if you know how to fix the bug.</li>
+  <li>Contribute your translations on <a href="https://localizethedocs.crowdin.com/cmake-docs-l10n">Crowdin</a>.</li>
+  <li>If you love this kind of l10n projects, please consider <a href="#sponsorship">sponsorship</a>.</li>
 </ul>
 
-這將有助於開源文件在地化專案的建立與持續維護。
+It will facilitate the creation and ongoing maintenance of l10n projects for open-source documentation.
 
-<h2 id="sponsorship"><a href="#table-of-contents">贊助</a></h2>
+<h2 id="sponsorship"><a href="#table-of-contents">Sponsorship</a></h2>
 
 You can sponsor the projects through the following platforms:
 
@@ -410,7 +410,7 @@ You can sponsor the projects through the following platforms:
     <!-- Row 1 -->
     <tr>
       <th rowspan="1" colspan="1" align="center" style="text-align: center; width: 50%;"><div>Patreon</div></th>
-      <th rowspan="1" colspan="1" align="center" style="text-align: center; width: 50%;"><div>愛發電</div></th>
+      <th rowspan="1" colspan="1" align="center" style="text-align: center; width: 50%;"><div>Afdian</div></th>
     </tr>
     <!-- Row 2 -->
     <tr>
@@ -440,7 +440,7 @@ Alternatively, you can sponsor the maintainers directly through the following pl
     <!-- Row 1 -->
     <tr>
       <th rowspan="1" colspan="1" align="center" style="text-align: center; width: 50%;"><div>Patreon</div></th>
-      <th rowspan="1" colspan="1" align="center" style="text-align: center; width: 50%;"><div>愛發電</div></th>
+      <th rowspan="1" colspan="1" align="center" style="text-align: center; width: 50%;"><div>Afdian</div></th>
     </tr>
     <!-- Row 2 -->
     <tr>
@@ -459,13 +459,13 @@ Alternatively, you can sponsor the maintainers directly through the following pl
 </table>
 </div>
 
-<h2 id="code-contributors"><a href="#table-of-contents">程式碼貢獻者</a></h2>
+<h2 id="code-contributors"><a href="#table-of-contents">Code Contributors</a></h2>
 
 <div align="center">
 <img width="100%" alt="GitHub Contributors SVG" src="https://contrib.nn.ci/api?repo=localizethedocs/cmake-docs-l10n&no_bot=true" />
 </div>
 
-<h2 id="financial-contributors"><a href="#table-of-contents">財務貢獻者</a></h2>
+<h2 id="financial-contributors"><a href="#table-of-contents">Financial Contributors</a></h2>
 
 <div align="center">
 <h3 id="localize-the-docs">Localize The Docs</h3>
@@ -476,20 +476,20 @@ Alternatively, you can sponsor the maintainers directly through the following pl
 </div>
 
 <div align="center">
-<h3 id="haowei-hsu">徐浩瑋</h3>
+<h3 id="haowei-hsu">Haowei Hsu</h3>
 </div>
 
 <div align="center">
 <img width="100%" alt="Haowei Hsu" src="https://cdn.jsdelivr.net/gh/hwhsu1231/sponsors/static/sponsors.svg" />
 </div>
 
-<h2 id="licenses"><a href="#table-of-contents">授權條款</a></h2>
+<h2 id="licenses"><a href="#table-of-contents">Licenses</a></h2>
 
 All original and translated text in the <code>.pot</code> and<code>.po</code> files stored in the <code>l10n</code> branch is made available under the same license as <a href="https://gitlab.kitware.com/cmake/cmake">the upstream project</a>.
 
-該專案的所有 CMake 腳本檔（例如：<code>CMakeLists.txt</code>、<code>CMakePresets.json</code> 和 <code>cmake/\*\*/\*</code> 檔案）、GitHub 工作流檔（例如： <code>.github/workflows/\*.yml</code> 檔案）以及組態檔（例如：<code>versions.json</code>、<code>languages.json</code>、<code>crowdin.yml</code> 等等）均採用 <a href="https://opensource.org/license/bsd-3-clause/">3 條款 BSD</a> 授權條款。 請參見 <a href="./LICENSE-BSD">LICENSE-BSD</a> 以獲取詳細資訊。
+All CMake script files (e.g., <code>CMakeLists.txt</code>, <code>CMakePresets.json</code>, and <code>cmake/\*\*/\*</code> files), GitHub workflow files (e.g., <code>.github/workflows/\*.yml</code> files), and configuration files (e.g., <code>versions.json</code>, <code>languages.json</code>, <code>crowdin.yml</code>, and so on) of this project are licensed under <a href="https://opensource.org/license/bsd-3-clause/">3-Clause BSD</a> license. See <a href="./LICENSE-BSD">LICENSE-BSD</a> for details.
 
-該專案的所有文件（例如：<code>README.md</code>）均授權於<a href="https://creativecommons.org/licenses/by-sa/4.0/">創用 CC 姓名標示-相同方式分享 4.0 國際</a>授權條款。 請參見 <a href="./LICENSE-CC">LICENSE-CC</a> 以獲取詳細資訊。
+All document files (e.g., <code>README.md</code>) of this project are licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International</a> license. See <a href="./LICENSE-CC">LICENSE-CC</a> for details.
 
 <a href="http://creativecommons.org/licenses/by-sa/4.0/" title="CC BY SA 4.0" target="_blank">
   <img alt="CC BY SA 4.0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png"/>
