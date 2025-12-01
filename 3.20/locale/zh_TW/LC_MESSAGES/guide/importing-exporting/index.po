@@ -240,6 +240,13 @@ msgid ""
 "add_executable(myexe src1.c src2.c)\n"
 "target_link_libraries(myexe PRIVATE bar)"
 msgstr ""
+"add_library(bar SHARED IMPORTED)\n"
+"set_property(TARGET bar PROPERTY\n"
+"             IMPORTED_LOCATION \"c:/path/to/bar.dll\")\n"
+"set_property(TARGET bar PROPERTY\n"
+"             IMPORTED_IMPLIB \"c:/path/to/bar.lib\")\n"
+"add_executable(myexe src1.c src2.c)\n"
+"target_link_libraries(myexe PRIVATE bar)"
 
 #: ../../../guide/importing-exporting/index.rst:148
 msgid ""
@@ -979,6 +986,12 @@ msgid ""
 "  \"$<INSTALL_INTERFACE:${Foo_INCLUDE_DIRS};${Bar_INCLUDE_DIRS}>\"\n"
 "  )"
 msgstr ""
+"target_link_libraries(MathFunctions INTERFACE\n"
+"  ${Foo_LIBRARIES} ${Bar_LIBRARIES}\n"
+"  )\n"
+"target_include_directories(MathFunctions INTERFACE\n"
+"  \"$<INSTALL_INTERFACE:${Foo_INCLUDE_DIRS};${Bar_INCLUDE_DIRS}>\"\n"
+"  )"
 
 #: ../../../guide/importing-exporting/index.rst:589
 msgid ""
@@ -1102,7 +1115,7 @@ msgstr ""
 #: ../../../guide/importing-exporting/index.rst:648
 #: ../../../guide/importing-exporting/index.rst:742
 msgid "target_link_libraries(myexe PRIVATE MathFunctions::MathFunctions)\n"
-msgstr ""
+msgstr "target_link_libraries(myexe PRIVATE MathFunctions::MathFunctions)\n"
 
 #: ../../../guide/importing-exporting/index.rst:652
 msgid "That's it! Now let's try to build the ``Downstream`` project."
@@ -1342,7 +1355,7 @@ msgstr ""
 
 #: ../../../guide/importing-exporting/index.rst:760
 msgid "Finally, use the ``Addition`` library:"
-msgstr ""
+msgstr "最後，使用 ``Addition`` 程式庫："
 
 #: ../../../guide/importing-exporting/index.rst:762
 msgid ""
