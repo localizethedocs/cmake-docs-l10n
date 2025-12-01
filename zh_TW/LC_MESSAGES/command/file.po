@@ -1,0 +1,1961 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2000-2023 Kitware, Inc. and Contributors
+# This file is distributed under the same license as the CMake package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CMake 3.26\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-07-08 02:47+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../command/file.rst:2
+msgid "file"
+msgstr "file"
+
+#: ../../../command/file.rst:4
+msgid "File manipulation command."
+msgstr "檔案操縱命令。"
+
+#: ../../../command/file.rst:6
+msgid ""
+"This command is dedicated to file and path manipulation requiring access to "
+"the filesystem."
+msgstr ""
+
+#: ../../../command/file.rst:9
+msgid ""
+"For other path manipulation, handling only syntactic aspects, have a look "
+"at :command:`cmake_path` command."
+msgstr ""
+
+#: ../../../command/file.rst:14
+msgid ""
+"The sub-commands `RELATIVE_PATH`_, `TO_CMAKE_PATH`_ and `TO_NATIVE_PATH`_ "
+"has been superseded, respectively, by sub-commands :ref:`RELATIVE_PATH "
+"<cmake_path-RELATIVE_PATH>`, :ref:`CONVERT ... TO_CMAKE_PATH_LIST "
+"<cmake_path-TO_CMAKE_PATH_LIST>` and :ref:`CONVERT ... TO_NATIVE_PATH_LIST "
+"<cmake_path-TO_NATIVE_PATH_LIST>` of :command:`cmake_path` command."
+msgstr ""
+
+#: ../../../command/file.rst:22
+msgid "Synopsis"
+msgstr "概要"
+
+#: ../../../command/file.rst:26
+msgid ""
+"`Reading`_\n"
+"  file(`READ`_ <filename> <out-var> [...])\n"
+"  file(`STRINGS`_ <filename> <out-var> [...])\n"
+"  file(`\\<HASH\\> <HASH_>`_ <filename> <out-var>)\n"
+"  file(`TIMESTAMP`_ <filename> <out-var> [...])\n"
+"  file(`GET_RUNTIME_DEPENDENCIES`_ [...])\n"
+"\n"
+"`Writing`_\n"
+"  file({`WRITE`_ | `APPEND`_} <filename> <content>...)\n"
+"  file({`TOUCH`_ | `TOUCH_NOCREATE`_} [<file>...])\n"
+"  file(`GENERATE`_ OUTPUT <output-file> [...])\n"
+"  file(`CONFIGURE`_ OUTPUT <output-file> CONTENT <content> [...])\n"
+"\n"
+"`Filesystem`_\n"
+"  file({`GLOB`_ | `GLOB_RECURSE`_} <out-var> [...] [<globbing-expr>...])\n"
+"  file(`MAKE_DIRECTORY`_ [<dir>...])\n"
+"  file({`REMOVE`_ | `REMOVE_RECURSE`_ } [<files>...])\n"
+"  file(`RENAME`_ <oldname> <newname> [...])\n"
+"  file(`COPY_FILE`_ <oldname> <newname> [...])\n"
+"  file({`COPY`_ | `INSTALL`_} <file>... DESTINATION <dir> [...])\n"
+"  file(`SIZE`_ <filename> <out-var>)\n"
+"  file(`READ_SYMLINK`_ <linkname> <out-var>)\n"
+"  file(`CREATE_LINK`_ <original> <linkname> [...])\n"
+"  file(`CHMOD`_ <files>... <directories>... PERMISSIONS <permissions>... "
+"[...])\n"
+"  file(`CHMOD_RECURSE`_ <files>... <directories>... PERMISSIONS "
+"<permissions>... [...])\n"
+"\n"
+"`Path Conversion`_\n"
+"  file(`REAL_PATH`_ <path> <out-var> [BASE_DIRECTORY <dir>] [EXPAND_TILDE])\n"
+"  file(`RELATIVE_PATH`_ <out-var> <directory> <file>)\n"
+"  file({`TO_CMAKE_PATH`_ | `TO_NATIVE_PATH`_} <path> <out-var>)\n"
+"\n"
+"`Transfer`_\n"
+"  file(`DOWNLOAD`_ <url> [<file>] [...])\n"
+"  file(`UPLOAD`_ <file> <url> [...])\n"
+"\n"
+"`Locking`_\n"
+"  file(`LOCK`_ <path> [...])\n"
+"\n"
+"`Archiving`_\n"
+"  file(`ARCHIVE_CREATE`_ OUTPUT <archive> PATHS <paths>... [...])\n"
+"  file(`ARCHIVE_EXTRACT`_ INPUT <archive> [...])"
+msgstr ""
+
+#: ../../../command/file.rst:69
+msgid "Reading"
+msgstr "讀取"
+
+#: ../../../command/file.rst:73
+msgid ""
+"file(READ <filename> <variable>\n"
+"     [OFFSET <offset>] [LIMIT <max-in>] [HEX])"
+msgstr ""
+
+#: ../../../command/file.rst:78
+msgid ""
+"Read content from a file called ``<filename>`` and store it in a "
+"``<variable>``.  Optionally start from the given ``<offset>`` and read at "
+"most ``<max-in>`` bytes.  The ``HEX`` option causes data to be converted to "
+"a hexadecimal representation (useful for binary data). If the ``HEX`` option "
+"is specified, letters in the output (``a`` through ``f``) are in lowercase."
+msgstr ""
+
+#: ../../../command/file.rst:87
+msgid "file(STRINGS <filename> <variable> [<options>...])"
+msgstr ""
+
+#: ../../../command/file.rst:91
+msgid ""
+"Parse a list of ASCII strings from ``<filename>`` and store it in "
+"``<variable>``.  Binary data in the file are ignored.  Carriage return "
+"(``\\r``, CR) characters are ignored.  The options are:"
+msgstr ""
+
+#: ../../../command/file.rst:95
+msgid "``LENGTH_MAXIMUM <max-len>``"
+msgstr ""
+
+#: ../../../command/file.rst:96
+msgid "Consider only strings of at most a given length."
+msgstr ""
+
+#: ../../../command/file.rst:98
+msgid "``LENGTH_MINIMUM <min-len>``"
+msgstr ""
+
+#: ../../../command/file.rst:99
+msgid "Consider only strings of at least a given length."
+msgstr ""
+
+#: ../../../command/file.rst:101
+msgid "``LIMIT_COUNT <max-num>``"
+msgstr ""
+
+#: ../../../command/file.rst:102
+msgid "Limit the number of distinct strings to be extracted."
+msgstr ""
+
+#: ../../../command/file.rst:104
+msgid "``LIMIT_INPUT <max-in>``"
+msgstr ""
+
+#: ../../../command/file.rst:105
+msgid "Limit the number of input bytes to read from the file."
+msgstr ""
+
+#: ../../../command/file.rst:107
+msgid "``LIMIT_OUTPUT <max-out>``"
+msgstr ""
+
+#: ../../../command/file.rst:108
+msgid "Limit the number of total bytes to store in the ``<variable>``."
+msgstr ""
+
+#: ../../../command/file.rst:110
+msgid "``NEWLINE_CONSUME``"
+msgstr ""
+
+#: ../../../command/file.rst:111
+msgid ""
+"Treat newline characters (``\\n``, LF) as part of string content instead of "
+"terminating at them."
+msgstr ""
+
+#: ../../../command/file.rst:114
+msgid "``NO_HEX_CONVERSION``"
+msgstr ""
+
+#: ../../../command/file.rst:115
+msgid ""
+"Intel Hex and Motorola S-record files are automatically converted to binary "
+"while reading unless this option is given."
+msgstr ""
+
+#: ../../../command/file.rst:118
+msgid "``REGEX <regex>``"
+msgstr ""
+
+#: ../../../command/file.rst:119
+msgid ""
+"Consider only strings that match the given regular expression, as described "
+"under :ref:`string(REGEX) <Regex Specification>`."
+msgstr ""
+
+#: ../../../command/file.rst:122
+msgid "``ENCODING <encoding-type>``"
+msgstr ""
+
+#: ../../../command/file.rst:125
+msgid ""
+"Consider strings of a given encoding.  Currently supported encodings are: "
+"``UTF-8``, ``UTF-16LE``, ``UTF-16BE``, ``UTF-32LE``, ``UTF-32BE``. If the "
+"``ENCODING`` option is not provided and the file has a Byte Order Mark, the "
+"``ENCODING`` option will be defaulted to respect the Byte Order Mark."
+msgstr ""
+
+#: ../../../command/file.rst:130
+msgid ""
+"Added the ``UTF-16LE``, ``UTF-16BE``, ``UTF-32LE``, ``UTF-32BE`` encodings."
+msgstr ""
+
+#: ../../../command/file.rst:133
+msgid "For example, the code"
+msgstr ""
+
+#: ../../../command/file.rst:135
+msgid "file(STRINGS myfile.txt myfile)"
+msgstr ""
+
+#: ../../../command/file.rst:139
+msgid ""
+"stores a list in the variable ``myfile`` in which each item is a line from "
+"the input file."
+msgstr ""
+
+#: ../../../command/file.rst:144
+msgid "file(<HASH> <filename> <variable>)"
+msgstr ""
+
+#: ../../../command/file.rst:148
+msgid ""
+"Compute a cryptographic hash of the content of ``<filename>`` and store it "
+"in a ``<variable>``.  The supported ``<HASH>`` algorithm names are those "
+"listed by the :ref:`string(\\<HASH\\>) <Supported Hash Algorithms>` command."
+msgstr ""
+
+#: ../../../command/file.rst:155
+msgid "file(TIMESTAMP <filename> <variable> [<format>] [UTC])"
+msgstr ""
+
+#: ../../../command/file.rst:159
+msgid ""
+"Compute a string representation of the modification time of ``<filename>`` "
+"and store it in ``<variable>``.  Should the command be unable to obtain a "
+"timestamp variable will be set to the empty string (\"\")."
+msgstr ""
+
+#: ../../../command/file.rst:163
+msgid ""
+"See the :command:`string(TIMESTAMP)` command for documentation of the "
+"``<format>`` and ``UTC`` options."
+msgstr ""
+
+#: ../../../command/file.rst:168
+msgid ""
+"file(GET_RUNTIME_DEPENDENCIES\n"
+"  [RESOLVED_DEPENDENCIES_VAR <deps_var>]\n"
+"  [UNRESOLVED_DEPENDENCIES_VAR <unresolved_deps_var>]\n"
+"  [CONFLICTING_DEPENDENCIES_PREFIX <conflicting_deps_prefix>]\n"
+"  [EXECUTABLES [<executable_files>...]]\n"
+"  [LIBRARIES [<library_files>...]]\n"
+"  [MODULES [<module_files>...]]\n"
+"  [DIRECTORIES [<directories>...]]\n"
+"  [BUNDLE_EXECUTABLE <bundle_executable_file>]\n"
+"  [PRE_INCLUDE_REGEXES [<regexes>...]]\n"
+"  [PRE_EXCLUDE_REGEXES [<regexes>...]]\n"
+"  [POST_INCLUDE_REGEXES [<regexes>...]]\n"
+"  [POST_EXCLUDE_REGEXES [<regexes>...]]\n"
+"  [POST_INCLUDE_FILES [<files>...]]\n"
+"  [POST_EXCLUDE_FILES [<files>...]]\n"
+"  )"
+msgstr ""
+
+#: ../../../command/file.rst:189
+msgid "Recursively get the list of libraries depended on by the given files."
+msgstr ""
+
+#: ../../../command/file.rst:191
+msgid ""
+"Please note that this sub-command is not intended to be used in project "
+"mode. It is intended for use at install time, either from code generated by "
+"the :command:`install(RUNTIME_DEPENDENCY_SET)` command, or from code "
+"provided by the project via :command:`install(CODE)` or :command:"
+"`install(SCRIPT)`. For example:"
+msgstr ""
+
+#: ../../../command/file.rst:197
+msgid ""
+"install(CODE [[\n"
+"  file(GET_RUNTIME_DEPENDENCIES\n"
+"    # ...\n"
+"    )\n"
+"  ]])"
+msgstr ""
+"install(CODE [[\n"
+"  file(GET_RUNTIME_DEPENDENCIES\n"
+"    # ...\n"
+"    )\n"
+"  ]])"
+
+#: ../../../command/file.rst:205
+msgid "The arguments are as follows:"
+msgstr ""
+
+#: ../../../command/file.rst:207
+msgid "``RESOLVED_DEPENDENCIES_VAR <deps_var>``"
+msgstr ""
+
+#: ../../../command/file.rst:208
+msgid ""
+"Name of the variable in which to store the list of resolved dependencies."
+msgstr ""
+
+#: ../../../command/file.rst:210
+msgid "``UNRESOLVED_DEPENDENCIES_VAR <unresolved_deps_var>``"
+msgstr ""
+
+#: ../../../command/file.rst:211
+msgid ""
+"Name of the variable in which to store the list of unresolved dependencies. "
+"If this variable is not specified, and there are any unresolved "
+"dependencies, an error is issued."
+msgstr ""
+
+#: ../../../command/file.rst:215
+msgid "``CONFLICTING_DEPENDENCIES_PREFIX <conflicting_deps_prefix>``"
+msgstr ""
+
+#: ../../../command/file.rst:216
+msgid ""
+"Variable prefix in which to store conflicting dependency information. "
+"Dependencies are conflicting if two files with the same name are found in "
+"two different directories. The list of filenames that conflict are stored in "
+"``<conflicting_deps_prefix>_FILENAMES``. For each filename, the list of "
+"paths that were found for that filename are stored in "
+"``<conflicting_deps_prefix>_<filename>``."
+msgstr ""
+
+#: ../../../command/file.rst:223
+msgid "``EXECUTABLES <executable_files>``"
+msgstr ""
+
+#: ../../../command/file.rst:224
+msgid ""
+"List of executable files to read for dependencies. These are executables "
+"that are typically created with :command:`add_executable`, but they do not "
+"have to be created by CMake. On Apple platforms, the paths to these files "
+"determine the value of ``@executable_path`` when recursively resolving the "
+"libraries. Specifying any kind of library (``STATIC``, ``MODULE``, or "
+"``SHARED``) here will result in undefined behavior."
+msgstr ""
+
+#: ../../../command/file.rst:231
+msgid "``LIBRARIES <library_files>``"
+msgstr ""
+
+#: ../../../command/file.rst:232
+msgid ""
+"List of library files to read for dependencies. These are libraries that are "
+"typically created with :command:`add_library(SHARED)`, but they do not have "
+"to be created by CMake. Specifying ``STATIC`` libraries, ``MODULE`` "
+"libraries, or executables here will result in undefined behavior."
+msgstr ""
+
+#: ../../../command/file.rst:237
+msgid "``MODULES <module_files>``"
+msgstr ""
+
+#: ../../../command/file.rst:238
+msgid ""
+"List of loadable module files to read for dependencies. These are modules "
+"that are typically created with :command:`add_library(MODULE)`, but they do "
+"not have to be created by CMake. They are typically used by calling "
+"``dlopen()`` at runtime rather than linked at link time with ``ld -l``. "
+"Specifying ``STATIC`` libraries, ``SHARED`` libraries, or executables here "
+"will result in undefined behavior."
+msgstr ""
+
+#: ../../../command/file.rst:245
+msgid "``DIRECTORIES <directories>``"
+msgstr ""
+
+#: ../../../command/file.rst:246
+msgid ""
+"List of additional directories to search for dependencies. On Linux "
+"platforms, these directories are searched if the dependency is not found in "
+"any of the other usual paths. If it is found in such a directory, a warning "
+"is issued, because it means that the file is incomplete (it does not list "
+"all of the directories that contain its dependencies). On Windows platforms, "
+"these directories are searched if the dependency is not found in any of the "
+"other search paths, but no warning is issued, because searching other paths "
+"is a normal part of Windows dependency resolution. On Apple platforms, this "
+"argument has no effect."
+msgstr ""
+
+#: ../../../command/file.rst:256
+msgid "``BUNDLE_EXECUTABLE <bundle_executable_file>``"
+msgstr ""
+
+#: ../../../command/file.rst:257
+msgid ""
+"Executable to treat as the \"bundle executable\" when resolving libraries. "
+"On Apple platforms, this argument determines the value of "
+"``@executable_path`` when recursively resolving libraries for ``LIBRARIES`` "
+"and ``MODULES`` files. It has no effect on ``EXECUTABLES`` files. On other "
+"platforms, it has no effect. This is typically (but not always) one of the "
+"executables in the ``EXECUTABLES`` argument which designates the \"main\" "
+"executable of the package."
+msgstr ""
+
+#: ../../../command/file.rst:265
+msgid ""
+"The following arguments specify filters for including or excluding libraries "
+"to be resolved. See below for a full description of how they work."
+msgstr ""
+
+#: ../../../command/file.rst:268
+msgid "``PRE_INCLUDE_REGEXES <regexes>``"
+msgstr ""
+
+#: ../../../command/file.rst:269
+msgid ""
+"List of pre-include regexes through which to filter the names of not-yet-"
+"resolved dependencies."
+msgstr ""
+
+#: ../../../command/file.rst:272
+msgid "``PRE_EXCLUDE_REGEXES <regexes>``"
+msgstr ""
+
+#: ../../../command/file.rst:273
+msgid ""
+"List of pre-exclude regexes through which to filter the names of not-yet-"
+"resolved dependencies."
+msgstr ""
+
+#: ../../../command/file.rst:276
+msgid "``POST_INCLUDE_REGEXES <regexes>``"
+msgstr ""
+
+#: ../../../command/file.rst:277
+msgid ""
+"List of post-include regexes through which to filter the names of resolved "
+"dependencies."
+msgstr ""
+
+#: ../../../command/file.rst:280
+msgid "``POST_EXCLUDE_REGEXES <regexes>``"
+msgstr ""
+
+#: ../../../command/file.rst:281
+msgid ""
+"List of post-exclude regexes through which to filter the names of resolved "
+"dependencies."
+msgstr ""
+
+#: ../../../command/file.rst:284
+msgid "``POST_INCLUDE_FILES <files>``"
+msgstr ""
+
+#: ../../../command/file.rst:287
+msgid ""
+"List of post-include filenames through which to filter the names of resolved "
+"dependencies. Symlinks are resolved when attempting to match these filenames."
+msgstr ""
+
+#: ../../../command/file.rst:290
+msgid "``POST_EXCLUDE_FILES <files>``"
+msgstr ""
+
+#: ../../../command/file.rst:293
+msgid ""
+"List of post-exclude filenames through which to filter the names of resolved "
+"dependencies. Symlinks are resolved when attempting to match these filenames."
+msgstr ""
+
+#: ../../../command/file.rst:296
+msgid ""
+"These arguments can be used to exclude unwanted system libraries when "
+"resolving the dependencies, or to include libraries from a specific "
+"directory. The filtering works as follows:"
+msgstr ""
+
+#: ../../../command/file.rst:300
+msgid ""
+"If the not-yet-resolved dependency matches any of the "
+"``PRE_INCLUDE_REGEXES``, steps 2 and 3 are skipped, and the dependency "
+"resolution proceeds to step 4."
+msgstr ""
+
+#: ../../../command/file.rst:303
+msgid ""
+"If the not-yet-resolved dependency matches any of the "
+"``PRE_EXCLUDE_REGEXES``, dependency resolution stops for that dependency."
+msgstr ""
+
+#: ../../../command/file.rst:305
+msgid "Otherwise, dependency resolution proceeds."
+msgstr ""
+
+#: ../../../command/file.rst:306
+msgid ""
+"``file(GET_RUNTIME_DEPENDENCIES)`` searches for the dependency according to "
+"the linking rules of the platform (see below)."
+msgstr ""
+
+#: ../../../command/file.rst:308
+msgid ""
+"If the dependency is found, and its full path matches one of the "
+"``POST_INCLUDE_REGEXES`` or ``POST_INCLUDE_FILES``, the full path is added "
+"to the resolved dependencies, and ``file(GET_RUNTIME_DEPENDENCIES)`` "
+"recursively resolves that library's own dependencies. Otherwise, resolution "
+"proceeds to step 6."
+msgstr ""
+
+#: ../../../command/file.rst:313
+msgid ""
+"If the dependency is found, but its full path matches one of the "
+"``POST_EXCLUDE_REGEXES`` or ``POST_EXCLUDE_FILES``, it is not added to the "
+"resolved dependencies, and dependency resolution stops for that dependency."
+msgstr ""
+
+#: ../../../command/file.rst:316
+msgid ""
+"If the dependency is found, and its full path does not match either "
+"``POST_INCLUDE_REGEXES``, ``POST_INCLUDE_FILES``, ``POST_EXCLUDE_REGEXES``, "
+"or ``POST_EXCLUDE_FILES``, the full path is added to the resolved "
+"dependencies, and ``file(GET_RUNTIME_DEPENDENCIES)``  recursively resolves "
+"that library's own dependencies."
+msgstr ""
+
+#: ../../../command/file.rst:322
+msgid ""
+"Different platforms have different rules for how dependencies are resolved. "
+"These specifics are described here."
+msgstr ""
+
+#: ../../../command/file.rst:325
+msgid "On Linux platforms, library resolution works as follows:"
+msgstr ""
+
+#: ../../../command/file.rst:327
+msgid ""
+"If the depending file does not have any ``RUNPATH`` entries, and the library "
+"exists in one of the depending file's ``RPATH`` entries, or its parents', in "
+"that order, the dependency is resolved to that file."
+msgstr ""
+
+#: ../../../command/file.rst:330
+msgid ""
+"Otherwise, if the depending file has any ``RUNPATH`` entries, and the "
+"library exists in one of those entries, the dependency is resolved to that "
+"file."
+msgstr ""
+
+#: ../../../command/file.rst:333
+msgid ""
+"Otherwise, if the library exists in one of the directories listed by "
+"``ldconfig``, the dependency is resolved to that file."
+msgstr ""
+
+#: ../../../command/file.rst:335
+msgid ""
+"Otherwise, if the library exists in one of the ``DIRECTORIES`` entries, the "
+"dependency is resolved to that file. In this case, a warning is issued, "
+"because finding a file in one of the ``DIRECTORIES`` means that the "
+"depending file is not complete (it does not list all the directories from "
+"which it pulls dependencies)."
+msgstr ""
+
+#: ../../../command/file.rst:340 ../../../command/file.rst:388
+#: ../../../command/file.rst:410
+msgid "Otherwise, the dependency is unresolved."
+msgstr ""
+
+#: ../../../command/file.rst:342
+msgid "On Windows platforms, library resolution works as follows:"
+msgstr ""
+
+#: ../../../command/file.rst:344
+msgid ""
+"The dependent DLL name is converted to lowercase. Windows DLL names are case-"
+"insensitive, and some linkers mangle the case of the DLL dependency names. "
+"However, this makes it more difficult for ``PRE_INCLUDE_REGEXES``, "
+"``PRE_EXCLUDE_REGEXES``, ``POST_INCLUDE_REGEXES``, and "
+"``POST_EXCLUDE_REGEXES`` to properly filter DLL names - every regex would "
+"have to check for both uppercase and lowercase letters. For example:"
+msgstr ""
+
+#: ../../../command/file.rst:351
+msgid ""
+"file(GET_RUNTIME_DEPENDENCIES\n"
+"  # ...\n"
+"  PRE_INCLUDE_REGEXES \"^[Mm][Yy][Ll][Ii][Bb][Rr][Aa][Rr][Yy]\\\\.[Dd][Ll]"
+"[Ll]$\"\n"
+"  )"
+msgstr ""
+
+#: ../../../command/file.rst:358
+msgid ""
+"Converting the DLL name to lowercase allows the regexes to only match "
+"lowercase names, thus simplifying the regex. For example:"
+msgstr ""
+
+#: ../../../command/file.rst:361
+msgid ""
+"file(GET_RUNTIME_DEPENDENCIES\n"
+"  # ...\n"
+"  PRE_INCLUDE_REGEXES \"^mylibrary\\\\.dll$\"\n"
+"  )"
+msgstr ""
+
+#: ../../../command/file.rst:368
+msgid ""
+"This regex will match ``mylibrary.dll`` regardless of how it is cased, "
+"either on disk or in the depending file. (For example, it will match "
+"``mylibrary.dll``, ``MyLibrary.dll``, and ``MYLIBRARY.DLL``.)"
+msgstr ""
+
+#: ../../../command/file.rst:372
+msgid ""
+"Please note that the directory portion of any resolved DLLs retains its "
+"casing and is not converted to lowercase. Only the filename portion is "
+"converted."
+msgstr ""
+
+#: ../../../command/file.rst:376
+msgid ""
+"(**Not yet implemented**) If the depending file is a Windows Store app, and "
+"the dependency is listed as a dependency in the application's package "
+"manifest, the dependency is resolved to that file."
+msgstr ""
+
+#: ../../../command/file.rst:379
+msgid ""
+"Otherwise, if the library exists in the same directory as the depending "
+"file, the dependency is resolved to that file."
+msgstr ""
+
+#: ../../../command/file.rst:381
+msgid ""
+"Otherwise, if the library exists in either the operating system's "
+"``system32`` directory or the ``Windows`` directory, in that order, the "
+"dependency is resolved to that file."
+msgstr ""
+
+#: ../../../command/file.rst:384
+msgid ""
+"Otherwise, if the library exists in one of the directories specified by "
+"``DIRECTORIES``, in the order they are listed, the dependency is resolved to "
+"that file. In this case, a warning is not issued, because searching other "
+"directories is a normal part of Windows library resolution."
+msgstr ""
+
+#: ../../../command/file.rst:390
+msgid "On Apple platforms, library resolution works as follows:"
+msgstr ""
+
+#: ../../../command/file.rst:392
+msgid ""
+"If the dependency starts with ``@executable_path/``, and an ``EXECUTABLES`` "
+"argument is in the process of being resolved, and replacing "
+"``@executable_path/`` with the directory of the executable yields an "
+"existing file, the dependency is resolved to that file."
+msgstr ""
+
+#: ../../../command/file.rst:396
+msgid ""
+"Otherwise, if the dependency starts with ``@executable_path/``, and there is "
+"a ``BUNDLE_EXECUTABLE`` argument, and replacing ``@executable_path/`` with "
+"the directory of the bundle executable yields an existing file, the "
+"dependency is resolved to that file."
+msgstr ""
+
+#: ../../../command/file.rst:400
+msgid ""
+"Otherwise, if the dependency starts with ``@loader_path/``, and replacing "
+"``@loader_path/`` with the directory of the depending file yields an "
+"existing file, the dependency is resolved to that file."
+msgstr ""
+
+#: ../../../command/file.rst:403
+msgid ""
+"Otherwise, if the dependency starts with ``@rpath/``, and replacing ``@rpath/"
+"`` with one of the ``RPATH`` entries of the depending file yields an "
+"existing file, the dependency is resolved to that file. Note that ``RPATH`` "
+"entries that start with ``@executable_path/`` or ``@loader_path/`` also have "
+"these items replaced with the appropriate path."
+msgstr ""
+
+#: ../../../command/file.rst:408
+msgid ""
+"Otherwise, if the dependency is an absolute file that exists, the dependency "
+"is resolved to that file."
+msgstr ""
+
+#: ../../../command/file.rst:412
+msgid ""
+"This function accepts several variables that determine which tool is used "
+"for dependency resolution:"
+msgstr ""
+
+#: ../../../command/file.rst:417
+msgid ""
+"Determines which operating system and executable format the files are built "
+"for. This could be one of several values:"
+msgstr ""
+
+#: ../../../command/file.rst:420 ../../../command/file.rst:436
+msgid "``linux+elf``"
+msgstr ""
+
+#: ../../../command/file.rst:421 ../../../command/file.rst:437
+#: ../../../command/file.rst:438
+msgid "``windows+pe``"
+msgstr ""
+
+#: ../../../command/file.rst:422 ../../../command/file.rst:439
+msgid "``macos+macho``"
+msgstr ""
+
+#: ../../../command/file.rst:424 ../../../command/file.rst:442
+msgid ""
+"If this variable is not specified, it is determined automatically by system "
+"introspection."
+msgstr ""
+
+#: ../../../command/file.rst:429
+msgid ""
+"Determines the tool to use for dependency resolution. It could be one of "
+"several values, depending on the value of :variable:"
+"`CMAKE_GET_RUNTIME_DEPENDENCIES_PLATFORM`:"
+msgstr ""
+
+#: ../../../command/file.rst:434
+msgid "``CMAKE_GET_RUNTIME_DEPENDENCIES_PLATFORM``"
+msgstr ""
+
+#: ../../../command/file.rst:434
+msgid "``CMAKE_GET_RUNTIME_DEPENDENCIES_TOOL``"
+msgstr ""
+
+#: ../../../command/file.rst:436 ../../../command/file.rst:438
+msgid "``objdump``"
+msgstr ""
+
+#: ../../../command/file.rst:437
+msgid "``dumpbin``"
+msgstr ""
+
+#: ../../../command/file.rst:439
+msgid "``otool``"
+msgstr ""
+
+#: ../../../command/file.rst:447
+msgid ""
+"Determines the path to the tool to use for dependency resolution. This is "
+"the actual path to ``objdump``, ``dumpbin``, or ``otool``."
+msgstr ""
+
+#: ../../../command/file.rst:450
+msgid ""
+"If this variable is not specified, it is determined by the value of "
+"``CMAKE_OBJDUMP`` if set, else by system introspection."
+msgstr ""
+
+#: ../../../command/file.rst:453
+msgid "Use ``CMAKE_OBJDUMP`` if set."
+msgstr ""
+
+#: ../../../command/file.rst:457
+msgid "Writing"
+msgstr ""
+
+#: ../../../command/file.rst:462
+msgid ""
+"file(WRITE <filename> <content>...)\n"
+"file(APPEND <filename> <content>...)"
+msgstr ""
+
+#: ../../../command/file.rst:467
+msgid ""
+"Write ``<content>`` into a file called ``<filename>``.  If the file does not "
+"exist, it will be created.  If the file already exists, ``WRITE`` mode will "
+"overwrite it and ``APPEND`` mode will append to the end. Any directories in "
+"the path specified by ``<filename>`` that do not exist will be created."
+msgstr ""
+
+#: ../../../command/file.rst:473
+msgid ""
+"If the file is a build input, use the :command:`configure_file` command to "
+"update the file only when its content changes."
+msgstr ""
+
+#: ../../../command/file.rst:479
+msgid ""
+"file(TOUCH [<files>...])\n"
+"file(TOUCH_NOCREATE [<files>...])"
+msgstr ""
+
+#: ../../../command/file.rst:486
+msgid ""
+"Create a file with no content if it does not yet exist. If the file already "
+"exists, its access and/or modification will be updated to the time when the "
+"function call is executed."
+msgstr ""
+
+#: ../../../command/file.rst:490
+msgid ""
+"Use TOUCH_NOCREATE to touch a file if it exists but not create it. If a file "
+"does not exist it will be silently ignored."
+msgstr ""
+
+#: ../../../command/file.rst:493
+msgid ""
+"With TOUCH and TOUCH_NOCREATE the contents of an existing file will not be "
+"modified."
+msgstr ""
+
+#: ../../../command/file.rst:498
+msgid ""
+"file(GENERATE OUTPUT output-file\n"
+"     <INPUT input-file|CONTENT content>\n"
+"     [CONDITION expression] [TARGET target]\n"
+"     [NO_SOURCE_PERMISSIONS | USE_SOURCE_PERMISSIONS |\n"
+"      FILE_PERMISSIONS <permissions>...]\n"
+"     [NEWLINE_STYLE [UNIX|DOS|WIN32|LF|CRLF] ])"
+msgstr ""
+
+#: ../../../command/file.rst:507
+msgid ""
+"Generate an output file for each build configuration supported by the "
+"current :manual:`CMake Generator <cmake-generators(7)>`.  Evaluate :manual:"
+"`generator expressions <cmake-generator-expressions(7)>` from the input "
+"content to produce the output content.  The options are:"
+msgstr ""
+
+#: ../../../command/file.rst:512
+msgid "``CONDITION <condition>``"
+msgstr "``CONDITION <condition>``"
+
+#: ../../../command/file.rst:513
+msgid ""
+"Generate the output file for a particular configuration only if the "
+"condition is true.  The condition must be either ``0`` or ``1`` after "
+"evaluating generator expressions."
+msgstr ""
+
+#: ../../../command/file.rst:517 ../../../command/file.rst:609
+msgid "``CONTENT <content>``"
+msgstr ""
+
+#: ../../../command/file.rst:518
+msgid "Use the content given explicitly as input."
+msgstr ""
+
+#: ../../../command/file.rst:520
+msgid "``INPUT <input-file>``"
+msgstr ""
+
+#: ../../../command/file.rst:521
+msgid "Use the content from a given file as input."
+msgstr ""
+
+#: ../../../command/file.rst:523
+msgid ""
+"A relative path is treated with respect to the value of :variable:"
+"`CMAKE_CURRENT_SOURCE_DIR`.  See policy :policy:`CMP0070`."
+msgstr ""
+
+#: ../../../command/file.rst:527 ../../../command/file.rst:604
+msgid "``OUTPUT <output-file>``"
+msgstr ""
+
+#: ../../../command/file.rst:528
+msgid ""
+"Specify the output file name to generate.  Use generator expressions such "
+"as :genex:`$<CONFIG>` to specify a configuration-specific output file name.  "
+"Multiple configurations may generate the same output file only if the "
+"generated content is identical.  Otherwise, the ``<output-file>`` must "
+"evaluate to an unique name for each configuration."
+msgstr ""
+
+#: ../../../command/file.rst:534
+msgid ""
+"A relative path (after evaluating generator expressions) is treated with "
+"respect to the value of :variable:`CMAKE_CURRENT_BINARY_DIR`. See policy :"
+"policy:`CMP0070`."
+msgstr ""
+
+#: ../../../command/file.rst:539
+msgid "``TARGET <target>``"
+msgstr ""
+
+#: ../../../command/file.rst:542
+msgid ""
+"Specify which target to use when evaluating generator expressions that "
+"require a target for evaluation (e.g. :genex:`$<COMPILE_FEATURES:...>`, :"
+"genex:`$<TARGET_PROPERTY:prop>`)."
+msgstr ""
+
+#: ../../../command/file.rst:547
+msgid "``NO_SOURCE_PERMISSIONS``"
+msgstr "``NO_SOURCE_PERMISSIONS``"
+
+#: ../../../command/file.rst:550
+msgid ""
+"The generated file permissions default to the standard 644 value (-rw-r--"
+"r--)."
+msgstr ""
+
+#: ../../../command/file.rst:553
+msgid "``USE_SOURCE_PERMISSIONS``"
+msgstr ""
+
+#: ../../../command/file.rst:556
+msgid ""
+"Transfer the file permissions of the ``INPUT`` file to the generated file. "
+"This is already the default behavior if none of the three permissions-"
+"related keywords are given (``NO_SOURCE_PERMISSIONS``, "
+"``USE_SOURCE_PERMISSIONS`` or ``FILE_PERMISSIONS``).  The "
+"``USE_SOURCE_PERMISSIONS`` keyword mostly serves as a way of making the "
+"intended behavior clearer at the call site. It is an error to specify this "
+"option without ``INPUT``."
+msgstr ""
+
+#: ../../../command/file.rst:563
+msgid "``FILE_PERMISSIONS <permissions>...``"
+msgstr ""
+
+#: ../../../command/file.rst:566
+msgid "Use the specified permissions for the generated file."
+msgstr ""
+
+#: ../../../command/file.rst:568 ../../../command/file.rst:620
+msgid "``NEWLINE_STYLE <style>``"
+msgstr ""
+
+#: ../../../command/file.rst:571
+msgid ""
+"Specify the newline style for the generated file.  Specify ``UNIX`` or "
+"``LF`` for ``\\n`` newlines, or specify ``DOS``, ``WIN32``, or ``CRLF`` for "
+"``\\r\\n`` newlines."
+msgstr ""
+
+#: ../../../command/file.rst:575
+msgid ""
+"Exactly one ``CONTENT`` or ``INPUT`` option must be given.  A specific "
+"``OUTPUT`` file may be named by at most one invocation of "
+"``file(GENERATE)``. Generated files are modified and their timestamp updated "
+"on subsequent cmake runs only if their content is changed."
+msgstr ""
+
+#: ../../../command/file.rst:580
+msgid ""
+"Note also that ``file(GENERATE)`` does not create the output file until the "
+"generation phase. The output file will not yet have been written when the "
+"``file(GENERATE)`` command returns, it is written only after processing all "
+"of a project's ``CMakeLists.txt`` files."
+msgstr ""
+
+#: ../../../command/file.rst:587
+msgid ""
+"file(CONFIGURE OUTPUT output-file\n"
+"     CONTENT content\n"
+"     [ESCAPE_QUOTES] [@ONLY]\n"
+"     [NEWLINE_STYLE [UNIX|DOS|WIN32|LF|CRLF] ])"
+msgstr ""
+
+#: ../../../command/file.rst:596
+msgid ""
+"Generate an output file using the input given by ``CONTENT`` and substitute "
+"variable values referenced as ``@VAR@`` or ``${VAR}`` contained therein. The "
+"substitution rules behave the same as the :command:`configure_file` command. "
+"In order to match :command:`configure_file`'s behavior, generator "
+"expressions are not supported for both ``OUTPUT`` and ``CONTENT``."
+msgstr ""
+
+#: ../../../command/file.rst:602
+msgid "The arguments are:"
+msgstr ""
+
+#: ../../../command/file.rst:605
+msgid ""
+"Specify the output file name to generate. A relative path is treated with "
+"respect to the value of :variable:`CMAKE_CURRENT_BINARY_DIR`. ``<output-"
+"file>`` does not support generator expressions."
+msgstr ""
+
+#: ../../../command/file.rst:610
+msgid ""
+"Use the content given explicitly as input. ``<content>`` does not support "
+"generator expressions."
+msgstr ""
+
+#: ../../../command/file.rst:613
+msgid "``ESCAPE_QUOTES``"
+msgstr ""
+
+#: ../../../command/file.rst:614
+msgid "Escape any substituted quotes with backslashes (C-style)."
+msgstr ""
+
+#: ../../../command/file.rst:616
+msgid "``@ONLY``"
+msgstr ""
+
+#: ../../../command/file.rst:617
+msgid ""
+"Restrict variable replacement to references of the form ``@VAR@``. This is "
+"useful for configuring scripts that use ``${VAR}`` syntax."
+msgstr ""
+
+#: ../../../command/file.rst:621
+msgid ""
+"Specify the newline style for the output file.  Specify ``UNIX`` or ``LF`` "
+"for ``\\n`` newlines, or specify ``DOS``, ``WIN32``, or ``CRLF`` for "
+"``\\r\\n`` newlines."
+msgstr ""
+
+#: ../../../command/file.rst:626
+msgid "Filesystem"
+msgstr "檔案系統"
+
+#: ../../../command/file.rst:631
+msgid ""
+"file(GLOB <variable>\n"
+"     [LIST_DIRECTORIES true|false] [RELATIVE <path>] [CONFIGURE_DEPENDS]\n"
+"     [<globbing-expressions>...])\n"
+"file(GLOB_RECURSE <variable> [FOLLOW_SYMLINKS]\n"
+"     [LIST_DIRECTORIES true|false] [RELATIVE <path>] [CONFIGURE_DEPENDS]\n"
+"     [<globbing-expressions>...])"
+msgstr ""
+
+#: ../../../command/file.rst:640
+msgid ""
+"Generate a list of files that match the ``<globbing-expressions>`` and store "
+"it into the ``<variable>``.  Globbing expressions are similar to regular "
+"expressions, but much simpler.  If ``RELATIVE`` flag is specified, the "
+"results will be returned as relative paths to the given path."
+msgstr ""
+
+#: ../../../command/file.rst:646
+msgid "The results will be ordered lexicographically."
+msgstr ""
+
+#: ../../../command/file.rst:649
+msgid ""
+"On Windows and macOS, globbing is case-insensitive even if the underlying "
+"filesystem is case-sensitive (both filenames and globbing expressions are "
+"converted to lowercase before matching).  On other platforms, globbing is "
+"case-sensitive."
+msgstr ""
+
+#: ../../../command/file.rst:654
+msgid ""
+"By default ``GLOB`` lists directories - directories are omitted in result if "
+"``LIST_DIRECTORIES`` is set to false."
+msgstr ""
+
+#: ../../../command/file.rst:658
+msgid ""
+"If the ``CONFIGURE_DEPENDS`` flag is specified, CMake will add logic to the "
+"main build system check target to rerun the flagged ``GLOB`` commands at "
+"build time. If any of the outputs change, CMake will regenerate the build "
+"system."
+msgstr ""
+
+#: ../../../command/file.rst:665
+msgid ""
+"We do not recommend using GLOB to collect a list of source files from your "
+"source tree.  If no CMakeLists.txt file changes when a source is added or "
+"removed then the generated build system cannot know when to ask CMake to "
+"regenerate. The ``CONFIGURE_DEPENDS`` flag may not work reliably on all "
+"generators, or if a new generator is added in the future that cannot support "
+"it, projects using it will be stuck. Even if ``CONFIGURE_DEPENDS`` works "
+"reliably, there is still a cost to perform the check on every rebuild."
+msgstr ""
+
+#: ../../../command/file.rst:674
+msgid "Examples of globbing expressions include::"
+msgstr ""
+
+#: ../../../command/file.rst:676
+msgid ""
+"*.cxx      - match all files with extension cxx\n"
+"*.vt?      - match all files with extension vta,...,vtz\n"
+"f[3-5].txt - match files f3.txt, f4.txt, f5.txt"
+msgstr ""
+
+#: ../../../command/file.rst:680
+msgid ""
+"The ``GLOB_RECURSE`` mode will traverse all the subdirectories of the "
+"matched directory and match the files.  Subdirectories that are symlinks are "
+"only traversed if ``FOLLOW_SYMLINKS`` is given or policy :policy:`CMP0009` "
+"is not set to ``NEW``."
+msgstr ""
+
+#: ../../../command/file.rst:685
+msgid ""
+"By default ``GLOB_RECURSE`` omits directories from result list - setting "
+"``LIST_DIRECTORIES`` to true adds directories to result list. If "
+"``FOLLOW_SYMLINKS`` is given or policy :policy:`CMP0009` is not set to "
+"``NEW`` then ``LIST_DIRECTORIES`` treats symlinks as directories."
+msgstr ""
+
+#: ../../../command/file.rst:691
+msgid "Examples of recursive globbing include::"
+msgstr ""
+
+#: ../../../command/file.rst:693
+msgid "/dir/*.py  - match all python files in /dir and subdirectories"
+msgstr ""
+
+#: ../../../command/file.rst:697
+msgid "file(MAKE_DIRECTORY [<directories>...])"
+msgstr ""
+
+#: ../../../command/file.rst:701
+msgid "Create the given directories and their parents as needed."
+msgstr ""
+
+#: ../../../command/file.rst:706
+msgid ""
+"file(REMOVE [<files>...])\n"
+"file(REMOVE_RECURSE [<files>...])"
+msgstr ""
+
+#: ../../../command/file.rst:711
+msgid ""
+"Remove the given files.  The ``REMOVE_RECURSE`` mode will remove the given "
+"files and directories, also non-empty directories. No error is emitted if a "
+"given file does not exist.  Relative input paths are evaluated with respect "
+"to the current source directory."
+msgstr ""
+
+#: ../../../command/file.rst:716
+msgid ""
+"Empty input paths are ignored with a warning.  Previous versions of CMake "
+"interpreted empty strings as a relative path with respect to the current "
+"directory and removed its contents."
+msgstr ""
+
+#: ../../../command/file.rst:723
+msgid ""
+"file(RENAME <oldname> <newname>\n"
+"     [RESULT <result>]\n"
+"     [NO_REPLACE])"
+msgstr ""
+
+#: ../../../command/file.rst:729
+msgid ""
+"Move a file or directory within a filesystem from ``<oldname>`` to "
+"``<newname>``, replacing the destination atomically."
+msgstr ""
+
+#: ../../../command/file.rst:732 ../../../command/file.rst:762
+msgid "The options are:"
+msgstr "選項有："
+
+#: ../../../command/file.rst:734 ../../../command/file.rst:764
+msgid "``RESULT <result>``"
+msgstr ""
+
+#: ../../../command/file.rst:737 ../../../command/file.rst:765
+msgid ""
+"Set ``<result>`` variable to ``0`` on success or an error message otherwise. "
+"If ``RESULT`` is not specified and the operation fails, an error is emitted."
+msgstr ""
+
+#: ../../../command/file.rst:740
+msgid "``NO_REPLACE``"
+msgstr ""
+
+#: ../../../command/file.rst:743
+msgid ""
+"If the ``<newname>`` path already exists, do not replace it. If ``RESULT "
+"<result>`` is used, the result variable will be set to ``NO_REPLACE``.  "
+"Otherwise, an error is emitted."
+msgstr ""
+
+#: ../../../command/file.rst:749
+msgid ""
+"file(COPY_FILE <oldname> <newname>\n"
+"     [RESULT <result>]\n"
+"     [ONLY_IF_DIFFERENT]\n"
+"     [INPUT_MAY_BE_RECENT])"
+msgstr ""
+
+#: ../../../command/file.rst:758
+msgid ""
+"Copy a file from ``<oldname>`` to ``<newname>``. Directories are not "
+"supported. Symlinks are ignored and ``<oldfile>``'s content is read and "
+"written to ``<newname>`` as a new file."
+msgstr ""
+
+#: ../../../command/file.rst:768
+msgid "``ONLY_IF_DIFFERENT``"
+msgstr ""
+
+#: ../../../command/file.rst:769
+msgid ""
+"If the ``<newname>`` path already exists, do not replace it if the file's "
+"contents are already the same as ``<oldname>`` (this avoids updating "
+"``<newname>``'s timestamp)."
+msgstr ""
+
+#: ../../../command/file.rst:773
+msgid "``INPUT_MAY_BE_RECENT``"
+msgstr ""
+
+#: ../../../command/file.rst:776
+msgid ""
+"Tell CMake that the input file may have been recently created.  This is "
+"meaningful only on Windows, where files may be inaccessible for a short time "
+"after they are created.  With this option, if permission is denied, CMake "
+"will retry reading the input a few times."
+msgstr ""
+
+#: ../../../command/file.rst:781
+msgid ""
+"This sub-command has some similarities to :command:`configure_file` with the "
+"``COPYONLY`` option.  An important difference is that :command:"
+"`configure_file` creates a dependency on the source file, so CMake will be "
+"re-run if it changes. The ``file(COPY_FILE)`` sub-command does not create "
+"such a dependency."
+msgstr ""
+
+#: ../../../command/file.rst:786
+msgid ""
+"See also the ``file(COPY)`` sub-command just below which provides further "
+"file-copying capabilities."
+msgstr ""
+
+#: ../../../command/file.rst:792
+msgid ""
+"file(<COPY|INSTALL> <files>... DESTINATION <dir>\n"
+"     [NO_SOURCE_PERMISSIONS | USE_SOURCE_PERMISSIONS]\n"
+"     [FILE_PERMISSIONS <permissions>...]\n"
+"     [DIRECTORY_PERMISSIONS <permissions>...]\n"
+"     [FOLLOW_SYMLINK_CHAIN]\n"
+"     [FILES_MATCHING]\n"
+"     [[PATTERN <pattern> | REGEX <regex>]\n"
+"      [EXCLUDE] [PERMISSIONS <permissions>...]] [...])"
+msgstr ""
+"file(<COPY|INSTALL> <files>... DESTINATION <dir>\n"
+"     [NO_SOURCE_PERMISSIONS | USE_SOURCE_PERMISSIONS]\n"
+"     [FILE_PERMISSIONS <permissions>...]\n"
+"     [DIRECTORY_PERMISSIONS <permissions>...]\n"
+"     [FOLLOW_SYMLINK_CHAIN]\n"
+"     [FILES_MATCHING]\n"
+"     [[PATTERN <pattern> | REGEX <regex>]\n"
+"      [EXCLUDE] [PERMISSIONS <permissions>...]] [...])"
+
+#: ../../../command/file.rst:805
+msgid ""
+"For a simple file copying operation, the ``file(COPY_FILE)`` sub-command "
+"just above may be easier to use."
+msgstr ""
+
+#: ../../../command/file.rst:808
+msgid ""
+"The ``COPY`` signature copies files, directories, and symlinks to a "
+"destination folder.  Relative input paths are evaluated with respect to the "
+"current source directory, and a relative destination is evaluated with "
+"respect to the current build directory.  Copying preserves input file "
+"timestamps, and optimizes out a file if it exists at the destination with "
+"the same timestamp.  Copying preserves input permissions unless explicit "
+"permissions or ``NO_SOURCE_PERMISSIONS`` are given (default is "
+"``USE_SOURCE_PERMISSIONS``)."
+msgstr ""
+
+#: ../../../command/file.rst:817
+msgid ""
+"If ``FOLLOW_SYMLINK_CHAIN`` is specified, ``COPY`` will recursively resolve "
+"the symlinks at the paths given until a real file is found, and install a "
+"corresponding symlink in the destination for each symlink encountered. For "
+"each symlink that is installed, the resolution is stripped of the directory, "
+"leaving only the filename, meaning that the new symlink points to a file in "
+"the same directory as the symlink. This feature is useful on some Unix "
+"systems, where libraries are installed as a chain of symlinks with version "
+"numbers, with less specific versions pointing to more specific versions. "
+"``FOLLOW_SYMLINK_CHAIN`` will install all of these symlinks and the library "
+"itself into the destination directory. For example, if you have the "
+"following directory structure:"
+msgstr ""
+
+#: ../../../command/file.rst:830
+msgid "``/opt/foo/lib/libfoo.so.1.2.3``"
+msgstr "``/opt/foo/lib/libfoo.so.1.2.3``"
+
+#: ../../../command/file.rst:831
+msgid "``/opt/foo/lib/libfoo.so.1.2 -> libfoo.so.1.2.3``"
+msgstr "``/opt/foo/lib/libfoo.so.1.2 -> libfoo.so.1.2.3``"
+
+#: ../../../command/file.rst:832
+msgid "``/opt/foo/lib/libfoo.so.1 -> libfoo.so.1.2``"
+msgstr "``/opt/foo/lib/libfoo.so.1 -> libfoo.so.1.2``"
+
+#: ../../../command/file.rst:833
+msgid "``/opt/foo/lib/libfoo.so -> libfoo.so.1``"
+msgstr "``/opt/foo/lib/libfoo.so -> libfoo.so.1``"
+
+#: ../../../command/file.rst:835
+msgid "and you do:"
+msgstr ""
+
+#: ../../../command/file.rst:837
+msgid "file(COPY /opt/foo/lib/libfoo.so DESTINATION lib FOLLOW_SYMLINK_CHAIN)"
+msgstr "file(COPY /opt/foo/lib/libfoo.so DESTINATION lib FOLLOW_SYMLINK_CHAIN)"
+
+#: ../../../command/file.rst:841
+msgid ""
+"This will install all of the symlinks and ``libfoo.so.1.2.3`` itself into "
+"``lib``."
+msgstr ""
+
+#: ../../../command/file.rst:844
+msgid ""
+"See the :command:`install(DIRECTORY)` command for documentation of "
+"permissions, ``FILES_MATCHING``, ``PATTERN``, ``REGEX``, and ``EXCLUDE`` "
+"options.  Copying directories preserves the structure of their content even "
+"if options are used to select a subset of files."
+msgstr ""
+
+#: ../../../command/file.rst:850
+msgid ""
+"The ``INSTALL`` signature differs slightly from ``COPY``: it prints status "
+"messages, and ``NO_SOURCE_PERMISSIONS`` is default."
+msgstr ""
+
+#: ../../../command/file.rst:853
+msgid ""
+"Installation scripts generated by the :command:`install` command use this "
+"signature (with some undocumented options for internal use)."
+msgstr ""
+
+#: ../../../command/file.rst:858
+msgid ""
+"The environment variable :envvar:`CMAKE_INSTALL_MODE` can override the "
+"default copying behavior of :command:`file(INSTALL)`."
+msgstr ""
+
+#: ../../../command/file.rst:863
+msgid "file(SIZE <filename> <variable>)"
+msgstr ""
+
+#: ../../../command/file.rst:869
+msgid ""
+"Determine the file size of the ``<filename>`` and put the result in "
+"``<variable>`` variable. Requires that ``<filename>`` is a valid path "
+"pointing to a file and is readable."
+msgstr ""
+
+#: ../../../command/file.rst:875
+msgid "file(READ_SYMLINK <linkname> <variable>)"
+msgstr ""
+
+#: ../../../command/file.rst:881
+msgid ""
+"This subcommand queries the symlink ``<linkname>`` and stores the path it "
+"points to in the result ``<variable>``.  If ``<linkname>`` does not exist or "
+"is not a symlink, CMake issues a fatal error."
+msgstr ""
+
+#: ../../../command/file.rst:885
+msgid ""
+"Note that this command returns the raw symlink path and does not resolve a "
+"relative path.  The following is an example of how to ensure that an "
+"absolute path is obtained:"
+msgstr ""
+
+#: ../../../command/file.rst:889
+msgid ""
+"set(linkname \"/path/to/foo.sym\")\n"
+"file(READ_SYMLINK \"${linkname}\" result)\n"
+"if(NOT IS_ABSOLUTE \"${result}\")\n"
+"  get_filename_component(dir \"${linkname}\" DIRECTORY)\n"
+"  set(result \"${dir}/${result}\")\n"
+"endif()"
+msgstr ""
+"set(linkname \"/path/to/foo.sym\")\n"
+"file(READ_SYMLINK \"${linkname}\" result)\n"
+"if(NOT IS_ABSOLUTE \"${result}\")\n"
+"  get_filename_component(dir \"${linkname}\" DIRECTORY)\n"
+"  set(result \"${dir}/${result}\")\n"
+"endif()"
+
+#: ../../../command/file.rst:900
+msgid ""
+"file(CREATE_LINK <original> <linkname>\n"
+"     [RESULT <result>] [COPY_ON_ERROR] [SYMBOLIC])"
+msgstr ""
+
+#: ../../../command/file.rst:907
+msgid ""
+"Create a link ``<linkname>`` that points to ``<original>``. It will be a "
+"hard link by default, but providing the ``SYMBOLIC`` option results in a "
+"symbolic link instead.  Hard links require that ``original`` exists and is a "
+"file, not a directory.  If ``<linkname>`` already exists, it will be "
+"overwritten."
+msgstr ""
+
+#: ../../../command/file.rst:913
+msgid ""
+"The ``<result>`` variable, if specified, receives the status of the "
+"operation. It is set to ``0`` upon success or an error message otherwise.  "
+"If ``RESULT`` is not specified and the operation fails, a fatal error is "
+"emitted."
+msgstr ""
+
+#: ../../../command/file.rst:917
+msgid ""
+"Specifying ``COPY_ON_ERROR`` enables copying the file as a fallback if "
+"creating the link fails.  It can be useful for handling situations such as "
+"``<original>`` and ``<linkname>`` being on different drives or mount points, "
+"which would make them unable to support a hard link."
+msgstr ""
+
+#: ../../../command/file.rst:924
+msgid ""
+"file(CHMOD <files>... <directories>...\n"
+"    [PERMISSIONS <permissions>...]\n"
+"    [FILE_PERMISSIONS <permissions>...]\n"
+"    [DIRECTORY_PERMISSIONS <permissions>...])"
+msgstr ""
+
+#: ../../../command/file.rst:933
+msgid ""
+"Set the permissions for the ``<files>...`` and ``<directories>...`` "
+"specified. Valid permissions are  ``OWNER_READ``, ``OWNER_WRITE``, "
+"``OWNER_EXECUTE``, ``GROUP_READ``, ``GROUP_WRITE``, ``GROUP_EXECUTE``, "
+"``WORLD_READ``, ``WORLD_WRITE``, ``WORLD_EXECUTE``, ``SETUID``, ``SETGID``."
+msgstr ""
+
+#: ../../../command/file.rst:938
+msgid "Valid combination of keywords are:"
+msgstr ""
+
+#: ../../../command/file.rst:940
+msgid "``PERMISSIONS``"
+msgstr ""
+
+#: ../../../command/file.rst:941
+msgid "All items are changed."
+msgstr ""
+
+#: ../../../command/file.rst:943
+msgid "``FILE_PERMISSIONS``"
+msgstr ""
+
+#: ../../../command/file.rst:944
+msgid "Only files are changed."
+msgstr "只有檔案被變更。"
+
+#: ../../../command/file.rst:946
+msgid "``DIRECTORY_PERMISSIONS``"
+msgstr "``DIRECTORY_PERMISSIONS``"
+
+#: ../../../command/file.rst:947
+msgid "Only directories are changed."
+msgstr "只有目錄被變更。"
+
+#: ../../../command/file.rst:949
+msgid "``PERMISSIONS`` and ``FILE_PERMISSIONS``"
+msgstr "``PERMISSIONS`` 和 ``FILE_PERMISSIONS``"
+
+#: ../../../command/file.rst:950
+msgid "``FILE_PERMISSIONS`` overrides ``PERMISSIONS`` for files."
+msgstr "``FILE_PERMISSIONS`` 會覆蓋檔案的 ``PERMISSIONS``。"
+
+#: ../../../command/file.rst:952
+msgid "``PERMISSIONS`` and ``DIRECTORY_PERMISSIONS``"
+msgstr "``PERMISSIONS`` 和 ``DIRECTORY_PERMISSIONS``"
+
+#: ../../../command/file.rst:953
+msgid "``DIRECTORY_PERMISSIONS`` overrides ``PERMISSIONS`` for directories."
+msgstr "``DIRECTORY_PERMISSIONS`` 會覆蓋目錄的 ``PERMISSIONS``。"
+
+#: ../../../command/file.rst:955
+msgid "``FILE_PERMISSIONS`` and ``DIRECTORY_PERMISSIONS``"
+msgstr "``FILE_PERMISSIONS`` 和 ``DIRECTORY_PERMISSIONS``"
+
+#: ../../../command/file.rst:956
+msgid ""
+"Use ``FILE_PERMISSIONS`` for files and ``DIRECTORY_PERMISSIONS`` for "
+"directories."
+msgstr ""
+
+#: ../../../command/file.rst:962
+msgid ""
+"file(CHMOD_RECURSE <files>... <directories>...\n"
+"     [PERMISSIONS <permissions>...]\n"
+"     [FILE_PERMISSIONS <permissions>...]\n"
+"     [DIRECTORY_PERMISSIONS <permissions>...])"
+msgstr ""
+
+#: ../../../command/file.rst:971
+msgid ""
+"Same as `CHMOD`_, but change the permissions of files and directories "
+"present in the ``<directories>...`` recursively."
+msgstr ""
+
+#: ../../../command/file.rst:975
+msgid "Path Conversion"
+msgstr "路徑轉換"
+
+#: ../../../command/file.rst:979
+msgid "file(REAL_PATH <path> <out-var> [BASE_DIRECTORY <dir>] [EXPAND_TILDE])"
+msgstr ""
+
+#: ../../../command/file.rst:985
+msgid ""
+"Compute the absolute path to an existing file or directory with symlinks "
+"resolved."
+msgstr ""
+
+#: ../../../command/file.rst:988
+msgid "``BASE_DIRECTORY <dir>``"
+msgstr ""
+
+#: ../../../command/file.rst:989
+msgid ""
+"If the provided ``<path>`` is a relative path, it is evaluated relative to "
+"the given base directory ``<dir>``. If no base directory is provided, the "
+"default base directory will be :variable:`CMAKE_CURRENT_SOURCE_DIR`."
+msgstr ""
+
+#: ../../../command/file.rst:993
+msgid "``EXPAND_TILDE``"
+msgstr ""
+
+#: ../../../command/file.rst:996
+msgid ""
+"If the ``<path>`` is ``~`` or starts with ``~/``, the ``~`` is replaced by "
+"the user's home directory.  The path to the home directory is obtained from "
+"environment variables.  On Windows, the ``USERPROFILE`` environment variable "
+"is used, falling back to the ``HOME`` environment variable if "
+"``USERPROFILE`` is not defined.  On all other platforms, only ``HOME`` is "
+"used."
+msgstr ""
+
+#: ../../../command/file.rst:1004
+msgid "file(RELATIVE_PATH <variable> <directory> <file>)"
+msgstr ""
+
+#: ../../../command/file.rst:1008
+msgid ""
+"Compute the relative path from a ``<directory>`` to a ``<file>`` and store "
+"it in the ``<variable>``."
+msgstr ""
+
+#: ../../../command/file.rst:1014
+msgid ""
+"file(TO_CMAKE_PATH \"<path>\" <variable>)\n"
+"file(TO_NATIVE_PATH \"<path>\" <variable>)"
+msgstr ""
+
+#: ../../../command/file.rst:1019
+msgid ""
+"The ``TO_CMAKE_PATH`` mode converts a native ``<path>`` into a cmake-style "
+"path with forward-slashes (``/``).  The input can be a single path or a "
+"system search path like ``$ENV{PATH}``.  A search path will be converted to "
+"a cmake-style list separated by ``;`` characters."
+msgstr ""
+
+#: ../../../command/file.rst:1024
+msgid ""
+"The ``TO_NATIVE_PATH`` mode converts a cmake-style ``<path>`` into a native "
+"path with platform-specific slashes (``\\`` on Windows hosts and ``/`` "
+"elsewhere)."
+msgstr ""
+
+#: ../../../command/file.rst:1028
+msgid ""
+"Always use double quotes around the ``<path>`` to be sure it is treated as a "
+"single argument to this command."
+msgstr ""
+
+#: ../../../command/file.rst:1032
+msgid "Transfer"
+msgstr ""
+
+#: ../../../command/file.rst:1037
+msgid ""
+"file(DOWNLOAD <url> [<file>] [<options>...])\n"
+"file(UPLOAD   <file> <url> [<options>...])"
+msgstr ""
+
+#: ../../../command/file.rst:1042
+msgid ""
+"The ``DOWNLOAD`` subcommand downloads the given ``<url>`` to a local "
+"``<file>``. The ``UPLOAD`` mode uploads a local ``<file>`` to a given "
+"``<url>``."
+msgstr ""
+
+#: ../../../command/file.rst:1045
+msgid ""
+"If ``<file>`` is not specified for ``file(DOWNLOAD)``, the file is not "
+"saved. This can be useful if you want to know if a file can be downloaded "
+"(for example, to check that it exists) without actually saving it anywhere."
+msgstr ""
+
+#: ../../../command/file.rst:1050
+msgid "Options to both ``DOWNLOAD`` and ``UPLOAD`` are:"
+msgstr ""
+
+#: ../../../command/file.rst:1052
+msgid "``INACTIVITY_TIMEOUT <seconds>``"
+msgstr ""
+
+#: ../../../command/file.rst:1053
+msgid "Terminate the operation after a period of inactivity."
+msgstr ""
+
+#: ../../../command/file.rst:1055
+msgid "``LOG <variable>``"
+msgstr ""
+
+#: ../../../command/file.rst:1056
+msgid "Store a human-readable log of the operation in a variable."
+msgstr ""
+
+#: ../../../command/file.rst:1058
+msgid "``SHOW_PROGRESS``"
+msgstr ""
+
+#: ../../../command/file.rst:1059
+msgid ""
+"Print progress information as status messages until the operation is "
+"complete."
+msgstr ""
+
+#: ../../../command/file.rst:1062
+msgid "``STATUS <variable>``"
+msgstr ""
+
+#: ../../../command/file.rst:1063
+msgid ""
+"Store the resulting status of the operation in a variable. The status is a "
+"``;`` separated list of length 2. The first element is the numeric return "
+"value for the operation, and the second element is a string value for the "
+"error. A ``0`` numeric error means no error in the operation."
+msgstr ""
+
+#: ../../../command/file.rst:1069
+msgid "``TIMEOUT <seconds>``"
+msgstr ""
+
+#: ../../../command/file.rst:1070
+msgid "Terminate the operation after a given total time has elapsed."
+msgstr ""
+
+#: ../../../command/file.rst:1072
+msgid "``USERPWD <username>:<password>``"
+msgstr ""
+
+#: ../../../command/file.rst:1075
+msgid "Set username and password for operation."
+msgstr "設定操作的使用者名稱和密碼。"
+
+#: ../../../command/file.rst:1077
+msgid "``HTTPHEADER <HTTP-header>``"
+msgstr ""
+
+#: ../../../command/file.rst:1080
+msgid "HTTP header for operation. Suboption can be repeated several times."
+msgstr ""
+
+#: ../../../command/file.rst:1082
+msgid "``NETRC <level>``"
+msgstr ""
+
+#: ../../../command/file.rst:1085
+msgid ""
+"Specify whether the .netrc file is to be used for operation.  If this option "
+"is not specified, the value of the :variable:`CMAKE_NETRC` variable will be "
+"used instead. Valid levels are:"
+msgstr ""
+
+#: ../../../command/file.rst:1090
+msgid "``IGNORED``"
+msgstr ""
+
+#: ../../../command/file.rst:1091
+msgid "The .netrc file is ignored. This is the default."
+msgstr ""
+
+#: ../../../command/file.rst:1093
+msgid "``OPTIONAL``"
+msgstr ""
+
+#: ../../../command/file.rst:1094
+msgid ""
+"The .netrc file is optional, and information in the URL is preferred. The "
+"file will be scanned to find which ever information is not specified in the "
+"URL."
+msgstr ""
+
+#: ../../../command/file.rst:1097
+msgid "``REQUIRED``"
+msgstr ""
+
+#: ../../../command/file.rst:1098
+msgid "The .netrc file is required, and information in the URL is ignored."
+msgstr ""
+
+#: ../../../command/file.rst:1100
+msgid "``NETRC_FILE <file>``"
+msgstr ""
+
+#: ../../../command/file.rst:1103
+msgid ""
+"Specify an alternative .netrc file to the one in your home directory, if the "
+"``NETRC`` level is ``OPTIONAL`` or ``REQUIRED``. If this option is not "
+"specified, the value of the :variable:`CMAKE_NETRC_FILE` variable will be "
+"used instead."
+msgstr ""
+
+#: ../../../command/file.rst:1108
+msgid "``TLS_VERIFY <ON|OFF>``"
+msgstr ""
+
+#: ../../../command/file.rst:1109
+msgid ""
+"Specify whether to verify the server certificate for ``https://`` URLs. The "
+"default is to *not* verify. If this option is not specified, the value of "
+"the :variable:`CMAKE_TLS_VERIFY` variable will be used instead."
+msgstr ""
+
+#: ../../../command/file.rst:1113 ../../../command/file.rst:1121
+msgid "Added support to ``file(UPLOAD)``."
+msgstr ""
+
+#: ../../../command/file.rst:1116
+msgid "``TLS_CAINFO <file>``"
+msgstr ""
+
+#: ../../../command/file.rst:1117
+msgid ""
+"Specify a custom Certificate Authority file for ``https://`` URLs. If this "
+"option is not specified, the value of the :variable:`CMAKE_TLS_CAINFO` "
+"variable will be used instead."
+msgstr ""
+
+#: ../../../command/file.rst:1124
+msgid ""
+"For ``https://`` URLs CMake must be built with OpenSSL support.  ``TLS/SSL`` "
+"certificates are not checked by default.  Set ``TLS_VERIFY`` to ``ON`` to "
+"check certificates."
+msgstr ""
+
+#: ../../../command/file.rst:1128
+msgid "Additional options to ``DOWNLOAD`` are:"
+msgstr ""
+
+#: ../../../command/file.rst:1130
+msgid "``EXPECTED_HASH ALGO=<value>``"
+msgstr ""
+
+#: ../../../command/file.rst:1132
+msgid ""
+"Verify that the downloaded content hash matches the expected value, where "
+"``ALGO`` is one of the algorithms supported by ``file(<HASH>)``. If the file "
+"already exists and matches the hash, the download is skipped. If the file "
+"already exists and does not match the hash, the file is downloaded again. If "
+"after download the file does not match the hash, the operation fails with an "
+"error. It is an error to specify this option if ``DOWNLOAD`` is not given a "
+"``<file>``."
+msgstr ""
+
+#: ../../../command/file.rst:1140
+msgid "``EXPECTED_MD5 <value>``"
+msgstr ""
+
+#: ../../../command/file.rst:1141
+msgid ""
+"Historical short-hand for ``EXPECTED_HASH MD5=<value>``. It is an error to "
+"specify this if ``DOWNLOAD`` is not given a ``<file>``."
+msgstr ""
+
+#: ../../../command/file.rst:1144
+msgid "``RANGE_START <value>``"
+msgstr ""
+
+#: ../../../command/file.rst:1147
+msgid ""
+"Offset of the start of the range in file in bytes. Could be omitted to "
+"download up to the specified ``RANGE_END``."
+msgstr ""
+
+#: ../../../command/file.rst:1150
+msgid "``RANGE_END <value>``"
+msgstr ""
+
+#: ../../../command/file.rst:1153
+msgid ""
+"Offset of the end of the range in file in bytes. Could be omitted to "
+"download everything from the specified ``RANGE_START`` to the end of file."
+msgstr ""
+
+#: ../../../command/file.rst:1157
+msgid "Locking"
+msgstr ""
+
+#: ../../../command/file.rst:1161
+msgid ""
+"file(LOCK <path> [DIRECTORY] [RELEASE]\n"
+"     [GUARD <FUNCTION|FILE|PROCESS>]\n"
+"     [RESULT_VARIABLE <variable>]\n"
+"     [TIMEOUT <seconds>])"
+msgstr ""
+
+#: ../../../command/file.rst:1170
+msgid ""
+"Lock a file specified by ``<path>`` if no ``DIRECTORY`` option present and "
+"file ``<path>/cmake.lock`` otherwise. File will be locked for scope defined "
+"by ``GUARD`` option (default value is ``PROCESS``). ``RELEASE`` option can "
+"be used to unlock file explicitly. If option ``TIMEOUT`` is not specified "
+"CMake will wait until lock succeed or until fatal error occurs. If "
+"``TIMEOUT`` is set to ``0`` lock will be tried once and result will be "
+"reported immediately. If ``TIMEOUT`` is not ``0`` CMake will try to lock "
+"file for the period specified by ``<seconds>`` value. Any errors will be "
+"interpreted as fatal if there is no ``RESULT_VARIABLE`` option. Otherwise "
+"result will be stored in ``<variable>`` and will be ``0`` on success or "
+"error message on failure."
+msgstr ""
+
+#: ../../../command/file.rst:1181
+msgid ""
+"Note that lock is advisory - there is no guarantee that other processes will "
+"respect this lock, i.e. lock synchronize two or more CMake instances sharing "
+"some modifiable resources. Similar logic applied to ``DIRECTORY`` option - "
+"locking parent directory doesn't prevent other ``LOCK`` commands to lock any "
+"child directory or file."
+msgstr ""
+
+#: ../../../command/file.rst:1187
+msgid ""
+"Trying to lock file twice is not allowed.  Any intermediate directories and "
+"file itself will be created if they not exist.  ``GUARD`` and ``TIMEOUT`` "
+"options ignored on ``RELEASE`` operation."
+msgstr ""
+
+#: ../../../command/file.rst:1192
+msgid "Archiving"
+msgstr ""
+
+#: ../../../command/file.rst:1196
+msgid ""
+"file(ARCHIVE_CREATE OUTPUT <archive>\n"
+"  PATHS <paths>...\n"
+"  [FORMAT <format>]\n"
+"  [COMPRESSION <compression> [COMPRESSION_LEVEL <compression-level>]]\n"
+"  [MTIME <mtime>]\n"
+"  [VERBOSE])"
+msgstr ""
+
+#: ../../../command/file.rst:1207
+msgid ""
+"Creates the specified ``<archive>`` file with the files and directories "
+"listed in ``<paths>``.  Note that ``<paths>`` must list actual files or "
+"directories, wildcards are not supported."
+msgstr ""
+
+#: ../../../command/file.rst:1211
+msgid ""
+"Use the ``FORMAT`` option to specify the archive format.  Supported values "
+"for ``<format>`` are ``7zip``, ``gnutar``, ``pax``, ``paxr``, ``raw`` and "
+"``zip``.  If ``FORMAT`` is not given, the default format is ``paxr``."
+msgstr ""
+
+#: ../../../command/file.rst:1215
+msgid ""
+"Some archive formats allow the type of compression to be specified. The "
+"``7zip`` and ``zip`` archive formats already imply a specific type of "
+"compression.  The other formats use no compression by default, but can be "
+"directed to do so with the ``COMPRESSION`` option.  Valid values for "
+"``<compression>`` are ``None``, ``BZip2``, ``GZip``, ``XZ``, and ``Zstd``."
+msgstr ""
+
+#: ../../../command/file.rst:1221
+msgid ""
+"The compression level can be specified with the ``COMPRESSION_LEVEL`` "
+"option. The ``<compression-level>`` should be between 0-9, with the default "
+"being 0. The ``COMPRESSION`` option must be present when "
+"``COMPRESSION_LEVEL`` is given."
+msgstr ""
+
+#: ../../../command/file.rst:1226
+msgid ""
+"The ``<compression-level>`` of the ``Zstd`` algorithm can be set between "
+"0-19."
+msgstr ""
+
+#: ../../../command/file.rst:1230
+msgid ""
+"With ``FORMAT`` set to ``raw`` only one file will be compressed with the "
+"compression type specified by ``COMPRESSION``."
+msgstr ""
+
+#: ../../../command/file.rst:1233
+msgid ""
+"The ``VERBOSE`` option enables verbose output for the archive operation."
+msgstr ""
+
+#: ../../../command/file.rst:1235
+msgid ""
+"To specify the modification time recorded in tarball entries, use the "
+"``MTIME`` option."
+msgstr ""
+
+#: ../../../command/file.rst:1240
+msgid ""
+"file(ARCHIVE_EXTRACT INPUT <archive>\n"
+"  [DESTINATION <dir>]\n"
+"  [PATTERNS <patterns>...]\n"
+"  [LIST_ONLY]\n"
+"  [VERBOSE]\n"
+"  [TOUCH])"
+msgstr ""
+
+#: ../../../command/file.rst:1251
+msgid "Extracts or lists the content of the specified ``<archive>``."
+msgstr ""
+
+#: ../../../command/file.rst:1253
+msgid ""
+"The directory where the content of the archive will be extracted to can be "
+"specified using the ``DESTINATION`` option.  If the directory does not "
+"exist, it will be created.  If ``DESTINATION`` is not given, the current "
+"binary directory will be used."
+msgstr ""
+
+#: ../../../command/file.rst:1258
+msgid ""
+"If required, you may select which files and directories to list or extract "
+"from the archive using the specified ``<patterns>``.  Wildcards are "
+"supported. If the ``PATTERNS`` option is not given, the entire archive will "
+"be listed or extracted."
+msgstr ""
+
+#: ../../../command/file.rst:1263
+msgid ""
+"``LIST_ONLY`` will list the files in the archive rather than extract them."
+msgstr ""
+
+#: ../../../command/file.rst:1265
+msgid ""
+"The ``TOUCH`` option gives extracted files a current local timestamp instead "
+"of extracting file timestamps from the archive."
+msgstr ""
+
+#: ../../../command/file.rst:1269
+msgid "With ``VERBOSE``, the command will produce verbose output."
+msgstr ""
