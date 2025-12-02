@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CMake 4.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-02 08:21+0000\n"
+"POT-Creation-Date: 2025-12-02 08:31+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,19 +23,63 @@ msgstr ""
 
 #: ../../../variable/CMAKE_OSX_DEPLOYMENT_TARGET.rst:4
 msgid ""
-"Specify the minimum version of the target platform (e.g. macOS or iOS) on "
-"which the target binaries are to be deployed.  CMake uses this variable "
-"value for the ``-mmacosx-version-min`` flag or their respective target "
-"platform equivalents.  For older Xcode versions that shipped multiple macOS "
-"SDKs this variable also helps to choose the SDK in case :variable:"
-"`CMAKE_OSX_SYSROOT` is unset."
+"Specify the minimum version of the target platform, e.g., macOS or iOS, on "
+"which the target binaries are to be deployed."
 msgstr ""
 
-#: ../../../variable/CMAKE_OSX_DEPLOYMENT_TARGET.rst:11
+#: ../../../variable/CMAKE_OSX_DEPLOYMENT_TARGET.rst:7
 msgid ""
-"If not set explicitly the value is initialized by the "
-"``MACOSX_DEPLOYMENT_TARGET`` environment variable, if set, and otherwise "
-"computed based on the host platform."
+"For builds targeting macOS (:variable:`CMAKE_SYSTEM_NAME` is ``Darwin``), if "
+"``CMAKE_OSX_DEPLOYMENT_TARGET`` is not explicitly set, a default is set:"
+msgstr ""
+
+#: ../../../variable/CMAKE_OSX_DEPLOYMENT_TARGET.rst:10
+msgid ""
+"If the ``MACOSX_DEPLOYMENT_TARGET`` environment variable is non-empty, its "
+"value is the default."
+msgstr ""
+
+#: ../../../variable/CMAKE_OSX_DEPLOYMENT_TARGET.rst:13
+msgid ""
+"Otherwise, if using the :generator:`Xcode` generator, and the host's macOS "
+"version is older than the macOS SDK (:variable:`CMAKE_OSX_SYSROOT`, if set, "
+"or Xcode's default SDK), the host's macOS version is the default."
+msgstr ""
+
+#: ../../../variable/CMAKE_OSX_DEPLOYMENT_TARGET.rst:19
+msgid "Previously this was done for all generators, not just Xcode."
+msgstr ""
+
+#: ../../../variable/CMAKE_OSX_DEPLOYMENT_TARGET.rst:21
+msgid "Otherwise, the default is empty."
+msgstr ""
+
+#: ../../../variable/CMAKE_OSX_DEPLOYMENT_TARGET.rst:23
+msgid "The effects of ``CMAKE_OSX_DEPLOYMENT_TARGET`` depend on the generator:"
+msgstr ""
+
+#: ../../../variable/CMAKE_OSX_DEPLOYMENT_TARGET.rst:25
+msgid ":generator:`Xcode`"
+msgstr ""
+
+#: ../../../variable/CMAKE_OSX_DEPLOYMENT_TARGET.rst:27
+msgid ""
+"If ``CMAKE_OSX_DEPLOYMENT_TARGET`` is set to a non-empty value, it is added "
+"to the generated Xcode project as the ``MACOSX_DEPLOYMENT_TARGET`` setting. "
+"Otherwise, no such setting is added, so Xcode's default deployed target is "
+"used, typically based on the SDK version."
+msgstr ""
+
+#: ../../../variable/CMAKE_OSX_DEPLOYMENT_TARGET.rst:32
+msgid "Other Generators"
+msgstr ""
+
+#: ../../../variable/CMAKE_OSX_DEPLOYMENT_TARGET.rst:34
+msgid ""
+"If ``CMAKE_OSX_DEPLOYMENT_TARGET`` is set to a non-empty value, it is passed "
+"to the compiler via the ``-mmacosx-version-min`` flag or equivalent. "
+"Otherwise, no such flag is added, so the compiler's default deployment "
+"target is used."
 msgstr ""
 
 #: ../../../variable/include/CMAKE_OSX_VARIABLE.rst:1
