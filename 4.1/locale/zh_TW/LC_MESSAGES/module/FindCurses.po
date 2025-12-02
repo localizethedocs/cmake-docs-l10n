@@ -19,7 +19,7 @@ msgstr ""
 
 #: ../../../../Modules/FindCurses.cmake:6
 msgid "FindCurses"
-msgstr ""
+msgstr "FindCurses"
 
 #: ../../../../Modules/FindCurses.cmake:8
 msgid "Finds the curses or ncurses library."
@@ -44,7 +44,7 @@ msgstr "該模組定義了以下變數："
 
 #: ../../../../Modules/FindCurses.cmake:20
 msgid "``Curses_FOUND``"
-msgstr ""
+msgstr "``Curses_FOUND``"
 
 #: ../../../../Modules/FindCurses.cmake:21
 msgid ""
@@ -129,7 +129,7 @@ msgstr ""
 
 #: ../../../../Modules/FindCurses.cmake:58
 msgid "``CURSES_NEED_WIDE``"
-msgstr ""
+msgstr "``CURSES_NEED_WIDE``"
 
 #: ../../../../Modules/FindCurses.cmake:61
 msgid ""
@@ -139,7 +139,7 @@ msgstr ""
 
 #: ../../../../Modules/FindCurses.cmake:65
 msgid "Deprecated Variables"
-msgstr ""
+msgstr "棄用的變數"
 
 #: ../../../../Modules/FindCurses.cmake:67
 msgid "The following legacy variables are provided for backward compatibility:"
@@ -147,7 +147,7 @@ msgstr ""
 
 #: ../../../../Modules/FindCurses.cmake:69
 msgid "``CURSES_INCLUDE_DIR``"
-msgstr ""
+msgstr "``CURSES_INCLUDE_DIR``"
 
 #: ../../../../Modules/FindCurses.cmake:70
 msgid "Use the ``CURSES_INCLUDE_DIRS`` variable instead."
@@ -155,11 +155,11 @@ msgstr "請改用 ``CURSES_INCLUDE_DIRS`` 變數。"
 
 #: ../../../../Modules/FindCurses.cmake:73
 msgid "Path to a Curses include directory."
-msgstr ""
+msgstr "Curses 引入目錄的路徑。"
 
 #: ../../../../Modules/FindCurses.cmake:75
 msgid "``CURSES_LIBRARY``"
-msgstr ""
+msgstr "``CURSES_LIBRARY``"
 
 #: ../../../../Modules/FindCurses.cmake:76
 msgid "Use the ``CURSES_LIBRARIES`` variable instead."
@@ -167,7 +167,7 @@ msgstr "請改用 ``CURSES_LIBRARIES`` 變數。"
 
 #: ../../../../Modules/FindCurses.cmake:79
 msgid "Path to Curses library."
-msgstr ""
+msgstr "Curses 程式庫的路徑。"
 
 #: ../../../../Modules/FindCurses.cmake:82
 msgid "Examples"
@@ -195,6 +195,19 @@ msgid ""
 "add_executable(app app.c)\n"
 "target_link_libraries(app PRIVATE Curses::Curses)"
 msgstr ""
+"find_package(Curses)\n"
+"if(Curses_FOUND AND NOT TARGET Curses::Curses)\n"
+"  add_library(Curses::Curses INTERFACE IMPORTED)\n"
+"  set_target_properties(\n"
+"    Curses::Curses\n"
+"    PROPERTIES\n"
+"      INTERFACE_LINK_LIBRARIES \"${CURSES_LIBRARIES}\"\n"
+"      INTERFACE_INCLUDE_DIRECTORIES \"${CURSES_INCLUDE_DIRS}\"\n"
+"  )\n"
+"endif()\n"
+"\n"
+"add_executable(app app.c)\n"
+"target_link_libraries(app PRIVATE Curses::Curses)"
 
 #: ../../../../Modules/FindCurses.cmake:103
 msgid "When ncurses is specifically required:"
@@ -205,3 +218,5 @@ msgid ""
 "set(CURSES_NEED_NCURSES TRUE)\n"
 "find_package(Curses)"
 msgstr ""
+"set(CURSES_NEED_NCURSES TRUE)\n"
+"find_package(Curses)"
