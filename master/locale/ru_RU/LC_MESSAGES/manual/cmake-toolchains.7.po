@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CMake master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-14 08:20+0000\n"
+"POT-Creation-Date: 2025-12-01 08:22+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -232,6 +232,7 @@ msgstr ""
 #: ../../../manual/cmake-toolchains.7.rst:145
 #: ../../../manual/cmake-toolchains.7.rst:408
 #: ../../../manual/cmake-toolchains.7.rst:492
+#: ../../../manual/cmake-toolchains.7.rst:732
 msgid ":variable:`CMAKE_SYSTEM_NAME`"
 msgstr ""
 
@@ -1212,4 +1213,83 @@ msgid ""
 "set(CMAKE_SYSTEM_NAME Emscripten)\n"
 "set(CMAKE_C_COMPILER /path/to/emcc)\n"
 "set(CMAKE_CXX_COMPILER /path/to/em++)"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:728
+msgid "Cross Compiling using Renesas compilers"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:730
+msgid "For cross-compiling with Renesas compilers, specify at least:"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:733
+msgid "Set to ``Generic``.  Must be specified to enable cross compiling."
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:735
+msgid ":variable:`CMAKE_C_COMPILER <CMAKE_<LANG>_COMPILER>`"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:736
+msgid ""
+"Set to the path to the Renesas C compiler, e.g., ``ccrx``, ``ccrl``, or "
+"``ccrh``."
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:739
+msgid ":variable:`CMAKE_C_FLAGS <CMAKE_<LANG>_FLAGS>`"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:740
+msgid "Set to the ``-isa=`` or ``-cpu=`` flag the compiler requires."
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:742
+msgid "See example toolchain files in the following sections."
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:745
+msgid "Renesas CC-RX"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:747
+msgid ""
+"set(CMAKE_SYSTEM_NAME Generic)\n"
+"set(CMAKE_C_COMPILER \"ccrx.exe\")\n"
+"set(CMAKE_ASM_COMPILER \"ccrx.exe\") # if using ASM language\n"
+"set(CMAKE_C_FLAGS \"-isa=rxv3\") # specify the version of target RX CPU\n"
+"set(CMAKE_EXE_LINKER_FLAGS \"-lnkopt=<your linker option here>\")"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:756
+msgid "Renesas CC-RL"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:758
+msgid ""
+"set(CMAKE_SYSTEM_NAME Generic)\n"
+"set(CMAKE_C_COMPILER \"ccrl.exe\")\n"
+"set(CMAKE_ASM_COMPILER \"ccrl.exe\") # if using ASM language\n"
+"set(CMAKE_C_FLAGS \"-cpu=S3\") # specify the version of target RL CPU\n"
+"# To avoid test executable runs out of const section's size.\n"
+"set(CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY)\n"
+"# Specifying device file and section layout linker options through compiler "
+"driver.\n"
+"set(CMAKE_EXE_LINKER_FLAGS \"-lnkopt=-device=dr5f10y14.dvf -lnkopt=-"
+"auto_section_layout\")"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:770
+msgid "Renesas CC-RH"
+msgstr ""
+
+#: ../../../manual/cmake-toolchains.7.rst:772
+msgid ""
+"set(CMAKE_SYSTEM_NAME Generic)\n"
+"set(CMAKE_C_COMPILER \"ccrh.exe\")\n"
+"set(CMAKE_ASM_COMPILER \"ccrh.exe\") # if using ASM language\n"
+"set(CMAKE_C_FLAGS \"-Xcommon=rh850\") # specify the version of target RH850 "
+"CPU\n"
+"set(CMAKE_EXE_LINKER_FLAGS \"-lnkopt=<your linker option here>\")"
 msgstr ""
