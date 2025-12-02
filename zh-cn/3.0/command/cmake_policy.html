@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>cmake_policy &mdash; CMake 3.0.2 Documentation</title>
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a3862c66" />
+    <link rel="stylesheet" type="text/css" href="../_static/cmake.css?v=4d06bd55" />
+    
+    <script src="../_static/documentation_options.js?v=e81da863"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/translations.js?v=beaddf03"></script>
+    
+    <link rel="canonical" href="https://projects.localizethedocs.org/cmake-docs-l10n/command/cmake_policy.html" />
+    <link rel="icon" href="../_static/cmake-favicon.ico"/>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="configure_file" href="configure_file.html" />
+    <link rel="prev" title="cmake_minimum_required" href="cmake_minimum_required.html" />
+
+ 
+
+    <script type="text/javascript" src="../ltd-provenance.js"></script>
+    <script type="text/javascript" src="../ltd-current.js"></script>
+    <script type="text/javascript" src="../../../ltd-config.js"></script>
+    <script type="text/javascript" src="../../../ltd-flyout.js"></script>
+
+  </head><body>
+    <input id="sidebar-check" type="checkbox" />
+    <label id="sidebar-overlay" for="sidebar-check"></label>
+
+
+
+    <div class="related relbar1" role="navigation" aria-label="Related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="总索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="configure_file.html" title="configure_file"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="cmake_minimum_required.html" title="cmake_minimum_required"
+             accesskey="P">上一页</a> |</li>
+  <li>
+    <label class="sidebar-toggle" for="sidebar-check"></label>
+  </li>
+  <li class="rootlink">
+    <img src="../_static/cmake-logo-16.png" width="16" height="16" alt=""/>
+    <a href="https://cmake.org/">CMake 3.0.2</a>
+    <span class="reldelim1"> &#187;</span>
+  </li>
+  <li>
+    <a href="../index.html">Documentation</a> &#187;
+  </li>
+
+          <li class="nav-item nav-item-1"><a href="../manual/cmake-commands.7.html" accesskey="U">cmake-commands(7)</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">cmake_policy</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="cmake-policy">
+<span id="command:cmake_policy"></span><h1>cmake_policy<a class="headerlink" href="#cmake-policy" title="Link to this heading">¶</a></h1>
+<p>Manage CMake Policy settings.</p>
+<p>As CMake evolves it is sometimes necessary to change existing behavior
+in order to fix bugs or improve implementations of existing features.
+The CMake Policy mechanism is designed to help keep existing projects
+building as new versions of CMake introduce changes in behavior.  Each
+new policy (behavioral change) is given an identifier of the form
+&quot;CMP&lt;NNNN&gt;&quot; where &quot;&lt;NNNN&gt;&quot; is an integer index.  Documentation
+associated with each policy describes the OLD and NEW behavior and the
+reason the policy was introduced.  Projects may set each policy to
+select the desired behavior.  When CMake needs to know which behavior
+to use it checks for a setting specified by the project.  If no
+setting is available the OLD behavior is assumed and a warning is
+produced requesting that the policy be set.</p>
+<p>The cmake_policy command is used to set policies to OLD or NEW
+behavior.  While setting policies individually is supported, we
+encourage projects to set policies based on CMake versions.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>cmake_policy(VERSION major.minor[.patch[.tweak]])
+</pre></div>
+</div>
+<p>Specify that the current CMake list file is written for the given
+version of CMake.  All policies introduced in the specified version or
+earlier will be set to use NEW behavior.  All policies introduced
+after the specified version will be unset (unless variable
+CMAKE_POLICY_DEFAULT_CMP&lt;NNNN&gt; sets a default).  This effectively
+requests behavior preferred as of a given CMake version and tells
+newer CMake versions to warn about their new policies.  The policy
+version specified must be at least 2.4 or the command will report an
+error.  In order to get compatibility features supporting versions
+earlier than 2.4 see documentation of policy CMP0001.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>cmake_policy(SET CMP&lt;NNNN&gt; NEW)
+cmake_policy(SET CMP&lt;NNNN&gt; OLD)
+</pre></div>
+</div>
+<p>Tell CMake to use the OLD or NEW behavior for a given policy.
+Projects depending on the old behavior of a given policy may silence a
+policy warning by setting the policy state to OLD.  Alternatively one
+may fix the project to work with the new behavior and set the policy
+state to NEW.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>cmake_policy(GET CMP&lt;NNNN&gt; &lt;variable&gt;)
+</pre></div>
+</div>
+<p>Check whether a given policy is set to OLD or NEW behavior.  The
+output variable value will be &quot;OLD&quot; or &quot;NEW&quot; if the policy is set, and
+empty otherwise.</p>
+<p>CMake keeps policy settings on a stack, so changes made by the
+cmake_policy command affect only the top of the stack.  A new entry on
+the policy stack is managed automatically for each subdirectory to
+protect its parents and siblings.  CMake also manages a new entry for
+scripts loaded by include() and find_package() commands except when
+invoked with the NO_POLICY_SCOPE option (see also policy CMP0011).
+The cmake_policy command provides an interface to manage custom
+entries on the policy stack:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>cmake_policy(PUSH)
+cmake_policy(POP)
+</pre></div>
+</div>
+<p>Each PUSH must have a matching POP to erase any changes.  This is
+useful to make temporary changes to policy settings.</p>
+<p>Functions and macros record policy settings when they are created and
+use the pre-record policies when they are invoked.  If the function or
+macro implementation sets policies, the changes automatically
+propagate up through callers until they reach the closest nested
+policy stack entry.</p>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h4>上一主题</h4>
+    <p class="topless"><a href="cmake_minimum_required.html"
+                          title="上一章">cmake_minimum_required</a></p>
+  </div>
+  <div>
+    <h4>下一主题</h4>
+    <p class="topless"><a href="configure_file.html"
+                          title="下一章">configure_file</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>本页</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/command/cmake_policy.rst.txt"
+            rel="nofollow">显示源代码</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="提交" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="总索引"
+             >索引</a></li>
+        <li class="right" >
+          <a href="configure_file.html" title="configure_file"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="cmake_minimum_required.html" title="cmake_minimum_required"
+             >上一页</a> |</li>
+  <li>
+    <label class="sidebar-toggle" for="sidebar-check"></label>
+  </li>
+  <li class="rootlink">
+    <img src="../_static/cmake-logo-16.png" width="16" height="16" alt=""/>
+    <a href="https://cmake.org/">CMake 3.0.2</a>
+    <span class="reldelim1"> &#187;</span>
+  </li>
+  <li>
+    <a href="../index.html">Documentation</a> &#187;
+  </li>
+
+          <li class="nav-item nav-item-1"><a href="../manual/cmake-commands.7.html" >cmake-commands(7)</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">cmake_policy</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+    &#169; 版权所有 2000-2014 Kitware, Inc..
+      由 <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3创建。
+    </div>
+<script type="text/javascript">
+(function() {
+  "use strict";
+  const hide = () => document.getElementById("sidebar-check").checked = false;
+  addEventListener("keydown", e => (e.key === "Escape") && hide());
+  addEventListener("click", e => (e.target.tagName === "A") && hide());
+  addEventListener("hashchange", hide)
+})();
+</script>
+  </body>
+</html>

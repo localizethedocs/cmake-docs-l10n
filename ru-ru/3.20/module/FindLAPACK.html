@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+
+<html lang="ru-RU" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>FindLAPACK &mdash; CMake 3.20.6-dirty Documentation</title>
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a3862c66" />
+    <link rel="stylesheet" type="text/css" href="../_static/cmake.css?v=4d06bd55" />
+    
+    <script src="../_static/documentation_options.js?v=43deebe2"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    
+    <link rel="canonical" href="https://projects.localizethedocs.org/cmake-docs-l10n/module/FindLAPACK.html" />
+    <link rel="icon" href="../_static/cmake-favicon.ico"/>
+    <link rel="index" title="Алфавитный указатель" href="../genindex.html" />
+    <link rel="search" title="Поиск" href="../search.html" />
+    <link rel="next" title="FindLATEX" href="FindLATEX.html" />
+    <link rel="prev" title="FindKDE4" href="FindKDE4.html" />
+
+ 
+
+    <script type="text/javascript" src="../ltd-provenance.js"></script>
+    <script type="text/javascript" src="../ltd-current.js"></script>
+    <script type="text/javascript" src="../../../ltd-config.js"></script>
+    <script type="text/javascript" src="../../../ltd-flyout.js"></script>
+
+  </head><body>
+    <input id="sidebar-check" type="checkbox" />
+    <label id="sidebar-overlay" for="sidebar-check"></label>
+
+
+
+    <div class="related relbar1" role="navigation" aria-label="Related">
+      <h3>Навигация</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Алфавитный указатель"
+             accesskey="I">указатель</a></li>
+        <li class="right" >
+          <a href="FindLATEX.html" title="FindLATEX"
+             accesskey="N">вперёд</a> |</li>
+        <li class="right" >
+          <a href="FindKDE4.html" title="FindKDE4"
+             accesskey="P">назад</a> |</li>
+  <li>
+    <label class="sidebar-toggle" for="sidebar-check"></label>
+  </li>
+  <li class="rootlink">
+    <img src="../_static/cmake-logo-16.png" width="16" height="16" alt=""/>
+    <a href="https://cmake.org/">CMake 3.20.6-dirty</a>
+    <span class="reldelim1"> &#187;</span>
+  </li>
+  <li>
+    <a href="../index.html">Documentation</a> &#187;
+  </li>
+
+          <li class="nav-item nav-item-1"><a href="../manual/cmake-modules.7.html" accesskey="U">cmake-modules(7)</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">FindLAPACK</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="findlapack">
+<span id="module:FindLAPACK"></span><h1>FindLAPACK<a class="headerlink" href="#findlapack" title="Ссылка на этот заголовок">¶</a></h1>
+<p>Find Linear Algebra PACKage (LAPACK) library</p>
+<p>This module finds an installed Fortran library that implements the
+LAPACK linear-algebra interface (see <a class="reference external" href="http://www.netlib.org/lapack/">http://www.netlib.org/lapack/</a>).</p>
+<p>The approach follows that taken for the <code class="docutils literal notranslate"><span class="pre">autoconf</span></code> macro file,
+<code class="docutils literal notranslate"><span class="pre">acx_lapack.m4</span></code> (distributed at
+<a class="reference external" href="http://ac-archive.sourceforge.net/ac-archive/acx_lapack.html">http://ac-archive.sourceforge.net/ac-archive/acx_lapack.html</a>).</p>
+<section id="input-variables">
+<h2>Input Variables<a class="headerlink" href="#input-variables" title="Ссылка на этот заголовок">¶</a></h2>
+<p>The following variables may be set to influence this module's behavior:</p>
+<dl>
+<dt><code class="docutils literal notranslate"><span class="pre">BLA_STATIC</span></code></dt><dd><p>if <code class="docutils literal notranslate"><span class="pre">ON</span></code> use static linkage</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">BLA_VENDOR</span></code></dt><dd><p>If set, checks only the specified vendor, if not set checks all the
+possibilities.  List of vendors valid in this module:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">FlexiBLAS</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">OpenBLAS</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">FLAME</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Intel10_32</span></code> (intel mkl v10 32 bit, threaded code)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Intel10_64lp</span></code> (intel mkl v10+ 64 bit, threaded code, lp64 model)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Intel10_64lp_seq</span></code> (intel mkl v10+ 64 bit, sequential code, lp64 model)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Intel10_64ilp</span></code> (intel mkl v10+ 64 bit, threaded code, ilp64 model)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Intel10_64ilp_seq</span></code> (intel mkl v10+ 64 bit, sequential code, ilp64 model)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Intel10_64_dyn</span></code> (intel mkl v10+ 64 bit, single dynamic library)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Intel</span></code> (obsolete versions of mkl 32 and 64 bit)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ACML</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Apple</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">NAS</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Arm</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Arm_mp</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Arm_ilp64</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Arm_ilp64_mp</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">EML</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">EML_mt</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Generic</span></code></p></li>
+</ul>
+<div class="versionadded">
+<p><span class="versionmodified added">Добавлено в версии 3.6: </span><code class="docutils literal notranslate"><span class="pre">OpenBLAS</span></code> support.</p>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified added">Добавлено в версии 3.11: </span><code class="docutils literal notranslate"><span class="pre">FLAME</span></code> support.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">Добавлено в версии 3.13: </span>Added ILP64 MKL variants (<code class="docutils literal notranslate"><span class="pre">Intel10_64ilp</span></code>, <code class="docutils literal notranslate"><span class="pre">Intel10_64ilp_seq</span></code>).</p>
+</div>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified added">Добавлено в версии 3.17: </span>Added single dynamic library MKL variant (<code class="docutils literal notranslate"><span class="pre">Intel10_64_dyn</span></code>).</p>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified added">Добавлено в версии 3.18: </span>Arm Performance Libraries support (<code class="docutils literal notranslate"><span class="pre">Arm</span></code>, <code class="docutils literal notranslate"><span class="pre">Arm_mp</span></code>, <code class="docutils literal notranslate"><span class="pre">Arm_ilp64</span></code>,
+<code class="docutils literal notranslate"><span class="pre">Arm_ilp64_mp</span></code>).</p>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified added">Добавлено в версии 3.19: </span><code class="docutils literal notranslate"><span class="pre">FlexiBLAS</span></code> support.</p>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified added">Добавлено в версии 3.20: </span>Elbrus Math Library support (<code class="docutils literal notranslate"><span class="pre">EML</span></code>, <code class="docutils literal notranslate"><span class="pre">EML_mt</span></code>).</p>
+</div>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">BLA_F95</span></code></dt><dd><p>if <code class="docutils literal notranslate"><span class="pre">ON</span></code> tries to find the BLAS95/LAPACK95 interfaces</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">BLA_PREFER_PKGCONFIG</span></code></dt><dd><div class="versionadded">
+<p><span class="versionmodified added">Добавлено в версии 3.20.</span></p>
+</div>
+<p>if set <code class="docutils literal notranslate"><span class="pre">pkg-config</span></code> will be used to search for a LAPACK library first
+and if one is found that is preferred</p>
+</dd>
+</dl>
+</section>
+<section id="imported-targets">
+<h2>Imported targets<a class="headerlink" href="#imported-targets" title="Ссылка на этот заголовок">¶</a></h2>
+<div class="versionadded">
+<p><span class="versionmodified added">Добавлено в версии 3.18.</span></p>
+</div>
+<p>This module defines the following <span class="target" id="index-0-prop_tgt:IMPORTED"></span><a class="reference internal" href="../prop_tgt/IMPORTED.html#prop_tgt:IMPORTED" title="IMPORTED"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">IMPORTED</span></code></a> target:</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">LAPACK::LAPACK</span></code></dt><dd><p>The libraries to use for LAPACK, if found.</p>
+</dd>
+</dl>
+</section>
+<section id="result-variables">
+<h2>Result Variables<a class="headerlink" href="#result-variables" title="Ссылка на этот заголовок">¶</a></h2>
+<p>This module defines the following variables:</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">LAPACK_FOUND</span></code></dt><dd><p>library implementing the LAPACK interface is found</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">LAPACK_LINKER_FLAGS</span></code></dt><dd><p>uncached list of required linker flags (excluding <code class="docutils literal notranslate"><span class="pre">-l</span></code> and <code class="docutils literal notranslate"><span class="pre">-L</span></code>).</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">LAPACK_LIBRARIES</span></code></dt><dd><p>uncached list of libraries (using full path name) to link against
+to use LAPACK</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">LAPACK95_LIBRARIES</span></code></dt><dd><p>uncached list of libraries (using full path name) to link against
+to use LAPACK95</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">LAPACK95_FOUND</span></code></dt><dd><p>library implementing the LAPACK95 interface is found</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Примечание</p>
+<p>C, CXX or Fortran must be enabled to detect a BLAS/LAPACK library.
+C or CXX must be enabled to use Intel Math Kernel Library (MKL).</p>
+<p>For example, to use Intel MKL libraries and/or Intel compiler:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">set(</span><span class="no">BLA_VENDOR</span><span class="w"> </span><span class="nb">Intel10_64lp</span><span class="nf">)</span>
+<span class="nf">find_package(</span><span class="no">LAPACK</span><span class="nf">)</span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3>Оглавление</h3>
+    <ul>
+<li><a class="reference internal" href="#">FindLAPACK</a><ul>
+<li><a class="reference internal" href="#input-variables">Input Variables</a></li>
+<li><a class="reference internal" href="#imported-targets">Imported targets</a></li>
+<li><a class="reference internal" href="#result-variables">Result Variables</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Предыдущий раздел</h4>
+    <p class="topless"><a href="FindKDE4.html"
+                          title="предыдущая глава">FindKDE4</a></p>
+  </div>
+  <div>
+    <h4>Следующий раздел</h4>
+    <p class="topless"><a href="FindLATEX.html"
+                          title="следующая глава">FindLATEX</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>Эта страница</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/module/FindLAPACK.rst.txt"
+            rel="nofollow">Исходный текст</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Быстрый поиск</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Искать" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Навигация</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Алфавитный указатель"
+             >указатель</a></li>
+        <li class="right" >
+          <a href="FindLATEX.html" title="FindLATEX"
+             >вперёд</a> |</li>
+        <li class="right" >
+          <a href="FindKDE4.html" title="FindKDE4"
+             >назад</a> |</li>
+  <li>
+    <label class="sidebar-toggle" for="sidebar-check"></label>
+  </li>
+  <li class="rootlink">
+    <img src="../_static/cmake-logo-16.png" width="16" height="16" alt=""/>
+    <a href="https://cmake.org/">CMake 3.20.6-dirty</a>
+    <span class="reldelim1"> &#187;</span>
+  </li>
+  <li>
+    <a href="../index.html">Documentation</a> &#187;
+  </li>
+
+          <li class="nav-item nav-item-1"><a href="../manual/cmake-modules.7.html" >cmake-modules(7)</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">FindLAPACK</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+    &#169; Авторские права 2000-2021 Kitware, Inc. and Contributors.
+      Создано с использованием <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    </div>
+<script type="text/javascript">
+(function() {
+  "use strict";
+  const hide = () => document.getElementById("sidebar-check").checked = false;
+  addEventListener("keydown", e => (e.key === "Escape") && hide());
+  addEventListener("click", e => (e.target.tagName === "A") && hide());
+  addEventListener("hashchange", hide)
+})();
+</script>
+  </body>
+</html>

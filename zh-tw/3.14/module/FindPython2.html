@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+
+<html lang="zh-TW" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>FindPython2 &mdash; CMake 3.14.7 Documentation</title>
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a3862c66" />
+    <link rel="stylesheet" type="text/css" href="../_static/cmake.css?v=4d06bd55" />
+    
+    <script src="../_static/documentation_options.js?v=a9d878bf"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/translations.js?v=cbf116e0"></script>
+    
+    <link rel="canonical" href="https://projects.localizethedocs.org/cmake-docs-l10n/module/FindPython2.html" />
+    <link rel="icon" href="../_static/cmake-favicon.ico"/>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜尋" href="../search.html" />
+    <link rel="next" title="FindPython3" href="FindPython3.html" />
+    <link rel="prev" title="FindPython" href="FindPython.html" />
+
+ 
+
+    <script type="text/javascript" src="../ltd-provenance.js"></script>
+    <script type="text/javascript" src="../ltd-current.js"></script>
+    <script type="text/javascript" src="../../../ltd-config.js"></script>
+    <script type="text/javascript" src="../../../ltd-flyout.js"></script>
+
+  </head><body>
+    <input id="sidebar-check" type="checkbox" />
+    <label id="sidebar-overlay" for="sidebar-check"></label>
+
+
+
+    <div class="related relbar1" role="navigation" aria-label="Related">
+      <h3>瀏覽</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="總索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="FindPython3.html" title="FindPython3"
+             accesskey="N">下一頁</a> |</li>
+        <li class="right" >
+          <a href="FindPython.html" title="FindPython"
+             accesskey="P">上一頁</a> |</li>
+  <li>
+    <label class="sidebar-toggle" for="sidebar-check"></label>
+  </li>
+  <li class="rootlink">
+    <img src="../_static/cmake-logo-16.png" width="16" height="16" alt=""/>
+    <a href="https://cmake.org/">CMake 3.14.7</a>
+    <span class="reldelim1"> &#187;</span>
+  </li>
+  <li>
+    <a href="../index.html">文件</a> &#187;
+  </li>
+
+          <li class="nav-item nav-item-1"><a href="../manual/cmake-modules.7.html" accesskey="U">cmake-模組(7)</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">FindPython2</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="findpython2">
+<span id="module:FindPython2"></span><h1>FindPython2<a class="headerlink" href="#findpython2" title="連結到這個標頭">¶</a></h1>
+<p>Find Python 2 interpreter, compiler and development environment (include
+directories and libraries).</p>
+<p>Three components are supported:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Interpreter</span></code>: search for Python 2 interpreter</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Compiler</span></code>: search for Python 2 compiler. Only offered by IronPython.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Development</span></code>: search for development artifacts (include directories and
+libraries)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">NumPy</span></code>: search for NumPy include directories.</p></li>
+</ul>
+<p>If no <code class="docutils literal notranslate"><span class="pre">COMPONENTS</span></code> is specified, <code class="docutils literal notranslate"><span class="pre">Interpreter</span></code> is assumed.</p>
+<p>To ensure consistent versions between components <code class="docutils literal notranslate"><span class="pre">Interpreter</span></code>, <code class="docutils literal notranslate"><span class="pre">Compiler</span></code>,
+<code class="docutils literal notranslate"><span class="pre">Development</span></code> and <code class="docutils literal notranslate"><span class="pre">NumPy</span></code>, specify all components at the same time:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>find_package (Python2 COMPONENTS Interpreter Development)
+</pre></div>
+</div>
+<p>This module looks only for version 2 of Python. This module can be used
+concurrently with <span class="target" id="index-0-module:FindPython3"></span><a class="reference internal" href="FindPython3.html#module:FindPython3" title="FindPython3"><code class="xref cmake cmake-module docutils literal notranslate"><span class="pre">FindPython3</span></code></a> module to use both Python versions.</p>
+<p>The <span class="target" id="index-0-module:FindPython"></span><a class="reference internal" href="FindPython.html#module:FindPython" title="FindPython"><code class="xref cmake cmake-module docutils literal notranslate"><span class="pre">FindPython</span></code></a> module can be used if Python version does not matter
+for you.</p>
+<div class="admonition note">
+<p class="admonition-title">備註</p>
+<p>If components <code class="docutils literal notranslate"><span class="pre">Interpreter</span></code> and <code class="docutils literal notranslate"><span class="pre">Development</span></code> are both specified, this
+module search only for interpreter with same platform architecture as the one
+defined by <code class="docutils literal notranslate"><span class="pre">CMake</span></code> configuration. This contraint does not apply if only
+<code class="docutils literal notranslate"><span class="pre">Interpreter</span></code> component is specified.</p>
+</div>
+<section id="imported-targets">
+<h2>Imported Targets<a class="headerlink" href="#imported-targets" title="連結到這個標頭">¶</a></h2>
+<p>This module defines the following <a class="reference internal" href="../manual/cmake-buildsystem.7.html#imported-targets"><span class="std std-ref">Imported Targets</span></a>
+(when <span class="target" id="index-0-prop_gbl:CMAKE_ROLE"></span><a class="reference internal" href="../prop_gbl/CMAKE_ROLE.html#prop_gbl:CMAKE_ROLE" title="CMAKE_ROLE"><code class="xref cmake cmake-prop_gbl docutils literal notranslate"><span class="pre">CMAKE_ROLE</span></code></a> is <code class="docutils literal notranslate"><span class="pre">PROJECT</span></code>):</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">Python2::Interpreter</span></code></dt><dd><p>Python 2 interpreter. Target defined if component <code class="docutils literal notranslate"><span class="pre">Interpreter</span></code> is found.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">Python2::Compiler</span></code></dt><dd><p>Python 2 compiler. Target defined if component <code class="docutils literal notranslate"><span class="pre">Compiler</span></code> is found.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">Python2::Python</span></code></dt><dd><p>Python 2 library. Target defined if component <code class="docutils literal notranslate"><span class="pre">Development</span></code> is found.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">Python2::NumPy</span></code></dt><dd><p>NumPy library for Python 2. Target defined if component <code class="docutils literal notranslate"><span class="pre">NumPy</span></code> is found.</p>
+</dd>
+</dl>
+</section>
+<section id="result-variables">
+<h2>結果變數<a class="headerlink" href="#result-variables" title="連結到這個標頭">¶</a></h2>
+<p>This module will set the following variables in your project
+(see <a class="reference internal" href="../manual/cmake-developer.7.html#cmake-developer-standard-variable-names"><span class="std std-ref">Standard Variable Names</span></a>):</p>
+<dl>
+<dt><code class="docutils literal notranslate"><span class="pre">Python2_FOUND</span></code></dt><dd><p>System has the Python 2 requested components.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">Python2_Interpreter_FOUND</span></code></dt><dd><p>System has the Python 2 interpreter.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">Python2_EXECUTABLE</span></code></dt><dd><p>Path to the Python 2 interpreter.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">Python2_INTERPRETER_ID</span></code></dt><dd><dl class="simple">
+<dt>A short string unique to the interpreter. Possible values include:</dt><dd><ul class="simple">
+<li><p>Python</p></li>
+<li><p>ActivePython</p></li>
+<li><p>Anaconda</p></li>
+<li><p>Canopy</p></li>
+<li><p>IronPython</p></li>
+</ul>
+</dd>
+</dl>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">Python2_STDLIB</span></code></dt><dd><p>Standard platform independent installation directory.</p>
+<p>Information returned by
+<code class="docutils literal notranslate"><span class="pre">distutils.sysconfig.get_python_lib(plat_specific=False,standard_lib=True)</span></code>.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">Python2_STDARCH</span></code></dt><dd><p>Standard platform dependent installation directory.</p>
+<p>Information returned by
+<code class="docutils literal notranslate"><span class="pre">distutils.sysconfig.get_python_lib(plat_specific=True,standard_lib=True)</span></code>.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">Python2_SITELIB</span></code></dt><dd><p>Third-party platform independent installation directory.</p>
+<p>Information returned by
+<code class="docutils literal notranslate"><span class="pre">distutils.sysconfig.get_python_lib(plat_specific=False,standard_lib=False)</span></code>.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">Python2_SITEARCH</span></code></dt><dd><p>Third-party platform dependent installation directory.</p>
+<p>Information returned by
+<code class="docutils literal notranslate"><span class="pre">distutils.sysconfig.get_python_lib(plat_specific=True,standard_lib=False)</span></code>.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">Python2_Compiler_FOUND</span></code></dt><dd><p>System has the Python 2 compiler.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">Python2_COMPILER</span></code></dt><dd><p>Path to the Python 2 compiler. Only offered by IronPython.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">Python2_COMPILER_ID</span></code></dt><dd><dl class="simple">
+<dt>A short string unique to the compiler. Possible values include:</dt><dd><ul class="simple">
+<li><p>IronPython</p></li>
+</ul>
+</dd>
+</dl>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">Python2_Development_FOUND</span></code></dt><dd><p>System has the Python 2 development artifacts.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">Python2_INCLUDE_DIRS</span></code></dt><dd><p>The Python 2 include directories.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">Python2_LIBRARIES</span></code></dt><dd><p>The Python 2 libraries.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">Python2_LIBRARY_DIRS</span></code></dt><dd><p>The Python 2 library directories.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">Python2_RUNTIME_LIBRARY_DIRS</span></code></dt><dd><p>The Python 2 runtime library directories.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">Python2_VERSION</span></code></dt><dd><p>Python 2 version.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">Python2_VERSION_MAJOR</span></code></dt><dd><p>Python 2 major version.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">Python2_VERSION_MINOR</span></code></dt><dd><p>Python 2 minor version.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">Python2_VERSION_PATCH</span></code></dt><dd><p>Python 2 patch version.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">Python2_NumPy_FOUND</span></code></dt><dd><p>System has the NumPy.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">Python2_NumPy_INCLUDE_DIRS</span></code></dt><dd><p>The NumPy include directries.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">Python2_NumPy_VERSION</span></code></dt><dd><p>The NumPy version.</p>
+</dd>
+</dl>
+</section>
+<section id="hints">
+<h2>提示<a class="headerlink" href="#hints" title="連結到這個標頭">¶</a></h2>
+<dl>
+<dt><code class="docutils literal notranslate"><span class="pre">Python2_ROOT_DIR</span></code></dt><dd><p>Define the root directory of a Python 2 installation.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">Python2_USE_STATIC_LIBS</span></code></dt><dd><ul class="simple">
+<li><p>If not defined, search for shared libraries and static libraries in that
+order.</p></li>
+<li><p>If set to TRUE, search <strong>only</strong> for static libraries.</p></li>
+<li><p>If set to FALSE, search <strong>only</strong> for shared libraries.</p></li>
+</ul>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">Python2_FIND_REGISTRY</span></code></dt><dd><p>On Windows the <code class="docutils literal notranslate"><span class="pre">Python2_FIND_REGISTRY</span></code> variable determine the order
+of preference between registry and environment variables.
+the <code class="docutils literal notranslate"><span class="pre">Python2_FIND_REGISTRY</span></code> variable can be set to empty or one of the
+following:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">FIRST</span></code>: Try to use registry before environment variables.
+This is the default.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">LAST</span></code>: Try to use registry after environment variables.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">NEVER</span></code>: Never try to use registry.</p></li>
+</ul>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">CMAKE_FIND_FRAMEWORK</span></code></dt><dd><p>On macOS the <span class="target" id="index-0-variable:CMAKE_FIND_FRAMEWORK"></span><a class="reference internal" href="../variable/CMAKE_FIND_FRAMEWORK.html#variable:CMAKE_FIND_FRAMEWORK" title="CMAKE_FIND_FRAMEWORK"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_FIND_FRAMEWORK</span></code></a> variable determine the order of
+preference between Apple-style and unix-style package components.</p>
+<div class="admonition note">
+<p class="admonition-title">備註</p>
+<p>Value <code class="docutils literal notranslate"><span class="pre">ONLY</span></code> is not supported so <code class="docutils literal notranslate"><span class="pre">FIRST</span></code> will be used instead.</p>
+</div>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">備註</p>
+<p>If a Python virtual environment is configured, set variable
+<code class="docutils literal notranslate"><span class="pre">Python_FIND_REGISTRY</span></code> (Windows) or <code class="docutils literal notranslate"><span class="pre">CMAKE_FIND_FRAMEWORK</span></code> (macOS) with
+value <code class="docutils literal notranslate"><span class="pre">LAST</span></code> or <code class="docutils literal notranslate"><span class="pre">NEVER</span></code> to select it preferably.</p>
+</div>
+</section>
+<section id="commands">
+<h2>命令<a class="headerlink" href="#commands" title="連結到這個標頭">¶</a></h2>
+<p>This module defines the command <code class="docutils literal notranslate"><span class="pre">Python2_add_library</span></code> (when
+<span class="target" id="index-1-prop_gbl:CMAKE_ROLE"></span><a class="reference internal" href="../prop_gbl/CMAKE_ROLE.html#prop_gbl:CMAKE_ROLE" title="CMAKE_ROLE"><code class="xref cmake cmake-prop_gbl docutils literal notranslate"><span class="pre">CMAKE_ROLE</span></code></a> is <code class="docutils literal notranslate"><span class="pre">PROJECT</span></code>), which has the same semantics as
+<span class="target" id="index-0-command:add_library"></span><a class="reference internal" href="../command/add_library.html#command:add_library" title="add_library"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">add_library()</span></code></a>, but takes care of Python module naming rules
+(only applied if library is of type <code class="docutils literal notranslate"><span class="pre">MODULE</span></code>), and adds a dependency to target
+<code class="docutils literal notranslate"><span class="pre">Python2::Python</span></code>:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Python2_add_library (my_module MODULE src1.cpp)
+</pre></div>
+</div>
+<p>If library type is not specified, <code class="docutils literal notranslate"><span class="pre">MODULE</span></code> is assumed.</p>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3>目次表</h3>
+    <ul>
+<li><a class="reference internal" href="#">FindPython2</a><ul>
+<li><a class="reference internal" href="#imported-targets">Imported Targets</a></li>
+<li><a class="reference internal" href="#result-variables">結果變數</a></li>
+<li><a class="reference internal" href="#hints">提示</a></li>
+<li><a class="reference internal" href="#commands">命令</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>上個話題</h4>
+    <p class="topless"><a href="FindPython.html"
+                          title="上個章節">FindPython</a></p>
+  </div>
+  <div>
+    <h4>下個話題</h4>
+    <p class="topless"><a href="FindPython3.html"
+                          title="下個章節">FindPython3</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>本頁</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/module/FindPython2.rst.txt"
+            rel="nofollow">顯示來源碼</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜尋</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="前往" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>瀏覽</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="總索引"
+             >索引</a></li>
+        <li class="right" >
+          <a href="FindPython3.html" title="FindPython3"
+             >下一頁</a> |</li>
+        <li class="right" >
+          <a href="FindPython.html" title="FindPython"
+             >上一頁</a> |</li>
+  <li>
+    <label class="sidebar-toggle" for="sidebar-check"></label>
+  </li>
+  <li class="rootlink">
+    <img src="../_static/cmake-logo-16.png" width="16" height="16" alt=""/>
+    <a href="https://cmake.org/">CMake 3.14.7</a>
+    <span class="reldelim1"> &#187;</span>
+  </li>
+  <li>
+    <a href="../index.html">文件</a> &#187;
+  </li>
+
+          <li class="nav-item nav-item-1"><a href="../manual/cmake-modules.7.html" >cmake-模組(7)</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">FindPython2</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+    &#169; 著作權 2000-2019 Kitware, Inc. and Contributors.
+      使用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3 建立。
+    </div>
+<script type="text/javascript">
+(function() {
+  "use strict";
+  const hide = () => document.getElementById("sidebar-check").checked = false;
+  addEventListener("keydown", e => (e.key === "Escape") && hide());
+  addEventListener("click", e => (e.target.tagName === "A") && hide());
+  addEventListener("hashchange", hide)
+})();
+</script>
+  </body>
+</html>

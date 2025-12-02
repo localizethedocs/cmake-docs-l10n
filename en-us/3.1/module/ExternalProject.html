@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+
+<html lang="en-US" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>ExternalProject &mdash; CMake 3.1.3 Documentation</title>
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a3862c66" />
+    <link rel="stylesheet" type="text/css" href="../_static/cmake.css?v=4d06bd55" />
+    
+    <script src="../_static/documentation_options.js?v=d4ce42e0"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    
+    <link rel="canonical" href="https://projects.localizethedocs.org/cmake-docs-l10n/module/ExternalProject.html" />
+    <link rel="icon" href="../_static/cmake-favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="FeatureSummary" href="FeatureSummary.html" />
+    <link rel="prev" title="ExternalData" href="ExternalData.html" />
+
+ 
+
+    <script type="text/javascript" src="../ltd-provenance.js"></script>
+    <script type="text/javascript" src="../ltd-current.js"></script>
+    <script type="text/javascript" src="../../../ltd-config.js"></script>
+    <script type="text/javascript" src="../../../ltd-flyout.js"></script>
+
+  </head><body>
+    <input id="sidebar-check" type="checkbox" />
+    <label id="sidebar-overlay" for="sidebar-check"></label>
+
+
+
+    <div class="related relbar1" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="FeatureSummary.html" title="FeatureSummary"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="ExternalData.html" title="ExternalData"
+             accesskey="P">previous</a> |</li>
+  <li>
+    <label class="sidebar-toggle" for="sidebar-check"></label>
+  </li>
+  <li class="rootlink">
+    <img src="../_static/cmake-logo-16.png" width="16" height="16" alt=""/>
+    <a href="https://cmake.org/">CMake 3.1.3</a>
+    <span class="reldelim1"> &#187;</span>
+  </li>
+  <li>
+    <a href="../index.html">Documentation</a> &#187;
+  </li>
+
+          <li class="nav-item nav-item-1"><a href="../manual/cmake-modules.7.html" accesskey="U">cmake-modules(7)</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">ExternalProject</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="externalproject">
+<span id="module:ExternalProject"></span><h1>ExternalProject<a class="headerlink" href="#externalproject" title="Link to this heading">¶</a></h1>
+<p>Create custom targets to build projects in external trees</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">ExternalProject_Add</span></code> function creates a custom target to drive
+download, update/patch, configure, build, install and test steps of an
+external project:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">ExternalProject_Add(</span><span class="nv">&lt;name&gt;</span><span class="w">    </span><span class="c"># Name for custom target</span>
+<span class="w">  </span><span class="p">[</span><span class="no">DEPENDS</span><span class="w"> </span><span class="nb">projects...</span><span class="p">]</span><span class="w">       </span><span class="c"># Targets on which the project depends</span>
+<span class="w">  </span><span class="p">[</span><span class="no">PREFIX</span><span class="w"> </span><span class="nb">dir</span><span class="p">]</span><span class="w">                </span><span class="c"># Root dir for entire project</span>
+<span class="w">  </span><span class="p">[</span><span class="no">LIST_SEPARATOR</span><span class="w"> </span><span class="nb">sep</span><span class="p">]</span><span class="w">        </span><span class="c"># Sep to be replaced by ; in cmd lines</span>
+<span class="w">  </span><span class="p">[</span><span class="no">TMP_DIR</span><span class="w"> </span><span class="nb">dir</span><span class="p">]</span><span class="w">               </span><span class="c"># Directory to store temporary files</span>
+<span class="w">  </span><span class="p">[</span><span class="no">STAMP_DIR</span><span class="w"> </span><span class="nb">dir</span><span class="p">]</span><span class="w">             </span><span class="c"># Directory to store step timestamps</span>
+<span class="w">  </span><span class="p">[</span><span class="no">EXCLUDE_FROM_ALL</span><span class="w"> </span><span class="m">1</span><span class="p">]</span><span class="w">        </span><span class="c"># The &quot;all&quot; target does not depend on this</span>
+<span class="w"> </span><span class="c">#--Download step--------------</span>
+<span class="w">  </span><span class="p">[</span><span class="no">DOWNLOAD_NAME</span><span class="w"> </span><span class="nb">fname</span><span class="p">]</span><span class="w">       </span><span class="c"># File name to store (if not end of URL)</span>
+<span class="w">  </span><span class="p">[</span><span class="no">DOWNLOAD_DIR</span><span class="w"> </span><span class="nb">dir</span><span class="p">]</span><span class="w">          </span><span class="c"># Directory to store downloaded files</span>
+<span class="w">  </span><span class="p">[</span><span class="no">DOWNLOAD_COMMAND</span><span class="w"> </span><span class="nb">cmd...</span><span class="p">]</span><span class="w">   </span><span class="c"># Command to download source tree</span>
+<span class="w">  </span><span class="p">[</span><span class="no">DOWNLOAD_NO_PROGRESS</span><span class="w"> </span><span class="m">1</span><span class="p">]</span><span class="w">    </span><span class="c"># Disable download progress reports</span>
+<span class="w">  </span><span class="p">[</span><span class="no">CVS_REPOSITORY</span><span class="w"> </span><span class="nb">cvsroot</span><span class="p">]</span><span class="w">    </span><span class="c"># CVSROOT of CVS repository</span>
+<span class="w">  </span><span class="p">[</span><span class="no">CVS_MODULE</span><span class="w"> </span><span class="nb">mod</span><span class="p">]</span><span class="w">            </span><span class="c"># Module to checkout from CVS repo</span>
+<span class="w">  </span><span class="p">[</span><span class="no">CVS_TAG</span><span class="w"> </span><span class="nb">tag</span><span class="p">]</span><span class="w">               </span><span class="c"># Tag to checkout from CVS repo</span>
+<span class="w">  </span><span class="p">[</span><span class="no">SVN_REPOSITORY</span><span class="w"> </span><span class="nb">url</span><span class="p">]</span><span class="w">        </span><span class="c"># URL of Subversion repo</span>
+<span class="w">  </span><span class="p">[</span><span class="no">SVN_REVISION</span><span class="w"> </span><span class="p">-</span><span class="nb">r</span><span class="nv">&lt;rev&gt;</span><span class="p">]</span><span class="w">      </span><span class="c"># Revision to checkout from Subversion repo</span>
+<span class="w">  </span><span class="p">[</span><span class="no">SVN_USERNAME</span><span class="w"> </span><span class="nb">john</span><span class="w"> </span><span class="p">]</span><span class="w">        </span><span class="c"># Username for Subversion checkout and update</span>
+<span class="w">  </span><span class="p">[</span><span class="no">SVN_PASSWORD</span><span class="w"> </span><span class="nb">doe</span><span class="w"> </span><span class="p">]</span><span class="w">         </span><span class="c"># Password for Subversion checkout and update</span>
+<span class="w">  </span><span class="p">[</span><span class="no">SVN_TRUST_CERT</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="p">]</span><span class="w">         </span><span class="c"># Trust the Subversion server site certificate</span>
+<span class="w">  </span><span class="p">[</span><span class="no">GIT_REPOSITORY</span><span class="w"> </span><span class="nb">url</span><span class="p">]</span><span class="w">        </span><span class="c"># URL of git repo</span>
+<span class="w">  </span><span class="p">[</span><span class="no">GIT_TAG</span><span class="w"> </span><span class="nb">tag</span><span class="p">]</span><span class="w">               </span><span class="c"># Git branch name, commit id or tag</span>
+<span class="w">  </span><span class="p">[</span><span class="no">GIT_SUBMODULES</span><span class="w"> </span><span class="nb">modules...</span><span class="p">]</span><span class="w"> </span><span class="c"># Git submodules that shall be updated, all if empty</span>
+<span class="w">  </span><span class="p">[</span><span class="no">HG_REPOSITORY</span><span class="w"> </span><span class="nb">url</span><span class="p">]</span><span class="w">         </span><span class="c"># URL of mercurial repo</span>
+<span class="w">  </span><span class="p">[</span><span class="no">HG_TAG</span><span class="w"> </span><span class="nb">tag</span><span class="p">]</span><span class="w">                </span><span class="c"># Mercurial branch name, commit id or tag</span>
+<span class="w">  </span><span class="p">[</span><span class="no">URL</span><span class="w"> </span><span class="na">/</span><span class="p">...</span><span class="na">/src.tgz</span><span class="p">]</span><span class="w">          </span><span class="c"># Full path or URL of source</span>
+<span class="w">  </span><span class="p">[</span><span class="no">URL_HASH</span><span class="w"> </span><span class="no">ALGO</span><span class="p">=</span><span class="nb">value</span><span class="p">]</span><span class="w">       </span><span class="c"># Hash of file at URL</span>
+<span class="w">  </span><span class="p">[</span><span class="no">URL_MD5</span><span class="w"> </span><span class="nb">md5</span><span class="p">]</span><span class="w">               </span><span class="c"># Equivalent to URL_HASH MD5=md5</span>
+<span class="w">  </span><span class="p">[</span><span class="no">TLS_VERIFY</span><span class="w"> </span><span class="nb">bool</span><span class="p">]</span><span class="w">           </span><span class="c"># Should certificate for https be checked</span>
+<span class="w">  </span><span class="p">[</span><span class="no">TLS_CAINFO</span><span class="w"> </span><span class="nb">file</span><span class="p">]</span><span class="w">           </span><span class="c"># Path to a certificate authority file</span>
+<span class="w">  </span><span class="p">[</span><span class="no">TIMEOUT</span><span class="w"> </span><span class="nb">seconds</span><span class="p">]</span><span class="w">           </span><span class="c"># Time allowed for file download operations</span>
+<span class="w"> </span><span class="c">#--Update/Patch step----------</span>
+<span class="w">  </span><span class="p">[</span><span class="no">UPDATE_COMMAND</span><span class="w"> </span><span class="nb">cmd...</span><span class="p">]</span><span class="w">     </span><span class="c"># Source work-tree update command</span>
+<span class="w">  </span><span class="p">[</span><span class="no">PATCH_COMMAND</span><span class="w"> </span><span class="nb">cmd...</span><span class="p">]</span><span class="w">      </span><span class="c"># Command to patch downloaded source</span>
+<span class="w"> </span><span class="c">#--Configure step-------------</span>
+<span class="w">  </span><span class="p">[</span><span class="no">SOURCE_DIR</span><span class="w"> </span><span class="nb">dir</span><span class="p">]</span><span class="w">            </span><span class="c"># Source dir to be used for build</span>
+<span class="w">  </span><span class="p">[</span><span class="no">CONFIGURE_COMMAND</span><span class="w"> </span><span class="nb">cmd...</span><span class="p">]</span><span class="w">  </span><span class="c"># Build tree configuration command</span>
+<span class="w">  </span><span class="p">[</span><span class="no">CMAKE_COMMAND</span><span class="w"> </span><span class="na">/</span><span class="p">...</span><span class="na">/cmake</span><span class="p">]</span><span class="w">  </span><span class="c"># Specify alternative cmake executable</span>
+<span class="w">  </span><span class="p">[</span><span class="no">CMAKE_GENERATOR</span><span class="w"> </span><span class="nb">gen</span><span class="p">]</span><span class="w">       </span><span class="c"># Specify generator for native build</span>
+<span class="w">  </span><span class="p">[</span><span class="no">CMAKE_GENERATOR_PLATFORM</span><span class="w"> </span><span class="nb">p</span><span class="p">]</span><span class="w"> </span><span class="c"># Generator-specific platform name</span>
+<span class="w">  </span><span class="p">[</span><span class="no">CMAKE_GENERATOR_TOOLSET</span><span class="w"> </span><span class="nb">t</span><span class="p">]</span><span class="w"> </span><span class="c"># Generator-specific toolset name</span>
+<span class="w">  </span><span class="p">[</span><span class="no">CMAKE_ARGS</span><span class="w"> </span><span class="nb">args...</span><span class="p">]</span><span class="w">        </span><span class="c"># Arguments to CMake command line</span>
+<span class="w">  </span><span class="p">[</span><span class="no">CMAKE_CACHE_ARGS</span><span class="w"> </span><span class="nb">args...</span><span class="p">]</span><span class="w">  </span><span class="c"># Initial cache args with form -Dvar:string=on</span>
+<span class="w"> </span><span class="c">#--Build step-----------------</span>
+<span class="w">  </span><span class="p">[</span><span class="no">BINARY_DIR</span><span class="w"> </span><span class="nb">dir</span><span class="p">]</span><span class="w">            </span><span class="c"># Specify build dir location</span>
+<span class="w">  </span><span class="p">[</span><span class="no">BUILD_COMMAND</span><span class="w"> </span><span class="nb">cmd...</span><span class="p">]</span><span class="w">      </span><span class="c"># Command to drive the native build</span>
+<span class="w">  </span><span class="p">[</span><span class="no">BUILD_IN_SOURCE</span><span class="w"> </span><span class="m">1</span><span class="p">]</span><span class="w">         </span><span class="c"># Use source dir for build dir</span>
+<span class="w">  </span><span class="p">[</span><span class="no">BUILD_ALWAYS</span><span class="w"> </span><span class="m">1</span><span class="p">]</span><span class="w">            </span><span class="c"># No stamp file, build step always runs</span>
+<span class="w"> </span><span class="c">#--Install step---------------</span>
+<span class="w">  </span><span class="p">[</span><span class="no">INSTALL_DIR</span><span class="w"> </span><span class="nb">dir</span><span class="p">]</span><span class="w">           </span><span class="c"># Installation prefix</span>
+<span class="w">  </span><span class="p">[</span><span class="no">INSTALL_COMMAND</span><span class="w"> </span><span class="nb">cmd...</span><span class="p">]</span><span class="w">    </span><span class="c"># Command to drive install after build</span>
+<span class="w"> </span><span class="c">#--Test step------------------</span>
+<span class="w">  </span><span class="p">[</span><span class="no">TEST_BEFORE_INSTALL</span><span class="w"> </span><span class="m">1</span><span class="p">]</span><span class="w">     </span><span class="c"># Add test step executed before install step</span>
+<span class="w">  </span><span class="p">[</span><span class="no">TEST_AFTER_INSTALL</span><span class="w"> </span><span class="m">1</span><span class="p">]</span><span class="w">      </span><span class="c"># Add test step executed after install step</span>
+<span class="w">  </span><span class="p">[</span><span class="no">TEST_COMMAND</span><span class="w"> </span><span class="nb">cmd...</span><span class="p">]</span><span class="w">       </span><span class="c"># Command to drive test</span>
+<span class="w"> </span><span class="c">#--Output logging-------------</span>
+<span class="w">  </span><span class="p">[</span><span class="no">LOG_DOWNLOAD</span><span class="w"> </span><span class="m">1</span><span class="p">]</span><span class="w">            </span><span class="c"># Wrap download in script to log output</span>
+<span class="w">  </span><span class="p">[</span><span class="no">LOG_UPDATE</span><span class="w"> </span><span class="m">1</span><span class="p">]</span><span class="w">              </span><span class="c"># Wrap update in script to log output</span>
+<span class="w">  </span><span class="p">[</span><span class="no">LOG_CONFIGURE</span><span class="w"> </span><span class="m">1</span><span class="p">]</span><span class="w">           </span><span class="c"># Wrap configure in script to log output</span>
+<span class="w">  </span><span class="p">[</span><span class="no">LOG_BUILD</span><span class="w"> </span><span class="m">1</span><span class="p">]</span><span class="w">               </span><span class="c"># Wrap build in script to log output</span>
+<span class="w">  </span><span class="p">[</span><span class="no">LOG_TEST</span><span class="w"> </span><span class="m">1</span><span class="p">]</span><span class="w">                </span><span class="c"># Wrap test in script to log output</span>
+<span class="w">  </span><span class="p">[</span><span class="no">LOG_INSTALL</span><span class="w"> </span><span class="m">1</span><span class="p">]</span><span class="w">             </span><span class="c"># Wrap install in script to log output</span>
+<span class="w"> </span><span class="c">#--Custom targets-------------</span>
+<span class="w">  </span><span class="p">[</span><span class="no">STEP_TARGETS</span><span class="w"> </span><span class="nb">st1</span><span class="w"> </span><span class="nb">st2</span><span class="w"> </span><span class="p">...]</span><span class="w">  </span><span class="c"># Generate custom targets for these steps</span>
+<span class="w">  </span><span class="nf">)</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">*_DIR</span></code> options specify directories for the project, with default
+directories computed as follows.  If the <code class="docutils literal notranslate"><span class="pre">PREFIX</span></code> option is given to
+<code class="docutils literal notranslate"><span class="pre">ExternalProject_Add()</span></code> or the <code class="docutils literal notranslate"><span class="pre">EP_PREFIX</span></code> directory property is set,
+then an external project is built and installed under the specified prefix:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>TMP_DIR      = &lt;prefix&gt;/tmp
+STAMP_DIR    = &lt;prefix&gt;/src/&lt;name&gt;-stamp
+DOWNLOAD_DIR = &lt;prefix&gt;/src
+SOURCE_DIR   = &lt;prefix&gt;/src/&lt;name&gt;
+BINARY_DIR   = &lt;prefix&gt;/src/&lt;name&gt;-build
+INSTALL_DIR  = &lt;prefix&gt;
+</pre></div>
+</div>
+<p>Otherwise, if the <code class="docutils literal notranslate"><span class="pre">EP_BASE</span></code> directory property is set then components
+of an external project are stored under the specified base:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>TMP_DIR      = &lt;base&gt;/tmp/&lt;name&gt;
+STAMP_DIR    = &lt;base&gt;/Stamp/&lt;name&gt;
+DOWNLOAD_DIR = &lt;base&gt;/Download/&lt;name&gt;
+SOURCE_DIR   = &lt;base&gt;/Source/&lt;name&gt;
+BINARY_DIR   = &lt;base&gt;/Build/&lt;name&gt;
+INSTALL_DIR  = &lt;base&gt;/Install/&lt;name&gt;
+</pre></div>
+</div>
+<p>If no <code class="docutils literal notranslate"><span class="pre">PREFIX</span></code>, <code class="docutils literal notranslate"><span class="pre">EP_PREFIX</span></code>, or <code class="docutils literal notranslate"><span class="pre">EP_BASE</span></code> is specified then the
+default is to set <code class="docutils literal notranslate"><span class="pre">PREFIX</span></code> to <code class="docutils literal notranslate"><span class="pre">&lt;name&gt;-prefix</span></code>.  Relative paths are
+interpreted with respect to the build directory corresponding to the
+source directory in which <code class="docutils literal notranslate"><span class="pre">ExternalProject_Add</span></code> is invoked.</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">SOURCE_DIR</span></code> is explicitly set to an existing directory the project
+will be built from it.  Otherwise a download step must be specified
+using one of the <code class="docutils literal notranslate"><span class="pre">DOWNLOAD_COMMAND</span></code>, <code class="docutils literal notranslate"><span class="pre">CVS_*</span></code>, <code class="docutils literal notranslate"><span class="pre">SVN_*</span></code>, or <code class="docutils literal notranslate"><span class="pre">URL</span></code>
+options.  The <code class="docutils literal notranslate"><span class="pre">URL</span></code> option may refer locally to a directory or source
+tarball, or refer to a remote tarball (e.g. <code class="docutils literal notranslate"><span class="pre">http://.../src.tgz</span></code>).</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">ExternalProject_Add_Step</span></code> function adds a custom step to an
+external project:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">ExternalProject_Add_Step(</span><span class="nv">&lt;name&gt;</span><span class="w"> </span><span class="nv">&lt;step&gt;</span><span class="w"> </span><span class="c"># Names of project and custom step</span>
+<span class="w">  </span><span class="p">[</span><span class="no">COMMAND</span><span class="w"> </span><span class="nb">cmd...</span><span class="p">]</span><span class="w">        </span><span class="c"># Command line invoked by this step</span>
+<span class="w">  </span><span class="p">[</span><span class="no">COMMENT</span><span class="w"> </span><span class="s">&quot;text...&quot;</span><span class="p">]</span><span class="w">     </span><span class="c"># Text printed when step executes</span>
+<span class="w">  </span><span class="p">[</span><span class="no">DEPENDEES</span><span class="w"> </span><span class="nb">steps...</span><span class="p">]</span><span class="w">    </span><span class="c"># Steps on which this step depends</span>
+<span class="w">  </span><span class="p">[</span><span class="no">DEPENDERS</span><span class="w"> </span><span class="nb">steps...</span><span class="p">]</span><span class="w">    </span><span class="c"># Steps that depend on this step</span>
+<span class="w">  </span><span class="p">[</span><span class="no">DEPENDS</span><span class="w"> </span><span class="nb">files...</span><span class="p">]</span><span class="w">      </span><span class="c"># Files on which this step depends</span>
+<span class="w">  </span><span class="p">[</span><span class="no">ALWAYS</span><span class="w"> </span><span class="m">1</span><span class="p">]</span><span class="w">              </span><span class="c"># No stamp file, step always runs</span>
+<span class="w">  </span><span class="p">[</span><span class="no">EXCLUDE_FROM_MAIN</span><span class="w"> </span><span class="m">1</span><span class="p">]</span><span class="w">   </span><span class="c"># Main target does not depend on this step</span>
+<span class="w">  </span><span class="p">[</span><span class="no">WORKING_DIRECTORY</span><span class="w"> </span><span class="nb">dir</span><span class="p">]</span><span class="w"> </span><span class="c"># Working directory for command</span>
+<span class="w">  </span><span class="p">[</span><span class="no">LOG</span><span class="w"> </span><span class="m">1</span><span class="p">]</span><span class="w">                 </span><span class="c"># Wrap step in script to log output</span>
+<span class="w">  </span><span class="nf">)</span>
+</pre></div>
+</div>
+<p>The command line, comment, and working directory of every standard and
+custom step is processed to replace tokens <code class="docutils literal notranslate"><span class="pre">&lt;SOURCE_DIR&gt;</span></code>,
+<code class="docutils literal notranslate"><span class="pre">&lt;BINARY_DIR&gt;</span></code>, <code class="docutils literal notranslate"><span class="pre">&lt;INSTALL_DIR&gt;</span></code>, and <code class="docutils literal notranslate"><span class="pre">&lt;TMP_DIR&gt;</span></code> with
+corresponding property values.</p>
+<p>Any builtin step that specifies a <code class="docutils literal notranslate"><span class="pre">&lt;step&gt;_COMMAND</span> <span class="pre">cmd...</span></code> or custom
+step that specifies a <code class="docutils literal notranslate"><span class="pre">COMMAND</span> <span class="pre">cmd...</span></code> may specify additional command
+lines using the form <code class="docutils literal notranslate"><span class="pre">COMMAND</span> <span class="pre">cmd...</span></code>.  At build time the commands
+will be executed in order and aborted if any one fails.  For example:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>... BUILD_COMMAND make COMMAND echo done ...
+</pre></div>
+</div>
+<p>specifies to run <code class="docutils literal notranslate"><span class="pre">make</span></code> and then <code class="docutils literal notranslate"><span class="pre">echo</span> <span class="pre">done</span></code> during the build step.
+Whether the current working directory is preserved between commands is
+not defined.  Behavior of shell operators like <code class="docutils literal notranslate"><span class="pre">&amp;&amp;</span></code> is not defined.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">ExternalProject_Get_Property</span></code> function retrieves external project
+target properties:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>ExternalProject_Get_Property(&lt;name&gt; [prop1 [prop2 [...]]])
+</pre></div>
+</div>
+<p>It stores property values in variables of the same name.  Property
+names correspond to the keyword argument names of
+<code class="docutils literal notranslate"><span class="pre">ExternalProject_Add</span></code>.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">ExternalProject_Add_StepTargets</span></code> function generates custom
+targets for the steps listed:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>ExternalProject_Add_StepTargets(&lt;name&gt; [step1 [step2 [...]]])
+</pre></div>
+</div>
+<p>If <code class="docutils literal notranslate"><span class="pre">STEP_TARGETS</span></code> is set then <code class="docutils literal notranslate"><span class="pre">ExternalProject_Add_StepTargets</span></code> is
+automatically called at the end of matching calls to
+<code class="docutils literal notranslate"><span class="pre">ExternalProject_Add_Step</span></code>.  Pass <code class="docutils literal notranslate"><span class="pre">STEP_TARGETS</span></code> explicitly to
+individual <code class="docutils literal notranslate"><span class="pre">ExternalProject_Add</span></code> calls, or implicitly to all
+<code class="docutils literal notranslate"><span class="pre">ExternalProject_Add</span></code> calls by setting the directory property
+<code class="docutils literal notranslate"><span class="pre">EP_STEP_TARGETS</span></code>.</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">STEP_TARGETS</span></code> is not set, clients may still manually call
+<code class="docutils literal notranslate"><span class="pre">ExternalProject_Add_StepTargets</span></code> after calling
+<code class="docutils literal notranslate"><span class="pre">ExternalProject_Add</span></code> or <code class="docutils literal notranslate"><span class="pre">ExternalProject_Add_Step</span></code>.</p>
+<p>This functionality is provided to make it easy to drive the steps
+independently of each other by specifying targets on build command
+lines.  For example, you may be submitting to a sub-project based
+dashboard, where you want to drive the configure portion of the build,
+then submit to the dashboard, followed by the build portion, followed
+by tests.  If you invoke a custom target that depends on a step
+halfway through the step dependency chain, then all the previous steps
+will also run to ensure everything is up to date.</p>
+<p>For example, to drive configure, build and test steps independently
+for each <code class="docutils literal notranslate"><span class="pre">ExternalProject_Add</span></code> call in your project, write the following
+line prior to any <code class="docutils literal notranslate"><span class="pre">ExternalProject_Add</span></code> calls in your <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code>
+file:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>set_property(DIRECTORY PROPERTY EP_STEP_TARGETS configure build test)
+</pre></div>
+</div>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="ExternalData.html"
+                          title="previous chapter">ExternalData</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="FeatureSummary.html"
+                          title="next chapter">FeatureSummary</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/module/ExternalProject.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="FeatureSummary.html" title="FeatureSummary"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="ExternalData.html" title="ExternalData"
+             >previous</a> |</li>
+  <li>
+    <label class="sidebar-toggle" for="sidebar-check"></label>
+  </li>
+  <li class="rootlink">
+    <img src="../_static/cmake-logo-16.png" width="16" height="16" alt=""/>
+    <a href="https://cmake.org/">CMake 3.1.3</a>
+    <span class="reldelim1"> &#187;</span>
+  </li>
+  <li>
+    <a href="../index.html">Documentation</a> &#187;
+  </li>
+
+          <li class="nav-item nav-item-1"><a href="../manual/cmake-modules.7.html" >cmake-modules(7)</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">ExternalProject</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2000-2015 Kitware, Inc..
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    </div>
+<script type="text/javascript">
+(function() {
+  "use strict";
+  const hide = () => document.getElementById("sidebar-check").checked = false;
+  addEventListener("keydown", e => (e.key === "Escape") && hide());
+  addEventListener("click", e => (e.target.tagName === "A") && hide());
+  addEventListener("hashchange", hide)
+})();
+</script>
+  </body>
+</html>
