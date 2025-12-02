@@ -1,0 +1,158 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2000-2025 Kitware, Inc. and Contributors
+# This file is distributed under the same license as the CMake package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CMake latest\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-11-02 08:20+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../policy/CMP0199.rst:2
+msgid "CMP0199"
+msgstr ""
+
+#: ../../../policy/CMP0199.rst:6
+msgid ""
+":genex:`$<CONFIG:cfgs>` only matches the configuration of the consumed "
+"target."
+msgstr ""
+
+#: ../../../policy/CMP0199.rst:8
+msgid ""
+"Historically, when a :genex:`$<CONFIG:cfgs>` generator expression appeared "
+"in the properties of an imported target, it would match (that is, evaluate "
+"to ``1``) if any of the ``cfgs`` matched *any* of the following:"
+msgstr ""
+
+#: ../../../policy/CMP0199.rst:12
+msgid "The selected configuration of the imported target being consumed."
+msgstr ""
+
+#: ../../../policy/CMP0199.rst:14
+msgid "The configuration of the consuming target."
+msgstr ""
+
+#: ../../../policy/CMP0199.rst:16
+msgid ""
+"*Any* of the configurations in the :prop_tgt:`MAP_IMPORTED_CONFIG_<CONFIG>` "
+"of the imported target being consumed (where ``<CONFIG>`` is the "
+"configuration of the consuming target), *whether or not such configurations "
+"are valid for the imported target*."
+msgstr ""
+
+#: ../../../policy/CMP0199.rst:21
+msgid ""
+"This could result in expressions which are intended to be mutually exclusive "
+"being concurrently evaluated.  This would be especially problematic if the "
+"value of a compile definition is intended to be determined by the "
+"configuration, as this lack of exclusivity could result in redefinition."
+msgstr ""
+
+#: ../../../policy/CMP0199.rst:26
+msgid ""
+"CMake 4.2 and above prefer to consider *only* the configuration of the "
+"imported target being consumed; that is, (1) in the above list."
+msgstr ""
+
+#: ../../../policy/CMP0199.rst:29
+msgid ""
+"This policy provides compatibility with projects that rely on the historical "
+"behavior.  The ``OLD`` behavior for this policy is to retain the historic "
+"behavior as described above.  The ``NEW`` behavior is to consider only the "
+"configuration of the imported target being consumed."
+msgstr ""
+
+#: ../../../policy/CMP0199.rst:36
+msgid ""
+"This policy only applies to generator expressions being evaluated as part of "
+"the usage requirements of imported targets which are not imported from |CPS| "
+"packages."
+msgstr ""
+
+#: ../../../policy/CMP0199.rst:40
+msgid ""
+"For non-imported targets, both the historic and ongoing behavior is to "
+"consider only the configuration of the consuming target.  (The selected "
+"configuration of a non-imported target is always the active build "
+"configuration, which is necessarily the same as the consuming target's "
+"configuration.)"
+msgstr ""
+
+#: ../../../policy/CMP0199.rst:46
+msgid ""
+"For targets imported from |CPS| packages, the ``NEW`` behavior is used, "
+"regardless of the policy setting."
+msgstr ""
+
+#: ../../../policy/include/STANDARD_ADVICE.rst:1
+msgid ""
+"This policy was introduced in CMake version |INTRODUCED_IN_CMAKE_VERSION|. "
+"It may be set by :command:`cmake_policy` or :command:"
+"`cmake_minimum_required`. If it is not set, CMake |WARNS_OR_DOES_NOT_WARN|, "
+"and uses ``OLD`` behavior."
+msgstr ""
+
+#: ../../../policy/include/DEPRECATED.rst:2
+msgid ""
+"The ``OLD`` behavior of a policy is :manual:`deprecated by definition <cmake-"
+"policies(7)>` and may be removed in a future version of CMake."
+msgstr ""
+
+#: ../../../policy/CMP0199.rst:56
+msgid "Examples"
+msgstr ""
+
+#: ../../../policy/CMP0199.rst:58
+msgid "Consider the following imported libraries:"
+msgstr ""
+
+#: ../../../policy/CMP0199.rst:60
+msgid ""
+"add_library(test1 INTERFACE IMPORTED)\n"
+"set_target_properties(test1 PROPERTIES\n"
+"  IMPORTED_CONFIGURATIONS \"DEBUG\"\n"
+"  INTERFACE_COMPILE_DEFINITIONS\n"
+"    \"$<$<CONFIG:debug>:DEBUG>;$<$<CONFIG:release>:RELEASE>\"\n"
+")\n"
+"\n"
+"add_library(test2 INTERFACE IMPORTED)\n"
+"set_target_properties(test2 PROPERTIES\n"
+"  IMPORTED_CONFIGURATIONS \"TEST\"\n"
+"  INTERFACE_COMPILE_DEFINITIONS\n"
+"    \"$<$<CONFIG:debug>:DEBUG>;$<$<CONFIG:example>:EXAMPLE>;$<$<CONFIG:test>:"
+"TEST>\"\n"
+"  MAP_IMPORTED_CONFIG_RELEASE \"DEBUG;EXAMPLE;TEST\"\n"
+")"
+msgstr ""
+
+#: ../../../policy/CMP0199.rst:77
+msgid ""
+"Assume that the consuming project is built in the ``Release`` configuration. "
+"Under the ``OLD`` policy, a consumer of ``test1`` would see both ``DEBUG`` "
+"and ``RELEASE`` defined; ``$<CONFIG:debug>`` evaluates to ``1`` because the "
+"selected configuration of ``test1`` is ``DEBUG``, and ``$<CONFIG:release>`` "
+"evaluates to ``1`` because the consumer's configuration is ``Release`` "
+"(keeping in mind that configuration matching is case-insensitive). Likewise, "
+"a consumer of ``test2`` would see all of ``DEBUG``, ``RELEASE`` and ``TEST`` "
+"defined; ``$<CONFIG:debug>``, ``$<CONFIG:example>`` and ``$<CONFIG:test>`` "
+"all evaluate to ``1`` because all of these configurations appear in "
+"``MAP_IMPORTED_CONFIG_RELEASE``."
+msgstr ""
+
+#: ../../../policy/CMP0199.rst:88
+msgid ""
+"Under the ``NEW`` policy, when ``test1`` is consumed, only ``$<CONFIG:"
+"debug>`` will evaluate to ``1``. Similarly, when ``test2`` is consumed, only "
+"``$<CONFIG:test>`` will evaluate to ``1``. Both of these correspond to the "
+"configuration of the consumed library that is actually selected by CMake."
+msgstr ""
