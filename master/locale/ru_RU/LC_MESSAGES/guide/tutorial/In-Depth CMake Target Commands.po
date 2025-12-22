@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CMake master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-29 08:20+0000\n"
+"POT-Creation-Date: 2025-12-15 08:23+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -307,7 +307,7 @@ msgid ""
 msgstr ""
 
 #: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:178
-#: Commands.rst:355 Commands.rst:469
+#: Commands.rst:355 Commands.rst:481
 msgid "Build and Run"
 msgstr ""
 
@@ -329,7 +329,7 @@ msgid ""
 msgstr ""
 
 #: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:190
-#: Commands.rst:367 Commands.rst:482
+#: Commands.rst:367 Commands.rst:494
 msgid "Solution"
 msgstr ""
 
@@ -353,7 +353,7 @@ msgstr ""
 
 #: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:205
 #: Commands.rst:222 Commands.rst:239 Commands.rst:264 Commands.rst:284
-#: Commands.rst:383 Commands.rst:510 Commands.rst:530
+#: Commands.rst:383 Commands.rst:522 Commands.rst:542
 msgid "</details>"
 msgstr ""
 
@@ -542,7 +542,7 @@ msgid ""
 msgstr ""
 
 #: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:360
-#: Commands.rst:474
+#: Commands.rst:486
 msgid "cmake --build build"
 msgstr ""
 
@@ -668,59 +668,79 @@ msgstr ""
 msgid ""
 "You will need to build the vendor library into a static archive to complete "
 "this exercise. Navigate to the ``Help/guide/tutorial/Step4/Vendor/lib`` "
-"directory and build the code as appropriate for your platform. On Unix-like "
-"operating systems the appropriate commands are usually:"
+"directory and build the code as appropriate for your platform."
 msgstr ""
 
-#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:453
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:452
+msgid "Typical commands for a GCC toolchain on Unix-like systems are:"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:454
 msgid ""
-"g++ -c Vendors.cxx\n"
+"g++ -c Vendor.cxx\n"
 "ar rvs libVendor.a Vendor.o"
 msgstr ""
 
-#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:458
-msgid "Then complete ``TODO 11`` through ``TODO 14``."
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:459
+msgid "Likewise, sample commands for an MSVC toolchain on Windows are:"
 msgstr ""
 
 #: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:461
+msgid ""
+"cl -c Vendor.cxx\n"
+"lib -out:Vendor.lib Vendor.obj"
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:466
+msgid ""
+"Here, since you're directly invoking ``cl`` and ``lib``, make sure to use a "
+"Developer Command Prompt for your version of Visual Studio with the same "
+"target architecture used by this CMake project."
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:470
+msgid "Then complete ``TODO 11`` through ``TODO 14``."
+msgstr ""
+
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:473
 msgid ""
 "``VendorLib`` is an ``INTERFACE`` library, meaning it has no build "
 "requirements (because it has already been built). All of its properties "
 "should also be interface properties."
 msgstr ""
 
-#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:465
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:477
 msgid ""
 "We'll discuss ``INTERFACE`` libraries in greater depth during the next step."
 msgstr ""
 
-#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:471
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:483
 msgid ""
 "If you have successfully built ``libVendor``, you can rebuild ``Tutorial`` "
 "using the normal command."
 msgstr ""
 
-#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:478
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:490
 msgid ""
 "Running ``Tutorial`` should now output a message about the acceptability of "
 "the result to the vendor."
 msgstr ""
 
-#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:484
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:496
 msgid ""
 "We need to use the target link and include commands to describe the archive "
 "and its headers as ``INTERFACE`` requirements of ``VendorLib``."
 msgstr ""
 
-#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:487
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:499
 msgid "<details><summary>TODO 11-13: Click to show/hide answer</summary>"
 msgstr ""
 
-#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:491
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:503
 msgid "TODO 11-13: Vendor/CMakeLists.txt"
 msgstr ""
 
-#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:491
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:503
 msgid ""
 "target_include_directories(VendorLib\n"
 "  INTERFACE\n"
@@ -738,19 +758,19 @@ msgid ""
 ")"
 msgstr ""
 
-#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:514
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:526
 msgid "Then we can add ``VendorLib`` to ``Tutorial``'s linked libraries."
 msgstr ""
 
-#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:516
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:528
 msgid "<details><summary>TODO 14: Click to show/hide answer</summary>"
 msgstr ""
 
-#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:520
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:532
 msgid "TODO 14: Tutorial/CMakeLists.txt"
 msgstr ""
 
-#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:520
+#: ../../../guide/tutorial/In-Depth CMake Target Commands.rst:532
 msgid ""
 "target_link_libraries(Tutorial\n"
 "  PRIVATE\n"
