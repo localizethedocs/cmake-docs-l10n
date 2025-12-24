@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+
+<html lang="zh-TW" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>cmake-開發者(7) &mdash; CMake 3.0.2 Documentation</title>
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a3862c66" />
+    <link rel="stylesheet" type="text/css" href="../_static/cmake.css?v=4d06bd55" />
+    
+    <script src="../_static/documentation_options.js?v=98028894"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/translations.js?v=cbf116e0"></script>
+    
+    <link rel="canonical" href="https://projects.localizethedocs.org/cmake-docs-l10n/manual/cmake-developer.7.html" />
+    <link rel="icon" href="../_static/cmake-favicon.ico"/>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜尋" href="../search.html" />
+    <link rel="next" title="cmake-生成器表達式(7)" href="cmake-generator-expressions.7.html" />
+    <link rel="prev" title="ctest_upload" href="../command/ctest_upload.html" />
+
+ 
+
+    <script type="text/javascript" src="../ltd-provenance.js"></script>
+    <script type="text/javascript" src="../ltd-current.js"></script>
+    <script type="text/javascript" src="../../../ltd-config.js"></script>
+    <script type="text/javascript" src="../../../ltd-flyout.js"></script>
+
+  </head><body>
+    <input id="sidebar-check" type="checkbox" />
+    <label id="sidebar-overlay" for="sidebar-check"></label>
+
+
+
+    <div class="related relbar1" role="navigation" aria-label="Related">
+      <h3>瀏覽</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="總索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="cmake-generator-expressions.7.html" title="cmake-生成器表達式(7)"
+             accesskey="N">下一頁</a> |</li>
+        <li class="right" >
+          <a href="../command/ctest_upload.html" title="ctest_upload"
+             accesskey="P">上一頁</a> |</li>
+  <li>
+    <label class="sidebar-toggle" for="sidebar-check"></label>
+  </li>
+  <li class="rootlink">
+    <img src="../_static/cmake-logo-16.png" width="16" height="16" alt=""/>
+    <a href="https://cmake.org/">CMake 3.0.2</a>
+    <span class="reldelim1"> &#187;</span>
+  </li>
+  <li>
+    <a href="../index.html">文件</a> &#187;
+  </li>
+
+        <li class="nav-item nav-item-this"><a href="">cmake-開發者(7)</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <span class="target" id="manual:cmake-developer(7)"></span><section id="cmake-developer-7">
+<h1><a class="toc-backref" href="#id2" role="doc-backlink">cmake-開發者(7)</a><a class="headerlink" href="#cmake-developer-7" title="連結到這個標頭">¶</a></h1>
+<nav class="contents" id="id1">
+<p class="topic-title">目錄</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#cmake-developer-7" id="id2">cmake-開發者(7)</a></p>
+<ul>
+<li><p><a class="reference internal" href="#introduction" id="id3">介紹</a></p></li>
+<li><p><a class="reference internal" href="#permitted-c-subset" id="id4">Permitted C++ Subset</a></p>
+<ul>
+<li><p><a class="reference internal" href="#std-vector-at" id="id5">std::vector::at</a></p></li>
+<li><p><a class="reference internal" href="#std-string-append-and-std-string-clear" id="id6">std::string::append and std::string::clear</a></p></li>
+<li><p><a class="reference internal" href="#std-set-const-iterators" id="id7">std::set const iterators</a></p></li>
+<li><p><a class="reference internal" href="#char-array-to-string-conversions-with-algorithms" id="id8">Char Array to <code class="docutils literal notranslate"><span class="pre">string</span></code> Conversions with Algorithms</a></p></li>
+<li><p><a class="reference internal" href="#std-auto-ptr" id="id9">std::auto_ptr</a></p></li>
+<li><p><a class="reference internal" href="#std-vector-insert-and-std-set" id="id10">std::vector::insert and std::set</a></p></li>
+<li><p><a class="reference internal" href="#std-set-insert" id="id11">std::set::insert</a></p></li>
+<li><p><a class="reference internal" href="#template-parameter-defaults" id="id12">Template Parameter Defaults</a></p></li>
+<li><p><a class="reference internal" href="#std-min-and-std-max" id="id13">std::min and std::max</a></p></li>
+<li><p><a class="reference internal" href="#size-t" id="id14">size_t</a></p></li>
+<li><p><a class="reference internal" href="#templates" id="id15">Templates</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#help" id="id16">Help</a></p>
+<ul>
+<li><p><a class="reference internal" href="#markup-constructs" id="id17">Markup Constructs</a></p></li>
+<li><p><a class="reference internal" href="#cmake-domain" id="id18">CMake Domain</a></p></li>
+<li><p><a class="reference internal" href="#cross-references" id="id19">Cross-References</a></p></li>
+<li><p><a class="reference internal" href="#style" id="id20">Style</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#modules" id="id21">模組</a></p>
+<ul>
+<li><p><a class="reference internal" href="#module-documentation" id="id22">Module Documentation</a></p></li>
+<li><p><a class="reference internal" href="#find-modules" id="id23">Find Modules</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+<section id="introduction">
+<h2><a class="toc-backref" href="#id3" role="doc-backlink">介紹</a><a class="headerlink" href="#introduction" title="連結到這個標頭">¶</a></h2>
+<p>This manual is intended for reference by developers modifying the CMake
+source tree itself.</p>
+</section>
+<section id="permitted-c-subset">
+<h2><a class="toc-backref" href="#id4" role="doc-backlink">Permitted C++ Subset</a><a class="headerlink" href="#permitted-c-subset" title="連結到這個標頭">¶</a></h2>
+<p>CMake is required to build with ancient C++ compilers and standard library
+implementations.  Some common C++ constructs may not be used in CMake in order
+to build with such toolchains.</p>
+<section id="std-vector-at">
+<h3><a class="toc-backref" href="#id5" role="doc-backlink">std::vector::at</a><a class="headerlink" href="#std-vector-at" title="連結到這個標頭">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">at()</span></code> member function of <code class="docutils literal notranslate"><span class="pre">std::vector</span></code> may not be used. Use
+<code class="docutils literal notranslate"><span class="pre">operator[]</span></code> instead:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">someVec</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getVec</span><span class="p">();</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">i1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">someVec</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span><span class="w"> </span><span class="c1">// Wrong</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">i2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">someVec</span><span class="p">[</span><span class="mi">5</span><span class="p">];</span><span class="w">    </span><span class="c1">// Ok</span>
+</pre></div>
+</div>
+</section>
+<section id="std-string-append-and-std-string-clear">
+<h3><a class="toc-backref" href="#id6" role="doc-backlink">std::string::append and std::string::clear</a><a class="headerlink" href="#std-string-append-and-std-string-clear" title="連結到這個標頭">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">append()</span></code> and <code class="docutils literal notranslate"><span class="pre">clear()</span></code> member functions of <code class="docutils literal notranslate"><span class="pre">std::string</span></code> may not
+be used. Use <code class="docutils literal notranslate"><span class="pre">operator+=</span></code> and <code class="docutils literal notranslate"><span class="pre">operator=</span></code> instead:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">stringBuilder</span><span class="p">;</span>
+<span class="n">stringBuilder</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="s">&quot;chunk&quot;</span><span class="p">);</span><span class="w"> </span><span class="c1">// Wrong</span>
+<span class="n">stringBuilder</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span><span class="w"> </span><span class="c1">// Wrong</span>
+<span class="n">stringBuilder</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="s">&quot;chunk&quot;</span><span class="p">;</span><span class="w">      </span><span class="c1">// Ok</span>
+<span class="n">stringBuilder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">;</span><span class="w">      </span><span class="c1">// Ok</span>
+</pre></div>
+</div>
+</section>
+<section id="std-set-const-iterators">
+<h3><a class="toc-backref" href="#id7" role="doc-backlink">std::set const iterators</a><a class="headerlink" href="#std-set-const-iterators" title="連結到這個標頭">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">find()</span></code> member function of a <code class="docutils literal notranslate"><span class="pre">const</span></code> <code class="docutils literal notranslate"><span class="pre">std::set</span></code> instance may not be
+used in a comparison with the iterator returned by <code class="docutils literal notranslate"><span class="pre">end()</span></code>:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">set</span><span class="o">&lt;</span><span class="n">cmStdString</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">someSet</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getSet</span><span class="p">();</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">someSet</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="s">&quot;needle&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">someSet</span><span class="p">.</span><span class="n">end</span><span class="p">())</span><span class="w"> </span><span class="c1">// Wrong</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// ...</span>
+<span class="w">  </span><span class="p">}</span>
+</pre></div>
+</div>
+<p>The return value of <code class="docutils literal notranslate"><span class="pre">find()</span></code> must be assigned to an intermediate
+<code class="docutils literal notranslate"><span class="pre">const_iterator</span></code> for comparison:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">set</span><span class="o">&lt;</span><span class="n">cmStdString</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">someSet</span><span class="p">;</span>
+<span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">set</span><span class="o">&lt;</span><span class="n">cmStdString</span><span class="o">&gt;::</span><span class="n">const_iterator</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">someSet</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="s">&quot;needle&quot;</span><span class="p">);</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">propSet</span><span class="p">.</span><span class="n">end</span><span class="p">())</span><span class="w"> </span><span class="c1">// Ok</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// ...</span>
+<span class="w">  </span><span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="char-array-to-string-conversions-with-algorithms">
+<h3><a class="toc-backref" href="#id8" role="doc-backlink">Char Array to <code class="docutils literal notranslate"><span class="pre">string</span></code> Conversions with Algorithms</a><a class="headerlink" href="#char-array-to-string-conversions-with-algorithms" title="連結到這個標頭">¶</a></h3>
+<p>In some implementations, algorithms operating on iterators to a container of
+<code class="docutils literal notranslate"><span class="pre">std::string</span></code> can not accept a <code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">char*</span></code> value:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">dir</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="cm">/*...*/</span><span class="p">;</span>
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span><span class="w"> </span><span class="n">vec</span><span class="p">;</span>
+<span class="c1">// ...</span>
+<span class="n">std</span><span class="o">::</span><span class="n">binary_search</span><span class="p">(</span><span class="n">vec</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="n">vec</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span><span class="w"> </span><span class="n">dir</span><span class="p">);</span><span class="w"> </span><span class="c1">// Wrong</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">std::string</span></code> may need to be explicitly constructed:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">dir</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="cm">/*...*/</span><span class="p">;</span>
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span><span class="w"> </span><span class="n">vec</span><span class="p">;</span>
+<span class="c1">// ...</span>
+<span class="n">std</span><span class="o">::</span><span class="n">binary_search</span><span class="p">(</span><span class="n">vec</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="n">vec</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">(</span><span class="n">dir</span><span class="p">));</span><span class="w"> </span><span class="c1">// Ok</span>
+</pre></div>
+</div>
+</section>
+<section id="std-auto-ptr">
+<h3><a class="toc-backref" href="#id9" role="doc-backlink">std::auto_ptr</a><a class="headerlink" href="#std-auto-ptr" title="連結到這個標頭">¶</a></h3>
+<p>Some implementations have a <code class="docutils literal notranslate"><span class="pre">std::auto_ptr</span></code> which can not be used as a
+return value from a function. <code class="docutils literal notranslate"><span class="pre">std::auto_ptr</span></code> may not be used. Use
+<code class="docutils literal notranslate"><span class="pre">cmsys::auto_ptr</span></code> instead.</p>
+</section>
+<section id="std-vector-insert-and-std-set">
+<h3><a class="toc-backref" href="#id10" role="doc-backlink">std::vector::insert and std::set</a><a class="headerlink" href="#std-vector-insert-and-std-set" title="連結到這個標頭">¶</a></h3>
+<p>Use of <code class="docutils literal notranslate"><span class="pre">std::vector::insert</span></code> with an iterator whose <code class="docutils literal notranslate"><span class="pre">element_type</span></code> requires
+conversion is not allowed:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">set</span><span class="o">&lt;</span><span class="n">cmStdString</span><span class="o">&gt;</span><span class="w"> </span><span class="n">theSet</span><span class="p">;</span>
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span><span class="w"> </span><span class="n">theVector</span><span class="p">;</span>
+<span class="n">theVector</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">theVector</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span><span class="w"> </span><span class="n">theSet</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="n">theSet</span><span class="p">.</span><span class="n">end</span><span class="p">());</span><span class="w"> </span><span class="c1">// Wrong</span>
+</pre></div>
+</div>
+<p>A loop must be used instead:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">set</span><span class="o">&lt;</span><span class="n">cmStdString</span><span class="o">&gt;</span><span class="w"> </span><span class="n">theSet</span><span class="p">;</span>
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span><span class="w"> </span><span class="n">theVector</span><span class="p">;</span>
+<span class="k">for</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">set</span><span class="o">&lt;</span><span class="n">cmStdString</span><span class="o">&gt;::</span><span class="n">iterator</span><span class="w"> </span><span class="n">li</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">theSet</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span>
+<span class="w">    </span><span class="n">li</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">theSet</span><span class="p">.</span><span class="n">end</span><span class="p">();</span><span class="w"> </span><span class="o">++</span><span class="n">li</span><span class="p">)</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">  </span><span class="n">theVector</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="o">*</span><span class="n">li</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="std-set-insert">
+<h3><a class="toc-backref" href="#id11" role="doc-backlink">std::set::insert</a><a class="headerlink" href="#std-set-insert" title="連結到這個標頭">¶</a></h3>
+<p>Use of <code class="docutils literal notranslate"><span class="pre">std::set::insert</span></code> is not allowed with any source container:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">set</span><span class="o">&lt;</span><span class="n">cmTarget</span><span class="o">*&gt;</span><span class="w"> </span><span class="n">theSet</span><span class="p">;</span>
+<span class="n">theSet</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">targets</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="n">targets</span><span class="p">.</span><span class="n">end</span><span class="p">());</span><span class="w"> </span><span class="c1">// Wrong</span>
+</pre></div>
+</div>
+<p>A loop must be used instead:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">ConstIterator</span><span class="w"> </span><span class="n">it</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">targets</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span>
+<span class="k">const</span><span class="w"> </span><span class="n">ConstIterator</span><span class="w"> </span><span class="n">end</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">targets</span><span class="p">.</span><span class="n">end</span><span class="p">();</span>
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="n">it</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">end</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">it</span><span class="p">)</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">  </span><span class="n">theSet</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="o">*</span><span class="n">it</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="template-parameter-defaults">
+<h3><a class="toc-backref" href="#id12" role="doc-backlink">Template Parameter Defaults</a><a class="headerlink" href="#template-parameter-defaults" title="連結到這個標頭">¶</a></h3>
+<p>On ancient compilers, C++ template must use template parameters in function
+arguments.  If no parameter of that type is needed, the common workaround is
+to add a defaulted pointer to the type to the templated function. However,
+this does not work with other ancient compilers:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">PropertyType</span><span class="o">&gt;</span>
+<span class="n">PropertyType</span><span class="w"> </span><span class="n">getTypedProperty</span><span class="p">(</span><span class="n">cmTarget</span><span class="o">*</span><span class="w"> </span><span class="n">tgt</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">prop</span><span class="p">,</span>
+<span class="w">                              </span><span class="n">PropertyType</span><span class="o">*</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="c1">// Wrong</span>
+<span class="w">  </span><span class="p">{</span>
+
+<span class="w">  </span><span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">PropertyType</span><span class="o">&gt;</span>
+<span class="n">PropertyType</span><span class="w"> </span><span class="n">getTypedProperty</span><span class="p">(</span><span class="n">cmTarget</span><span class="o">*</span><span class="w"> </span><span class="n">tgt</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">prop</span><span class="p">,</span>
+<span class="w">                              </span><span class="n">PropertyType</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="c1">// Ok</span>
+<span class="w">  </span><span class="p">{</span>
+
+<span class="w">  </span><span class="p">}</span>
+</pre></div>
+</div>
+<p>and invoke it with the value <code class="docutils literal notranslate"><span class="pre">0</span></code> explicitly in all cases.</p>
+</section>
+<section id="std-min-and-std-max">
+<h3><a class="toc-backref" href="#id13" role="doc-backlink">std::min and std::max</a><a class="headerlink" href="#std-min-and-std-max" title="連結到這個標頭">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">min</span></code> and <code class="docutils literal notranslate"><span class="pre">max</span></code> are defined as macros on some systems. <code class="docutils literal notranslate"><span class="pre">std::min</span></code> and
+<code class="docutils literal notranslate"><span class="pre">std::max</span></code> may not be used.  Use <code class="docutils literal notranslate"><span class="pre">cmMinimum</span></code> and <code class="docutils literal notranslate"><span class="pre">cmMaximum</span></code> instead.</p>
+</section>
+<section id="size-t">
+<h3><a class="toc-backref" href="#id14" role="doc-backlink">size_t</a><a class="headerlink" href="#size-t" title="連結到這個標頭">¶</a></h3>
+<p>Various implementations have differing implementation of <code class="docutils literal notranslate"><span class="pre">size_t</span></code>.  When
+assigning the result of <code class="docutils literal notranslate"><span class="pre">.size()</span></code> on a container for example, the result
+should not be assigned to an <code class="docutils literal notranslate"><span class="pre">unsigned</span> <span class="pre">int</span></code> or similar. <code class="docutils literal notranslate"><span class="pre">std::size_t</span></code> must
+not be used.</p>
+</section>
+<section id="templates">
+<h3><a class="toc-backref" href="#id15" role="doc-backlink">Templates</a><a class="headerlink" href="#templates" title="連結到這個標頭">¶</a></h3>
+<p>Some template code is permitted, but with some limitations. Member templates
+may not be used, and template friends may not be used.</p>
+</section>
+</section>
+<section id="help">
+<h2><a class="toc-backref" href="#id16" role="doc-backlink">Help</a><a class="headerlink" href="#help" title="連結到這個標頭">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">Help</span></code> directory contains CMake help manual source files.
+They are written using the <a class="reference external" href="http://docutils.sourceforge.net/docs/ref/rst/introduction.html">reStructuredText</a> markup syntax and
+processed by <a class="reference external" href="http://sphinx-doc.org">Sphinx</a> to generate the CMake help manuals.</p>
+<section id="markup-constructs">
+<h3><a class="toc-backref" href="#id17" role="doc-backlink">Markup Constructs</a><a class="headerlink" href="#markup-constructs" title="連結到這個標頭">¶</a></h3>
+<p>In addition to using Sphinx to generate the CMake help manuals, we
+also use a C++-implemented document processor to print documents for
+the <code class="docutils literal notranslate"><span class="pre">--help-*</span></code> command-line help options.  It supports a subset of
+reStructuredText markup.  When authoring or modifying documents,
+please verify that the command-line help looks good in addition to the
+Sphinx-generated html and man pages.</p>
+<p>The command-line help processor supports the following constructs
+defined by reStructuredText, Sphinx, and a CMake extension to Sphinx.</p>
+<dl class="simple">
+<dt>CMake Domain directives</dt><dd><p>Directives defined in the <a class="reference internal" href="#cmake-domain">CMake Domain</a> for defining CMake
+documentation objects are printed in command-line help output as
+if the lines were normal paragraph text with interpretation.</p>
+</dd>
+<dt>CMake Domain interpreted text roles</dt><dd><p>Interpreted text roles defined in the <a class="reference internal" href="#cmake-domain">CMake Domain</a> for
+cross-referencing CMake documentation objects are replaced by their
+link text in command-line help output.  Other roles are printed
+literally and not processed.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">code-block</span></code> 指示詞</dt><dd><p>Add a literal code block without interpretation.  The command-line
+help processor prints the block content without the leading directive
+line and with common indentation replaced by one space.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">include</span></code> directive</dt><dd><p>Include another document source file.  The command-line help
+processor prints the included document inline with the referencing
+document.</p>
+</dd>
+<dt>literal block after <code class="docutils literal notranslate"><span class="pre">::</span></code></dt><dd><p>A paragraph ending in <code class="docutils literal notranslate"><span class="pre">::</span></code> followed by a blank line treats
+the following indented block as literal text without interpretation.
+The command-line help processor prints the <code class="docutils literal notranslate"><span class="pre">::</span></code> literally and
+prints the block content with common indentation replaced by one
+space.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">note</span></code> directive</dt><dd><p>Call out a side note.  The command-line help processor prints the
+block content as if the lines were normal paragraph text with
+interpretation.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">parsed-literal</span></code> directive</dt><dd><p>Add a literal block with markup interpretation.  The command-line
+help processor prints the block content without the leading
+directive line and with common indentation replaced by one space.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">productionlist</span></code> directive</dt><dd><p>Render context-free grammar productions.  The command-line help
+processor prints the block content as if the lines were normal
+paragraph text with interpretation.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">replace</span></code> directive</dt><dd><p>Define a <code class="docutils literal notranslate"><span class="pre">|substitution|</span></code> replacement.
+The command-line help processor requires a substitution replacement
+to be defined before it is referenced.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">|substitution|</span></code> reference</dt><dd><p>Reference a substitution replacement previously defined by
+the <code class="docutils literal notranslate"><span class="pre">replace</span></code> directive.  The command-line help processor
+performs the substitution and replaces all newlines in the
+replacement text with spaces.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">toctree</span></code> directive</dt><dd><p>Include other document sources in the Table-of-Contents
+document tree.  The command-line help processor prints
+the referenced documents inline as part of the referencing
+document.</p>
+</dd>
+</dl>
+<p>Inline markup constructs not listed above are printed literally in the
+command-line help output.  We prefer to use inline markup constructs that
+look correct in source form, so avoid use of \-escapes in favor of inline
+literals when possible.</p>
+<p>Explicit markup blocks not matching directives listed above are removed from
+command-line help output.  Do not use them, except for plain <code class="docutils literal notranslate"><span class="pre">..</span></code> comments
+that are removed by Sphinx too.</p>
+<p>Note that nested indentation of blocks is not recognized by the
+command-line help processor.  Therefore:</p>
+<ul class="simple">
+<li><p>Explicit markup blocks are recognized only when not indented
+inside other blocks.</p></li>
+<li><p>Literal blocks after paragraphs ending in <code class="docutils literal notranslate"><span class="pre">::</span></code> but not
+at the top indentation level may consume all indented lines
+following them.</p></li>
+</ul>
+<p>Try to avoid these cases in practice.</p>
+</section>
+<section id="cmake-domain">
+<h3><a class="toc-backref" href="#id18" role="doc-backlink">CMake Domain</a><a class="headerlink" href="#cmake-domain" title="連結到這個標頭">¶</a></h3>
+<p>CMake adds a <a class="reference external" href="http://sphinx-doc.org/domains.html">Sphinx Domain</a> called <code class="docutils literal notranslate"><span class="pre">cmake</span></code>, also called the
+&quot;CMake Domain&quot;.  It defines several &quot;object&quot; types for CMake
+documentation:</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">command</span></code></dt><dd><p>A CMake language command.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">generator</span></code></dt><dd><p>A CMake native build system generator.
+See the <span class="target" id="index-0-manual:cmake(1)"></span><a class="reference internal" href="cmake.1.html#manual:cmake(1)" title="cmake(1)"><code class="xref cmake cmake-manual docutils literal notranslate"><span class="pre">cmake(1)</span></code></a> command-line tool's <code class="docutils literal notranslate"><span class="pre">-G</span></code> option.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">manual</span></code></dt><dd><p>A CMake manual page, like this <span class="target" id="index-0-manual:cmake-developer(7)"></span><a class="reference internal" href="#manual:cmake-developer(7)" title="cmake-developer(7)"><code class="xref cmake cmake-manual docutils literal notranslate"><span class="pre">cmake-developer(7)</span></code></a> manual.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">module</span></code></dt><dd><p>A CMake module.
+See the <span class="target" id="index-0-manual:cmake-modules(7)"></span><a class="reference internal" href="cmake-modules.7.html#manual:cmake-modules(7)" title="cmake-modules(7)"><code class="xref cmake cmake-manual docutils literal notranslate"><span class="pre">cmake-modules(7)</span></code></a> manual
+and the <span class="target" id="index-0-command:include"></span><a class="reference internal" href="../command/include.html#command:include" title="include"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">include()</span></code></a> command.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">policy</span></code></dt><dd><p>A CMake policy.
+See the <span class="target" id="index-0-manual:cmake-policies(7)"></span><a class="reference internal" href="cmake-policies.7.html#manual:cmake-policies(7)" title="cmake-policies(7)"><code class="xref cmake cmake-manual docutils literal notranslate"><span class="pre">cmake-policies(7)</span></code></a> manual
+and the <span class="target" id="index-0-command:cmake_policy"></span><a class="reference internal" href="../command/cmake_policy.html#command:cmake_policy" title="cmake_policy"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">cmake_policy()</span></code></a> command.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">prop_cache,</span> <span class="pre">prop_dir,</span> <span class="pre">prop_gbl,</span> <span class="pre">prop_sf,</span> <span class="pre">prop_test,</span> <span class="pre">prop_tgt</span></code></dt><dd><p>A CMake cache, directory, global, source file, test, or target
+property, respectively.  See the <span class="target" id="index-0-manual:cmake-properties(7)"></span><a class="reference internal" href="cmake-properties.7.html#manual:cmake-properties(7)" title="cmake-properties(7)"><code class="xref cmake cmake-manual docutils literal notranslate"><span class="pre">cmake-properties(7)</span></code></a> manual
+and the <span class="target" id="index-0-command:set_property"></span><a class="reference internal" href="../command/set_property.html#command:set_property" title="set_property"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">set_property()</span></code></a> command.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">variable</span></code></dt><dd><p>A CMake language variable.
+See the <span class="target" id="index-0-manual:cmake-variables(7)"></span><a class="reference internal" href="cmake-variables.7.html#manual:cmake-variables(7)" title="cmake-variables(7)"><code class="xref cmake cmake-manual docutils literal notranslate"><span class="pre">cmake-variables(7)</span></code></a> manual
+and the <span class="target" id="index-0-command:set"></span><a class="reference internal" href="../command/set.html#command:set" title="set"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">set()</span></code></a> command.</p>
+</dd>
+</dl>
+<p>Documentation objects in the CMake Domain come from two sources.
+First, the CMake extension to Sphinx transforms every document named
+with the form <code class="docutils literal notranslate"><span class="pre">Help/&lt;type&gt;/&lt;file-name&gt;.rst</span></code> to a domain object with
+type <code class="docutils literal notranslate"><span class="pre">&lt;type&gt;</span></code>.  The object name is extracted from the document title,
+which is expected to be of the form:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;object-name&gt;
+-------------
+</pre></div>
+</div>
+<p>and to appear at or near the top of the <code class="docutils literal notranslate"><span class="pre">.rst</span></code> file before any other
+lines starting in a letter, digit, or <code class="docutils literal notranslate"><span class="pre">&lt;</span></code>.  If no such title appears
+literally in the <code class="docutils literal notranslate"><span class="pre">.rst</span></code> file, the object name is the <code class="docutils literal notranslate"><span class="pre">&lt;file-name&gt;</span></code>.
+If a title does appear, it is expected that <code class="docutils literal notranslate"><span class="pre">&lt;file-name&gt;</span></code> is equal
+to <code class="docutils literal notranslate"><span class="pre">&lt;object-name&gt;</span></code> with any <code class="docutils literal notranslate"><span class="pre">&lt;</span></code> and <code class="docutils literal notranslate"><span class="pre">&gt;</span></code> characters removed.</p>
+<p>Second, the CMake Domain provides directives to define objects inside
+other documents:</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><span class="p">..</span> <span class="ow">command</span><span class="p">::</span> <span class="nt">&lt;command-name&gt;</span>
+
+ This indented block documents &lt;command-name&gt;.
+
+<span class="p">..</span> <span class="ow">variable</span><span class="p">::</span> <span class="nt">&lt;variable-name&gt;</span>
+
+ This indented block documents &lt;variable-name&gt;.
+</pre></div>
+</div>
+<p>Object types for which no directive is available must be defined using
+the first approach above.</p>
+</section>
+<section id="cross-references">
+<h3><a class="toc-backref" href="#id19" role="doc-backlink">Cross-References</a><a class="headerlink" href="#cross-references" title="連結到這個標頭">¶</a></h3>
+<p>Sphinx uses reStructuredText interpreted text roles to provide
+cross-reference syntax.  The <a class="reference internal" href="#cmake-domain">CMake Domain</a> provides for each
+domain object type a role of the same name to cross-reference it.
+CMake Domain roles are inline markup of the forms:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>:type:`name`
+:type:`text &lt;name&gt;`
+</pre></div>
+</div>
+<p>where <code class="docutils literal notranslate"><span class="pre">type</span></code> is the domain object type and <code class="docutils literal notranslate"><span class="pre">name</span></code> is the
+domain object name.  In the first form the link text will be
+<code class="docutils literal notranslate"><span class="pre">name</span></code> (or <code class="docutils literal notranslate"><span class="pre">name()</span></code> if the type is <code class="docutils literal notranslate"><span class="pre">command</span></code>) and in
+the second form the link text will be the explicit <code class="docutils literal notranslate"><span class="pre">text</span></code>.
+For example, the code:</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><span class="m">*</span> The <span class="na">:command:</span><span class="nv">`list`</span> command.
+<span class="m">*</span> The <span class="na">:command:</span><span class="nv">`list(APPEND)`</span> sub-command.
+<span class="m">*</span> The <span class="na">:command:</span><span class="nv">`list() command &lt;list&gt;`</span>.
+<span class="m">*</span> The <span class="na">:command:</span><span class="nv">`list(APPEND) sub-command &lt;list&gt;`</span>.
+<span class="m">*</span> The <span class="na">:variable:</span><span class="nv">`CMAKE_VERSION`</span> variable.
+<span class="m">*</span> The :prop_tgt:<span class="nv">`OUTPUT_NAME_&lt;CONFIG&gt;`</span> target property.
+</pre></div>
+</div>
+<p>produces:</p>
+<ul class="simple">
+<li><p>The <span class="target" id="index-0-command:list"></span><a class="reference internal" href="../command/list.html#command:list" title="list"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">list()</span></code></a> command.</p></li>
+<li><p>The <span class="target" id="index-1-command:list"></span><a class="reference internal" href="../command/list.html#command:list" title="list(append)"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">list(APPEND)</span></code></a> sub-command.</p></li>
+<li><p>The <span class="target" id="index-2-command:list"></span><a class="reference internal" href="../command/list.html#command:list" title="list"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">list()</span> <span class="pre">command</span></code></a>.</p></li>
+<li><p>The <span class="target" id="index-3-command:list"></span><a class="reference internal" href="../command/list.html#command:list" title="list"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">list(APPEND)</span> <span class="pre">sub-command</span></code></a>.</p></li>
+<li><p>The <span class="target" id="index-0-variable:CMAKE_VERSION"></span><a class="reference internal" href="../variable/CMAKE_VERSION.html#variable:CMAKE_VERSION" title="CMAKE_VERSION"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_VERSION</span></code></a> variable.</p></li>
+<li><p>The <span class="target" id="index-0-prop_tgt:OUTPUT_NAME_&lt;CONFIG&gt;"></span><a class="reference internal" href="../prop_tgt/OUTPUT_NAME_CONFIG.html#prop_tgt:OUTPUT_NAME_&lt;CONFIG&gt;" title="OUTPUT_NAME_&lt;CONFIG&gt;"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">OUTPUT_NAME_&lt;CONFIG&gt;</span></code></a> target property.</p></li>
+</ul>
+<p>Note that CMake Domain roles differ from Sphinx and reStructuredText
+convention in that the form <code class="docutils literal notranslate"><span class="pre">a&lt;b&gt;</span></code>, without a space preceding <code class="docutils literal notranslate"><span class="pre">&lt;</span></code>,
+is interpreted as a name instead of link text with an explicit target.
+This is necessary because we use <code class="docutils literal notranslate"><span class="pre">&lt;placeholders&gt;</span></code> frequently in
+object names like <code class="docutils literal notranslate"><span class="pre">OUTPUT_NAME_&lt;CONFIG&gt;</span></code>.  The form <code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">&lt;b&gt;</span></code>,
+with a space preceding <code class="docutils literal notranslate"><span class="pre">&lt;</span></code>, is still interpreted as a link text
+with an explicit target.</p>
+</section>
+<section id="style">
+<h3><a class="toc-backref" href="#id20" role="doc-backlink">Style</a><a class="headerlink" href="#style" title="連結到這個標頭">¶</a></h3>
+<ol class="arabic">
+<li><p>Command signatures should be marked up as plain literal blocks, not as
+cmake <code class="docutils literal notranslate"><span class="pre">code-blocks</span></code>.</p></li>
+<li><p>Signatures are separated from preceding content by a horizontal
+line. That is, use:</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><span class="c">... preceding paragraph.</span>
+
+---------------------------------------------------------------------
+
+<span class="se">::</span>
+
+<span class="s">  add_library(&lt;lib&gt; ...)</span>
+
+This signature is used for ...
+</pre></div>
+</div>
+</li>
+<li><p>Use &quot;<code class="docutils literal notranslate"><span class="pre">OFF</span></code>&quot; and &quot;<code class="docutils literal notranslate"><span class="pre">ON</span></code>&quot; for boolean values which can be modified by
+the user, such as <span class="target" id="index-0-prop_tgt:POSITION_INDEPENDENT_CODE"></span><a class="reference internal" href="../prop_tgt/POSITION_INDEPENDENT_CODE.html#prop_tgt:POSITION_INDEPENDENT_CODE" title="POSITION_INDEPENDENT_CODE"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">POSITION_INDEPENDENT_CODE</span></code></a>. Such properties
+may be &quot;enabled&quot; and &quot;disabled&quot;. Use &quot;<code class="docutils literal notranslate"><span class="pre">True</span></code>&quot; and &quot;<code class="docutils literal notranslate"><span class="pre">False</span></code>&quot; for
+inherent values which can't be modified after being set, such as the
+<span class="target" id="index-0-prop_tgt:IMPORTED"></span><a class="reference internal" href="../prop_tgt/IMPORTED.html#prop_tgt:IMPORTED" title="IMPORTED"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">IMPORTED</span></code></a> property of a build target.</p></li>
+<li><p>Use two spaces for indentation.  Use two spaces between sentences in
+prose.</p></li>
+<li><p>Prefer to mark the start of literal blocks with <code class="docutils literal notranslate"><span class="pre">::</span></code> at the end of
+the preceding paragraph. In cases where the following block gets
+a <code class="docutils literal notranslate"><span class="pre">code-block</span></code> marker, put a single <code class="docutils literal notranslate"><span class="pre">:</span></code> at the end of the preceding
+paragraph.</p></li>
+<li><p>Prefer to restrict the width of lines to 75-80 columns.  This is not a
+hard restriction, but writing new paragraphs wrapped at 75 columns
+allows space for adding minor content without significant re-wrapping of
+content.</p></li>
+<li><p>Mark up self-references with  <code class="docutils literal notranslate"><span class="pre">inline-literal</span></code> syntax. For example,
+within the add_executable command documentation, use</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><span class="s">``add_executable``</span>
+</pre></div>
+</div>
+<p>not</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><span class="na">:command:</span><span class="nv">`add_executable`</span>
+</pre></div>
+</div>
+<p>which is used elsewhere.</p>
+</li>
+<li><p>Mark up all other linkable references as links, including repeats. An
+alternative, which is used by wikipedia (<a class="reference external" href="http://en.wikipedia.org/wiki/WP:REPEATLINK">http://en.wikipedia.org/wiki/WP:REPEATLINK</a>),
+is to link to a reference only once per article. That style is not used
+in CMake documentation.</p></li>
+<li><p>Mark up references to keywords in signatures, file names, and other
+technical terms with <code class="docutils literal notranslate"><span class="pre">inline-literl</span></code> syntax, for example:</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span>If <span class="s">``WIN32``</span> is used with <span class="na">:command:</span><span class="nv">`add_executable`</span>, the
+:prop_tgt:<span class="nv">`WIN32_EXECUTABLE`</span> target property is enabled. That command
+creates the file <span class="s">``&lt;name&gt;.exe``</span> on Windows.
+</pre></div>
+</div>
+</li>
+<li><p>If referring to a concept which corresponds to a property, and that
+concept is described in a high-level manual, prefer to link to the
+manual section instead of the property. For example:</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span>This command creates an <span class="na">:ref:</span><span class="nv">`Imported Target &lt;Imported Targets&gt;`</span>.
+</pre></div>
+</div>
+<p>instead of:</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span>This command creates an :prop_tgt:<span class="nv">`IMPORTED`</span> target.
+</pre></div>
+</div>
+<p>The latter should be used only when referring specifically to the
+property.</p>
+<p>References to manual sections are not automatically created by creating
+a section, but code such as:</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><span class="p">..</span> <span class="nt">_`Imported Targets`:</span>
+</pre></div>
+</div>
+<p>creates a suitable anchor.  Use an anchor name which matches the name
+of the corresponding section.  Refer to the anchor using a
+cross-reference with specified text.</p>
+<p>Imported Targets need the <code class="docutils literal notranslate"><span class="pre">IMPORTED</span></code> term marked up with care in
+particular because the term may refer to a command keyword
+(<code class="docutils literal notranslate"><span class="pre">IMPORTED</span></code>), a target property (<span class="target" id="index-1-prop_tgt:IMPORTED"></span><a class="reference internal" href="../prop_tgt/IMPORTED.html#prop_tgt:IMPORTED" title="IMPORTED"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">IMPORTED</span></code></a>), or a
+concept (<a class="reference internal" href="cmake-buildsystem.7.html#imported-targets"><span class="std std-ref">Imported Targets</span></a>).</p>
+</li>
+<li><p>Where a property, command or variable is related conceptually to others,
+by for example, being related to the buildsystem description, generator
+expressions or Qt, each relevant property, command or variable should
+link to the primary manual, which provides high-level information.  Only
+particular information relating to the command should be in the
+documentation of the command.</p></li>
+<li><p>When marking section titles, make the section decoration line as long as
+the title text.  Use only a line below the title, not above. For
+example:</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><span class="gh">Title Text</span>
+<span class="gh">----------</span>
+</pre></div>
+</div>
+<p>Capitalize the first letter of each non-minor word in the title.</p>
+</li>
+<li><p>When referring to properties, variables, commands etc, prefer to link
+to the target object and follow that with the type of object it is.
+For example:</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span>Set the :prop_tgt:<span class="nv">`AUTOMOC`</span> target property to <span class="s">``ON``</span>.
+</pre></div>
+</div>
+<p>Instead of</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span>Set the target property :prop_tgt:<span class="nv">`AUTOMOC`</span> to <span class="s">``ON``</span>.
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">policy</span></code> directive is an exception, and the type us usually
+referred to before the link:</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span>If policy :prop_tgt:<span class="nv">`CMP0022`</span> is set to <span class="s">``NEW``</span> the behavior is ...
+</pre></div>
+</div>
+</li>
+<li><p>Signatures of commands should wrap optional parts with square brackets,
+and should mark list of optional arguments with an ellipsis (<code class="docutils literal notranslate"><span class="pre">...</span></code>).
+Elements of the signature which are specified by the user should be
+specified with angle brackets, and may be referred to in prose using
+<code class="docutils literal notranslate"><span class="pre">inline-literal</span></code> syntax.</p></li>
+<li><p>Use American English spellings in prose.</p></li>
+</ol>
+</section>
+</section>
+<section id="modules">
+<h2><a class="toc-backref" href="#id21" role="doc-backlink">模組</a><a class="headerlink" href="#modules" title="連結到這個標頭">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">Modules</span></code> directory contains CMake-language <code class="docutils literal notranslate"><span class="pre">.cmake</span></code> module files.</p>
+<section id="module-documentation">
+<h3><a class="toc-backref" href="#id22" role="doc-backlink">Module Documentation</a><a class="headerlink" href="#module-documentation" title="連結到這個標頭">¶</a></h3>
+<p>To document CMake module <code class="docutils literal notranslate"><span class="pre">Modules/&lt;module-name&gt;.cmake</span></code>, modify
+<code class="docutils literal notranslate"><span class="pre">Help/manual/cmake-modules.7.rst</span></code> to reference the module in the
+<code class="docutils literal notranslate"><span class="pre">toctree</span></code> directive, in sorted order, as:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>/module/&lt;module-name&gt;
+</pre></div>
+</div>
+<p>Then add the module document file <code class="docutils literal notranslate"><span class="pre">Help/module/&lt;module-name&gt;.rst</span></code>
+containing just the line:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>.. cmake-module:: ../../Modules/&lt;module-name&gt;.cmake
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">cmake-module</span></code> directive will scan the module file to extract
+reStructuredText markup from comment blocks that start in <code class="docutils literal notranslate"><span class="pre">.rst:</span></code>.
+Add to the top of <code class="docutils literal notranslate"><span class="pre">Modules/&lt;module-name&gt;.cmake</span></code> a
+<a class="reference internal" href="cmake-language.7.html#line-comment"><span class="std std-ref">Line Comment</span></a> block of the form:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="c">#.rst:</span>
+<span class="c"># &lt;module-name&gt;</span>
+<span class="c"># -------------</span>
+<span class="c">#</span>
+<span class="c"># &lt;reStructuredText documentation of module&gt;</span>
+</pre></div>
+</div>
+<p>or a <a class="reference internal" href="cmake-language.7.html#bracket-comment"><span class="std std-ref">Bracket Comment</span></a> of the form:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="c">#[[.rst:</span>
+<span class="nv">&lt;module-name&gt;</span>
+<span class="p">-------------</span>
+
+<span class="nv">&lt;reStructuredText documentation of module&gt;</span>
+<span class="c">#]]</span>
+</pre></div>
+</div>
+<p>Any number of <code class="docutils literal notranslate"><span class="pre">=</span></code> may be used in the opening and closing brackets
+as long as they match.  Content on the line containing the closing
+bracket is excluded if and only if the line starts in <code class="docutils literal notranslate"><span class="pre">#</span></code>.</p>
+<p>Additional such <code class="docutils literal notranslate"><span class="pre">.rst:</span></code> comments may appear anywhere in the module file.
+All such comments must start with <code class="docutils literal notranslate"><span class="pre">#</span></code> in the first column.</p>
+<p>For example, a <code class="docutils literal notranslate"><span class="pre">Modules/Findxxx.cmake</span></code> module may contain:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="c">#.rst:</span>
+<span class="c"># FindXxx</span>
+<span class="c"># -------</span>
+<span class="c">#</span>
+<span class="c"># This is a cool module.</span>
+<span class="c"># This module does really cool stuff.</span>
+<span class="c"># It can do even more than you think.</span>
+<span class="c">#</span>
+<span class="c"># It even needs two paragraphs to tell you about it.</span>
+<span class="c"># And it defines the following variables:</span>
+<span class="c">#</span>
+<span class="c"># * VAR_COOL: this is great isn&#39;t it?</span>
+<span class="c"># * VAR_REALLY_COOL: cool right?</span>
+
+<span class="nv">&lt;code&gt;</span>
+
+<span class="c">#[========================================[.rst:</span>
+<span class="p">..</span><span class="w"> </span><span class="nb">command</span><span class="o">::</span><span class="w"> </span><span class="nb">xxx_do_something</span>
+
+<span class="w"> </span><span class="nb">This</span><span class="w"> </span><span class="nb">command</span><span class="w"> </span><span class="nb">does</span><span class="w"> </span><span class="nb">something</span><span class="w"> </span><span class="nb">for</span><span class="w"> </span><span class="nb">Xxx</span><span class="o">::</span>
+
+<span class="w">  </span><span class="nf">xxx_do_something(</span><span class="nb">some</span><span class="w"> </span><span class="nb">arguments</span><span class="nf">)</span>
+<span class="c">#]========================================]</span>
+<span class="nf">macro(</span><span class="nb">xxx_do_something</span><span class="nf">)</span>
+<span class="w">  </span><span class="nv">&lt;code&gt;</span>
+<span class="nf">endmacro()</span>
+</pre></div>
+</div>
+</section>
+<section id="find-modules">
+<h3><a class="toc-backref" href="#id23" role="doc-backlink">Find Modules</a><a class="headerlink" href="#find-modules" title="連結到這個標頭">¶</a></h3>
+<p>A &quot;find module&quot; is a <code class="docutils literal notranslate"><span class="pre">Modules/Find&lt;package&gt;.cmake</span></code> file to be loaded
+by the <span class="target" id="index-0-command:find_package"></span><a class="reference internal" href="../command/find_package.html#command:find_package" title="find_package"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">find_package()</span></code></a> command when invoked for <code class="docutils literal notranslate"><span class="pre">&lt;package&gt;</span></code>.</p>
+<p>We would like all <code class="docutils literal notranslate"><span class="pre">FindXxx.cmake</span></code> files to produce consistent variable
+names.  Please use the following consistent variable names for general use.</p>
+<dl class="simple">
+<dt>Xxx_INCLUDE_DIRS</dt><dd><p>The final set of include directories listed in one variable for use by client
+code.  This should not be a cache entry.</p>
+</dd>
+<dt>Xxx_LIBRARIES</dt><dd><p>The libraries to link against to use Xxx. These should include full paths.
+This should not be a cache entry.</p>
+</dd>
+<dt>Xxx_DEFINITIONS</dt><dd><p>Definitions to use when compiling code that uses Xxx. This really shouldn't
+include options such as (-DHAS_JPEG)that a client source-code file uses to
+decide whether to #include &lt;jpeg.h&gt;</p>
+</dd>
+<dt>Xxx_EXECUTABLE</dt><dd><p>Where to find the Xxx tool.</p>
+</dd>
+<dt>Xxx_Yyy_EXECUTABLE</dt><dd><p>Where to find the Yyy tool that comes with Xxx.</p>
+</dd>
+<dt>Xxx_LIBRARY_DIRS</dt><dd><p>Optionally, the final set of library directories listed in one variable for
+use by client code.  This should not be a cache entry.</p>
+</dd>
+<dt>Xxx_ROOT_DIR</dt><dd><p>Where to find the base directory of Xxx.</p>
+</dd>
+<dt>Xxx_VERSION_Yy</dt><dd><p>Expect Version Yy if true. Make sure at most one of these is ever true.</p>
+</dd>
+<dt>Xxx_WRAP_Yy</dt><dd><p>If False, do not try to use the relevant CMake wrapping command.</p>
+</dd>
+<dt>Xxx_Yy_FOUND</dt><dd><p>If False, optional Yy part of Xxx sytem is not available.</p>
+</dd>
+<dt>Xxx_FOUND</dt><dd><p>Set to false, or undefined, if we haven't found, or don't want to use Xxx.</p>
+</dd>
+<dt>Xxx_NOT_FOUND_MESSAGE</dt><dd><p>Should be set by config-files in the case that it has set Xxx_FOUND to FALSE.
+The contained message will be printed by the find_package() command and by
+find_package_handle_standard_args() to inform the user about the problem.</p>
+</dd>
+<dt>Xxx_RUNTIME_LIBRARY_DIRS</dt><dd><p>Optionally, the runtime library search path for use when running an
+executable linked to shared libraries.  The list should be used by user code
+to create the PATH on windows or LD_LIBRARY_PATH on unix.  This should not be
+a cache entry.</p>
+</dd>
+<dt>Xxx_VERSION_STRING</dt><dd><p>A human-readable string containing the version of the package found, if any.</p>
+</dd>
+<dt>Xxx_VERSION_MAJOR</dt><dd><p>The major version of the package found, if any.</p>
+</dd>
+<dt>Xxx_VERSION_MINOR</dt><dd><p>The minor version of the package found, if any.</p>
+</dd>
+<dt>Xxx_VERSION_PATCH</dt><dd><p>The patch version of the package found, if any.</p>
+</dd>
+</dl>
+<p>You do not have to provide all of the above variables. You should provide
+Xxx_FOUND under most circumstances.  If Xxx is a library, then Xxx_LIBRARIES,
+should also be defined, and Xxx_INCLUDE_DIRS should usually be defined (I
+guess libm.a might be an exception)</p>
+<p>The following names should not usually be used in CMakeLists.txt files, but
+they may be usefully modified in users' CMake Caches to control stuff.</p>
+<dl class="simple">
+<dt>Xxx_LIBRARY</dt><dd><p>Name of Xxx Library. A User may set this and Xxx_INCLUDE_DIR to ignore to
+force non-use of Xxx.</p>
+</dd>
+<dt>Xxx_Yy_LIBRARY</dt><dd><p>Name of Yy library that is part of the Xxx system. It may or may not be
+required to use Xxx.</p>
+</dd>
+<dt>Xxx_INCLUDE_DIR</dt><dd><p>Where to find xxx.h, etc.  (Xxx_INCLUDE_PATH was considered bad because a path
+includes an actual filename.)</p>
+</dd>
+<dt>Xxx_Yy_INCLUDE_DIR</dt><dd><p>Where to find xxx_yy.h, etc.</p>
+</dd>
+</dl>
+<p>For tidiness's sake, try to keep as many options as possible out of the cache,
+leaving at least one option which can be used to disable use of the module, or
+locate a not-found library (e.g. Xxx_ROOT_DIR).  For the same reason, mark
+most cache options as advanced.</p>
+<p>If you need other commands to do special things then it should still begin
+with <code class="docutils literal notranslate"><span class="pre">Xxx_</span></code>. This gives a sort of namespace effect and keeps things tidy for the
+user. You should put comments describing all the exported settings, plus
+descriptions of any the users can use to control stuff.</p>
+<p>You really should also provide backwards compatibility any old settings that
+were actually in use.  Make sure you comment them as deprecated, so that
+no-one starts using them.</p>
+<p>To add a module to the CMake documentation, follow the steps in the
+<a class="reference internal" href="#module-documentation">Module Documentation</a> section above.  Test the documentation formatting
+by running <code class="docutils literal notranslate"><span class="pre">cmake</span> <span class="pre">--help-module</span> <span class="pre">FindXxx</span></code>, and also by enabling the
+<code class="docutils literal notranslate"><span class="pre">SPHINX_HTML</span></code> and <code class="docutils literal notranslate"><span class="pre">SPHINX_MAN</span></code> options to build the documentation.
+Edit the comments until generated documentation looks satisfactory.
+To have a .cmake file in this directory NOT show up in the modules
+documentation, simply leave out the <code class="docutils literal notranslate"><span class="pre">Help/module/&lt;module-name&gt;.rst</span></code> file
+and the <code class="docutils literal notranslate"><span class="pre">Help/manual/cmake-modules.7.rst</span></code> toctree entry.</p>
+<p>After the documentation, leave a <em>BLANK</em> line, and then add a
+copyright and licence notice block like this one:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>#=============================================================================
+# Copyright 2009-2011 Your Name
+#
+# Distributed under the OSI-approved BSD License (the &quot;License&quot;);
+# see accompanying file Copyright.txt for details.
+#
+# This software is distributed WITHOUT ANY WARRANTY; without even the
+# implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+# See the License for more information.
+#=============================================================================
+# (To distribute this file outside of CMake, substitute the full
+#  License text for the above reference.)
+</pre></div>
+</div>
+<p>The layout of the notice block is strictly enforced by the <code class="docutils literal notranslate"><span class="pre">ModuleNotices</span></code>
+test.  Only the year range and name may be changed freely.</p>
+<p>A FindXxx.cmake module will typically be loaded by the command:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>FIND_PACKAGE(Xxx [major[.minor[.patch[.tweak]]]] [EXACT]
+             [QUIET] [[REQUIRED|COMPONENTS] [components...]])
+</pre></div>
+</div>
+<p>If any version numbers are given to the command it will set the following
+variables before loading the module:</p>
+<dl class="simple">
+<dt>Xxx_FIND_VERSION</dt><dd><p>full requested version string</p>
+</dd>
+<dt>Xxx_FIND_VERSION_MAJOR</dt><dd><p>major version if requested, else 0</p>
+</dd>
+<dt>Xxx_FIND_VERSION_MINOR</dt><dd><p>minor version if requested, else 0</p>
+</dd>
+<dt>Xxx_FIND_VERSION_PATCH</dt><dd><p>patch version if requested, else 0</p>
+</dd>
+<dt>Xxx_FIND_VERSION_TWEAK</dt><dd><p>tweak version if requested, else 0</p>
+</dd>
+<dt>Xxx_FIND_VERSION_COUNT</dt><dd><p>number of version components, 0 to 4</p>
+</dd>
+<dt>Xxx_FIND_VERSION_EXACT</dt><dd><p>true if EXACT option was given</p>
+</dd>
+</dl>
+<p>If the find module supports versioning it should locate a version of
+the package that is compatible with the version requested.  If a
+compatible version of the package cannot be found the module should
+not report success.  The version of the package found should be stored
+in &quot;Xxx_VERSION...&quot; version variables documented by the module.</p>
+<p>If the QUIET option is given to the command it will set the variable
+Xxx_FIND_QUIETLY to true before loading the FindXxx.cmake module.  If
+this variable is set the module should not complain about not being
+able to find the package.  If the
+REQUIRED option is given to the command it will set the variable
+Xxx_FIND_REQUIRED to true before loading the FindXxx.cmake module.  If
+this variable is set the module should issue a FATAL_ERROR if the
+package cannot be found.
+If neither the QUIET nor REQUIRED options are given then the
+FindXxx.cmake module should look for the package and complain without
+error if the module is not found.</p>
+<p>FIND_PACKAGE() will set the variable CMAKE_FIND_PACKAGE_NAME to
+contain the actual name of the package.</p>
+<p>A package can provide sub-components.
+Those components can be listed after the COMPONENTS (or REQUIRED) or
+OPTIONAL_COMPONENTS keywords.  The set of all listed components will be
+specified in a Xxx_FIND_COMPONENTS variable.
+For each package-specific component, say Yyy, a variable Xxx_FIND_REQUIRED_Yyy
+will be set to true if it listed after COMPONENTS and it will be set to false
+if it was listed after OPTIONAL_COMPONENTS.
+Using those variables a FindXxx.cmake module and also a XxxConfig.cmake
+package configuration file can determine whether and which components have
+been requested, and whether they were requested as required or as optional.
+For each of the requested components a Xxx_Yyy_FOUND variable should be set
+accordingly.
+The per-package Xxx_FOUND variable should be only set to true if all requested
+required components have been found. A missing optional component should not
+keep the Xxx_FOUND variable from being set to true.
+If the package provides Xxx_INCLUDE_DIRS and Xxx_LIBRARIES variables, the
+include dirs and libraries for all components which were requested and which
+have been found should be added to those two variables.</p>
+<p>To get this behavior you can use the FIND_PACKAGE_HANDLE_STANDARD_ARGS()
+macro, as an example see FindJPEG.cmake.</p>
+<p>For internal implementation, it's a generally accepted convention that
+variables starting with underscore are for temporary use only. (variable
+starting with an underscore are not intended as a reserved prefix).</p>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3>目次表</h3>
+    <ul>
+<li><a class="reference internal" href="#">cmake-開發者(7)</a><ul>
+<li><a class="reference internal" href="#introduction">介紹</a></li>
+<li><a class="reference internal" href="#permitted-c-subset">Permitted C++ Subset</a><ul>
+<li><a class="reference internal" href="#std-vector-at">std::vector::at</a></li>
+<li><a class="reference internal" href="#std-string-append-and-std-string-clear">std::string::append and std::string::clear</a></li>
+<li><a class="reference internal" href="#std-set-const-iterators">std::set const iterators</a></li>
+<li><a class="reference internal" href="#char-array-to-string-conversions-with-algorithms">Char Array to <code class="docutils literal notranslate"><span class="pre">string</span></code> Conversions with Algorithms</a></li>
+<li><a class="reference internal" href="#std-auto-ptr">std::auto_ptr</a></li>
+<li><a class="reference internal" href="#std-vector-insert-and-std-set">std::vector::insert and std::set</a></li>
+<li><a class="reference internal" href="#std-set-insert">std::set::insert</a></li>
+<li><a class="reference internal" href="#template-parameter-defaults">Template Parameter Defaults</a></li>
+<li><a class="reference internal" href="#std-min-and-std-max">std::min and std::max</a></li>
+<li><a class="reference internal" href="#size-t">size_t</a></li>
+<li><a class="reference internal" href="#templates">Templates</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#help">Help</a><ul>
+<li><a class="reference internal" href="#markup-constructs">Markup Constructs</a></li>
+<li><a class="reference internal" href="#cmake-domain">CMake Domain</a></li>
+<li><a class="reference internal" href="#cross-references">Cross-References</a></li>
+<li><a class="reference internal" href="#style">Style</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#modules">模組</a><ul>
+<li><a class="reference internal" href="#module-documentation">Module Documentation</a></li>
+<li><a class="reference internal" href="#find-modules">Find Modules</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>上個話題</h4>
+    <p class="topless"><a href="../command/ctest_upload.html"
+                          title="上個章節">ctest_upload</a></p>
+  </div>
+  <div>
+    <h4>下個話題</h4>
+    <p class="topless"><a href="cmake-generator-expressions.7.html"
+                          title="下個章節">cmake-生成器表達式(7)</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>本頁</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/manual/cmake-developer.7.rst.txt"
+            rel="nofollow">顯示來源碼</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜尋</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="前往" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>瀏覽</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="總索引"
+             >索引</a></li>
+        <li class="right" >
+          <a href="cmake-generator-expressions.7.html" title="cmake-生成器表達式(7)"
+             >下一頁</a> |</li>
+        <li class="right" >
+          <a href="../command/ctest_upload.html" title="ctest_upload"
+             >上一頁</a> |</li>
+  <li>
+    <label class="sidebar-toggle" for="sidebar-check"></label>
+  </li>
+  <li class="rootlink">
+    <img src="../_static/cmake-logo-16.png" width="16" height="16" alt=""/>
+    <a href="https://cmake.org/">CMake 3.0.2</a>
+    <span class="reldelim1"> &#187;</span>
+  </li>
+  <li>
+    <a href="../index.html">文件</a> &#187;
+  </li>
+
+        <li class="nav-item nav-item-this"><a href="">cmake-開發者(7)</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+    &#169; 著作權 2000-2014 Kitware, Inc..
+      使用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3 建立。
+    </div>
+<script type="text/javascript">
+(function() {
+  "use strict";
+  const hide = () => document.getElementById("sidebar-check").checked = false;
+  addEventListener("keydown", e => (e.key === "Escape") && hide());
+  addEventListener("click", e => (e.target.tagName === "A") && hide());
+  addEventListener("hashchange", hide)
+})();
+</script>
+  </body>
+</html>

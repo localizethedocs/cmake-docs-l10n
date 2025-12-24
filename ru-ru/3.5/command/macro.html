@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+
+<html lang="ru-RU" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>macro &mdash; CMake 3.5.2 Documentation</title>
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a3862c66" />
+    <link rel="stylesheet" type="text/css" href="../_static/cmake.css?v=4d06bd55" />
+    
+    <script src="../_static/documentation_options.js?v=4cb3a075"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    
+    <link rel="canonical" href="https://projects.localizethedocs.org/cmake-docs-l10n/command/macro.html" />
+    <link rel="icon" href="../_static/cmake-favicon.ico"/>
+    <link rel="index" title="Алфавитный указатель" href="../genindex.html" />
+    <link rel="search" title="Поиск" href="../search.html" />
+    <link rel="next" title="mark_as_advanced" href="mark_as_advanced.html" />
+    <link rel="prev" title="load_cache" href="load_cache.html" />
+
+ 
+
+    <script type="text/javascript" src="../ltd-provenance.js"></script>
+    <script type="text/javascript" src="../ltd-current.js"></script>
+    <script type="text/javascript" src="../../../ltd-config.js"></script>
+    <script type="text/javascript" src="../../../ltd-flyout.js"></script>
+
+  </head><body>
+    <input id="sidebar-check" type="checkbox" />
+    <label id="sidebar-overlay" for="sidebar-check"></label>
+
+
+
+    <div class="related relbar1" role="navigation" aria-label="Related">
+      <h3>Навигация</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Алфавитный указатель"
+             accesskey="I">указатель</a></li>
+        <li class="right" >
+          <a href="mark_as_advanced.html" title="mark_as_advanced"
+             accesskey="N">вперёд</a> |</li>
+        <li class="right" >
+          <a href="load_cache.html" title="load_cache"
+             accesskey="P">назад</a> |</li>
+  <li>
+    <label class="sidebar-toggle" for="sidebar-check"></label>
+  </li>
+  <li class="rootlink">
+    <img src="../_static/cmake-logo-16.png" width="16" height="16" alt=""/>
+    <a href="https://cmake.org/">CMake 3.5.2</a>
+    <span class="reldelim1"> &#187;</span>
+  </li>
+  <li>
+    <a href="../index.html">Documentation</a> &#187;
+  </li>
+
+          <li class="nav-item nav-item-1"><a href="../manual/cmake-commands.7.html" accesskey="U">cmake-commands(7)</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">macro</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="macro">
+<span id="command:macro"></span><h1>macro<a class="headerlink" href="#macro" title="Ссылка на этот заголовок">¶</a></h1>
+<p>Start recording a macro for later invocation as a command:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>macro(&lt;name&gt; [arg1 [arg2 [arg3 ...]]])
+  COMMAND1(ARGS ...)
+  COMMAND2(ARGS ...)
+  ...
+endmacro(&lt;name&gt;)
+</pre></div>
+</div>
+<p>Define a macro named <code class="docutils literal notranslate"><span class="pre">&lt;name&gt;</span></code> that takes arguments named <code class="docutils literal notranslate"><span class="pre">arg1</span></code>,
+<code class="docutils literal notranslate"><span class="pre">arg2</span></code>, <code class="docutils literal notranslate"><span class="pre">arg3</span></code>, (...).
+Commands listed after macro, but before the matching
+<span class="target" id="index-0-command:endmacro"></span><a class="reference internal" href="endmacro.html#command:endmacro" title="endmacro"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">endmacro()</span></code></a>, are not invoked until the macro is invoked.
+When it is invoked, the commands recorded in the macro are first
+modified by replacing formal parameters (<code class="docutils literal notranslate"><span class="pre">${arg1}</span></code>) with the arguments
+passed, and then invoked as normal commands.
+In addition to referencing the formal parameters you can reference the
+values <code class="docutils literal notranslate"><span class="pre">${ARGC}</span></code> which will be set to the number of arguments passed
+into the function as well as <code class="docutils literal notranslate"><span class="pre">${ARGV0}</span></code>, <code class="docutils literal notranslate"><span class="pre">${ARGV1}</span></code>, <code class="docutils literal notranslate"><span class="pre">${ARGV2}</span></code>,
+...  which will have the actual values of the arguments passed in.
+This facilitates creating macros with optional arguments.
+Additionally <code class="docutils literal notranslate"><span class="pre">${ARGV}</span></code> holds the list of all arguments given to the
+macro and <code class="docutils literal notranslate"><span class="pre">${ARGN}</span></code> holds the list of arguments past the last expected
+argument.
+Referencing to <code class="docutils literal notranslate"><span class="pre">${ARGV#}</span></code> arguments beyond <code class="docutils literal notranslate"><span class="pre">${ARGC}</span></code> have undefined
+behavior. Checking that <code class="docutils literal notranslate"><span class="pre">${ARGC}</span></code> is greater than <code class="docutils literal notranslate"><span class="pre">#</span></code> is the only
+way to ensure that <code class="docutils literal notranslate"><span class="pre">${ARGV#}</span></code> was passed to the function as an extra
+argument.</p>
+<p>See the <span class="target" id="index-0-command:cmake_policy"></span><a class="reference internal" href="cmake_policy.html#command:cmake_policy" title="cmake_policy"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">cmake_policy()</span></code></a> command documentation for the behavior
+of policies inside macros.</p>
+<section id="macro-argument-caveats">
+<h2>Macro Argument Caveats<a class="headerlink" href="#macro-argument-caveats" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Note that the parameters to a macro and values such as <code class="docutils literal notranslate"><span class="pre">ARGN</span></code> are
+not variables in the usual CMake sense.  They are string
+replacements much like the C preprocessor would do with a macro.
+Therefore you will NOT be able to use commands like:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>if(ARGV1) # ARGV1 is not a variable
+if(DEFINED ARGV2) # ARGV2 is not a variable
+if(ARGC GREATER 2) # ARGC is not a variable
+foreach(loop_var IN LISTS ARGN) # ARGN is not a variable
+</pre></div>
+</div>
+<p>In the first case, you can use <code class="docutils literal notranslate"><span class="pre">if(${ARGV1})</span></code>.
+In the second and third case, the proper way to check if an optional
+variable was passed to the macro is to use <code class="docutils literal notranslate"><span class="pre">if(${ARGC}</span> <span class="pre">GREATER</span> <span class="pre">2)</span></code>.
+In the last case, you can use <code class="docutils literal notranslate"><span class="pre">foreach(loop_var</span> <span class="pre">${ARGN})</span></code> but this
+will skip empty arguments.
+If you need to include them, you can use:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>set(list_var &quot;${ARGN}&quot;)
+foreach(loop_var IN LISTS list_var)
+</pre></div>
+</div>
+<p>Note that if you have a variable with the same name in the scope from
+which the macro is called, using unreferenced names will use the
+existing variable instead of the arguments. For example:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>macro(_BAR)
+  foreach(arg IN LISTS ARGN)
+    [...]
+  endforeach()
+endmacro()
+
+function(_FOO)
+  _bar(x y z)
+endfunction()
+
+_foo(a b c)
+</pre></div>
+</div>
+<p>Will loop over <code class="docutils literal notranslate"><span class="pre">a;b;c</span></code> and not over <code class="docutils literal notranslate"><span class="pre">x;y;z</span></code> as one might be expecting.
+If you want true CMake variables and/or better CMake scope control you
+should look at the function command.</p>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3>Оглавление</h3>
+    <ul>
+<li><a class="reference internal" href="#">macro</a><ul>
+<li><a class="reference internal" href="#macro-argument-caveats">Macro Argument Caveats</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Предыдущий раздел</h4>
+    <p class="topless"><a href="load_cache.html"
+                          title="предыдущая глава">load_cache</a></p>
+  </div>
+  <div>
+    <h4>Следующий раздел</h4>
+    <p class="topless"><a href="mark_as_advanced.html"
+                          title="следующая глава">mark_as_advanced</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>Эта страница</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/command/macro.rst.txt"
+            rel="nofollow">Исходный текст</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Быстрый поиск</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Искать" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Навигация</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Алфавитный указатель"
+             >указатель</a></li>
+        <li class="right" >
+          <a href="mark_as_advanced.html" title="mark_as_advanced"
+             >вперёд</a> |</li>
+        <li class="right" >
+          <a href="load_cache.html" title="load_cache"
+             >назад</a> |</li>
+  <li>
+    <label class="sidebar-toggle" for="sidebar-check"></label>
+  </li>
+  <li class="rootlink">
+    <img src="../_static/cmake-logo-16.png" width="16" height="16" alt=""/>
+    <a href="https://cmake.org/">CMake 3.5.2</a>
+    <span class="reldelim1"> &#187;</span>
+  </li>
+  <li>
+    <a href="../index.html">Documentation</a> &#187;
+  </li>
+
+          <li class="nav-item nav-item-1"><a href="../manual/cmake-commands.7.html" >cmake-commands(7)</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">macro</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+    &#169; Авторские права 2000-2016 Kitware, Inc..
+      Создано с использованием <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    </div>
+<script type="text/javascript">
+(function() {
+  "use strict";
+  const hide = () => document.getElementById("sidebar-check").checked = false;
+  addEventListener("keydown", e => (e.key === "Escape") && hide());
+  addEventListener("click", e => (e.target.tagName === "A") && hide());
+  addEventListener("hashchange", hide)
+})();
+</script>
+  </body>
+</html>
