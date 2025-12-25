@@ -131,25 +131,25 @@
     <tr>
       <td rowspan="1" colspan="1" align="center" style="text-align: center;"><div><code>main</code></div></td>
       <td rowspan="1" colspan="1" align="left"   style="text-align: left;">
-        <div>Stores CMake scripts and GitHub workflows for the infrastructure.</div>
+        <div>Store CMake scripts and GitHub workflows for the infrastructure.</div>
       </td>
     </tr>
     <tr>
       <td rowspan="1" colspan="1" align="center" style="text-align: center;"><div><code>l10n</code></div></td>
       <td rowspan="1" colspan="1" align="left"   style="text-align: left;">
-        <div>Stores <code>.pot</code> and <code>.po</code> files generated from the upstream project.</div>
+        <div>Store <code>.pot</code> and <code>.po</code> files generated from the upstream project.</div>
       </td>
     </tr>
     <tr>
       <td rowspan="1" colspan="1" align="center" style="text-align: center;"><div><code>pages</code></div></td>
       <td rowspan="1" colspan="1" align="left"   style="text-align: left;">
-        <div>Stores the built documentation deployed to GitHub Pages.</div>
+        <div>Store the built documentation deployed to GitHub Pages.</div>
       </td>
     </tr>
     <tr>
       <td rowspan="1" colspan="1" align="center" style="text-align: center;"><div><code>po/${VERSION}</code></div></td>
       <td rowspan="1" colspan="1" align="left"   style="text-align: left;">
-        <div>Stores version-specific <code>.po</code> files for reuse by the upstream project.</div>
+        <div>Store version-specific <code>.po</code> files for reuse by the upstream project.</div>
       </td>
     </tr>
   </tbody>
