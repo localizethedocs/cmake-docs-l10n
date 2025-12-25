@@ -25,7 +25,7 @@
   <li><a href="#progress-of-translations">翻譯進度</a></li>
   <li><a href="#preview-translations">預覽翻譯</a></li>
   <li><a href="#maintainers">維護者</a></li>
-  <li><a href="#support-this-project">Support this Project</a></li>
+  <li><a href="#support-this-project">支援此專案</a></li>
   <li><a href="#sponsorship">贊助</a></li>
   <li><a href="#code-contributors">程式碼貢獻者</a></li>
   <li><a href="#financial-contributors">財務貢獻者</a></li>
@@ -120,6 +120,46 @@
 <table>
   <thead>
     <tr>
+      <th rowspan="1" colspan="2" align="center" style="text-align: center;"><div>Branch Structure</div></th>
+    </tr>
+    <tr>
+      <th rowspan="1" colspan="1" align="center" style="text-align: center;"><div>Branch</div></th>
+      <th rowspan="1" colspan="1" align="center" style="text-align: center;"><div>描述</div></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td rowspan="1" colspan="1" align="center" style="text-align: center;"><div><code>main</code></div></td>
+      <td rowspan="1" colspan="1" align="left"   style="text-align: left;">
+        <div>Stores CMake scripts and GitHub workflows for the infrastructure.</div>
+      </td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1" align="center" style="text-align: center;"><div><code>l10n</code></div></td>
+      <td rowspan="1" colspan="1" align="left"   style="text-align: left;">
+        <div>Stores <code>.pot</code> and <code>.po</code> files generated from the upstream project.</div>
+      </td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1" align="center" style="text-align: center;"><div><code>pages</code></div></td>
+      <td rowspan="1" colspan="1" align="left"   style="text-align: left;">
+        <div>Stores the built documentation deployed to GitHub Pages.</div>
+      </td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1" align="center" style="text-align: center;"><div><code>po/${VERSION}</code></div></td>
+      <td rowspan="1" colspan="1" align="left"   style="text-align: left;">
+        <div>Stores version-specific <code>.po</code> files for reuse by the upstream project.</div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div align="center">
+<table>
+  <thead>
+    <tr>
       <th rowspan="1" colspan="2" align="center" style="text-align: center;"><div>GitHub 工作流</div></th>
     </tr>
     <tr>
@@ -141,7 +181,7 @@
         <div><a href="https://github.com/localizethedocs/cmake-docs-l10n/actions/workflows/ci-sphinx-update-pot.yml" ><img alt="ci-sphinx-update-pot" src="https://github.com/localizethedocs/cmake-docs-l10n/actions/workflows/ci-sphinx-update-pot.yml/badge.svg" /></a></div>
       </td>
       <td rowspan="1" colspan="1" align="left" style="text-align: left;">
-        <div>透過 Sphinx 和 <code>gettext</code> 建置器更新 <code>.pot</code> 檔案。</div>
+        <div>透過 Sphinx 使用 <code>gettext</code> 建置器更新 <code>.pot</code> 檔案。</div>
       </td>
     </tr>
     <tr>
@@ -157,7 +197,7 @@
         <div><a href="https://github.com/localizethedocs/cmake-docs-l10n/actions/workflows/ci-gettext-compendium.yml"><img alt="ci-gettext-compendium" src="https://github.com/localizethedocs/cmake-docs-l10n/actions/workflows/ci-gettext-compendium.yml/badge.svg" /></a></div>
       </td>
       <td rowspan="1" colspan="1" align="left" style="text-align: left;">
-        <div>Update <code>.po</code> files from the compendium by Gettext toolkit.</div>
+        <div>透過 Gettext 工具組從編目檔更新 <code>.po</code> 檔案。</div>
       </td>
     </tr>
     <tr>
@@ -363,7 +403,7 @@ cmake --preset ${LANGUAGE} -DVERSION=${VERSION}
 cmake --build out/build/${LANGUAGE}
 ```
 
-You can switch to other available languages and versions by the flyout navigation menu.
+您可以透過飛出式導航選單切換到其他可用的語言和版本。
 
 <h2 id="maintainers"><a href="#table-of-contents">維護者</a></h2>
 
