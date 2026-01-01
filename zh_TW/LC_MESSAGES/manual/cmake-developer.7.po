@@ -1,0 +1,1568 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2000-2017 Kitware, Inc. and Contributors
+# This file is distributed under the same license as the CMake package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CMake 3.10\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-07-08 02:46+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../manual/cmake-developer.7.rst:4
+msgid "cmake-developer(7)"
+msgstr "cmake-開發者(7)"
+
+#: ../../../manual/cmake-developer.7.rst:7
+msgid "Contents"
+msgstr "目次"
+
+#: ../../../manual/cmake-developer.7.rst:11
+msgid "Introduction"
+msgstr "介紹"
+
+#: ../../../manual/cmake-developer.7.rst:13
+msgid ""
+"This manual is intended for reference by developers modifying the CMake "
+"source tree itself, and by those authoring externally-maintained modules."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:17
+msgid "Adding Compile Features"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:19
+msgid ""
+"CMake reports an error if a compiler whose features are known does not "
+"report support for a particular requested feature.  A compiler is considered "
+"to have known features if it reports support for at least one feature."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:23
+msgid ""
+"When adding a new compile feature to CMake, it is therefore necessary to "
+"list support for the feature for all CompilerIds which already have one or "
+"more feature supported, if the new feature is available for any version of "
+"the compiler."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:28
+msgid ""
+"When adding the first supported feature to a particular CompilerId, it is "
+"necessary to list support for all features known to cmake (See :variable:"
+"`CMAKE_C_COMPILE_FEATURES` and :variable:`CMAKE_CXX_COMPILE_FEATURES` as "
+"appropriate), where available for the compiler.  Ensure that the "
+"``CMAKE_<LANG>_STANDARD_DEFAULT`` is set to the computed internal variable "
+"``CMAKE_<LANG>_STANDARD_COMPUTED_DEFAULT`` for compiler versions which "
+"should be supported."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:36
+msgid ""
+"It is sensible to record the features for the most recent version of a "
+"particular CompilerId first, and then work backwards.  It is sensible to try "
+"to create a continuous range of versions of feature releases of the "
+"compiler.  Gaps in the range indicate incorrect features recorded for "
+"intermediate releases."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:42
+msgid ""
+"Generally, features are made available for a particular version if the "
+"compiler vendor documents availability of the feature with that version.  "
+"Note that sometimes partially implemented features appear to be functional "
+"in previous releases (such as ``cxx_constexpr`` in GNU 4.6, though "
+"availability is documented in GNU 4.7), and sometimes compiler vendors "
+"document availability of features, though supporting infrastructure is not "
+"available (such as ``__has_feature(cxx_generic_lambdas)`` indicating non-"
+"availability in Clang 3.4, though it is documented as available, and fixed "
+"in Clang 3.5).  Similar cases for other compilers and versions need to be "
+"investigated when extending CMake to support them."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:53
+msgid ""
+"When a vendor releases a new version of a known compiler which supports a "
+"previously unsupported feature, and there are already known features for "
+"that compiler, the feature should be listed as supported in CMake for that "
+"version of the compiler as soon as reasonably possible."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:58
+msgid ""
+"Standard-specific/compiler-specific variables such "
+"``CMAKE_CXX98_COMPILE_FEATURES`` are deliberately not documented.  They only "
+"exist for the compiler-specific implementation of adding the ``-std`` "
+"compile flag for compilers which need that."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:64
+msgid "Help"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:66
+msgid ""
+"The ``Help`` directory contains CMake help manual source files. They are "
+"written using the `reStructuredText`_ markup syntax and processed by "
+"`Sphinx`_ to generate the CMake help manuals."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:74
+msgid "Markup Constructs"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:76
+msgid ""
+"In addition to using Sphinx to generate the CMake help manuals, we also use "
+"a C++-implemented document processor to print documents for the ``--help-*`` "
+"command-line help options.  It supports a subset of reStructuredText "
+"markup.  When authoring or modifying documents, please verify that the "
+"command-line help looks good in addition to the Sphinx-generated html and "
+"man pages."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:83
+msgid ""
+"The command-line help processor supports the following constructs defined by "
+"reStructuredText, Sphinx, and a CMake extension to Sphinx."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:89
+msgid "CMake Domain directives"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:90
+msgid ""
+"Directives defined in the `CMake Domain`_ for defining CMake documentation "
+"objects are printed in command-line help output as if the lines were normal "
+"paragraph text with interpretation."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:94
+msgid "CMake Domain interpreted text roles"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:95
+msgid ""
+"Interpreted text roles defined in the `CMake Domain`_ for cross-referencing "
+"CMake documentation objects are replaced by their link text in command-line "
+"help output.  Other roles are printed literally and not processed."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:100
+msgid "``code-block`` directive"
+msgstr "``code-block`` 指示詞"
+
+#: ../../../manual/cmake-developer.7.rst:101
+msgid ""
+"Add a literal code block without interpretation.  The command-line help "
+"processor prints the block content without the leading directive line and "
+"with common indentation replaced by one space."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:105
+msgid "``include`` directive"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:106
+msgid ""
+"Include another document source file.  The command-line help processor "
+"prints the included document inline with the referencing document."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:110
+msgid "literal block after ``::``"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:111
+msgid ""
+"A paragraph ending in ``::`` followed by a blank line treats the following "
+"indented block as literal text without interpretation. The command-line help "
+"processor prints the ``::`` literally and prints the block content with "
+"common indentation replaced by one space."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:117
+msgid "``note`` directive"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:118
+msgid ""
+"Call out a side note.  The command-line help processor prints the block "
+"content as if the lines were normal paragraph text with interpretation."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:122
+msgid "``parsed-literal`` directive"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:123
+msgid ""
+"Add a literal block with markup interpretation.  The command-line help "
+"processor prints the block content without the leading directive line and "
+"with common indentation replaced by one space."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:127
+msgid "``productionlist`` directive"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:128
+msgid ""
+"Render context-free grammar productions.  The command-line help processor "
+"prints the block content as if the lines were normal paragraph text with "
+"interpretation."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:132
+msgid "``replace`` directive"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:133
+msgid ""
+"Define a ``|substitution|`` replacement. The command-line help processor "
+"requires a substitution replacement to be defined before it is referenced."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:137
+msgid "``|substitution|`` reference"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:138
+msgid ""
+"Reference a substitution replacement previously defined by the ``replace`` "
+"directive.  The command-line help processor performs the substitution and "
+"replaces all newlines in the replacement text with spaces."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:143
+msgid "``toctree`` directive"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:144
+msgid ""
+"Include other document sources in the Table-of-Contents document tree.  The "
+"command-line help processor prints the referenced documents inline as part "
+"of the referencing document."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:149
+msgid ""
+"Inline markup constructs not listed above are printed literally in the "
+"command-line help output.  We prefer to use inline markup constructs that "
+"look correct in source form, so avoid use of \\\\-escapes in favor of inline "
+"literals when possible."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:154
+msgid ""
+"Explicit markup blocks not matching directives listed above are removed from "
+"command-line help output.  Do not use them, except for plain ``..`` comments "
+"that are removed by Sphinx too."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:158
+msgid ""
+"Note that nested indentation of blocks is not recognized by the command-line "
+"help processor.  Therefore:"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:161
+msgid ""
+"Explicit markup blocks are recognized only when not indented inside other "
+"blocks."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:164
+msgid ""
+"Literal blocks after paragraphs ending in ``::`` but not at the top "
+"indentation level may consume all indented lines following them."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:168
+msgid "Try to avoid these cases in practice."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:171
+msgid "CMake Domain"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:173
+msgid ""
+"CMake adds a `Sphinx Domain`_ called ``cmake``, also called the \"CMake "
+"Domain\".  It defines several \"object\" types for CMake documentation:"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:177
+msgid "``command``"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:178
+msgid "A CMake language command."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:180
+msgid "``generator``"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:181
+msgid ""
+"A CMake native build system generator. See the :manual:`cmake(1)` command-"
+"line tool's ``-G`` option."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:184
+msgid "``manual``"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:185
+msgid "A CMake manual page, like this :manual:`cmake-developer(7)` manual."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:187
+msgid "``module``"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:188
+msgid ""
+"A CMake module. See the :manual:`cmake-modules(7)` manual and the :command:"
+"`include` command."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:192
+msgid "``policy``"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:193
+msgid ""
+"A CMake policy. See the :manual:`cmake-policies(7)` manual and the :command:"
+"`cmake_policy` command."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:197
+msgid ""
+"``prop_cache, prop_dir, prop_gbl, prop_sf, prop_inst, prop_test, prop_tgt``"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:198
+msgid ""
+"A CMake cache, directory, global, source file, installed file, test, or "
+"target property, respectively.  See the :manual:`cmake-properties(7)` manual "
+"and the :command:`set_property` command."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:202
+msgid "``variable``"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:203
+msgid ""
+"A CMake language variable. See the :manual:`cmake-variables(7)` manual and "
+"the :command:`set` command."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:207
+msgid ""
+"Documentation objects in the CMake Domain come from two sources. First, the "
+"CMake extension to Sphinx transforms every document named with the form "
+"``Help/<type>/<file-name>.rst`` to a domain object with type ``<type>``.  "
+"The object name is extracted from the document title, which is expected to "
+"be of the form::"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:213
+msgid ""
+"<object-name>\n"
+"-------------"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:216
+msgid ""
+"and to appear at or near the top of the ``.rst`` file before any other lines "
+"starting in a letter, digit, or ``<``.  If no such title appears literally "
+"in the ``.rst`` file, the object name is the ``<file-name>``. If a title "
+"does appear, it is expected that ``<file-name>`` is equal to ``<object-"
+"name>`` with any ``<`` and ``>`` characters removed."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:222
+msgid ""
+"Second, the CMake Domain provides directives to define objects inside other "
+"documents:"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:225
+msgid ""
+".. command:: <command-name>\n"
+"\n"
+" This indented block documents <command-name>.\n"
+"\n"
+".. variable:: <variable-name>\n"
+"\n"
+" This indented block documents <variable-name>."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:235
+msgid ""
+"Object types for which no directive is available must be defined using the "
+"first approach above."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:241
+msgid "Cross-References"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:243
+msgid ""
+"Sphinx uses reStructuredText interpreted text roles to provide cross-"
+"reference syntax.  The `CMake Domain`_ provides for each domain object type "
+"a role of the same name to cross-reference it. CMake Domain roles are inline "
+"markup of the forms::"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:248
+msgid ""
+":type:`name`\n"
+":type:`text <name>`"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:251
+msgid ""
+"where ``type`` is the domain object type and ``name`` is the domain object "
+"name.  In the first form the link text will be ``name`` (or ``name()`` if "
+"the type is ``command``) and in the second form the link text will be the "
+"explicit ``text``. For example, the code:"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:257
+msgid ""
+"* The :command:`list` command.\n"
+"* The :command:`list(APPEND)` sub-command.\n"
+"* The :command:`list() command <list>`.\n"
+"* The :command:`list(APPEND) sub-command <list>`.\n"
+"* The :variable:`CMAKE_VERSION` variable.\n"
+"* The :prop_tgt:`OUTPUT_NAME_<CONFIG>` target property."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:266
+msgid "produces:"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:268
+msgid "The :command:`list` command."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:269
+msgid "The :command:`list(APPEND)` sub-command."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:270
+msgid "The :command:`list() command <list>`."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:271
+msgid "The :command:`list(APPEND) sub-command <list>`."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:272
+msgid "The :variable:`CMAKE_VERSION` variable."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:273
+msgid "The :prop_tgt:`OUTPUT_NAME_<CONFIG>` target property."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:275
+msgid ""
+"Note that CMake Domain roles differ from Sphinx and reStructuredText "
+"convention in that the form ``a<b>``, without a space preceding ``<``, is "
+"interpreted as a name instead of link text with an explicit target. This is "
+"necessary because we use ``<placeholders>`` frequently in object names like "
+"``OUTPUT_NAME_<CONFIG>``.  The form ``a <b>``, with a space preceding ``<``, "
+"is still interpreted as a link text with an explicit target."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:284
+msgid "Style"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:287
+msgid "Style: Section Headers"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:289
+msgid ""
+"When marking section titles, make the section decoration line as long as the "
+"title text.  Use only a line below the title, not above. For example:"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:293
+msgid ""
+"Title Text\n"
+"----------"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:298
+msgid "Capitalize the first letter of each non-minor word in the title."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:300
+msgid "The section header underline character hierarchy is"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:302
+msgid "``#``: Manual group (part) in the master document"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:303
+msgid "``*``: Manual (chapter) title"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:304
+msgid "``=``: Section within a manual"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:305
+msgid "``-``: Subsection or `CMake Domain`_ object document title"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:306
+msgid "``^``: Subsubsection or `CMake Domain`_ object document section"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:307
+msgid "``\"``: Paragraph or `CMake Domain`_ object document subsection"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:310
+msgid "Style: Whitespace"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:312
+msgid ""
+"Use two spaces for indentation.  Use two spaces between sentences in prose."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:316
+msgid "Style: Line Length"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:318
+msgid ""
+"Prefer to restrict the width of lines to 75-80 columns.  This is not a hard "
+"restriction, but writing new paragraphs wrapped at 75 columns allows space "
+"for adding minor content without significant re-wrapping of content."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:324
+msgid "Style: Prose"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:326
+msgid "Use American English spellings in prose."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:329
+msgid "Style: Starting Literal Blocks"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:331
+msgid ""
+"Prefer to mark the start of literal blocks with ``::`` at the end of the "
+"preceding paragraph. In cases where the following block gets a ``code-"
+"block`` marker, put a single ``:`` at the end of the preceding paragraph."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:337
+msgid "Style: CMake Command Signatures"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:339
+msgid ""
+"Command signatures should be marked up as plain literal blocks, not as cmake "
+"``code-blocks``."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:342
+msgid ""
+"Signatures are separated from preceding content by a section header. That "
+"is, use:"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:345
+msgid ""
+"... preceding paragraph.\n"
+"\n"
+"Normal Libraries\n"
+"^^^^^^^^^^^^^^^^\n"
+"\n"
+"::\n"
+"\n"
+"  add_library(<lib> ...)\n"
+"\n"
+"This signature is used for ..."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:358
+msgid ""
+"Signatures of commands should wrap optional parts with square brackets, and "
+"should mark list of optional arguments with an ellipsis (``...``). Elements "
+"of the signature which are specified by the user should be specified with "
+"angle brackets, and may be referred to in prose using ``inline-literal`` "
+"syntax."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:365
+msgid "Style: Boolean Constants"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:367
+msgid ""
+"Use \"``OFF``\" and \"``ON``\" for boolean values which can be modified by "
+"the user, such as :prop_tgt:`POSITION_INDEPENDENT_CODE`. Such properties may "
+"be \"enabled\" and \"disabled\". Use \"``True``\" and \"``False``\" for "
+"inherent values which can't be modified after being set, such as the :"
+"prop_tgt:`IMPORTED` property of a build target."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:374
+msgid "Style: Inline Literals"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:376
+msgid ""
+"Mark up references to keywords in signatures, file names, and other "
+"technical terms with ``inline-literal`` syntax, for example:"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:379
+msgid ""
+"If ``WIN32`` is used with :command:`add_executable`, the\n"
+":prop_tgt:`WIN32_EXECUTABLE` target property is enabled. That command\n"
+"creates the file ``<name>.exe`` on Windows."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:386
+msgid "Style: Cross-References"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:388
+msgid ""
+"Mark up linkable references as links, including repeats. An alternative, "
+"which is used by wikipedia (`<http://en.wikipedia.org/wiki/WP:"
+"REPEATLINK>`_), is to link to a reference only once per article. That style "
+"is not used in CMake documentation."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:395
+msgid "Style: Referencing CMake Concepts"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:397
+msgid ""
+"If referring to a concept which corresponds to a property, and that concept "
+"is described in a high-level manual, prefer to link to the manual section "
+"instead of the property. For example:"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:401
+msgid "This command creates an :ref:`Imported Target <Imported Targets>`."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:405
+msgid "instead of:"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:407
+msgid "This command creates an :prop_tgt:`IMPORTED` target."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:411
+msgid ""
+"The latter should be used only when referring specifically to the property."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:414
+msgid ""
+"References to manual sections are not automatically created by creating a "
+"section, but code such as:"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:417
+msgid ".. _`Imported Targets`:"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:421
+msgid ""
+"creates a suitable anchor.  Use an anchor name which matches the name of the "
+"corresponding section.  Refer to the anchor using a cross-reference with "
+"specified text."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:425
+msgid ""
+"Imported Targets need the ``IMPORTED`` term marked up with care in "
+"particular because the term may refer to a command keyword (``IMPORTED``), a "
+"target property (:prop_tgt:`IMPORTED`), or a concept (:ref:`Imported "
+"Targets`)."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:430
+msgid ""
+"Where a property, command or variable is related conceptually to others, by "
+"for example, being related to the buildsystem description, generator "
+"expressions or Qt, each relevant property, command or variable should link "
+"to the primary manual, which provides high-level information.  Only "
+"particular information relating to the command should be in the "
+"documentation of the command."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:438
+msgid "Style: Referencing CMake Domain Objects"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:440
+msgid ""
+"When referring to `CMake Domain`_ objects such as properties, variables, "
+"commands etc, prefer to link to the target object and follow that with the "
+"type of object it is.  For example:"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:444
+msgid "Set the :prop_tgt:`AUTOMOC` target property to ``ON``."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:448
+msgid "Instead of"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:450
+msgid "Set the target property :prop_tgt:`AUTOMOC` to ``ON``."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:454
+msgid ""
+"The ``policy`` directive is an exception, and the type us usually referred "
+"to before the link:"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:457
+msgid "If policy :prop_tgt:`CMP0022` is set to ``NEW`` the behavior is ..."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:461
+msgid ""
+"However, markup self-references with ``inline-literal`` syntax. For example, "
+"within the :command:`add_executable` command documentation, use"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:465
+msgid "``add_executable``"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:469
+msgid "not"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:471
+msgid ":command:`add_executable`"
+msgstr ":command:`add_executable`"
+
+#: ../../../manual/cmake-developer.7.rst:475
+msgid "which is used elsewhere."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:478
+msgid "Modules"
+msgstr "模組"
+
+#: ../../../manual/cmake-developer.7.rst:480
+msgid ""
+"The ``Modules`` directory contains CMake-language ``.cmake`` module files."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:483
+msgid "Module Documentation"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:485
+msgid ""
+"To document CMake module ``Modules/<module-name>.cmake``, modify ``Help/"
+"manual/cmake-modules.7.rst`` to reference the module in the ``toctree`` "
+"directive, in sorted order, as::"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:489
+msgid "/module/<module-name>"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:491
+msgid ""
+"Then add the module document file ``Help/module/<module-name>.rst`` "
+"containing just the line::"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:494
+msgid ".. cmake-module:: ../../Modules/<module-name>.cmake"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:496
+msgid ""
+"The ``cmake-module`` directive will scan the module file to extract "
+"reStructuredText markup from comment blocks that start in ``.rst:``. At the "
+"top of ``Modules/<module-name>.cmake``, begin with the following license "
+"notice:"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:501
+#: ../../../manual/cmake-developer.7.rst:764
+msgid ""
+"# Distributed under the OSI-approved BSD 3-Clause License.  See "
+"accompanying\n"
+"# file Copyright.txt or https://cmake.org/licensing for details."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:506
+msgid ""
+"After this notice, add a *BLANK* line.  Then, add documentation using a :ref:"
+"`Line Comment` block of the form:"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:509
+msgid ""
+"#.rst:\n"
+"# <module-name>\n"
+"# -------------\n"
+"#\n"
+"# <reStructuredText documentation of module>"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:517
+msgid "or a :ref:`Bracket Comment` of the form:"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:521
+msgid ""
+"#[[.rst:\n"
+"<module-name>\n"
+"-------------\n"
+"\n"
+"<reStructuredText documentation of module>\n"
+"#]]"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:528
+msgid ""
+"Any number of ``=`` may be used in the opening and closing brackets as long "
+"as they match.  Content on the line containing the closing bracket is "
+"excluded if and only if the line starts in ``#``."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:532
+msgid ""
+"Additional such ``.rst:`` comments may appear anywhere in the module file. "
+"All such comments must start with ``#`` in the first column."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:535
+msgid "For example, a ``Modules/Findxxx.cmake`` module may contain:"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:539
+msgid ""
+"# Distributed under the OSI-approved BSD 3-Clause License.  See "
+"accompanying\n"
+"# file Copyright.txt or https://cmake.org/licensing for details.\n"
+"\n"
+"#.rst:\n"
+"# FindXxx\n"
+"# -------\n"
+"#\n"
+"# This is a cool module.\n"
+"# This module does really cool stuff.\n"
+"# It can do even more than you think.\n"
+"#\n"
+"# It even needs two paragraphs to tell you about it.\n"
+"# And it defines the following variables:\n"
+"#\n"
+"# * VAR_COOL: this is great isn't it?\n"
+"# * VAR_REALLY_COOL: cool right?\n"
+"\n"
+"<code>\n"
+"\n"
+"#[========================================[.rst:\n"
+".. command:: xxx_do_something\n"
+"\n"
+" This command does something for Xxx::\n"
+"\n"
+"  xxx_do_something(some arguments)\n"
+"#]========================================]\n"
+"macro(xxx_do_something)\n"
+"  <code>\n"
+"endmacro()"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:569
+msgid ""
+"Test the documentation formatting by running ``cmake --help-module <module-"
+"name>``, and also by enabling the ``SPHINX_HTML`` and ``SPHINX_MAN`` options "
+"to build the documentation. Edit the comments until generated documentation "
+"looks satisfactory.  To have a .cmake file in this directory NOT show up in "
+"the modules documentation, simply leave out the ``Help/module/<module-name>."
+"rst`` file and the ``Help/manual/cmake-modules.7.rst`` toctree entry."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:580
+msgid "Find Modules"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:582
+msgid ""
+"A \"find module\" is a ``Modules/Find<package>.cmake`` file to be loaded by "
+"the :command:`find_package` command when invoked for ``<package>``."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:585
+msgid ""
+"The primary task of a find module is to determine whether a package exists "
+"on the system, set the ``<package>_FOUND`` variable to reflect this and "
+"provide any variables, macros and imported targets required to use the "
+"package.  A find module is useful in cases where an upstream library does "
+"not provide a :ref:`config file package <Config File Packages>`."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:592
+msgid ""
+"The traditional approach is to use variables for everything, including "
+"libraries and executables: see the `Standard Variable Names`_ section "
+"below.  This is what most of the existing find modules provided by CMake do."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:597
+msgid ""
+"The more modern approach is to behave as much like :ref:`config file "
+"packages <Config File Packages>` files as possible, by providing :ref:"
+"`imported target <Imported targets>`.  This has the advantage of "
+"propagating :ref:`Target Usage Requirements` to consumers."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:602
+msgid ""
+"In either case (or even when providing both variables and imported targets), "
+"find modules should provide backwards compatibility with old versions that "
+"had the same name."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:606
+msgid "A FindFoo.cmake module will typically be loaded by the command::"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:608
+msgid ""
+"find_package(Foo [major[.minor[.patch[.tweak]]]]\n"
+"             [EXACT] [QUIET] [REQUIRED]\n"
+"             [[COMPONENTS] [components...]]\n"
+"             [OPTIONAL_COMPONENTS components...]\n"
+"             [NO_POLICY_SCOPE])"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:614
+msgid ""
+"See the :command:`find_package` documentation for details on what variables "
+"are set for the find module.  Most of these are dealt with by using :module:"
+"`FindPackageHandleStandardArgs`."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:618
+msgid ""
+"Briefly, the module should only locate versions of the package compatible "
+"with the requested version, as described by the ``Foo_FIND_VERSION`` family "
+"of variables.  If ``Foo_FIND_QUIETLY`` is set to true, it should avoid "
+"printing messages, including anything complaining about the package not "
+"being found.  If ``Foo_FIND_REQUIRED`` is set to true, the module should "
+"issue a ``FATAL_ERROR`` if the package cannot be found.  If neither are set "
+"to true, it should print a non-fatal message if it cannot find the package."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:627
+msgid ""
+"Packages that find multiple semi-independent parts (like bundles of "
+"libraries) should search for the components listed in "
+"``Foo_FIND_COMPONENTS`` if it is set , and only set ``Foo_FOUND`` to true if "
+"for each searched-for component ``<c>`` that was not found, "
+"``Foo_FIND_REQUIRED_<c>`` is not set to true.  The ``HANDLE_COMPONENTS`` "
+"argument of ``find_package_handle_standard_args()`` can be used to implement "
+"this."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:635
+msgid ""
+"If ``Foo_FIND_COMPONENTS`` is not set, which modules are searched for and "
+"required is up to the find module, but should be documented."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:638
+msgid ""
+"For internal implementation, it is a generally accepted convention that "
+"variables starting with underscore are for temporary use only."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:641
+msgid ""
+"Like all modules, find modules should be properly documented.  To add a "
+"module to the CMake documentation, follow the steps in the `Module "
+"Documentation`_ section above."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:648
+msgid "Standard Variable Names"
+msgstr "標準變數名稱"
+
+#: ../../../manual/cmake-developer.7.rst:650
+msgid ""
+"For a ``FindXxx.cmake`` module that takes the approach of setting variables "
+"(either instead of or in addition to creating imported targets), the "
+"following variable names should be used to keep things consistent between "
+"find modules.  Note that all variables start with ``Xxx_`` to make sure they "
+"do not interfere with other find modules; the same consideration applies to "
+"macros, functions and imported targets."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:657
+msgid "``Xxx_INCLUDE_DIRS``"
+msgstr "``Xxx_INCLUDE_DIRS``"
+
+#: ../../../manual/cmake-developer.7.rst:658
+msgid ""
+"The final set of include directories listed in one variable for use by "
+"client code.  This should not be a cache entry."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:661
+msgid "``Xxx_LIBRARIES``"
+msgstr "``Xxx_LIBRARIES``"
+
+#: ../../../manual/cmake-developer.7.rst:662
+msgid ""
+"The libraries to link against to use Xxx. These should include full paths.  "
+"This should not be a cache entry."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:665
+msgid "``Xxx_DEFINITIONS``"
+msgstr "``Xxx_DEFINITIONS``"
+
+#: ../../../manual/cmake-developer.7.rst:666
+msgid ""
+"Definitions to use when compiling code that uses Xxx. This really shouldn't "
+"include options such as ``-DHAS_JPEG`` that a client source-code file uses "
+"to decide whether to ``#include <jpeg.h>``"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:670
+msgid "``Xxx_EXECUTABLE``"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:671
+msgid "Where to find the Xxx tool."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:673
+msgid "``Xxx_Yyy_EXECUTABLE``"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:674
+msgid "Where to find the Yyy tool that comes with Xxx."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:676
+msgid "``Xxx_LIBRARY_DIRS``"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:677
+msgid ""
+"Optionally, the final set of library directories listed in one variable for "
+"use by client code.  This should not be a cache entry."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:680
+msgid "``Xxx_ROOT_DIR``"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:681
+msgid "Where to find the base directory of Xxx."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:683
+msgid "``Xxx_VERSION_Yy``"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:684
+msgid "Expect Version Yy if true. Make sure at most one of these is ever true."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:686
+msgid "``Xxx_WRAP_Yy``"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:687
+msgid "If False, do not try to use the relevant CMake wrapping command."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:689
+msgid "``Xxx_Yy_FOUND``"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:690
+msgid "If False, optional Yy part of Xxx system is not available."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:692
+msgid "``Xxx_FOUND``"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:693
+msgid ""
+"Set to false, or undefined, if we haven't found, or don't want to use Xxx."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:696
+msgid "``Xxx_NOT_FOUND_MESSAGE``"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:697
+msgid ""
+"Should be set by config-files in the case that it has set ``Xxx_FOUND`` to "
+"FALSE.  The contained message will be printed by the :command:`find_package` "
+"command and by ``find_package_handle_standard_args()`` to inform the user "
+"about the problem."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:703
+msgid "``Xxx_RUNTIME_LIBRARY_DIRS``"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:704
+msgid ""
+"Optionally, the runtime library search path for use when running an "
+"executable linked to shared libraries.  The list should be used by user code "
+"to create the ``PATH`` on windows or ``LD_LIBRARY_PATH`` on UNIX.  This "
+"should not be a cache entry."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:709
+msgid "``Xxx_VERSION``"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:710
+msgid ""
+"The full version string of the package found, if any.  Note that many "
+"existing modules provide ``Xxx_VERSION_STRING`` instead."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:713
+msgid "``Xxx_VERSION_MAJOR``"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:714
+msgid "The major version of the package found, if any."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:716
+msgid "``Xxx_VERSION_MINOR``"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:717
+msgid "The minor version of the package found, if any."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:719
+msgid "``Xxx_VERSION_PATCH``"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:720
+msgid "The patch version of the package found, if any."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:722
+msgid ""
+"The following names should not usually be used in CMakeLists.txt files, but "
+"are typically cache variables for users to edit and control the behaviour of "
+"find modules (like entering the path to a library manually)"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:726
+msgid "``Xxx_LIBRARY``"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:727
+msgid ""
+"The path of the Xxx library (as used with :command:`find_library`, for "
+"example)."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:730
+msgid "``Xxx_Yy_LIBRARY``"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:731
+msgid ""
+"The path of the Yy library that is part of the Xxx system. It may or may not "
+"be required to use Xxx."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:734
+msgid "``Xxx_INCLUDE_DIR``"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:735
+msgid "Where to find headers for using the Xxx library."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:737
+msgid "``Xxx_Yy_INCLUDE_DIR``"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:738
+msgid "Where to find headers for using the Yy library of the Xxx system."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:740
+msgid ""
+"To prevent users being overwhelmed with settings to configure, try to keep "
+"as many options as possible out of the cache, leaving at least one option "
+"which can be used to disable use of the module, or locate a not-found "
+"library (e.g. ``Xxx_ROOT_DIR``).  For the same reason, mark most cache "
+"options as advanced.  For packages which provide both debug and release "
+"binaries, it is common to create cache variables with a "
+"``_LIBRARY_<CONFIG>`` suffix, such as ``Foo_LIBRARY_RELEASE`` and "
+"``Foo_LIBRARY_DEBUG``."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:749
+msgid ""
+"While these are the standard variable names, you should provide backwards "
+"compatibility for any old names that were actually in use. Make sure you "
+"comment them as deprecated, so that no-one starts using them."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:757
+msgid "A Sample Find Module"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:759
+msgid ""
+"We will describe how to create a simple find module for a library ``Foo``."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:762
+msgid "The first thing that is needed is a license notice."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:769
+msgid ""
+"Next we need module documentation.  CMake's documentation system requires "
+"you to follow the license notice with a blank line and then with a "
+"documentation marker and the name of the module.  You should follow this "
+"with a simple statement of what the module does."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:774
+msgid ""
+"#.rst:\n"
+"# FindFoo\n"
+"# -------\n"
+"#\n"
+"# Finds the Foo library\n"
+"#"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:783
+msgid ""
+"More description may be required for some packages.  If there are caveats or "
+"other details users of the module should be aware of, you can add further "
+"paragraphs below this.  Then you need to document what variables and "
+"imported targets are set by the module, such as"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:788
+msgid ""
+"# This will define the following variables::\n"
+"#\n"
+"#   Foo_FOUND    - True if the system has the Foo library\n"
+"#   Foo_VERSION  - The version of the Foo library which was found\n"
+"#\n"
+"# and the following imported targets::\n"
+"#\n"
+"#   Foo::Foo   - The Foo library"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:799
+msgid ""
+"If the package provides any macros, they should be listed here, but can be "
+"documented where they are defined.  See the `Module Documentation`_ section "
+"above for more details."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:803
+msgid ""
+"Now the actual libraries and so on have to be found.  The code here will "
+"obviously vary from module to module (dealing with that, after all, is the "
+"point of find modules), but there tends to be a common pattern for libraries."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:807
+msgid ""
+"First, we try to use ``pkg-config`` to find the library.  Note that we "
+"cannot rely on this, as it may not be available, but it provides a good "
+"starting point."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:811
+msgid ""
+"find_package(PkgConfig)\n"
+"pkg_check_modules(PC_Foo QUIET Foo)"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:816
+msgid ""
+"This should define some variables starting ``PC_Foo_`` that contain the "
+"information from the ``Foo.pc`` file."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:819
+msgid ""
+"Now we need to find the libraries and include files; we use the information "
+"from ``pkg-config`` to provide hints to CMake about where to look."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:823
+msgid ""
+"find_path(Foo_INCLUDE_DIR\n"
+"  NAMES foo.h\n"
+"  PATHS ${PC_Foo_INCLUDE_DIRS}\n"
+"  PATH_SUFFIXES Foo\n"
+")\n"
+"find_library(Foo_LIBRARY\n"
+"  NAMES foo\n"
+"  PATHS ${PC_Foo_LIBRARY_DIRS}\n"
+")"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:835
+msgid ""
+"If you have a good way of getting the version (from a header file, for "
+"example), you can use that information to set ``Foo_VERSION`` (although note "
+"that find modules have traditionally used ``Foo_VERSION_STRING``, so you may "
+"want to set both).  Otherwise, attempt to use the information from ``pkg-"
+"config``"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:841
+msgid "set(Foo_VERSION ${PC_Foo_VERSION})"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:845
+msgid ""
+"Now we can use :module:`FindPackageHandleStandardArgs` to do most of the "
+"rest of the work for us"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:848
+msgid ""
+"include(FindPackageHandleStandardArgs)\n"
+"find_package_handle_standard_args(Foo\n"
+"  FOUND_VAR Foo_FOUND\n"
+"  REQUIRED_VARS\n"
+"    Foo_LIBRARY\n"
+"    Foo_INCLUDE_DIR\n"
+"  VERSION_VAR Foo_VERSION\n"
+")"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:859
+msgid ""
+"This will check that the ``REQUIRED_VARS`` contain values (that do not end "
+"in ``-NOTFOUND``) and set ``Foo_FOUND`` appropriately.  It will also cache "
+"those values.  If ``Foo_VERSION`` is set, and a required version was passed "
+"to :command:`find_package`, it will check the requested version against the "
+"one in ``Foo_VERSION``.  It will also print messages as appropriate; note "
+"that if the package was found, it will print the contents of the first "
+"required variable to indicate where it was found."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:867
+msgid ""
+"At this point, we have to provide a way for users of the find module to link "
+"to the library or libraries that were found.  There are two approaches, as "
+"discussed in the `Find Modules`_ section above.  The traditional variable "
+"approach looks like"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:872
+msgid ""
+"if(Foo_FOUND)\n"
+"  set(Foo_LIBRARIES ${Foo_LIBRARY})\n"
+"  set(Foo_INCLUDE_DIRS ${Foo_INCLUDE_DIR})\n"
+"  set(Foo_DEFINITIONS ${PC_Foo_CFLAGS_OTHER})\n"
+"endif()"
+msgstr ""
+"if(Foo_FOUND)\n"
+"  set(Foo_LIBRARIES ${Foo_LIBRARY})\n"
+"  set(Foo_INCLUDE_DIRS ${Foo_INCLUDE_DIR})\n"
+"  set(Foo_DEFINITIONS ${PC_Foo_CFLAGS_OTHER})\n"
+"endif()"
+
+#: ../../../manual/cmake-developer.7.rst:880
+msgid ""
+"If more than one library was found, all of them should be included in these "
+"variables (see the `Standard Variable Names`_ section for more information)."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:884
+msgid ""
+"When providing imported targets, these should be namespaced (hence the "
+"``Foo::`` prefix); CMake will recognize that values passed to :command:"
+"`target_link_libraries` that contain ``::`` in their name are supposed to be "
+"imported targets (rather than just library names), and will produce "
+"appropriate diagnostic messages if that target does not exist (see policy :"
+"policy:`CMP0028`)."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:891
+msgid ""
+"if(Foo_FOUND AND NOT TARGET Foo::Foo)\n"
+"  add_library(Foo::Foo UNKNOWN IMPORTED)\n"
+"  set_target_properties(Foo::Foo PROPERTIES\n"
+"    IMPORTED_LOCATION \"${Foo_LIBRARY}\"\n"
+"    INTERFACE_COMPILE_OPTIONS \"${PC_Foo_CFLAGS_OTHER}\"\n"
+"    INTERFACE_INCLUDE_DIRECTORIES \"${Foo_INCLUDE_DIR}\"\n"
+"  )\n"
+"endif()"
+msgstr ""
+"if(Foo_FOUND AND NOT TARGET Foo::Foo)\n"
+"  add_library(Foo::Foo UNKNOWN IMPORTED)\n"
+"  set_target_properties(Foo::Foo PROPERTIES\n"
+"    IMPORTED_LOCATION \"${Foo_LIBRARY}\"\n"
+"    INTERFACE_COMPILE_OPTIONS \"${PC_Foo_CFLAGS_OTHER}\"\n"
+"    INTERFACE_INCLUDE_DIRECTORIES \"${Foo_INCLUDE_DIR}\"\n"
+"  )\n"
+"endif()"
+
+#: ../../../manual/cmake-developer.7.rst:902
+msgid ""
+"One thing to note about this is that the ``INTERFACE_INCLUDE_DIRECTORIES`` "
+"and similar properties should only contain information about the target "
+"itself, and not any of its dependencies.  Instead, those dependencies should "
+"also be targets, and CMake should be told that they are dependencies of this "
+"target. CMake will then combine all the necessary information automatically."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:908
+msgid ""
+"The type of the :prop_tgt:`IMPORTED` target created in the :command:"
+"`add_library` command can always be specified as ``UNKNOWN`` type.  This "
+"simplifies the code in cases where static or shared variants may be found, "
+"and CMake will determine the type by inspecting the files."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:913
+msgid ""
+"If the library is available with multiple configurations, the :prop_tgt:"
+"`IMPORTED_CONFIGURATIONS` target property should also be populated:"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:917
+msgid ""
+"if(Foo_FOUND)\n"
+"  if (NOT TARGET Foo::Foo)\n"
+"    add_library(Foo::Foo UNKNOWN IMPORTED)\n"
+"  endif()\n"
+"  if (Foo_LIBRARY_RELEASE)\n"
+"    set_property(TARGET Foo::Foo APPEND PROPERTY\n"
+"      IMPORTED_CONFIGURATIONS RELEASE\n"
+"    )\n"
+"    set_target_properties(Foo::Foo PROPERTIES\n"
+"      IMPORTED_LOCATION_RELEASE \"${Foo_LIBRARY_RELEASE}\"\n"
+"    )\n"
+"  endif()\n"
+"  if (Foo_LIBRARY_DEBUG)\n"
+"    set_property(TARGET Foo::Foo APPEND PROPERTY\n"
+"      IMPORTED_CONFIGURATIONS DEBUG\n"
+"    )\n"
+"    set_target_properties(Foo::Foo PROPERTIES\n"
+"      IMPORTED_LOCATION_DEBUG \"${Foo_LIBRARY_DEBUG}\"\n"
+"    )\n"
+"  endif()\n"
+"  set_target_properties(Foo::Foo PROPERTIES\n"
+"    INTERFACE_COMPILE_OPTIONS \"${PC_Foo_CFLAGS_OTHER}\"\n"
+"    INTERFACE_INCLUDE_DIRECTORIES \"${Foo_INCLUDE_DIR}\"\n"
+"  )\n"
+"endif()"
+msgstr ""
+"if(Foo_FOUND)\n"
+"  if (NOT TARGET Foo::Foo)\n"
+"    add_library(Foo::Foo UNKNOWN IMPORTED)\n"
+"  endif()\n"
+"  if (Foo_LIBRARY_RELEASE)\n"
+"    set_property(TARGET Foo::Foo APPEND PROPERTY\n"
+"      IMPORTED_CONFIGURATIONS RELEASE\n"
+"    )\n"
+"    set_target_properties(Foo::Foo PROPERTIES\n"
+"      IMPORTED_LOCATION_RELEASE \"${Foo_LIBRARY_RELEASE}\"\n"
+"    )\n"
+"  endif()\n"
+"  if (Foo_LIBRARY_DEBUG)\n"
+"    set_property(TARGET Foo::Foo APPEND PROPERTY\n"
+"      IMPORTED_CONFIGURATIONS DEBUG\n"
+"    )\n"
+"    set_target_properties(Foo::Foo PROPERTIES\n"
+"      IMPORTED_LOCATION_DEBUG \"${Foo_LIBRARY_DEBUG}\"\n"
+"    )\n"
+"  endif()\n"
+"  set_target_properties(Foo::Foo PROPERTIES\n"
+"    INTERFACE_COMPILE_OPTIONS \"${PC_Foo_CFLAGS_OTHER}\"\n"
+"    INTERFACE_INCLUDE_DIRECTORIES \"${Foo_INCLUDE_DIR}\"\n"
+"  )\n"
+"endif()"
+
+#: ../../../manual/cmake-developer.7.rst:945
+msgid ""
+"The ``RELEASE`` variant should be listed first in the property so that that "
+"variant is chosen if the user uses a configuration which is not an exact "
+"match for any listed ``IMPORTED_CONFIGURATIONS``."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:949
+msgid ""
+"Most of the cache variables should be hidden in the ``ccmake`` interface "
+"unless the user explicitly asks to edit them."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:952
+msgid ""
+"mark_as_advanced(\n"
+"  Foo_INCLUDE_DIR\n"
+"  Foo_LIBRARY\n"
+")"
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:959
+msgid ""
+"If this module replaces an older version, you should set compatibility "
+"variables to cause the least disruption possible."
+msgstr ""
+
+#: ../../../manual/cmake-developer.7.rst:962
+msgid ""
+"# compatibility variables\n"
+"set(Foo_VERSION_STRING ${Foo_VERSION})"
+msgstr ""
