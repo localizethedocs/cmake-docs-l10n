@@ -1,0 +1,64 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2000-2014 Kitware, Inc.
+# This file is distributed under the same license as the CMake package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CMake 3.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-07-08 02:51+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../policy/CMP0008.rst:2
+msgid "CMP0008"
+msgstr ""
+
+#: ../../../policy/CMP0008.rst:4
+msgid "Libraries linked by full-path must have a valid library file name."
+msgstr ""
+
+#: ../../../policy/CMP0008.rst:6
+msgid "In CMake 2.4 and below it is possible to write code like"
+msgstr ""
+
+#: ../../../policy/CMP0008.rst:10
+msgid "target_link_libraries(myexe /full/path/to/somelib)"
+msgstr "target_link_libraries(myexe /full/path/to/somelib)"
+
+#: ../../../policy/CMP0008.rst:12
+msgid ""
+"where \"somelib\" is supposed to be a valid library file name such as "
+"\"libsomelib.a\" or \"somelib.lib\".  For Makefile generators this produces "
+"an error at build time because the dependency on the full path cannot be "
+"found.  For VS IDE and Xcode generators this used to work by accident "
+"because CMake would always split off the library directory and ask the "
+"linker to search for the library by name (-lsomelib or somelib.lib).  "
+"Despite the failure with Makefiles, some projects have code like this and "
+"build only with VS and/or Xcode. This version of CMake prefers to pass the "
+"full path directly to the native build tool, which will fail in this case "
+"because it does not name a valid library file."
+msgstr ""
+
+#: ../../../policy/CMP0008.rst:24
+msgid ""
+"This policy determines what to do with full paths that do not appear to name "
+"a valid library file.  The OLD behavior for this policy is to split the "
+"library name from the path and ask the linker to search for it.  The NEW "
+"behavior for this policy is to trust the given path and pass it directly to "
+"the native build tool unchanged."
+msgstr ""
+
+#: ../../../policy/CMP0008.rst:30
+msgid ""
+"This policy was introduced in CMake version 2.6.1.  CMake version |release| "
+"warns when the policy is not set and uses OLD behavior.  Use the "
+"cmake_policy command to set it to OLD or NEW explicitly."
+msgstr ""
