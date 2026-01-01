@@ -1,0 +1,281 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2000-2022 Kitware, Inc. and Contributors
+# This file is distributed under the same license as the CMake package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CMake 3.24\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-07-08 02:46+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../guide/tutorial/A Basic Starting Point.rst:2
+msgid "Step 1: A Basic Starting Point"
+msgstr ""
+
+#: ../../../guide/tutorial/A Basic Starting Point.rst:4
+msgid ""
+"The most basic project is an executable built from source code files. For "
+"simple projects, a three line ``CMakeLists.txt`` file is all that is "
+"required. This will be the starting point for our tutorial. Create a "
+"``CMakeLists.txt`` file in the ``Step1`` directory that looks like:"
+msgstr ""
+
+#: ../../../guide/tutorial/A Basic Starting Point.rst:9 Point.rst:76
+#: Point.rst:85 Point.rst:96 Point.rst:149
+msgid "CMakeLists.txt"
+msgstr ""
+
+#: ../../../guide/tutorial/A Basic Starting Point.rst:9
+msgid ""
+"cmake_minimum_required(VERSION 3.10)\n"
+"\n"
+"# set the project name\n"
+"project(Tutorial)\n"
+"\n"
+"# add the executable\n"
+"add_executable(Tutorial tutorial.cxx)"
+msgstr ""
+
+#: ../../../guide/tutorial/A Basic Starting Point.rst:22
+msgid ""
+"Note that this example uses lower case commands in the ``CMakeLists.txt`` "
+"file. Upper, lower, and mixed case commands are supported by CMake. The "
+"source code for ``tutorial.cxx`` is provided in the ``Step1`` directory and "
+"can be used to compute the square root of a number."
+msgstr ""
+
+#: ../../../guide/tutorial/A Basic Starting Point.rst:28
+msgid "Build and Run"
+msgstr ""
+
+#: ../../../guide/tutorial/A Basic Starting Point.rst:30
+msgid ""
+"That's all that is needed - we can build and run our project now! First, run "
+"the :manual:`cmake <cmake(1)>` executable or the :manual:`cmake-gui <cmake-"
+"gui(1)>` to configure the project and then build it with your chosen build "
+"tool."
+msgstr ""
+
+#: ../../../guide/tutorial/A Basic Starting Point.rst:35
+msgid ""
+"For example, from the command line we could navigate to the ``Help/guide/"
+"tutorial`` directory of the CMake source code tree and create a build "
+"directory:"
+msgstr ""
+
+#: ../../../guide/tutorial/A Basic Starting Point.rst:39
+msgid "mkdir Step1_build"
+msgstr ""
+
+#: ../../../guide/tutorial/A Basic Starting Point.rst:43
+msgid ""
+"Next, navigate to the build directory and run CMake to configure the project "
+"and generate a native build system:"
+msgstr ""
+
+#: ../../../guide/tutorial/A Basic Starting Point.rst:46
+msgid ""
+"cd Step1_build\n"
+"cmake ../Step1"
+msgstr ""
+
+#: ../../../guide/tutorial/A Basic Starting Point.rst:51
+msgid "Then call that build system to actually compile/link the project:"
+msgstr ""
+
+#: ../../../guide/tutorial/A Basic Starting Point.rst:53
+msgid "cmake --build ."
+msgstr ""
+
+#: ../../../guide/tutorial/A Basic Starting Point.rst:57
+msgid "Finally, try to use the newly built ``Tutorial`` with these commands:"
+msgstr ""
+
+#: ../../../guide/tutorial/A Basic Starting Point.rst:59 Point.rst:168
+msgid ""
+"Tutorial 4294967296\n"
+"Tutorial 10\n"
+"Tutorial"
+msgstr ""
+
+#: ../../../guide/tutorial/A Basic Starting Point.rst:67
+msgid "Adding a Version Number and Configured Header File"
+msgstr ""
+
+#: ../../../guide/tutorial/A Basic Starting Point.rst:69
+msgid ""
+"The first feature we will add is to provide our executable and project with "
+"a version number. While we could do this exclusively in the source code, "
+"using ``CMakeLists.txt`` provides more flexibility."
+msgstr ""
+
+#: ../../../guide/tutorial/A Basic Starting Point.rst:73
+msgid ""
+"First, modify the ``CMakeLists.txt`` file to use the :command:`project` "
+"command to set the project name and version number."
+msgstr ""
+
+#: ../../../guide/tutorial/A Basic Starting Point.rst:76
+msgid ""
+"cmake_minimum_required(VERSION 3.10)\n"
+"\n"
+"# set the project name and version\n"
+"project(Tutorial VERSION 1.0)\n"
+"\n"
+msgstr ""
+
+#: ../../../guide/tutorial/A Basic Starting Point.rst:82
+msgid ""
+"Then, configure a header file to pass the version number to the source code:"
+msgstr ""
+
+#: ../../../guide/tutorial/A Basic Starting Point.rst:85
+msgid ""
+"configure_file(TutorialConfig.h.in TutorialConfig.h)\n"
+"\n"
+msgstr ""
+
+#: ../../../guide/tutorial/A Basic Starting Point.rst:92
+msgid ""
+"Since the configured file will be written into the binary tree, we must add "
+"that directory to the list of paths to search for include files. Add the "
+"following lines to the end of the ``CMakeLists.txt`` file:"
+msgstr ""
+
+#: ../../../guide/tutorial/A Basic Starting Point.rst:96
+msgid ""
+"target_include_directories(Tutorial PUBLIC\n"
+"                           \"${PROJECT_BINARY_DIR}\"\n"
+"                           )\n"
+msgstr ""
+
+#: ../../../guide/tutorial/A Basic Starting Point.rst:102
+msgid ""
+"Using your favorite editor, create ``TutorialConfig.h.in`` in the source "
+"directory with the following contents:"
+msgstr ""
+
+#: ../../../guide/tutorial/A Basic Starting Point.rst:105
+msgid "TutorialConfig.h.in"
+msgstr ""
+
+#: ../../../guide/tutorial/A Basic Starting Point.rst:105
+msgid ""
+"// the configured options and settings for Tutorial\n"
+"#define Tutorial_VERSION_MAJOR @Tutorial_VERSION_MAJOR@\n"
+"#define Tutorial_VERSION_MINOR @Tutorial_VERSION_MINOR@\n"
+msgstr ""
+
+#: ../../../guide/tutorial/A Basic Starting Point.rst:110
+msgid ""
+"When CMake configures this header file the values for "
+"``@Tutorial_VERSION_MAJOR@`` and ``@Tutorial_VERSION_MINOR@`` will be "
+"replaced."
+msgstr ""
+
+#: ../../../guide/tutorial/A Basic Starting Point.rst:114
+msgid ""
+"Next modify ``tutorial.cxx`` to include the configured header file, "
+"``TutorialConfig.h``."
+msgstr ""
+
+#: ../../../guide/tutorial/A Basic Starting Point.rst:117
+msgid ""
+"Finally, let's print out the executable name and version number by updating "
+"``tutorial.cxx`` as follows:"
+msgstr ""
+
+#: ../../../guide/tutorial/A Basic Starting Point.rst:120 Point.rst:134
+msgid "tutorial.cxx"
+msgstr ""
+
+#: ../../../guide/tutorial/A Basic Starting Point.rst:120
+msgid ""
+"  if (argc < 2) {\n"
+"    // report version\n"
+"    std::cout << argv[0] << \" Version \" << Tutorial_VERSION_MAJOR << \"."
+"\"\n"
+"              << Tutorial_VERSION_MINOR << std::endl;\n"
+"    std::cout << \"Usage: \" << argv[0] << \" number\" << std::endl;\n"
+"    return 1;\n"
+"  }\n"
+"\n"
+msgstr ""
+
+#: ../../../guide/tutorial/A Basic Starting Point.rst:128
+msgid "Specify the C++ Standard"
+msgstr ""
+
+#: ../../../guide/tutorial/A Basic Starting Point.rst:130
+msgid ""
+"Next let's add some C++11 features to our project by replacing ``atof`` with "
+"``std::stod`` in ``tutorial.cxx``.  At the same time, remove ``#include "
+"<cstdlib>``."
+msgstr ""
+
+#: ../../../guide/tutorial/A Basic Starting Point.rst:134
+msgid ""
+"  const double inputValue = std::stod(argv[1]);\n"
+"\n"
+msgstr ""
+
+#: ../../../guide/tutorial/A Basic Starting Point.rst:141
+msgid ""
+"We will need to explicitly state in the CMake code that it should use the "
+"correct flags. The easiest way to enable support for a specific C++ standard "
+"in CMake is by using the :variable:`CMAKE_CXX_STANDARD` variable. For this "
+"tutorial, set the :variable:`CMAKE_CXX_STANDARD` variable in the "
+"``CMakeLists.txt`` file to ``11`` and :variable:"
+"`CMAKE_CXX_STANDARD_REQUIRED` to ``True``. Make sure to add the "
+"``CMAKE_CXX_STANDARD`` declarations above the call to ``add_executable``."
+msgstr ""
+
+#: ../../../guide/tutorial/A Basic Starting Point.rst:149
+msgid ""
+"cmake_minimum_required(VERSION 3.10)\n"
+"\n"
+"# set the project name and version\n"
+"project(Tutorial VERSION 1.0)\n"
+"\n"
+"# specify the C++ standard\n"
+"set(CMAKE_CXX_STANDARD 11)\n"
+"set(CMAKE_CXX_STANDARD_REQUIRED True)\n"
+"\n"
+msgstr ""
+
+#: ../../../guide/tutorial/A Basic Starting Point.rst:156
+msgid "Rebuild"
+msgstr ""
+
+#: ../../../guide/tutorial/A Basic Starting Point.rst:158
+msgid ""
+"Let's build our project again. We already created a build directory and ran "
+"CMake, so we can skip to the build step:"
+msgstr ""
+
+#: ../../../guide/tutorial/A Basic Starting Point.rst:161
+msgid ""
+"cd Step1_build\n"
+"cmake --build ."
+msgstr ""
+
+#: ../../../guide/tutorial/A Basic Starting Point.rst:166
+msgid ""
+"Now we can try to use the newly built ``Tutorial`` with same commands as "
+"before:"
+msgstr ""
+
+#: ../../../guide/tutorial/A Basic Starting Point.rst:174
+msgid ""
+"Check that the version number is now reported when running the executable "
+"without any arguments."
+msgstr ""
