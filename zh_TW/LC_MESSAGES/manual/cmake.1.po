@@ -1,0 +1,2249 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2000-2022 Kitware, Inc. and Contributors
+# This file is distributed under the same license as the CMake package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CMake 3.25\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-07-08 02:52+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../manual/cmake.1.rst:4
+msgid "cmake(1)"
+msgstr "cmake(1)"
+
+#: ../../../manual/cmake.1.rst:7
+msgid "Synopsis"
+msgstr "概要"
+
+#: ../../../manual/cmake.1.rst:11
+msgid ""
+"`Generate a Project Buildsystem`_\n"
+" cmake [<options>] <path-to-source | path-to-existing-build>\n"
+" cmake [<options>] -S <path-to-source> -B <path-to-build>\n"
+"\n"
+"`Build a Project`_\n"
+" cmake --build <dir> [<options>] [-- <build-tool-options>]\n"
+"\n"
+"`Install a Project`_\n"
+" cmake --install <dir> [<options>]\n"
+"\n"
+"`Open a Project`_\n"
+" cmake --open <dir>\n"
+"\n"
+"`Run a Script`_\n"
+" cmake [-D <var>=<value>]... -P <cmake-script-file>\n"
+"\n"
+"`Run a Command-Line Tool`_\n"
+" cmake -E <command> [<options>]\n"
+"\n"
+"`Run the Find-Package Tool`_\n"
+" cmake --find-package [<options>]\n"
+"\n"
+"`Run a Workflow Preset`_\n"
+" cmake --workflow [<options>]\n"
+"\n"
+"`View Help`_\n"
+" cmake --help[-<topic>]"
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:40
+msgid "Description"
+msgstr "描述"
+
+#: ../../../manual/cmake.1.rst:42
+msgid ""
+"The **cmake** executable is the command-line interface of the cross-platform "
+"buildsystem generator CMake.  The above `Synopsis`_ lists various actions "
+"the tool can perform as described in sections below."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:46
+msgid ""
+"To build a software project with CMake, `Generate a Project Buildsystem`_. "
+"Optionally use **cmake** to `Build a Project`_, `Install a Project`_ or just "
+"run the corresponding build tool (e.g. ``make``) directly.  **cmake** can "
+"also be used to `View Help`_."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:51
+msgid ""
+"The other actions are meant for use by software developers writing scripts "
+"in the :manual:`CMake language <cmake-language(7)>` to support their builds."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:55
+msgid ""
+"For graphical user interfaces that may be used in place of **cmake**, see :"
+"manual:`ccmake <ccmake(1)>` and :manual:`cmake-gui <cmake-gui(1)>`. For "
+"command-line interfaces to the CMake testing and packaging facilities, see :"
+"manual:`ctest <ctest(1)>` and :manual:`cpack <cpack(1)>`."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:60
+msgid ""
+"For more information on CMake at large, `see also`_ the links at the end of "
+"this manual."
+msgstr ""
+"關於 CMake 的更多資訊，\\ `另請參見 <see also_>`_\\ 該手冊結尾的相關連結。"
+
+#: ../../../manual/cmake.1.rst:65
+msgid "Introduction to CMake Buildsystems"
+msgstr "CMake 建置系統簡介"
+
+#: ../../../manual/cmake.1.rst:67
+msgid ""
+"A *buildsystem* describes how to build a project's executables and libraries "
+"from its source code using a *build tool* to automate the process.  For "
+"example, a buildsystem may be a ``Makefile`` for use with a command-line "
+"``make`` tool or a project file for an Integrated Development Environment "
+"(IDE).  In order to avoid maintaining multiple such buildsystems, a project "
+"may specify its buildsystem abstractly using files written in the :manual:"
+"`CMake language <cmake-language(7)>`.  From these files CMake generates a "
+"preferred buildsystem locally for each user through a backend called a "
+"*generator*."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:77
+msgid "To generate a buildsystem with CMake, the following must be selected:"
+msgstr "要使用 CMake 生成建置系統，必須選取以下項目："
+
+#: ../../../manual/cmake.1.rst:79
+msgid "Source Tree"
+msgstr "來源樹"
+
+#: ../../../manual/cmake.1.rst:80
+msgid ""
+"The top-level directory containing source files provided by the project. The "
+"project specifies its buildsystem using files as described in the :manual:"
+"`cmake-language(7)` manual, starting with a top-level file named "
+"``CMakeLists.txt``.  These files specify build targets and their "
+"dependencies as described in the :manual:`cmake-buildsystem(7)` manual."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:86
+msgid "Build Tree"
+msgstr "建置樹"
+
+#: ../../../manual/cmake.1.rst:87
+msgid ""
+"The top-level directory in which buildsystem files and build output "
+"artifacts (e.g. executables and libraries) are to be stored. CMake will "
+"write a ``CMakeCache.txt`` file to identify the directory as a build tree "
+"and store persistent information such as buildsystem configuration options."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:93
+msgid ""
+"To maintain a pristine source tree, perform an *out-of-source* build by "
+"using a separate dedicated build tree.  An *in-source* build in which the "
+"build tree is placed in the same directory as the source tree is also "
+"supported, but discouraged."
+msgstr ""
+"為了維護一個純淨的來源樹，請使用獨立的專用建置樹進行\\ *源外建置*\\ 。CMake "
+"也支援將建置樹放置在與來源樹相同的目錄中的\\ *源內建置*\\ ，但並不鼓勵使用。"
+
+#: ../../../manual/cmake.1.rst:98
+msgid "Generator"
+msgstr "生成器"
+
+#: ../../../manual/cmake.1.rst:99
+msgid ""
+"This chooses the kind of buildsystem to generate.  See the :manual:`cmake-"
+"generators(7)` manual for documentation of all generators. Run :option:"
+"`cmake --help` to see a list of generators available locally. Optionally use "
+"the :option:`-G <cmake -G>` option below to specify a generator, or simply "
+"accept the default CMake chooses for the current platform."
+msgstr ""
+"這會選擇要生成的建置系統種類。請參見 :manual:`cmake-生成器(7) <cmake-"
+"generators(7)>` 手冊以獲取所有生成器的文件。執行 :option:`cmake --help` 以查"
+"看本機可用的生成器列表。選擇性地使用以下  :option:`-G <cmake -G>`  選項來指定"
+"生成器，或簡單接受 CMake 為當前平台選擇的預設生成器。"
+
+#: ../../../manual/cmake.1.rst:106
+msgid ""
+"When using one of the :ref:`Command-Line Build Tool Generators` CMake "
+"expects that the environment needed by the compiler toolchain is already "
+"configured in the shell.  When using one of the :ref:`IDE Build Tool "
+"Generators`, no particular environment is needed."
+msgstr ""
+"當使用\\ :ref:`Command-Line Build Tool Generators`\\ 之一時，CMake 會預期編譯"
+"器工具鏈所需的環境已經在外殼中組態完畢。當使用 :ref:`IDE Build Tool "
+"Generators` 之一時，則不需要特別的環境。"
+
+#: ../../../manual/cmake.1.rst:114
+msgid "Generate a Project Buildsystem"
+msgstr "生成專案建置系統"
+
+#: ../../../manual/cmake.1.rst:116
+msgid ""
+"Run CMake with one of the following command signatures to specify the source "
+"and build trees and generate a buildsystem:"
+msgstr "使用以下命令簽名之一執行 CMake 來指定來源樹和建置樹並生成建置系統："
+
+#: ../../../manual/cmake.1.rst:119
+msgid "``cmake [<options>] <path-to-source>``"
+msgstr "``cmake [<options>] <path-to-source>``"
+
+#: ../../../manual/cmake.1.rst:120
+msgid ""
+"Uses the current working directory as the build tree, and ``<path-to-"
+"source>`` as the source tree.  The specified path may be absolute or "
+"relative to the current working directory. The source tree must contain a "
+"``CMakeLists.txt`` file and must *not* contain a ``CMakeCache.txt`` file "
+"because the latter identifies an existing build tree.  For example:"
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:127
+msgid ""
+"$ mkdir build ; cd build\n"
+"$ cmake ../src"
+msgstr ""
+"$ mkdir build ; cd build\n"
+"$ cmake ../src"
+
+#: ../../../manual/cmake.1.rst:132
+msgid "``cmake [<options>] <path-to-existing-build>``"
+msgstr "``cmake [<options>] <path-to-existing-build>``"
+
+#: ../../../manual/cmake.1.rst:133
+msgid ""
+"Uses ``<path-to-existing-build>`` as the build tree, and loads the path to "
+"the source tree from its ``CMakeCache.txt`` file, which must have already "
+"been generated by a previous run of CMake.  The specified path may be "
+"absolute or relative to the current working directory. For example:"
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:139
+msgid ""
+"$ cd build\n"
+"$ cmake ."
+msgstr ""
+"$ cd build\n"
+"$ cmake ."
+
+#: ../../../manual/cmake.1.rst:144
+msgid "``cmake [<options>] -S <path-to-source> -B <path-to-build>``"
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:148
+msgid ""
+"Uses ``<path-to-build>`` as the build tree and ``<path-to-source>`` as the "
+"source tree.  The specified paths may be absolute or relative to the current "
+"working directory.  The source tree must contain a ``CMakeLists.txt`` file.  "
+"The build tree will be created automatically if it does not already exist.  "
+"For example:"
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:154
+msgid "$ cmake -S src -B build"
+msgstr "$ cmake -S src -B build"
+
+#: ../../../manual/cmake.1.rst:158
+msgid ""
+"In all cases the ``<options>`` may be zero or more of the `Options`_ below."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:160
+msgid ""
+"The above styles for specifying the source and build trees may be mixed. "
+"Paths specified with :option:`-S <cmake -S>` or :option:`-B <cmake -B>` are "
+"always classified as source or build trees, respectively.  Paths specified "
+"with plain arguments are classified based on their content and the types of "
+"paths given earlier.  If only one type of path is given, the current working "
+"directory (cwd) is used for the other.  For example:"
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:168
+msgid "Command Line"
+msgstr "命令行"
+
+#: ../../../manual/cmake.1.rst:168
+msgid "Source Dir"
+msgstr "來源目錄"
+
+#: ../../../manual/cmake.1.rst:168
+msgid "Build Dir"
+msgstr "建置目錄"
+
+#: ../../../manual/cmake.1.rst:170
+msgid "``cmake src``"
+msgstr "``cmake src``"
+
+#: ../../../manual/cmake.1.rst:170 ../../../manual/cmake.1.rst:172
+#: ../../../manual/cmake.1.rst:173 ../../../manual/cmake.1.rst:174
+#: ../../../manual/cmake.1.rst:176 ../../../manual/cmake.1.rst:177
+msgid "``src``"
+msgstr "``src``"
+
+#: ../../../manual/cmake.1.rst:170 ../../../manual/cmake.1.rst:172
+#: ../../../manual/cmake.1.rst:175
+msgid "`cwd`"
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:171
+msgid "``cmake build`` (existing)"
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:171
+msgid "`loaded`"
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:171 ../../../manual/cmake.1.rst:173
+#: ../../../manual/cmake.1.rst:174 ../../../manual/cmake.1.rst:175
+#: ../../../manual/cmake.1.rst:176 ../../../manual/cmake.1.rst:177
+msgid "``build``"
+msgstr "``build``"
+
+#: ../../../manual/cmake.1.rst:172
+msgid "``cmake -S src``"
+msgstr "``cmake -S src``"
+
+#: ../../../manual/cmake.1.rst:173
+msgid "``cmake -S src build``"
+msgstr "``cmake -S src build``"
+
+#: ../../../manual/cmake.1.rst:174
+msgid "``cmake -S src -B build``"
+msgstr "``cmake -S src -B build``"
+
+#: ../../../manual/cmake.1.rst:175
+msgid "``cmake -B build``"
+msgstr "``cmake -B build``"
+
+#: ../../../manual/cmake.1.rst:176
+msgid "``cmake -B build src``"
+msgstr "``cmake -B build src``"
+
+#: ../../../manual/cmake.1.rst:177
+msgid "``cmake -B build -S src``"
+msgstr "``cmake -B build -S src``"
+
+#: ../../../manual/cmake.1.rst:182
+msgid ""
+"CMake warns when multiple source paths are specified.  This has never been "
+"officially documented or supported, but older versions accidentally accepted "
+"multiple source paths and used the last path specified. Avoid passing "
+"multiple source path arguments."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:187
+msgid ""
+"After generating a buildsystem one may use the corresponding native build "
+"tool to build the project.  For example, after using the :generator:`Unix "
+"Makefiles` generator one may run ``make`` directly:"
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:191
+msgid ""
+"$ make\n"
+"$ make install"
+msgstr ""
+"$ make\n"
+"$ make install"
+
+#: ../../../manual/cmake.1.rst:196
+msgid ""
+"Alternatively, one may use **cmake** to `Build a Project`_ by automatically "
+"choosing and invoking the appropriate native build tool."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:202
+msgid "Options"
+msgstr "選項"
+
+#: ../../../manual/OPTIONS_BUILD.txt:3
+msgid "Path to root directory of the CMake project to build."
+msgstr "建置 CMake 專案的根目錄路徑。"
+
+#: ../../../manual/OPTIONS_BUILD.txt:7
+msgid "Path to directory which CMake will use as the root of build directory."
+msgstr "CMake 將用作建置目錄根目錄的目錄路徑。"
+
+#: ../../../manual/OPTIONS_BUILD.txt:9
+msgid "If the directory doesn't already exist CMake will make it."
+msgstr ""
+
+#: ../../../manual/OPTIONS_BUILD.txt:13
+msgid "Pre-load a script to populate the cache."
+msgstr ""
+
+#: ../../../manual/OPTIONS_BUILD.txt:15
+msgid ""
+"When CMake is first run in an empty build tree, it creates a ``CMakeCache."
+"txt`` file and populates it with customizable settings for the project.  "
+"This option may be used to specify a file from which to load cache entries "
+"before the first pass through the project's CMake listfiles.  The loaded "
+"entries take priority over the project's default values.  The given file "
+"should be a CMake script containing :command:`set` commands that use the "
+"``CACHE`` option, not a cache-format file."
+msgstr ""
+
+#: ../../../manual/OPTIONS_BUILD.txt:24
+msgid ""
+"References to :variable:`CMAKE_SOURCE_DIR` and :variable:`CMAKE_BINARY_DIR` "
+"within the script evaluate to the top-level source and build tree."
+msgstr ""
+
+#: ../../../manual/OPTIONS_BUILD.txt:29
+msgid "Create or update a CMake ``CACHE`` entry."
+msgstr "建立或更新 CMake ``CACHE`` 條目。"
+
+#: ../../../manual/OPTIONS_BUILD.txt:31
+msgid ""
+"When CMake is first run in an empty build tree, it creates a ``CMakeCache."
+"txt`` file and populates it with customizable settings for the project.  "
+"This option may be used to specify a setting that takes priority over the "
+"project's default value.  The option may be repeated for as many ``CACHE`` "
+"entries as desired."
+msgstr ""
+
+#: ../../../manual/OPTIONS_BUILD.txt:37
+msgid ""
+"If the ``:<type>`` portion is given it must be one of the types specified by "
+"the :command:`set` command documentation for its ``CACHE`` signature. If the "
+"``:<type>`` portion is omitted the entry will be created with no type if it "
+"does not exist with a type already.  If a command in the project sets the "
+"type to ``PATH`` or ``FILEPATH`` then the ``<value>`` will be converted to "
+"an absolute path."
+msgstr ""
+
+#: ../../../manual/OPTIONS_BUILD.txt:45
+msgid ""
+"This option may also be given as a single argument: ``-D<var>:"
+"<type>=<value>`` or ``-D<var>=<value>``."
+msgstr ""
+
+#: ../../../manual/OPTIONS_BUILD.txt:48
+msgid ""
+"It's important to note that the order of ``-C`` and ``-D`` arguments is "
+"significant. They will be carried out in the order they are listed, with the "
+"last argument taking precedence over the previous ones. For example, if you "
+"specify ``-DCMAKE_BUILD_TYPE=Debug``, followed by a ``-C`` argument with a "
+"file that calls:"
+msgstr ""
+
+#: ../../../manual/OPTIONS_BUILD.txt:54
+msgid "set(CMAKE_BUILD_TYPE \"Release\" CACHE STRING \"\" FORCE)"
+msgstr "set(CMAKE_BUILD_TYPE \"Release\" CACHE STRING \"\" FORCE)"
+
+#: ../../../manual/OPTIONS_BUILD.txt:58
+msgid ""
+"then the ``-C`` argument will take precedence, and ``CMAKE_BUILD_TYPE`` will "
+"be set to ``Release``. However, if the ``-D`` argument comes after the ``-"
+"C`` argument, it will be set to ``Debug``."
+msgstr ""
+
+#: ../../../manual/OPTIONS_BUILD.txt:62
+msgid ""
+"If a ``set(... CACHE ...)`` call in the ``-C`` file does not use ``FORCE``, "
+"and a ``-D`` argument sets the same variable, the ``-D`` argument will take "
+"precedence regardless of order because of the nature of non-``FORCE`` "
+"``set(... CACHE ...)`` calls."
+msgstr ""
+
+#: ../../../manual/OPTIONS_BUILD.txt:69
+msgid "Remove matching entries from CMake ``CACHE``."
+msgstr ""
+
+#: ../../../manual/OPTIONS_BUILD.txt:71
+msgid ""
+"This option may be used to remove one or more variables from the "
+"``CMakeCache.txt`` file, globbing expressions using ``*`` and ``?`` are "
+"supported.  The option may be repeated for as many ``CACHE`` entries as "
+"desired."
+msgstr ""
+
+#: ../../../manual/OPTIONS_BUILD.txt:76
+msgid "Use with care, you can make your ``CMakeCache.txt`` non-working."
+msgstr ""
+
+#: ../../../manual/OPTIONS_BUILD.txt:80
+msgid "Specify a build system generator."
+msgstr "指定建置系統生成器。"
+
+#: ../../../manual/OPTIONS_BUILD.txt:82
+msgid ""
+"CMake may support multiple native build systems on certain platforms.  A "
+"generator is responsible for generating a particular build system.  Possible "
+"generator names are specified in the :manual:`cmake-generators(7)` manual."
+msgstr ""
+
+#: ../../../manual/OPTIONS_BUILD.txt:87
+msgid ""
+"If not specified, CMake checks the :envvar:`CMAKE_GENERATOR` environment "
+"variable and otherwise falls back to a builtin default selection."
+msgstr ""
+
+#: ../../../manual/OPTIONS_BUILD.txt:92
+msgid "Toolset specification for the generator, if supported."
+msgstr ""
+
+#: ../../../manual/OPTIONS_BUILD.txt:94
+msgid ""
+"Some CMake generators support a toolset specification to tell the native "
+"build system how to choose a compiler.  See the :variable:"
+"`CMAKE_GENERATOR_TOOLSET` variable for details."
+msgstr ""
+
+#: ../../../manual/OPTIONS_BUILD.txt:100
+msgid "Specify platform name if supported by generator."
+msgstr "指定平台名稱（若生成器支援的話）。"
+
+#: ../../../manual/OPTIONS_BUILD.txt:102
+msgid ""
+"Some CMake generators support a platform name to be given to the native "
+"build system to choose a compiler or SDK.  See the :variable:"
+"`CMAKE_GENERATOR_PLATFORM` variable for details."
+msgstr ""
+
+#: ../../../manual/OPTIONS_BUILD.txt:108
+msgid ""
+"Specify the cross compiling toolchain file, equivalent to setting :variable:"
+"`CMAKE_TOOLCHAIN_FILE` variable."
+msgstr ""
+
+#: ../../../manual/OPTIONS_BUILD.txt:113
+msgid ""
+"Specify the installation directory, used by the :variable:"
+"`CMAKE_INSTALL_PREFIX` variable. Must be an absolute path."
+msgstr ""
+"指定 :variable:`CMAKE_INSTALL_PREFIX` 變數使用的安裝目錄。必須是絕對路徑。"
+
+#: ../../../manual/OPTIONS_BUILD.txt:118
+msgid "Suppress developer warnings."
+msgstr "抑制開發者警告。"
+
+#: ../../../manual/OPTIONS_BUILD.txt:120
+msgid ""
+"Suppress warnings that are meant for the author of the ``CMakeLists.txt`` "
+"files. By default this will also turn off deprecation warnings."
+msgstr ""
+
+#: ../../../manual/OPTIONS_BUILD.txt:126
+msgid "Enable developer warnings."
+msgstr "啟用開發者警告。"
+
+#: ../../../manual/OPTIONS_BUILD.txt:128
+msgid ""
+"Enable warnings that are meant for the author of the ``CMakeLists.txt`` "
+"files. By default this will also turn on deprecation warnings."
+msgstr ""
+
+#: ../../../manual/OPTIONS_BUILD.txt:133
+msgid "Enable deprecated functionality warnings."
+msgstr "啟用已棄用的功能警告。"
+
+#: ../../../manual/OPTIONS_BUILD.txt:135
+msgid ""
+"Enable warnings for usage of deprecated functionality, that are meant for "
+"the author of the ``CMakeLists.txt`` files."
+msgstr ""
+
+#: ../../../manual/OPTIONS_BUILD.txt:140
+msgid "Suppress deprecated functionality warnings."
+msgstr "隱藏已棄用的功能警告。"
+
+#: ../../../manual/OPTIONS_BUILD.txt:142
+msgid ""
+"Suppress warnings for usage of deprecated functionality, that are meant for "
+"the author of the ``CMakeLists.txt`` files."
+msgstr ""
+
+#: ../../../manual/OPTIONS_BUILD.txt:147
+msgid ""
+"Treat CMake warnings as errors. ``<what>`` must be one of the following:"
+msgstr "將 CMake 警告視為錯誤。``<what>`` 必須是以下其中之一："
+
+#: ../../../manual/OPTIONS_BUILD.txt:149 ../../../manual/OPTIONS_BUILD.txt:165
+msgid "``dev``"
+msgstr ""
+
+#: ../../../manual/OPTIONS_BUILD.txt:150
+msgid "Make developer warnings errors."
+msgstr ""
+
+#: ../../../manual/OPTIONS_BUILD.txt:152
+msgid ""
+"Make warnings that are meant for the author of the ``CMakeLists.txt`` files "
+"errors. By default this will also turn on deprecated warnings as errors."
+msgstr ""
+
+#: ../../../manual/OPTIONS_BUILD.txt:155 ../../../manual/OPTIONS_BUILD.txt:169
+msgid "``deprecated``"
+msgstr ""
+
+#: ../../../manual/OPTIONS_BUILD.txt:156
+msgid "Make deprecated macro and function warnings errors."
+msgstr ""
+
+#: ../../../manual/OPTIONS_BUILD.txt:158
+msgid ""
+"Make warnings for usage of deprecated macros and functions, that are meant "
+"for the author of the ``CMakeLists.txt`` files, errors."
+msgstr ""
+
+#: ../../../manual/OPTIONS_BUILD.txt:163
+msgid ""
+"Do not treat CMake warnings as errors. ``<what>`` must be one of the "
+"following:"
+msgstr "不要將 CMake 警告視為錯誤。``<what>`` 必須是以下其中之一："
+
+#: ../../../manual/OPTIONS_BUILD.txt:166
+msgid ""
+"Make warnings that are meant for the author of the ``CMakeLists.txt`` files "
+"not errors. By default this will also turn off deprecated warnings as errors."
+msgstr ""
+
+#: ../../../manual/OPTIONS_BUILD.txt:170
+msgid ""
+"Make warnings for usage of deprecated macros and functions, that are meant "
+"for the author of the ``CMakeLists.txt`` files, not errors."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:212 ../../../manual/cmake.1.rst:1291
+msgid ""
+"Perform a fresh configuration of the build tree. This removes any existing "
+"``CMakeCache.txt`` file and associated ``CMakeFiles/`` directory, and "
+"recreates them from scratch."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:218
+msgid "List non-advanced cached variables."
+msgstr "列出非進階快取變數。"
+
+#: ../../../manual/cmake.1.rst:220
+msgid ""
+"List ``CACHE`` variables will run CMake and list all the variables from the "
+"CMake ``CACHE`` that are not marked as ``INTERNAL`` or :prop_cache:"
+"`ADVANCED`. This will effectively display current CMake settings, which can "
+"then be changed with :option:`-D <cmake -D>` option.  Changing some of the "
+"variables may result in more variables being created.  If ``A`` is "
+"specified, then it will display also advanced variables.  If ``H`` is "
+"specified, it will also display help for each variable."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:230
+msgid "View mode only."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:232
+msgid "Only load the cache.  Do not actually run configure and generate steps."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:237
+msgid ""
+"Generate graphviz of dependencies, see :module:`CMakeGraphVizOptions` for "
+"more."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:239
+msgid ""
+"Generate a graphviz input file that will contain all the library and "
+"executable dependencies in the project.  See the documentation for :module:"
+"`CMakeGraphVizOptions` for more details."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:245
+msgid "Dump information about this system."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:247
+msgid ""
+"Dump a wide range of information about the current system.  If run from the "
+"top of a binary tree for a CMake project it will dump additional information "
+"such as the cache, log files etc."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:253
+msgid "Set the log ``<level>``."
+msgstr "設定日誌 ``<level>``。"
+
+#: ../../../manual/cmake.1.rst:255
+msgid ""
+"The :command:`message` command will only output messages of the specified "
+"log level or higher.  The valid log levels are ``ERROR``, ``WARNING``, "
+"``NOTICE``, ``STATUS`` (default), ``VERBOSE``, ``DEBUG``, or ``TRACE``."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:259
+msgid ""
+"To make a log level persist between CMake runs, set :variable:"
+"`CMAKE_MESSAGE_LOG_LEVEL` as a cache variable instead. If both the command "
+"line option and the variable are given, the command line option takes "
+"precedence."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:264
+msgid ""
+"For backward compatibility reasons, ``--loglevel`` is also accepted as a "
+"synonym for this option."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:267
+msgid ""
+"See the :command:`cmake_language` command for a way to :ref:`query the "
+"current message logging level <query_message_log_level>`."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:273
+msgid ""
+"Enable the :command:`message` command outputting context attached to each "
+"message."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:276
+msgid ""
+"This option turns on showing context for the current CMake run only. To make "
+"showing the context persistent for all subsequent CMake runs, set :variable:"
+"`CMAKE_MESSAGE_CONTEXT_SHOW` as a cache variable instead. When this command "
+"line option is given, :variable:`CMAKE_MESSAGE_CONTEXT_SHOW` is ignored."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:284
+msgid ""
+"Do not delete the files and directories created for :command:"
+"`try_compile` / :command:`try_run` calls. This is useful in debugging failed "
+"checks."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:288
+msgid ""
+"Note that some uses of :command:`try_compile` may use the same build tree, "
+"which will limit the usefulness of this option if a project executes more "
+"than one :command:`try_compile`.  For example, such uses may change results "
+"as artifacts from a previous try-compile may cause a different test to "
+"either pass or fail incorrectly.  This option is best used only when "
+"debugging."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:294
+msgid ""
+"(With respect to the preceding, the :command:`try_run` command is "
+"effectively a :command:`try_compile`.  Any combination of the two is subject "
+"to the potential issues described.)"
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:300
+msgid ""
+"When this option is enabled, every try-compile check prints a log message "
+"reporting the directory in which the check is performed."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:305
+msgid "Put cmake in a debug mode."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:307
+msgid ""
+"Print extra information during the cmake run like stack traces with :command:"
+"`message(SEND_ERROR)` calls."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:312
+msgid "Put cmake find commands in a debug mode."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:314
+msgid ""
+"Print extra find call information during the cmake run to standard error. "
+"Output is designed for human consumption and not for parsing. See also the :"
+"variable:`CMAKE_FIND_DEBUG_MODE` variable for debugging a more local part of "
+"the project."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:321
+msgid ""
+"Put cmake find commands in a debug mode when running under calls to :command:"
+"`find_package(\\<pkg\\>) <find_package>`, where ``<pkg>`` is an entry in the "
+"given comma-separated list of case-sensitive package names."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:326
+msgid ""
+"Like :option:`--debug-find <cmake --debug-find>`, but limiting scope to the "
+"specified packages."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:331
+msgid ""
+"Put cmake find commands in a debug mode when called with ``<var>`` as the "
+"result variable, where ``<var>`` is an entry in the given comma-separated "
+"list."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:335
+msgid ""
+"Like :option:`--debug-find <cmake --debug-find>`, but limiting scope to the "
+"specified variable names."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:340 ../../../manual/cmake.1.rst:346
+msgid "Put cmake in trace mode."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:342
+msgid "Print a trace of all calls made and from where."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:348
+msgid "Like :option:`--trace <cmake --trace>`, but with variables expanded."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:352
+msgid "Put cmake in trace mode and sets the trace output format."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:354
+msgid "``<format>`` can be one of the following values."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:356
+msgid "``human``"
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:357
+msgid ""
+"Prints each trace line in a human-readable format. This is the default "
+"format."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:360
+msgid "``json-v1``"
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:361
+msgid ""
+"Prints each line as a separate JSON document. Each document is separated by "
+"a newline ( ``\\n`` ). It is guaranteed that no newline characters will be "
+"present inside a JSON document."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:365 ../../../manual/cmake.1.rst:420
+msgid "JSON trace format:"
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:367
+msgid ""
+"{\n"
+"  \"file\": \"/full/path/to/the/CMake/file.txt\",\n"
+"  \"line\": 0,\n"
+"  \"cmd\": \"add_executable\",\n"
+"  \"args\": [\"foo\", \"bar\"],\n"
+"  \"time\": 1579512535.9687231,\n"
+"  \"frame\": 2,\n"
+"  \"global_frame\": 4\n"
+"}"
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:379 ../../../manual/cmake.1.rst:431
+msgid "The members are:"
+msgstr "成員有："
+
+#: ../../../manual/cmake.1.rst:381
+msgid "``file``"
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:382
+msgid "The full path to the CMake source file where the function was called."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:385
+msgid "``line``"
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:386
+msgid "The line in ``file`` where the function call begins."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:388
+msgid "``line_end``"
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:389
+msgid ""
+"If the function call spans multiple lines, this field will be set to the "
+"line where the function call ends. If the function calls spans a single "
+"line, this field will be unset. This field was added in minor version 2 of "
+"the ``json-v1`` format."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:394
+msgid "``defer``"
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:395
+msgid ""
+"Optional member that is present when the function call was deferred by :"
+"command:`cmake_language(DEFER)`.  If present, its value is a string "
+"containing the deferred call ``<id>``."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:399
+msgid "``cmd``"
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:400
+msgid "The name of the function that was called."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:402
+msgid "``args``"
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:403
+msgid "A string list of all function parameters."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:405
+msgid "``time``"
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:406
+msgid "Timestamp (seconds since epoch) of the function call."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:408
+msgid "``frame``"
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:409
+msgid ""
+"Stack frame depth of the function that was called, within the context of "
+"the  ``CMakeLists.txt`` being processed currently."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:412
+msgid "``global_frame``"
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:413
+msgid ""
+"Stack frame depth of the function that was called, tracked globally across "
+"all ``CMakeLists.txt`` files involved in the trace. This field was added in "
+"minor version 2 of the ``json-v1`` format."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:417
+msgid ""
+"Additionally, the first JSON document outputted contains the ``version`` key "
+"for the current major and minor version of the"
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:422
+msgid ""
+"{\n"
+"  \"version\": {\n"
+"    \"major\": 1,\n"
+"    \"minor\": 2\n"
+"  }\n"
+"}"
+msgstr ""
+"{\n"
+"  \"version\": {\n"
+"    \"major\": 1,\n"
+"    \"minor\": 2\n"
+"  }\n"
+"}"
+
+#: ../../../manual/cmake.1.rst:433 ../../../manual/cmake.1.rst:752
+#: ../../../manual/cmake.1.rst:800
+msgid "``version``"
+msgstr "``version``"
+
+#: ../../../manual/cmake.1.rst:434
+msgid ""
+"Indicates the version of the JSON format. The version has a major and minor "
+"components following semantic version conventions."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:439
+msgid "Put cmake in trace mode, but output only lines of a specified file."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:441
+msgid "Multiple options are allowed."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:445
+msgid ""
+"Put cmake in trace mode and redirect trace output to a file instead of "
+"stderr."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:449
+msgid "Warn about uninitialized values."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:451
+msgid "Print a warning when an uninitialized variable is used."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:455
+msgid ""
+"Does nothing.  In CMake versions 3.2 and below this enabled warnings about "
+"unused variables.  In CMake versions 3.3 through 3.18 the option was broken. "
+"In CMake 3.19 and above the option has been removed."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:461
+msgid "Don't warn about command line options."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:463
+msgid ""
+"Don't find variables that are declared on the command line, but not used."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:468
+msgid "Find problems with variable usage in system files."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:470
+msgid ""
+"Normally, unused and uninitialized variables are searched for only in :"
+"variable:`CMAKE_SOURCE_DIR` and :variable:`CMAKE_BINARY_DIR`. This flag "
+"tells CMake to warn about other files as well."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:476
+msgid ""
+"Ignore target property :prop_tgt:`COMPILE_WARNING_AS_ERROR` and variable :"
+"variable:`CMAKE_COMPILE_WARNING_AS_ERROR`, preventing warnings from being "
+"treated as errors on compile."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:482
+msgid ""
+"Used in conjunction with :option:`--profiling-format <cmake --profiling-"
+"format>` to output to a given path."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:488
+msgid ""
+"Enable the output of profiling data of CMake script in the given format."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:490
+msgid ""
+"This can aid performance analysis of CMake scripts executed. Third party "
+"applications should be used to process the output into human readable format."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:493
+msgid ""
+"Currently supported values are: ``google-trace`` Outputs in Google Trace "
+"Format, which can be parsed by the about:tracing tab of Google Chrome or "
+"using a plugin for a tool like Trace Compass."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:500
+msgid ""
+"Reads a :manual:`preset <cmake-presets(7)>` from ``<path-to-source>/"
+"CMakePresets.json`` and ``<path-to-source>/CMakeUserPresets.json``. The "
+"preset may specify the generator and the build directory, and a list of "
+"variables and other arguments to pass to CMake. The current working "
+"directory must contain CMake preset files. The :manual:`CMake GUI <cmake-"
+"gui(1)>` can also recognize ``CMakePresets.json`` and ``CMakeUserPresets."
+"json`` files. For full details on these files, see :manual:`cmake-"
+"presets(7)`."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:509
+msgid ""
+"The presets are read before all other command line options. The options "
+"specified by the preset (variables, generator, etc.) can all be overridden "
+"by manually specifying them on the command line. For example, if the preset "
+"sets a variable called ``MYVAR`` to ``1``, but the user sets it to ``2`` "
+"with a ``-D`` argument, the value ``2`` is preferred."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:517
+msgid ""
+"Lists the available presets of the specified ``<type>``.  Valid values for "
+"``<type>`` are ``configure``, ``build``, ``test``, ``package``, or ``all``. "
+"If ``<type>`` is omitted, ``configure`` is assumed.  The current working "
+"directory must contain CMake preset files."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:525
+msgid "Build a Project"
+msgstr "建置專案"
+
+#: ../../../manual/cmake.1.rst:529
+msgid ""
+"CMake provides a command-line signature to build an already-generated "
+"project binary tree:"
+msgstr "CMake 提供了一個命令行簽名來建置已經生成的專案二進位樹："
+
+#: ../../../manual/cmake.1.rst:532
+msgid ""
+"cmake --build <dir>             [<options>] [-- <build-tool-options>]\n"
+"cmake --build --preset <preset> [<options>] [-- <build-tool-options>]"
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:537
+msgid ""
+"This abstracts a native build tool's command-line interface with the "
+"following options:"
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:542
+msgid ""
+"Project binary directory to be built.  This is required (unless a preset is "
+"specified) and must be first."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:549
+msgid ""
+"Use a build preset to specify build options. The project binary directory is "
+"inferred from the ``configurePreset`` key. The current working directory "
+"must contain CMake preset files. See :manual:`preset <cmake-presets(7)>` for "
+"more details."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:556
+msgid ""
+"Lists the available build presets. The current working directory must "
+"contain CMake preset files."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:563
+msgid ""
+"The maximum number of concurrent processes to use when building. If "
+"``<jobs>`` is omitted the native build tool's default number is used."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:566
+msgid ""
+"The :envvar:`CMAKE_BUILD_PARALLEL_LEVEL` environment variable, if set, "
+"specifies a default parallel level when this option is not given."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:569
+msgid ""
+"Some native build tools always build in parallel.  The use of ``<jobs>`` "
+"value of ``1`` can be used to limit to a single job."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:574
+msgid ""
+"Build ``<tgt>`` instead of the default target.  Multiple targets may be "
+"given, separated by spaces."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:579
+msgid "For multi-configuration tools, choose configuration ``<cfg>``."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:583
+msgid ""
+"Build target ``clean`` first, then build. (To clean only, use :option:`--"
+"target clean <cmake--build --target>`.)"
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:590
+msgid ""
+"Resolve remote package references from external package managers (e.g. "
+"NuGet) before build. When ``<value>`` is set to ``on`` (default), packages "
+"will be restored before building a target.  When ``<value>`` is set to "
+"``only``, the packages will be restored, but no build will be performed.  "
+"When ``<value>`` is set to ``off``, no packages will be restored."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:596
+msgid ""
+"If the target does not define any package references, this option does "
+"nothing."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:598
+msgid ""
+"This setting can be specified in a build preset (using "
+"``resolvePackageReferences``). The preset setting will be ignored, if this "
+"command line option is specified."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:602
+msgid ""
+"If no command line parameter or preset option are provided, an environment- "
+"specific cache variable will be evaluated to decide, if package restoration "
+"should be performed."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:606
+msgid ""
+"When using the Visual Studio generator, package references are defined using "
+"the :prop_tgt:`VS_PACKAGE_REFERENCES` property. Package references are "
+"restored using NuGet. It can be disabled by setting the "
+"``CMAKE_VS_NUGET_PACKAGE_RESTORE`` variable to ``OFF``."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:613
+msgid "Ignored.  Behavior is default in CMake >= 3.0."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:617
+msgid ""
+"Enable verbose output - if supported - including the build commands to be "
+"executed."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:620
+msgid ""
+"This option can be omitted if :envvar:`VERBOSE` environment variable or :"
+"variable:`CMAKE_VERBOSE_MAKEFILE` cached variable is set."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:626
+msgid "Pass remaining options to the native tool."
+msgstr "將其餘選項傳遞給原生工具。"
+
+#: ../../../manual/cmake.1.rst:628
+msgid "Run :option:`cmake --build` with no options for quick help."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:631
+msgid "Install a Project"
+msgstr "安裝專案"
+
+#: ../../../manual/cmake.1.rst:635
+msgid ""
+"CMake provides a command-line signature to install an already-generated "
+"project binary tree:"
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:638
+msgid "cmake --install <dir> [<options>]"
+msgstr "cmake --install <dir> [<options>]"
+
+#: ../../../manual/cmake.1.rst:642
+msgid ""
+"This may be used after building a project to run installation without using "
+"the generated build system or the native build tool. The options are:"
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:648
+msgid ""
+"Project binary directory to install. This is required and must be first."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:654
+msgid "For multi-configuration generators, choose configuration ``<cfg>``."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:658
+msgid "Component-based install. Only install component ``<comp>``."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:662
+msgid ""
+"Default directory install permissions. Permissions in format ``<u=rwx,g=rx,"
+"o=rx>``."
+msgstr "預設目錄安裝權限。權限格式為 ``<u=rwx,g=rx,o=rx>``。"
+
+#: ../../../manual/cmake.1.rst:666
+msgid "Override the installation prefix, :variable:`CMAKE_INSTALL_PREFIX`."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:670
+msgid "Strip before installing."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:674
+msgid "Enable verbose output."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:676
+msgid ""
+"This option can be omitted if :envvar:`VERBOSE` environment variable is set."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:678
+msgid "Run :option:`cmake --install` with no options for quick help."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:681
+msgid "Open a Project"
+msgstr "開啟專案"
+
+#: ../../../manual/cmake.1.rst:685
+msgid "cmake --open <dir>"
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:689
+msgid ""
+"Open the generated project in the associated application.  This is only "
+"supported by some generators."
+msgstr "在關聯的應用程式中開啟生成的專案。只有部分的生成器支援該命令。"
+
+#: ../../../manual/cmake.1.rst:696
+msgid "Run a Script"
+msgstr "執行腳本"
+
+#: ../../../manual/cmake.1.rst:700
+msgid ""
+"cmake [-D <var>=<value>]... -P <cmake-script-file> [-- <unparsed-options>...]"
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:708
+msgid "Define a variable for script mode."
+msgstr "定義一個腳本模式的變數。"
+
+#: ../../../manual/cmake.1.rst:714
+msgid ""
+"Process the given cmake file as a script written in the CMake language.  No "
+"configure or generate step is performed and the cache is not modified.  If "
+"variables are defined using ``-D``, this must be done before the ``-P`` "
+"argument."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:719
+msgid ""
+"Any options after ``--`` are not parsed by CMake, but they are still "
+"included in the set of :variable:`CMAKE_ARGV<n> <CMAKE_ARGV0>` variables "
+"passed to the script (including the ``--`` itself)."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:727
+msgid "Run a Command-Line Tool"
+msgstr "執行命令行工具"
+
+#: ../../../manual/cmake.1.rst:731
+msgid "CMake provides builtin command-line tools through the signature"
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:733
+msgid "cmake -E <command> [<options>]"
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:739
+msgid "Run ``cmake -E`` or ``cmake -E help`` for a summary of commands."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:743
+msgid "Available commands are:"
+msgstr "可用的命令有："
+
+#: ../../../manual/cmake.1.rst:749
+msgid ""
+"Report cmake capabilities in JSON format. The output is a JSON object with "
+"the following keys:"
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:753
+msgid "A JSON object with version information. Keys are:"
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:755
+msgid "``string``"
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:756
+msgid ""
+"The full version string as displayed by cmake :option:`--version <cmake --"
+"version>`."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:757
+msgid "``major``"
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:758
+msgid "The major version number in integer form."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:759
+msgid "``minor``"
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:760
+msgid "The minor version number in integer form."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:761
+msgid "``patch``"
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:762
+msgid "The patch level in integer form."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:763
+msgid "``suffix``"
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:764
+msgid "The cmake version suffix string."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:765
+msgid "``isDirty``"
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:766
+msgid "A bool that is set if the cmake build is from a dirty tree."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:768
+msgid "``generators``"
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:769
+msgid ""
+"A list available generators. Each generator is a JSON object with the "
+"following keys:"
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:772
+msgid "``name``"
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:773
+msgid "A string containing the name of the generator."
+msgstr "包含生成器名稱的字串。"
+
+#: ../../../manual/cmake.1.rst:774
+msgid "``toolsetSupport``"
+msgstr "``toolsetSupport``"
+
+#: ../../../manual/cmake.1.rst:775
+msgid "``true`` if the generator supports toolsets and ``false`` otherwise."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:776
+msgid "``platformSupport``"
+msgstr "``platformSupport``"
+
+#: ../../../manual/cmake.1.rst:777
+msgid "``true`` if the generator supports platforms and ``false`` otherwise."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:778
+msgid "``supportedPlatforms``"
+msgstr "``supportedPlatforms``"
+
+#: ../../../manual/cmake.1.rst:781
+msgid ""
+"Optional member that may be present when the generator supports platform "
+"specification via :variable:`CMAKE_GENERATOR_PLATFORM` (:option:`-A ... "
+"<cmake -A>`).  The value is a list of platforms known to be supported."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:785
+msgid "``extraGenerators``"
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:786
+msgid ""
+"A list of strings with all the extra generators compatible with the "
+"generator."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:789
+msgid "``fileApi``"
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:790
+msgid ""
+"Optional member that is present when the :manual:`cmake-file-api(7)` is "
+"available.  The value is a JSON object with one member:"
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:793
+msgid "``requests``"
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:794
+msgid ""
+"A JSON array containing zero or more supported file-api requests. Each "
+"request is a JSON object with members:"
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:797
+msgid "``kind``"
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:798
+msgid "Specifies one of the supported :ref:`file-api object kinds`."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:801
+msgid ""
+"A JSON array whose elements are each a JSON object containing ``major`` and "
+"``minor`` members specifying non-negative integer version components."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:805
+msgid "``serverMode``"
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:806
+msgid ""
+"``true`` if cmake supports server-mode and ``false`` otherwise. Always false "
+"since CMake 3.20."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:809
+msgid "``tls``"
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:812
+msgid "``true`` if TLS support is enabled and ``false`` otherwise."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:818
+msgid "Concatenate files and print on the standard output."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:826
+msgid ""
+"Added support for the double dash argument ``--``. This basic implementation "
+"of ``cat`` does not support any options, so using a option starting with ``-"
+"`` will result in an error. Use ``--`` to indicate the end of options, in "
+"case a file starts with ``-``."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:835
+msgid "Change the current working directory and run a command."
+msgstr "變更當前工作目錄並執行一個命令。"
+
+#: ../../../manual/cmake.1.rst:839
+msgid ""
+"Check if ``<file1>`` is same as ``<file2>``. If files are the same, then "
+"returns ``0``, if not it returns ``1``.  In case of invalid arguments, it "
+"returns 2."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:849
+msgid ""
+"The option implies line-wise comparison and ignores LF/CRLF differences."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:855
+msgid ""
+"Copy files to ``<destination>`` (either file or directory). If multiple "
+"files are specified, the ``<destination>`` must be directory and it must "
+"exist. Wildcards are not supported. ``copy`` does follow symlinks. That "
+"means it does not copy symlinks, but the files or directories it point to."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:861 ../../../manual/cmake.1.rst:885
+msgid "Support for multiple input files."
+msgstr "支援多個輸入檔案。"
+
+#: ../../../manual/cmake.1.rst:866
+msgid ""
+"Copy content of ``<dir>...`` directories to ``<destination>`` directory. If "
+"``<destination>`` directory does not exist it will be created. "
+"``copy_directory`` does follow symlinks."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:870 ../../../manual/cmake.1.rst:971
+msgid "Support for multiple input directories."
+msgstr "支援多個輸入目錄。"
+
+#: ../../../manual/cmake.1.rst:873
+msgid ""
+"The command now fails when the source directory does not exist. Previously "
+"it succeeded by creating an empty destination directory."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:879
+msgid ""
+"Copy files to ``<destination>`` (either file or directory) if they have "
+"changed. If multiple files are specified, the ``<destination>`` must be "
+"directory and it must exist. ``copy_if_different`` does follow symlinks."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:890
+msgid "Create a symbolic link ``<new>`` naming ``<old>``."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:892
+msgid "Support for creating symlinks on Windows."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:896
+msgid ""
+"Path to where ``<new>`` symbolic link will be created has to exist "
+"beforehand."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:902
+msgid "Create a hard link ``<new>`` naming ``<old>``."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:905
+msgid ""
+"Path to where ``<new>`` hard link will be created has to exist beforehand. "
+"``<old>`` has to exist beforehand."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:910
+msgid "Displays arguments as text."
+msgstr "將引數顯示為文字。"
+
+#: ../../../manual/cmake.1.rst:914
+msgid "Displays arguments as text but no new line."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:920
+msgid "Run command in a modified environment. Options are:"
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:926
+msgid "Replaces the current value of ``NAME`` with ``VALUE``."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:930
+msgid "Unsets the current value of ``NAME``."
+msgstr "取消設定 ``NAME`` 的當前值。"
+
+#: ../../../manual/cmake.1.rst:936
+msgid ""
+"Apply a single :prop_test:`ENVIRONMENT_MODIFICATION` operation to the "
+"modified environment."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:939
+msgid ""
+"The ``NAME=VALUE`` and ``--unset=NAME`` options are equivalent to ``--modify "
+"NAME=set:VALUE`` and ``--modify NAME=unset:``, respectively. Note that ``--"
+"modify NAME=reset:`` resets ``NAME`` to the value it had when ``cmake`` "
+"launched (or unsets it), not to the most recent ``NAME=VALUE`` option."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:949
+msgid ""
+"Added support for the double dash argument ``--``. Use ``--`` to stop "
+"interpreting options/environment variables and treat the next argument as "
+"the command, even if it start with ``-`` or contains a ``=``."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:957
+msgid "Display the current environment variables."
+msgstr "顯示當前環境變數。"
+
+#: ../../../manual/cmake.1.rst:963
+msgid "Do nothing, with an exit code of 1."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:967
+msgid ""
+"Create ``<dir>`` directories.  If necessary, create parent directories too.  "
+"If a directory already exists it will be silently ignored."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:976
+msgid "Create MD5 checksum of files in ``md5sum`` compatible format::"
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:978
+msgid ""
+"351abe79cd3800b38cdfb25d45015a15  file1.txt\n"
+"052f86c15bbde68af55c7f7b340ab639  file2.txt"
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:985
+msgid "Create SHA1 checksum of files in ``sha1sum`` compatible format::"
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:987
+msgid ""
+"4bb7932a29e6f73c97bb9272f2bdc393122f86e0  file1.txt\n"
+"1df4c8f318665f9a5f2ed38f55adadb7ef9f559c  file2.txt"
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:994
+msgid "Create SHA224 checksum of files in ``sha224sum`` compatible format::"
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:996
+msgid ""
+"b9b9346bc8437bbda630b0b7ddfc5ea9ca157546dbbf4c613192f930  file1.txt\n"
+"6dfbe55f4d2edc5fe5c9197bca51ceaaf824e48eba0cc453088aee24  file2.txt"
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:1003
+msgid "Create SHA256 checksum of files in ``sha256sum`` compatible format::"
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:1005
+msgid ""
+"76713b23615d31680afeb0e9efe94d47d3d4229191198bb46d7485f9cb191acc  file1.txt\n"
+"15b682ead6c12dedb1baf91231e1e89cfc7974b3787c1e2e01b986bffadae0ea  file2.txt"
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:1012
+msgid "Create SHA384 checksum of files in ``sha384sum`` compatible format::"
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:1014
+msgid ""
+"acc049fedc091a22f5f2ce39a43b9057fd93c910e9afd76a6411a28a8f2b8a12c73d7129e292f94fc0329c309df49434  "
+"file1.txt\n"
+"668ddeb108710d271ee21c0f3acbd6a7517e2b78f9181c6a2ff3b8943af92b0195dcb7cce48aa3e17893173c0a39e23d  "
+"file2.txt"
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:1021
+msgid "Create SHA512 checksum of files in ``sha512sum`` compatible format::"
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:1023
+msgid ""
+"2a78d7a6c5328cfb1467c63beac8ff21794213901eaadafd48e7800289afbc08e5fb3e86aa31116c945ee3d7bf2a6194489ec6101051083d1108defc8e1dba89  "
+"file1.txt\n"
+"7a0b54896fe5e70cca6dd643ad6f672614b189bf26f8153061c4d219474b05dad08c4e729af9f4b009f1a1a280cb625454bf587c690f4617c27e3aebdf3b7a2d  "
+"file2.txt"
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:1030
+msgid ""
+"Remove the file(s). The planned behavior was that if any of the listed files "
+"already do not exist, the command returns a non-zero exit code, but no "
+"message is logged. The ``-f`` option changes the behavior to return a zero "
+"exit code (i.e. success) in such situations instead. ``remove`` does not "
+"follow symlinks. That means it remove only symlinks and not files it point "
+"to."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:1037
+msgid ""
+"The implementation was buggy and always returned 0. It cannot be fixed "
+"without breaking backwards compatibility. Use ``rm`` instead."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:1044
+msgid ""
+"Remove ``<dir>`` directories and their contents. If a directory does not "
+"exist it will be silently ignored. Use ``rm`` instead."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:1048
+msgid "Support for multiple directories."
+msgstr "支援多個目錄。"
+
+#: ../../../manual/cmake.1.rst:1051
+msgid ""
+"If ``<dir>`` is a symlink to a directory, just the symlink will be removed."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:1056
+msgid ""
+"Rename a file or directory (on one volume). If file with the ``<newname>`` "
+"name already exists, then it will be silently replaced."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:1063
+msgid ""
+"Remove the files ``<file>`` or directories ``<dir>``. Use ``-r`` or ``-R`` "
+"to remove directories and their contents recursively. If any of the listed "
+"files/directories do not exist, the command returns a non-zero exit code, "
+"but no message is logged. The ``-f`` option changes the behavior to return a "
+"zero exit code (i.e. success) in such situations instead. Use ``--`` to stop "
+"interpreting options and treat all remaining arguments as paths, even if "
+"they start with ``-``."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:1073
+msgid "Launch :manual:`cmake-server(7)` mode."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:1079
+msgid "Sleep for given number of seconds."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:1083
+msgid "Create or extract a tar or zip archive.  Options are:"
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:1089
+msgid ""
+"Create a new archive containing the specified files. If used, the "
+"``<pathname>...`` argument is mandatory."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:1094
+msgid "Extract to disk from the archive."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:1096
+msgid ""
+"The ``<pathname>...`` argument could be used to extract only selected files "
+"or directories. When extracting selected files or directories, you must "
+"provide their exact names including the path, as printed by list (``-t``)."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:1104
+msgid "List archive contents."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:1106
+msgid ""
+"The ``<pathname>...`` argument could be used to list only selected files or "
+"directories."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:1112
+msgid "Produce verbose output."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:1116
+msgid "Compress the resulting archive with gzip."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:1120
+msgid "Compress the resulting archive with bzip2."
+msgstr "使用 bzip2 壓縮結果封存檔。"
+
+#: ../../../manual/cmake.1.rst:1126
+msgid "Compress the resulting archive with XZ."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:1132
+msgid "Compress the resulting archive with Zstandard."
+msgstr "使用 Zstandard 壓縮結果封存檔。"
+
+#: ../../../manual/cmake.1.rst:1138
+msgid ""
+"Read file names from the given file, one per line. Blank lines are ignored.  "
+"Lines may not start in ``-`` except for ``--add-file=<name>`` to add files "
+"whose names start in ``-``."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:1147
+msgid ""
+"Specify the format of the archive to be created. Supported formats are: "
+"``7zip``, ``gnutar``, ``pax``, ``paxr`` (restricted pax, default), and "
+"``zip``."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:1155
+msgid "Specify modification time recorded in tarball entries."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:1161
+msgid ""
+"Use current local timestamp instead of extracting file timestamps from the "
+"archive."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:1168
+msgid ""
+"Stop interpreting options and treat all remaining arguments as file names, "
+"even if they start with ``-``."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:1171
+msgid "LZMA (7zip) support."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:1174
+msgid ""
+"The command now continues adding files to an archive even if some of the "
+"files are not readable.  This behavior is more consistent with the classic "
+"``tar`` tool. The command now also parses all flags, and if an invalid flag "
+"was provided, a warning is issued."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:1184
+msgid "Run command and display elapsed time."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:1186
+msgid ""
+"The command now properly passes arguments with spaces or special characters "
+"through to the child process. This may break scripts that worked around the "
+"bug with their own extra quoting or escaping."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:1193
+msgid ""
+"Creates ``<file>`` if file do not exist. If ``<file>`` exists, it is "
+"changing ``<file>`` access and modification times."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:1198
+msgid ""
+"Touch a file if it exists but do not create it.  If a file does not exist it "
+"will be silently ignored."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:1205
+msgid "Do nothing, with an exit code of 0."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:1208
+msgid "Windows-specific Command-Line Tools"
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:1210
+msgid "The following ``cmake -E`` commands are available only on Windows:"
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:1214
+msgid "Delete Windows registry value."
+msgstr "刪除 Windows 註冊表值。"
+
+#: ../../../manual/cmake.1.rst:1220
+msgid ""
+"Displays a batch file which sets the environment for the provided Windows CE "
+"SDK installed in VS2005."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:1227
+msgid ""
+"Displays a batch file which sets the environment for the provided Windows CE "
+"SDK installed in VS2008."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:1232
+msgid "Write Windows registry value."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:1236
+msgid "Run the Find-Package Tool"
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:1240
+msgid "CMake provides a pkg-config like helper for Makefile-based projects:"
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:1242
+msgid "cmake --find-package [<options>]"
+msgstr "cmake --find-package [<options>]"
+
+#: ../../../manual/cmake.1.rst:1246
+msgid ""
+"It searches a package using :command:`find_package()` and prints the "
+"resulting flags to stdout.  This can be used instead of pkg-config to find "
+"installed libraries in plain Makefile-based projects or in autoconf-based "
+"projects (via ``share/aclocal/cmake.m4``)."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:1252
+msgid ""
+"This mode is not well-supported due to some technical limitations. It is "
+"kept for compatibility but should not be used in new projects."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:1258
+msgid "Run a Workflow Preset"
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:1262
+msgid ""
+":manual:`CMake Presets <cmake-presets(7)>` provides a way to execute "
+"multiple build steps in order:"
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:1265
+msgid "cmake --workflow [<options>]"
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:1269
+msgid "The options are:"
+msgstr "選項有："
+
+#: ../../../manual/cmake.1.rst:1273
+msgid "Select a :ref:`Workflow Preset` using one of the following options."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:1279
+msgid ""
+"Use a workflow preset to specify a workflow. The project binary directory is "
+"inferred from the initial configure preset. The current working directory "
+"must contain CMake preset files. See :manual:`preset <cmake-presets(7)>` for "
+"more details."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:1286
+msgid ""
+"Lists the available workflow presets. The current working directory must "
+"contain CMake preset files."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:1296
+msgid "View Help"
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:1300
+msgid "To print selected pages from the CMake documentation, use"
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:1302
+msgid "cmake --help[-<topic>]"
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:1306
+msgid "with one of the following options:"
+msgstr ""
+
+#: ../../../manual/OPTIONS_HELP.txt:5
+msgid "Show program name/version banner and exit. |file|"
+msgstr ""
+
+#: ../../../manual/OPTIONS_HELP.txt:10
+msgid "Print usage information and exit."
+msgstr "列印使用資訊並退出。"
+
+#: ../../../manual/OPTIONS_HELP.txt:12
+msgid "Usage describes the basic command line interface and its options."
+msgstr ""
+
+#: ../../../manual/OPTIONS_HELP.txt:16
+msgid "Print all help manuals and exit."
+msgstr "列印所有的幫助手冊並退出。"
+
+#: ../../../manual/OPTIONS_HELP.txt:18
+msgid "All manuals are printed in a human-readable text format. |file|"
+msgstr ""
+
+#: ../../../manual/OPTIONS_HELP.txt:23
+msgid "Print one help manual and exit."
+msgstr "列印單一的幫助手冊並退出。"
+
+#: ../../../manual/OPTIONS_HELP.txt:25
+msgid "The specified manual is printed in a human-readable text format. |file|"
+msgstr ""
+
+#: ../../../manual/OPTIONS_HELP.txt:30
+msgid "List help manuals available and exit."
+msgstr "列出可用的幫助手冊並退出。"
+
+#: ../../../manual/OPTIONS_HELP.txt:32
+msgid ""
+"The list contains all manuals for which help may be obtained by using the "
+"``--help-manual`` option followed by a manual name. |file|"
+msgstr ""
+
+#: ../../../manual/OPTIONS_HELP.txt:38
+msgid "Print help for one command and exit."
+msgstr "列印單一命令的幫助並退出。"
+
+#: ../../../manual/OPTIONS_HELP.txt:40
+msgid ""
+"The :manual:`cmake-commands(7)` manual entry for ``<cmd>`` is printed in a "
+"human-readable text format. |file|"
+msgstr ""
+
+#: ../../../manual/OPTIONS_HELP.txt:46
+msgid "List commands with help available and exit."
+msgstr ""
+
+#: ../../../manual/OPTIONS_HELP.txt:48
+msgid ""
+"The list contains all commands for which help may be obtained by using the "
+"``--help-command`` option followed by a command name. |file|"
+msgstr ""
+
+#: ../../../manual/OPTIONS_HELP.txt:54
+msgid "Print cmake-commands manual and exit."
+msgstr "列印 cmake-命令手冊並退出。"
+
+#: ../../../manual/OPTIONS_HELP.txt:56
+msgid ""
+"The :manual:`cmake-commands(7)` manual is printed in a human-readable text "
+"format. |file|"
+msgstr ""
+
+#: ../../../manual/OPTIONS_HELP.txt:62
+msgid "Print help for one module and exit."
+msgstr ""
+
+#: ../../../manual/OPTIONS_HELP.txt:64
+msgid ""
+"The :manual:`cmake-modules(7)` manual entry for ``<mod>`` is printed in a "
+"human-readable text format. |file|"
+msgstr ""
+
+#: ../../../manual/OPTIONS_HELP.txt:70
+msgid "List modules with help available and exit."
+msgstr ""
+
+#: ../../../manual/OPTIONS_HELP.txt:72
+msgid ""
+"The list contains all modules for which help may be obtained by using the "
+"``--help-module`` option followed by a module name. |file|"
+msgstr ""
+
+#: ../../../manual/OPTIONS_HELP.txt:78
+msgid "Print cmake-modules manual and exit."
+msgstr ""
+
+#: ../../../manual/OPTIONS_HELP.txt:80
+msgid ""
+"The :manual:`cmake-modules(7)` manual is printed in a human-readable text "
+"format. |file|"
+msgstr ""
+
+#: ../../../manual/OPTIONS_HELP.txt:86
+msgid "Print help for one policy and exit."
+msgstr ""
+
+#: ../../../manual/OPTIONS_HELP.txt:88
+msgid ""
+"The :manual:`cmake-policies(7)` manual entry for ``<cmp>`` is printed in a "
+"human-readable text format. |file|"
+msgstr ""
+
+#: ../../../manual/OPTIONS_HELP.txt:94
+msgid "List policies with help available and exit."
+msgstr ""
+
+#: ../../../manual/OPTIONS_HELP.txt:96
+msgid ""
+"The list contains all policies for which help may be obtained by using the "
+"``--help-policy`` option followed by a policy name. |file|"
+msgstr ""
+
+#: ../../../manual/OPTIONS_HELP.txt:102
+msgid "Print cmake-policies manual and exit."
+msgstr ""
+
+#: ../../../manual/OPTIONS_HELP.txt:104
+msgid ""
+"The :manual:`cmake-policies(7)` manual is printed in a human-readable text "
+"format. |file|"
+msgstr ""
+
+#: ../../../manual/OPTIONS_HELP.txt:110
+msgid "Print help for one property and exit."
+msgstr ""
+
+#: ../../../manual/OPTIONS_HELP.txt:112
+msgid ""
+"The :manual:`cmake-properties(7)` manual entries for ``<prop>`` are printed "
+"in a human-readable text format. |file|"
+msgstr ""
+
+#: ../../../manual/OPTIONS_HELP.txt:118
+msgid "List properties with help available and exit."
+msgstr ""
+
+#: ../../../manual/OPTIONS_HELP.txt:120
+msgid ""
+"The list contains all properties for which help may be obtained by using the "
+"``--help-property`` option followed by a property name. |file|"
+msgstr ""
+
+#: ../../../manual/OPTIONS_HELP.txt:126
+msgid "Print cmake-properties manual and exit."
+msgstr ""
+
+#: ../../../manual/OPTIONS_HELP.txt:128
+msgid ""
+"The :manual:`cmake-properties(7)` manual is printed in a human-readable text "
+"format. |file|"
+msgstr ""
+
+#: ../../../manual/OPTIONS_HELP.txt:134
+msgid "Print help for one variable and exit."
+msgstr ""
+
+#: ../../../manual/OPTIONS_HELP.txt:136
+msgid ""
+"The :manual:`cmake-variables(7)` manual entry for ``<var>`` is printed in a "
+"human-readable text format. |file|"
+msgstr ""
+
+#: ../../../manual/OPTIONS_HELP.txt:142
+msgid "List variables with help available and exit."
+msgstr ""
+
+#: ../../../manual/OPTIONS_HELP.txt:144
+msgid ""
+"The list contains all variables for which help may be obtained by using the "
+"``--help-variable`` option followed by a variable name. |file|"
+msgstr ""
+
+#: ../../../manual/OPTIONS_HELP.txt:150
+msgid "Print cmake-variables manual and exit."
+msgstr ""
+
+#: ../../../manual/OPTIONS_HELP.txt:152
+msgid ""
+"The :manual:`cmake-variables(7)` manual is printed in a human-readable text "
+"format. |file|"
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:1310
+msgid "To view the presets available for a project, use"
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:1312
+msgid "cmake <source-dir> --list-presets"
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:1320
+msgid "Return Value (Exit Code)"
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:1322
+msgid ""
+"Upon regular termination, the ``cmake`` executable returns the exit code "
+"``0``."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:1324
+msgid ""
+"If termination is caused by the command :command:`message(FATAL_ERROR)`, or "
+"another error condition, then a non-zero exit code is returned."
+msgstr ""
+
+#: ../../../manual/cmake.1.rst:1329
+msgid "See Also"
+msgstr "另請參見"
+
+#: ../../../manual/LINKS.txt:1
+msgid "The following resources are available to get help using CMake:"
+msgstr ""
+
+#: ../../../manual/LINKS.txt:3
+msgid "Home Page"
+msgstr ""
+
+#: ../../../manual/LINKS.txt:4
+msgid "https://cmake.org"
+msgstr "https://cmake.org"
+
+#: ../../../manual/LINKS.txt:6
+msgid "The primary starting point for learning about CMake."
+msgstr ""
+
+#: ../../../manual/LINKS.txt:8
+msgid "Online Documentation and Community Resources"
+msgstr "線上文件與社群資源"
+
+#: ../../../manual/LINKS.txt:9
+msgid "https://cmake.org/documentation"
+msgstr "https://cmake.org/documentation"
+
+#: ../../../manual/LINKS.txt:11
+msgid ""
+"Links to available documentation and community resources may be found on "
+"this web page."
+msgstr ""
+
+#: ../../../manual/LINKS.txt:14
+msgid "Discourse Forum"
+msgstr "Discourse 論壇"
+
+#: ../../../manual/LINKS.txt:15
+msgid "https://discourse.cmake.org"
+msgstr "https://discourse.cmake.org"
+
+#: ../../../manual/LINKS.txt:17
+msgid "The Discourse Forum hosts discussion and questions about CMake."
+msgstr ""
