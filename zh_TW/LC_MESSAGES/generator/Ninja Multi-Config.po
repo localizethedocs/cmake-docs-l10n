@@ -1,0 +1,164 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2000-2020 Kitware, Inc. and Contributors
+# This file is distributed under the same license as the CMake package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CMake 3.18\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-07-08 02:55+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../generator/Ninja Multi-Config.rst:2
+msgid "Ninja Multi-Config"
+msgstr "Ninja Multi-Config"
+
+#: ../../../generator/Ninja Multi-Config.rst:4
+msgid "Generates multiple ``build-<Config>.ninja`` files."
+msgstr "生成多個 ``build-<Config>.ninja`` 檔案。"
+
+#: ../../../generator/Ninja Multi-Config.rst:6
+msgid ""
+"This generator is very much like the :generator:`Ninja` generator, but with "
+"some key differences. Only these differences will be discussed in this "
+"document."
+msgstr ""
+
+#: ../../../generator/Ninja Multi-Config.rst:10
+msgid ""
+"Unlike the :generator:`Ninja` generator, ``Ninja Multi-Config`` generates "
+"multiple configurations at once with :variable:`CMAKE_CONFIGURATION_TYPES` "
+"instead of only one configuration with :variable:`CMAKE_BUILD_TYPE`. One "
+"``build-<Config>.ninja`` file will be generated for each of these "
+"configurations (with ``<Config>`` being the configuration name.) These files "
+"are intended to be run with ``ninja -f build-<Config>.ninja``. A ``build."
+"ninja`` file is also generated, using the configuration from either :"
+"variable:`CMAKE_DEFAULT_BUILD_TYPE` or the first item from :variable:"
+"`CMAKE_CONFIGURATION_TYPES`."
+msgstr ""
+
+#: ../../../generator/Ninja Multi-Config.rst:20
+msgid ""
+"``cmake --build . --config <Config>`` will always use ``build-<Config>."
+"ninja`` to build. If no ``--config`` argument is specified, ``cmake --build ."
+"`` will default to ``build-Debug.ninja``, unless a ``build.ninja`` is "
+"generated (see below), in which case that will be used instead."
+msgstr ""
+
+#: ../../../generator/Ninja Multi-Config.rst:25
+msgid ""
+"Each ``build-<Config>.ninja`` file contains ``<target>`` targets as well as "
+"``<target>:<Config>`` targets, where ``<Config>`` is the same as the "
+"configuration specified in ``build-<Config>.ninja`` Additionally, if cross-"
+"config mode is enabled, ``build-<Config>.ninja`` may contain ``<target>:"
+"<OtherConfig>`` targets, where ``<OtherConfig>`` is a cross-config, as well "
+"as ``<target>:all``, which builds the target in all cross-configs. See below "
+"for how to enable cross-config mode."
+msgstr ""
+
+#: ../../../generator/Ninja Multi-Config.rst:33
+msgid ""
+"The ``Ninja Multi-Config`` generator recognizes the following variables:"
+msgstr ""
+
+#: ../../../generator/Ninja Multi-Config.rst:35
+msgid ":variable:`CMAKE_CONFIGURATION_TYPES`"
+msgstr ":variable:`CMAKE_CONFIGURATION_TYPES`"
+
+#: ../../../generator/Ninja Multi-Config.rst:36
+msgid "Specifies the total set of configurations to build."
+msgstr ""
+
+#: ../../../generator/Ninja Multi-Config.rst:38
+msgid ":variable:`CMAKE_CROSS_CONFIGS`"
+msgstr ":variable:`CMAKE_CROSS_CONFIGS`"
+
+#: ../../../generator/Ninja Multi-Config.rst:39
+msgid ""
+"Specifies a :ref:`semicolon-separated list <CMake Language Lists>` of "
+"configurations available from all ``build-<Config>.ninja`` files."
+msgstr ""
+
+#: ../../../generator/Ninja Multi-Config.rst:42
+msgid ":variable:`CMAKE_DEFAULT_BUILD_TYPE`"
+msgstr ":variable:`CMAKE_DEFAULT_BUILD_TYPE`"
+
+#: ../../../generator/Ninja Multi-Config.rst:43
+msgid ""
+"Specifies the configuration to use by default in a ``build.ninja`` file."
+msgstr ""
+
+#: ../../../generator/Ninja Multi-Config.rst:45
+msgid ":variable:`CMAKE_DEFAULT_CONFIGS`"
+msgstr ""
+
+#: ../../../generator/Ninja Multi-Config.rst:46
+msgid ""
+"Specifies a :ref:`semicolon-separated list <CMake Language Lists>` of "
+"configurations to build for a target in ``build.ninja`` if no ``:<Config>`` "
+"suffix is specified."
+msgstr ""
+
+#: ../../../generator/Ninja Multi-Config.rst:50
+msgid "Consider the following example:"
+msgstr ""
+
+#: ../../../generator/Ninja Multi-Config.rst:52
+msgid ""
+"cmake_minimum_required(VERSION 3.16)\n"
+"project(MultiConfigNinja C)\n"
+"\n"
+"add_executable(generator generator.c)\n"
+"add_custom_command(OUTPUT generated.c COMMAND generator generated.c)\n"
+"add_library(generated ${CMAKE_BINARY_DIR}/generated.c)"
+msgstr ""
+
+#: ../../../generator/Ninja Multi-Config.rst:61
+msgid ""
+"Now assume you configure the project with ``Ninja Multi-Config`` and run one "
+"of the following commands:"
+msgstr ""
+
+#: ../../../generator/Ninja Multi-Config.rst:64
+msgid ""
+"ninja -f build-Debug.ninja generated\n"
+"# OR\n"
+"cmake --build . --config Debug --target generated"
+msgstr ""
+
+#: ../../../generator/Ninja Multi-Config.rst:70
+msgid ""
+"This would build the ``Debug`` configuration of ``generator``, which would "
+"be used to generate ``generated.c``, which would be used to build the "
+"``Debug`` configuration of ``generated``."
+msgstr ""
+
+#: ../../../generator/Ninja Multi-Config.rst:74
+msgid ""
+"But if :variable:`CMAKE_CROSS_CONFIGS` is set to ``all``, and you run the "
+"following instead:"
+msgstr ""
+
+#: ../../../generator/Ninja Multi-Config.rst:77
+msgid ""
+"ninja -f build-Release.ninja generated:Debug\n"
+"# OR\n"
+"cmake --build . --config Release --target generated:Debug"
+msgstr ""
+
+#: ../../../generator/Ninja Multi-Config.rst:83
+msgid ""
+"This would build the ``Release`` configuration of ``generator``, which would "
+"be used to generate ``generated.c``, which would be used to build the "
+"``Debug`` configuration of ``generated``. This is useful for running a "
+"release-optimized version of a generator utility while still building the "
+"debug version of the targets built with the generated code."
+msgstr ""
