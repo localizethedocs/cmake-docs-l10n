@@ -1,0 +1,337 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2000-2021 Kitware, Inc. and Contributors
+# This file is distributed under the same license as the CMake package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CMake 3.21\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-07-08 02:52+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: ru_RU\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../command/cmake_language.rst:2
+msgid "cmake_language"
+msgstr ""
+
+#: ../../../command/cmake_language.rst:6
+msgid "Call meta-operations on CMake commands."
+msgstr ""
+
+#: ../../../command/cmake_language.rst:9
+msgid "Synopsis"
+msgstr ""
+
+#: ../../../command/cmake_language.rst:13
+msgid ""
+"cmake_language(`CALL`_ <command> [<arg>...])\n"
+"cmake_language(`EVAL`_ CODE <code>...)\n"
+"cmake_language(`DEFER`_ <options>... CALL <command> [<arg>...])"
+msgstr ""
+
+#: ../../../command/cmake_language.rst:18
+msgid "Introduction"
+msgstr ""
+
+#: ../../../command/cmake_language.rst:20
+msgid ""
+"This command will call meta-operations on built-in CMake commands or those "
+"created via the :command:`macro` or :command:`function` commands."
+msgstr ""
+
+#: ../../../command/cmake_language.rst:23
+msgid "``cmake_language`` does not introduce a new variable or policy scope."
+msgstr ""
+
+#: ../../../command/cmake_language.rst:26
+msgid "Calling Commands"
+msgstr ""
+
+#: ../../../command/cmake_language.rst:30
+msgid "cmake_language(CALL <command> [<arg>...])"
+msgstr ""
+
+#: ../../../command/cmake_language.rst:34
+msgid ""
+"Calls the named ``<command>`` with the given arguments (if any). For "
+"example, the code:"
+msgstr ""
+
+#: ../../../command/cmake_language.rst:37
+msgid ""
+"set(message_command \"message\")\n"
+"cmake_language(CALL ${message_command} STATUS \"Hello World!\")"
+msgstr ""
+
+#: ../../../command/cmake_language.rst:42
+#: ../../../command/cmake_language.rst:85
+msgid "is equivalent to"
+msgstr ""
+
+#: ../../../command/cmake_language.rst:44
+msgid "message(STATUS \"Hello World!\")"
+msgstr ""
+
+#: ../../../command/cmake_language.rst:49
+msgid ""
+"To ensure consistency of the code, the following commands are not allowed:"
+msgstr ""
+
+#: ../../../command/cmake_language.rst:51
+msgid "``if`` / ``elseif`` / ``else`` / ``endif``"
+msgstr ""
+
+#: ../../../command/cmake_language.rst:52
+msgid "``while`` / ``endwhile``"
+msgstr ""
+
+#: ../../../command/cmake_language.rst:53
+msgid "``foreach`` / ``endforeach``"
+msgstr ""
+
+#: ../../../command/cmake_language.rst:54
+msgid "``function`` / ``endfunction``"
+msgstr ""
+
+#: ../../../command/cmake_language.rst:55
+msgid "``macro`` / ``endmacro``"
+msgstr ""
+
+#: ../../../command/cmake_language.rst:58
+msgid "Evaluating Code"
+msgstr ""
+
+#: ../../../command/cmake_language.rst:62
+msgid "cmake_language(EVAL CODE <code>...)"
+msgstr ""
+
+#: ../../../command/cmake_language.rst:66
+msgid "Evaluates the ``<code>...`` as CMake code."
+msgstr ""
+
+#: ../../../command/cmake_language.rst:68
+#: ../../../command/cmake_language.rst:188
+msgid "For example, the code:"
+msgstr ""
+
+#: ../../../command/cmake_language.rst:70
+msgid ""
+"set(A TRUE)\n"
+"set(B TRUE)\n"
+"set(C TRUE)\n"
+"set(condition \"(A AND B) OR C\")\n"
+"\n"
+"cmake_language(EVAL CODE \"\n"
+"  if (${condition})\n"
+"    message(STATUS TRUE)\n"
+"  else()\n"
+"    message(STATUS FALSE)\n"
+"  endif()\"\n"
+")"
+msgstr ""
+
+#: ../../../command/cmake_language.rst:87
+msgid ""
+"set(A TRUE)\n"
+"set(B TRUE)\n"
+"set(C TRUE)\n"
+"set(condition \"(A AND B) OR C\")\n"
+"\n"
+"file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/eval.cmake \"\n"
+"  if (${condition})\n"
+"    message(STATUS TRUE)\n"
+"  else()\n"
+"    message(STATUS FALSE)\n"
+"  endif()\"\n"
+")\n"
+"\n"
+"include(${CMAKE_CURRENT_BINARY_DIR}/eval.cmake)"
+msgstr ""
+
+#: ../../../command/cmake_language.rst:105
+msgid "Deferring Calls"
+msgstr ""
+
+#: ../../../command/cmake_language.rst:111
+msgid "cmake_language(DEFER <options>... CALL <command> [<arg>...])"
+msgstr ""
+
+#: ../../../command/cmake_language.rst:115
+msgid ""
+"Schedules a call to the named ``<command>`` with the given arguments (if "
+"any) to occur at a later time.  By default, deferred calls are executed as "
+"if written at the end of the current directory's ``CMakeLists.txt`` file, "
+"except that they run even after a :command:`return` call.  Variable "
+"references in arguments are evaluated at the time the deferred call is "
+"executed."
+msgstr ""
+
+#: ../../../command/cmake_language.rst:122
+msgid "The options are:"
+msgstr ""
+
+#: ../../../command/cmake_language.rst:124
+msgid "``DIRECTORY <dir>``"
+msgstr ""
+
+#: ../../../command/cmake_language.rst:125
+msgid ""
+"Schedule the call for the end of the given directory instead of the current "
+"directory.  The ``<dir>`` may reference either a source directory or its "
+"corresponding binary directory.  Relative paths are treated as relative to "
+"the current source directory."
+msgstr ""
+
+#: ../../../command/cmake_language.rst:130
+msgid ""
+"The given directory must be known to CMake, being either the top-level "
+"directory or one added by :command:`add_subdirectory`.  Furthermore, the "
+"given directory must not yet be finished processing.  This means it can be "
+"the current directory or one of its ancestors."
+msgstr ""
+
+#: ../../../command/cmake_language.rst:135
+msgid "``ID <id>``"
+msgstr ""
+
+#: ../../../command/cmake_language.rst:136
+msgid ""
+"Specify an identification for the deferred call. The ``<id>`` may not be "
+"empty and may not begin with a capital letter ``A-Z``. The ``<id>`` may "
+"begin with an underscore (``_``) only if it was generated automatically by "
+"an earlier call that used ``ID_VAR`` to get the id."
+msgstr ""
+
+#: ../../../command/cmake_language.rst:141
+msgid "``ID_VAR <var>``"
+msgstr ""
+
+#: ../../../command/cmake_language.rst:142
+msgid ""
+"Specify a variable in which to store the identification for the deferred "
+"call.  If ``ID <id>`` is not given, a new identification will be generated "
+"and the generated id will start with an underscore (``_``)."
+msgstr ""
+
+#: ../../../command/cmake_language.rst:146
+msgid "The currently scheduled list of deferred calls may be retrieved:"
+msgstr ""
+
+#: ../../../command/cmake_language.rst:148
+msgid "cmake_language(DEFER [DIRECTORY <dir>] GET_CALL_IDS <var>)"
+msgstr ""
+
+#: ../../../command/cmake_language.rst:152
+msgid ""
+"This will store in ``<var>`` a :ref:`semicolon-separated list <CMake "
+"Language Lists>` of deferred call ids.  The ids are for the directory scope "
+"in which the calls have been deferred to (i.e. where they will be executed), "
+"which can be different to the scope in which they were created.  The "
+"``DIRECTORY`` option can be used to specify the scope for which to retrieve "
+"the call ids. If that option is not given, the call ids for the current "
+"directory scope will be returned."
+msgstr ""
+
+#: ../../../command/cmake_language.rst:160
+msgid "Details of a specific call may be retrieved from its id:"
+msgstr ""
+
+#: ../../../command/cmake_language.rst:162
+msgid "cmake_language(DEFER [DIRECTORY <dir>] GET_CALL <id> <var>)"
+msgstr ""
+
+#: ../../../command/cmake_language.rst:166
+msgid ""
+"This will store in ``<var>`` a :ref:`semicolon-separated list <CMake "
+"Language Lists>` in which the first element is the name of the command to be "
+"called, and the remaining elements are its unevaluated arguments (any "
+"contained ``;`` characters are included literally and cannot be "
+"distinguished from multiple arguments).  If multiple calls are scheduled "
+"with the same id, this retrieves the first one.  If no call is scheduled "
+"with the given id in the specified ``DIRECTORY`` scope (or the current "
+"directory scope if no ``DIRECTORY`` option is given), this stores an empty "
+"string in the variable."
+msgstr ""
+
+#: ../../../command/cmake_language.rst:175
+msgid "Deferred calls may be canceled by their id:"
+msgstr ""
+
+#: ../../../command/cmake_language.rst:177
+msgid "cmake_language(DEFER [DIRECTORY <dir>] CANCEL_CALL <id>...)"
+msgstr ""
+
+#: ../../../command/cmake_language.rst:181
+msgid ""
+"This cancels all deferred calls matching any of the given ids in the "
+"specified ``DIRECTORY`` scope (or the current directory scope if no "
+"``DIRECTORY`` option is given).  Unknown ids are silently ignored."
+msgstr ""
+
+#: ../../../command/cmake_language.rst:186
+msgid "Deferred Call Examples"
+msgstr ""
+
+#: ../../../command/cmake_language.rst:190
+msgid ""
+"cmake_language(DEFER CALL message \"${deferred_message}\")\n"
+"cmake_language(DEFER ID_VAR id CALL message \"Canceled Message\")\n"
+"cmake_language(DEFER CANCEL_CALL ${id})\n"
+"message(\"Immediate Message\")\n"
+"set(deferred_message \"Deferred Message\")"
+msgstr ""
+
+#: ../../../command/cmake_language.rst:198
+msgid "prints::"
+msgstr ""
+
+#: ../../../command/cmake_language.rst:200
+msgid ""
+"Immediate Message\n"
+"Deferred Message"
+msgstr ""
+
+#: ../../../command/cmake_language.rst:203
+msgid ""
+"The ``Cancelled Message`` is never printed because its command is canceled.  "
+"The ``deferred_message`` variable reference is not evaluated until the call "
+"site, so it can be set after the deferred call is scheduled."
+msgstr ""
+
+#: ../../../command/cmake_language.rst:207
+msgid ""
+"In order to evaluate variable references immediately when scheduling a "
+"deferred call, wrap it using ``cmake_language(EVAL)``.  However, note that "
+"arguments will be re-evaluated in the deferred call, though that can be "
+"avoided by using bracket arguments.  For example:"
+msgstr ""
+
+#: ../../../command/cmake_language.rst:212
+msgid ""
+"set(deferred_message \"Deferred Message 1\")\n"
+"set(re_evaluated [[${deferred_message}]])\n"
+"cmake_language(EVAL CODE \"\n"
+"  cmake_language(DEFER CALL message [[${deferred_message}]])\n"
+"  cmake_language(DEFER CALL message \\\"${re_evaluated}\\\")\n"
+"\")\n"
+"message(\"Immediate Message\")\n"
+"set(deferred_message \"Deferred Message 2\")"
+msgstr ""
+
+#: ../../../command/cmake_language.rst:223
+msgid "also prints::"
+msgstr ""
+
+#: ../../../command/cmake_language.rst:225
+msgid ""
+"Immediate Message\n"
+"Deferred Message 1\n"
+"Deferred Message 2"
+msgstr ""

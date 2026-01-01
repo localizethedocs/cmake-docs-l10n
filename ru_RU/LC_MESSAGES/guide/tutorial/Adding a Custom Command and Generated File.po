@@ -1,0 +1,182 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2000-2021 Kitware, Inc. and Contributors
+# This file is distributed under the same license as the CMake package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CMake 3.21\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-07-08 02:52+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: ru_RU\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../guide/tutorial/Adding a Custom Command and Generated File.rst:2
+msgid "Step 6: Adding a Custom Command and Generated File"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding a Custom Command and Generated File.rst:4
+msgid ""
+"Suppose, for the purpose of this tutorial, we decide that we never want to "
+"use the platform ``log`` and ``exp`` functions and instead would like to "
+"generate a table of precomputed values to use in the ``mysqrt`` function. In "
+"this section, we will create the table as part of the build process, and "
+"then compile that table into our application."
+msgstr ""
+
+#: ../../../guide/tutorial/Adding a Custom Command and Generated File.rst:10
+msgid ""
+"First, let's remove the check for the ``log`` and ``exp`` functions in "
+"``MathFunctions/CMakeLists.txt``. Then remove the check for ``HAVE_LOG`` and "
+"``HAVE_EXP`` from ``mysqrt.cxx``. At the same time, we can remove :code:"
+"`#include <cmath>`."
+msgstr ""
+
+#: ../../../guide/tutorial/Adding a Custom Command and Generated File.rst:15
+msgid ""
+"In the ``MathFunctions`` subdirectory, a new source file named ``MakeTable."
+"cxx`` has been provided to generate the table."
+msgstr ""
+
+#: ../../../guide/tutorial/Adding a Custom Command and Generated File.rst:18
+msgid ""
+"After reviewing the file, we can see that the table is produced as valid C++ "
+"code and that the output filename is passed in as an argument."
+msgstr ""
+
+#: ../../../guide/tutorial/Adding a Custom Command and Generated File.rst:21
+msgid ""
+"The next step is to add the appropriate commands to the ``MathFunctions/"
+"CMakeLists.txt`` file to build the MakeTable executable and then run it as "
+"part of the build process. A few commands are needed to accomplish this."
+msgstr ""
+
+#: ../../../guide/tutorial/Adding a Custom Command and Generated File.rst:26
+msgid ""
+"First, at the top of ``MathFunctions/CMakeLists.txt``, the executable for "
+"``MakeTable`` is added as any other executable would be added."
+msgstr ""
+
+#: ../../../guide/tutorial/Adding a Custom Command and Generated File.rst:29
+#: File.rst:39 File.rst:50 File.rst:60
+msgid "MathFunctions/CMakeLists.txt"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding a Custom Command and Generated File.rst:29
+msgid ""
+"add_executable(MakeTable MakeTable.cxx)\n"
+"\n"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding a Custom Command and Generated File.rst:36
+msgid ""
+"Then we add a custom command that specifies how to produce ``Table.h`` by "
+"running MakeTable."
+msgstr ""
+
+#: ../../../guide/tutorial/Adding a Custom Command and Generated File.rst:39
+msgid ""
+"add_custom_command(\n"
+"  OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/Table.h\n"
+"  COMMAND MakeTable ${CMAKE_CURRENT_BINARY_DIR}/Table.h\n"
+"  DEPENDS MakeTable\n"
+"  )\n"
+"\n"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding a Custom Command and Generated File.rst:46
+msgid ""
+"Next we have to let CMake know that ``mysqrt.cxx`` depends on the generated "
+"file ``Table.h``. This is done by adding the generated ``Table.h`` to the "
+"list of sources for the library MathFunctions."
+msgstr ""
+
+#: ../../../guide/tutorial/Adding a Custom Command and Generated File.rst:50
+msgid ""
+"add_library(MathFunctions\n"
+"            mysqrt.cxx\n"
+"            ${CMAKE_CURRENT_BINARY_DIR}/Table.h\n"
+"            )\n"
+"\n"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding a Custom Command and Generated File.rst:57
+msgid ""
+"We also have to add the current binary directory to the list of include "
+"directories so that ``Table.h`` can be found and included by ``mysqrt.cxx``."
+msgstr ""
+
+#: ../../../guide/tutorial/Adding a Custom Command and Generated File.rst:60
+msgid ""
+"target_include_directories(MathFunctions\n"
+"          INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}\n"
+"          PRIVATE ${CMAKE_CURRENT_BINARY_DIR}\n"
+"          )\n"
+"\n"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding a Custom Command and Generated File.rst:67
+msgid ""
+"Now let's use the generated table. First, modify ``mysqrt.cxx`` to include "
+"``Table.h``. Next, we can rewrite the ``mysqrt`` function to use the table:"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding a Custom Command and Generated File.rst:70
+msgid "MathFunctions/mysqrt.cxx"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding a Custom Command and Generated File.rst:70
+msgid ""
+"double mysqrt(double x)\n"
+"{\n"
+"  if (x <= 0) {\n"
+"    return 0;\n"
+"  }\n"
+"\n"
+"  // use the table to help find an initial value\n"
+"  double result = x;\n"
+"  if (x >= 1 && x < 10) {\n"
+"    std::cout << \"Use the table to help find an initial value \" << std::"
+"endl;\n"
+"    result = sqrtTable[static_cast<int>(x)];\n"
+"  }\n"
+"\n"
+"  // do ten iterations\n"
+"  for (int i = 0; i < 10; ++i) {\n"
+"    if (result <= 0) {\n"
+"      result = 0.1;\n"
+"    }\n"
+"    double delta = x - (result * result);\n"
+"    result = result + 0.5 * delta / result;\n"
+"    std::cout << \"Computing sqrt of \" << x << \" to be \" << result << "
+"std::endl;\n"
+"  }\n"
+"\n"
+"  return result;\n"
+"}\n"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding a Custom Command and Generated File.rst:76
+msgid ""
+"Run the :manual:`cmake  <cmake(1)>` executable or the :manual:`cmake-gui "
+"<cmake-gui(1)>` to configure the project and then build it with your chosen "
+"build tool."
+msgstr ""
+
+#: ../../../guide/tutorial/Adding a Custom Command and Generated File.rst:80
+msgid ""
+"When this project is built it will first build the ``MakeTable`` executable. "
+"It will then run ``MakeTable`` to produce ``Table.h``. Finally, it will "
+"compile ``mysqrt.cxx`` which includes ``Table.h`` to produce the "
+"``MathFunctions`` library."
+msgstr ""
+
+#: ../../../guide/tutorial/Adding a Custom Command and Generated File.rst:85
+msgid "Run the Tutorial executable and verify that it is using the table."
+msgstr ""

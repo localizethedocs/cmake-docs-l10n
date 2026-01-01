@@ -1,0 +1,113 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2000-2021 Kitware, Inc. and Contributors
+# This file is distributed under the same license as the CMake package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CMake 3.21\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-07-08 02:52+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: ru_RU\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../guide/tutorial/Adding Usage Requirements for a Library.rst:2
+msgid "Step 3: Adding Usage Requirements for a Library"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Usage Requirements for a Library.rst:4
+msgid ""
+"Usage requirements allow for far better control over a library or "
+"executable's link and include line while also giving more control over the "
+"transitive property of targets inside CMake. The primary commands that "
+"leverage usage requirements are:"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Usage Requirements for a Library.rst:9
+msgid ":command:`target_compile_definitions`"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Usage Requirements for a Library.rst:10
+msgid ":command:`target_compile_options`"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Usage Requirements for a Library.rst:11
+msgid ":command:`target_include_directories`"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Usage Requirements for a Library.rst:12
+msgid ":command:`target_link_libraries`"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Usage Requirements for a Library.rst:14
+msgid ""
+"Let's refactor our code from :guide:`tutorial/Adding a Library` to use the "
+"modern CMake approach of usage requirements. We first state that anybody "
+"linking to ``MathFunctions`` needs to include the current source directory, "
+"while ``MathFunctions`` itself doesn't. So this can become an ``INTERFACE`` "
+"usage requirement."
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Usage Requirements for a Library.rst:20
+msgid ""
+"Remember ``INTERFACE`` means things that consumers require but the producer "
+"doesn't. Add the following lines to the end of ``MathFunctions/CMakeLists."
+"txt``:"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Usage Requirements for a Library.rst:24
+msgid "MathFunctions/CMakeLists.txt"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Usage Requirements for a Library.rst:24
+msgid ""
+"target_include_directories(MathFunctions\n"
+"          INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}\n"
+"          )\n"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Usage Requirements for a Library.rst:30
+msgid ""
+"Now that we've specified usage requirements for ``MathFunctions`` we can "
+"safely remove our uses of the ``EXTRA_INCLUDES`` variable from the top-level "
+"``CMakeLists.txt``, here:"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Usage Requirements for a Library.rst:34
+#: Library.rst:43
+msgid "CMakeLists.txt"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Usage Requirements for a Library.rst:34
+msgid ""
+"if(USE_MYMATH)\n"
+"  add_subdirectory(MathFunctions)\n"
+"  list(APPEND EXTRA_LIBS MathFunctions)\n"
+"endif()\n"
+"\n"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Usage Requirements for a Library.rst:41
+msgid "And here:"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Usage Requirements for a Library.rst:43
+msgid ""
+"target_include_directories(Tutorial PUBLIC\n"
+"                           \"${PROJECT_BINARY_DIR}\"\n"
+"                           )\n"
+msgstr ""
+
+#: ../../../guide/tutorial/Adding Usage Requirements for a Library.rst:49
+msgid ""
+"Once this is done, run the :manual:`cmake  <cmake(1)>` executable or the :"
+"manual:`cmake-gui <cmake-gui(1)>` to configure the project and then build it "
+"with your chosen build tool or by using ``cmake --build .`` from the build "
+"directory."
+msgstr ""
