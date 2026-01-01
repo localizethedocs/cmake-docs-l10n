@@ -1,0 +1,288 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2000-2015 Kitware, Inc.
+# This file is distributed under the same license as the CMake package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CMake 3.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-07-08 02:52+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: ru_RU\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../../Modules/ExternalData.cmake:3
+msgid "ExternalData"
+msgstr ""
+
+#: ../../../../Modules/ExternalData.cmake:5
+msgid "Manage data files stored outside source tree"
+msgstr ""
+
+#: ../../../../Modules/ExternalData.cmake:7
+msgid ""
+"Use this module to unambiguously reference data files stored outside the "
+"source tree and fetch them at build time from arbitrary local and remote "
+"content-addressed locations.  Functions provided by this module recognize "
+"arguments with the syntax ``DATA{<name>}`` as references to external data, "
+"replace them with full paths to local copies of those data, and create build "
+"rules to fetch and update the local copies."
+msgstr ""
+
+#: ../../../../Modules/ExternalData.cmake:14
+msgid ""
+"The ``DATA{}`` syntax is literal and the ``<name>`` is a full or relative "
+"path within the source tree.  The source tree must contain either a real "
+"data file at ``<name>`` or a \"content link\" at ``<name><ext>`` containing "
+"a hash of the real file using a hash algorithm corresponding to ``<ext>``. "
+"For example, the argument ``DATA{img.png}`` may be satisfied by either a "
+"real ``img.png`` file in the current source directory or a ``img.png.md5`` "
+"file containing its MD5 sum."
+msgstr ""
+
+#: ../../../../Modules/ExternalData.cmake:22
+msgid ""
+"The ``ExternalData_Expand_Arguments`` function evaluates ``DATA{}`` "
+"references in its arguments and constructs a new list of arguments:"
+msgstr ""
+
+#: ../../../../Modules/ExternalData.cmake:25
+msgid ""
+"ExternalData_Expand_Arguments(\n"
+"  <target>   # Name of data management target\n"
+"  <outVar>   # Output variable\n"
+"  [args...]  # Input arguments, DATA{} allowed\n"
+"  )"
+msgstr ""
+
+#: ../../../../Modules/ExternalData.cmake:33
+msgid ""
+"It replaces each ``DATA{}`` reference in an argument with the full path of a "
+"real data file on disk that will exist after the ``<target>`` builds."
+msgstr ""
+
+#: ../../../../Modules/ExternalData.cmake:36
+msgid ""
+"The ``ExternalData_Add_Test`` function wraps around the CMake :command:"
+"`add_test` command but supports ``DATA{}`` references in its arguments:"
+msgstr ""
+
+#: ../../../../Modules/ExternalData.cmake:40
+msgid ""
+"ExternalData_Add_Test(\n"
+"  <target>   # Name of data management target\n"
+"  ...        # Arguments of add_test(), DATA{} allowed\n"
+"  )"
+msgstr ""
+
+#: ../../../../Modules/ExternalData.cmake:47
+msgid ""
+"It passes its arguments through ``ExternalData_Expand_Arguments`` and then "
+"invokes the :command:`add_test` command using the results."
+msgstr ""
+
+#: ../../../../Modules/ExternalData.cmake:50
+msgid ""
+"The ``ExternalData_Add_Target`` function creates a custom target to manage "
+"local instances of data files stored externally:"
+msgstr ""
+
+#: ../../../../Modules/ExternalData.cmake:53
+msgid ""
+"ExternalData_Add_Target(\n"
+"  <target>   # Name of data management target\n"
+"  )"
+msgstr ""
+
+#: ../../../../Modules/ExternalData.cmake:59
+msgid ""
+"It creates custom commands in the target as necessary to make data files "
+"available for each ``DATA{}`` reference previously evaluated by other "
+"functions provided by this module.  A list of URL templates may be provided "
+"in the variable ``ExternalData_URL_TEMPLATES`` using the placeholders "
+"``%(algo)`` and ``%(hash)`` in each template.  Data fetch rules try each URL "
+"template in order by substituting the hash algorithm name for ``%(algo)`` "
+"and the hash value for ``%(hash)``."
+msgstr ""
+
+#: ../../../../Modules/ExternalData.cmake:67
+msgid "The following hash algorithms are supported::"
+msgstr ""
+
+#: ../../../../Modules/ExternalData.cmake:69
+msgid ""
+"%(algo)     <ext>     Description\n"
+"-------     -----     -----------\n"
+"MD5         .md5      Message-Digest Algorithm 5, RFC 1321\n"
+"SHA1        .sha1     US Secure Hash Algorithm 1, RFC 3174\n"
+"SHA224      .sha224   US Secure Hash Algorithms, RFC 4634\n"
+"SHA256      .sha256   US Secure Hash Algorithms, RFC 4634\n"
+"SHA384      .sha384   US Secure Hash Algorithms, RFC 4634\n"
+"SHA512      .sha512   US Secure Hash Algorithms, RFC 4634"
+msgstr ""
+
+#: ../../../../Modules/ExternalData.cmake:78
+msgid ""
+"Note that the hashes are used only for unique data identification and "
+"download verification."
+msgstr ""
+
+#: ../../../../Modules/ExternalData.cmake:81
+msgid "Example usage:"
+msgstr ""
+
+#: ../../../../Modules/ExternalData.cmake:83
+msgid ""
+"include(ExternalData)\n"
+"set(ExternalData_URL_TEMPLATES \"file:///local/%(algo)/%(hash)\"\n"
+"                               \"file:////host/share/%(algo)/%(hash)\"\n"
+"                               \"http://data.org/%(algo)/%(hash)\")\n"
+"ExternalData_Add_Test(MyData\n"
+"  NAME MyTest\n"
+"  COMMAND MyExe DATA{MyInput.png}\n"
+"  )\n"
+"ExternalData_Add_Target(MyData)"
+msgstr ""
+
+#: ../../../../Modules/ExternalData.cmake:95
+msgid ""
+"When test ``MyTest`` runs the ``DATA{MyInput.png}`` argument will be "
+"replaced by the full path to a real instance of the data file ``MyInput."
+"png`` on disk.  If the source tree contains a content link such as ``MyInput."
+"png.md5`` then the ``MyData`` target creates a real ``MyInput.png`` in the "
+"build tree."
+msgstr ""
+
+#: ../../../../Modules/ExternalData.cmake:101
+msgid ""
+"The ``DATA{}`` syntax can be told to fetch a file series using the form "
+"``DATA{<name>,:}``, where the ``:`` is literal.  If the source tree contains "
+"a group of files or content links named like a series then a reference to "
+"one member adds rules to fetch all of them.  Although all members of a "
+"series are fetched, only the file originally named by the ``DATA{}`` "
+"argument is substituted for it.  The default configuration recognizes file "
+"series names ending with ``#.ext``, ``_#.ext``, ``.#.ext``, or ``-#.ext`` "
+"where ``#`` is a sequence of decimal digits and ``.ext`` is any single "
+"extension.  Configure it with a regex that parses ``<number>`` and "
+"``<suffix>`` parts from the end of ``<name>``::"
+msgstr ""
+
+#: ../../../../Modules/ExternalData.cmake:112
+msgid "ExternalData_SERIES_PARSE = regex of the form (<number>)(<suffix>)$"
+msgstr ""
+
+#: ../../../../Modules/ExternalData.cmake:114
+msgid "For more complicated cases set::"
+msgstr ""
+
+#: ../../../../Modules/ExternalData.cmake:116
+msgid ""
+"ExternalData_SERIES_PARSE = regex with at least two () groups\n"
+"ExternalData_SERIES_PARSE_PREFIX = <prefix> regex group number, if any\n"
+"ExternalData_SERIES_PARSE_NUMBER = <number> regex group number\n"
+"ExternalData_SERIES_PARSE_SUFFIX = <suffix> regex group number"
+msgstr ""
+
+#: ../../../../Modules/ExternalData.cmake:121
+msgid ""
+"Configure series number matching with a regex that matches the ``<number>`` "
+"part of series members named ``<prefix><number><suffix>``::"
+msgstr ""
+
+#: ../../../../Modules/ExternalData.cmake:124
+msgid ""
+"ExternalData_SERIES_MATCH = regex matching <number> in all series members"
+msgstr ""
+
+#: ../../../../Modules/ExternalData.cmake:126
+msgid ""
+"Note that the ``<suffix>`` of a series does not include a hash-algorithm "
+"extension."
+msgstr ""
+
+#: ../../../../Modules/ExternalData.cmake:129
+msgid ""
+"The ``DATA{}`` syntax can alternatively match files associated with the "
+"named file and contained in the same directory.  Associated files may be "
+"specified by options using the syntax ``DATA{<name>,<opt1>,<opt2>,...}``.  "
+"Each option may specify one file by name or specify a regular expression to "
+"match file names using the syntax ``REGEX:<regex>``.  For example, the "
+"arguments::"
+msgstr ""
+
+#: ../../../../Modules/ExternalData.cmake:136
+msgid ""
+"DATA{MyData/MyInput.mhd,MyInput.img}                   # File pair\n"
+"DATA{MyData/MyFrames00.png,REGEX:MyFrames[0-9]+\\\\.png} # Series"
+msgstr ""
+
+#: ../../../../Modules/ExternalData.cmake:139
+msgid ""
+"will pass ``MyInput.mha`` and ``MyFrames00.png`` on the command line but "
+"ensure that the associated files are present next to them."
+msgstr ""
+
+#: ../../../../Modules/ExternalData.cmake:142
+msgid ""
+"The ``DATA{}`` syntax may reference a directory using a trailing slash and a "
+"list of associated files.  The form ``DATA{<name>/,<opt1>,<opt2>,...}`` adds "
+"rules to fetch any files in the directory that match one of the associated "
+"file options.  For example, the argument ``DATA{MyDataDir/,REGEX:.*}`` will "
+"pass the full path to a ``MyDataDir`` directory on the command line and "
+"ensure that the directory contains files corresponding to every file or "
+"content link in the ``MyDataDir`` source directory."
+msgstr ""
+
+#: ../../../../Modules/ExternalData.cmake:151
+msgid ""
+"The variable ``ExternalData_LINK_CONTENT`` may be set to the name of a "
+"supported hash algorithm to enable automatic conversion of real data files "
+"referenced by the ``DATA{}`` syntax into content links.  For each such "
+"``<file>`` a content link named ``<file><ext>`` is created.  The original "
+"file is renamed to the form ``.ExternalData_<algo>_<hash>`` to stage it for "
+"future transmission to one of the locations in the list of URL templates (by "
+"means outside the scope of this module).  The data fetch rule created for "
+"the content link will use the staged object if it cannot be found using any "
+"URL template."
+msgstr ""
+
+#: ../../../../Modules/ExternalData.cmake:161
+msgid ""
+"The variable ``ExternalData_OBJECT_STORES`` may be set to a list of local "
+"directories that store objects using the layout ``<dir>/%(algo)/%(hash)``. "
+"These directories will be searched first for a needed object.  If the object "
+"is not available in any store then it will be fetched remotely using the URL "
+"templates and added to the first local store listed.  If no stores are "
+"specified the default is a location inside the build tree."
+msgstr ""
+
+#: ../../../../Modules/ExternalData.cmake:169
+msgid ""
+"The variable ``ExternalData_SOURCE_ROOT`` may be set to the highest source "
+"directory containing any path named by a ``DATA{}`` reference.  The default "
+"is ``CMAKE_SOURCE_DIR``.  ``ExternalData_SOURCE_ROOT`` and "
+"``CMAKE_SOURCE_DIR`` must refer to directories within a single source "
+"distribution (e.g.  they come together in one tarball)."
+msgstr ""
+
+#: ../../../../Modules/ExternalData.cmake:175
+msgid ""
+"The variable ``ExternalData_BINARY_ROOT`` may be set to the directory to "
+"hold the real data files named by expanded ``DATA{}`` references.  The "
+"default is ``CMAKE_BINARY_DIR``.  The directory layout will mirror that of "
+"content links under ``ExternalData_SOURCE_ROOT``."
+msgstr ""
+
+#: ../../../../Modules/ExternalData.cmake:180
+msgid ""
+"Variables ``ExternalData_TIMEOUT_INACTIVITY`` and "
+"``ExternalData_TIMEOUT_ABSOLUTE`` set the download inactivity and absolute "
+"timeouts, in seconds.  The defaults are 60 seconds and 300 seconds, "
+"respectively.  Set either timeout to 0 seconds to disable enforcement."
+msgstr ""
