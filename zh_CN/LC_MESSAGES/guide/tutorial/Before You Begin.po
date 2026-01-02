@@ -1,0 +1,416 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2000-2025 Kitware, Inc. and Contributors
+# This file is distributed under the same license as the CMake package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CMake latest\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-12-02 08:30+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../guide/tutorial/Before You Begin.rst:2
+msgid "Step 0: Before You Begin"
+msgstr ""
+
+#: ../../../guide/tutorial/Before You Begin.rst:4
+msgid ""
+"The CMake tutorial consists of hands-on exercises writing and building a C++ "
+"project; solving progressively more complex build requirements such as "
+"libraries, code generators, tests, and external dependencies. Before we are "
+"ready to even begin the first step of that journey, we need to ensure we "
+"have the correct tools at hand and understand how to use them."
+msgstr ""
+
+#: ../../../guide/tutorial/Before You Begin.rst:11
+msgid ""
+"The tutorial material assumes the user has a C++20 compiler and toolchain "
+"available, and at least a beginner understanding of the C++ language. It is "
+"impossible to cover here all the possible ways one might acquire these "
+"prerequisites."
+msgstr ""
+
+#: ../../../guide/tutorial/Before You Begin.rst:16
+msgid ""
+"This prerequisite step provides recommendations for how to acquire and run "
+"CMake itself in order to carry out the rest of the tutorial. If you're "
+"already familiar with the basics of how to run CMake, you can feel free to "
+"move on to the rest of the tutorial."
+msgstr ""
+
+#: ../../../guide/tutorial/Before You Begin.rst:22
+msgid "Getting the Tutorial Exercises"
+msgstr ""
+
+#: ../../../guide/tutorial/Before You Begin.rst:26
+msgid ""
+"|tutorial_source| Each step of the tutorial has a corresponding subfolder, "
+"which serves as the starting point for that step's exercises."
+msgstr ""
+
+#: ../../../guide/tutorial/Before You Begin.rst:31
+msgid "Getting CMake"
+msgstr ""
+
+#: ../../../guide/tutorial/Before You Begin.rst:33
+msgid ""
+"The most obvious way to get your hands on CMake is to download it from the "
+"CMake website. `The website's \"Download\" section <https://cmake.org/"
+"download/>`_ contains the latest builds of CMake for all common (and some "
+"uncommon) desktop platforms."
+msgstr ""
+
+#: ../../../guide/tutorial/Before You Begin.rst:38
+msgid ""
+"However, it is preferable to acquire CMake via the usual delivery mechanism "
+"for developer tools on your platform. CMake is available in most packaging "
+"repositories, as a Visual Studio component, and can even be installed from "
+"the Python package index. Additionally, CMake is often available as part of "
+"the base image of most CI/CD runners targeting C/C++. You should consult the "
+"documentation for your software build environment to see if CMake is already "
+"available."
+msgstr ""
+
+#: ../../../guide/tutorial/Before You Begin.rst:45
+msgid ""
+"CMake can also be compiled from source using the instructions described by "
+"``README.rst``, found in the root of the CMake source tree."
+msgstr ""
+
+#: ../../../guide/tutorial/Before You Begin.rst:48
+msgid ""
+"CMake, like any program, needs to be available in ``PATH`` in order to be "
+"run from a shell. You can verify CMake is available by running any CMake "
+"command."
+msgstr ""
+
+#: ../../../guide/tutorial/Before You Begin.rst:51
+msgid ""
+"$ cmake --version\n"
+"cmake version 3.23.5\n"
+"\n"
+"CMake suite maintained and supported by Kitware (kitware.com/cmake)."
+msgstr ""
+
+#: ../../../guide/tutorial/Before You Begin.rst:60
+msgid ""
+"If using a Visual Studio-provided development environment, it is best to run "
+"CMake from inside a Developer Command Prompt or Developer Powershell. This "
+"ensures CMake has access to all the required developer tooling and "
+"environment variables."
+msgstr ""
+
+#: ../../../guide/tutorial/Before You Begin.rst:66
+msgid "CMake Generators"
+msgstr ""
+
+#: ../../../guide/tutorial/Before You Begin.rst:68
+msgid ""
+"CMake is a configuration program, sometimes called a \"meta\" build system. "
+"As with other configuration systems, CMake is not ultimately responsible for "
+"running the commands which produce the software build. Instead, CMake "
+"generates a build system based on project, environment, and user-provided "
+"configuration information."
+msgstr ""
+
+#: ../../../guide/tutorial/Before You Begin.rst:74
+msgid ""
+"CMake supports multiple build systems as the output of this configuration "
+"process. These output backends are called \"generators\", because they "
+"generate the build system. CMake supports many generators, the documentation "
+"for which can be found at :manual:`cmake-generators(7)`. Information about "
+"supported generators for your particular CMake installation can be found "
+"via :option:`cmake --help` under the \"Generators\" heading."
+msgstr ""
+
+#: ../../../guide/tutorial/Before You Begin.rst:81
+msgid ""
+"Using CMake thus requires one of the build programs which consumes this "
+"generator output be available. The ``Unix Makefiles``, ``Ninja``, and "
+"``Visual Studio`` generators require a compatible ``make``, ``ninja``, and "
+"``Visual Studio`` installation respectively."
+msgstr ""
+
+#: ../../../guide/tutorial/Before You Begin.rst:87
+msgid ""
+"The default generator on Windows is typically the newest available Visual "
+"Studio version on the machine running CMake, everywhere else it is ``Unix "
+"Makefiles``."
+msgstr ""
+
+#: ../../../guide/tutorial/Before You Begin.rst:91
+msgid ""
+"Which generator is used can be controlled via the :envvar:`CMAKE_GENERATOR` "
+"environment variable, or the :option:`cmake -G` option."
+msgstr ""
+
+#: ../../../guide/tutorial/Before You Begin.rst:95
+msgid "Single and Multi-Configuration Generators"
+msgstr ""
+
+#: ../../../guide/tutorial/Before You Begin.rst:97
+msgid ""
+"In many cases, it is possible to treat the underlying build system as an "
+"implementation detail and not differentiate between, for example, ``ninja`` "
+"and ``make`` when using CMake. However, there is one significant property of "
+"a given generator which we need to be aware of for even trivial workflows: "
+"if the generator supports single configuration builds, or if it supports "
+"multi-configuration builds."
+msgstr ""
+
+#: ../../../guide/tutorial/Before You Begin.rst:104
+msgid ""
+"Software builds often have several variants which we might be interested in. "
+"These variants have names like ``Debug``, ``Release``, ``RelWithDebInfo``, "
+"and ``MinSizeRel``, with properties corresponding to the name of the given "
+"variant."
+msgstr ""
+
+#: ../../../guide/tutorial/Before You Begin.rst:108
+msgid ""
+"A single-configuration build system always builds the software the same way, "
+"if it is generated to produce ``Debug`` builds it will always produce a "
+"``Debug`` build. A multi-configuration build system can produce different "
+"outputs depending on the configuration specified at build time."
+msgstr ""
+
+#: ../../../guide/tutorial/Before You Begin.rst:114
+msgid ""
+"The terms **build configuration** and **build type** are synonymous. When "
+"dealing with single-configuration generators, which only support a single "
+"variant, the generated variant is usually called the \"build type\"."
+msgstr ""
+
+#: ../../../guide/tutorial/Before You Begin.rst:118
+msgid ""
+"When dealing with multi-configuration generators, the available variants are "
+"usually called the \"build configurations\". Selecting a variant at build "
+"time is usually called \"selecting a configuration\" and referred to by "
+"flags and variables as the \"config\"."
+msgstr ""
+
+#: ../../../guide/tutorial/Before You Begin.rst:123
+msgid ""
+"However, this convention is not universal. Both technical and colloquial "
+"documentation often mix the two terms. *Configuration* and *config* are "
+"considered the more correct in contexts which generically address both "
+"single and multi-configuration generators."
+msgstr ""
+
+#: ../../../guide/tutorial/Before You Begin.rst:128
+msgid "The commonly used generators are as follows:"
+msgstr ""
+
+#: ../../../guide/tutorial/Before You Begin.rst:131
+msgid "Single-Configuration"
+msgstr ""
+
+#: ../../../guide/tutorial/Before You Begin.rst:131
+msgid "Multi-Configuration"
+msgstr ""
+
+#: ../../../guide/tutorial/Before You Begin.rst:133
+msgid ":generator:`Ninja`"
+msgstr ""
+
+#: ../../../guide/tutorial/Before You Begin.rst:133
+msgid ":generator:`Ninja Multi-Config`"
+msgstr ""
+
+#: ../../../guide/tutorial/Before You Begin.rst:135
+msgid ":generator:`Unix Makefiles`"
+msgstr ""
+
+#: ../../../guide/tutorial/Before You Begin.rst:135
+msgid "Visual Studio (all versions)"
+msgstr ""
+
+#: ../../../guide/tutorial/Before You Begin.rst:137
+msgid ":generator:`FASTBuild`"
+msgstr ""
+
+#: ../../../guide/tutorial/Before You Begin.rst:137
+msgid ":generator:`Xcode`"
+msgstr ""
+
+#: ../../../guide/tutorial/Before You Begin.rst:140
+msgid ""
+"When using a single-configuration generator, the build type is selected "
+"based on the :envvar:`CMAKE_BUILD_TYPE` environment variable, or can be "
+"specified directly when invoking CMake via ``cmake -"
+"DCMAKE_BUILD_TYPE=<config>``."
+msgstr ""
+
+#: ../../../guide/tutorial/Before You Begin.rst:145
+msgid ""
+"For the purpose of the tutorial, it is generally unnecessary to specify a "
+"build type when working with single-configuration generators. The platform-"
+"specific default behavior will work for all exercises."
+msgstr ""
+
+#: ../../../guide/tutorial/Before You Begin.rst:149
+msgid ""
+"When using a multi-configuration generator, the build configuration is "
+"specified at build time using either a build-system specific mechanism, or "
+"via the :option:`cmake --build --config <cmake--build --config>` option."
+msgstr ""
+
+#: ../../../guide/tutorial/Before You Begin.rst:154
+msgid "Other Usage Basics"
+msgstr ""
+
+#: ../../../guide/tutorial/Before You Begin.rst:156
+msgid ""
+"The rest of the tutorial will cover the remaining usage basics in greater "
+"depth, but for the purpose of ensuring we have a working development "
+"environment a few more CMake option flags will be enumerated here."
+msgstr ""
+
+#: ../../../guide/tutorial/Before You Begin.rst:161
+msgid ":option:`cmake -S \\<dir\\> <cmake -S>`"
+msgstr ""
+
+#: ../../../guide/tutorial/Before You Begin.rst:162
+msgid ""
+"Specifies the project root directory, where CMake will find the project to "
+"be built. This contains the root ``CMakeLists.txt`` file which will be "
+"discussed in Step 1 of the tutorial."
+msgstr ""
+
+#: ../../../guide/tutorial/Before You Begin.rst:166 Begin.rst:173
+msgid "When unspecified, defaults to the current working directory."
+msgstr ""
+
+#: ../../../guide/tutorial/Before You Begin.rst:168
+msgid ":option:`cmake -B \\<dir\\> <cmake -B>`"
+msgstr ""
+
+#: ../../../guide/tutorial/Before You Begin.rst:169
+msgid ""
+"Specifies the build directory, where CMake will output the files for the "
+"generated build system, as well as artifacts of the build itself when the "
+"build system is run."
+msgstr ""
+
+#: ../../../guide/tutorial/Before You Begin.rst:175
+msgid ":option:`cmake --build \\<dir\\> <cmake --build>`"
+msgstr ""
+
+#: ../../../guide/tutorial/Before You Begin.rst:176
+msgid ""
+"Runs the build system in the specified build directory. This is a generic "
+"command for all generators. For multi-configuration generators, the desired "
+"configuration can be requested via:"
+msgstr ""
+
+#: ../../../guide/tutorial/Before You Begin.rst:180
+msgid "``cmake --build <dir> --config <cfg>``"
+msgstr ""
+
+#: ../../../guide/tutorial/Before You Begin.rst:183
+msgid "Try It Out"
+msgstr ""
+
+#: ../../../guide/tutorial/Before You Begin.rst:185
+msgid ""
+"The ``Help/guide/tutorial/Step0`` directory contains a simple \"Hello "
+"World\" C++ project. The specifics of how CMake configures this project will "
+"be discussed in Step 1 of the tutorial, we need only concern ourselves with "
+"running the CMake program itself."
+msgstr ""
+
+#: ../../../guide/tutorial/Before You Begin.rst:190
+msgid ""
+"As described above, there are many possible ways we could run CMake "
+"depending on which generator we want to use for the build. If we navigate to "
+"the ``Help/guide/tutorial/Step0`` directory and run:"
+msgstr ""
+
+#: ../../../guide/tutorial/Before You Begin.rst:194
+msgid "cmake -B build"
+msgstr ""
+
+#: ../../../guide/tutorial/Before You Begin.rst:198
+msgid ""
+"CMake will generate a build system for the Step0 project into ``Help/guide/"
+"tutorial/Step0/build`` using the default generator for the platform. "
+"Alternatively we can specify a specific generator, ``Ninja`` for example, "
+"with:"
+msgstr ""
+
+#: ../../../guide/tutorial/Before You Begin.rst:203
+msgid "cmake -G Ninja -B build"
+msgstr ""
+
+#: ../../../guide/tutorial/Before You Begin.rst:207
+msgid ""
+"The effect is similar, but will use the ``Ninja`` generator instead of the "
+"platform default."
+msgstr ""
+
+#: ../../../guide/tutorial/Before You Begin.rst:211
+msgid ""
+"We can't reuse the build directory with different generators. It is "
+"necessary to delete the build directory between CMake runs if you want to "
+"switch to a different generator using the same build directory."
+msgstr ""
+
+#: ../../../guide/tutorial/Before You Begin.rst:215
+msgid ""
+"How we build and run the project after generating the build system depends "
+"on the kind of generator we're using. If it is a single-configuration "
+"generator on a non-Windows platform, we can simply do:"
+msgstr ""
+
+#: ../../../guide/tutorial/Before You Begin.rst:219
+msgid ""
+"cmake --build build\n"
+"./build/hello"
+msgstr ""
+
+#: ../../../guide/tutorial/Before You Begin.rst:225
+msgid ""
+"On Windows we might need to specify the file extension depending on which "
+"shell is in use, ie ``./build/hello.exe``"
+msgstr ""
+
+#: ../../../guide/tutorial/Before You Begin.rst:228
+msgid ""
+"If we're using a multi-configuration generator, we will want to specify the "
+"build configuration. The default configurations are ``Debug``, ``Release``, "
+"``RelWithDebInfo``, and ``MinRelSize``. The result of the build will be "
+"stored in a configuration-specific subdirectory of the build folder. So for "
+"example we could run:"
+msgstr ""
+
+#: ../../../guide/tutorial/Before You Begin.rst:234
+msgid ""
+"cmake --build build --config Debug\n"
+"./build/Debug/hello"
+msgstr ""
+
+#: ../../../guide/tutorial/Before You Begin.rst:240
+msgid "Getting Help and Additional Resources"
+msgstr ""
+
+#: ../../../guide/tutorial/Before You Begin.rst:242
+msgid ""
+"For help from the CMake community, you can reach out on `the CMake Discourse "
+"Forums <https://discourse.cmake.org/>`_."
+msgstr ""
+
+#: ../../../guide/tutorial/Before You Begin.rst:247
+msgid ""
+"For professional training related to CMake, please see `the CMake training "
+"landing page <https://www.kitware.com/courses/cmake-training/>`_. For other "
+"professional CMake services, `please reach out to us using our contact form "
+"<https://www.kitware.com/contact/>`_."
+msgstr ""
