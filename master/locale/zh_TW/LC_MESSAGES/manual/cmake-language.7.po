@@ -82,6 +82,10 @@ msgid ""
 "Language source file and does not generate a build system.  It does not "
 "allow CMake commands that define build targets or actions."
 msgstr ""
+"單個 ``<script>.cmake`` 來源檔可以透過使用 :manual:`cmake(1)` 命令行工具搭"
+"配 :option:`-P <cmake -P>` 選項，以腳本模式進行處理。腳本模式只會執行給定 "
+"CMake 語言來源檔中的命令，不會生成建置系統。它不允許使用定義建置目標或建置動"
+"作的 CMake 命令。"
 
 #: ../../../manual/cmake-language.7.rst:48
 msgid "Modules"
@@ -350,6 +354,14 @@ msgid ""
 "  message(\"${arg}\")\n"
 "endforeach()"
 msgstr ""
+"foreach(arg\n"
+"    NoSpace\n"
+"    Escaped\\ Space\n"
+"    This;Divides;Into;Five;Arguments\n"
+"    Escaped\\;Semicolon\n"
+"    )\n"
+"  message(\"${arg}\")\n"
+"endforeach()"
 
 #: ../../../manual/cmake-language.7.rst:338
 msgid ""
@@ -673,7 +685,7 @@ msgstr "作用域"
 msgid ""
 "Environment variables have global scope in a CMake process. They are never "
 "cached."
-msgstr ""
+msgstr "環境變數在 CMake 進程中具有全局作用域。它們永遠不會被快取。"
 
 #: ../../../manual/cmake-language.7.rst:591
 msgid "References"
@@ -722,7 +734,7 @@ msgstr ""
 
 #: ../../../manual/cmake-language.7.rst:618
 msgid "Lists"
-msgstr ""
+msgstr "列表"
 
 #: ../../../manual/cmake-language.7.rst:620
 msgid ""
@@ -788,6 +800,11 @@ msgid ""
 "  # use \"${entry}\" normally\n"
 "endforeach()"
 msgstr ""
+"set(mylist a \"b|c\")\n"
+"foreach(entry IN LISTS mylist)\n"
+"  string(REPLACE \"|\" \";\" entry \"${entry}\")\n"
+"  # 普通地使用 \"${entry}\"\n"
+"endforeach()"
 
 #: ../../../manual/cmake-language.7.rst:667
 msgid ""
