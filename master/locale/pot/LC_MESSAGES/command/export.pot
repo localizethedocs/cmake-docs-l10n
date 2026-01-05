@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CMake master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-14 08:20+0000\n"
+"POT-Creation-Date: 2026-01-05 08:22+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -191,7 +191,7 @@ msgstr ""
 msgid "``EXPORT_PACKAGE_DEPENDENCIES``"
 msgstr ""
 
-#: ../../../command/export.rst:125 ../../../command/export.rst:222
+#: ../../../command/export.rst:125 ../../../command/export.rst:248
 msgid ""
 "Experimental. Gated by ``CMAKE_EXPERIMENTAL_EXPORT_PACKAGE_DEPENDENCIES``."
 msgstr ""
@@ -249,14 +249,48 @@ msgid ""
 msgstr ""
 
 #: ../../../command/export.rst:166
+msgid "Exporting Software Bill of Materials (SBOM) Documents"
+msgstr ""
+
+#: ../../../command/export.rst:168
+msgid ""
+"export(EXPORT <export-name> SBOM <sbom-name>\n"
+"       [PROJECT <project-name>|NO_PROJECT_METADATA]\n"
+"       [DESTINATION <dir>]\n"
+"       [VERSION <major>[.<minor>[.<patch>[.<tweak>]]]]\n"
+"       [LICENSE <license-string>]\n"
+"       [DESCRIPTION <description-string>]\n"
+"       [HOMEPAGE_URL <url-string>]\n"
+"       [PACKAGE_URL <url-string>]\n"
+"       [FORMAT <string>])"
+msgstr ""
+
+#: ../../../command/export.rst:183
+msgid "Experimental. Gated by ``CMAKE_EXPERIMENTAL_GENERATE_SBOM``."
+msgstr ""
+
+#: ../../../command/export.rst:185
+msgid ""
+"Generates a software bill of materials (SBOM) document describing the "
+"targets in the export ``<export-name>`` and their dependencies in the build "
+"tree"
+msgstr ""
+
+#: ../../../command/export.rst:188
+msgid ""
+"See :command:`install(SBOM)` for details about the supported SBOM formats "
+"and a description of the other options."
+msgstr ""
+
+#: ../../../command/export.rst:192
 msgid "Exporting Packages"
 msgstr ""
 
-#: ../../../command/export.rst:171
+#: ../../../command/export.rst:197
 msgid "export(PACKAGE <PackageName>)"
 msgstr ""
 
-#: ../../../command/export.rst:175
+#: ../../../command/export.rst:201
 msgid ""
 "Store the current build directory in the CMake user package registry for "
 "package ``<PackageName>``.  The :command:`find_package` command may consider "
@@ -269,13 +303,13 @@ msgid ""
 "installations, it is not desirable to write the user package registry."
 msgstr ""
 
-#: ../../../command/export.rst:186
+#: ../../../command/export.rst:212
 msgid ""
 "If the :variable:`CMAKE_EXPORT_NO_PACKAGE_REGISTRY` variable is enabled, the "
 "``export(PACKAGE)`` command will do nothing."
 msgstr ""
 
-#: ../../../command/export.rst:190
+#: ../../../command/export.rst:216
 msgid ""
 "By default the ``export(PACKAGE)`` command does nothing (see policy :policy:"
 "`CMP0090`) because populating the user package registry has effects outside "
@@ -284,11 +318,11 @@ msgid ""
 "CMake user package registry."
 msgstr ""
 
-#: ../../../command/export.rst:198
+#: ../../../command/export.rst:224
 msgid "Configuring Exports"
 msgstr ""
 
-#: ../../../command/export.rst:203
+#: ../../../command/export.rst:229
 msgid ""
 "export(SETUP <export-name>\n"
 "       [PACKAGE_DEPENDENCY <dep>\n"
@@ -301,15 +335,15 @@ msgid ""
 "       )"
 msgstr ""
 
-#: ../../../command/export.rst:217
+#: ../../../command/export.rst:243
 msgid "Configure the parameters of an export. The arguments are as follows:"
 msgstr ""
 
-#: ../../../command/export.rst:219
+#: ../../../command/export.rst:245
 msgid "``PACKAGE_DEPENDENCY <dep>``"
 msgstr ""
 
-#: ../../../command/export.rst:224
+#: ../../../command/export.rst:250
 msgid ""
 "Specify a package dependency to configure. This changes how :command:"
 "`find_dependency` calls are written during :command:`export(EXPORT)` and :"
@@ -317,70 +351,70 @@ msgid ""
 "This argument accepts the following additional arguments:"
 msgstr ""
 
-#: ../../../command/export.rst:230
+#: ../../../command/export.rst:256
 msgid "``ENABLED``"
 msgstr ""
 
-#: ../../../command/export.rst:231
+#: ../../../command/export.rst:257
 msgid ""
 "Manually control whether or not the dependency is exported. This accepts the "
 "following values:"
 msgstr ""
 
-#: ../../../command/export.rst:234
+#: ../../../command/export.rst:260
 msgid "``<bool-true>``"
 msgstr ""
 
-#: ../../../command/export.rst:235
+#: ../../../command/export.rst:261
 msgid ""
 "Any value that CMake recognizes as \"true\". Always export the dependency, "
 "even if no exported targets depend on it. This can be used to manually add :"
 "command:`find_dependency` calls to the export."
 msgstr ""
 
-#: ../../../command/export.rst:239
+#: ../../../command/export.rst:265
 msgid "``<bool-false>``"
 msgstr ""
 
-#: ../../../command/export.rst:240
+#: ../../../command/export.rst:266
 msgid ""
 "Any value that CMake recognizes as \"false\". Never export the dependency, "
 "even if an exported target depends on it."
 msgstr ""
 
-#: ../../../command/export.rst:243
+#: ../../../command/export.rst:269
 msgid "``AUTO``"
 msgstr ""
 
-#: ../../../command/export.rst:244
+#: ../../../command/export.rst:270
 msgid "Only export the dependency if an exported target depends on it."
 msgstr ""
 
-#: ../../../command/export.rst:246
+#: ../../../command/export.rst:272
 msgid "``EXTRA_ARGS <args>``"
 msgstr ""
 
-#: ../../../command/export.rst:247
+#: ../../../command/export.rst:273
 msgid ""
 "Specify additional arguments to pass to :command:`find_dependency` after the "
 "``REQUIRED`` argument."
 msgstr ""
 
-#: ../../../command/export.rst:250
+#: ../../../command/export.rst:276
 msgid "``TARGET <target>``"
 msgstr ""
 
-#: ../../../command/export.rst:251
+#: ../../../command/export.rst:277
 msgid ""
 "Specify a target to configure in this export. This argument accepts the "
 "following additional arguments:"
 msgstr ""
 
-#: ../../../command/export.rst:254
+#: ../../../command/export.rst:280
 msgid "``XCFRAMEWORK_LOCATION``"
 msgstr ""
 
-#: ../../../command/export.rst:255
+#: ../../../command/export.rst:281
 msgid ""
 "Specify the location of an ``.xcframework`` which contains the library from "
 "this target. If specified, the generated code will check to see if the ``."
