@@ -28,6 +28,7 @@
   <li><a href="#support-this-project">Support this Project</a></li>
   <li><a href="#sponsorship">Sponsorship</a></li>
   <li><a href="#code-contributors">Code Contributors</a></li>
+  <li><a href="#translation-contributors">Translation Contributors</a></li>
   <li><a href="#financial-contributors">Financial Contributors</a></li>
   <li><a href="#licenses">Licenses</a></li>
 </ul>
@@ -503,6 +504,12 @@ Alternatively, you can sponsor the maintainers directly through the following pl
 
 <div align="center">
 <img width="100%" alt="GitHub Contributors SVG" src="https://contrib.nn.ci/api?repo=localizethedocs/cmake-docs-l10n&no_bot=true" />
+</div>
+
+<h2 id="translation-contributors"><a href="#table-of-contents">Translation Contributors</a></h2>
+
+<div align="center">
+<img width="100%" alt="Crowdin Contributors SVG" src="https://cdn.jsdelivr.net/gh/localizethedocs/cmake-docs-l10n@static/crowdin-contributors.svg">
 </div>
 
 <h2 id="financial-contributors"><a href="#table-of-contents">Financial Contributors</a></h2>
