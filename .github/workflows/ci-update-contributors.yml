@@ -32,9 +32,12 @@ jobs:
           echo "vars.ACTOR_EMAIL = ${{ vars.ACTOR_EMAIL }}"
           echo "vars.CROWDIN_PROJECT_ID = ${{ vars.CROWDIN_PROJECT_ID }}"
           echo "vars.CROWDIN_ORGANIZATION = ${{ vars.CROWDIN_ORGANIZATION }}"
+          echo "vars.GPG_FINGERPRINT = ${{ vars.GPG_FINGERPRINT }}"
           echo "[Secrets]"
           echo "secrets.ACTOR_GITHUB_TOKEN = ${{ secrets.ACTOR_GITHUB_TOKEN }}"
           echo "secrets.CROWDIN_PERSONAL_TOKEN = ${{ secrets.CROWDIN_PERSONAL_TOKEN }}"
+          echo "secrets.GPG_PRIVATE_KEY = ${{ secrets.GPG_PRIVATE_KEY }}"
+          echo "secrets.GPG_PASSPHRASE = ${{ secrets.GPG_PASSPHRASE }}"
       - name: Check Required Variables
         shell: bash
         run: |
@@ -59,6 +62,10 @@ jobs:
             echo "vars.CROWDIN_ORGANIZATION is missing."
             REQUIRED_VARIABLES_EXIST=false
           fi
+          if [[ -z "${{ vars.GPG_FINGERPRINT }}" ]]; then
+            echo "vars.GPG_FINGERPRINT is missing."
+            REQUIRED_VARIABLES_EXIST=false
+          fi
           if [[ "${REQUIRED_VARIABLES_EXIST}" == "false" ]]; then
             echo "Error: Some variables are missing." >&2
             exit 1
@@ -73,6 +80,14 @@ jobs:
           fi
           if [[ -z "${{ secrets.CROWDIN_PERSONAL_TOKEN }}" ]]; then
             echo "secrets.CROWDIN_PERSONAL_TOKEN is missing."
+            REQUIRED_SECRETS_EXIST=false
+          fi
+          if [[ -z "${{ secrets.GPG_PRIVATE_KEY }}" ]]; then
+            echo "secrets.GPG_PRIVATE_KEY is missing."
+            REQUIRED_SECRETS_EXIST=false
+          fi
+          if [[ -z "${{ secrets.GPG_PASSPHRASE }}" ]]; then
+            echo "secrets.GPG_PASSPHRASE is missing."
             REQUIRED_SECRETS_EXIST=false
           fi
           if [[ "${REQUIRED_SECRETS_EXIST}" == "false" ]]; then
@@ -98,6 +113,9 @@ jobs:
       ACTOR_EMAIL: ${{ vars.ACTOR_EMAIL }}
       CROWDIN_PROJECT_ID: ${{ vars.CROWDIN_PROJECT_ID }}
       CROWDIN_ORGANIZATION: ${{ vars.CROWDIN_ORGANIZATION }}
+      GPG_FINGERPRINT: ${{ vars.GPG_FINGERPRINT }}
     secrets:
       ACTOR_GITHUB_TOKEN: ${{ secrets.ACTOR_GITHUB_TOKEN }}
       CROWDIN_PERSONAL_TOKEN: ${{ secrets.CROWDIN_PERSONAL_TOKEN }}
+      GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
+      GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
