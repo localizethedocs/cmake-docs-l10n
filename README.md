@@ -252,6 +252,14 @@ The goal of this project is to translate the CMake documentation into multiple l
     </tr>
     <tr>
       <td rowspan="1" colspan="1" align="right" style="text-align: right;">
+        <div><a href="https://github.com/localizethedocs/cmake-docs-l10n/actions/workflows/ci-update-contributors.yml"><img alt="ci-update-contributors" src="https://github.com/localizethedocs/cmake-docs-l10n/actions/workflows/ci-update-contributors.yml/badge.svg" /></a></div>
+      </td>
+      <td rowspan="1" colspan="1" align="left" style="text-align: left;">
+        <div>Update contributors <code>.svg</code> files to <code>static</code> branch.</div>
+      </td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1" align="right" style="text-align: right;">
         <div><a href="https://github.com/localizethedocs/cmake-docs-l10n/actions/workflows/ci-update-license-year.yml"><img alt="ci-update-license-year" src="https://github.com/localizethedocs/cmake-docs-l10n/actions/workflows/ci-update-license-year.yml/badge.svg" /></a></div>
       </td>
       <td rowspan="1" colspan="1" align="left" style="text-align: left;">
