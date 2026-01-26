@@ -1,0 +1,354 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2000-2025 Kitware, Inc. and Contributors
+# This file is distributed under the same license as the CMake package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CMake master\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-09-29 08:20+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: ru_RU\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../guide/tutorial/Testing and CTest.rst:2
+msgid "Step 8: Testing and CTest"
+msgstr ""
+
+#: ../../../guide/tutorial/Testing and CTest.rst:4
+msgid ""
+"Testing is, historically, not the role of the build system. At best it might "
+"have a specific target which maps to building and running the project's "
+"tests."
+msgstr ""
+
+#: ../../../guide/tutorial/Testing and CTest.rst:7
+msgid ""
+"In the CMake ecosystem, the opposite is true. CMake's testing ecosystem is "
+"known as CTest. This ecosystem is both deceivingly simple and incredibly "
+"powerful. In fact it is so powerful it deserves its own full tutorial to "
+"describe everything we could achieve with it."
+msgstr ""
+
+#: ../../../guide/tutorial/Testing and CTest.rst:12
+msgid ""
+"This is not that tutorial. In this step, we will scratch the surface of some "
+"of the facilities that CTest provides."
+msgstr ""
+
+#: ../../../guide/tutorial/Testing and CTest.rst:16
+msgid "Background"
+msgstr ""
+
+#: ../../../guide/tutorial/Testing and CTest.rst:18
+msgid ""
+"At its core, CTest is a task launcher which runs commands and reports if "
+"they have returned zero or non-zero values. This is the level we will be "
+"dealing with CTest at."
+msgstr ""
+
+#: ../../../guide/tutorial/Testing and CTest.rst:22
+msgid ""
+"CMake provides direct integration with CTest via the :command:"
+"`enable_testing` and :command:`add_test` commands. These allow CMake to "
+"setup the necessary infrastructure in the build folder for CTest to "
+"discover, run, and report on various tests we might be interested in."
+msgstr ""
+
+#: ../../../guide/tutorial/Testing and CTest.rst:27
+msgid ""
+"After setting up and building tests, the easiest way to invoke CTest is to "
+"run it directly on the build directory with:"
+msgstr ""
+
+#: ../../../guide/tutorial/Testing and CTest.rst:30 CTest.rst:126
+msgid "ctest --test-dir build"
+msgstr ""
+
+#: ../../../guide/tutorial/Testing and CTest.rst:34
+msgid ""
+"Which will run all available tests. Specific tests can be run with regular "
+"expressions."
+msgstr ""
+
+#: ../../../guide/tutorial/Testing and CTest.rst:37
+msgid "ctest --test-dir build -R SpecificTest"
+msgstr ""
+
+#: ../../../guide/tutorial/Testing and CTest.rst:41
+msgid ""
+"CTest also has advanced mechanisms for scripting, fixtures, sanitizers, job "
+"servers, metric reportings, and much more. See the :manual:`ctest(1)` manual "
+"for more information."
+msgstr ""
+
+#: ../../../guide/tutorial/Testing and CTest.rst:46
+msgid "Exercise 1 - Adding Tests"
+msgstr ""
+
+#: ../../../guide/tutorial/Testing and CTest.rst:48
+msgid ""
+"CTest convention dictates the building and running of tests be based on a "
+"default-``ON`` variable named :variable:`BUILD_TESTING`. When using the full "
+"suite of CTest capabilities via the :module:`CTest` module, this :command:"
+"`option` is setup for us. When using a more stripped-down approach to "
+"testing, it's expected the project will setup the option (or at least one of "
+"a similar name) on its own."
+msgstr ""
+
+#: ../../../guide/tutorial/Testing and CTest.rst:55
+msgid ""
+"When :variable:`BUILD_TESTING` is true, the :command:`enable_testing` "
+"command should be called in the root CML."
+msgstr ""
+
+#: ../../../guide/tutorial/Testing and CTest.rst:58
+msgid "enable_testing()"
+msgstr ""
+
+#: ../../../guide/tutorial/Testing and CTest.rst:62
+msgid ""
+"This will generate all the necessary metadata into the build tree for CTest "
+"to find and run tests."
+msgstr ""
+
+#: ../../../guide/tutorial/Testing and CTest.rst:65
+msgid ""
+"Once that has been done, the :command:`add_test` command can be used to "
+"create a test anywhere in the project. The semantics of this command are "
+"similar to :command:`add_custom_command`; we can name an executable target "
+"as the \"command\"."
+msgstr ""
+
+#: ../../../guide/tutorial/Testing and CTest.rst:69
+msgid ""
+"add_test(\n"
+"  NAME MyAppWithTestFlag\n"
+"  COMMAND MyApp --test\n"
+")"
+msgstr ""
+
+#: ../../../guide/tutorial/Testing and CTest.rst:77
+msgid "Goal"
+msgstr ""
+
+#: ../../../guide/tutorial/Testing and CTest.rst:79
+msgid ""
+"Add tests for the MathFunctions library to the project and run them with "
+"CTest."
+msgstr ""
+
+#: ../../../guide/tutorial/Testing and CTest.rst:82
+msgid "Helpful Resources"
+msgstr ""
+
+#: ../../../guide/tutorial/Testing and CTest.rst:84
+msgid ":variable:`BUILD_TESTING`"
+msgstr ""
+
+#: ../../../guide/tutorial/Testing and CTest.rst:85
+msgid ":command:`enable_testing`"
+msgstr ""
+
+#: ../../../guide/tutorial/Testing and CTest.rst:86
+msgid ":command:`function`"
+msgstr ""
+
+#: ../../../guide/tutorial/Testing and CTest.rst:87
+msgid ":command:`add_test`"
+msgstr ""
+
+#: ../../../guide/tutorial/Testing and CTest.rst:90
+msgid "Files to Edit"
+msgstr ""
+
+#: ../../../guide/tutorial/Testing and CTest.rst:92
+msgid "``Tests/CMakeLists.txt``"
+msgstr ""
+
+#: ../../../guide/tutorial/Testing and CTest.rst:93
+msgid "``CMakeLists.txt``"
+msgstr ""
+
+#: ../../../guide/tutorial/Testing and CTest.rst:96
+msgid "Getting Started"
+msgstr ""
+
+#: ../../../guide/tutorial/Testing and CTest.rst:98
+msgid ""
+"A testing program has been written in the file ``Tests/TestMathFunctions."
+"cxx``. This program takes a single command line argument, the math function "
+"to be tested, with valid values of ``add``, ``mul``, ``sqrt``, and ``sub``. "
+"The return code is zero if the operation is recognized and the calculated "
+"value is valid, otherwise it is non-zero."
+msgstr ""
+
+#: ../../../guide/tutorial/Testing and CTest.rst:104
+msgid "Complete ``TODO 1`` through ``TODO 7``."
+msgstr ""
+
+#: ../../../guide/tutorial/Testing and CTest.rst:107
+msgid "Build and Run"
+msgstr ""
+
+#: ../../../guide/tutorial/Testing and CTest.rst:109
+msgid "No special configuration is needed, configure and build as usual."
+msgstr ""
+
+#: ../../../guide/tutorial/Testing and CTest.rst:111
+msgid ""
+"cmake --preset tutorial\n"
+"cmake --build build"
+msgstr ""
+
+#: ../../../guide/tutorial/Testing and CTest.rst:116
+msgid "Verify all the tests pass with CTest."
+msgstr ""
+
+#: ../../../guide/tutorial/Testing and CTest.rst:120
+msgid ""
+"If using a multi-config generator, eg Visual Studio, it will be necessary to "
+"specify a configuration with ``ctest -C <config> <remaining flags>``, where "
+"``<config>`` is a value like ``Debug`` or ``Release``. This is true whenever "
+"using a multi-config generator, and won't be called out specifically in "
+"future commands."
+msgstr ""
+
+#: ../../../guide/tutorial/Testing and CTest.rst:130
+msgid "You can run individual tests with the :option:`-R <ctest -R>` flag."
+msgstr ""
+
+#: ../../../guide/tutorial/Testing and CTest.rst:132
+msgid "ctest --test-dir build -R sqrt"
+msgstr ""
+
+#: ../../../guide/tutorial/Testing and CTest.rst:137
+msgid "Solution"
+msgstr ""
+
+#: ../../../guide/tutorial/Testing and CTest.rst:139
+msgid "First we add a new executable for the tests."
+msgstr ""
+
+#: ../../../guide/tutorial/Testing and CTest.rst:141
+msgid "<details><summary>TODO 1-2: Click to show/hide answer</summary>"
+msgstr ""
+
+#: ../../../guide/tutorial/Testing and CTest.rst:145
+msgid "TODO 1-2: Tests/CMakeLists.txt"
+msgstr ""
+
+#: ../../../guide/tutorial/Testing and CTest.rst:145
+msgid ""
+"add_executable(TestMathFunctions)\n"
+"\n"
+"target_sources(TestMathFunctions\n"
+"  PRIVATE\n"
+"    TestMathFunctions.cxx\n"
+")\n"
+msgstr ""
+
+#: ../../../guide/tutorial/Testing and CTest.rst:153 CTest.rst:170
+#: CTest.rst:188 CTest.rst:205 CTest.rst:230
+msgid "</details>"
+msgstr ""
+
+#: ../../../guide/tutorial/Testing and CTest.rst:157
+msgid "Then we link in the library we are testing."
+msgstr ""
+
+#: ../../../guide/tutorial/Testing and CTest.rst:159
+msgid "<details><summary>TODO 3: Click to show/hide answer</summary>"
+msgstr ""
+
+#: ../../../guide/tutorial/Testing and CTest.rst:163
+msgid "TODO 3: Tests/CMakeLists.txt"
+msgstr ""
+
+#: ../../../guide/tutorial/Testing and CTest.rst:163
+msgid ""
+"target_link_libraries(TestMathFunctions\n"
+"  PRIVATE\n"
+"    MathFunctions\n"
+")\n"
+msgstr ""
+
+#: ../../../guide/tutorial/Testing and CTest.rst:174
+msgid ""
+"We need to call :command:`add_test` for each of the valid operations, but "
+"this would get repetitive, so we write a :command:`function` to do it for us."
+msgstr ""
+
+#: ../../../guide/tutorial/Testing and CTest.rst:177
+msgid "<details><summary>TODO 4: Click to show/hide answer</summary>"
+msgstr ""
+
+#: ../../../guide/tutorial/Testing and CTest.rst:181
+msgid "TODO 4: Tests/CMakeLists.txt"
+msgstr ""
+
+#: ../../../guide/tutorial/Testing and CTest.rst:181
+msgid ""
+"function(MathFunctionTest op)\n"
+"  add_test(\n"
+"    NAME ${op}\n"
+"    COMMAND TestMathFunctions ${op}\n"
+"  )\n"
+"endfunction()\n"
+msgstr ""
+
+#: ../../../guide/tutorial/Testing and CTest.rst:192
+msgid "Now we can use our :command:`function` to add all the tests."
+msgstr ""
+
+#: ../../../guide/tutorial/Testing and CTest.rst:194
+msgid "<details><summary>TODO 5: Click to show/hide answer</summary>"
+msgstr ""
+
+#: ../../../guide/tutorial/Testing and CTest.rst:198
+msgid "TODO 5: Tests/CMakeLists.txt"
+msgstr ""
+
+#: ../../../guide/tutorial/Testing and CTest.rst:198
+msgid ""
+"MathFunctionTest(add)\n"
+"MathFunctionTest(mul)\n"
+"MathFunctionTest(sqrt)\n"
+"MathFunctionTest(sub)\n"
+msgstr ""
+
+#: ../../../guide/tutorial/Testing and CTest.rst:209
+msgid ""
+"Finally, we can add the :variable:`BUILD_TESTING` option and conditionally "
+"enable building and running tests in the top-level CML."
+msgstr ""
+
+#: ../../../guide/tutorial/Testing and CTest.rst:212
+msgid "<details><summary>TODO 6-7: Click to show/hide answer</summary>"
+msgstr ""
+
+#: ../../../guide/tutorial/Testing and CTest.rst:216
+msgid "TODO 6: CMakeLists.txt"
+msgstr ""
+
+#: ../../../guide/tutorial/Testing and CTest.rst:216
+msgid "option(BUILD_TESTING \"Enable testing and build tests\" ON)\n"
+msgstr ""
+
+#: ../../../guide/tutorial/Testing and CTest.rst:223
+msgid "TODO 7: CMakeLists.txt"
+msgstr ""
+
+#: ../../../guide/tutorial/Testing and CTest.rst:223
+msgid ""
+"if(BUILD_TESTING)\n"
+"  enable_testing()\n"
+"  add_subdirectory(Tests)\n"
+"endif()\n"
+msgstr ""
