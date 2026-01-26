@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+
+<html lang="zh-TW" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>cmake-生成器(7) &mdash; CMake 3.6.3 Documentation</title>
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a3862c66" />
+    <link rel="stylesheet" type="text/css" href="../_static/cmake.css?v=4d06bd55" />
+    
+    <script src="../_static/documentation_options.js?v=7fa9c350"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/translations.js?v=cbf116e0"></script>
+    
+    <link rel="canonical" href="https://projects.localizethedocs.org/cmake-docs-l10n/manual/cmake-generators.7.html" />
+    <link rel="icon" href="../_static/cmake-favicon.ico"/>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜尋" href="../search.html" />
+    <link rel="next" title="Borland Makefiles" href="../generator/Borland%20Makefiles.html" />
+    <link rel="prev" title="cmake-生成器表達式(7)" href="cmake-generator-expressions.7.html" />
+
+ 
+
+    <script type="text/javascript" src="../ltd-provenance.js"></script>
+    <script type="text/javascript" src="../ltd-current.js"></script>
+    <script type="text/javascript" src="../../../ltd-config.js"></script>
+    <script type="text/javascript" src="../../../ltd-flyout.js"></script>
+
+  </head><body>
+    <input id="sidebar-check" type="checkbox" />
+    <label id="sidebar-overlay" for="sidebar-check"></label>
+
+
+
+    <div class="related relbar1" role="navigation" aria-label="Related">
+      <h3>瀏覽</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="總索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="../generator/Borland%20Makefiles.html" title="Borland Makefiles"
+             accesskey="N">下一頁</a> |</li>
+        <li class="right" >
+          <a href="cmake-generator-expressions.7.html" title="cmake-生成器表達式(7)"
+             accesskey="P">上一頁</a> |</li>
+  <li>
+    <label class="sidebar-toggle" for="sidebar-check"></label>
+  </li>
+  <li class="rootlink">
+    <img src="../_static/cmake-logo-16.png" width="16" height="16" alt=""/>
+    <a href="https://cmake.org/">CMake 3.6.3</a>
+    <span class="reldelim1"> &#187;</span>
+  </li>
+  <li>
+    <a href="../index.html">文件</a> &#187;
+  </li>
+
+        <li class="nav-item nav-item-this"><a href="">cmake-生成器(7)</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <span class="target" id="manual:cmake-generators(7)"></span><section id="cmake-generators-7">
+<h1><a class="toc-backref" href="#id4" role="doc-backlink">cmake-生成器(7)</a><a class="headerlink" href="#cmake-generators-7" title="連結到這個標頭">¶</a></h1>
+<nav class="contents" id="id1">
+<p class="topic-title">目錄</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#cmake-generators-7" id="id4">cmake-生成器(7)</a></p>
+<ul>
+<li><p><a class="reference internal" href="#introduction" id="id5">介紹</a></p></li>
+<li><p><a class="reference internal" href="#cmake-generators" id="id6">CMake 生成器</a></p>
+<ul>
+<li><p><a class="reference internal" href="#command-line-build-tool-generators" id="id7">命令行建置工具生成器</a></p>
+<ul>
+<li><p><a class="reference internal" href="#makefile-generators" id="id8">Makefile 生成器</a></p></li>
+<li><p><a class="reference internal" href="#ninja-generator" id="id9">Ninja 生成器</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#ide-build-tool-generators" id="id10">IDE 建置工具生成器</a></p>
+<ul>
+<li><p><a class="reference internal" href="#visual-studio-generators" id="id11">Visual Studio 生成器</a></p></li>
+<li><p><a class="reference internal" href="#other-generators" id="id12">其他生成器</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#extra-generators" id="id13">額外生成器</a></p></li>
+</ul>
+</li>
+</ul>
+</nav>
+<section id="introduction">
+<h2><a class="toc-backref" href="#id5" role="doc-backlink">介紹</a><a class="headerlink" href="#introduction" title="連結到這個標頭">¶</a></h2>
+<p><em>CMake 生成器</em>負責為原生建置系統編寫輸入檔。在一個建置樹中必須選取其中一個 <a class="reference external" href="CMakeGenerators">CMake 生成器</a>，以決定要使用哪種原生建置系統。此外，可以選取其中一個<a class="reference external" href="ExtraGenerators">額外生成器</a>作為某些<a class="reference external" href="Command-LineBuildToolGenerators">命令行建置工具生成器</a>的變體，為輔助 IDE 生成專案檔。</p>
+<p>CMake Generators are platform-specific so each may be available only
+on certain platforms.  The <span class="target" id="index-0-manual:cmake(1)"></span><a class="reference internal" href="cmake.1.html#manual:cmake(1)" title="cmake(1)"><code class="xref cmake cmake-manual docutils literal notranslate"><span class="pre">cmake(1)</span></code></a> command-line tool <code class="docutils literal notranslate"><span class="pre">--help</span></code>
+output lists available generators on the current platform.  Use its <code class="docutils literal notranslate"><span class="pre">-G</span></code>
+option to specify the generator for a new build tree.
+The <span class="target" id="index-0-manual:cmake-gui(1)"></span><a class="reference internal" href="cmake-gui.1.html#manual:cmake-gui(1)" title="cmake-gui(1)"><code class="xref cmake cmake-manual docutils literal notranslate"><span class="pre">cmake-gui(1)</span></code></a> offers interactive selection of a generator
+when creating a new build tree.</p>
+</section>
+<section id="cmake-generators">
+<h2><a class="toc-backref" href="#id6" role="doc-backlink">CMake 生成器</a><a class="headerlink" href="#cmake-generators" title="連結到這個標頭">¶</a></h2>
+<section id="command-line-build-tool-generators">
+<h3><a class="toc-backref" href="#id7" role="doc-backlink">命令行建置工具生成器</a><a class="headerlink" href="#command-line-build-tool-generators" title="連結到這個標頭">¶</a></h3>
+<p>這些生成器支援命令行建置工具。為了使用它們，必須從已經為所選編譯器和建置工具組態好環境的命令行提示字元中啟動 CMake。</p>
+<section id="makefile-generators">
+<span id="id2"></span><h4><a class="toc-backref" href="#id8" role="doc-backlink">Makefile 生成器</a><a class="headerlink" href="#makefile-generators" title="連結到這個標頭">¶</a></h4>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../generator/Borland%20Makefiles.html">Borland Makefiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../generator/MSYS%20Makefiles.html">MSYS Makefiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../generator/MinGW%20Makefiles.html">MinGW Makefiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../generator/NMake%20Makefiles.html">NMake Makefiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../generator/NMake%20Makefiles%20JOM.html">NMake Makefiles JOM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../generator/Unix%20Makefiles.html">Unix Makefiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../generator/Watcom%20WMake.html">Watcom WMake</a></li>
+</ul>
+</div>
+</section>
+<section id="ninja-generator">
+<h4><a class="toc-backref" href="#id9" role="doc-backlink">Ninja 生成器</a><a class="headerlink" href="#ninja-generator" title="連結到這個標頭">¶</a></h4>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../generator/Ninja.html">Ninja</a></li>
+</ul>
+</div>
+</section>
+</section>
+<section id="ide-build-tool-generators">
+<h3><a class="toc-backref" href="#id10" role="doc-backlink">IDE 建置工具生成器</a><a class="headerlink" href="#ide-build-tool-generators" title="連結到這個標頭">¶</a></h3>
+<p>這些生成器支援整合式開發環境（IDE）的專案檔。由於 IDE 會自行組態其環境，因此可從任何環境中啟動 CMake。</p>
+<section id="visual-studio-generators">
+<span id="id3"></span><h4><a class="toc-backref" href="#id11" role="doc-backlink">Visual Studio 生成器</a><a class="headerlink" href="#visual-studio-generators" title="連結到這個標頭">¶</a></h4>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../generator/Visual%20Studio%206.html">Visual Studio 6</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../generator/Visual%20Studio%207.html">Visual Studio 7</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../generator/Visual%20Studio%207%20.NET%202003.html">Visual Studio 7 .NET 2003</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../generator/Visual%20Studio%208%202005.html">Visual Studio 8 2005</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../generator/Visual%20Studio%209%202008.html">Visual Studio 9 2008</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../generator/Visual%20Studio%2010%202010.html">Visual Studio 10 2010</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../generator/Visual%20Studio%2011%202012.html">Visual Studio 11 2012</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../generator/Visual%20Studio%2012%202013.html">Visual Studio 12 2013</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../generator/Visual%20Studio%2014%202015.html">Visual Studio 14 2015</a></li>
+</ul>
+</div>
+</section>
+<section id="other-generators">
+<h4><a class="toc-backref" href="#id12" role="doc-backlink">其他生成器</a><a class="headerlink" href="#other-generators" title="連結到這個標頭">¶</a></h4>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../generator/Green%20Hills%20MULTI.html">Green Hills MULTI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../generator/Xcode.html">Xcode</a></li>
+</ul>
+</div>
+</section>
+</section>
+</section>
+<section id="extra-generators">
+<h2><a class="toc-backref" href="#id13" role="doc-backlink">額外生成器</a><a class="headerlink" href="#extra-generators" title="連結到這個標頭">¶</a></h2>
+<p>Some of the <a class="reference internal" href="#cmake-generators">CMake Generators</a> listed in the <span class="target" id="index-1-manual:cmake(1)"></span><a class="reference internal" href="cmake.1.html#manual:cmake(1)" title="cmake(1)"><code class="xref cmake cmake-manual docutils literal notranslate"><span class="pre">cmake(1)</span></code></a>
+command-line tool <code class="docutils literal notranslate"><span class="pre">--help</span></code> output may have variants that specify
+an extra generator for an auxiliary IDE tool.  Such generator
+names have the form <code class="docutils literal notranslate"><span class="pre">&lt;extra-generator&gt;</span> <span class="pre">-</span> <span class="pre">&lt;main-generator&gt;</span></code>.
+The following extra generators are known to CMake.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../generator/CodeBlocks.html">CodeBlocks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../generator/CodeLite.html">CodeLite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../generator/Eclipse%20CDT4.html">Eclipse CDT4</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../generator/KDevelop3.html">KDevelop3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../generator/Kate.html">Kate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../generator/Sublime%20Text%202.html">Sublime Text 2</a></li>
+</ul>
+</div>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3>目次表</h3>
+    <ul>
+<li><a class="reference internal" href="#">cmake-生成器(7)</a><ul>
+<li><a class="reference internal" href="#introduction">介紹</a></li>
+<li><a class="reference internal" href="#cmake-generators">CMake 生成器</a><ul>
+<li><a class="reference internal" href="#command-line-build-tool-generators">命令行建置工具生成器</a><ul>
+<li><a class="reference internal" href="#makefile-generators">Makefile 生成器</a></li>
+<li><a class="reference internal" href="#ninja-generator">Ninja 生成器</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#ide-build-tool-generators">IDE 建置工具生成器</a><ul>
+<li><a class="reference internal" href="#visual-studio-generators">Visual Studio 生成器</a></li>
+<li><a class="reference internal" href="#other-generators">其他生成器</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#extra-generators">額外生成器</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>上個話題</h4>
+    <p class="topless"><a href="cmake-generator-expressions.7.html"
+                          title="上個章節">cmake-生成器表達式(7)</a></p>
+  </div>
+  <div>
+    <h4>下個話題</h4>
+    <p class="topless"><a href="../generator/Borland%20Makefiles.html"
+                          title="下個章節">Borland Makefiles</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>本頁</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/manual/cmake-generators.7.rst.txt"
+            rel="nofollow">顯示來源碼</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜尋</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="前往" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>瀏覽</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="總索引"
+             >索引</a></li>
+        <li class="right" >
+          <a href="../generator/Borland%20Makefiles.html" title="Borland Makefiles"
+             >下一頁</a> |</li>
+        <li class="right" >
+          <a href="cmake-generator-expressions.7.html" title="cmake-生成器表達式(7)"
+             >上一頁</a> |</li>
+  <li>
+    <label class="sidebar-toggle" for="sidebar-check"></label>
+  </li>
+  <li class="rootlink">
+    <img src="../_static/cmake-logo-16.png" width="16" height="16" alt=""/>
+    <a href="https://cmake.org/">CMake 3.6.3</a>
+    <span class="reldelim1"> &#187;</span>
+  </li>
+  <li>
+    <a href="../index.html">文件</a> &#187;
+  </li>
+
+        <li class="nav-item nav-item-this"><a href="">cmake-生成器(7)</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+    &#169; 著作權 2000-2016 Kitware, Inc..
+      使用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3 建立。
+    </div>
+<script type="text/javascript">
+(function() {
+  "use strict";
+  const hide = () => document.getElementById("sidebar-check").checked = false;
+  addEventListener("keydown", e => (e.key === "Escape") && hide());
+  addEventListener("click", e => (e.target.tagName === "A") && hide());
+  addEventListener("hashchange", hide)
+})();
+</script>
+  </body>
+</html>

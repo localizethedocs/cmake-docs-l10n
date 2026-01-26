@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>CheckCompilerFlag &mdash; CMake 3.26.6-dirty Documentation</title>
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a3862c66" />
+    <link rel="stylesheet" type="text/css" href="../_static/cmake.css?v=4d06bd55" />
+    
+    <script src="../_static/documentation_options.js?v=712ef0a0"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/translations.js?v=beaddf03"></script>
+    
+    <link rel="canonical" href="https://projects.localizethedocs.org/cmake-docs-l10n/module/CheckCompilerFlag.html" />
+    <link rel="icon" href="../_static/cmake-favicon.ico"/>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="CheckCSourceCompiles" href="CheckCSourceCompiles.html" />
+    <link rel="prev" title="CheckCCompilerFlag" href="CheckCCompilerFlag.html" />
+
+ 
+
+    <script type="text/javascript" src="../ltd-provenance.js"></script>
+    <script type="text/javascript" src="../ltd-current.js"></script>
+    <script type="text/javascript" src="../../../ltd-config.js"></script>
+    <script type="text/javascript" src="../../../ltd-flyout.js"></script>
+
+  </head><body>
+    <input id="sidebar-check" type="checkbox" />
+    <label id="sidebar-overlay" for="sidebar-check"></label>
+
+
+
+    <div class="related relbar1" role="navigation" aria-label="Related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="总索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="CheckCSourceCompiles.html" title="CheckCSourceCompiles"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="CheckCCompilerFlag.html" title="CheckCCompilerFlag"
+             accesskey="P">上一页</a> |</li>
+  <li>
+    <label class="sidebar-toggle" for="sidebar-check"></label>
+  </li>
+  <li class="rootlink">
+    <img src="../_static/cmake-logo-16.png" width="16" height="16" alt=""/>
+    <a href="https://cmake.org/">CMake 3.26.6-dirty</a>
+    <span class="reldelim1"> &#187;</span>
+  </li>
+  <li>
+    <a href="../index.html">Documentation</a> &#187;
+  </li>
+
+          <li class="nav-item nav-item-1"><a href="../manual/cmake-modules.7.html" accesskey="U">cmake-modules(7)</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">CheckCompilerFlag</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="checkcompilerflag">
+<span id="module:CheckCompilerFlag"></span><h1>CheckCompilerFlag<a class="headerlink" href="#checkcompilerflag" title="Link to this heading">¶</a></h1>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 3.19.</span></p>
+</div>
+<p>Check whether the compiler supports a given flag.</p>
+<dl class="cmake command">
+<dt class="sig sig-object cmake" id="command:check_compiler_flag">
+<span class="sig-name descname"><span class="pre">check_compiler_flag</span></span><a class="headerlink" href="#command:check_compiler_flag" title="Link to this definition">¶</a></dt>
+<dd><div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">check_compiler_flag(</span><span class="nv">&lt;lang&gt;</span><span class="w"> </span><span class="nv">&lt;flag&gt;</span><span class="w"> </span><span class="nv">&lt;var&gt;</span><span class="nf">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<p>Check that the <code class="docutils literal notranslate"><span class="pre">&lt;flag&gt;</span></code> is accepted by the compiler without a diagnostic.
+Stores the result in an internal cache entry named <code class="docutils literal notranslate"><span class="pre">&lt;var&gt;</span></code>.</p>
+<p>This command temporarily sets the <code class="docutils literal notranslate"><span class="pre">CMAKE_REQUIRED_DEFINITIONS</span></code> variable
+and calls the <code class="docutils literal notranslate"><span class="pre">check_source_compiles(&lt;LANG&gt;)</span></code> function from the
+<span class="target" id="index-0-module:CheckSourceCompiles"></span><a class="reference internal" href="CheckSourceCompiles.html#module:CheckSourceCompiles" title="CheckSourceCompiles"><code class="xref cmake cmake-module docutils literal notranslate"><span class="pre">CheckSourceCompiles</span></code></a> module.  See documentation of that
+module for a listing of variables that can otherwise modify the build.</p>
+<p>A positive result from this check indicates only that the compiler did not
+issue a diagnostic message when given the flag.  Whether the flag has any
+effect or even a specific one is beyond the scope of this module.</p>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p>Since the <span class="target" id="index-0-command:try_compile"></span><a class="reference internal" href="../command/try_compile.html#command:try_compile" title="try_compile"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">try_compile()</span></code></a> command forwards flags from variables
+like <span class="target" id="index-0-variable:CMAKE_&lt;LANG&gt;_FLAGS"></span><a class="reference internal" href="../variable/CMAKE_LANG_FLAGS.html#variable:CMAKE_&lt;LANG&gt;_FLAGS" title="CMAKE_&lt;LANG&gt;_FLAGS"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_&lt;LANG&gt;_FLAGS</span></code></a>, unknown flags
+in such variables may cause a false negative for this check.</p>
+</div>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h4>上一主题</h4>
+    <p class="topless"><a href="CheckCCompilerFlag.html"
+                          title="上一章">CheckCCompilerFlag</a></p>
+  </div>
+  <div>
+    <h4>下一主题</h4>
+    <p class="topless"><a href="CheckCSourceCompiles.html"
+                          title="下一章">CheckCSourceCompiles</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>本页</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/module/CheckCompilerFlag.rst.txt"
+            rel="nofollow">显示源代码</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="提交" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="总索引"
+             >索引</a></li>
+        <li class="right" >
+          <a href="CheckCSourceCompiles.html" title="CheckCSourceCompiles"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="CheckCCompilerFlag.html" title="CheckCCompilerFlag"
+             >上一页</a> |</li>
+  <li>
+    <label class="sidebar-toggle" for="sidebar-check"></label>
+  </li>
+  <li class="rootlink">
+    <img src="../_static/cmake-logo-16.png" width="16" height="16" alt=""/>
+    <a href="https://cmake.org/">CMake 3.26.6-dirty</a>
+    <span class="reldelim1"> &#187;</span>
+  </li>
+  <li>
+    <a href="../index.html">Documentation</a> &#187;
+  </li>
+
+          <li class="nav-item nav-item-1"><a href="../manual/cmake-modules.7.html" >cmake-modules(7)</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">CheckCompilerFlag</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+    &#169; 版权所有 2000-2023 Kitware, Inc. and Contributors.
+      由 <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3创建。
+    </div>
+<script type="text/javascript">
+(function() {
+  "use strict";
+  const hide = () => document.getElementById("sidebar-check").checked = false;
+  addEventListener("keydown", e => (e.key === "Escape") && hide());
+  addEventListener("click", e => (e.target.tagName === "A") && hide());
+  addEventListener("hashchange", hide)
+})();
+</script>
+  </body>
+</html>

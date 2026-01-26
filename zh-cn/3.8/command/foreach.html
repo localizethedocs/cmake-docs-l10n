@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>foreach &mdash; CMake 3.8.2 Documentation</title>
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a3862c66" />
+    <link rel="stylesheet" type="text/css" href="../_static/cmake.css?v=4d06bd55" />
+    
+    <script src="../_static/documentation_options.js?v=c92f1935"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/translations.js?v=beaddf03"></script>
+    
+    <link rel="canonical" href="https://projects.localizethedocs.org/cmake-docs-l10n/command/foreach.html" />
+    <link rel="icon" href="../_static/cmake-favicon.ico"/>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="function" href="function.html" />
+    <link rel="prev" title="fltk_wrap_ui" href="fltk_wrap_ui.html" />
+
+ 
+
+    <script type="text/javascript" src="../ltd-provenance.js"></script>
+    <script type="text/javascript" src="../ltd-current.js"></script>
+    <script type="text/javascript" src="../../../ltd-config.js"></script>
+    <script type="text/javascript" src="../../../ltd-flyout.js"></script>
+
+  </head><body>
+    <input id="sidebar-check" type="checkbox" />
+    <label id="sidebar-overlay" for="sidebar-check"></label>
+
+
+
+    <div class="related relbar1" role="navigation" aria-label="Related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="总索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="function.html" title="function"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="fltk_wrap_ui.html" title="fltk_wrap_ui"
+             accesskey="P">上一页</a> |</li>
+  <li>
+    <label class="sidebar-toggle" for="sidebar-check"></label>
+  </li>
+  <li class="rootlink">
+    <img src="../_static/cmake-logo-16.png" width="16" height="16" alt=""/>
+    <a href="https://cmake.org/">CMake 3.8.2</a>
+    <span class="reldelim1"> &#187;</span>
+  </li>
+  <li>
+    <a href="../index.html">Documentation</a> &#187;
+  </li>
+
+          <li class="nav-item nav-item-1"><a href="../manual/cmake-commands.7.html" accesskey="U">cmake-commands(7)</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">foreach</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="foreach">
+<span id="command:foreach"></span><h1>foreach<a class="headerlink" href="#foreach" title="Link to this heading">¶</a></h1>
+<p>Evaluate a group of commands for each value in a list.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>foreach(loop_var arg1 arg2 ...)
+  COMMAND1(ARGS ...)
+  COMMAND2(ARGS ...)
+  ...
+endforeach(loop_var)
+</pre></div>
+</div>
+<p>All commands between foreach and the matching endforeach are recorded
+without being invoked.  Once the endforeach is evaluated, the recorded
+list of commands is invoked once for each argument listed in the
+original foreach command.  Before each iteration of the loop
+<code class="docutils literal notranslate"><span class="pre">${loop_var}</span></code> will be set as a variable with the current value in the
+list.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>foreach(loop_var RANGE total)
+foreach(loop_var RANGE start stop [step])
+</pre></div>
+</div>
+<p>Foreach can also iterate over a generated range of numbers.  There are
+three types of this iteration:</p>
+<ul class="simple">
+<li><p>When specifying single number, the range will have elements 0 to
+&quot;total&quot;.</p></li>
+<li><p>When specifying two numbers, the range will have elements from the
+first number to the second number.</p></li>
+<li><p>The third optional number is the increment used to iterate from the
+first number to the second number.</p></li>
+</ul>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>foreach(loop_var IN [LISTS [list1 [...]]]
+                    [ITEMS [item1 [...]]])
+</pre></div>
+</div>
+<p>Iterates over a precise list of items.  The <code class="docutils literal notranslate"><span class="pre">LISTS</span></code> option names
+list-valued variables to be traversed, including empty elements (an
+empty string is a zero-length list).  (Note macro
+arguments are not variables.)  The <code class="docutils literal notranslate"><span class="pre">ITEMS</span></code> option ends argument
+parsing and includes all arguments following it in the iteration.</p>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h4>上一主题</h4>
+    <p class="topless"><a href="fltk_wrap_ui.html"
+                          title="上一章">fltk_wrap_ui</a></p>
+  </div>
+  <div>
+    <h4>下一主题</h4>
+    <p class="topless"><a href="function.html"
+                          title="下一章">function</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>本页</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/command/foreach.rst.txt"
+            rel="nofollow">显示源代码</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="提交" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="总索引"
+             >索引</a></li>
+        <li class="right" >
+          <a href="function.html" title="function"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="fltk_wrap_ui.html" title="fltk_wrap_ui"
+             >上一页</a> |</li>
+  <li>
+    <label class="sidebar-toggle" for="sidebar-check"></label>
+  </li>
+  <li class="rootlink">
+    <img src="../_static/cmake-logo-16.png" width="16" height="16" alt=""/>
+    <a href="https://cmake.org/">CMake 3.8.2</a>
+    <span class="reldelim1"> &#187;</span>
+  </li>
+  <li>
+    <a href="../index.html">Documentation</a> &#187;
+  </li>
+
+          <li class="nav-item nav-item-1"><a href="../manual/cmake-commands.7.html" >cmake-commands(7)</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">foreach</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+    &#169; 版权所有 2000-2017 Kitware, Inc. and Contributors.
+      由 <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3创建。
+    </div>
+<script type="text/javascript">
+(function() {
+  "use strict";
+  const hide = () => document.getElementById("sidebar-check").checked = false;
+  addEventListener("keydown", e => (e.key === "Escape") && hide());
+  addEventListener("click", e => (e.target.tagName === "A") && hide());
+  addEventListener("hashchange", hide)
+})();
+</script>
+  </body>
+</html>

@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+
+<html lang="zh-TW" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>CMAKE_INSTALL_EXPORTS_AS_PACKAGE_INFO &mdash; CMake 4.2.20260105-g665ec18 Documentation</title>
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a3862c66" />
+    <link rel="stylesheet" type="text/css" href="../_static/cmake.css?v=4d06bd55" />
+    
+    <script src="../_static/documentation_options.js?v=394accd2"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/translations.js?v=cbf116e0"></script>
+    
+    <link rel="canonical" href="https://projects.localizethedocs.org/cmake-docs-l10n/variable/CMAKE_INSTALL_EXPORTS_AS_PACKAGE_INFO.html" />
+    <link rel="icon" href="../_static/cmake-favicon.ico"/>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜尋" href="../search.html" />
+    <link rel="next" title="CMAKE_INSTALL_MESSAGE" href="CMAKE_INSTALL_MESSAGE.html" />
+    <link rel="prev" title="CMAKE_INSTALL_DEFAULT_DIRECTORY_PERMISSIONS" href="CMAKE_INSTALL_DEFAULT_DIRECTORY_PERMISSIONS.html" />
+
+ 
+
+    <script type="text/javascript" src="../ltd-provenance.js"></script>
+    <script type="text/javascript" src="../ltd-current.js"></script>
+    <script type="text/javascript" src="../../../ltd-config.js"></script>
+    <script type="text/javascript" src="../../../ltd-flyout.js"></script>
+
+  </head><body>
+    <input id="sidebar-check" type="checkbox" />
+    <label id="sidebar-overlay" for="sidebar-check"></label>
+
+
+
+    <div class="related relbar1" role="navigation" aria-label="Related">
+      <h3>瀏覽</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="總索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="CMAKE_INSTALL_MESSAGE.html" title="CMAKE_INSTALL_MESSAGE"
+             accesskey="N">下一頁</a> |</li>
+        <li class="right" >
+          <a href="CMAKE_INSTALL_DEFAULT_DIRECTORY_PERMISSIONS.html" title="CMAKE_INSTALL_DEFAULT_DIRECTORY_PERMISSIONS"
+             accesskey="P">上一頁</a> |</li>
+  <li>
+    <label class="sidebar-toggle" for="sidebar-check"></label>
+  </li>
+  <li class="rootlink">
+    <img src="../_static/cmake-logo-16.png" width="16" height="16" alt=""/>
+    <a href="https://cmake.org/">CMake 4.2.20260105-g665ec18</a>
+    <span class="reldelim1"> &#187;</span>
+  </li>
+  <li>
+    <a href="../index.html">文件</a> &#187;
+  </li>
+
+          <li class="nav-item nav-item-1"><a href="../manual/cmake-variables.7.html" accesskey="U">cmake-變數(7)</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">CMAKE_INSTALL_EXPORTS_AS_PACKAGE_INFO</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="cmake-install-exports-as-package-info">
+<span id="variable:CMAKE_INSTALL_EXPORTS_AS_PACKAGE_INFO"></span><h1>CMAKE_INSTALL_EXPORTS_AS_PACKAGE_INFO<a class="headerlink" href="#cmake-install-exports-as-package-info" title="連結到這個標頭">¶</a></h1>
+<div class="versionadded">
+<p><span class="versionmodified added">在 4.3 版被加入.</span></p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">備註</p>
+<p>This variable is meaningful only when experimental support has been enabled
+by the <code class="docutils literal notranslate"><span class="pre">CMAKE_EXPERIMENTAL_FIXME</span></code> gate.</p>
+</div>
+<p>A list of directives instructing CMake to install Common Package Specification package information
+when exported target information is installed via <span class="target" id="index-0-command:install"></span><a class="reference internal" href="../command/install.html#export" title="install(export)"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">install(EXPORT)</span></code></a>.
+The value is treated as a list, with each directive having the form
+<code class="docutils literal notranslate"><span class="pre">&lt;export-name&gt;:&lt;package-name&gt;[/[l][a&lt;appendix-name&gt;][/&lt;destination&gt;]]</span></code>.
+Slashes are used to separate different components of the directive.</p>
+<p>Note that this feature is intended for package distributors, and should
+<strong>only</strong> be used when editing a project's CMake script is not feasible.
+Developers should use <span class="target" id="index-1-command:install"></span><a class="reference internal" href="../command/install.html#package-info" title="install(package_info)"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">install(PACKAGE_INFO)</span></code></a> directly.</p>
+<p>Additionally, because <code class="docutils literal notranslate"><span class="pre">CMAKE_INSTALL_EXPORTS_AS_PACKAGE_INFO</span></code> functions by
+emulating a call to <span class="target" id="index-2-command:install"></span><a class="reference internal" href="../command/install.html#package-info" title="install(package_info)"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">install(PACKAGE_INFO)</span></code></a>, using it with a project
+that is already calling <span class="target" id="index-3-command:install"></span><a class="reference internal" href="../command/install.html#package-info" title="install(package_info)"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">install(PACKAGE_INFO)</span></code></a> directly may result
+in conflicting installation directives, which will usually cause the project's
+configure step to fail.</p>
+<p>The meaning of the values is as follows:</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">&lt;export-name&gt;</span></code></dt><dd><p>Name of the export for which package information should be installed.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">&lt;package-name&gt;</span></code></dt><dd><p>Name of the package for which to generate package information.  This is also
+the name that users would use in a <span class="target" id="index-0-command:find_package"></span><a class="reference internal" href="../command/find_package.html#command:find_package" title="find_package"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">find_package()</span></code></a> call.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">l</span></code></dt><dd><p>Optional.  Specifies that the name of the package information file on disk
+should be lower case.  See the <code class="docutils literal notranslate"><span class="pre">LOWER_CASE_FILE</span></code> option of
+<span class="target" id="index-4-command:install"></span><a class="reference internal" href="../command/install.html#package-info" title="install(package_info)"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">install(PACKAGE_INFO)</span></code></a>.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">a&lt;appendix-name&gt;</span></code></dt><dd><p>Optional.  Specifies that an appendix <code class="docutils literal notranslate"><span class="pre">&lt;appendix-name&gt;</span></code> should be created
+rather than a root package description.  See the <code class="docutils literal notranslate"><span class="pre">APPENDIX</span></code> option of
+<span class="target" id="index-5-command:install"></span><a class="reference internal" href="../command/install.html#package-info" title="install(package_info)"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">install(PACKAGE_INFO)</span></code></a>.  Note that additional information
+(see below) cannot be added to appendices.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">&lt;destination&gt;</span></code></dt><dd><p>Optional.  Specifies the destination to which the package information file
+should be installed.  See the <code class="docutils literal notranslate"><span class="pre">DESTINATION</span></code> option of
+<span class="target" id="index-6-command:install"></span><a class="reference internal" href="../command/install.html#package-info" title="install(package_info)"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">install(PACKAGE_INFO)</span></code></a>.  Note that the default is a
+platform-specific location that is appropriate for Common Package Specification files in most
+instances, <em>not</em> the <code class="docutils literal notranslate"><span class="pre">DESTINATION</span></code> of the <span class="target" id="index-7-command:install"></span><a class="reference internal" href="../command/install.html#export" title="install(export)"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">install(EXPORT)</span></code></a>
+which the directive matched.</p>
+</dd>
+</dl>
+<p>For non-appendices, CMake will also infer additional information from several
+CMake variables of the form <code class="docutils literal notranslate"><span class="pre">&lt;export-name&gt;_EXPORT_PACKAGE_INFO_&lt;var&gt;</span></code>.  The
+values of these are first processed as if by <span class="target" id="index-0-command:string"></span><a class="reference internal" href="../command/string.html#configure" title="string(configure)"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">string(CONFIGURE)</span></code></a> with
+the <code class="docutils literal notranslate"><span class="pre">&#64;ONLY</span></code> option.  These are optional, and their effect is equivalent to
+passing their value to the <code class="docutils literal notranslate"><span class="pre">&lt;var&gt;</span></code> option of the
+<span class="target" id="index-8-command:install"></span><a class="reference internal" href="../command/install.html#package-info" title="install(package_info)"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">install(PACKAGE_INFO)</span></code></a> command.</p>
+<p>The additional variables are:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;export-name&gt;_EXPORT_PACKAGE_INFO_VERSION</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;export-name&gt;_EXPORT_PACKAGE_INFO_COMPAT_VERSION</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;export-name&gt;_EXPORT_PACKAGE_INFO_VERSION_SCHEMA</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;export-name&gt;_EXPORT_PACKAGE_INFO_LICENSE</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;export-name&gt;_EXPORT_PACKAGE_INFO_DEFAULT_LICENSE</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;export-name&gt;_EXPORT_PACKAGE_INFO_DEFAULT_CONFIGURATIONS</span></code></p></li>
+</ul>
+</div></blockquote>
+<p>Ideally, the version should be set to <code class="docutils literal notranslate"><span class="pre">&#64;PROJECT_VERSION&#64;</span></code>.  However,
+some projects may not use the <code class="docutils literal notranslate"><span class="pre">VERSION</span></code> option of the <span class="target" id="index-0-command:project"></span><a class="reference internal" href="../command/project.html#command:project" title="project"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">project()</span></code></a>
+command.</p>
+<section id="example">
+<h2>範例<a class="headerlink" href="#example" title="連結到這個標頭">¶</a></h2>
+<p>Consider the following (simplified) project:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">project(</span><span class="nb">Example</span><span class="w"> </span><span class="no">VERSION</span><span class="w"> </span><span class="m">1.2.3</span><span class="w"> </span><span class="no">SPDX_LICENSE</span><span class="w"> </span><span class="s">&quot;BSD-3-Clause&quot;</span><span class="nf">)</span>
+
+<span class="nf">add_library(</span><span class="nb">foo</span><span class="w"> </span><span class="p">...</span><span class="nf">)</span>
+<span class="nf">add_library(</span><span class="nb">bar</span><span class="w"> </span><span class="p">...</span><span class="nf">)</span>
+
+<span class="nf">install(</span><span class="no">TARGETS</span><span class="w"> </span><span class="nb">foo</span><span class="w"> </span><span class="no">EXPORT</span><span class="w"> </span><span class="nb">required-targets</span><span class="nf">)</span>
+<span class="nf">install(</span><span class="no">TARGETS</span><span class="w"> </span><span class="nb">bar</span><span class="w"> </span><span class="no">EXPORT</span><span class="w"> </span><span class="nb">optional-targets</span><span class="nf">)</span>
+
+<span class="nf">install(</span><span class="no">EXPORT</span><span class="w"> </span><span class="nb">required-targets</span><span class="w"> </span><span class="no">FILE</span><span class="w"> </span><span class="nb">example-targets.cmake</span><span class="w"> </span><span class="p">...</span><span class="nf">)</span>
+<span class="nf">install(</span><span class="no">EXPORT</span><span class="w"> </span><span class="nb">optional-targets</span><span class="w"> </span><span class="no">FILE</span><span class="w"> </span><span class="nb">example-optional-targets.cmake</span><span class="w"> </span><span class="p">...</span><span class="nf">)</span>
+</pre></div>
+</div>
+<p>In this example, let <code class="docutils literal notranslate"><span class="pre">example-targets.cmake</span></code> be a file which is always
+installed, and <code class="docutils literal notranslate"><span class="pre">example-optional-targets.cmake</span></code> be a file which is
+optionally installed (e.g. is distributed as part of a separate package which
+depends on the 'base' package).</p>
+<p>Now, imagine we are a distributor that wants to make Common Package Specification package information
+files available to our users, but we do not want to modify the project's build
+files.  We can do this by passing the following arguments to CMake:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>-DCMAKE_EXPERIMENTAL_FIXME=&lt;elided&gt;
+-DCMAKE_INSTALL_EXPORTS_AS_PACKAGE_INFO=\
+  required-targets:Example/l;\
+  optional-targets:Example/laoptional
+-Drequired-targets_EXPORT_PACKAGE_INFO_VERSION=@Example_VERSION@
+-Drequired-targets_EXPORT_PACKAGE_INFO_LICENSE=@Example_SPDX_LICENSE@
+</pre></div>
+</div>
+<p>(Whitespace and line continuation characters, added for readability, should
+be removed in real usage. Arguments may need to be quoted to prevent being
+reinterpreted by the command shell.)</p>
+<p>This will cause CMake to also create and install the files <code class="docutils literal notranslate"><span class="pre">example.cps</span></code> and
+<code class="docutils literal notranslate"><span class="pre">example-optional.cps</span></code> which describe the <code class="docutils literal notranslate"><span class="pre">Example</span></code> package.  We could
+also specify the version and license information using substitutions provided
+by the package build system (e.g. rpm, dpkg) if the project does not provide
+this information via the <span class="target" id="index-1-command:project"></span><a class="reference internal" href="../command/project.html#command:project" title="project"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">project()</span></code></a> command.</p>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3>目次表</h3>
+    <ul>
+<li><a class="reference internal" href="#">CMAKE_INSTALL_EXPORTS_AS_PACKAGE_INFO</a><ul>
+<li><a class="reference internal" href="#example">範例</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>上個話題</h4>
+    <p class="topless"><a href="CMAKE_INSTALL_DEFAULT_DIRECTORY_PERMISSIONS.html"
+                          title="上個章節">CMAKE_INSTALL_DEFAULT_DIRECTORY_PERMISSIONS</a></p>
+  </div>
+  <div>
+    <h4>下個話題</h4>
+    <p class="topless"><a href="CMAKE_INSTALL_MESSAGE.html"
+                          title="下個章節">CMAKE_INSTALL_MESSAGE</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>本頁</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/variable/CMAKE_INSTALL_EXPORTS_AS_PACKAGE_INFO.rst.txt"
+            rel="nofollow">顯示來源碼</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜尋</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="前往" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>瀏覽</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="總索引"
+             >索引</a></li>
+        <li class="right" >
+          <a href="CMAKE_INSTALL_MESSAGE.html" title="CMAKE_INSTALL_MESSAGE"
+             >下一頁</a> |</li>
+        <li class="right" >
+          <a href="CMAKE_INSTALL_DEFAULT_DIRECTORY_PERMISSIONS.html" title="CMAKE_INSTALL_DEFAULT_DIRECTORY_PERMISSIONS"
+             >上一頁</a> |</li>
+  <li>
+    <label class="sidebar-toggle" for="sidebar-check"></label>
+  </li>
+  <li class="rootlink">
+    <img src="../_static/cmake-logo-16.png" width="16" height="16" alt=""/>
+    <a href="https://cmake.org/">CMake 4.2.20260105-g665ec18</a>
+    <span class="reldelim1"> &#187;</span>
+  </li>
+  <li>
+    <a href="../index.html">文件</a> &#187;
+  </li>
+
+          <li class="nav-item nav-item-1"><a href="../manual/cmake-variables.7.html" >cmake-變數(7)</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">CMAKE_INSTALL_EXPORTS_AS_PACKAGE_INFO</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+    &#169; 著作權 2000-2026 Kitware, Inc. and Contributors.
+      使用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3 建立。
+    </div>
+<script type="text/javascript">
+(function() {
+  "use strict";
+  const hide = () => document.getElementById("sidebar-check").checked = false;
+  addEventListener("keydown", e => (e.key === "Escape") && hide());
+  addEventListener("click", e => (e.target.tagName === "A") && hide());
+  addEventListener("hashchange", hide)
+})();
+</script>
+  </body>
+</html>

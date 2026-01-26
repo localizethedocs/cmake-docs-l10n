@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>CMakeParseArguments &mdash; CMake 3.0.2 Documentation</title>
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a3862c66" />
+    <link rel="stylesheet" type="text/css" href="../_static/cmake.css?v=4d06bd55" />
+    
+    <script src="../_static/documentation_options.js?v=e81da863"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/translations.js?v=beaddf03"></script>
+    
+    <link rel="canonical" href="https://projects.localizethedocs.org/cmake-docs-l10n/module/CMakeParseArguments.html" />
+    <link rel="icon" href="../_static/cmake-favicon.ico"/>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="CMakePrintHelpers" href="CMakePrintHelpers.html" />
+    <link rel="prev" title="CMakePackageConfigHelpers" href="CMakePackageConfigHelpers.html" />
+
+ 
+
+    <script type="text/javascript" src="../ltd-provenance.js"></script>
+    <script type="text/javascript" src="../ltd-current.js"></script>
+    <script type="text/javascript" src="../../../ltd-config.js"></script>
+    <script type="text/javascript" src="../../../ltd-flyout.js"></script>
+
+  </head><body>
+    <input id="sidebar-check" type="checkbox" />
+    <label id="sidebar-overlay" for="sidebar-check"></label>
+
+
+
+    <div class="related relbar1" role="navigation" aria-label="Related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="总索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="CMakePrintHelpers.html" title="CMakePrintHelpers"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="CMakePackageConfigHelpers.html" title="CMakePackageConfigHelpers"
+             accesskey="P">上一页</a> |</li>
+  <li>
+    <label class="sidebar-toggle" for="sidebar-check"></label>
+  </li>
+  <li class="rootlink">
+    <img src="../_static/cmake-logo-16.png" width="16" height="16" alt=""/>
+    <a href="https://cmake.org/">CMake 3.0.2</a>
+    <span class="reldelim1"> &#187;</span>
+  </li>
+  <li>
+    <a href="../index.html">Documentation</a> &#187;
+  </li>
+
+          <li class="nav-item nav-item-1"><a href="../manual/cmake-modules.7.html" accesskey="U">cmake-modules(7)</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">CMakeParseArguments</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="cmakeparsearguments">
+<span id="module:CMakeParseArguments"></span><h1>CMakeParseArguments<a class="headerlink" href="#cmakeparsearguments" title="Link to this heading">¶</a></h1>
+<p>CMAKE_PARSE_ARGUMENTS(&lt;prefix&gt; &lt;options&gt; &lt;one_value_keywords&gt;
+&lt;multi_value_keywords&gt; args...)</p>
+<p>CMAKE_PARSE_ARGUMENTS() is intended to be used in macros or functions
+for parsing the arguments given to that macro or function.  It
+processes the arguments and defines a set of variables which hold the
+values of the respective options.</p>
+<p>The &lt;options&gt; argument contains all options for the respective macro,
+i.e.  keywords which can be used when calling the macro without any
+value following, like e.g.  the OPTIONAL keyword of the install()
+command.</p>
+<p>The &lt;one_value_keywords&gt; argument contains all keywords for this macro
+which are followed by one value, like e.g.  DESTINATION keyword of the
+install() command.</p>
+<p>The &lt;multi_value_keywords&gt; argument contains all keywords for this
+macro which can be followed by more than one value, like e.g.  the
+TARGETS or FILES keywords of the install() command.</p>
+<p>When done, CMAKE_PARSE_ARGUMENTS() will have defined for each of the
+keywords listed in &lt;options&gt;, &lt;one_value_keywords&gt; and
+&lt;multi_value_keywords&gt; a variable composed of the given &lt;prefix&gt;
+followed by &quot;_&quot; and the name of the respective keyword.  These
+variables will then hold the respective value from the argument list.
+For the &lt;options&gt; keywords this will be TRUE or FALSE.</p>
+<p>All remaining arguments are collected in a variable
+&lt;prefix&gt;_UNPARSED_ARGUMENTS, this can be checked afterwards to see
+whether your macro was called with unrecognized parameters.</p>
+<p>As an example here a my_install() macro, which takes similar arguments
+as the real install() command:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>function(MY_INSTALL)
+  set(options OPTIONAL FAST)
+  set(oneValueArgs DESTINATION RENAME)
+  set(multiValueArgs TARGETS CONFIGURATIONS)
+  cmake_parse_arguments(MY_INSTALL &quot;${options}&quot; &quot;${oneValueArgs}&quot; &quot;${multiValueArgs}&quot; ${ARGN} )
+  ...
+</pre></div>
+</div>
+<p>Assume my_install() has been called like this:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>my_install(TARGETS foo bar DESTINATION bin OPTIONAL blub)
+</pre></div>
+</div>
+<p>After the cmake_parse_arguments() call the macro will have set the
+following variables:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>MY_INSTALL_OPTIONAL = TRUE
+MY_INSTALL_FAST = FALSE (this option was not used when calling my_install()
+MY_INSTALL_DESTINATION = &quot;bin&quot;
+MY_INSTALL_RENAME = &quot;&quot; (was not used)
+MY_INSTALL_TARGETS = &quot;foo;bar&quot;
+MY_INSTALL_CONFIGURATIONS = &quot;&quot; (was not used)
+MY_INSTALL_UNPARSED_ARGUMENTS = &quot;blub&quot; (no value expected after &quot;OPTIONAL&quot;
+</pre></div>
+</div>
+<p>You can then continue and process these variables.</p>
+<p>Keywords terminate lists of values, e.g.  if directly after a
+one_value_keyword another recognized keyword follows, this is
+interpreted as the beginning of the new option.  E.g.
+my_install(TARGETS foo DESTINATION OPTIONAL) would result in
+MY_INSTALL_DESTINATION set to &quot;OPTIONAL&quot;, but MY_INSTALL_DESTINATION
+would be empty and MY_INSTALL_OPTIONAL would be set to TRUE therefor.</p>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h4>上一主题</h4>
+    <p class="topless"><a href="CMakePackageConfigHelpers.html"
+                          title="上一章">CMakePackageConfigHelpers</a></p>
+  </div>
+  <div>
+    <h4>下一主题</h4>
+    <p class="topless"><a href="CMakePrintHelpers.html"
+                          title="下一章">CMakePrintHelpers</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>本页</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/module/CMakeParseArguments.rst.txt"
+            rel="nofollow">显示源代码</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="提交" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="总索引"
+             >索引</a></li>
+        <li class="right" >
+          <a href="CMakePrintHelpers.html" title="CMakePrintHelpers"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="CMakePackageConfigHelpers.html" title="CMakePackageConfigHelpers"
+             >上一页</a> |</li>
+  <li>
+    <label class="sidebar-toggle" for="sidebar-check"></label>
+  </li>
+  <li class="rootlink">
+    <img src="../_static/cmake-logo-16.png" width="16" height="16" alt=""/>
+    <a href="https://cmake.org/">CMake 3.0.2</a>
+    <span class="reldelim1"> &#187;</span>
+  </li>
+  <li>
+    <a href="../index.html">Documentation</a> &#187;
+  </li>
+
+          <li class="nav-item nav-item-1"><a href="../manual/cmake-modules.7.html" >cmake-modules(7)</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">CMakeParseArguments</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+    &#169; 版权所有 2000-2014 Kitware, Inc..
+      由 <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3创建。
+    </div>
+<script type="text/javascript">
+(function() {
+  "use strict";
+  const hide = () => document.getElementById("sidebar-check").checked = false;
+  addEventListener("keydown", e => (e.key === "Escape") && hide());
+  addEventListener("click", e => (e.target.tagName === "A") && hide());
+  addEventListener("hashchange", hide)
+})();
+</script>
+  </body>
+</html>

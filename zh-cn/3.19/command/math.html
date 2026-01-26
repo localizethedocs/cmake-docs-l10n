@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>math &mdash; CMake 3.19.8-dirty Documentation</title>
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a3862c66" />
+    <link rel="stylesheet" type="text/css" href="../_static/cmake.css?v=4d06bd55" />
+    
+    <script src="../_static/documentation_options.js?v=bced898c"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/translations.js?v=beaddf03"></script>
+    
+    <link rel="canonical" href="https://projects.localizethedocs.org/cmake-docs-l10n/command/math.html" />
+    <link rel="icon" href="../_static/cmake-favicon.ico"/>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="message" href="message.html" />
+    <link rel="prev" title="mark_as_advanced" href="mark_as_advanced.html" />
+
+ 
+
+    <script type="text/javascript" src="../ltd-provenance.js"></script>
+    <script type="text/javascript" src="../ltd-current.js"></script>
+    <script type="text/javascript" src="../../../ltd-config.js"></script>
+    <script type="text/javascript" src="../../../ltd-flyout.js"></script>
+
+  </head><body>
+    <input id="sidebar-check" type="checkbox" />
+    <label id="sidebar-overlay" for="sidebar-check"></label>
+
+
+
+    <div class="related relbar1" role="navigation" aria-label="Related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="总索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="message.html" title="message"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="mark_as_advanced.html" title="mark_as_advanced"
+             accesskey="P">上一页</a> |</li>
+  <li>
+    <label class="sidebar-toggle" for="sidebar-check"></label>
+  </li>
+  <li class="rootlink">
+    <img src="../_static/cmake-logo-16.png" width="16" height="16" alt=""/>
+    <a href="https://cmake.org/">CMake 3.19.8-dirty</a>
+    <span class="reldelim1"> &#187;</span>
+  </li>
+  <li>
+    <a href="../index.html">Documentation</a> &#187;
+  </li>
+
+          <li class="nav-item nav-item-1"><a href="../manual/cmake-commands.7.html" accesskey="U">cmake-commands(7)</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">math</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="math">
+<span id="command:math"></span><h1>math<a class="headerlink" href="#math" title="Link to this heading">¶</a></h1>
+<p>Evaluate a mathematical expression.</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">math(</span><span class="no">EXPR</span><span class="w"> </span><span class="nv">&lt;variable&gt;</span><span class="w"> </span><span class="s">&quot;&lt;expression&gt;&quot;</span><span class="w"> </span><span class="p">[</span><span class="no">OUTPUT_FORMAT</span><span class="w"> </span><span class="nv">&lt;format&gt;</span><span class="p">]</span><span class="nf">)</span>
+</pre></div>
+</div>
+<p>Evaluates a mathematical <code class="docutils literal notranslate"><span class="pre">&lt;expression&gt;</span></code> and sets <code class="docutils literal notranslate"><span class="pre">&lt;variable&gt;</span></code> to the
+resulting value.  The result of the expression must be representable as a
+64-bit signed integer.</p>
+<p>The mathematical expression must be given as a string (i.e. enclosed in
+double quotation marks). An example is <code class="docutils literal notranslate"><span class="pre">&quot;5</span> <span class="pre">*</span> <span class="pre">(10</span> <span class="pre">+</span> <span class="pre">13)&quot;</span></code>.
+Supported operators are <code class="docutils literal notranslate"><span class="pre">+</span></code>, <code class="docutils literal notranslate"><span class="pre">-</span></code>, <code class="docutils literal notranslate"><span class="pre">*</span></code>, <code class="docutils literal notranslate"><span class="pre">/</span></code>, <code class="docutils literal notranslate"><span class="pre">%</span></code>, <code class="docutils literal notranslate"><span class="pre">|</span></code>, <code class="docutils literal notranslate"><span class="pre">&amp;</span></code>,
+<code class="docutils literal notranslate"><span class="pre">^</span></code>, <code class="docutils literal notranslate"><span class="pre">~</span></code>, <code class="docutils literal notranslate"><span class="pre">&lt;&lt;</span></code>, <code class="docutils literal notranslate"><span class="pre">&gt;&gt;</span></code>, and <code class="docutils literal notranslate"><span class="pre">(...)</span></code>; they have the same meaning
+as in C code.</p>
+<p>Hexadecimal numbers are recognized when prefixed with <code class="docutils literal notranslate"><span class="pre">0x</span></code>, as in C code.</p>
+<p>The result is formatted according to the option <code class="docutils literal notranslate"><span class="pre">OUTPUT_FORMAT</span></code>,
+where <code class="docutils literal notranslate"><span class="pre">&lt;format&gt;</span></code> is one of</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">HEXADECIMAL</span></code></dt><dd><p>Hexadecimal notation as in C code, i. e. starting with &quot;0x&quot;.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">DECIMAL</span></code></dt><dd><p>Decimal notation. Which is also used if no <code class="docutils literal notranslate"><span class="pre">OUTPUT_FORMAT</span></code> option
+is specified.</p>
+</dd>
+</dl>
+<p>For example</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">math(</span><span class="no">EXPR</span><span class="w"> </span><span class="nb">value</span><span class="w"> </span><span class="s">&quot;100 * 0xA&quot;</span><span class="w"> </span><span class="no">OUTPUT_FORMAT</span><span class="w"> </span><span class="no">DECIMAL</span><span class="nf">)</span><span class="w">      </span><span class="c"># value is set to &quot;1000&quot;</span>
+<span class="nf">math(</span><span class="no">EXPR</span><span class="w"> </span><span class="nb">value</span><span class="w"> </span><span class="s">&quot;100 * 0xA&quot;</span><span class="w"> </span><span class="no">OUTPUT_FORMAT</span><span class="w"> </span><span class="no">HEXADECIMAL</span><span class="nf">)</span><span class="w">  </span><span class="c"># value is set to &quot;0x3e8&quot;</span>
+</pre></div>
+</div>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h4>上一主题</h4>
+    <p class="topless"><a href="mark_as_advanced.html"
+                          title="上一章">mark_as_advanced</a></p>
+  </div>
+  <div>
+    <h4>下一主题</h4>
+    <p class="topless"><a href="message.html"
+                          title="下一章">message</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>本页</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/command/math.rst.txt"
+            rel="nofollow">显示源代码</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="提交" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="总索引"
+             >索引</a></li>
+        <li class="right" >
+          <a href="message.html" title="message"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="mark_as_advanced.html" title="mark_as_advanced"
+             >上一页</a> |</li>
+  <li>
+    <label class="sidebar-toggle" for="sidebar-check"></label>
+  </li>
+  <li class="rootlink">
+    <img src="../_static/cmake-logo-16.png" width="16" height="16" alt=""/>
+    <a href="https://cmake.org/">CMake 3.19.8-dirty</a>
+    <span class="reldelim1"> &#187;</span>
+  </li>
+  <li>
+    <a href="../index.html">Documentation</a> &#187;
+  </li>
+
+          <li class="nav-item nav-item-1"><a href="../manual/cmake-commands.7.html" >cmake-commands(7)</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">math</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+    &#169; 版权所有 2000-2020 Kitware, Inc. and Contributors.
+      由 <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3创建。
+    </div>
+<script type="text/javascript">
+(function() {
+  "use strict";
+  const hide = () => document.getElementById("sidebar-check").checked = false;
+  addEventListener("keydown", e => (e.key === "Escape") && hide());
+  addEventListener("click", e => (e.target.tagName === "A") && hide());
+  addEventListener("hashchange", hide)
+})();
+</script>
+  </body>
+</html>

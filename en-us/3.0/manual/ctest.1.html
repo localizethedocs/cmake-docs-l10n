@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+
+<html lang="en-US" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>ctest(1) &mdash; CMake 3.0.2 Documentation</title>
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a3862c66" />
+    <link rel="stylesheet" type="text/css" href="../_static/cmake.css?v=4d06bd55" />
+    
+    <script src="../_static/documentation_options.js?v=594aea60"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    
+    <link rel="canonical" href="https://projects.localizethedocs.org/cmake-docs-l10n/manual/ctest.1.html" />
+    <link rel="icon" href="../_static/cmake-favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="cpack(1)" href="cpack.1.html" />
+    <link rel="prev" title="cmake(1)" href="cmake.1.html" />
+
+ 
+
+    <script type="text/javascript" src="../ltd-provenance.js"></script>
+    <script type="text/javascript" src="../ltd-current.js"></script>
+    <script type="text/javascript" src="../../../ltd-config.js"></script>
+    <script type="text/javascript" src="../../../ltd-flyout.js"></script>
+
+  </head><body>
+    <input id="sidebar-check" type="checkbox" />
+    <label id="sidebar-overlay" for="sidebar-check"></label>
+
+
+
+    <div class="related relbar1" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="cpack.1.html" title="cpack(1)"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="cmake.1.html" title="cmake(1)"
+             accesskey="P">previous</a> |</li>
+  <li>
+    <label class="sidebar-toggle" for="sidebar-check"></label>
+  </li>
+  <li class="rootlink">
+    <img src="../_static/cmake-logo-16.png" width="16" height="16" alt=""/>
+    <a href="https://cmake.org/">CMake 3.0.2</a>
+    <span class="reldelim1"> &#187;</span>
+  </li>
+  <li>
+    <a href="../index.html">Documentation</a> &#187;
+  </li>
+
+        <li class="nav-item nav-item-this"><a href="">ctest(1)</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <span class="target" id="manual:ctest(1)"></span><section id="ctest-1">
+<h1>ctest(1)<a class="headerlink" href="#ctest-1" title="Link to this heading">¶</a></h1>
+<section id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Link to this heading">¶</a></h2>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>ctest [&lt;options&gt;]
+</pre></div>
+</div>
+</section>
+<section id="description">
+<h2>Description<a class="headerlink" href="#description" title="Link to this heading">¶</a></h2>
+<p>The &quot;ctest&quot; executable is the CMake test driver program.
+CMake-generated build trees created for projects that use the
+ENABLE_TESTING and ADD_TEST commands have testing support.  This
+program will run the tests and report results.</p>
+</section>
+<section id="options">
+<h2>Options<a class="headerlink" href="#options" title="Link to this heading">¶</a></h2>
+<dl>
+<dt><code class="docutils literal notranslate"><span class="pre">-C</span> <span class="pre">&lt;cfg&gt;,</span> <span class="pre">--build-config</span> <span class="pre">&lt;cfg&gt;</span></code></dt><dd><p>Choose configuration to test.</p>
+<p>Some CMake-generated build trees can have multiple build
+configurations in the same tree.  This option can be used to specify
+which one should be tested.  Example configurations are &quot;Debug&quot; and
+&quot;Release&quot;.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">-V,--verbose</span></code></dt><dd><p>Enable verbose output from tests.</p>
+<p>Test output is normally suppressed and only summary information is
+displayed.  This option will show all test output.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">-VV,--extra-verbose</span></code></dt><dd><p>Enable more verbose output from tests.</p>
+<p>Test output is normally suppressed and only summary information is
+displayed.  This option will show even more test output.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">--debug</span></code></dt><dd><p>Displaying more verbose internals of CTest.</p>
+<p>This feature will result in a large number of output that is mostly
+useful for debugging dashboard problems.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">--output-on-failure</span></code></dt><dd><p>Output anything outputted by the test program if the test should fail.  This option can also be enabled by setting the environment variable CTEST_OUTPUT_ON_FAILURE</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">-F</span></code></dt><dd><p>Enable failover.</p>
+<p>This option allows ctest to resume a test set execution that was
+previously interrupted.  If no interruption occurred, the -F option
+will have no effect.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">-j</span> <span class="pre">&lt;jobs&gt;,</span> <span class="pre">--parallel</span> <span class="pre">&lt;jobs&gt;</span></code></dt><dd><p>Run the tests in parallel using thegiven number of jobs.</p>
+<p>This option tells ctest to run the tests in parallel using given
+number of jobs.  This option can also be set by setting the
+environment variable CTEST_PARALLEL_LEVEL.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">-Q,--quiet</span></code></dt><dd><p>Make ctest quiet.</p>
+<p>This option will suppress all the output.  The output log file will
+still be generated if the --output-log is specified.  Options such
+as --verbose, --extra-verbose, and --debug are ignored if --quiet is
+specified.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">-O</span> <span class="pre">&lt;file&gt;,</span> <span class="pre">--output-log</span> <span class="pre">&lt;file&gt;</span></code></dt><dd><p>Output to log file</p>
+<p>This option tells ctest to write all its output to a log file.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">-N,--show-only</span></code></dt><dd><p>Disable actual execution of tests.</p>
+<p>This option tells ctest to list the tests that would be run but not
+actually run them.  Useful in conjunction with the -R and -E
+options.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">-L</span> <span class="pre">&lt;regex&gt;,</span> <span class="pre">--label-regex</span> <span class="pre">&lt;regex&gt;</span></code></dt><dd><p>Run tests with labels matching regular expression.</p>
+<p>This option tells ctest to run only the tests whose labels match the
+given regular expression.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">-R</span> <span class="pre">&lt;regex&gt;,</span> <span class="pre">--tests-regex</span> <span class="pre">&lt;regex&gt;</span></code></dt><dd><p>Run tests matching regular expression.</p>
+<p>This option tells ctest to run only the tests whose names match the
+given regular expression.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">-E</span> <span class="pre">&lt;regex&gt;,</span> <span class="pre">--exclude-regex</span> <span class="pre">&lt;regex&gt;</span></code></dt><dd><p>Exclude tests matching regular expression.</p>
+<p>This option tells ctest to NOT run the tests whose names match the
+given regular expression.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">-LE</span> <span class="pre">&lt;regex&gt;,</span> <span class="pre">--label-exclude</span> <span class="pre">&lt;regex&gt;</span></code></dt><dd><p>Exclude tests with labels matching regular expression.</p>
+<p>This option tells ctest to NOT run the tests whose labels match the
+given regular expression.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">-D</span> <span class="pre">&lt;dashboard&gt;,</span> <span class="pre">--dashboard</span> <span class="pre">&lt;dashboard&gt;</span></code></dt><dd><p>Execute dashboard test</p>
+<p>This option tells ctest to act as a Dart client and perform a
+dashboard test.  All tests are &lt;Mode&gt;&lt;Test&gt;, where Mode can be
+Experimental, Nightly, and Continuous, and Test can be Start,
+Update, Configure, Build, Test, Coverage, and Submit.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">-D</span> <span class="pre">&lt;var&gt;:&lt;type&gt;=&lt;value&gt;</span></code></dt><dd><p>Define a variable for script mode</p>
+<p>Pass in variable values on the command line.  Use in conjunction
+with -S to pass variable values to a dashboard script.  Parsing -D
+arguments as variable values is only attempted if the value
+following -D does not match any of the known dashboard types.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">-M</span> <span class="pre">&lt;model&gt;,</span> <span class="pre">--test-model</span> <span class="pre">&lt;model&gt;</span></code></dt><dd><p>Sets the model for a dashboard</p>
+<p>This option tells ctest to act as a Dart client where the TestModel
+can be Experimental, Nightly, and Continuous.  Combining -M and -T
+is similar to -D</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">-T</span> <span class="pre">&lt;action&gt;,</span> <span class="pre">--test-action</span> <span class="pre">&lt;action&gt;</span></code></dt><dd><p>Sets the dashboard action to perform</p>
+<p>This option tells ctest to act as a Dart client and perform some
+action such as start, build, test etc.  Combining -M and -T is
+similar to -D</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">--track</span> <span class="pre">&lt;track&gt;</span></code></dt><dd><p>Specify the track to submit dashboard to</p>
+<p>Submit dashboard to specified track instead of default one.  By
+default, the dashboard is submitted to Nightly, Experimental, or
+Continuous track, but by specifying this option, the track can be
+arbitrary.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">-S</span> <span class="pre">&lt;script&gt;,</span> <span class="pre">--script</span> <span class="pre">&lt;script&gt;</span></code></dt><dd><p>Execute a dashboard for a configuration</p>
+<p>This option tells ctest to load in a configuration script which sets
+a number of parameters such as the binary and source directories.
+Then ctest will do what is required to create and run a dashboard.
+This option basically sets up a dashboard and then runs ctest -D
+with the appropriate options.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">-SP</span> <span class="pre">&lt;script&gt;,</span> <span class="pre">--script-new-process</span> <span class="pre">&lt;script&gt;</span></code></dt><dd><p>Execute a dashboard for a configuration</p>
+<p>This option does the same operations as -S but it will do them in a
+separate process.  This is primarily useful in cases where the
+script may modify the environment and you do not want the modified
+environment to impact other -S scripts.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">-A</span> <span class="pre">&lt;file&gt;,</span> <span class="pre">--add-notes</span> <span class="pre">&lt;file&gt;</span></code></dt><dd><p>Add a notes file with submission</p>
+<p>This option tells ctest to include a notes file when submitting
+dashboard.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">-I</span> <span class="pre">[Start,End,Stride,test#,test#|Test</span> <span class="pre">file],</span> <span class="pre">--tests-information</span></code></dt><dd><p>Run a specific number of tests by number.</p>
+<p>This option causes ctest to run tests starting at number Start,
+ending at number End, and incrementing by Stride.  Any additional
+numbers after Stride are considered individual test numbers.  Start,
+End,or stride can be empty.  Optionally a file can be given that
+contains the same syntax as the command line.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">-U,</span> <span class="pre">--union</span></code></dt><dd><p>Take the Union of -I and -R</p>
+<p>When both -R and -I are specified by default the intersection of
+tests are run.  By specifying -U the union of tests is run instead.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">--rerun-failed</span></code></dt><dd><p>Run only the tests that failed previously</p>
+<p>This option tells ctest to perform only the tests that failed during
+its previous run.  When this option is specified, ctest ignores all
+other options intended to modify the list of tests to run (-L, -R,
+-E, -LE, -I, etc).  In the event that CTest runs and no tests fail,
+subsequent calls to ctest with the --rerun-failed option will run
+the set of tests that most recently failed (if any).</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">--max-width</span> <span class="pre">&lt;width&gt;</span></code></dt><dd><p>Set the max width for a test name to output</p>
+<p>Set the maximum width for each test name to show in the output.
+This allows the user to widen the output to avoid clipping the test
+name which can be very annoying.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">--interactive-debug-mode</span> <span class="pre">[0|1]</span></code></dt><dd><p>Set the interactive mode to 0 or 1.</p>
+<p>This option causes ctest to run tests in either an interactive mode
+or a non-interactive mode.  On Windows this means that in
+non-interactive mode, all system debug pop up windows are blocked.
+In dashboard mode (Experimental, Nightly, Continuous), the default
+is non-interactive.  When just running tests not for a dashboard the
+default is to allow popups and interactive debugging.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">--no-label-summary</span></code></dt><dd><p>Disable timing summary information for labels.</p>
+<p>This option tells ctest not to print summary information for each
+label associated with the tests run.  If there are no labels on the
+tests, nothing extra is printed.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">--build-and-test</span></code></dt><dd><p>Configure, build and run a test.</p>
+<p>This option tells ctest to configure (i.e.  run cmake on), build,
+and or execute a test.  The configure and test steps are optional.
+The arguments to this command line are the source and binary
+directories.  By default this will run CMake on the Source/Bin
+directories specified unless --build-nocmake is specified.
+The --build-generator option <em>must</em> be provided to use
+--build-and-test.  If --test-command is specified then that will be
+run after the build is complete.  Other options that affect this
+mode are --build-target --build-nocmake, --build-run-dir,
+--build-two-config, --build-exe-dir,
+--build-project,--build-noclean, --build-options</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">--build-target</span></code></dt><dd><p>Specify a specific target to build.</p>
+<p>This option goes with the --build-and-test option, if left out the
+all target is built.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">--build-nocmake</span></code></dt><dd><p>Run the build without running cmake first.</p>
+<p>Skip the cmake step.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">--build-run-dir</span></code></dt><dd><p>Specify directory to run programs from.</p>
+<p>Directory where programs will be after it has been compiled.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">--build-two-config</span></code></dt><dd><p>Run CMake twice</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">--build-exe-dir</span></code></dt><dd><p>Specify the directory for the executable.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">--build-generator</span></code></dt><dd><p>Specify the generator to use.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">--build-generator-toolset</span></code></dt><dd><p>Specify the generator-specific toolset.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">--build-project</span></code></dt><dd><p>Specify the name of the project to build.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">--build-makeprogram</span></code></dt><dd><p>Override the make program chosen by CTest with a given one.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">--build-noclean</span></code></dt><dd><p>Skip the make clean step.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">--build-config-sample</span></code></dt><dd><p>A sample executable to use to determine the configuration</p>
+<p>A sample executable to use to determine the configuration that
+should be used.  e.g.  Debug/Release/etc</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">--build-options</span></code></dt><dd><p>Add extra options to the build step.</p>
+<p>This option must be the last option with the exception of
+--test-command</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">--test-command</span></code></dt><dd><p>The test to run with the --build-and-test option.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">--test-timeout</span></code></dt><dd><p>The time limit in seconds, internal use only.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">--tomorrow-tag</span></code></dt><dd><p>Nightly or experimental starts with next day tag.</p>
+<p>This is useful if the build will not finish in one day.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">--ctest-config</span></code></dt><dd><p>The configuration file used to initialize CTest state when submitting dashboards.</p>
+<p>This option tells CTest to use different initialization file instead
+of CTestConfiguration.tcl.  This way multiple initialization files
+can be used for example to submit to multiple dashboards.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">--overwrite</span></code></dt><dd><p>Overwrite CTest configuration option.</p>
+<p>By default ctest uses configuration options from configuration file.
+This option will overwrite the configuration option.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">--extra-submit</span> <span class="pre">&lt;file&gt;[;&lt;file&gt;]</span></code></dt><dd><p>Submit extra files to the dashboard.</p>
+<p>This option will submit extra files to the dashboard.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">--force-new-ctest-process</span></code></dt><dd><p>Run child CTest instances as new processes</p>
+<p>By default CTest will run child CTest instances within the same
+process.  If this behavior is not desired, this argument will
+enforce new processes for child CTest processes.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">--schedule-random</span></code></dt><dd><p>Use a random order for scheduling tests</p>
+<p>This option will run the tests in a random order.  It is commonly
+used to detect implicit dependencies in a test suite.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">--submit-index</span></code></dt><dd><p>Submit individual dashboard tests with specific index</p>
+<p>This option allows performing the same CTest action (such as test)
+multiple times and submit all stages to the same dashboard (Dart2
+required).  Each execution requires different index.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">--timeout</span> <span class="pre">&lt;seconds&gt;</span></code></dt><dd><p>Set a global timeout on all tests.</p>
+<p>This option will set a global timeout on all tests that do not
+already have a timeout set on them.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">--stop-time</span> <span class="pre">&lt;time&gt;</span></code></dt><dd><p>Set a time at which all tests should stop running.</p>
+<p>Set a real time of day at which all tests should timeout.  Example:
+7:00:00 -0400.  Any time format understood by the curl date parser
+is accepted.  Local time is assumed if no timezone is specified.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">--http1.0</span></code></dt><dd><p>Submit using HTTP 1.0.</p>
+<p>This option will force CTest to use HTTP 1.0 to submit files to the
+dashboard, instead of HTTP 1.1.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">--no-compress-output</span></code></dt><dd><p>Do not compress test output when submitting.</p>
+<p>This flag will turn off automatic compression of test output.  Use
+this to maintain compatibility with an older version of CDash which
+doesn't support compressed test output.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">--print-labels</span></code></dt><dd><p>Print all available test labels.</p>
+<p>This option will not run any tests, it will simply print the list of
+all labels associated with the test set.</p>
+</dd>
+</dl>
+<dl>
+<dt><code class="docutils literal notranslate"><span class="pre">--help,-help,-usage,-h,-H,/?</span></code></dt><dd><p>Print usage information and exit.</p>
+<p>Usage describes the basic command line interface and its options.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">--version,-version,/V</span> <span class="pre">[&lt;f&gt;]</span></code></dt><dd><p>Show program name/version banner and exit.</p>
+<p>If a file is specified, the version is written into it.
+The help is printed to a named &lt;f&gt;ile if given.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">--help-full</span> <span class="pre">[&lt;f&gt;]</span></code></dt><dd><p>Print all help manuals and exit.</p>
+<p>All manuals are printed in a human-readable text format.
+The help is printed to a named &lt;f&gt;ile if given.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">--help-manual</span> <span class="pre">&lt;man&gt;</span> <span class="pre">[&lt;f&gt;]</span></code></dt><dd><p>Print one help manual and exit.</p>
+<p>The specified manual is printed in a human-readable text format.
+The help is printed to a named &lt;f&gt;ile if given.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">--help-manual-list</span> <span class="pre">[&lt;f&gt;]</span></code></dt><dd><p>List help manuals available and exit.</p>
+<p>The list contains all manuals for which help may be obtained by
+using the <code class="docutils literal notranslate"><span class="pre">--help-manual</span></code> option followed by a manual name.
+The help is printed to a named &lt;f&gt;ile if given.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">--help-command</span> <span class="pre">&lt;cmd&gt;</span> <span class="pre">[&lt;f&gt;]</span></code></dt><dd><p>Print help for one command and exit.</p>
+<p>The <span class="target" id="index-0-manual:cmake-commands(7)"></span><a class="reference internal" href="cmake-commands.7.html#manual:cmake-commands(7)" title="cmake-commands(7)"><code class="xref cmake cmake-manual docutils literal notranslate"><span class="pre">cmake-commands(7)</span></code></a> manual entry for <code class="docutils literal notranslate"><span class="pre">&lt;cmd&gt;</span></code> is
+printed in a human-readable text format.
+The help is printed to a named &lt;f&gt;ile if given.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">--help-command-list</span> <span class="pre">[&lt;f&gt;]</span></code></dt><dd><p>List commands with help available and exit.</p>
+<p>The list contains all commands for which help may be obtained by
+using the <code class="docutils literal notranslate"><span class="pre">--help-command</span></code> option followed by a command name.
+The help is printed to a named &lt;f&gt;ile if given.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">--help-commands</span> <span class="pre">[&lt;f&gt;]</span></code></dt><dd><p>Print cmake-commands manual and exit.</p>
+<p>The <span class="target" id="index-1-manual:cmake-commands(7)"></span><a class="reference internal" href="cmake-commands.7.html#manual:cmake-commands(7)" title="cmake-commands(7)"><code class="xref cmake cmake-manual docutils literal notranslate"><span class="pre">cmake-commands(7)</span></code></a> manual is printed in a
+human-readable text format.
+The help is printed to a named &lt;f&gt;ile if given.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">--help-module</span> <span class="pre">&lt;mod&gt;</span> <span class="pre">[&lt;f&gt;]</span></code></dt><dd><p>Print help for one module and exit.</p>
+<p>The <span class="target" id="index-0-manual:cmake-modules(7)"></span><a class="reference internal" href="cmake-modules.7.html#manual:cmake-modules(7)" title="cmake-modules(7)"><code class="xref cmake cmake-manual docutils literal notranslate"><span class="pre">cmake-modules(7)</span></code></a> manual entry for <code class="docutils literal notranslate"><span class="pre">&lt;mod&gt;</span></code> is printed
+in a human-readable text format.
+The help is printed to a named &lt;f&gt;ile if given.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">--help-module-list</span> <span class="pre">[&lt;f&gt;]</span></code></dt><dd><p>List modules with help available and exit.</p>
+<p>The list contains all modules for which help may be obtained by
+using the <code class="docutils literal notranslate"><span class="pre">--help-module</span></code> option followed by a module name.
+The help is printed to a named &lt;f&gt;ile if given.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">--help-modules</span> <span class="pre">[&lt;f&gt;]</span></code></dt><dd><p>Print cmake-modules manual and exit.</p>
+<p>The <span class="target" id="index-1-manual:cmake-modules(7)"></span><a class="reference internal" href="cmake-modules.7.html#manual:cmake-modules(7)" title="cmake-modules(7)"><code class="xref cmake cmake-manual docutils literal notranslate"><span class="pre">cmake-modules(7)</span></code></a> manual is printed in a human-readable
+text format.
+The help is printed to a named &lt;f&gt;ile if given.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">--help-policy</span> <span class="pre">&lt;cmp&gt;</span> <span class="pre">[&lt;f&gt;]</span></code></dt><dd><p>Print help for one policy and exit.</p>
+<p>The <span class="target" id="index-0-manual:cmake-policies(7)"></span><a class="reference internal" href="cmake-policies.7.html#manual:cmake-policies(7)" title="cmake-policies(7)"><code class="xref cmake cmake-manual docutils literal notranslate"><span class="pre">cmake-policies(7)</span></code></a> manual entry for <code class="docutils literal notranslate"><span class="pre">&lt;cmp&gt;</span></code> is
+printed in a human-readable text format.
+The help is printed to a named &lt;f&gt;ile if given.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">--help-policy-list</span> <span class="pre">[&lt;f&gt;]</span></code></dt><dd><p>List policies with help available and exit.</p>
+<p>The list contains all policies for which help may be obtained by
+using the <code class="docutils literal notranslate"><span class="pre">--help-policy</span></code> option followed by a policy name.
+The help is printed to a named &lt;f&gt;ile if given.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">--help-policies</span> <span class="pre">[&lt;f&gt;]</span></code></dt><dd><p>Print cmake-policies manual and exit.</p>
+<p>The <span class="target" id="index-1-manual:cmake-policies(7)"></span><a class="reference internal" href="cmake-policies.7.html#manual:cmake-policies(7)" title="cmake-policies(7)"><code class="xref cmake cmake-manual docutils literal notranslate"><span class="pre">cmake-policies(7)</span></code></a> manual is printed in a
+human-readable text format.
+The help is printed to a named &lt;f&gt;ile if given.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">--help-property</span> <span class="pre">&lt;prop&gt;</span> <span class="pre">[&lt;f&gt;]</span></code></dt><dd><p>Print help for one property and exit.</p>
+<p>The <span class="target" id="index-0-manual:cmake-properties(7)"></span><a class="reference internal" href="cmake-properties.7.html#manual:cmake-properties(7)" title="cmake-properties(7)"><code class="xref cmake cmake-manual docutils literal notranslate"><span class="pre">cmake-properties(7)</span></code></a> manual entries for <code class="docutils literal notranslate"><span class="pre">&lt;prop&gt;</span></code> are
+printed in a human-readable text format.
+The help is printed to a named &lt;f&gt;ile if given.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">--help-property-list</span> <span class="pre">[&lt;f&gt;]</span></code></dt><dd><p>List properties with help available and exit.</p>
+<p>The list contains all properties for which help may be obtained by
+using the <code class="docutils literal notranslate"><span class="pre">--help-property</span></code> option followed by a property name.
+The help is printed to a named &lt;f&gt;ile if given.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">--help-properties</span> <span class="pre">[&lt;f&gt;]</span></code></dt><dd><p>Print cmake-properties manual and exit.</p>
+<p>The <span class="target" id="index-1-manual:cmake-properties(7)"></span><a class="reference internal" href="cmake-properties.7.html#manual:cmake-properties(7)" title="cmake-properties(7)"><code class="xref cmake cmake-manual docutils literal notranslate"><span class="pre">cmake-properties(7)</span></code></a> manual is printed in a
+human-readable text format.
+The help is printed to a named &lt;f&gt;ile if given.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">--help-variable</span> <span class="pre">&lt;var&gt;</span> <span class="pre">[&lt;f&gt;]</span></code></dt><dd><p>Print help for one variable and exit.</p>
+<p>The <span class="target" id="index-0-manual:cmake-variables(7)"></span><a class="reference internal" href="cmake-variables.7.html#manual:cmake-variables(7)" title="cmake-variables(7)"><code class="xref cmake cmake-manual docutils literal notranslate"><span class="pre">cmake-variables(7)</span></code></a> manual entry for <code class="docutils literal notranslate"><span class="pre">&lt;var&gt;</span></code> is
+printed in a human-readable text format.
+The help is printed to a named &lt;f&gt;ile if given.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">--help-variable-list</span> <span class="pre">[&lt;f&gt;]</span></code></dt><dd><p>List variables with help available and exit.</p>
+<p>The list contains all variables for which help may be obtained by
+using the <code class="docutils literal notranslate"><span class="pre">--help-variable</span></code> option followed by a variable name.
+The help is printed to a named &lt;f&gt;ile if given.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">--help-variables</span> <span class="pre">[&lt;f&gt;]</span></code></dt><dd><p>Print cmake-variables manual and exit.</p>
+<p>The <span class="target" id="index-1-manual:cmake-variables(7)"></span><a class="reference internal" href="cmake-variables.7.html#manual:cmake-variables(7)" title="cmake-variables(7)"><code class="xref cmake cmake-manual docutils literal notranslate"><span class="pre">cmake-variables(7)</span></code></a> manual is printed in a
+human-readable text format.
+The help is printed to a named &lt;f&gt;ile if given.</p>
+</dd>
+</dl>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Link to this heading">¶</a></h2>
+<p>The following resources are available to get help using CMake:</p>
+<dl>
+<dt>Home Page</dt><dd><p><a class="reference external" href="http://www.cmake.org">http://www.cmake.org</a></p>
+<p>The primary starting point for learning about CMake.</p>
+</dd>
+<dt>Frequently Asked Questions</dt><dd><p><a class="reference external" href="http://www.cmake.org/Wiki/CMake_FAQ">http://www.cmake.org/Wiki/CMake_FAQ</a></p>
+<p>A Wiki is provided containing answers to frequently asked questions.</p>
+</dd>
+<dt>Online Documentation</dt><dd><p><a class="reference external" href="http://www.cmake.org/HTML/Documentation.html">http://www.cmake.org/HTML/Documentation.html</a></p>
+<p>Links to available documentation may be found on this web page.</p>
+</dd>
+<dt>Mailing List</dt><dd><p><a class="reference external" href="http://www.cmake.org/HTML/MailingLists.html">http://www.cmake.org/HTML/MailingLists.html</a></p>
+<p>For help and discussion about using cmake, a mailing list is
+provided at <a class="reference external" href="mailto:cmake&#37;&#52;&#48;cmake&#46;org">cmake<span>&#64;</span>cmake<span>&#46;</span>org</a>.  The list is member-post-only but one
+may sign up on the CMake web page.  Please first read the full
+documentation at <a class="reference external" href="http://www.cmake.org">http://www.cmake.org</a> before posting questions to
+the list.</p>
+</dd>
+</dl>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3>Table of Contents</h3>
+    <ul>
+<li><a class="reference internal" href="#">ctest(1)</a><ul>
+<li><a class="reference internal" href="#synopsis">Synopsis</a></li>
+<li><a class="reference internal" href="#description">Description</a></li>
+<li><a class="reference internal" href="#options">Options</a></li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="cmake.1.html"
+                          title="previous chapter">cmake(1)</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="cpack.1.html"
+                          title="next chapter">cpack(1)</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/manual/ctest.1.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="cpack.1.html" title="cpack(1)"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="cmake.1.html" title="cmake(1)"
+             >previous</a> |</li>
+  <li>
+    <label class="sidebar-toggle" for="sidebar-check"></label>
+  </li>
+  <li class="rootlink">
+    <img src="../_static/cmake-logo-16.png" width="16" height="16" alt=""/>
+    <a href="https://cmake.org/">CMake 3.0.2</a>
+    <span class="reldelim1"> &#187;</span>
+  </li>
+  <li>
+    <a href="../index.html">Documentation</a> &#187;
+  </li>
+
+        <li class="nav-item nav-item-this"><a href="">ctest(1)</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2000-2014 Kitware, Inc..
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    </div>
+<script type="text/javascript">
+(function() {
+  "use strict";
+  const hide = () => document.getElementById("sidebar-check").checked = false;
+  addEventListener("keydown", e => (e.key === "Escape") && hide());
+  addEventListener("click", e => (e.target.tagName === "A") && hide());
+  addEventListener("hashchange", hide)
+})();
+</script>
+  </body>
+</html>

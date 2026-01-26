@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>FindImageMagick &mdash; CMake 3.2.3 Documentation</title>
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a3862c66" />
+    <link rel="stylesheet" type="text/css" href="../_static/cmake.css?v=4d06bd55" />
+    
+    <script src="../_static/documentation_options.js?v=1f2fbb0c"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/translations.js?v=beaddf03"></script>
+    
+    <link rel="canonical" href="https://projects.localizethedocs.org/cmake-docs-l10n/module/FindImageMagick.html" />
+    <link rel="icon" href="../_static/cmake-favicon.ico"/>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="FindIntl" href="FindIntl.html" />
+    <link rel="prev" title="FindIcotool" href="FindIcotool.html" />
+
+ 
+
+    <script type="text/javascript" src="../ltd-provenance.js"></script>
+    <script type="text/javascript" src="../ltd-current.js"></script>
+    <script type="text/javascript" src="../../../ltd-config.js"></script>
+    <script type="text/javascript" src="../../../ltd-flyout.js"></script>
+
+  </head><body>
+    <input id="sidebar-check" type="checkbox" />
+    <label id="sidebar-overlay" for="sidebar-check"></label>
+
+
+
+    <div class="related relbar1" role="navigation" aria-label="Related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="总索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="FindIntl.html" title="FindIntl"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="FindIcotool.html" title="FindIcotool"
+             accesskey="P">上一页</a> |</li>
+  <li>
+    <label class="sidebar-toggle" for="sidebar-check"></label>
+  </li>
+  <li class="rootlink">
+    <img src="../_static/cmake-logo-16.png" width="16" height="16" alt=""/>
+    <a href="https://cmake.org/">CMake 3.2.3</a>
+    <span class="reldelim1"> &#187;</span>
+  </li>
+  <li>
+    <a href="../index.html">Documentation</a> &#187;
+  </li>
+
+          <li class="nav-item nav-item-1"><a href="../manual/cmake-modules.7.html" accesskey="U">cmake-modules(7)</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">FindImageMagick</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="findimagemagick">
+<span id="module:FindImageMagick"></span><h1>FindImageMagick<a class="headerlink" href="#findimagemagick" title="Link to this heading">¶</a></h1>
+<p>Find the ImageMagick binary suite.</p>
+<p>This module will search for a set of ImageMagick tools specified as
+components in the FIND_PACKAGE call.  Typical components include, but
+are not limited to (future versions of ImageMagick might have
+additional components not listed here):</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>animate
+compare
+composite
+conjure
+convert
+display
+identify
+import
+mogrify
+montage
+stream
+</pre></div>
+</div>
+<p>If no component is specified in the FIND_PACKAGE call, then it only
+searches for the ImageMagick executable directory.  This code defines
+the following variables:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>ImageMagick_FOUND                  - TRUE if all components are found.
+ImageMagick_EXECUTABLE_DIR         - Full path to executables directory.
+ImageMagick_&lt;component&gt;_FOUND      - TRUE if &lt;component&gt; is found.
+ImageMagick_&lt;component&gt;_EXECUTABLE - Full path to &lt;component&gt; executable.
+ImageMagick_VERSION_STRING         - the version of ImageMagick found
+                                     (since CMake 2.8.8)
+</pre></div>
+</div>
+<p>ImageMagick_VERSION_STRING will not work for old versions like 5.2.3.</p>
+<p>There are also components for the following ImageMagick APIs:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Magick++
+MagickWand
+MagickCore
+</pre></div>
+</div>
+<p>For these components the following variables are set:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>ImageMagick_FOUND                    - TRUE if all components are found.
+ImageMagick_INCLUDE_DIRS             - Full paths to all include dirs.
+ImageMagick_LIBRARIES                - Full paths to all libraries.
+ImageMagick_&lt;component&gt;_FOUND        - TRUE if &lt;component&gt; is found.
+ImageMagick_&lt;component&gt;_INCLUDE_DIRS - Full path to &lt;component&gt; include dirs.
+ImageMagick_&lt;component&gt;_LIBRARIES    - Full path to &lt;component&gt; libraries.
+</pre></div>
+</div>
+<p>Example Usages:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>find_package(ImageMagick)
+find_package(ImageMagick COMPONENTS convert)
+find_package(ImageMagick COMPONENTS convert mogrify display)
+find_package(ImageMagick COMPONENTS Magick++)
+find_package(ImageMagick COMPONENTS Magick++ convert)
+</pre></div>
+</div>
+<p>Note that the standard FIND_PACKAGE features are supported (i.e.,
+QUIET, REQUIRED, etc.).</p>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h4>上一主题</h4>
+    <p class="topless"><a href="FindIcotool.html"
+                          title="上一章">FindIcotool</a></p>
+  </div>
+  <div>
+    <h4>下一主题</h4>
+    <p class="topless"><a href="FindIntl.html"
+                          title="下一章">FindIntl</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>本页</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/module/FindImageMagick.rst.txt"
+            rel="nofollow">显示源代码</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="提交" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="总索引"
+             >索引</a></li>
+        <li class="right" >
+          <a href="FindIntl.html" title="FindIntl"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="FindIcotool.html" title="FindIcotool"
+             >上一页</a> |</li>
+  <li>
+    <label class="sidebar-toggle" for="sidebar-check"></label>
+  </li>
+  <li class="rootlink">
+    <img src="../_static/cmake-logo-16.png" width="16" height="16" alt=""/>
+    <a href="https://cmake.org/">CMake 3.2.3</a>
+    <span class="reldelim1"> &#187;</span>
+  </li>
+  <li>
+    <a href="../index.html">Documentation</a> &#187;
+  </li>
+
+          <li class="nav-item nav-item-1"><a href="../manual/cmake-modules.7.html" >cmake-modules(7)</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">FindImageMagick</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+    &#169; 版权所有 2000-2015 Kitware, Inc..
+      由 <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3创建。
+    </div>
+<script type="text/javascript">
+(function() {
+  "use strict";
+  const hide = () => document.getElementById("sidebar-check").checked = false;
+  addEventListener("keydown", e => (e.key === "Escape") && hide());
+  addEventListener("click", e => (e.target.tagName === "A") && hide());
+  addEventListener("hashchange", hide)
+})();
+</script>
+  </body>
+</html>

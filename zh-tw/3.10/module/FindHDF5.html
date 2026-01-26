@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+
+<html lang="zh-TW" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>FindHDF5 &mdash; CMake 3.10.3 Documentation</title>
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a3862c66" />
+    <link rel="stylesheet" type="text/css" href="../_static/cmake.css?v=4d06bd55" />
+    
+    <script src="../_static/documentation_options.js?v=f259d07c"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/translations.js?v=cbf116e0"></script>
+    
+    <link rel="canonical" href="https://projects.localizethedocs.org/cmake-docs-l10n/module/FindHDF5.html" />
+    <link rel="icon" href="../_static/cmake-favicon.ico"/>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜尋" href="../search.html" />
+    <link rel="next" title="FindHg" href="FindHg.html" />
+    <link rel="prev" title="FindGTK" href="FindGTK.html" />
+
+ 
+
+    <script type="text/javascript" src="../ltd-provenance.js"></script>
+    <script type="text/javascript" src="../ltd-current.js"></script>
+    <script type="text/javascript" src="../../../ltd-config.js"></script>
+    <script type="text/javascript" src="../../../ltd-flyout.js"></script>
+
+  </head><body>
+    <input id="sidebar-check" type="checkbox" />
+    <label id="sidebar-overlay" for="sidebar-check"></label>
+
+
+
+    <div class="related relbar1" role="navigation" aria-label="Related">
+      <h3>瀏覽</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="總索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="FindHg.html" title="FindHg"
+             accesskey="N">下一頁</a> |</li>
+        <li class="right" >
+          <a href="FindGTK.html" title="FindGTK"
+             accesskey="P">上一頁</a> |</li>
+  <li>
+    <label class="sidebar-toggle" for="sidebar-check"></label>
+  </li>
+  <li class="rootlink">
+    <img src="../_static/cmake-logo-16.png" width="16" height="16" alt=""/>
+    <a href="https://cmake.org/">CMake 3.10.3</a>
+    <span class="reldelim1"> &#187;</span>
+  </li>
+  <li>
+    <a href="../index.html">文件</a> &#187;
+  </li>
+
+          <li class="nav-item nav-item-1"><a href="../manual/cmake-modules.7.html" accesskey="U">cmake-模組(7)</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">FindHDF5</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="findhdf5">
+<span id="module:FindHDF5"></span><h1>FindHDF5<a class="headerlink" href="#findhdf5" title="連結到這個標頭">¶</a></h1>
+<p>Find HDF5, a library for reading and writing self describing array data.</p>
+<p>This module invokes the HDF5 wrapper compiler that should be installed
+alongside HDF5.  Depending upon the HDF5 Configuration, the wrapper
+compiler is called either h5cc or h5pcc.  If this succeeds, the module
+will then call the compiler with the -show argument to see what flags
+are used when compiling an HDF5 client application.</p>
+<p>The module will optionally accept the COMPONENTS argument.  If no
+COMPONENTS are specified, then the find module will default to finding
+only the HDF5 C library.  If one or more COMPONENTS are specified, the
+module will attempt to find the language bindings for the specified
+components.  The only valid components are C, CXX, Fortran, HL, and
+Fortran_HL.  If the COMPONENTS argument is not given, the module will
+attempt to find only the C bindings.</p>
+<p>This module will read the variable
+HDF5_USE_STATIC_LIBRARIES to determine whether or not to prefer a
+static link to a dynamic link for HDF5 and all of it's dependencies.
+To use this feature, make sure that the HDF5_USE_STATIC_LIBRARIES
+variable is set before the call to find_package.</p>
+<p>To provide the module with a hint about where to find your HDF5
+installation, you can set the environment variable HDF5_ROOT.  The
+Find module will then look in this path when searching for HDF5
+executables, paths, and libraries.</p>
+<p>Both the serial and parallel HDF5 wrappers are considered and the first
+directory to contain either one will be used.  In the event that both appear
+in the same directory the serial version is preferentially selected. This
+behavior can be reversed by setting the variable HDF5_PREFER_PARALLEL to
+true.</p>
+<p>In addition to finding the includes and libraries required to compile
+an HDF5 client application, this module also makes an effort to find
+tools that come with the HDF5 distribution that may be useful for
+regression testing.</p>
+<p>This module will define the following variables:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>HDF5_FOUND - true if HDF5 was found on the system
+HDF5_VERSION - HDF5 version in format Major.Minor.Release
+HDF5_INCLUDE_DIRS - Location of the hdf5 includes
+HDF5_INCLUDE_DIR - Location of the hdf5 includes (deprecated)
+HDF5_DEFINITIONS - Required compiler definitions for HDF5
+HDF5_LIBRARIES - Required libraries for all requested bindings
+HDF5_HL_LIBRARIES - Required libraries for the HDF5 high level API for all
+                    bindings, if the HL component is enabled
+</pre></div>
+</div>
+<p>Available components are: C CXX Fortran and HL.  For each enabled language
+binding, a corresponding HDF5_${LANG}_LIBRARIES variable, and potentially
+HDF5_${LANG}_DEFINITIONS, will be defined.
+If the HL component is enabled, then an HDF5_${LANG}_HL_LIBRARIES will
+also be defined.  With all components enabled, the following variables will be defined:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>HDF5_C_DEFINITIONS -- Required compiler definitions for HDF5 C bindings
+HDF5_CXX_DEFINITIONS -- Required compiler definitions for HDF5 C++ bindings
+HDF5_Fortran_DEFINITIONS -- Required compiler definitions for HDF5 Fortran bindings
+HDF5_C_INCLUDE_DIRS -- Required include directories for HDF5 C bindings
+HDF5_CXX_INCLUDE_DIRS -- Required include directories for HDF5 C++ bindings
+HDF5_Fortran_INCLUDE_DIRS -- Required include directories for HDF5 Fortran bindings
+HDF5_C_LIBRARIES - Required libraries for the HDF5 C bindings
+HDF5_CXX_LIBRARIES - Required libraries for the HDF5 C++ bindings
+HDF5_Fortran_LIBRARIES - Required libraries for the HDF5 Fortran bindings
+HDF5_C_HL_LIBRARIES - Required libraries for the high level C bindings
+HDF5_CXX_HL_LIBRARIES - Required libraries for the high level C++ bindings
+HDF5_Fortran_HL_LIBRARIES - Required libraries for the high level Fortran
+                            bindings.
+
+HDF5_IS_PARALLEL - Whether or not HDF5 was found with parallel IO support
+HDF5_C_COMPILER_EXECUTABLE - the path to the HDF5 C wrapper compiler
+HDF5_CXX_COMPILER_EXECUTABLE - the path to the HDF5 C++ wrapper compiler
+HDF5_Fortran_COMPILER_EXECUTABLE - the path to the HDF5 Fortran wrapper compiler
+HDF5_C_COMPILER_EXECUTABLE_NO_INTERROGATE - path to the primary C compiler
+                                            which is also the HDF5 wrapper
+HDF5_CXX_COMPILER_EXECUTABLE_NO_INTERROGATE - path to the primary C++
+                                              compiler which is also
+                                              the HDF5 wrapper
+HDF5_Fortran_COMPILER_EXECUTABLE_NO_INTERROGATE - path to the primary
+                                                  Fortran compiler which
+                                                  is also the HDF5 wrapper
+HDF5_DIFF_EXECUTABLE - the path to the HDF5 dataset comparison tool
+</pre></div>
+</div>
+<p>The following variable can be set to guide the search for HDF5 libraries and includes:</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">HDF5_ROOT</span></code></dt><dd><p>Specify the path to the HDF5 installation to use.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">HDF5_FIND_DEBUG</span></code></dt><dd><p>Set to a true value to get some extra debugging output.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">HDF5_NO_FIND_PACKAGE_CONFIG_FILE</span></code></dt><dd><p>Set to a true value to skip trying to find <code class="docutils literal notranslate"><span class="pre">hdf5-config.cmake</span></code>.</p>
+</dd>
+</dl>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h4>上個話題</h4>
+    <p class="topless"><a href="FindGTK.html"
+                          title="上個章節">FindGTK</a></p>
+  </div>
+  <div>
+    <h4>下個話題</h4>
+    <p class="topless"><a href="FindHg.html"
+                          title="下個章節">FindHg</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>本頁</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/module/FindHDF5.rst.txt"
+            rel="nofollow">顯示來源碼</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜尋</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="前往" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>瀏覽</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="總索引"
+             >索引</a></li>
+        <li class="right" >
+          <a href="FindHg.html" title="FindHg"
+             >下一頁</a> |</li>
+        <li class="right" >
+          <a href="FindGTK.html" title="FindGTK"
+             >上一頁</a> |</li>
+  <li>
+    <label class="sidebar-toggle" for="sidebar-check"></label>
+  </li>
+  <li class="rootlink">
+    <img src="../_static/cmake-logo-16.png" width="16" height="16" alt=""/>
+    <a href="https://cmake.org/">CMake 3.10.3</a>
+    <span class="reldelim1"> &#187;</span>
+  </li>
+  <li>
+    <a href="../index.html">文件</a> &#187;
+  </li>
+
+          <li class="nav-item nav-item-1"><a href="../manual/cmake-modules.7.html" >cmake-模組(7)</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">FindHDF5</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+    &#169; 著作權 2000-2017 Kitware, Inc. and Contributors.
+      使用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3 建立。
+    </div>
+<script type="text/javascript">
+(function() {
+  "use strict";
+  const hide = () => document.getElementById("sidebar-check").checked = false;
+  addEventListener("keydown", e => (e.key === "Escape") && hide());
+  addEventListener("click", e => (e.target.tagName === "A") && hide());
+  addEventListener("hashchange", hide)
+})();
+</script>
+  </body>
+</html>

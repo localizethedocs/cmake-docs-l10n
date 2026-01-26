@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+
+<html lang="en-US" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>add_custom_command &mdash; CMake 3.0.2 Documentation</title>
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a3862c66" />
+    <link rel="stylesheet" type="text/css" href="../_static/cmake.css?v=4d06bd55" />
+    
+    <script src="../_static/documentation_options.js?v=594aea60"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    
+    <link rel="canonical" href="https://projects.localizethedocs.org/cmake-docs-l10n/command/add_custom_command.html" />
+    <link rel="icon" href="../_static/cmake-favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="add_custom_target" href="add_custom_target.html" />
+    <link rel="prev" title="add_compile_options" href="add_compile_options.html" />
+
+ 
+
+    <script type="text/javascript" src="../ltd-provenance.js"></script>
+    <script type="text/javascript" src="../ltd-current.js"></script>
+    <script type="text/javascript" src="../../../ltd-config.js"></script>
+    <script type="text/javascript" src="../../../ltd-flyout.js"></script>
+
+  </head><body>
+    <input id="sidebar-check" type="checkbox" />
+    <label id="sidebar-overlay" for="sidebar-check"></label>
+
+
+
+    <div class="related relbar1" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="add_custom_target.html" title="add_custom_target"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="add_compile_options.html" title="add_compile_options"
+             accesskey="P">previous</a> |</li>
+  <li>
+    <label class="sidebar-toggle" for="sidebar-check"></label>
+  </li>
+  <li class="rootlink">
+    <img src="../_static/cmake-logo-16.png" width="16" height="16" alt=""/>
+    <a href="https://cmake.org/">CMake 3.0.2</a>
+    <span class="reldelim1"> &#187;</span>
+  </li>
+  <li>
+    <a href="../index.html">Documentation</a> &#187;
+  </li>
+
+          <li class="nav-item nav-item-1"><a href="../manual/cmake-commands.7.html" accesskey="U">cmake-commands(7)</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">add_custom_command</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="add-custom-command">
+<span id="command:add_custom_command"></span><h1>add_custom_command<a class="headerlink" href="#add-custom-command" title="Link to this heading">¶</a></h1>
+<p>Add a custom build rule to the generated build system.</p>
+<p>There are two main signatures for add_custom_command The first
+signature is for adding a custom command to produce an output.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>add_custom_command(OUTPUT output1 [output2 ...]
+                   COMMAND command1 [ARGS] [args1...]
+                   [COMMAND command2 [ARGS] [args2...] ...]
+                   [MAIN_DEPENDENCY depend]
+                   [DEPENDS [depends...]]
+                   [IMPLICIT_DEPENDS &lt;lang1&gt; depend1
+                                    [&lt;lang2&gt; depend2] ...]
+                   [WORKING_DIRECTORY dir]
+                   [COMMENT comment] [VERBATIM] [APPEND])
+</pre></div>
+</div>
+<p>This defines a command to generate specified OUTPUT file(s).  A target
+created in the same directory (CMakeLists.txt file) that specifies any
+output of the custom command as a source file is given a rule to
+generate the file using the command at build time.  Do not list the
+output in more than one independent target that may build in parallel
+or the two instances of the rule may conflict (instead use
+add_custom_target to drive the command and make the other targets
+depend on that one).  If an output name is a relative path it will be
+interpreted relative to the build tree directory corresponding to the
+current source directory.  Note that MAIN_DEPENDENCY is completely
+optional and is used as a suggestion to visual studio about where to
+hang the custom command.  In makefile terms this creates a new target
+in the following form:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>OUTPUT: MAIN_DEPENDENCY DEPENDS
+        COMMAND
+</pre></div>
+</div>
+<p>If more than one command is specified they will be executed in order.
+The optional ARGS argument is for backward compatibility and will be
+ignored.</p>
+<p>The second signature adds a custom command to a target such as a
+library or executable.  This is useful for performing an operation
+before or after building the target.  The command becomes part of the
+target and will only execute when the target itself is built.  If the
+target is already built, the command will not execute.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>add_custom_command(TARGET target
+                   PRE_BUILD | PRE_LINK | POST_BUILD
+                   COMMAND command1 [ARGS] [args1...]
+                   [COMMAND command2 [ARGS] [args2...] ...]
+                   [WORKING_DIRECTORY dir]
+                   [COMMENT comment] [VERBATIM])
+</pre></div>
+</div>
+<p>This defines a new command that will be associated with building the
+specified target.  When the command will happen is determined by which
+of the following is specified:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>PRE_BUILD - run before all other dependencies
+PRE_LINK - run after other dependencies
+POST_BUILD - run after the target has been built
+</pre></div>
+</div>
+<p>Note that the PRE_BUILD option is only supported on Visual Studio 7 or
+later.  For all other generators PRE_BUILD will be treated as
+PRE_LINK.</p>
+<p>If WORKING_DIRECTORY is specified the command will be executed in the
+directory given.  If it is a relative path it will be interpreted
+relative to the build tree directory corresponding to the current
+source directory.  If COMMENT is set, the value will be displayed as a
+message before the commands are executed at build time.  If APPEND is
+specified the COMMAND and DEPENDS option values are appended to the
+custom command for the first output specified.  There must have
+already been a previous call to this command with the same output.
+The COMMENT, WORKING_DIRECTORY, and MAIN_DEPENDENCY options are
+currently ignored when APPEND is given, but may be used in the future.</p>
+<p>If VERBATIM is given then all arguments to the commands will be
+escaped properly for the build tool so that the invoked command
+receives each argument unchanged.  Note that one level of escapes is
+still used by the CMake language processor before add_custom_command
+even sees the arguments.  Use of VERBATIM is recommended as it enables
+correct behavior.  When VERBATIM is not given the behavior is platform
+specific because there is no protection of tool-specific special
+characters.</p>
+<p>If the output of the custom command is not actually created as a file
+on disk it should be marked as SYMBOLIC with
+SET_SOURCE_FILES_PROPERTIES.</p>
+<p>The IMPLICIT_DEPENDS option requests scanning of implicit dependencies
+of an input file.  The language given specifies the programming
+language whose corresponding dependency scanner should be used.
+Currently only C and CXX language scanners are supported.  The
+language has to be specified for every file in the IMPLICIT_DEPENDS
+list.  Dependencies discovered from the scanning are added to those of
+the custom command at build time.  Note that the IMPLICIT_DEPENDS
+option is currently supported only for Makefile generators and will be
+ignored by other generators.</p>
+<p>If COMMAND specifies an executable target (created by ADD_EXECUTABLE)
+it will automatically be replaced by the location of the executable
+created at build time.  Additionally a target-level dependency will be
+added so that the executable target will be built before any target
+using this custom command.  However this does NOT add a file-level
+dependency that would cause the custom command to re-run whenever the
+executable is recompiled.</p>
+<p>Arguments to COMMAND may use &quot;generator expressions&quot; with the syntax
+<code class="docutils literal notranslate"><span class="pre">$&lt;...&gt;</span></code>.  See the <span class="target" id="index-0-manual:cmake-generator-expressions(7)"></span><a class="reference internal" href="../manual/cmake-generator-expressions.7.html#manual:cmake-generator-expressions(7)" title="cmake-generator-expressions(7)"><code class="xref cmake cmake-manual docutils literal notranslate"><span class="pre">cmake-generator-expressions(7)</span></code></a> manual for
+available expressions.</p>
+<p>Note that tgt is not added as a dependency of the target this
+expression is evaluated on.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$&lt;TARGET_POLICY:pol&gt;          = &#39;1&#39; if the policy was NEW when the &#39;head&#39; target was created, else &#39;0&#39;.  If the policy was not set, the warning message for the policy will be emitted.  This generator expression only works for a subset of policies.
+$&lt;INSTALL_PREFIX&gt;         = Content of the install prefix when the target is exported via INSTALL(EXPORT) and empty otherwise.
+</pre></div>
+</div>
+<p>Boolean expressions:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$&lt;AND:?[,?]...&gt;           = &#39;1&#39; if all &#39;?&#39; are &#39;1&#39;, else &#39;0&#39;
+$&lt;OR:?[,?]...&gt;            = &#39;0&#39; if all &#39;?&#39; are &#39;0&#39;, else &#39;1&#39;
+$&lt;NOT:?&gt;                  = &#39;0&#39; if &#39;?&#39; is &#39;1&#39;, else &#39;1&#39;
+</pre></div>
+</div>
+<p>where '?' is always either '0' or '1'.</p>
+<p>Expressions with an implicit 'this' target:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$&lt;TARGET_PROPERTY:prop&gt;   = The value of the property prop on the target on which the generator expression is evaluated.
+</pre></div>
+</div>
+<p>References to target names in generator expressions imply target-level
+dependencies, but NOT file-level dependencies.  List target names with
+the DEPENDS option to add file dependencies.</p>
+<p>The DEPENDS option specifies files on which the command depends.  If
+any dependency is an OUTPUT of another custom command in the same
+directory (CMakeLists.txt file) CMake automatically brings the other
+custom command into the target in which this command is built.  If
+DEPENDS is not specified the command will run whenever the OUTPUT is
+missing; if the command does not actually create the OUTPUT then the
+rule will always run.  If DEPENDS specifies any target (created by an
+ADD_* command) a target-level dependency is created to make sure the
+target is built before any target using this custom command.
+Additionally, if the target is an executable or library a file-level
+dependency is created to cause the custom command to re-run whenever
+the target is recompiled.</p>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="add_compile_options.html"
+                          title="previous chapter">add_compile_options</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="add_custom_target.html"
+                          title="next chapter">add_custom_target</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/command/add_custom_command.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="add_custom_target.html" title="add_custom_target"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="add_compile_options.html" title="add_compile_options"
+             >previous</a> |</li>
+  <li>
+    <label class="sidebar-toggle" for="sidebar-check"></label>
+  </li>
+  <li class="rootlink">
+    <img src="../_static/cmake-logo-16.png" width="16" height="16" alt=""/>
+    <a href="https://cmake.org/">CMake 3.0.2</a>
+    <span class="reldelim1"> &#187;</span>
+  </li>
+  <li>
+    <a href="../index.html">Documentation</a> &#187;
+  </li>
+
+          <li class="nav-item nav-item-1"><a href="../manual/cmake-commands.7.html" >cmake-commands(7)</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">add_custom_command</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2000-2014 Kitware, Inc..
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    </div>
+<script type="text/javascript">
+(function() {
+  "use strict";
+  const hide = () => document.getElementById("sidebar-check").checked = false;
+  addEventListener("keydown", e => (e.key === "Escape") && hide());
+  addEventListener("click", e => (e.target.tagName === "A") && hide());
+  addEventListener("hashchange", hide)
+})();
+</script>
+  </body>
+</html>

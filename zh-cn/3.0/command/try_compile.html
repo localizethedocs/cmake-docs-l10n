@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>try_compile &mdash; CMake 3.0.2 Documentation</title>
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a3862c66" />
+    <link rel="stylesheet" type="text/css" href="../_static/cmake.css?v=4d06bd55" />
+    
+    <script src="../_static/documentation_options.js?v=e81da863"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/translations.js?v=beaddf03"></script>
+    
+    <link rel="canonical" href="https://projects.localizethedocs.org/cmake-docs-l10n/command/try_compile.html" />
+    <link rel="icon" href="../_static/cmake-favicon.ico"/>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="try_run" href="try_run.html" />
+    <link rel="prev" title="target_link_libraries" href="target_link_libraries.html" />
+
+ 
+
+    <script type="text/javascript" src="../ltd-provenance.js"></script>
+    <script type="text/javascript" src="../ltd-current.js"></script>
+    <script type="text/javascript" src="../../../ltd-config.js"></script>
+    <script type="text/javascript" src="../../../ltd-flyout.js"></script>
+
+  </head><body>
+    <input id="sidebar-check" type="checkbox" />
+    <label id="sidebar-overlay" for="sidebar-check"></label>
+
+
+
+    <div class="related relbar1" role="navigation" aria-label="Related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="总索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="try_run.html" title="try_run"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="target_link_libraries.html" title="target_link_libraries"
+             accesskey="P">上一页</a> |</li>
+  <li>
+    <label class="sidebar-toggle" for="sidebar-check"></label>
+  </li>
+  <li class="rootlink">
+    <img src="../_static/cmake-logo-16.png" width="16" height="16" alt=""/>
+    <a href="https://cmake.org/">CMake 3.0.2</a>
+    <span class="reldelim1"> &#187;</span>
+  </li>
+  <li>
+    <a href="../index.html">Documentation</a> &#187;
+  </li>
+
+          <li class="nav-item nav-item-1"><a href="../manual/cmake-commands.7.html" accesskey="U">cmake-commands(7)</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">try_compile</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="try-compile">
+<span id="command:try_compile"></span><h1>try_compile<a class="headerlink" href="#try-compile" title="Link to this heading">¶</a></h1>
+<p>Try building some code.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>try_compile(RESULT_VAR &lt;bindir&gt; &lt;srcdir&gt;
+            &lt;projectName&gt; [targetName] [CMAKE_FLAGS flags...]
+            [OUTPUT_VARIABLE &lt;var&gt;])
+</pre></div>
+</div>
+<p>Try building a project.  In this form, srcdir should contain a
+complete CMake project with a CMakeLists.txt file and all sources.
+The bindir and srcdir will not be deleted after this command is run.
+Specify targetName to build a specific target instead of the 'all' or
+'ALL_BUILD' target.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>try_compile(RESULT_VAR &lt;bindir&gt; &lt;srcfile|SOURCES srcfile...&gt;
+            [CMAKE_FLAGS flags...]
+            [COMPILE_DEFINITIONS flags...]
+            [LINK_LIBRARIES libs...]
+            [OUTPUT_VARIABLE &lt;var&gt;]
+            [COPY_FILE &lt;fileName&gt; [COPY_FILE_ERROR &lt;var&gt;]])
+</pre></div>
+</div>
+<p>Try building an executable from one or more source files.  In this
+form the user need only supply one or more source files that include a
+definition for 'main'.  CMake will create a CMakeLists.txt file to
+build the source(s) as an executable.  Specify COPY_FILE to get a copy
+of the linked executable at the given fileName and optionally
+COPY_FILE_ERROR to capture any error.</p>
+<p>In this version all files in bindir/CMakeFiles/CMakeTmp will be
+cleaned automatically.  For debugging, --debug-trycompile can be
+passed to cmake to avoid this clean.  However, multiple sequential
+try_compile operations reuse this single output directory.  If you use
+--debug-trycompile, you can only debug one try_compile call at a time.
+The recommended procedure is to configure with cmake all the way
+through once, then delete the cache entry associated with the
+try_compile call of interest, and then re-run cmake again with
+--debug-trycompile.</p>
+<p>Some extra flags that can be included are, INCLUDE_DIRECTORIES,
+LINK_DIRECTORIES, and LINK_LIBRARIES.  COMPILE_DEFINITIONS are
+-Ddefinition that will be passed to the compile line.</p>
+<p>The srcfile signature also accepts a LINK_LIBRARIES argument which may
+contain a list of libraries or IMPORTED targets which will be linked
+to in the generated project.  If LINK_LIBRARIES is specified as a
+parameter to try_compile, then any LINK_LIBRARIES passed as
+CMAKE_FLAGS will be ignored.</p>
+<p>try_compile creates a CMakeList.txt file on the fly that looks like
+this:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>add_definitions( &lt;expanded COMPILE_DEFINITIONS from calling cmake&gt;)
+include_directories(${INCLUDE_DIRECTORIES})
+link_directories(${LINK_DIRECTORIES})
+add_executable(cmTryCompileExec sources)
+target_link_libraries(cmTryCompileExec ${LINK_LIBRARIES})
+</pre></div>
+</div>
+<p>In both versions of the command, if OUTPUT_VARIABLE is specified, then
+the output from the build process is stored in the given variable.
+The success or failure of the try_compile, i.e.  TRUE or FALSE
+respectively, is returned in RESULT_VAR.  CMAKE_FLAGS can be used to
+pass -DVAR:TYPE=VALUE flags to the cmake that is run during the build.
+Set variable CMAKE_TRY_COMPILE_CONFIGURATION to choose a build
+configuration.</p>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h4>上一主题</h4>
+    <p class="topless"><a href="target_link_libraries.html"
+                          title="上一章">target_link_libraries</a></p>
+  </div>
+  <div>
+    <h4>下一主题</h4>
+    <p class="topless"><a href="try_run.html"
+                          title="下一章">try_run</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>本页</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/command/try_compile.rst.txt"
+            rel="nofollow">显示源代码</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="提交" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="总索引"
+             >索引</a></li>
+        <li class="right" >
+          <a href="try_run.html" title="try_run"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="target_link_libraries.html" title="target_link_libraries"
+             >上一页</a> |</li>
+  <li>
+    <label class="sidebar-toggle" for="sidebar-check"></label>
+  </li>
+  <li class="rootlink">
+    <img src="../_static/cmake-logo-16.png" width="16" height="16" alt=""/>
+    <a href="https://cmake.org/">CMake 3.0.2</a>
+    <span class="reldelim1"> &#187;</span>
+  </li>
+  <li>
+    <a href="../index.html">Documentation</a> &#187;
+  </li>
+
+          <li class="nav-item nav-item-1"><a href="../manual/cmake-commands.7.html" >cmake-commands(7)</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">try_compile</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+    &#169; 版权所有 2000-2014 Kitware, Inc..
+      由 <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3创建。
+    </div>
+<script type="text/javascript">
+(function() {
+  "use strict";
+  const hide = () => document.getElementById("sidebar-check").checked = false;
+  addEventListener("keydown", e => (e.key === "Escape") && hide());
+  addEventListener("click", e => (e.target.tagName === "A") && hide());
+  addEventListener("hashchange", hide)
+})();
+</script>
+  </body>
+</html>
