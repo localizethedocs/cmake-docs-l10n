@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CMake master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-14 08:20+0000\n"
+"POT-Creation-Date: 2026-01-26 08:22+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,14 +21,14 @@ msgstr ""
 msgid "CMAKE_VERIFY_INTERFACE_HEADER_SETS"
 msgstr ""
 
-#: ../../../variable/CMAKE_VERIFY_INTERFACE_HEADER_SETS.rst:6
+#: ../../../variable/include/CMAKE_VERIFY_XXX_HEADER_SETS.rst:1
 msgid ""
-"This variable is used to initialize the :prop_tgt:"
-"`VERIFY_INTERFACE_HEADER_SETS` property of targets when they are created.  "
-"Setting it to true enables header set verification."
+"This variable is used to initialize the |VERIFY_XXX_HEADER_SETS| property of "
+"targets when they are created.  Setting it to true enables |xxx| header set "
+"verification."
 msgstr ""
 
-#: ../../../variable/CMAKE_VERIFY_INTERFACE_HEADER_SETS.rst:10
+#: ../../../variable/include/CMAKE_VERIFY_XXX_HEADER_SETS.rst:5
 msgid ""
 "Projects should not normally set this variable, it is intended as a "
 "developer control to be set on the :manual:`cmake(1)` command line or other "
@@ -37,34 +37,46 @@ msgid ""
 "machine and compiler."
 msgstr ""
 
-#: ../../../variable/CMAKE_VERIFY_INTERFACE_HEADER_SETS.rst:16
+#: ../../../variable/include/CMAKE_VERIFY_XXX_HEADER_SETS.rst:11
 msgid ""
 "Verification of a dependency's header sets is not typically of interest to "
 "developers.  Therefore, :command:`FetchContent_MakeAvailable` explicitly "
-"sets ``CMAKE_VERIFY_INTERFACE_HEADER_SETS`` to false for the duration of its "
-"call, but restores its original value before returning.  If a project brings "
-"a dependency directly into the main build (e.g. calling :command:"
+"sets |CMAKE_VERIFY_XXX_HEADER_SETS| and |"
+"COMPLEMENTARY_CMAKE_VERIFY_XXX_HEADER_SETS| to false for the duration of its "
+"call, but restores their original values before returning.  If a project "
+"brings a dependency directly into the main build (e.g. calling :command:"
 "`add_subdirectory` on a vendored project from a git submodule), it should "
 "also do likewise.  For example:"
 msgstr ""
 
-#: ../../../variable/CMAKE_VERIFY_INTERFACE_HEADER_SETS.rst:24
+#: ../../../variable/include/CMAKE_VERIFY_XXX_HEADER_SETS.rst:19
 msgid ""
 "# Save original setting so we can restore it later\n"
-"set(want_header_set_verification ${CMAKE_VERIFY_INTERFACE_HEADER_SETS})\n"
+"set(want_interface_header_set_verification "
+"${CMAKE_VERIFY_INTERFACE_HEADER_SETS})\n"
+"set(want_private_header_set_verification "
+"${CMAKE_VERIFY_PRIVATE_HEADER_SETS})\n"
 "\n"
 "# Include the vendored dependency with header set verification disabled\n"
 "set(CMAKE_VERIFY_INTERFACE_HEADER_SETS OFF)\n"
+"set(CMAKE_VERIFY_PRIVATE_HEADER_SETS OFF)\n"
 "add_subdirectory(...)   # Vendored sources, e.g. from git submodules\n"
 "\n"
 "# Add the project's own sources. Restore the developer's original choice\n"
 "# for whether to enable header set verification.\n"
-"set(CMAKE_VERIFY_INTERFACE_HEADER_SETS ${want_header_set_verification})\n"
+"set(CMAKE_VERIFY_INTERFACE_HEADER_SETS "
+"${want_interface_header_set_verification})\n"
+"set(CMAKE_VERIFY_PRIVATE_HEADER_SETS "
+"${want_private_header_set_verification})\n"
 "add_subdirectory(src)"
 msgstr ""
 
-#: ../../../variable/CMAKE_VERIFY_INTERFACE_HEADER_SETS.rst:38
+#: ../../../variable/include/CMAKE_VERIFY_XXX_HEADER_SETS.rst:36
 msgid ""
-"By default, this variable is not set, which will result in header set "
+"By default, this variable is not set, which will result in |xxx| header set "
 "verification being disabled."
+msgstr ""
+
+#: ../../../variable/include/CMAKE_VERIFY_XXX_HEADER_SETS.rst:39
+msgid "See also |COMPLEMENTARY_CMAKE_VERIFY_XXX_HEADER_SETS|."
 msgstr ""
