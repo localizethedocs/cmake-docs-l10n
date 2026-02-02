@@ -187,6 +187,12 @@ msgid ""
 "  VERBATIM\n"
 ")"
 msgstr ""
+"add_custom_target(run_some_tool\n"
+"  COMMAND some_tool \"$<LIST:TRANSFORM,$<TARGET_PROPERTY:tgt,"
+"INCLUDE_DIRECTORIES>,PREPEND,-I;>\"\n"
+"  COMMAND_EXPAND_LISTS\n"
+"  VERBATIM\n"
+")"
 
 #: ../../../manual/cmake-generator-expressions.7.rst:129
 msgid ""
@@ -221,10 +227,16 @@ msgid ""
 "  \"$<${meet_requirements}:HAVE_5_OR_LATER>\"\n"
 ")"
 msgstr ""
+"set(is_gnu \"$<CXX_COMPILER_ID:GNU>\")\n"
+"set(v5_or_later \"$<VERSION_GREATER_EQUAL:$<CXX_COMPILER_VERSION>,5>\")\n"
+"set(meet_requirements \"$<AND:${is_gnu},${v5_or_later}>\")\n"
+"target_compile_definitions(tgt PRIVATE\n"
+"  \"$<${meet_requirements}:HAVE_5_OR_LATER>\"\n"
+")"
 
 #: ../../../manual/cmake-generator-expressions.7.rst:156
 msgid "Debugging"
-msgstr ""
+msgstr "除錯"
 
 #: ../../../manual/cmake-generator-expressions.7.rst:158
 msgid ""
@@ -238,6 +250,7 @@ msgstr ""
 msgid ""
 "add_custom_target(genexdebug COMMAND ${CMAKE_COMMAND} -E echo \"$<...>\")"
 msgstr ""
+"add_custom_target(genexdebug COMMAND ${CMAKE_COMMAND} -E echo \"$<...>\")"
 
 #: ../../../manual/cmake-generator-expressions.7.rst:167
 msgid ""
@@ -258,7 +271,7 @@ msgstr ""
 
 #: ../../../manual/cmake-generator-expressions.7.rst:178
 msgid "Generator Expression Reference"
-msgstr ""
+msgstr "生成器表達式參考"
 
 #: ../../../manual/cmake-generator-expressions.7.rst:182
 msgid ""
@@ -270,7 +283,7 @@ msgstr ""
 
 #: ../../../manual/cmake-generator-expressions.7.rst:190
 msgid "Conditional Expressions"
-msgstr ""
+msgstr "條件表達式"
 
 #: ../../../manual/cmake-generator-expressions.7.rst:192
 msgid ""
@@ -390,7 +403,7 @@ msgstr ""
 
 #: ../../../manual/cmake-generator-expressions.7.rst:280
 msgid "Primary Comparison Expressions"
-msgstr ""
+msgstr "主要的比較表達式"
 
 #: ../../../manual/cmake-generator-expressions.7.rst:282
 msgid ""
@@ -402,7 +415,7 @@ msgstr ""
 
 #: ../../../manual/cmake-generator-expressions.7.rst:288
 msgid "Numeric Comparisons"
-msgstr ""
+msgstr "數值比較"
 
 #: ../../../manual/cmake-generator-expressions.7.rst:292
 msgid "``1`` if ``value1`` and ``value2`` are numerically equal, else ``0``."
@@ -435,7 +448,7 @@ msgstr ""
 
 #: ../../../manual/cmake-generator-expressions.7.rst:322
 msgid "String Expressions"
-msgstr ""
+msgstr "字串表達式"
 
 #: ../../../manual/cmake-generator-expressions.7.rst:324
 msgid ""
@@ -504,7 +517,7 @@ msgstr ""
 
 #: ../../../manual/cmake-generator-expressions.7.rst:387
 msgid "String Queries"
-msgstr ""
+msgstr "字串查詢"
 
 #: ../../../manual/cmake-generator-expressions.7.rst:393
 msgid ""
@@ -592,7 +605,7 @@ msgstr ""
 
 #: ../../../manual/cmake-generator-expressions.7.rst:447
 msgid "String Generations"
-msgstr ""
+msgstr "字串生成"
 
 #: ../../../manual/cmake-generator-expressions.7.rst:453
 msgid "Join all the ``input`` arguments together using the ``glue`` string."
