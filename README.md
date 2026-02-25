@@ -37,31 +37,31 @@
 
 <div align="center">
 <a href="https://localizethedocs.zulipchat.com" title="Zulip Chat" target="_blank">
-  <img alt="Zulip Chat" src="https://img.shields.io/badge/Zulip-Chat-blue.svg?logo=zulip&style=flat&logoColor=white" />
+  <img alt="Zulip Chat" src="https://img.shields.io/badge/Zulip-Chat-263238.svg?logo=zulip&style=flat&logoColor=white" />
 </a>
 <a href="https://github.com/localizethedocs/cmake-docs-l10n/stargazers" title="GitHub Stars" target="_blank">
-  <img alt="GitHub Stars" src="https://img.shields.io/github/stars/localizethedocs/cmake-docs-l10n.svg?logo=github&style=flat&color=blue" />
+  <img alt="GitHub Stars" src="https://img.shields.io/github/stars/localizethedocs/cmake-docs-l10n.svg?logo=github&style=flat&color=263238" />
 </a>
 <a href="https://github.com/localizethedocs/cmake-docs-l10n/network/members" title="GitHub Forks" target="_blank">
-  <img alt="GitHub Forks" src="https://img.shields.io/github/forks/localizethedocs/cmake-docs-l10n.svg?logo=github&style=flat&color=blue" />
+  <img alt="GitHub Forks" src="https://img.shields.io/github/forks/localizethedocs/cmake-docs-l10n.svg?logo=github&style=flat&color=263238" />
 </a>
 <a href="https://github.com/localizethedocs/cmake-docs-l10n/graphs/contributors" title="GitHub Contributors" target="_blank">
-  <img alt="GitHub Contributors" src="https://img.shields.io/github/contributors/localizethedocs/cmake-docs-l10n.svg?logo=github&style=flat&color=blue" />
+  <img alt="GitHub Contributors" src="https://img.shields.io/github/contributors/localizethedocs/cmake-docs-l10n.svg?logo=github&style=flat&color=263238" />
 </a>
 <a href="https://github.com/localizethedocs/cmake-docs-l10n" title="GitHub Repo Size" target="_blank">
-  <img alt="GitHub Repo Size" src="https://img.shields.io/github/repo-size/localizethedocs/cmake-docs-l10n?logo=github&style=flat&color=blue" />
+  <img alt="GitHub Repo Size" src="https://img.shields.io/github/repo-size/localizethedocs/cmake-docs-l10n?logo=github&style=flat&color=263238" />
 </a>
 <a href="https://github.com/localizethedocs/cmake-docs-l10n/issues" title="GitHub Open Issues" target="_blank">
-  <img alt="GitHub Open Issues" src="https://img.shields.io/github/issues/localizethedocs/cmake-docs-l10n.svg?logo=github&style=flat&color=blue" />
+  <img alt="GitHub Open Issues" src="https://img.shields.io/github/issues/localizethedocs/cmake-docs-l10n.svg?logo=github&style=flat&color=263238" />
 </a>
 <a href="https://github.com/localizethedocs/cmake-docs-l10n/pulls" title="GitHub Open Pull Requests" target="_blank">
-  <img alt="GitHub Open Pull Requests" src="https://img.shields.io/github/issues-pr/localizethedocs/cmake-docs-l10n?logo=github&style=flat&color=blue" />
+  <img alt="GitHub Open Pull Requests" src="https://img.shields.io/github/issues-pr/localizethedocs/cmake-docs-l10n?logo=github&style=flat&color=263238" />
 </a>
 <a href="https://opensource.org/licenses/BSD-3-Clause" title="License: BSD-3-Clause" target="_blank">
-  <img alt="License: BSD-3-Clause" src="https://img.shields.io/badge/License-BSD--3--Clause-blue.svg?logo=opensourceinitiative&style=flat&logoColor=white" />
+  <img alt="License: BSD-3-Clause" src="https://img.shields.io/badge/License-BSD--3--Clause-263238.svg?logo=opensourceinitiative&style=flat&logoColor=white" />
 </a>
 <a href="http://creativecommons.org/licenses/by-sa/4.0/" title="License: CC-BY-SA-4.0" target="_blank">
-  <img alt="License: CC-BY-SA-4.0" src="https://img.shields.io/badge/License-CC--BY--SA--4.0-blue.svg?logo=creativecommons&style=flat&logoColor=white" />
+  <img alt="License: CC-BY-SA-4.0" src="https://img.shields.io/badge/License-CC--BY--SA--4.0-263238.svg?logo=creativecommons&style=flat&logoColor=white" />
 </a>
 <a href="https://gitcode.com/localizethedocs/cmake-docs-l10n/stargazers" title="GitCode GStars" target="_blank">
   <img alt="GitCode GStars" src="https://gitcode.com/localizethedocs/cmake-docs-l10n/star/badge.svg" />
