@@ -189,10 +189,16 @@ msgid ""
 "  \"$<${meet_requirements}:HAVE_5_OR_LATER>\"\n"
 ")"
 msgstr ""
+"set(is_gnu \"$<CXX_COMPILER_ID:GNU>\")\n"
+"set(v5_or_later \"$<VERSION_GREATER_EQUAL:$<CXX_COMPILER_VERSION>,5>\")\n"
+"set(meet_requirements \"$<AND:${is_gnu},${v5_or_later}>\")\n"
+"target_compile_definitions(tgt PRIVATE\n"
+"  \"$<${meet_requirements}:HAVE_5_OR_LATER>\"\n"
+")"
 
 #: ../../../manual/cmake-generator-expressions.7.rst:134
 msgid "Debugging"
-msgstr ""
+msgstr "除錯"
 
 #: ../../../manual/cmake-generator-expressions.7.rst:136
 msgid ""
@@ -206,6 +212,7 @@ msgstr ""
 msgid ""
 "add_custom_target(genexdebug COMMAND ${CMAKE_COMMAND} -E echo \"$<...>\")"
 msgstr ""
+"add_custom_target(genexdebug COMMAND ${CMAKE_COMMAND} -E echo \"$<...>\")"
 
 #: ../../../manual/cmake-generator-expressions.7.rst:145
 msgid ""
@@ -226,7 +233,7 @@ msgstr ""
 
 #: ../../../manual/cmake-generator-expressions.7.rst:156
 msgid "Generator Expression Reference"
-msgstr ""
+msgstr "生成器表達式參考"
 
 #: ../../../manual/cmake-generator-expressions.7.rst:160
 msgid ""
@@ -238,7 +245,7 @@ msgstr ""
 
 #: ../../../manual/cmake-generator-expressions.7.rst:168
 msgid "Conditional Expressions"
-msgstr ""
+msgstr "條件表達式"
 
 #: ../../../manual/cmake-generator-expressions.7.rst:170
 msgid ""
@@ -344,7 +351,7 @@ msgstr ""
 
 #: ../../../manual/cmake-generator-expressions.7.rst:247
 msgid "Primary Comparison Expressions"
-msgstr ""
+msgstr "主要的比較表達式"
 
 #: ../../../manual/cmake-generator-expressions.7.rst:249
 msgid ""
