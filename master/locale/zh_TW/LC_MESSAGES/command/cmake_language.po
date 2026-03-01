@@ -155,6 +155,20 @@ msgid ""
 "\n"
 "include(${CMAKE_CURRENT_BINARY_DIR}/eval.cmake)"
 msgstr ""
+"set(A TRUE)\n"
+"set(B TRUE)\n"
+"set(C TRUE)\n"
+"set(condition \"(A AND B) OR C\")\n"
+"\n"
+"file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/eval.cmake \"\n"
+"  if (${condition})\n"
+"    message(STATUS TRUE)\n"
+"  else()\n"
+"    message(STATUS FALSE)\n"
+"  endif()\"\n"
+")\n"
+"\n"
+"include(${CMAKE_CURRENT_BINARY_DIR}/eval.cmake)"
 
 #: ../../../command/cmake_language.rst:105
 msgid "Deferring Calls"
@@ -439,7 +453,7 @@ msgstr ""
 
 #: ../../../command/cmake_language.rst:297
 msgid "xxx_provide_dependency(<method> [<method-specific-args>...])"
-msgstr ""
+msgstr "xxx_provide_dependency(<method> [<method-specific-args>...])"
 
 #: ../../../command/cmake_language.rst:301
 msgid ""
@@ -570,7 +584,7 @@ msgstr ""
 #: ../../../command/cmake_language.rst:420
 #: ../../../command/cmake_language.rst:479
 msgid "mycomp_provider.cmake"
-msgstr ""
+msgstr "mycomp_provider.cmake"
 
 #: ../../../command/cmake_language.rst:380
 msgid ""
@@ -696,6 +710,16 @@ msgid ""
 "  SUPPORTED_METHODS FIND_PACKAGE\n"
 ")"
 msgstr ""
+"cmake_minimum_required(VERSION 3.24)\n"
+"\n"
+"macro(mycomp_provide_dependency method)\n"
+"  find_package(${ARGN} BYPASS_PROVIDER QUIET)\n"
+"endmacro()\n"
+"\n"
+"cmake_language(\n"
+"  SET_DEPENDENCY_PROVIDER mycomp_provide_dependency\n"
+"  SUPPORTED_METHODS FIND_PACKAGE\n"
+")"
 
 #: ../../../command/cmake_language.rst:494
 msgid "Getting current message log level"
