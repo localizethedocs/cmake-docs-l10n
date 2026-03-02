@@ -42,7 +42,7 @@ msgstr "該模組定義了以下變數："
 
 #: ../../../../Modules/FindMPEG2.cmake:21
 msgid "``MPEG2_FOUND``"
-msgstr ""
+msgstr "``MPEG2_FOUND``"
 
 #: ../../../../Modules/FindMPEG2.cmake:22
 msgid "Boolean indicating whether the libmpeg2 library is found."
@@ -50,11 +50,11 @@ msgstr ""
 
 #: ../../../../Modules/FindMPEG2.cmake:23
 msgid "``MPEG2_LIBRARIES``"
-msgstr ""
+msgstr "``MPEG2_LIBRARIES``"
 
 #: ../../../../Modules/FindMPEG2.cmake:24
 msgid "Libraries needed to link against to use libmpeg2."
-msgstr ""
+msgstr "使用 libmpeg2 所需連結的程式庫。"
 
 #: ../../../../Modules/FindMPEG2.cmake:27
 msgid "Cache Variables"
@@ -116,3 +116,16 @@ msgid ""
 "\n"
 "target_link_libraries(project_target PRIVATE MPEG2::MPEG2)"
 msgstr ""
+"find_package(MPEG2)\n"
+"\n"
+"if(MPEG2_FOUND AND NOT TARGET MPEG2::MPEG2)\n"
+"  add_library(MPEG2::MPEG2 INTERFACE IMPORTED)\n"
+"  set_target_properties(\n"
+"    MPEG2::MPEG2\n"
+"    PROPERTIES\n"
+"      INTERFACE_LINK_LIBRARIES \"${MPEG2_LIBRARIES}\"\n"
+"      INTERFACE_INCLUDE_DIRECTORIES \"${MPEG2_INCLUDE_DIR}\"\n"
+"  )\n"
+"endif()\n"
+"\n"
+"target_link_libraries(project_target PRIVATE MPEG2::MPEG2)"
