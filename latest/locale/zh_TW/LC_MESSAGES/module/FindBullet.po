@@ -44,7 +44,7 @@ msgstr "``Bullet_FOUND``"
 #: ../../../../Modules/FindBullet.cmake:22
 #: ../../../../Modules/FindBullet.cmake:49
 msgid "Boolean indicating whether Bullet was found."
-msgstr ""
+msgstr "布林值，表示是否找到了 Bullet。"
 
 #: ../../../../Modules/FindBullet.cmake:24
 msgid "``BULLET_INCLUDE_DIRS``"
@@ -88,7 +88,7 @@ msgstr "棄用的變數"
 
 #: ../../../../Modules/FindBullet.cmake:43
 msgid "The following variables are provided for backward compatibility:"
-msgstr ""
+msgstr "提供以下變數來維持向後相容性："
 
 #: ../../../../Modules/FindBullet.cmake:45
 msgid "``BULLET_FOUND``"
@@ -125,3 +125,16 @@ msgid ""
 "\n"
 "target_link_libraries(example PRIVATE Bullet::Bullet)"
 msgstr ""
+"find_package(Bullet)\n"
+"\n"
+"if(Bullet_FOUND AND NOT TARGET Bullet::Bullet)\n"
+"  add_library(Bullet::Bullet INTERFACE IMPORTED)\n"
+"  set_target_properties(\n"
+"    Bullet::Bullet\n"
+"    PROPERTIES\n"
+"      INTERFACE_INCLUDE_DIRECTORIES \"${BULLET_INCLUDE_DIRS}\"\n"
+"      INTERFACE_LINK_LIBRARIES \"${BULLET_LIBRARIES}\"\n"
+"  )\n"
+"endif()\n"
+"\n"
+"target_link_libraries(example PRIVATE Bullet::Bullet)"
