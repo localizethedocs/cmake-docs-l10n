@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CMake latest\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-11-02 08:20+0000\n"
+"POT-Creation-Date: 2026-03-02 08:39+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -637,23 +637,24 @@ msgstr ""
 
 #: ../../../cpack_gen/wix.rst:411
 msgid ""
-"When unset generated installers will default installing to "
-"``ProgramFiles<64>Folder``."
+"When unset generated installers will install to ``LocalAppDataFolder`` if :"
+"variable:`CPACK_WIX_INSTALL_SCOPE` is ``perUser``, and to "
+"``ProgramFiles<64>Folder`` otherwise."
 msgstr ""
 
-#: ../../../cpack_gen/wix.rst:416
+#: ../../../cpack_gen/wix.rst:417
 msgid ""
 "This variable can optionally be set to the root directory of a custom WiX "
 "Toolset installation."
 msgstr ""
 
-#: ../../../cpack_gen/wix.rst:419
+#: ../../../cpack_gen/wix.rst:420
 msgid ""
 "When unspecified CPack will try to locate a WiX Toolset installation via the "
 "``WIX`` environment variable instead."
 msgstr ""
 
-#: ../../../cpack_gen/wix.rst:426
+#: ../../../cpack_gen/wix.rst:427
 msgid ""
 "This variable provides a list of custom namespace declarations that are "
 "necessary for using WiX extensions. Each declaration should be in the form "
@@ -662,67 +663,85 @@ msgid ""
 "can be found here: https://docs.firegiant.com/wix3/xsd/"
 msgstr ""
 
-#: ../../../cpack_gen/wix.rst:436
+#: ../../../cpack_gen/wix.rst:437
 msgid ""
 "If this variable is set to true, the default inclusion of the WiX ``UI`` "
 "extension is skipped, i.e., the ``-ext WixUIExtension`` or ``-ext WixToolset."
 "UI.wixext`` flag is not passed to WiX tools."
 msgstr ""
 
-#: ../../../cpack_gen/wix.rst:444
+#: ../../../cpack_gen/wix.rst:445
 msgid ""
 "This variable can be optionally set to specify the target architecture of "
 "the installer. May for example be set to ``x64`` or ``arm64``."
 msgstr ""
 
-#: ../../../cpack_gen/wix.rst:447
+#: ../../../cpack_gen/wix.rst:448
 msgid "When unspecified, CPack will default to ``x64`` or ``x86``."
 msgstr ""
 
-#: ../../../cpack_gen/wix.rst:453
+#: ../../../cpack_gen/wix.rst:454
 msgid ""
 "This variable can be optionally set to specify the ``InstallScope`` of the "
-"installer:"
-msgstr ""
-
-#: ../../../cpack_gen/wix.rst:456
-msgid "``perMachine``"
+"installer (see https://docs.firegiant.com/wix3/xsd/wix/package/):"
 msgstr ""
 
 #: ../../../cpack_gen/wix.rst:457
+msgid "``perMachine``"
+msgstr ""
+
+#: ../../../cpack_gen/wix.rst:458
 msgid ""
 "Create an installer that installs for all users and requires administrative "
 "privileges.  Start menu entries created by the installer are visible to all "
 "users."
 msgstr ""
 
-#: ../../../cpack_gen/wix.rst:461
+#: ../../../cpack_gen/wix.rst:462
 msgid "This is the default.  See policy :policy:`CMP0172`."
 msgstr ""
 
-#: ../../../cpack_gen/wix.rst:463
+#: ../../../cpack_gen/wix.rst:464
 msgid "``perUser``"
 msgstr ""
 
-#: ../../../cpack_gen/wix.rst:464
-msgid "Not yet supported. This is reserved for future use."
-msgstr ""
-
-#: ../../../cpack_gen/wix.rst:466
-msgid "``NONE``"
-msgstr ""
-
-#: ../../../cpack_gen/wix.rst:467
-msgid "Create an installer without any ``InstallScope`` attribute."
+#: ../../../cpack_gen/wix.rst:465
+msgid ""
+"Create an installer that installs only for the current user and does not "
+"require administrative privileges. Start menu entries created by the "
+"installer are visible only to the current user."
 msgstr ""
 
 #: ../../../cpack_gen/wix.rst:469
+msgid ""
+"To enable per-user installation, the installer has to generate some "
+"additional registry entries to serve as \"key paths\" for installed "
+"components (see https://learn.microsoft.com/en-us/windows/win32/msi/ice38). "
+"These registry entries are created under ``HKEY_CURRENT_USER``, using the "
+"path specified by the :variable:`CPACK_WIX_COMPONENT_KEYS_REGISTRY_PATH` "
+"variable."
+msgstr ""
+
+#: ../../../cpack_gen/wix.rst:478
+msgid ""
+"Before CMake 4.3, this value was reserved for future use and not supported."
+msgstr ""
+
+#: ../../../cpack_gen/wix.rst:480
+msgid "``NONE``"
+msgstr ""
+
+#: ../../../cpack_gen/wix.rst:481
+msgid "Create an installer without any ``InstallScope`` attribute."
+msgstr ""
+
+#: ../../../cpack_gen/wix.rst:483
 msgid ""
 "This is supported only if :variable:`CPACK_WIX_VERSION` is not set, or is "
 "set to ``3``."
 msgstr ""
 
-#: ../../../cpack_gen/wix.rst:474
+#: ../../../cpack_gen/wix.rst:488
 msgid ""
 "This value is only for compatibility with the inconsistent behavior used by "
 "CPack 3.28 and older.  The resulting installer requires administrative "
@@ -731,27 +750,48 @@ msgid ""
 "current user."
 msgstr ""
 
-#: ../../../cpack_gen/wix.rst:482
-msgid ""
-"An installation performed by an installer created without any "
-"``InstallScope`` cannot be cleanly updated or replaced by an installer with "
-"an ``InstallScope``.  In order to transition a project's installers from "
-"``NONE`` to ``perMachine``, the latter installer should be distributed with "
-"instructions to first manually uninstall any older version."
-msgstr ""
-
-#: ../../../cpack_gen/wix.rst:489
-msgid "See https://docs.firegiant.com/wix3/xsd/wix/package/"
-msgstr ""
-
 #: ../../../cpack_gen/wix.rst:495
+msgid ""
+"Installations performed by installers created with different "
+"``InstallScope`` values cannot be cleanly updated or replaced by each other. "
+"For example, to transition a project's installers from ``NONE`` to "
+"``perMachine``, or from ``perMachine`` to ``perUser``, the latter installer "
+"should be distributed with instructions to first manually uninstall any "
+"older version."
+msgstr ""
+
+#: ../../../cpack_gen/wix.rst:506
+msgid ""
+"This variable determines the registry path under ``HKEY_CURRENT_USER`` where "
+"the installer will create registry entries to serve as \"key paths\" for "
+"components if :variable:`CPACK_WIX_INSTALL_SCOPE` is set to ``perUser``."
+msgstr ""
+
+#: ../../../cpack_gen/wix.rst:510
+msgid ""
+"Use forward slashes (``/``) as path separators to avoid issues with escapes; "
+"they will be converted to backslashes (``\\``) by the WIX generator."
+msgstr ""
+
+#: ../../../cpack_gen/wix.rst:513
+msgid ""
+"Default value is ``Software/<Vendor>/<PackageName>/Components``, where "
+"``<Vendor>`` is taken from :variable:`CPACK_PACKAGE_VENDOR`, and "
+"``<PackageName>`` is taken from :variable:`CPACK_PACKAGE_NAME`."
+msgstr ""
+
+#: ../../../cpack_gen/wix.rst:517
+msgid "Example: ``Software/MyCompany/MyProduct/Components``"
+msgstr ""
+
+#: ../../../cpack_gen/wix.rst:523
 msgid ""
 "If this variable is set to true one ``.cab`` file per component is created. "
 "The default is to create a single ``.cab`` file for all files in the "
 "installer."
 msgstr ""
 
-#: ../../../cpack_gen/wix.rst:498
+#: ../../../cpack_gen/wix.rst:526
 msgid ""
 "WiX creates ``.cab`` files in parallel so multiple ``.cab`` files may be "
 "desirable for faster packaging."
