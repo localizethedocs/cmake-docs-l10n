@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CMake master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-14 08:20+0000\n"
+"POT-Creation-Date: 2026-03-02 08:35+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,7 +22,7 @@ msgid "enable_testing"
 msgstr ""
 
 #: ../../../command/enable_testing.rst:4
-msgid "Enable testing for current directory and below."
+msgid "Enables testing for the current directory and below:"
 msgstr ""
 
 #: ../../../command/enable_testing.rst:6
@@ -30,21 +30,66 @@ msgid "enable_testing()"
 msgstr ""
 
 #: ../../../command/enable_testing.rst:10
-msgid "Enables testing for this directory and below."
+msgid ""
+"This command should be invoked in the top-level source directory because :"
+"manual:`ctest(1)` expects to find a test file in the top-level build "
+"directory."
 msgstr ""
 
-#: ../../../command/enable_testing.rst:12
+#: ../../../command/enable_testing.rst:14
 msgid ""
-"This command should be in the top-level source directory because :manual:"
-"`ctest(1)` expects to find a test file in the top-level build directory."
+"This command is also automatically invoked when the :module:`CTest` module "
+"is included, except if the :variable:`BUILD_TESTING` option is turned off."
 msgstr ""
 
-#: ../../../command/enable_testing.rst:16
+#: ../../../command/enable_testing.rst:18
 msgid ""
-"This command is automatically invoked when the :module:`CTest` module is "
-"included, except if the :variable:`BUILD_TESTING` option is turned off."
+"The following restrictions apply to where ``enable_testing()`` may be called:"
 msgstr ""
 
 #: ../../../command/enable_testing.rst:20
-msgid "See also the :command:`add_test` command."
+msgid ""
+"It must be called in file scope, not in a :command:`function` call nor "
+"inside a :command:`block`."
+msgstr ""
+
+#: ../../../command/enable_testing.rst:24
+msgid "Examples"
+msgstr ""
+
+#: ../../../command/enable_testing.rst:26
+msgid ""
+"In the following example, this command is conditionally called depending on "
+"how the project is used.  For instance, when the Example project is added "
+"via the :module:`FetchContent` module as a subdirectory of a parent project "
+"that defines its own tests, testing for the Example project is disabled."
+msgstr ""
+
+#: ../../../command/enable_testing.rst:31
+msgid "``CMakeLists.txt``"
+msgstr ""
+
+#: ../../../command/enable_testing.rst:31
+msgid ""
+"project(Example)\n"
+"\n"
+"option(Example_ENABLE_TESTING \"Enable testing\" ${PROJECT_IS_TOP_LEVEL})\n"
+"\n"
+"if(Example_ENABLE_TESTING)\n"
+"  enable_testing()\n"
+"endif()\n"
+"\n"
+"# ...\n"
+"\n"
+"if(Example_ENABLE_TESTING)\n"
+"  add_test(...)\n"
+"endif()"
+msgstr ""
+
+#: ../../../command/enable_testing.rst:49
+msgid "See Also"
+msgstr ""
+
+#: ../../../command/enable_testing.rst:51
+msgid "The :command:`add_test` command."
 msgstr ""

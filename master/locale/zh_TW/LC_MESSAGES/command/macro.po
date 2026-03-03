@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CMake master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-14 08:20+0000\n"
+"POT-Creation-Date: 2026-03-02 08:35+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -106,12 +106,12 @@ msgstr "引數"
 
 #: ../../../command/macro.rst:58
 msgid ""
-"When a macro is invoked, the commands recorded in the macro are first "
+"When a macro is invoked, first all commands recorded in the macro are "
 "modified by replacing formal parameters (``${arg1}``, ...) with the "
-"arguments passed, and then invoked as normal commands."
+"arguments passed. Then all modified commands are invoked as normal commands."
 msgstr ""
 
-#: ../../../command/macro.rst:62
+#: ../../../command/macro.rst:63
 msgid ""
 "In addition to referencing the formal parameters you can reference the "
 "values ``${ARGC}`` which will be set to the number of arguments passed into "
@@ -120,7 +120,7 @@ msgid ""
 "creating macros with optional arguments."
 msgstr ""
 
-#: ../../../command/macro.rst:68
+#: ../../../command/macro.rst:69
 msgid ""
 "Furthermore, ``${ARGV}`` holds the list of all arguments given to the macro "
 "and ``${ARGN}`` holds the list of arguments past the last expected argument. "
@@ -129,17 +129,17 @@ msgid ""
 "ensure that ``${ARGV#}`` was passed to the function as an extra argument."
 msgstr ""
 
-#: ../../../command/macro.rst:79
+#: ../../../command/macro.rst:80
 msgid "Macro vs Function"
 msgstr "巨集 vs 函式"
 
-#: ../../../command/macro.rst:81
+#: ../../../command/macro.rst:82
 msgid ""
 "The ``macro`` command is very similar to the :command:`function` command. "
 "Nonetheless, there are a few important differences."
 msgstr ""
 
-#: ../../../command/macro.rst:84
+#: ../../../command/macro.rst:85
 msgid ""
 "In a function, ``ARGN``, ``ARGC``, ``ARGV`` and ``ARGV0``, ``ARGV1``, ... "
 "are true variables in the usual CMake sense.  In a macro, they are not, they "
@@ -148,7 +148,7 @@ msgid ""
 "Caveats` section below."
 msgstr ""
 
-#: ../../../command/macro.rst:90
+#: ../../../command/macro.rst:91
 msgid ""
 "Another difference between macros and functions is the control flow. A "
 "function is executed by transferring control from the calling statement to "
@@ -160,7 +160,7 @@ msgid ""
 "altogether."
 msgstr ""
 
-#: ../../../command/macro.rst:99
+#: ../../../command/macro.rst:100
 msgid ""
 "Unlike a function, the :variable:`CMAKE_CURRENT_FUNCTION`, :variable:"
 "`CMAKE_CURRENT_FUNCTION_LIST_DIR`, :variable:"
@@ -168,17 +168,17 @@ msgid ""
 "`CMAKE_CURRENT_FUNCTION_LIST_LINE` variables are not set for a macro."
 msgstr ""
 
-#: ../../../command/macro.rst:108
+#: ../../../command/macro.rst:109
 msgid "Argument Caveats"
 msgstr ""
 
-#: ../../../command/macro.rst:110
+#: ../../../command/macro.rst:111
 msgid ""
 "Since ``ARGN``, ``ARGC``, ``ARGV``, ``ARGV0`` etc. are not variables, you "
 "will NOT be able to use commands like"
 msgstr ""
 
-#: ../../../command/macro.rst:113
+#: ../../../command/macro.rst:114
 msgid ""
 "if(ARGV1) # ARGV1 is not a variable\n"
 "if(DEFINED ARGV2) # ARGV2 is not a variable\n"
@@ -186,7 +186,7 @@ msgid ""
 "foreach(loop_var IN LISTS ARGN) # ARGN is not a variable"
 msgstr ""
 
-#: ../../../command/macro.rst:120
+#: ../../../command/macro.rst:121
 msgid ""
 "In the first case, you can use ``if(${ARGV1})``.  In the second and third "
 "case, the proper way to check if an optional variable was passed to the "
@@ -195,20 +195,20 @@ msgid ""
 "need to include them, you can use"
 msgstr ""
 
-#: ../../../command/macro.rst:126
+#: ../../../command/macro.rst:127
 msgid ""
 "set(list_var \"${ARGN}\")\n"
 "foreach(loop_var IN LISTS list_var)"
 msgstr ""
 
-#: ../../../command/macro.rst:131
+#: ../../../command/macro.rst:132
 msgid ""
 "Note that if you have a variable with the same name in the scope from which "
 "the macro is called, using unreferenced names will use the existing variable "
 "instead of the arguments. For example:"
 msgstr ""
 
-#: ../../../command/macro.rst:135
+#: ../../../command/macro.rst:136
 msgid ""
 "macro(bar)\n"
 "  foreach(arg IN LISTS ARGN)\n"
@@ -223,21 +223,21 @@ msgid ""
 "foo(a b c)"
 msgstr ""
 
-#: ../../../command/macro.rst:149
+#: ../../../command/macro.rst:150
 msgid ""
 "Will loop over ``a;b;c`` and not over ``x;y;z`` as one might have expected. "
 "If you want true CMake variables and/or better CMake scope control you "
 "should look at the function command."
 msgstr ""
 
-#: ../../../command/macro.rst:154
+#: ../../../command/macro.rst:155
 msgid "See Also"
 msgstr "另請參見"
 
-#: ../../../command/macro.rst:156
+#: ../../../command/macro.rst:157
 msgid ":command:`cmake_parse_arguments`"
 msgstr ":command:`cmake_parse_arguments`"
 
-#: ../../../command/macro.rst:157
+#: ../../../command/macro.rst:158
 msgid ":command:`endmacro`"
 msgstr ":command:`endmacro`"
