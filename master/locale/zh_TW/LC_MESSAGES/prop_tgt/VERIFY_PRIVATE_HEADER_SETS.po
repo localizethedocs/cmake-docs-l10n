@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CMake master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-02 08:35+0000\n"
+"POT-Creation-Date: 2026-03-16 08:47+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,11 +23,17 @@ msgstr ""
 
 #: ../../../prop_tgt/VERIFY_PRIVATE_HEADER_SETS.rst:6
 msgid ""
+"``OBJC`` and ``OBJCXX`` languages are now supported in addition to ``C`` and "
+"``CXX``."
+msgstr ""
+
+#: ../../../prop_tgt/VERIFY_PRIVATE_HEADER_SETS.rst:10
+msgid ""
 "Used to verify that all headers in a target's ``PUBLIC`` and ``PRIVATE`` "
 "header sets can be included on their own."
 msgstr ""
 
-#: ../../../prop_tgt/VERIFY_PRIVATE_HEADER_SETS.rst:9
+#: ../../../prop_tgt/VERIFY_PRIVATE_HEADER_SETS.rst:13
 msgid ""
 "When this property is set to true, and the target is an object library, "
 "static library, shared library, module library, interface library, or "
@@ -38,7 +44,7 @@ msgid ""
 "header sets. Each source file only includes its associated header file."
 msgstr ""
 
-#: ../../../prop_tgt/VERIFY_PRIVATE_HEADER_SETS.rst:17
+#: ../../../prop_tgt/VERIFY_PRIVATE_HEADER_SETS.rst:21
 msgid ""
 "Properties affecting compilation are copied from the original target to the "
 "verification target so that the headers will be interpreted the same way by "
@@ -63,20 +69,28 @@ msgstr ""
 msgid ""
 "If the header's :prop_sf:`LANGUAGE` property is set, the value of that "
 "property is used to determine the language with which to compile the header "
-"file. Otherwise, if the target has any C++ sources, the header is compiled "
-"as C++. Otherwise, if the target has any C sources, the header is compiled "
-"as C. Otherwise, if C++ is enabled globally, the header is compiled as C++. "
-"Otherwise, if C is enabled globally, the header is compiled as C. Otherwise, "
-"the header file is not compiled."
+"file. The supported languages are ``C``, ``CXX``, ``OBJC``, and ``OBJCXX``. "
+"If the language is not one of those four, the header file is not compiled."
 msgstr ""
 
-#: ../../../prop_tgt/include/VERIFY_XXX_HEADER_SETS.rst:15
+#: ../../../prop_tgt/include/VERIFY_XXX_HEADER_SETS.rst:12
+msgid ""
+"Otherwise, the language is inferred from the target's sources using the "
+"following precedence: ``OBJCXX`` takes priority over all others; if both "
+"``CXX`` and ``OBJC`` sources are present, the header is compiled as "
+"``OBJCXX``; otherwise ``CXX`` takes precedence over ``OBJC``, and ``OBJC`` "
+"takes precedence over ``C``.  If no matching sources are found, the same "
+"precedence is applied to the globally enabled languages.  If no supported "
+"language is found, the header file is not compiled."
+msgstr ""
+
+#: ../../../prop_tgt/include/VERIFY_XXX_HEADER_SETS.rst:20
 msgid ""
 "If the header's :prop_sf:`SKIP_LINTING` property is set to true, the file is "
 "not compiled."
 msgstr ""
 
-#: ../../../prop_tgt/include/VERIFY_XXX_HEADER_SETS.rst:18
+#: ../../../prop_tgt/include/VERIFY_XXX_HEADER_SETS.rst:23
 msgid ""
 "If |THIS_PROPERTY| and |COMPLEMENTARY_PROPERTY| are both set to true, "
 "headers belonging to ``PUBLIC`` file sets will be verified twice, but with "
@@ -85,7 +99,7 @@ msgid ""
 "of the header differently."
 msgstr ""
 
-#: ../../../prop_tgt/include/VERIFY_XXX_HEADER_SETS.rst:24
+#: ../../../prop_tgt/include/VERIFY_XXX_HEADER_SETS.rst:29
 msgid ""
 "If any |xxx| file set verification targets are created, a top-level target "
 "called |THIS_ALL_TARGET| is created which depends on all |xxx| verification "
@@ -94,13 +108,13 @@ msgid ""
 "exists (see |COMPLEMENTARY_PROPERTY|)."
 msgstr ""
 
-#: ../../../prop_tgt/include/VERIFY_XXX_HEADER_SETS.rst:30
+#: ../../../prop_tgt/include/VERIFY_XXX_HEADER_SETS.rst:35
 msgid ""
 "This property is initialized by the value of the |INIT_VARIABLE| variable if "
 "it is set when a target is created."
 msgstr ""
 
-#: ../../../prop_tgt/include/VERIFY_XXX_HEADER_SETS.rst:33
+#: ../../../prop_tgt/include/VERIFY_XXX_HEADER_SETS.rst:38
 msgid ""
 "If the project wishes to control which header sets are verified by this "
 "property, it can set |SETS_TO_VERIFY_PROPERTY|."

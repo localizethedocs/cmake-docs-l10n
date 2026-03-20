@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CMake master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-02 08:35+0000\n"
+"POT-Creation-Date: 2026-03-16 08:47+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,20 +25,32 @@ msgstr ""
 msgid "Add a custom build rule to the generated build system."
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:6
-msgid "There are two main signatures for ``add_custom_command``."
+#: ../../../command/add_custom_command.rst:7
+msgid "Synopsis"
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:11
+#: ../../../command/add_custom_command.rst:10
+msgid ""
+"`Generating Files`_\n"
+"  add_custom_command(`OUTPUT`_ <output1> [<output2> ...]\n"
+"                     COMMAND <command1> [ARGS] [<args1>...]\n"
+"                     [...])\n"
+"\n"
+"`Build Events`_\n"
+"  add_custom_command(`TARGET`_ <target>\n"
+"                     PRE_BUILD | PRE_LINK | POST_BUILD\n"
+"                     [...])"
+msgstr ""
+
+#: ../../../command/add_custom_command.rst:21
 msgid "Generating Files"
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:13
-msgid ""
-"The first signature is for adding a custom command to produce an output:"
+#: ../../../command/add_custom_command.rst:28
+msgid "Add a custom command to produce an output:"
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:15
+#: ../../../command/add_custom_command.rst:30
 msgid ""
 "add_custom_command(OUTPUT <output1> [<output2> ...]\n"
 "                   COMMAND <command1> [ARGS] [<args1>...]\n"
@@ -59,7 +71,7 @@ msgid ""
 "                   [DEPENDS_EXPLICIT_ONLY])"
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:35
+#: ../../../command/add_custom_command.rst:50
 msgid ""
 "This defines a command to generate specified ``OUTPUT`` file(s). A target "
 "created in the same directory (``CMakeLists.txt`` file) that specifies any "
@@ -67,7 +79,7 @@ msgid ""
 "the file using the command at build time."
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:40
+#: ../../../command/add_custom_command.rst:55
 msgid ""
 "Do not list the output in more than one independent target that may build in "
 "parallel or the instances of the rule may conflict. Instead, use the :"
@@ -76,22 +88,22 @@ msgid ""
 "Targets`_ below."
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:46
+#: ../../../command/add_custom_command.rst:61
 msgid "The options are:"
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:48
+#: ../../../command/add_custom_command.rst:63
 msgid "``APPEND``"
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:49
+#: ../../../command/add_custom_command.rst:64
 msgid ""
 "Append the ``COMMAND`` and ``DEPENDS`` option values to the custom command "
 "for the first output specified.  There must have already been a previous "
 "call to this command with the same output."
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:53
+#: ../../../command/add_custom_command.rst:68
 msgid ""
 "If the previous call specified the output via a generator expression, the "
 "output specified by the current call must match in at least one "
@@ -99,17 +111,17 @@ msgid ""
 "appended commands and dependencies apply to all configurations."
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:58
+#: ../../../command/add_custom_command.rst:73
 msgid ""
 "The ``COMMENT``, ``MAIN_DEPENDENCY``, and ``WORKING_DIRECTORY`` options are "
 "currently ignored when ``APPEND`` is given, but may be used in the future."
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:62
+#: ../../../command/add_custom_command.rst:77
 msgid "``BYPRODUCTS``"
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:65
+#: ../../../command/add_custom_command.rst:80
 msgid ""
 "Specify the files the command is expected to produce but whose modification "
 "time may or may not be newer than the dependencies. If a byproduct name is a "
@@ -118,12 +130,12 @@ msgid ""
 "marked with the :prop_sf:`GENERATED` source file property automatically."
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:73
+#: ../../../command/add_custom_command.rst:88
 msgid ""
 "*See policy* :policy:`CMP0058` *for the motivation behind this feature.*"
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:75
+#: ../../../command/add_custom_command.rst:90
 msgid ""
 "Explicit specification of byproducts is supported by the :generator:`Ninja` "
 "generator to tell the ``ninja`` build tool how to regenerate byproducts when "
@@ -134,45 +146,45 @@ msgid ""
 "dependents build."
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:84
+#: ../../../command/add_custom_command.rst:99
 msgid ""
 "The :ref:`Makefile Generators` will remove ``BYPRODUCTS`` and other :prop_sf:"
 "`GENERATED` files during ``make clean``."
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:87
+#: ../../../command/add_custom_command.rst:102
 msgid ""
 "This keyword cannot be used with ``APPEND`` (see policy :policy:`CMP0175`). "
 "All byproducts must be set in the first call to "
 "``add_custom_command(OUTPUT...)`` for the output files."
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:91
+#: ../../../command/add_custom_command.rst:106
 msgid ""
 "Arguments to ``BYPRODUCTS`` may use a restricted set of :manual:`generator "
 "expressions <cmake-generator-expressions(7)>`. :ref:`Target-dependent "
 "expressions <Target-Dependent Expressions>` are not permitted."
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:97
+#: ../../../command/add_custom_command.rst:112
 msgid ""
 "In targets using :ref:`file sets`, custom command byproducts are now "
 "considered private unless they are listed in a non-private file set. See "
 "policy :policy:`CMP0154`."
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:102
+#: ../../../command/add_custom_command.rst:117
 msgid "``COMMAND``"
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:103
+#: ../../../command/add_custom_command.rst:118
 msgid ""
 "Specify the command-line(s) to execute at build time. At least one "
 "``COMMAND`` would normally be given, but certain patterns may omit it, such "
 "as adding commands in separate calls using ``APPEND``."
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:107
+#: ../../../command/add_custom_command.rst:122
 msgid ""
 "If more than one ``COMMAND`` is specified, they will be executed in order, "
 "but *not* necessarily composed into a stateful shell or batch script. To run "
@@ -181,26 +193,26 @@ msgid ""
 "launch it."
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:113
+#: ../../../command/add_custom_command.rst:128
 msgid ""
 "The optional ``ARGS`` argument is for backward compatibility and will be "
 "ignored."
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:116
+#: ../../../command/add_custom_command.rst:131
 msgid ""
 "If ``COMMAND`` specifies an executable target name (created by the :command:"
 "`add_executable` command), it will automatically be replaced by the location "
 "of the executable created at build time if either of the following is true:"
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:121
+#: ../../../command/add_custom_command.rst:136
 msgid ""
 "The target is not being cross-compiled (i.e. the :variable:"
 "`CMAKE_CROSSCOMPILING` variable is not set to true)."
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:123
+#: ../../../command/add_custom_command.rst:138
 msgid ""
 "The target is being cross-compiled and an emulator is provided (i.e. its :"
 "prop_tgt:`CROSSCOMPILING_EMULATOR` target property is set). In this case, "
@@ -208,13 +220,13 @@ msgid ""
 "command before the location of the target executable."
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:129
+#: ../../../command/add_custom_command.rst:144
 msgid ""
 "If neither of the above conditions are met, it is assumed that the command "
 "name is a program to be found on the ``PATH`` at build time."
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:132
+#: ../../../command/add_custom_command.rst:147
 msgid ""
 "Arguments to ``COMMAND`` may use :manual:`generator expressions <cmake-"
 "generator-expressions(7)>`. Use the :genex:`TARGET_FILE` generator "
@@ -222,7 +234,7 @@ msgid ""
 "e. as a command argument rather than as the command to execute)."
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:138
+#: ../../../command/add_custom_command.rst:153
 msgid ""
 "Whenever one of the following target based generator expressions are used as "
 "a command to execute or is mentioned in a command argument, a target-level "
@@ -231,23 +243,23 @@ msgid ""
 "`CMP0112`)."
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:144
+#: ../../../command/add_custom_command.rst:159
 msgid "``TARGET_FILE``"
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:145
+#: ../../../command/add_custom_command.rst:160
 msgid "``TARGET_LINKER_FILE``"
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:146
+#: ../../../command/add_custom_command.rst:161
 msgid "``TARGET_SONAME_FILE``"
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:147
+#: ../../../command/add_custom_command.rst:162
 msgid "``TARGET_PDB_FILE``"
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:149
+#: ../../../command/add_custom_command.rst:164
 msgid ""
 "This target-level dependency does NOT add a file-level dependency that would "
 "cause the custom command to re-run whenever the executable is recompiled. "
@@ -255,34 +267,34 @@ msgid ""
 "dependencies."
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:154
+#: ../../../command/add_custom_command.rst:169
 msgid "``COMMENT``"
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:155
+#: ../../../command/add_custom_command.rst:170
 msgid ""
 "Display the given message before the commands are executed at build time.  "
 "This will be ignored if ``APPEND`` is given, although a future version may "
 "use it."
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:159
+#: ../../../command/add_custom_command.rst:174
 msgid ""
 "Arguments to ``COMMENT`` may use :manual:`generator expressions <cmake-"
 "generator-expressions(7)>`."
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:163
+#: ../../../command/add_custom_command.rst:178
 msgid "``DEPENDS``"
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:164
+#: ../../../command/add_custom_command.rst:179
 msgid ""
 "Specify files on which the command depends.  Each argument is converted to a "
 "dependency as follows:"
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:167
+#: ../../../command/add_custom_command.rst:182
 msgid ""
 "If the argument is the name of a target (created by the :command:"
 "`add_custom_target`, :command:`add_executable`, or :command:`add_library` "
@@ -292,64 +304,64 @@ msgid ""
 "cause the custom command to re-run whenever the target is recompiled."
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:176
+#: ../../../command/add_custom_command.rst:191
 msgid ""
 "If the argument is an absolute path, a file-level dependency is created on "
 "that path."
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:179
+#: ../../../command/add_custom_command.rst:194
 msgid ""
 "If the argument is the name of a source file that has been added to a target "
 "or on which a source file property has been set, a file-level dependency is "
 "created on that source file."
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:183
+#: ../../../command/add_custom_command.rst:198
 msgid ""
 "If the argument is a relative path and it exists in the current source "
 "directory, a file-level dependency is created on that file in the current "
 "source directory."
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:187
+#: ../../../command/add_custom_command.rst:202
 msgid ""
 "Otherwise, a file-level dependency is created on that path relative to the "
 "current binary directory."
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:190
+#: ../../../command/add_custom_command.rst:205
 msgid ""
 "If any dependency is an ``OUTPUT`` of another custom command in the same "
 "directory (``CMakeLists.txt`` file), CMake automatically brings the other "
 "custom command into the target in which this command is built."
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:194
+#: ../../../command/add_custom_command.rst:209
 msgid ""
 "A target-level dependency is added if any dependency is listed as "
 "``BYPRODUCTS`` of a target or any of its build events in the same directory "
 "to ensure the byproducts will be available."
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:199
+#: ../../../command/add_custom_command.rst:214
 msgid ""
 "If ``DEPENDS`` is not specified, the command will run whenever the "
 "``OUTPUT`` is missing; if the command does not actually create the "
 "``OUTPUT``, the rule will always run."
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:203
+#: ../../../command/add_custom_command.rst:218
 msgid ""
 "Arguments to ``DEPENDS`` may use :manual:`generator expressions <cmake-"
 "generator-expressions(7)>`."
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:207
+#: ../../../command/add_custom_command.rst:222
 msgid "``COMMAND_EXPAND_LISTS``"
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:210
+#: ../../../command/add_custom_command.rst:225
 msgid ""
 "Lists in ``COMMAND`` arguments will be expanded, including those created "
 "with :manual:`generator expressions <cmake-generator-expressions(7)>`, "
@@ -357,43 +369,43 @@ msgid ""
 "foo,INCLUDE_DIRECTORIES>,;-I>\" foo.cc`` to be properly expanded."
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:217
+#: ../../../command/add_custom_command.rst:232
 msgid ""
 "This keyword cannot be used with ``APPEND`` (see policy :policy:`CMP0175`). "
 "If the appended commands need this option to be set, it must be set on the "
 "first call to ``add_custom_command(OUTPUT...)`` for the output files."
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:221
+#: ../../../command/add_custom_command.rst:236
 msgid "``CODEGEN``"
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:224
+#: ../../../command/add_custom_command.rst:239
 msgid ""
 "Adds the custom command to a global ``codegen`` target that can be used to "
 "execute the custom command while avoiding the majority of the build graph."
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:228
+#: ../../../command/add_custom_command.rst:243
 msgid ""
 "This option is supported only by :ref:`Ninja Generators` and :ref:`Makefile "
 "Generators`, and is ignored by other generators. Furthermore, this option is "
 "allowed only if policy :policy:`CMP0171` is set to ``NEW``."
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:233
-#: ../../../command/add_custom_command.rst:469
+#: ../../../command/add_custom_command.rst:248
+#: ../../../command/add_custom_command.rst:484
 msgid ""
 "This keyword cannot be used with ``APPEND`` (see policy :policy:`CMP0175`). "
 "It can only be set on the first call to ``add_custom_command(OUTPUT...)`` "
 "for the output files."
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:237
+#: ../../../command/add_custom_command.rst:252
 msgid "``IMPLICIT_DEPENDS``"
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:238
+#: ../../../command/add_custom_command.rst:253
 msgid ""
 "Request scanning of implicit dependencies of an input file. The language "
 "given specifies the programming language whose corresponding dependency "
@@ -405,15 +417,15 @@ msgid ""
 "generators and will be ignored by other generators."
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:250
+#: ../../../command/add_custom_command.rst:265
 msgid "This option cannot be specified at the same time as ``DEPFILE`` option."
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:252
+#: ../../../command/add_custom_command.rst:267
 msgid "``JOB_POOL``"
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:255
+#: ../../../command/add_custom_command.rst:270
 msgid ""
 "Specify a :prop_gbl:`pool <JOB_POOLS>` for the :generator:`Ninja` generator. "
 "Incompatible with ``USES_TERMINAL``, which implies the ``console`` pool. "
@@ -421,44 +433,44 @@ msgid ""
 "ninja at build time."
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:261
+#: ../../../command/add_custom_command.rst:276
 msgid ""
 "This keyword cannot be used with ``APPEND`` (see policy :policy:`CMP0175`). "
 "Job pools can only be specified in the first call to "
 "``add_custom_command(OUTPUT...)`` for the output files."
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:265
+#: ../../../command/add_custom_command.rst:280
 msgid "``JOB_SERVER_AWARE``"
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:268
+#: ../../../command/add_custom_command.rst:283
 msgid "Specify that the command is GNU Make job server aware."
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:270
+#: ../../../command/add_custom_command.rst:285
 msgid ""
 "For the :generator:`Unix Makefiles`, :generator:`MSYS Makefiles`, and :"
 "generator:`MinGW Makefiles` generators this will add the ``+`` prefix to the "
 "recipe line. See the `GNU Make Documentation`_ for more information."
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:274
+#: ../../../command/add_custom_command.rst:289
 msgid "This option is silently ignored by other generators."
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:276
+#: ../../../command/add_custom_command.rst:291
 msgid ""
 "This keyword cannot be used with ``APPEND`` (see policy :policy:`CMP0175`). "
 "Job server awareness can only be specified in the first call to "
 "``add_custom_command(OUTPUT...)`` for the output files."
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:282
+#: ../../../command/add_custom_command.rst:297
 msgid "``MAIN_DEPENDENCY``"
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:283
+#: ../../../command/add_custom_command.rst:298
 msgid ""
 "Specify the primary input source file to the command.  This is treated just "
 "like any value given to the ``DEPENDS`` option but also suggests to :ref:"
@@ -469,18 +481,18 @@ msgid ""
 "specification."
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:291
-#: ../../../command/add_custom_command.rst:362
+#: ../../../command/add_custom_command.rst:306
+#: ../../../command/add_custom_command.rst:377
 msgid ""
 "This option is currently ignored if ``APPEND`` is given, but a future "
 "version may use it."
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:294
+#: ../../../command/add_custom_command.rst:309
 msgid "``OUTPUT``"
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:295
+#: ../../../command/add_custom_command.rst:310
 msgid ""
 "Specify the output files the command is expected to produce. Each output "
 "file will be marked with the :prop_sf:`GENERATED` source file property "
@@ -489,76 +501,76 @@ msgid ""
 "file property."
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:302
+#: ../../../command/add_custom_command.rst:317
 msgid ""
 "If an output file name is a relative path, its absolute path is determined "
 "by interpreting it relative to:"
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:305
+#: ../../../command/add_custom_command.rst:320
 msgid ""
 "the build directory corresponding to the current source directory (:variable:"
 "`CMAKE_CURRENT_BINARY_DIR`), or"
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:308
+#: ../../../command/add_custom_command.rst:323
 msgid "the current source directory (:variable:`CMAKE_CURRENT_SOURCE_DIR`)."
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:310
+#: ../../../command/add_custom_command.rst:325
 msgid ""
 "The path in the build directory is preferred unless the path in the source "
 "tree is mentioned as an absolute source file path elsewhere in the current "
 "directory."
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:314
+#: ../../../command/add_custom_command.rst:329
 msgid "The output file path may not contain ``<`` or ``>`` characters."
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:316
+#: ../../../command/add_custom_command.rst:331
 msgid ""
 "Arguments to ``OUTPUT`` may use a restricted set of :manual:`generator "
 "expressions <cmake-generator-expressions(7)>`. :ref:`Target-dependent "
 "expressions <Target-Dependent Expressions>` are not permitted."
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:322
+#: ../../../command/add_custom_command.rst:337
 msgid ""
 "In targets using :ref:`file sets`, custom command outputs are now considered "
 "private unless they are listed in a non-private file set. See policy :policy:"
 "`CMP0154`."
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:327
+#: ../../../command/add_custom_command.rst:342
 msgid ""
 "The output file path may now use ``#`` characters, except when using the :"
 "generator:`Borland Makefiles` generator."
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:331
+#: ../../../command/add_custom_command.rst:346
 msgid "``USES_TERMINAL``"
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:334
+#: ../../../command/add_custom_command.rst:349
 msgid ""
 "The command will be given direct access to the terminal if possible. With "
 "the :generator:`Ninja` generator, this places the command in the "
 "``console`` :prop_gbl:`pool <JOB_POOLS>`."
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:338
+#: ../../../command/add_custom_command.rst:353
 msgid ""
 "This keyword cannot be used with ``APPEND`` (see policy :policy:`CMP0175`). "
 "If the appended commands need access to the terminal, it must be set on the "
 "first call to ``add_custom_command(OUTPUT...)`` for the output files."
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:342
+#: ../../../command/add_custom_command.rst:357
 msgid "``VERBATIM``"
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:343
+#: ../../../command/add_custom_command.rst:358
 msgid ""
 "All arguments to the commands will be escaped properly for the build tool so "
 "that the invoked command receives each argument unchanged.  Note that one "
@@ -569,18 +581,18 @@ msgid ""
 "specific special characters."
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:352
+#: ../../../command/add_custom_command.rst:367
 msgid ""
 "This keyword cannot be used with ``APPEND`` (see policy :policy:`CMP0175`). "
 "If the appended commands need to be treated as ``VERBATIM``, it must be set "
 "on the first call to ``add_custom_command(OUTPUT...)`` for the output files."
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:356
+#: ../../../command/add_custom_command.rst:371
 msgid "``WORKING_DIRECTORY``"
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:357
+#: ../../../command/add_custom_command.rst:372
 msgid ""
 "Execute the command with the given current working directory. If it is a "
 "relative path, it will be interpreted relative to the build tree directory "
@@ -588,92 +600,92 @@ msgid ""
 "variable:`CMAKE_CURRENT_BINARY_DIR`."
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:365
+#: ../../../command/add_custom_command.rst:380
 msgid ""
 "Arguments to ``WORKING_DIRECTORY`` may use :manual:`generator expressions "
 "<cmake-generator-expressions(7)>`."
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:369
+#: ../../../command/add_custom_command.rst:384
 msgid "``DEPFILE``"
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:372
+#: ../../../command/add_custom_command.rst:387
 msgid ""
 "Specify a depfile which holds dependencies for the custom command. It is "
 "usually emitted by the custom command itself.  This keyword may only be used "
 "if the generator supports it, as detailed below."
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:376
+#: ../../../command/add_custom_command.rst:391
 msgid ""
 "The expected format, compatible with what is generated by ``gcc`` with the "
 "option ``-M``, is independent of the generator or platform."
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:379
+#: ../../../command/add_custom_command.rst:394
 msgid ""
 "The formal syntax, as specified using `BNF <https://en.wikipedia.org/wiki/"
 "Backus%E2%80%93Naur_form>`_ notation with the regular extensions, is the "
 "following:"
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:383
+#: ../../../command/add_custom_command.rst:398
 msgid "\\begin{small}"
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:405
+#: ../../../command/add_custom_command.rst:420
 msgid "\\end{small}"
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:411
+#: ../../../command/add_custom_command.rst:426
 msgid ""
 "As part of ``pathname``, any slash and backslash is interpreted as a "
 "directory separator."
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:414
+#: ../../../command/add_custom_command.rst:429
 msgid ""
 "The :generator:`Ninja` generator supports ``DEPFILE`` since the keyword was "
 "first added."
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:418
+#: ../../../command/add_custom_command.rst:433
 msgid ""
 "Added the :generator:`Ninja Multi-Config` generator, which included support "
 "for the ``DEPFILE`` keyword."
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:422
+#: ../../../command/add_custom_command.rst:437
 msgid "Added support for :ref:`Makefile Generators`."
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:427
+#: ../../../command/add_custom_command.rst:442
 msgid ""
 "``DEPFILE`` cannot be specified at the same time as the ``IMPLICIT_DEPENDS`` "
 "option for :ref:`Makefile Generators`."
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:430
+#: ../../../command/add_custom_command.rst:445
 msgid ""
 "Added support for :ref:`Visual Studio Generators` with VS 2012 and above, "
 "and for the :generator:`Xcode` generator.  Support for :manual:`generator "
 "expressions <cmake-generator-expressions(7)>` was also added."
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:436
+#: ../../../command/add_custom_command.rst:451
 msgid ""
 "The :ref:`Ninja Generators` will now incorporate the dependencies into its "
 "\"deps log\" database if the file is not listed in ``OUTPUTS`` or "
 "``BYPRODUCTS``."
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:441
+#: ../../../command/add_custom_command.rst:456
 msgid ""
 "Using ``DEPFILE`` with generators other than those listed above is an error."
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:443
+#: ../../../command/add_custom_command.rst:458
 msgid ""
 "If the ``DEPFILE`` argument is relative, it should be relative to :variable:"
 "`CMAKE_CURRENT_BINARY_DIR`, and any relative paths inside the ``DEPFILE`` "
@@ -682,24 +694,24 @@ msgid ""
 "ref:`Visual Studio Generators`, and the :generator:`Xcode` generator."
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:450
+#: ../../../command/add_custom_command.rst:465
 msgid ""
 "This keyword cannot be used with ``APPEND`` (see policy :policy:`CMP0175`). "
 "Depfiles can only be set on the first call to "
 "``add_custom_command(OUTPUT...)`` for the output files."
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:454
+#: ../../../command/add_custom_command.rst:469
 msgid "``DEPENDS_EXPLICIT_ONLY``"
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:458
+#: ../../../command/add_custom_command.rst:473
 msgid ""
 "Indicates that the command's ``DEPENDS`` argument represents all files "
 "required by the command and implicit dependencies are not required."
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:461
+#: ../../../command/add_custom_command.rst:476
 msgid ""
 "Without this option, if any target uses the output of the custom command, "
 "CMake will consider that target's dependencies as implicit dependencies for "
@@ -707,35 +719,35 @@ msgid ""
 "created by those targets."
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:466
+#: ../../../command/add_custom_command.rst:481
 msgid ""
 "This option can be enabled on all custom commands by setting :variable:"
 "`CMAKE_ADD_CUSTOM_COMMAND_DEPENDS_EXPLICIT_ONLY` to ``ON``."
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:473
+#: ../../../command/add_custom_command.rst:488
 msgid ""
 "Only the :ref:`Ninja Generators` actually use this information to remove "
 "unnecessary implicit dependencies."
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:476
+#: ../../../command/add_custom_command.rst:491
 msgid ""
 "See also the :prop_tgt:`OPTIMIZE_DEPENDENCIES` target property, which may "
 "provide another way for reducing the impact of target dependencies in some "
 "scenarios."
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:481
+#: ../../../command/add_custom_command.rst:496
 msgid "Examples: Generating Files"
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:483
+#: ../../../command/add_custom_command.rst:498
 msgid ""
 "Custom commands may be used to generate source files. For example, the code:"
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:486
+#: ../../../command/add_custom_command.rst:501
 msgid ""
 "add_custom_command(\n"
 "  OUTPUT out.c\n"
@@ -746,20 +758,20 @@ msgid ""
 "add_library(myLib out.c)"
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:496
+#: ../../../command/add_custom_command.rst:511
 msgid ""
 "adds a custom command to run ``someTool`` to generate ``out.c`` and then "
 "compile the generated source as part of a library.  The generation rule will "
 "re-run whenever ``in.txt`` changes."
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:500
+#: ../../../command/add_custom_command.rst:515
 msgid ""
 "One may use generator expressions to specify per-configuration outputs. For "
 "example, the code:"
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:504
+#: ../../../command/add_custom_command.rst:519
 msgid ""
 "add_custom_command(\n"
 "  OUTPUT \"out-$<CONFIG>.c\"\n"
@@ -771,21 +783,21 @@ msgid ""
 "add_library(myLib \"out-$<CONFIG>.c\")"
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:515
+#: ../../../command/add_custom_command.rst:530
 msgid ""
 "adds a custom command to run ``someTool`` to generate ``out-<config>.c``, "
 "where ``<config>`` is the build configuration, and then compile the "
 "generated source as part of a library."
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:519
+#: ../../../command/add_custom_command.rst:534
 msgid ""
 "Use the ``CODEGEN`` option to add a custom command's outputs to the builtin "
 "``codegen`` target.  This is useful to make generated code available for  "
 "static analysis without building the entire project.  For example:"
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:524
+#: ../../../command/add_custom_command.rst:539
 msgid ""
 "add_executable(someTool someTool.c)\n"
 "\n"
@@ -797,24 +809,24 @@ msgid ""
 "add_library(myLib out.c)"
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:535
+#: ../../../command/add_custom_command.rst:550
 msgid ""
 "A user may build the ``codegen`` target to generate ``out.c``. ``someTool`` "
 "is built as dependency, but ``myLib`` is not built at all."
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:539
+#: ../../../command/add_custom_command.rst:554
 msgid "Example: Generating Files for Multiple Targets"
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:541
+#: ../../../command/add_custom_command.rst:556
 msgid ""
 "If multiple independent targets need the same custom command output, it must "
 "be attached to a single custom target on which they all depend. Consider the "
 "following example:"
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:545
+#: ../../../command/add_custom_command.rst:560
 msgid ""
 "add_custom_command(\n"
 "  OUTPUT table.csv\n"
@@ -841,7 +853,7 @@ msgid ""
 "add_library(bar bar.cxx)"
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:571
+#: ../../../command/add_custom_command.rst:586
 msgid ""
 "Output ``foo.cxx`` is needed only by target ``foo`` and output ``bar.cxx`` "
 "is needed only by target ``bar``, but *both* targets need ``table.csv``, "
@@ -854,20 +866,20 @@ msgid ""
 "``generate_table_csv`` is built."
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:584
+#: ../../../command/add_custom_command.rst:597
 msgid "Build Events"
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:586
+#: ../../../command/add_custom_command.rst:604
 msgid ""
-"The second signature adds a custom command to a target such as a library or "
-"executable.  This is useful for performing an operation before or after "
-"building the target.  The command becomes part of the target and will only "
-"execute when the target itself is built.  If the target is already built, "
-"the command will not execute."
+"Add a build event to a target such as a library or executable.  This is "
+"useful for performing an operation before or after building the target.  The "
+"command becomes part of the target and will only execute when the target "
+"itself is built.  If the target is already built, the command will not "
+"execute."
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:592
+#: ../../../command/add_custom_command.rst:610
 msgid ""
 "add_custom_command(TARGET <target>\n"
 "                   PRE_BUILD | PRE_LINK | POST_BUILD\n"
@@ -881,24 +893,24 @@ msgid ""
 "                   [USES_TERMINAL])"
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:605
+#: ../../../command/add_custom_command.rst:623
 msgid ""
 "This defines a new command that will be associated with building the "
 "specified ``<target>``.  The ``<target>`` must be defined in the current "
 "directory; targets defined in other directories may not be specified."
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:609
+#: ../../../command/add_custom_command.rst:627
 msgid ""
 "When the command will happen is determined by which of the following is "
 "specified:"
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:612
+#: ../../../command/add_custom_command.rst:630
 msgid "``PRE_BUILD``"
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:613
+#: ../../../command/add_custom_command.rst:631
 msgid ""
 "This option has unique behavior for the :ref:`Visual Studio Generators`. "
 "When using one of the Visual Studio generators, the command will run before "
@@ -908,39 +920,39 @@ msgid ""
 "Visual Studio generator is being used."
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:619
+#: ../../../command/add_custom_command.rst:637
 msgid "``PRE_LINK``"
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:620
+#: ../../../command/add_custom_command.rst:638
 msgid ""
 "Run after sources have been compiled but before linking the binary or "
 "running the librarian or archiver tool of a static library. This is not "
 "defined for targets created by the :command:`add_custom_target` command."
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:624
+#: ../../../command/add_custom_command.rst:642
 msgid "``POST_BUILD``"
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:625
+#: ../../../command/add_custom_command.rst:643
 msgid "Run after all other rules within the target have been executed."
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:627
+#: ../../../command/add_custom_command.rst:645
 msgid ""
 "Projects should always specify one of the above three keywords when using "
 "the ``TARGET`` form.  See policy :policy:`CMP0175`."
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:630
+#: ../../../command/add_custom_command.rst:648
 msgid ""
 "All other keywords shown in the signature above have the same meaning as "
 "they do for the :command:`add_custom_command(OUTPUT)` form of the command. "
 "At least one ``COMMAND`` must be given, see policy :policy:`CMP0175`."
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:635
+#: ../../../command/add_custom_command.rst:653
 msgid ""
 "Because generator expressions can be used in custom commands, it is possible "
 "to define ``COMMAND`` lines or whole custom commands which evaluate to empty "
@@ -949,29 +961,29 @@ msgid ""
 "configuration and no \"empty-string-command\" will be added."
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:642
+#: ../../../command/add_custom_command.rst:660
 msgid "This allows adding individual build events for every configuration."
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:644
+#: ../../../command/add_custom_command.rst:662
 msgid "Support for target-dependent generator expressions."
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:647
+#: ../../../command/add_custom_command.rst:665
 msgid "The ``<target>`` may be an :ref:`ALIAS target <Alias Targets>`."
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:651
+#: ../../../command/add_custom_command.rst:669
 msgid "Examples: Build Events"
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:653
+#: ../../../command/add_custom_command.rst:671
 msgid ""
 "A ``POST_BUILD`` event may be used to post-process a binary after linking. "
 "For example, the code:"
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:656
+#: ../../../command/add_custom_command.rst:674
 msgid ""
 "add_executable(myExe myExe.c)\n"
 "add_custom_command(\n"
@@ -981,19 +993,19 @@ msgid ""
 "  VERBATIM)"
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:665
+#: ../../../command/add_custom_command.rst:683
 msgid ""
 "will run ``someHasher`` to produce a ``.hash`` file next to the executable "
 "after linking."
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:668
+#: ../../../command/add_custom_command.rst:686
 msgid ""
 "One may use generator expressions to specify per-configuration byproducts. "
 "For example, the code:"
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:672
+#: ../../../command/add_custom_command.rst:690
 msgid ""
 "add_library(myPlugin MODULE myPlugin.c)\n"
 "add_custom_command(\n"
@@ -1005,28 +1017,28 @@ msgid ""
 "add_executable(myExe myExe.c \"myPlugin-hash-$<CONFIG>.c\")"
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:683
+#: ../../../command/add_custom_command.rst:701
 msgid ""
 "will run ``someHasher`` after linking ``myPlugin``, e.g. to produce a ``.c`` "
 "file containing code to check the hash of ``myPlugin`` that the ``myExe`` "
 "executable can use to verify it before loading."
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:688
+#: ../../../command/add_custom_command.rst:706
 msgid "Ninja Multi-Config"
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:692
+#: ../../../command/add_custom_command.rst:710
 msgid ""
 "``add_custom_command`` supports the :generator:`Ninja Multi-Config` "
 "generator's cross-config capabilities. See the generator documentation for "
 "more information."
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:697
+#: ../../../command/add_custom_command.rst:715
 msgid "See Also"
 msgstr ""
 
-#: ../../../command/add_custom_command.rst:699
+#: ../../../command/add_custom_command.rst:717
 msgid ":command:`add_custom_target`"
 msgstr ""
