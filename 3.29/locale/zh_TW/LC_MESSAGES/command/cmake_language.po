@@ -154,6 +154,20 @@ msgid ""
 "\n"
 "include(${CMAKE_CURRENT_BINARY_DIR}/eval.cmake)"
 msgstr ""
+"set(A TRUE)\n"
+"set(B TRUE)\n"
+"set(C TRUE)\n"
+"set(condition \"(A AND B) OR C\")\n"
+"\n"
+"file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/eval.cmake \"\n"
+"  if (${condition})\n"
+"    message(STATUS TRUE)\n"
+"  else()\n"
+"    message(STATUS FALSE)\n"
+"  endif()\"\n"
+")\n"
+"\n"
+"include(${CMAKE_CURRENT_BINARY_DIR}/eval.cmake)"
 
 #: ../../../command/cmake_language.rst:104
 msgid "Deferring Calls"
@@ -262,7 +276,7 @@ msgstr ""
 
 #: ../../../command/cmake_language.rst:173
 msgid "cmake_language(DEFER [DIRECTORY <dir>] CANCEL_CALL <id>...)"
-msgstr ""
+msgstr "cmake_language(DEFER [DIRECTORY <dir>] CANCEL_CALL <id>...)"
 
 #: ../../../command/cmake_language.rst:177
 msgid ""
@@ -369,16 +383,16 @@ msgstr ""
 #: ../../../command/cmake_language.rst:253
 #: ../../../command/cmake_language.rst:303
 msgid "``FIND_PACKAGE``"
-msgstr ""
+msgstr "``FIND_PACKAGE``"
 
 #: ../../../command/cmake_language.rst:254
 msgid "The provider command accepts :command:`find_package` requests."
-msgstr ""
+msgstr "提供者命令接受 :command:`find_package` 請求。"
 
 #: ../../../command/cmake_language.rst:256
 #: ../../../command/cmake_language.rst:321
 msgid "``FETCHCONTENT_MAKEAVAILABLE_SERIAL``"
-msgstr ""
+msgstr "``FETCHCONTENT_MAKEAVAILABLE_SERIAL``"
 
 #: ../../../command/cmake_language.rst:257
 msgid ""
@@ -416,7 +430,7 @@ msgstr ""
 
 #: ../../../command/cmake_language.rst:281
 msgid "Provider commands"
-msgstr ""
+msgstr "提供者命令"
 
 #: ../../../command/cmake_language.rst:283
 msgid ""
@@ -431,7 +445,7 @@ msgstr ""
 
 #: ../../../command/cmake_language.rst:291
 msgid "xxx_provide_dependency(<method> [<method-specific-args>...])"
-msgstr ""
+msgstr "xxx_provide_dependency(<method> [<method-specific-args>...])"
 
 #: ../../../command/cmake_language.rst:295
 msgid ""
@@ -562,7 +576,7 @@ msgstr ""
 #: ../../../command/cmake_language.rst:414
 #: ../../../command/cmake_language.rst:473
 msgid "mycomp_provider.cmake"
-msgstr ""
+msgstr "mycomp_provider.cmake"
 
 #: ../../../command/cmake_language.rst:374
 msgid ""
@@ -599,6 +613,7 @@ msgstr ""
 msgid ""
 "cmake -DCMAKE_PROJECT_TOP_LEVEL_INCLUDES=/path/to/mycomp_provider.cmake ..."
 msgstr ""
+"cmake -DCMAKE_PROJECT_TOP_LEVEL_INCLUDES=/path/to/mycomp_provider.cmake ..."
 
 #: ../../../command/cmake_language.rst:404
 msgid ""
@@ -688,6 +703,16 @@ msgid ""
 "  SUPPORTED_METHODS FIND_PACKAGE\n"
 ")"
 msgstr ""
+"cmake_minimum_required(VERSION 3.24)\n"
+"\n"
+"macro(mycomp_provide_dependency method)\n"
+"  find_package(${ARGN} BYPASS_PROVIDER QUIET)\n"
+"endmacro()\n"
+"\n"
+"cmake_language(\n"
+"  SET_DEPENDENCY_PROVIDER mycomp_provide_dependency\n"
+"  SUPPORTED_METHODS FIND_PACKAGE\n"
+")"
 
 #: ../../../command/cmake_language.rst:488
 msgid "Getting current message log level"
