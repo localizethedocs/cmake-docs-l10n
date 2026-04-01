@@ -154,6 +154,20 @@ msgid ""
 "\n"
 "include(${CMAKE_CURRENT_BINARY_DIR}/eval.cmake)"
 msgstr ""
+"set(A TRUE)\n"
+"set(B TRUE)\n"
+"set(C TRUE)\n"
+"set(condition \"(A AND B) OR C\")\n"
+"\n"
+"file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/eval.cmake \"\n"
+"  if (${condition})\n"
+"    message(STATUS TRUE)\n"
+"  else()\n"
+"    message(STATUS FALSE)\n"
+"  endif()\"\n"
+")\n"
+"\n"
+"include(${CMAKE_CURRENT_BINARY_DIR}/eval.cmake)"
 
 #: ../../../command/cmake_language.rst:105
 msgid "Deferring Calls"
@@ -266,7 +280,7 @@ msgstr ""
 
 #: ../../../command/cmake_language.rst:177
 msgid "cmake_language(DEFER [DIRECTORY <dir>] CANCEL_CALL <id>...)"
-msgstr ""
+msgstr "cmake_language(DEFER [DIRECTORY <dir>] CANCEL_CALL <id>...)"
 
 #: ../../../command/cmake_language.rst:181
 msgid ""
