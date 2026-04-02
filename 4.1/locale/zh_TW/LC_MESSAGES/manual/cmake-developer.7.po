@@ -119,7 +119,7 @@ msgstr ""
 
 #: ../../../manual/cmake-developer.7.rst:91
 msgid "``REG_SZ``."
-msgstr ""
+msgstr "``REG_SZ``。"
 
 #: ../../../manual/cmake-developer.7.rst:92
 msgid "``REG_EXPAND_SZ``. The returned data is expanded."
@@ -194,6 +194,11 @@ msgid ""
 "             [OPTIONAL_COMPONENTS components...]\n"
 "             [NO_POLICY_SCOPE])"
 msgstr ""
+"find_package(Foo [major[.minor[.patch[.tweak]]]]\n"
+"             [EXACT] [QUIET] [REQUIRED]\n"
+"             [[COMPONENTS] [components...]]\n"
+"             [OPTIONAL_COMPONENTS components...]\n"
+"             [NO_POLICY_SCOPE])"
 
 #: ../../../manual/cmake-developer.7.rst:139
 msgid ""
@@ -291,7 +296,7 @@ msgstr ""
 
 #: ../../../manual/cmake-developer.7.rst:201
 msgid "``Xxx_EXECUTABLE``"
-msgstr ""
+msgstr "``Xxx_EXECUTABLE``"
 
 #: ../../../manual/cmake-developer.7.rst:202
 msgid ""
@@ -305,7 +310,7 @@ msgstr ""
 
 #: ../../../manual/cmake-developer.7.rst:209
 msgid "``Xxx_YYY_EXECUTABLE``"
-msgstr ""
+msgstr "``Xxx_YYY_EXECUTABLE``"
 
 #: ../../../manual/cmake-developer.7.rst:210
 msgid ""
@@ -328,7 +333,7 @@ msgstr ""
 
 #: ../../../manual/cmake-developer.7.rst:220
 msgid "``Xxx_ROOT_DIR``"
-msgstr ""
+msgstr "``Xxx_ROOT_DIR``"
 
 #: ../../../manual/cmake-developer.7.rst:221
 msgid ""
@@ -341,7 +346,7 @@ msgstr ""
 
 #: ../../../manual/cmake-developer.7.rst:227
 msgid "``Xxx_VERSION_VV``"
-msgstr ""
+msgstr "``Xxx_VERSION_VV``"
 
 #: ../../../manual/cmake-developer.7.rst:228
 msgid ""
@@ -395,7 +400,7 @@ msgstr ""
 
 #: ../../../manual/cmake-developer.7.rst:258
 msgid "``Xxx_NOT_FOUND_MESSAGE``"
-msgstr ""
+msgstr "``Xxx_NOT_FOUND_MESSAGE``"
 
 #: ../../../manual/cmake-developer.7.rst:259
 msgid ""
@@ -447,7 +452,7 @@ msgstr ""
 
 #: ../../../manual/cmake-developer.7.rst:283
 msgid "``Xxx_VERSION_PATCH``"
-msgstr ""
+msgstr "``Xxx_VERSION_PATCH``"
 
 #: ../../../manual/cmake-developer.7.rst:284
 msgid "The patch version of the package found, if any."
@@ -464,7 +469,7 @@ msgstr ""
 
 #: ../../../manual/cmake-developer.7.rst:292
 msgid "``Xxx_LIBRARY``"
-msgstr ""
+msgstr "``Xxx_LIBRARY``"
 
 #: ../../../manual/cmake-developer.7.rst:293
 msgid ""
@@ -475,7 +480,7 @@ msgstr ""
 
 #: ../../../manual/cmake-developer.7.rst:297
 msgid "``Xxx_Yy_LIBRARY``"
-msgstr ""
+msgstr "``Xxx_Yy_LIBRARY``"
 
 #: ../../../manual/cmake-developer.7.rst:298
 msgid ""
@@ -487,7 +492,7 @@ msgstr ""
 
 #: ../../../manual/cmake-developer.7.rst:303
 msgid "``Xxx_INCLUDE_DIR``"
-msgstr ""
+msgstr "``Xxx_INCLUDE_DIR``"
 
 #: ../../../manual/cmake-developer.7.rst:304
 msgid ""
@@ -680,6 +685,15 @@ msgid ""
 "  HINTS ${PC_Foo_LIBRARY_DIRS}\n"
 ")"
 msgstr ""
+"find_path(Foo_INCLUDE_DIR\n"
+"  NAMES foo.h\n"
+"  HINTS ${PC_Foo_INCLUDE_DIRS}\n"
+"  PATH_SUFFIXES Foo\n"
+")\n"
+"find_library(Foo_LIBRARY\n"
+"  NAMES foo\n"
+"  HINTS ${PC_Foo_LIBRARY_DIRS}\n"
+")"
 
 #: ../../../manual/cmake-developer.7.rst:441
 msgid ""
@@ -702,6 +716,17 @@ msgid ""
 "include(SelectLibraryConfigurations)\n"
 "select_library_configurations(Foo)"
 msgstr ""
+"find_library(Foo_LIBRARY_RELEASE\n"
+"  NAMES foo\n"
+"  HINTS ${PC_Foo_LIBRARY_DIRS}/Release\n"
+")\n"
+"find_library(Foo_LIBRARY_DEBUG\n"
+"  NAMES foo\n"
+"  HINTS ${PC_Foo_LIBRARY_DIRS}/Debug\n"
+")\n"
+"\n"
+"include(SelectLibraryConfigurations)\n"
+"select_library_configurations(Foo)"
 
 #: ../../../manual/cmake-developer.7.rst:459
 msgid ""
@@ -730,6 +755,13 @@ msgid ""
 "  VERSION_VAR Foo_VERSION\n"
 ")"
 msgstr ""
+"include(FindPackageHandleStandardArgs)\n"
+"find_package_handle_standard_args(Foo\n"
+"  REQUIRED_VARS\n"
+"    Foo_LIBRARY\n"
+"    Foo_INCLUDE_DIR\n"
+"  VERSION_VAR Foo_VERSION\n"
+")"
 
 #: ../../../manual/cmake-developer.7.rst:480
 msgid ""
@@ -898,6 +930,10 @@ msgid ""
 "  Foo_LIBRARY\n"
 ")"
 msgstr ""
+"mark_as_advanced(\n"
+"  Foo_INCLUDE_DIR\n"
+"  Foo_LIBRARY\n"
+")"
 
 #: ../../../manual/cmake-developer.7.rst:581
 msgid ""
