@@ -19,15 +19,15 @@ msgstr ""
 
 #: ../../../guide/using-dependencies/index.rst:2
 msgid "Using Dependencies Guide"
-msgstr ""
+msgstr "使用相依項指南"
 
 #: ../../../guide/using-dependencies/index.rst:5
 msgid "Contents"
-msgstr ""
+msgstr "目次"
 
 #: ../../../guide/using-dependencies/index.rst:9
 msgid "Introduction"
-msgstr ""
+msgstr "介紹"
 
 #: ../../../guide/using-dependencies/index.rst:11
 msgid ""
@@ -36,6 +36,8 @@ msgid ""
 "Projects and users have the flexibility to choose between methods that best "
 "suit their needs."
 msgstr ""
+"專案將經常相依於其他專案、資產和製品。CMake 提供了許多將這些事物整合到建置中"
+"的方法。專案和使用者有選擇最適合他們需求方法的靈活性。"
 
 #: ../../../guide/using-dependencies/index.rst:16
 msgid ""
@@ -82,7 +84,7 @@ msgstr ""
 
 #: ../../../guide/using-dependencies/index.rst:49
 msgid "Examples of ``find_package()`` basic signature"
-msgstr ""
+msgstr "``find_package()`` 基本簽章的範例"
 
 #: ../../../guide/using-dependencies/index.rst:49
 msgid ""
@@ -90,6 +92,9 @@ msgid ""
 "find_package(GTest REQUIRED)\n"
 "find_package(Boost 1.79 COMPONENTS date_time)"
 msgstr ""
+"find_package(Catch2)\n"
+"find_package(GTest REQUIRED)\n"
+"find_package(Boost 1.79 COMPONENTS date_time)"
 
 #: ../../../guide/using-dependencies/index.rst:56
 msgid ""
@@ -99,7 +104,7 @@ msgstr ""
 
 #: ../../../guide/using-dependencies/index.rst:59
 msgid "**Config mode**"
-msgstr ""
+msgstr "**組態模式**"
 
 #: ../../../guide/using-dependencies/index.rst:60
 msgid ""
@@ -107,10 +112,12 @@ msgid ""
 "the package itself.  This is the more reliable method of the two, since the "
 "package details should always be in sync with the package."
 msgstr ""
+"使用該方法，命令會尋找由軟體包本身提供的檔案。這是兩種方法中較可靠的一種，因"
+"為軟體包的詳細資訊應該始終與軟體包保持同步。"
 
 #: ../../../guide/using-dependencies/index.rst:64
 msgid "**Module mode**"
-msgstr ""
+msgstr "**模組模式**"
 
 #: ../../../guide/using-dependencies/index.rst:65
 msgid ""
@@ -143,10 +150,14 @@ msgid ""
 "See the :ref:`User Interaction Guide <Setting Build Variables>` for more on "
 "how to set cache variables."
 msgstr ""
+"對於這兩種搜尋方法，使用者也可以在 :manual:`cmake(1)` 命令行或者 :manual:"
+"`ccmake(1)` 或 :manual:`cmake-gui(1)` 使用者介面工具中設定快取變數，來影響並"
+"覆蓋軟體包的尋找位置。關於如何設定快取變數的更多資訊，請參見\\ :ref:`使用者互"
+"動指南 <Setting Build Variables>`\\ 。"
 
 #: ../../../guide/using-dependencies/index.rst:91
 msgid "Config-file packages"
-msgstr ""
+msgstr "組態檔軟體包"
 
 #: ../../../guide/using-dependencies/index.rst:93
 msgid ""
@@ -170,7 +181,7 @@ msgstr ""
 
 #: ../../../guide/using-dependencies/index.rst:107
 msgid "Providing alternative names when finding a package"
-msgstr ""
+msgstr "在尋找軟體包時提供替代名稱"
 
 #: ../../../guide/using-dependencies/index.rst:107
 msgid ""
@@ -180,6 +191,11 @@ msgid ""
 "    SomeThing            # Also still look for its canonical name\n"
 ")"
 msgstr ""
+"find_package(SomeThing\n"
+"  NAMES\n"
+"    SameThingOtherName   # 軟體包的另一個名稱\n"
+"    SomeThing            # 仍去尋找它的規範名稱\n"
+")"
 
 #: ../../../guide/using-dependencies/index.rst:116
 msgid ""
@@ -266,7 +282,7 @@ msgstr ""
 
 #: ../../../guide/using-dependencies/index.rst:180
 msgid "Find Module Files"
-msgstr ""
+msgstr "尋找模組檔案"
 
 #: ../../../guide/using-dependencies/index.rst:182
 msgid ""
@@ -277,7 +293,7 @@ msgstr ""
 
 #: ../../../guide/using-dependencies/index.rst:186
 msgid "Find module files should not be provided by the package itself."
-msgstr ""
+msgstr "尋找模組檔不應該由軟體包本身提供。"
 
 #: ../../../guide/using-dependencies/index.rst:187
 msgid ""
@@ -311,7 +327,7 @@ msgstr ""
 msgid ""
 "See :ref:`Find Modules` for a detailed discussion of how to write a Find "
 "module file."
-msgstr ""
+msgstr "關於如何編寫尋找模組檔的詳細討論，請參見 :ref:`Find Modules`。"
 
 #: ../../../guide/using-dependencies/index.rst:211
 msgid "Imported Targets"
@@ -406,6 +422,18 @@ msgid ""
 ")\n"
 "FetchContent_MakeAvailable(googletest Catch2)"
 msgstr ""
+"include(FetchContent)\n"
+"FetchContent_Declare(\n"
+"  googletest\n"
+"  GIT_REPOSITORY https://github.com/google/googletest.git\n"
+"  GIT_TAG        703bd9caab50b139428cea1aaff9974ebee5742e # release-1.10.0\n"
+")\n"
+"FetchContent_Declare(\n"
+"  Catch2\n"
+"  GIT_REPOSITORY https://github.com/catchorg/Catch2.git\n"
+"  GIT_TAG        605a34765aa5d5ecbf476b4598a862ada971b0cc # v3.0.1\n"
+")\n"
+"FetchContent_MakeAvailable(googletest Catch2)"
 
 #: ../../../guide/using-dependencies/index.rst:284
 msgid ""
@@ -415,6 +443,9 @@ msgid ""
 "download, update, and patch commands can also be used to support arbitrary "
 "use cases."
 msgstr ""
+"支援多種下載方式，包括從 URL 下載並解壓縮封存檔（支援多種封存格式），以及多種"
+"儲存庫格式，包括 Git、Subversion 和 Mercurial。此外，也可以使用自訂的下載、更"
+"新和修補命令，以支援各種不同的使用案例。"
 
 #: ../../../guide/using-dependencies/index.rst:290
 msgid ""
@@ -439,7 +470,7 @@ msgstr ""
 
 #: ../../../guide/using-dependencies/index.rst:305
 msgid "``FetchContent`` And ``find_package()`` Integration"
-msgstr ""
+msgstr "``FetchContent`` 與 ``find_package()`` 的整合"
 
 #: ../../../guide/using-dependencies/index.rst:309
 msgid ""
@@ -475,6 +506,17 @@ msgid ""
 "add_executable(ThingUnitTest thing_ut.cpp)\n"
 "target_link_libraries(ThingUnitTest GTest::gtest_main)"
 msgstr ""
+"include(FetchContent)\n"
+"FetchContent_Declare(\n"
+"  googletest\n"
+"  GIT_REPOSITORY https://github.com/google/googletest.git\n"
+"  GIT_TAG        703bd9caab50b139428cea1aaff9974ebee5742e # release-1.10.0\n"
+"  FIND_PACKAGE_ARGS NAMES GTest\n"
+")\n"
+"FetchContent_MakeAvailable(googletest)\n"
+"\n"
+"add_executable(ThingUnitTest thing_ut.cpp)\n"
+"target_link_libraries(ThingUnitTest GTest::gtest_main)"
 
 #: ../../../guide/using-dependencies/index.rst:337
 msgid ""
@@ -586,6 +628,8 @@ msgid ""
 "cmake -DCMAKE_PROJECT_TOP_LEVEL_INCLUDES=/path/to/package_manager/setup."
 "cmake ..."
 msgstr ""
+"cmake -DCMAKE_PROJECT_TOP_LEVEL_INCLUDES=/path/to/package_manager/setup."
+"cmake ..."
 
 #: ../../../guide/using-dependencies/index.rst:418
 msgid ""
