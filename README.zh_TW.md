@@ -26,10 +26,9 @@
   <li><a href="#preview-translations">預覽翻譯</a></li>
   <li><a href="#maintainers">維護者</a></li>
   <li><a href="#support-this-project">支援此專案</a></li>
-  <li><a href="#sponsorship">贊助</a></li>
+  <li><a href="#financial-sponsors">Financial Sponsors</a></li>
   <li><a href="#code-contributors">程式碼貢獻者</a></li>
   <li><a href="#translation-contributors">翻譯貢獻者</a></li>
-  <li><a href="#financial-contributors">財務貢獻者</a></li>
   <li><a href="#licenses">授權條款</a></li>
 </ul>
 
@@ -447,12 +446,12 @@ This project is currently maintained by:
   <li>Submit issues on <a href="https://github.com/localizethedocs/cmake-docs-l10n/issues">GitHub</a> if you found any bug.</li>
   <li>Submit pull requests on <a href="https://github.com/localizethedocs/cmake-docs-l10n/pulls">GitHub</a> if you know how to fix the bug.</li>
   <li>在 <a href="https://localizethedocs.crowdin.com/cmake-docs-l10n">Crowdin</a> 上貢獻您的翻譯。</li>
-  <li>If you love this kind of l10n projects, please consider <a href="#sponsorship">sponsorship</a>.</li>
+  <li>Consider becoming a <a href="#financial-sponsors">sponsor</a> if you love this kind of l10n projects.</li>
 </ul>
 
 這將有助於開源文件在地化專案的建立與持續維護。
 
-<h2 id="sponsorship"><a href="#table-of-contents">贊助</a></h2>
+<h2 id="financial-sponsors"><a href="#table-of-contents">Financial Sponsors</a></h2>
 
 您可以透過以下平臺來贊助這些專案：
 
@@ -481,34 +480,10 @@ This project is currently maintained by:
 </table>
 </div>
 
-或者，您可以透過以下平臺直接贊助維護者：
+Maintenance of the projects is made possible by the generous support of our sponsors:
 
 <div align="center">
-<table>
-  <tbody>
-    <tr>
-      <th rowspan="1" colspan="2" align="center" style="text-align: center; width: 100%;"><div>Haowei Hsu</div></th>
-    </tr>
-    <!-- Row 1 -->
-    <tr>
-      <th rowspan="1" colspan="1" align="center" style="text-align: center; width: 50%;"><div>Patreon</div></th>
-      <th rowspan="1" colspan="1" align="center" style="text-align: center; width: 50%;"><div>愛發電</div></th>
-    </tr>
-    <!-- Row 2 -->
-    <tr>
-      <td rowspan="1" colspan="1" align="center" style="text-align: center; width: 50%;" >
-        <div><a href="https://www.patreon.com/hwhsu1231" target="_blank">
-          <img width="200" src="https://cdn.jsdelivr.net/gh/localizethedocs/static/button/sponsor-patreon.png" alt="Patreon" />
-        </a></div>
-      </td>
-      <td rowspan="1" colspan="1" align="center" style="text-align: center; width: 50%;">
-        <div><a href="https://www.afdian.com/a/hwhsu1231" target="_blank">
-          <img width="200" src="https://cdn.jsdelivr.net/gh/localizethedocs/static/button/sponsor-afdian.png" alt="Afdian" />
-        </a></div>
-      </td>
-    </tr>
-  </tbody>
-</table>
+<img width="100%" alt="Localize The Docs" src="https://cdn.jsdelivr.net/gh/localizethedocs/sponsors/static/sponsors.svg" />
 </div>
 
 <h2 id="code-contributors"><a href="#table-of-contents">程式碼貢獻者</a></h2>
@@ -521,24 +496,6 @@ This project is currently maintained by:
 
 <div align="center">
 <img width="100%" alt="Crowdin Contributors SVG" src="https://cdn.jsdelivr.net/gh/localizethedocs/cmake-docs-l10n@static/crowdin-contributors.svg">
-</div>
-
-<h2 id="financial-contributors"><a href="#table-of-contents">財務貢獻者</a></h2>
-
-<div align="center">
-<h3 id="localize-the-docs">Localize The Docs</h3>
-</div>
-
-<div align="center">
-<img width="100%" alt="Localize The Docs" src="https://cdn.jsdelivr.net/gh/localizethedocs/sponsors/static/sponsors.svg" />
-</div>
-
-<div align="center">
-<h3 id="haowei-hsu">Haowei Hsu</h3>
-</div>
-
-<div align="center">
-<img width="100%" alt="Haowei Hsu" src="https://cdn.jsdelivr.net/gh/hwhsu1231/sponsors/static/sponsors.svg" />
 </div>
 
 <h2 id="licenses"><a href="#table-of-contents">授權條款</a></h2>
