@@ -5,7 +5,7 @@
 </div>
 
 <div align="center">
-<h1 id="localization-of-cmake-documentation">CMake 文件的在地化</h1>
+<h1 id="localization-of-the-cmake-documentation">Localization of The CMake Documentation</h1>
 </div>
 
 <details><summary><strong>切換語言</strong></summary>
@@ -68,7 +68,7 @@
 
 <p></p>
 
-該專案的目標是將 CMake 文件翻譯為多種語言。 翻譯是在 Crowdin 平臺上進行貢獻，然後會自動與 GitHub 儲存庫進行同步，並且可以在 GitHub Pages 上進行預覽。
+The goal of this project is to translate The CMake documentation into multiple languages. 翻譯是在 Crowdin 平臺上進行貢獻，然後會自動與 GitHub 儲存庫進行同步，並且可以在 GitHub Pages 上進行預覽。
 
 > [!NOTE]
 > The translation is <strong>unofficial</strong> and <strong>community-driven</strong>. If you find any inaccuracies, always refer to the <a href="https://cmake.org/cmake/help/latest/">official documentation</a> or the <a href="https://gitlab.kitware.com/cmake/cmake">source repository</a> of the upstream project for the most reliable information.
