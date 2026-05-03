@@ -27,7 +27,7 @@ msgstr ""
 
 #: ../../../command/cmake_language.rst:9
 msgid "Synopsis"
-msgstr ""
+msgstr "概要"
 
 #: ../../../command/cmake_language.rst:13
 msgid ""
@@ -43,7 +43,7 @@ msgstr ""
 
 #: ../../../command/cmake_language.rst:22
 msgid "Introduction"
-msgstr ""
+msgstr "介紹"
 
 #: ../../../command/cmake_language.rst:24
 msgid ""
@@ -74,7 +74,7 @@ msgstr ""
 #: ../../../command/cmake_language.rst:43
 #: ../../../command/cmake_language.rst:85
 msgid "is equivalent to"
-msgstr ""
+msgstr "等價於"
 
 #: ../../../command/cmake_language.rst:45
 msgid "message(STATUS \"Hello World!\")"
@@ -155,6 +155,20 @@ msgid ""
 "\n"
 "include(${CMAKE_CURRENT_BINARY_DIR}/eval.cmake)"
 msgstr ""
+"set(A TRUE)\n"
+"set(B TRUE)\n"
+"set(C TRUE)\n"
+"set(condition \"(A AND B) OR C\")\n"
+"\n"
+"file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/eval.cmake \"\n"
+"  if (${condition})\n"
+"    message(STATUS TRUE)\n"
+"  else()\n"
+"    message(STATUS FALSE)\n"
+"  endif()\"\n"
+")\n"
+"\n"
+"include(${CMAKE_CURRENT_BINARY_DIR}/eval.cmake)"
 
 #: ../../../command/cmake_language.rst:105
 msgid "Deferring Calls"
@@ -172,11 +186,11 @@ msgstr ""
 
 #: ../../../command/cmake_language.rst:119
 msgid "The options are:"
-msgstr ""
+msgstr "選項有："
 
 #: ../../../command/cmake_language.rst:121
 msgid "``DIRECTORY <dir>``"
-msgstr ""
+msgstr "``DIRECTORY <dir>``"
 
 #: ../../../command/cmake_language.rst:122
 msgid ""
@@ -263,7 +277,7 @@ msgstr ""
 
 #: ../../../command/cmake_language.rst:174
 msgid "cmake_language(DEFER [DIRECTORY <dir>] CANCEL_CALL <id>...)"
-msgstr ""
+msgstr "cmake_language(DEFER [DIRECTORY <dir>] CANCEL_CALL <id>...)"
 
 #: ../../../command/cmake_language.rst:178
 msgid ""
@@ -284,6 +298,11 @@ msgid ""
 "message(\"Immediate Message\")\n"
 "set(deferred_message \"Deferred Message\")"
 msgstr ""
+"cmake_language(DEFER CALL message \"${deferred_message}\")\n"
+"cmake_language(DEFER ID_VAR id CALL message \"Canceled Message\")\n"
+"cmake_language(DEFER CANCEL_CALL ${id})\n"
+"message(\"Immediate Message\")\n"
+"set(deferred_message \"Deferred Message\")"
 
 #: ../../../command/cmake_language.rst:195
 msgid "prints::"
@@ -365,16 +384,16 @@ msgstr ""
 #: ../../../command/cmake_language.rst:254
 #: ../../../command/cmake_language.rst:309
 msgid "``FIND_PACKAGE``"
-msgstr ""
+msgstr "``FIND_PACKAGE``"
 
 #: ../../../command/cmake_language.rst:255
 msgid "The provider command accepts :command:`find_package` requests."
-msgstr ""
+msgstr "提供者命令接受 :command:`find_package` 請求。"
 
 #: ../../../command/cmake_language.rst:257
 #: ../../../command/cmake_language.rst:327
 msgid "``FETCHCONTENT_MAKEAVAILABLE_SERIAL``"
-msgstr ""
+msgstr "``FETCHCONTENT_MAKEAVAILABLE_SERIAL``"
 
 #: ../../../command/cmake_language.rst:258
 msgid ""
@@ -419,7 +438,7 @@ msgstr ""
 
 #: ../../../command/cmake_language.rst:287
 msgid "Provider commands"
-msgstr ""
+msgstr "提供者命令"
 
 #: ../../../command/cmake_language.rst:289
 msgid ""
@@ -434,7 +453,7 @@ msgstr ""
 
 #: ../../../command/cmake_language.rst:297
 msgid "xxx_provide_dependency(<method> [<method-specific-args>...])"
-msgstr ""
+msgstr "xxx_provide_dependency(<method> [<method-specific-args>...])"
 
 #: ../../../command/cmake_language.rst:301
 msgid ""
@@ -565,7 +584,7 @@ msgstr ""
 #: ../../../command/cmake_language.rst:420
 #: ../../../command/cmake_language.rst:479
 msgid "mycomp_provider.cmake"
-msgstr ""
+msgstr "mycomp_provider.cmake"
 
 #: ../../../command/cmake_language.rst:380
 msgid ""
@@ -602,6 +621,7 @@ msgstr ""
 msgid ""
 "cmake -DCMAKE_PROJECT_TOP_LEVEL_INCLUDES=/path/to/mycomp_provider.cmake ..."
 msgstr ""
+"cmake -DCMAKE_PROJECT_TOP_LEVEL_INCLUDES=/path/to/mycomp_provider.cmake ..."
 
 #: ../../../command/cmake_language.rst:410
 msgid ""
@@ -691,6 +711,16 @@ msgid ""
 "  SUPPORTED_METHODS FIND_PACKAGE\n"
 ")"
 msgstr ""
+"cmake_minimum_required(VERSION 3.24)\n"
+"\n"
+"macro(mycomp_provide_dependency method)\n"
+"  find_package(${ARGN} BYPASS_PROVIDER QUIET)\n"
+"endmacro()\n"
+"\n"
+"cmake_language(\n"
+"  SET_DEPENDENCY_PROVIDER mycomp_provide_dependency\n"
+"  SUPPORTED_METHODS FIND_PACKAGE\n"
+")"
 
 #: ../../../command/cmake_language.rst:494
 msgid "Getting current message log level"

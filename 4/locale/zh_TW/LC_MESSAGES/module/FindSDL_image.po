@@ -44,11 +44,11 @@ msgstr ""
 
 #: ../../../../Modules/FindSDL_image.cmake:25
 msgid "Result Variables"
-msgstr ""
+msgstr "結果變數"
 
 #: ../../../../Modules/FindSDL_image.cmake:27
 msgid "This module defines the following variables:"
-msgstr ""
+msgstr "該模組定義了以下變數："
 
 #: ../../../../Modules/FindSDL_image.cmake:29
 msgid "``SDL_image_FOUND``"
@@ -76,7 +76,7 @@ msgstr ""
 #: ../../../../Modules/FindSDL_image.cmake:41
 msgid ""
 "Include directories containing headers needed to use the SDL_image library."
-msgstr ""
+msgstr "包含使用 SDL_image 程式庫所需的標頭檔的引入目錄。"
 
 #: ../../../../Modules/FindSDL_image.cmake:43
 msgid "``SDL_IMAGE_LIBRARIES``"
@@ -88,11 +88,11 @@ msgstr ""
 
 #: ../../../../Modules/FindSDL_image.cmake:47
 msgid "Hints"
-msgstr ""
+msgstr "提示"
 
 #: ../../../../Modules/FindSDL_image.cmake:49
 msgid "This module accepts the following variables:"
-msgstr ""
+msgstr "該模組接受以下變數："
 
 #: ../../../../Modules/FindSDL_image.cmake:51
 msgid "``SDLDIR``"
@@ -108,7 +108,7 @@ msgstr ""
 
 #: ../../../../Modules/FindSDL_image.cmake:58
 msgid "Deprecated Variables"
-msgstr ""
+msgstr "棄用的變數"
 
 #: ../../../../Modules/FindSDL_image.cmake:60
 msgid "The following variables are provided for backward compatibility:"
@@ -120,7 +120,7 @@ msgstr ""
 
 #: ../../../../Modules/FindSDL_image.cmake:63
 msgid "Use ``SDL_image_VERSION``, which has the same value."
-msgstr ""
+msgstr "請使用 ``SDL_image_VERSION``，它有相同的值。"
 
 #: ../../../../Modules/FindSDL_image.cmake:68
 msgid "``SDL_IMAGE_FOUND``"
@@ -129,7 +129,7 @@ msgstr ""
 #: ../../../../Modules/FindSDL_image.cmake:69
 #: ../../../../Modules/FindSDL_image.cmake:73
 msgid "Use ``SDL_image_FOUND``, which has the same value."
-msgstr ""
+msgstr "請使用 ``SDL_image_FOUND``，它有相同的值。"
 
 #: ../../../../Modules/FindSDL_image.cmake:72
 msgid "``SDLIMAGE_FOUND``"
@@ -141,7 +141,7 @@ msgstr ""
 
 #: ../../../../Modules/FindSDL_image.cmake:77
 msgid "Use ``SDL_IMAGE_INCLUDE_DIRS``, which has the same value."
-msgstr ""
+msgstr "請使用 ``SDL_IMAGE_INCLUDE_DIRS``，它有相同的值。"
 
 #: ../../../../Modules/FindSDL_image.cmake:80
 msgid "``SDLIMAGE_LIBRARY``"
@@ -153,7 +153,7 @@ msgstr ""
 
 #: ../../../../Modules/FindSDL_image.cmake:85
 msgid "Examples"
-msgstr ""
+msgstr "範例"
 
 #: ../../../../Modules/FindSDL_image.cmake:87
 msgid ""
@@ -177,6 +177,19 @@ msgid ""
 "\n"
 "target_link_libraries(project_target PRIVATE SDL::SDL_image)"
 msgstr ""
+"find_package(SDL_image)\n"
+"\n"
+"if(SDL_image_FOUND AND NOT TARGET SDL::SDL_image)\n"
+"  add_library(SDL::SDL_image INTERFACE IMPORTED)\n"
+"  set_target_properties(\n"
+"    SDL::SDL_image\n"
+"    PROPERTIES\n"
+"      INTERFACE_INCLUDE_DIRECTORIES \"${SDL_IMAGE_INCLUDE_DIRS}\"\n"
+"      INTERFACE_LINK_LIBRARIES \"${SDL_IMAGE_LIBRARIES}\"\n"
+"  )\n"
+"endif()\n"
+"\n"
+"target_link_libraries(project_target PRIVATE SDL::SDL_image)"
 
 #: ../../../../Modules/FindSDL_image.cmake:106
 msgid ""
@@ -190,6 +203,8 @@ msgid ""
 "find_package(SDL2_image)\n"
 "target_link_libraries(project_target PRIVATE SDL2_image::SDL2_image)"
 msgstr ""
+"find_package(SDL2_image)\n"
+"target_link_libraries(project_target PRIVATE SDL2_image::SDL2_image)"
 
 #: ../../../../Modules/FindSDL_image.cmake:115
 msgid "Similarly, for SDL_image version 3:"
@@ -203,7 +218,7 @@ msgstr ""
 
 #: ../../../../Modules/FindSDL_image.cmake:123
 msgid "See Also"
-msgstr ""
+msgstr "另請參見"
 
 #: ../../../../Modules/FindSDL_image.cmake:125
 msgid "The :module:`FindSDL` module to find the main SDL library."

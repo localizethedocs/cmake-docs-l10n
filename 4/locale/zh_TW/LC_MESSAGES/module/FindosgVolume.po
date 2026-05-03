@@ -58,7 +58,7 @@ msgstr ""
 
 #: ../../../../Modules/FindosgVolume.cmake:34
 msgid "``example.cxx``"
-msgstr ""
+msgstr "``example.cxx``"
 
 #: ../../../../Modules/FindosgVolume.cmake:34
 msgid ""
@@ -75,15 +75,15 @@ msgstr ""
 
 #: ../../../../Modules/FindosgVolume.cmake:45
 msgid "Result Variables"
-msgstr ""
+msgstr "結果變數"
 
 #: ../../../../Modules/FindosgVolume.cmake:47
 msgid "This module defines the following variables:"
-msgstr ""
+msgstr "該模組定義了以下變數："
 
 #: ../../../../Modules/FindosgVolume.cmake:49
 msgid "``osgVolume_FOUND``"
-msgstr ""
+msgstr "``osgVolume_FOUND``"
 
 #: ../../../../Modules/FindosgVolume.cmake:52
 #: ../../../../Modules/FindosgVolume.cmake:93
@@ -112,15 +112,15 @@ msgstr ""
 
 #: ../../../../Modules/FindosgVolume.cmake:63
 msgid "Cache Variables"
-msgstr ""
+msgstr "快取變數"
 
 #: ../../../../Modules/FindosgVolume.cmake:65
 msgid "The following cache variables may also be set:"
-msgstr ""
+msgstr "還可能設定以下變數："
 
 #: ../../../../Modules/FindosgVolume.cmake:67
 msgid "``OSGVOLUME_INCLUDE_DIR``"
-msgstr ""
+msgstr "``OSGVOLUME_INCLUDE_DIR``"
 
 #: ../../../../Modules/FindosgVolume.cmake:68
 msgid "The include directory containing headers needed to use osgVolume."
@@ -128,7 +128,7 @@ msgstr ""
 
 #: ../../../../Modules/FindosgVolume.cmake:70
 msgid "``OSGVOLUME_LIBRARY_DEBUG``"
-msgstr ""
+msgstr "``OSGVOLUME_LIBRARY_DEBUG``"
 
 #: ../../../../Modules/FindosgVolume.cmake:71
 msgid "The path to the osgVolume debug library."
@@ -136,15 +136,15 @@ msgstr ""
 
 #: ../../../../Modules/FindosgVolume.cmake:74
 msgid "Hints"
-msgstr ""
+msgstr "提示"
 
 #: ../../../../Modules/FindosgVolume.cmake:76
 msgid "This module accepts the following variables:"
-msgstr ""
+msgstr "該模組接受以下變數："
 
 #: ../../../../Modules/FindosgVolume.cmake:78
 msgid "``OSGDIR``"
-msgstr ""
+msgstr "``OSGDIR``"
 
 #: ../../../../Modules/FindosgVolume.cmake:79
 msgid ""
@@ -157,7 +157,7 @@ msgstr ""
 
 #: ../../../../Modules/FindosgVolume.cmake:85
 msgid "Deprecated Variables"
-msgstr ""
+msgstr "棄用的變數"
 
 #: ../../../../Modules/FindosgVolume.cmake:87
 msgid "The following variables are provided for backward compatibility:"
@@ -165,15 +165,15 @@ msgstr ""
 
 #: ../../../../Modules/FindosgVolume.cmake:89
 msgid "``OSGVOLUME_FOUND``"
-msgstr ""
+msgstr "``OSGVOLUME_FOUND``"
 
 #: ../../../../Modules/FindosgVolume.cmake:90
 msgid "Use ``osgVolume_FOUND``, which has the same value."
-msgstr ""
+msgstr "請使用 ``osgVolume_FOUND``，它有相同的值。"
 
 #: ../../../../Modules/FindosgVolume.cmake:97
 msgid "Examples"
-msgstr ""
+msgstr "範例"
 
 #: ../../../../Modules/FindosgVolume.cmake:99
 msgid ""
@@ -198,10 +198,23 @@ msgid ""
 "\n"
 "target_link_libraries(example PRIVATE osgVolume::osgVolume)"
 msgstr ""
+"find_package(osgVolume)\n"
+"\n"
+"if(osgVolume_FOUND AND NOT TARGET osgVolume::osgVolume)\n"
+"  add_library(osgVolume::osgVolume INTERFACE IMPORTED)\n"
+"  set_target_properties(\n"
+"    osgVolume::osgVolume\n"
+"    PROPERTIES\n"
+"      INTERFACE_INCLUDE_DIRECTORIES \"${OSGVOLUME_INCLUDE_DIR}\"\n"
+"      INTERFACE_LINK_LIBRARIES \"${OSGVOLUME_LIBRARIES}\"\n"
+"  )\n"
+"endif()\n"
+"\n"
+"target_link_libraries(example PRIVATE osgVolume::osgVolume)"
 
 #: ../../../../Modules/FindosgVolume.cmake:120
 msgid "See Also"
-msgstr ""
+msgstr "另請參見"
 
 #: ../../../../Modules/FindosgVolume.cmake:122
 msgid "The :module:`FindOpenSceneGraph` module to find OpenSceneGraph toolkit."
