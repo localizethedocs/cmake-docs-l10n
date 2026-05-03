@@ -19,7 +19,7 @@ msgstr ""
 
 #: ../../../manual/cmake-generator-expressions.7.rst:4
 msgid "cmake-generator-expressions(7)"
-msgstr ""
+msgstr "cmake-生成器表達式(7)"
 
 #: ../../../manual/cmake-generator-expressions.7.rst:7
 msgid "Contents"
@@ -27,7 +27,7 @@ msgstr ""
 
 #: ../../../manual/cmake-generator-expressions.7.rst:11
 msgid "Introduction"
-msgstr ""
+msgstr "介紹"
 
 #: ../../../manual/cmake-generator-expressions.7.rst:13
 msgid ""
@@ -205,10 +205,16 @@ msgid ""
 "  \"$<${meet_requirements}:HAVE_5_OR_LATER>\"\n"
 ")"
 msgstr ""
+"set(is_gnu \"$<CXX_COMPILER_ID:GNU>\")\n"
+"set(v5_or_later \"$<VERSION_GREATER_EQUAL:$<CXX_COMPILER_VERSION>,5>\")\n"
+"set(meet_requirements \"$<AND:${is_gnu},${v5_or_later}>\")\n"
+"target_compile_definitions(tgt PRIVATE\n"
+"  \"$<${meet_requirements}:HAVE_5_OR_LATER>\"\n"
+")"
 
 #: ../../../manual/cmake-generator-expressions.7.rst:145
 msgid "Debugging"
-msgstr ""
+msgstr "除錯"
 
 #: ../../../manual/cmake-generator-expressions.7.rst:147
 msgid ""
@@ -222,6 +228,7 @@ msgstr ""
 msgid ""
 "add_custom_target(genexdebug COMMAND ${CMAKE_COMMAND} -E echo \"$<...>\")"
 msgstr ""
+"add_custom_target(genexdebug COMMAND ${CMAKE_COMMAND} -E echo \"$<...>\")"
 
 #: ../../../manual/cmake-generator-expressions.7.rst:156
 msgid ""
@@ -242,7 +249,7 @@ msgstr ""
 
 #: ../../../manual/cmake-generator-expressions.7.rst:167
 msgid "Generator Expression Reference"
-msgstr ""
+msgstr "生成器表達式參考"
 
 #: ../../../manual/cmake-generator-expressions.7.rst:171
 msgid ""
@@ -254,7 +261,7 @@ msgstr ""
 
 #: ../../../manual/cmake-generator-expressions.7.rst:179
 msgid "Conditional Expressions"
-msgstr ""
+msgstr "條件表達式"
 
 #: ../../../manual/cmake-generator-expressions.7.rst:181
 msgid ""
@@ -338,7 +345,7 @@ msgstr ""
 
 #: ../../../manual/cmake-generator-expressions.7.rst:238
 msgid "Logical Operators"
-msgstr ""
+msgstr "邏輯運算子"
 
 #: ../../../manual/cmake-generator-expressions.7.rst:240
 msgid "The common boolean logic operators are supported:"
@@ -374,7 +381,7 @@ msgstr ""
 
 #: ../../../manual/cmake-generator-expressions.7.rst:269
 msgid "Primary Comparison Expressions"
-msgstr ""
+msgstr "主要的比較表達式"
 
 #: ../../../manual/cmake-generator-expressions.7.rst:271
 msgid ""
@@ -386,7 +393,7 @@ msgstr ""
 
 #: ../../../manual/cmake-generator-expressions.7.rst:277
 msgid "String Comparisons"
-msgstr ""
+msgstr "字串比較"
 
 #: ../../../manual/cmake-generator-expressions.7.rst:281
 msgid ""
@@ -407,7 +414,7 @@ msgstr ""
 
 #: ../../../manual/cmake-generator-expressions.7.rst:296
 msgid "Version Comparisons"
-msgstr ""
+msgstr "版本比較"
 
 #: ../../../manual/cmake-generator-expressions.7.rst:300
 msgid "``1`` if ``v1`` is a version less than ``v2``, else ``0``."
@@ -432,7 +439,7 @@ msgstr ""
 
 #: ../../../manual/cmake-generator-expressions.7.rst:325
 msgid "String Transformations"
-msgstr ""
+msgstr "字串變換"
 
 #: ../../../manual/cmake-generator-expressions.7.rst:329
 msgid "Content of ``string`` converted to lower case."
@@ -450,7 +457,7 @@ msgstr ""
 
 #: ../../../manual/cmake-generator-expressions.7.rst:341
 msgid "List Expressions"
-msgstr ""
+msgstr "列表表達式"
 
 #: ../../../manual/cmake-generator-expressions.7.rst:343
 msgid ""
@@ -472,7 +479,7 @@ msgstr ""
 
 #: ../../../manual/cmake-generator-expressions.7.rst:359
 msgid "List Comparisons"
-msgstr ""
+msgstr "列表比較"
 
 #: ../../../manual/cmake-generator-expressions.7.rst:365
 msgid ""
@@ -482,7 +489,7 @@ msgstr ""
 
 #: ../../../manual/cmake-generator-expressions.7.rst:371
 msgid "List Queries"
-msgstr ""
+msgstr "列表查詢"
 
 #: ../../../manual/cmake-generator-expressions.7.rst:377
 msgid "The number of items in the ``list``."
@@ -508,7 +515,7 @@ msgstr ""
 
 #: ../../../manual/cmake-generator-expressions.7.rst:404
 msgid "List Transformations"
-msgstr ""
+msgstr "列表變換"
 
 #: ../../../manual/cmake-generator-expressions.7.rst:412
 msgid ""
@@ -601,6 +608,8 @@ msgid ""
 ":command:`APPEND <list(TRANSFORM_APPEND)>`, :command:`PREPEND "
 "<list(TRANSFORM_APPEND)>`"
 msgstr ""
+":command:`APPEND <list(TRANSFORM_APPEND)>`、:command:`PREPEND "
+"<list(TRANSFORM_APPEND)>`"
 
 #: ../../../manual/cmake-generator-expressions.7.rst:507
 msgid "Append, prepend specified value to each item of the list."
@@ -608,13 +617,15 @@ msgstr ""
 
 #: ../../../manual/cmake-generator-expressions.7.rst:509
 msgid "$<LIST:TRANSFORM,list,(APPEND|PREPEND),value[,SELECTOR]>"
-msgstr ""
+msgstr "$<LIST:TRANSFORM,list,(APPEND|PREPEND),value[,SELECTOR]>"
 
 #: ../../../manual/cmake-generator-expressions.7.rst:513
 msgid ""
 ":command:`TOLOWER <list(TRANSFORM_TOLOWER)>`, :command:`TOUPPER "
 "<list(TRANSFORM_TOLOWER)>`"
 msgstr ""
+":command:`TOLOWER <list(TRANSFORM_TOLOWER)>`、:command:`TOUPPER "
+"<list(TRANSFORM_TOLOWER)>`"
 
 #: ../../../manual/cmake-generator-expressions.7.rst:514
 msgid "Convert each item of the list to lower, upper characters."
@@ -622,11 +633,11 @@ msgstr ""
 
 #: ../../../manual/cmake-generator-expressions.7.rst:516
 msgid "$<LIST:TRANSFORM,list,(TOLOWER|TOUPPER)[,SELECTOR]>"
-msgstr ""
+msgstr "$<LIST:TRANSFORM,list,(TOLOWER|TOUPPER)[,SELECTOR]>"
 
 #: ../../../manual/cmake-generator-expressions.7.rst:520
 msgid ":command:`STRIP <list(TRANSFORM_STRIP)>`"
-msgstr ""
+msgstr ":command:`STRIP <list(TRANSFORM_STRIP)>`"
 
 #: ../../../manual/cmake-generator-expressions.7.rst:521
 msgid "Remove leading and trailing spaces from each item of the list."
@@ -634,11 +645,11 @@ msgstr ""
 
 #: ../../../manual/cmake-generator-expressions.7.rst:523
 msgid "$<LIST:TRANSFORM,list,STRIP[,SELECTOR]>"
-msgstr ""
+msgstr "$<LIST:TRANSFORM,list,STRIP[,SELECTOR]>"
 
 #: ../../../manual/cmake-generator-expressions.7.rst:527
 msgid ":command:`REPLACE <list(TRANSFORM_REPLACE)>`:"
-msgstr ""
+msgstr ":command:`REPLACE <list(TRANSFORM_REPLACE)>`："
 
 #: ../../../manual/cmake-generator-expressions.7.rst:528
 msgid ""
@@ -661,7 +672,7 @@ msgstr ""
 
 #: ../../../manual/cmake-generator-expressions.7.rst:539
 msgid "``AT``"
-msgstr ""
+msgstr "``AT``"
 
 #: ../../../manual/cmake-generator-expressions.7.rst:540
 msgid "Specify a list of indexes."
@@ -673,7 +684,7 @@ msgstr ""
 
 #: ../../../manual/cmake-generator-expressions.7.rst:546
 msgid "``FOR``"
-msgstr ""
+msgstr "``FOR``"
 
 #: ../../../manual/cmake-generator-expressions.7.rst:547
 msgid ""
@@ -726,7 +737,7 @@ msgstr ""
 
 #: ../../../manual/cmake-generator-expressions.7.rst:591
 msgid "List Ordering"
-msgstr ""
+msgstr "列表排序"
 
 #: ../../../manual/cmake-generator-expressions.7.rst:597
 msgid "The ``list`` with the items in reverse order."
@@ -744,7 +755,7 @@ msgstr ""
 
 #: ../../../manual/cmake-generator-expressions.7.rst:608
 msgid "``STRING``"
-msgstr ""
+msgstr "``STRING``"
 
 #: ../../../manual/cmake-generator-expressions.7.rst:609
 msgid ""
@@ -754,7 +765,7 @@ msgstr ""
 
 #: ../../../manual/cmake-generator-expressions.7.rst:612
 msgid "``FILE_BASENAME``"
-msgstr ""
+msgstr "``FILE_BASENAME``"
 
 #: ../../../manual/cmake-generator-expressions.7.rst:613
 msgid "Sorts a list of file paths by their basenames."
@@ -782,7 +793,7 @@ msgstr ""
 
 #: ../../../manual/cmake-generator-expressions.7.rst:626
 msgid "``SENSITIVE``"
-msgstr ""
+msgstr "``SENSITIVE``"
 
 #: ../../../manual/cmake-generator-expressions.7.rst:627
 msgid ""
@@ -792,7 +803,7 @@ msgstr ""
 
 #: ../../../manual/cmake-generator-expressions.7.rst:630
 msgid "``INSENSITIVE``"
-msgstr ""
+msgstr "``INSENSITIVE``"
 
 #: ../../../manual/cmake-generator-expressions.7.rst:631
 msgid ""
@@ -806,7 +817,7 @@ msgstr ""
 
 #: ../../../manual/cmake-generator-expressions.7.rst:636
 msgid "``ASCENDING``"
-msgstr ""
+msgstr "``ASCENDING``"
 
 #: ../../../manual/cmake-generator-expressions.7.rst:637
 msgid ""
@@ -816,7 +827,7 @@ msgstr ""
 
 #: ../../../manual/cmake-generator-expressions.7.rst:640
 msgid "``DESCENDING``"
-msgstr ""
+msgstr "``DESCENDING``"
 
 #: ../../../manual/cmake-generator-expressions.7.rst:641
 msgid "Sorts the list in descending order."
@@ -834,7 +845,7 @@ msgstr ""
 
 #: ../../../manual/cmake-generator-expressions.7.rst:651
 msgid "Path Expressions"
-msgstr ""
+msgstr "路徑表達式"
 
 #: ../../../manual/cmake-generator-expressions.7.rst:653
 msgid ""
@@ -853,7 +864,7 @@ msgstr ""
 
 #: ../../../manual/cmake-generator-expressions.7.rst:665
 msgid "Path Comparisons"
-msgstr ""
+msgstr "路徑比較"
 
 #: ../../../manual/cmake-generator-expressions.7.rst:671
 msgid ""
@@ -868,7 +879,7 @@ msgstr ""
 
 #: ../../../manual/cmake-generator-expressions.7.rst:680
 msgid "Path Queries"
-msgstr ""
+msgstr "路徑查詢"
 
 #: ../../../manual/cmake-generator-expressions.7.rst:682
 msgid ""
@@ -895,6 +906,14 @@ msgid ""
 "$<PATH:HAS_RELATIVE_PART,path>\n"
 "$<PATH:HAS_PARENT_PATH,path>"
 msgstr ""
+"$<PATH:HAS_ROOT_NAME,path>\n"
+"$<PATH:HAS_ROOT_DIRECTORY,path>\n"
+"$<PATH:HAS_ROOT_PATH,path>\n"
+"$<PATH:HAS_FILENAME,path>\n"
+"$<PATH:HAS_EXTENSION,path>\n"
+"$<PATH:HAS_STEM,path>\n"
+"$<PATH:HAS_RELATIVE_PART,path>\n"
+"$<PATH:HAS_PARENT_PATH,path>"
 
 #: ../../../manual/cmake-generator-expressions.7.rst:705
 msgid "Note the following special cases:"
@@ -934,7 +953,7 @@ msgstr ""
 
 #: ../../../manual/cmake-generator-expressions.7.rst:738
 msgid "Path Decomposition"
-msgstr ""
+msgstr "路徑分解"
 
 #: ../../../manual/cmake-generator-expressions.7.rst:740
 msgid ""
@@ -968,6 +987,14 @@ msgid ""
 "$<PATH:GET_RELATIVE_PART,path...>\n"
 "$<PATH:GET_PARENT_PATH,path...>"
 msgstr ""
+"$<PATH:GET_ROOT_NAME,path...>\n"
+"$<PATH:GET_ROOT_DIRECTORY,path...>\n"
+"$<PATH:GET_ROOT_PATH,path...>\n"
+"$<PATH:GET_FILENAME,path...>\n"
+"$<PATH:GET_EXTENSION[,LAST_ONLY],path...>\n"
+"$<PATH:GET_STEM[,LAST_ONLY],path...>\n"
+"$<PATH:GET_RELATIVE_PART,path...>\n"
+"$<PATH:GET_PARENT_PATH,path...>"
 
 #: ../../../manual/cmake-generator-expressions.7.rst:767
 msgid ""
@@ -977,7 +1004,7 @@ msgstr ""
 
 #: ../../../manual/cmake-generator-expressions.7.rst:773
 msgid "Path Transformations"
-msgstr ""
+msgstr "路徑變換"
 
 #: ../../../manual/cmake-generator-expressions.7.rst:775
 msgid ""
@@ -1114,7 +1141,7 @@ msgstr ""
 
 #: ../../../manual/cmake-generator-expressions.7.rst:894
 msgid "Configuration Expressions"
-msgstr ""
+msgstr "組態表達式"
 
 #: ../../../manual/cmake-generator-expressions.7.rst:898
 msgid ""
@@ -1156,11 +1183,11 @@ msgstr ""
 
 #: ../../../manual/cmake-generator-expressions.7.rst:934
 msgid "Toolchain And Language Expressions"
-msgstr ""
+msgstr "工具鏈和語言表達式"
 
 #: ../../../manual/cmake-generator-expressions.7.rst:937
 msgid "Platform"
-msgstr ""
+msgstr "平臺"
 
 #: ../../../manual/cmake-generator-expressions.7.rst:941
 msgid ""
@@ -1177,7 +1204,7 @@ msgstr ""
 
 #: ../../../manual/cmake-generator-expressions.7.rst:951
 msgid "Compiler Version"
-msgstr ""
+msgstr "編譯器版本"
 
 #: ../../../manual/cmake-generator-expressions.7.rst:953
 msgid ""
@@ -1796,7 +1823,7 @@ msgstr ""
 
 #: ../../../variable/LINK_LIBRARY_PREDEFINED_FEATURES.txt:12
 msgid "All BSD variants."
-msgstr ""
+msgstr "所有 BSD 變體。"
 
 #: ../../../variable/LINK_LIBRARY_PREDEFINED_FEATURES.txt:13
 msgid "SunOS."
@@ -1932,7 +1959,7 @@ msgstr ""
 
 #: ../../../variable/LINK_LIBRARY_PREDEFINED_FEATURES.txt:85
 msgid "``NEEDED_LIBRARY``"
-msgstr ""
+msgstr "``NEEDED_LIBRARY``"
 
 #: ../../../variable/LINK_LIBRARY_PREDEFINED_FEATURES.txt:86
 msgid ""
@@ -1944,7 +1971,7 @@ msgstr ""
 
 #: ../../../variable/LINK_LIBRARY_PREDEFINED_FEATURES.txt:91
 msgid "``REEXPORT_LIBRARY``"
-msgstr ""
+msgstr "``REEXPORT_LIBRARY``"
 
 #: ../../../variable/LINK_LIBRARY_PREDEFINED_FEATURES.txt:92
 msgid ""
@@ -1956,7 +1983,7 @@ msgstr ""
 
 #: ../../../variable/LINK_LIBRARY_PREDEFINED_FEATURES.txt:97
 msgid "``WEAK_LIBRARY``"
-msgstr ""
+msgstr "``WEAK_LIBRARY``"
 
 #: ../../../variable/LINK_LIBRARY_PREDEFINED_FEATURES.txt:98
 msgid ""
@@ -1974,19 +2001,19 @@ msgstr ""
 
 #: ../../../manual/cmake-generator-expressions.7.rst:1566
 msgid ":variable:`CMAKE_<LANG>_LINK_LIBRARY_USING_<FEATURE>_SUPPORTED`"
-msgstr ""
+msgstr ":variable:`CMAKE_<LANG>_LINK_LIBRARY_USING_<FEATURE>_SUPPORTED`"
 
 #: ../../../manual/cmake-generator-expressions.7.rst:1567
 msgid ":variable:`CMAKE_<LANG>_LINK_LIBRARY_USING_<FEATURE>`"
-msgstr ""
+msgstr ":variable:`CMAKE_<LANG>_LINK_LIBRARY_USING_<FEATURE>`"
 
 #: ../../../manual/cmake-generator-expressions.7.rst:1568
 msgid ":variable:`CMAKE_LINK_LIBRARY_USING_<FEATURE>_SUPPORTED`"
-msgstr ""
+msgstr ":variable:`CMAKE_LINK_LIBRARY_USING_<FEATURE>_SUPPORTED`"
 
 #: ../../../manual/cmake-generator-expressions.7.rst:1569
 msgid ":variable:`CMAKE_LINK_LIBRARY_USING_<FEATURE>`"
-msgstr ""
+msgstr ":variable:`CMAKE_LINK_LIBRARY_USING_<FEATURE>`"
 
 #: ../../../manual/cmake-generator-expressions.7.rst:1571
 #: ../../../manual/cmake-generator-expressions.7.rst:1663
@@ -2167,7 +2194,7 @@ msgstr ""
 
 #: ../../../manual/cmake-generator-expressions.7.rst:1661
 msgid ":variable:`CMAKE_LINK_GROUP_USING_<FEATURE>`"
-msgstr ""
+msgstr ":variable:`CMAKE_LINK_GROUP_USING_<FEATURE>`"
 
 #: ../../../manual/cmake-generator-expressions.7.rst:1666
 msgid ""
@@ -2425,7 +2452,7 @@ msgstr ""
 
 #: ../../../manual/cmake-generator-expressions.7.rst:1860
 msgid "Target Properties"
-msgstr ""
+msgstr "目標屬性"
 
 #: ../../../manual/cmake-generator-expressions.7.rst:1862
 msgid ""
@@ -2657,7 +2684,7 @@ msgstr ""
 
 #: ../../../manual/cmake-generator-expressions.7.rst:2010
 msgid "Full path to the ``tgt`` binary file."
-msgstr ""
+msgstr "``tgt`` 二進位檔的完整路徑。"
 
 #: ../../../manual/cmake-generator-expressions.7.rst:2012
 msgid ""
@@ -2700,7 +2727,7 @@ msgstr ""
 #: ../../../manual/cmake-generator-expressions.7.rst:2043
 #: ../../../manual/cmake-generator-expressions.7.rst:2256
 msgid "See also the :prop_tgt:`PREFIX` target property."
-msgstr ""
+msgstr "另請參見 :prop_tgt:`PREFIX` 目標屬性。"
 
 #: ../../../manual/cmake-generator-expressions.7.rst:2052
 msgid "Suffix of the ``tgt`` filename (extension such as ``.so`` or ``.exe``)."
@@ -2709,7 +2736,7 @@ msgstr ""
 #: ../../../manual/cmake-generator-expressions.7.rst:2054
 #: ../../../manual/cmake-generator-expressions.7.rst:2269
 msgid "See also the :prop_tgt:`SUFFIX` target property."
-msgstr ""
+msgstr "另請參見 :prop_tgt:`SUFFIX` 目標屬性。"
 
 #: ../../../manual/cmake-generator-expressions.7.rst:2061
 msgid "The ``tgt`` filename."
@@ -2770,7 +2797,7 @@ msgstr ""
 #: ../../../manual/cmake-generator-expressions.7.rst:2109
 #: ../../../manual/cmake-generator-expressions.7.rst:2326
 msgid "See also the :prop_tgt:`IMPORT_PREFIX` target property."
-msgstr ""
+msgstr "另請參見 :prop_tgt:`IMPORT_PREFIX` 目標屬性。"
 
 #: ../../../manual/cmake-generator-expressions.7.rst:2118
 msgid "Suffix of the import file of the target ``tgt``."
@@ -2784,7 +2811,7 @@ msgstr ""
 #: ../../../manual/cmake-generator-expressions.7.rst:2122
 #: ../../../manual/cmake-generator-expressions.7.rst:2339
 msgid "See also the :prop_tgt:`IMPORT_SUFFIX` target property."
-msgstr ""
+msgstr "另請參見 :prop_tgt:`IMPORT_SUFFIX` 目標屬性。"
 
 #: ../../../manual/cmake-generator-expressions.7.rst:2131
 msgid "Name of the import file of the target ``tgt``."
@@ -2859,11 +2886,11 @@ msgstr ""
 
 #: ../../../manual/cmake-generator-expressions.7.rst:2209
 msgid "Name of file used to link target ``tgt``."
-msgstr ""
+msgstr "用於連結目標 ``tgt`` 的檔案名稱。"
 
 #: ../../../manual/cmake-generator-expressions.7.rst:2216
 msgid "Directory of file used to link target ``tgt``."
-msgstr ""
+msgstr "用於連結目標 ``tgt`` 的檔案目錄。"
 
 #: ../../../manual/cmake-generator-expressions.7.rst:2225
 msgid ""
@@ -3105,7 +3132,7 @@ msgstr ""
 
 #: ../../../manual/cmake-generator-expressions.7.rst:2550
 msgid "Export And Install Expressions"
-msgstr ""
+msgstr "匯出和安裝表達式"
 
 #: ../../../manual/cmake-generator-expressions.7.rst:2554
 msgid ""
@@ -3202,7 +3229,7 @@ msgstr ""
 
 #: ../../../manual/cmake-generator-expressions.7.rst:2633
 msgid "Escaped Characters"
-msgstr ""
+msgstr "跳脫字元"
 
 #: ../../../manual/cmake-generator-expressions.7.rst:2635
 msgid ""
@@ -3234,7 +3261,7 @@ msgstr ""
 
 #: ../../../manual/cmake-generator-expressions.7.rst:2659
 msgid "Deprecated Expressions"
-msgstr ""
+msgstr "已棄用的表達式"
 
 #: ../../../manual/cmake-generator-expressions.7.rst:2663
 msgid ""
