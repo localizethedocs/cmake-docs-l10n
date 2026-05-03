@@ -183,9 +183,9 @@ get_members_of_json_object(
 #   - Set VERSION_TYPE    to "tag"
 #   - Set TAG_PATTERN     to "^v([0-9]+)\\.([0-9]+)\\.([0-9]+)(-rc[1-9][0-9]*)?$"
 #   - Set TAG_SUFFIX      to "-rc"
-# - For "[MAJOR].[MINOR]":
+# - For "[MAJOR]":
 #   - Set VERSION_TYPE    to "tag"
-#   - Set TAG_PATTERN     to "^v([MAJOR])\\.([MINOR])\\.([0-9]+)(-rc[1-9][0-9]*)?$"
+#   - Set TAG_PATTERN     to "^v([MAJOR])\\.([0-9]+)\\.([0-9]+)(-rc[1-9][0-9]*)?$"
 #   - Set TAG_SUFFIX      to "-rc"
 #]============================================================]
 
@@ -196,11 +196,10 @@ elseif (VERSION MATCHES "^latest$")
     set(VERSION_TYPE    "tag")
     set(TAG_PATTERN     "^v([0-9]+)\\.([0-9]+)\\.([0-9]+)(-rc[1-9][0-9]*)?$")
     set(TAG_SUFFIX      "-rc")
-elseif (VERSION MATCHES "^([0-9]+)\\.([0-9]+)$")
+elseif (VERSION MATCHES "^([0-9]+)$")
     set(MAJOR           "${CMAKE_MATCH_1}")
-    set(MINOR           "${CMAKE_MATCH_2}")
     set(VERSION_TYPE    "tag")
-    set(TAG_PATTERN     "^v(${MAJOR})\\.(${MINOR})\\.([0-9]+)(-rc[1-9][0-9]*)?$")
+    set(TAG_PATTERN     "^v(${MAJOR})\\.([0-9]+)\\.([0-9]+)(-rc[1-9][0-9]*)?$")
     set(TAG_SUFFIX      "-rc")
 else()
     message(FATAL_ERROR "Invalid VERSION value. (${VERSION})")
@@ -282,14 +281,14 @@ elseif (VERSION MATCHES "^latest$")
     set(VERSION_OF_CMAKE    "")
     set(VERSION_OF_PYTHON   "3.12")
     set(VERSION_OF_SPHINX   "8.1")
-elseif (VERSION MATCHES "^([0-9]+)\\.([0-9]+)$")
-    if     (VERSION VERSION_LESS_EQUAL    "4.2" AND
-            VERSION VERSION_GREATER_EQUAL "4.0")
+elseif (VERSION MATCHES "^([0-9]+)$")
+    if     (VERSION VERSION_LESS_EQUAL    "4" AND
+            VERSION VERSION_GREATER_EQUAL "4")
         set(VERSION_OF_CMAKE    "4")
         set(VERSION_OF_PYTHON   "3.12")
         set(VERSION_OF_SPHINX   "8.1")
-    elseif (VERSION VERSION_LESS_EQUAL    "3.31" AND
-            VERSION VERSION_GREATER_EQUAL "3.0")
+    elseif (VERSION VERSION_LESS_EQUAL    "3" AND
+            VERSION VERSION_GREATER_EQUAL "3")
         set(VERSION_OF_CMAKE    "3")
         set(VERSION_OF_PYTHON   "3.12")
         set(VERSION_OF_SPHINX   "8.1")
