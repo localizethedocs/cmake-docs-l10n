@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CMake master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-02 08:35+0000\n"
+"POT-Creation-Date: 2026-04-27 10:08+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -73,7 +73,7 @@ msgid ""
 "  file(`COPY_FILE`_ <oldname> <newname> [...])\n"
 "  file({`COPY`_ | `INSTALL`_} <file>... DESTINATION <dir> [...])\n"
 "  file(`SIZE`_ <filename> <out-var>)\n"
-"  file(`READ_SYMLINK`_ <linkname> <out-var>)\n"
+"  file(`READ_SYMLINK`_ <linkname> <out-var> [...])\n"
 "  file(`CREATE_LINK`_ <original> <linkname> [...])\n"
 "  file(`CHMOD`_ <files>... <directories>... PERMISSIONS <permissions>... "
 "[...])\n"
@@ -311,7 +311,8 @@ msgstr ""
 
 #: ../../../command/file.rst:216 ../../../command/file.rst:408
 #: ../../../command/file.rst:441 ../../../command/file.rst:469
-#: ../../../command/file.rst:931 ../../../command/file.rst:1044
+#: ../../../command/file.rst:587 ../../../command/file.rst:944
+#: ../../../command/file.rst:1092
 msgid "The options are:"
 msgstr ""
 
@@ -604,7 +605,7 @@ msgid ""
 msgstr ""
 
 #: ../../../command/file.rst:410 ../../../command/file.rst:443
-#: ../../../command/file.rst:471
+#: ../../../command/file.rst:471 ../../../command/file.rst:589
 msgid "``RESULT <result>``"
 msgstr ""
 
@@ -811,18 +812,24 @@ msgstr ""
 #: ../../../command/file.rst:584
 msgid ""
 "Query the symlink ``<linkname>`` and stores the path it points to in the "
-"result ``<variable>``.  If ``<linkname>`` does not exist or is not a "
-"symlink, CMake issues a fatal error."
+"result ``<variable>``."
 msgstr ""
 
-#: ../../../command/file.rst:588
+#: ../../../command/file.rst:592
+msgid ""
+"Capture the status of the operation in a ``<result>`` variable.  The "
+"variable is set to ``0`` on success or an error message otherwise. If not "
+"specified, and the operation fails, a fatal error is emitted."
+msgstr ""
+
+#: ../../../command/file.rst:596
 msgid ""
 "Note that this command returns the raw symlink path and does not resolve a "
 "relative path.  The following is an example of how to ensure that an "
 "absolute path is obtained:"
 msgstr ""
 
-#: ../../../command/file.rst:592
+#: ../../../command/file.rst:600
 msgid ""
 "set(linkname \"/path/to/foo.sym\")\n"
 "file(READ_SYMLINK \"${linkname}\" result)\n"
@@ -832,16 +839,16 @@ msgid ""
 "endif()"
 msgstr ""
 
-#: ../../../command/file.rst:607
+#: ../../../command/file.rst:615
 msgid ""
 "Create a link ``<linkname>`` that points to ``<original>``. It will be a "
 "hard link by default, but providing the ``SYMBOLIC`` option results in a "
-"symbolic link instead.  Hard links require that ``original`` exists and is a "
-"file, not a directory.  If ``<linkname>`` already exists, it will be "
+"symbolic link instead.  Hard links require that ``<original>`` exists and is "
+"a file, not a directory.  If ``<linkname>`` already exists, it will be "
 "overwritten."
 msgstr ""
 
-#: ../../../command/file.rst:613
+#: ../../../command/file.rst:621
 msgid ""
 "The ``<result>`` variable, if specified, receives the status of the "
 "operation.  It is set to ``0`` upon success or an error message otherwise. "
@@ -849,18 +856,23 @@ msgid ""
 "emitted."
 msgstr ""
 
-#: ../../../command/file.rst:618
+#: ../../../command/file.rst:626
 msgid ""
 "Specifying ``COPY_ON_ERROR`` enables copying the file as a fallback if "
 "creating the link fails.  It can be useful for handling situations such as "
 "``<original>`` and ``<linkname>`` being on different drives or mount points, "
-"which would make them unable to support a hard link. If the source is a "
-"directory, the destination directory will be created if it does not exist.  "
-"Contents of the source directory will be copied to the destination directory "
-"unless policy :policy:`CMP0205` is not set to ``NEW``."
+"which would make them unable to support a hard link."
 msgstr ""
 
-#: ../../../command/file.rst:634
+#: ../../../command/file.rst:633
+msgid ""
+"If the source is a directory, CMake versions prior to 4.3 will create the "
+"destination directory if it does not exist, but not copy any files. With "
+"CMake 4.3 and above, the contents of the source directory will be copied "
+"recursively to the destination.  See policy :policy:`CMP0205`."
+msgstr ""
+
+#: ../../../command/file.rst:646
 msgid ""
 "Set the permissions for the ``<files>...`` and ``<directories>...`` "
 "specified. Valid permissions are  ``OWNER_READ``, ``OWNER_WRITE``, "
@@ -868,92 +880,92 @@ msgid ""
 "``WORLD_READ``, ``WORLD_WRITE``, ``WORLD_EXECUTE``, ``SETUID``, ``SETGID``."
 msgstr ""
 
-#: ../../../command/file.rst:639
+#: ../../../command/file.rst:651
 msgid "Valid combination of keywords are:"
 msgstr ""
 
-#: ../../../command/file.rst:641
+#: ../../../command/file.rst:653
 msgid "``PERMISSIONS``"
 msgstr ""
 
-#: ../../../command/file.rst:642
+#: ../../../command/file.rst:654
 msgid "All items are changed."
 msgstr ""
 
-#: ../../../command/file.rst:644
+#: ../../../command/file.rst:656
 msgid "``FILE_PERMISSIONS``"
 msgstr ""
 
-#: ../../../command/file.rst:645
+#: ../../../command/file.rst:657
 msgid "Only files are changed."
 msgstr ""
 
-#: ../../../command/file.rst:647
+#: ../../../command/file.rst:659
 msgid "``DIRECTORY_PERMISSIONS``"
 msgstr ""
 
-#: ../../../command/file.rst:648
+#: ../../../command/file.rst:660
 msgid "Only directories are changed."
 msgstr ""
 
-#: ../../../command/file.rst:650
+#: ../../../command/file.rst:662
 msgid "``PERMISSIONS`` and ``FILE_PERMISSIONS``"
 msgstr ""
 
-#: ../../../command/file.rst:651
+#: ../../../command/file.rst:663
 msgid "``FILE_PERMISSIONS`` overrides ``PERMISSIONS`` for files."
 msgstr ""
 
-#: ../../../command/file.rst:653
+#: ../../../command/file.rst:665
 msgid "``PERMISSIONS`` and ``DIRECTORY_PERMISSIONS``"
 msgstr ""
 
-#: ../../../command/file.rst:654
+#: ../../../command/file.rst:666
 msgid "``DIRECTORY_PERMISSIONS`` overrides ``PERMISSIONS`` for directories."
 msgstr ""
 
-#: ../../../command/file.rst:656
+#: ../../../command/file.rst:668
 msgid "``FILE_PERMISSIONS`` and ``DIRECTORY_PERMISSIONS``"
 msgstr ""
 
-#: ../../../command/file.rst:657
+#: ../../../command/file.rst:669
 msgid ""
 "Use ``FILE_PERMISSIONS`` for files and ``DIRECTORY_PERMISSIONS`` for "
 "directories."
 msgstr ""
 
-#: ../../../command/file.rst:668
+#: ../../../command/file.rst:680
 msgid ""
 "Same as :cref:`CHMOD`, but change the permissions of files and directories "
 "present in the ``<directories>...`` recursively."
 msgstr ""
 
-#: ../../../command/file.rst:673
+#: ../../../command/file.rst:685
 msgid "Path Conversion"
 msgstr ""
 
-#: ../../../command/file.rst:680
+#: ../../../command/file.rst:692
 msgid ""
 "Compute the absolute path to an existing file or directory with symlinks "
 "resolved.  The options are:"
 msgstr ""
 
-#: ../../../command/file.rst:683
+#: ../../../command/file.rst:695
 msgid "``BASE_DIRECTORY <dir>``"
 msgstr ""
 
-#: ../../../command/file.rst:684
+#: ../../../command/file.rst:696
 msgid ""
 "If the provided ``<path>`` is a relative path, it is evaluated relative to "
 "the given base directory ``<dir>``. If no base directory is provided, the "
 "default base directory will be :variable:`CMAKE_CURRENT_SOURCE_DIR`."
 msgstr ""
 
-#: ../../../command/file.rst:688
+#: ../../../command/file.rst:700
 msgid "``EXPAND_TILDE``"
 msgstr ""
 
-#: ../../../command/file.rst:691
+#: ../../../command/file.rst:703
 msgid ""
 "If the ``<path>`` is ``~`` or starts with ``~/``, the ``~`` is replaced by "
 "the user's home directory.  The path to the home directory is obtained from "
@@ -963,19 +975,19 @@ msgid ""
 "used."
 msgstr ""
 
-#: ../../../command/file.rst:700
+#: ../../../command/file.rst:712
 msgid ""
 "All symlinks are resolved before collapsing ``../`` components. See policy :"
 "policy:`CMP0152`."
 msgstr ""
 
-#: ../../../command/file.rst:706
+#: ../../../command/file.rst:718
 msgid ""
 "Compute the relative path from a ``<directory>`` to a ``<file>`` and store "
 "it in the ``<variable>``."
 msgstr ""
 
-#: ../../../command/file.rst:713
+#: ../../../command/file.rst:725
 msgid ""
 "The ``TO_CMAKE_PATH`` mode converts a native ``<path>`` into a CMake-style "
 "path with forward-slashes (``/``).  The input can be a single path or a "
@@ -983,72 +995,72 @@ msgid ""
 "a :ref:`semicolon-separated list <CMake Language Lists>`."
 msgstr ""
 
-#: ../../../command/file.rst:718
+#: ../../../command/file.rst:730
 msgid ""
 "The ``TO_NATIVE_PATH`` mode converts a CMake-style ``<path>`` into a native "
 "path with platform-specific slashes (``\\`` on Windows hosts and ``/`` "
 "elsewhere)."
 msgstr ""
 
-#: ../../../command/file.rst:722
+#: ../../../command/file.rst:734
 msgid ""
 "Always use double quotes around the ``<path>`` to be sure it is treated as a "
 "single argument to this command."
 msgstr ""
 
-#: ../../../command/file.rst:726
+#: ../../../command/file.rst:738
 msgid "Transfer"
 msgstr ""
 
-#: ../../../command/file.rst:732
+#: ../../../command/file.rst:744
 msgid ""
 "The ``DOWNLOAD`` subcommand downloads the given ``<url>`` to a local "
 "``<file>``.  The ``UPLOAD`` mode uploads a local ``<file>`` to a given "
 "``<url>``."
 msgstr ""
 
-#: ../../../command/file.rst:736
+#: ../../../command/file.rst:748
 msgid ""
 "If ``<file>`` is not specified for ``file(DOWNLOAD)``, the file is not "
 "saved. This can be useful if you want to know if a file can be downloaded "
 "(for example, to check that it exists) without actually saving it anywhere."
 msgstr ""
 
-#: ../../../command/file.rst:741
+#: ../../../command/file.rst:753
 msgid "Options to both ``DOWNLOAD`` and ``UPLOAD`` are:"
 msgstr ""
 
-#: ../../../command/file.rst:743
+#: ../../../command/file.rst:755
 msgid "``INACTIVITY_TIMEOUT <seconds>``"
 msgstr ""
 
-#: ../../../command/file.rst:744
+#: ../../../command/file.rst:756
 msgid "Terminate the operation after a period of inactivity."
 msgstr ""
 
-#: ../../../command/file.rst:746
+#: ../../../command/file.rst:758
 msgid "``LOG <variable>``"
 msgstr ""
 
-#: ../../../command/file.rst:747
+#: ../../../command/file.rst:759
 msgid "Store a human-readable log of the operation in a variable."
 msgstr ""
 
-#: ../../../command/file.rst:749
+#: ../../../command/file.rst:761
 msgid "``SHOW_PROGRESS``"
 msgstr ""
 
-#: ../../../command/file.rst:750
+#: ../../../command/file.rst:762
 msgid ""
 "Print progress information as status messages until the operation is "
 "complete."
 msgstr ""
 
-#: ../../../command/file.rst:753
+#: ../../../command/file.rst:765
 msgid "``STATUS <variable>``"
 msgstr ""
 
-#: ../../../command/file.rst:754
+#: ../../../command/file.rst:766
 msgid ""
 "Store the resulting status of the operation in a variable. The status is a "
 "``;`` separated list of length 2. The first element is the numeric return "
@@ -1056,86 +1068,86 @@ msgid ""
 "error. A ``0`` numeric error means no error in the operation."
 msgstr ""
 
-#: ../../../command/file.rst:760
+#: ../../../command/file.rst:772
 msgid "``TIMEOUT <seconds>``"
 msgstr ""
 
-#: ../../../command/file.rst:761
+#: ../../../command/file.rst:773
 msgid "Terminate the operation after a given total time has elapsed."
 msgstr ""
 
-#: ../../../command/file.rst:763
+#: ../../../command/file.rst:775
 msgid "``USERPWD <username>:<password>``"
 msgstr ""
 
-#: ../../../command/file.rst:766
+#: ../../../command/file.rst:778
 msgid "Set username and password for operation."
 msgstr ""
 
-#: ../../../command/file.rst:768
+#: ../../../command/file.rst:780
 msgid "``HTTPHEADER <HTTP-header>``"
 msgstr ""
 
-#: ../../../command/file.rst:771
+#: ../../../command/file.rst:783
 msgid ""
 "HTTP header for ``DOWNLOAD`` and ``UPLOAD`` operations. ``HTTPHEADER`` can "
 "be repeated for multiple options:"
 msgstr ""
 
-#: ../../../command/file.rst:774
+#: ../../../command/file.rst:786
 msgid ""
 "file(DOWNLOAD <url>\n"
 "     HTTPHEADER \"Authorization: Bearer <auth-token>\"\n"
 "     HTTPHEADER \"UserAgent: Mozilla/5.0\")"
 msgstr ""
 
-#: ../../../command/file.rst:780
+#: ../../../command/file.rst:792
 msgid "``NETRC <level>``"
 msgstr ""
 
-#: ../../../command/file.rst:783
+#: ../../../command/file.rst:795
 msgid ""
 "Specify whether the .netrc file is to be used for operation.  If this option "
 "is not specified, the value of the :variable:`CMAKE_NETRC` variable will be "
 "used instead."
 msgstr ""
 
-#: ../../../command/file.rst:787
+#: ../../../command/file.rst:799
 msgid "Valid levels are:"
 msgstr ""
 
-#: ../../../command/file.rst:789
+#: ../../../command/file.rst:801
 msgid "``IGNORED``"
 msgstr ""
 
-#: ../../../command/file.rst:790
+#: ../../../command/file.rst:802
 msgid "The .netrc file is ignored. This is the default."
 msgstr ""
 
-#: ../../../command/file.rst:793
+#: ../../../command/file.rst:805
 msgid "``OPTIONAL``"
 msgstr ""
 
-#: ../../../command/file.rst:794
+#: ../../../command/file.rst:806
 msgid ""
 "The .netrc file is optional, and information in the URL is preferred. The "
 "file will be scanned to find which ever information is not specified in the "
 "URL."
 msgstr ""
 
-#: ../../../command/file.rst:798
+#: ../../../command/file.rst:810
 msgid "``REQUIRED``"
 msgstr ""
 
-#: ../../../command/file.rst:799
+#: ../../../command/file.rst:811
 msgid "The .netrc file is required, and information in the URL is ignored."
 msgstr ""
 
-#: ../../../command/file.rst:801
+#: ../../../command/file.rst:813
 msgid "``NETRC_FILE <file>``"
 msgstr ""
 
-#: ../../../command/file.rst:804
+#: ../../../command/file.rst:816
 msgid ""
 "Specify an alternative .netrc file to the one in your home directory, if the "
 "``NETRC`` level is ``OPTIONAL`` or ``REQUIRED``. If this option is not "
@@ -1143,11 +1155,11 @@ msgid ""
 "used instead."
 msgstr ""
 
-#: ../../../command/file.rst:809
+#: ../../../command/file.rst:821
 msgid "``TLS_VERSION <min>``"
 msgstr ""
 
-#: ../../../command/file.rst:812
+#: ../../../command/file.rst:824
 msgid ""
 "Specify minimum TLS version for ``https://`` URLs. If this option is not "
 "specified, the value of the :variable:`CMAKE_TLS_VERSION` variable or :"
@@ -1155,17 +1167,17 @@ msgid ""
 "variable:`CMAKE_TLS_VERSION` for allowed values."
 msgstr ""
 
-#: ../../../command/file.rst:818
+#: ../../../command/file.rst:830
 msgid ""
 "The default is TLS 1.2. Previously, no minimum version was enforced by "
 "default."
 msgstr ""
 
-#: ../../../command/file.rst:822
+#: ../../../command/file.rst:834
 msgid "``TLS_VERIFY <ON|OFF>``"
 msgstr ""
 
-#: ../../../command/file.rst:823
+#: ../../../command/file.rst:835
 msgid ""
 "Specify whether to verify the server certificate for ``https://`` URLs. If "
 "this option is not specified, the value of the :variable:`CMAKE_TLS_VERIFY` "
@@ -1173,41 +1185,41 @@ msgid ""
 "instead. If neither is set, the default is *on*."
 msgstr ""
 
-#: ../../../command/file.rst:829
+#: ../../../command/file.rst:841
 msgid ""
 "The default is on.  Previously, the default was off. Users may set the :"
 "envvar:`CMAKE_TLS_VERIFY` environment variable to ``0`` to restore the old "
 "default."
 msgstr ""
 
-#: ../../../command/file.rst:834 ../../../command/file.rst:842
+#: ../../../command/file.rst:846 ../../../command/file.rst:854
 msgid "Added support to ``file(UPLOAD)``."
 msgstr ""
 
-#: ../../../command/file.rst:837
+#: ../../../command/file.rst:849
 msgid "``TLS_CAINFO <file>``"
 msgstr ""
 
-#: ../../../command/file.rst:838
+#: ../../../command/file.rst:850
 msgid ""
 "Specify a custom Certificate Authority file for ``https://`` URLs. If this "
 "option is not specified, the value of the :variable:`CMAKE_TLS_CAINFO` "
 "variable will be used instead."
 msgstr ""
 
-#: ../../../command/file.rst:845
+#: ../../../command/file.rst:857
 msgid "For ``https://`` URLs CMake must be built with SSL/TLS support."
 msgstr ""
 
-#: ../../../command/file.rst:847
+#: ../../../command/file.rst:859
 msgid "Additional options to ``DOWNLOAD`` are:"
 msgstr ""
 
-#: ../../../command/file.rst:849
+#: ../../../command/file.rst:861
 msgid "``EXPECTED_HASH <algorithm>=<value>``"
 msgstr ""
 
-#: ../../../command/file.rst:850
+#: ../../../command/file.rst:862
 msgid ""
 "Verify that the downloaded content hash matches the expected value, where "
 "``<algorithm>`` is one of the algorithms supported by :cref:`<HASH>`. If the "
@@ -1218,41 +1230,41 @@ msgid ""
 "is not given a ``<file>``."
 msgstr ""
 
-#: ../../../command/file.rst:858
+#: ../../../command/file.rst:870
 msgid "``EXPECTED_MD5 <value>``"
 msgstr ""
 
-#: ../../../command/file.rst:859
+#: ../../../command/file.rst:871
 msgid ""
 "Historical short-hand for ``EXPECTED_HASH MD5=<value>``. It is an error to "
 "specify this if ``DOWNLOAD`` is not given a ``<file>``."
 msgstr ""
 
-#: ../../../command/file.rst:862
+#: ../../../command/file.rst:874
 msgid "``RANGE_START <value>``"
 msgstr ""
 
-#: ../../../command/file.rst:865
+#: ../../../command/file.rst:877
 msgid ""
 "Offset of the start of the range in file in bytes. Could be omitted to "
 "download up to the specified ``RANGE_END``."
 msgstr ""
 
-#: ../../../command/file.rst:868
+#: ../../../command/file.rst:880
 msgid "``RANGE_END <value>``"
 msgstr ""
 
-#: ../../../command/file.rst:871
+#: ../../../command/file.rst:883
 msgid ""
 "Offset of the end of the range in file in bytes. Could be omitted to "
 "download everything from the specified ``RANGE_START`` to the end of file."
 msgstr ""
 
-#: ../../../command/file.rst:876
+#: ../../../command/file.rst:888
 msgid "Locking"
 msgstr ""
 
-#: ../../../command/file.rst:886
+#: ../../../command/file.rst:898
 msgid ""
 "Lock a file specified by ``<path>`` if no ``DIRECTORY`` option present and "
 "file ``<path>/cmake.lock`` otherwise.  The file will be locked for the scope "
@@ -1268,7 +1280,7 @@ msgid ""
 "failure."
 msgstr ""
 
-#: ../../../command/file.rst:899
+#: ../../../command/file.rst:911
 msgid ""
 "Note that lock is advisory; there is no guarantee that other processes will "
 "respect this lock, i.e. lock synchronize two or more CMake instances sharing "
@@ -1277,56 +1289,56 @@ msgid ""
 "from locking any child directory or file."
 msgstr ""
 
-#: ../../../command/file.rst:905
+#: ../../../command/file.rst:917
 msgid ""
 "Trying to lock the same file twice is not allowed.  Any intermediate "
 "directories and the file itself will be created if they not exist.  The "
 "``GUARD`` and ``TIMEOUT`` options are ignored on the ``RELEASE`` operation."
 msgstr ""
 
-#: ../../../command/file.rst:910
+#: ../../../command/file.rst:922
 msgid "Archiving"
 msgstr ""
 
-#: ../../../command/file.rst:927
+#: ../../../command/file.rst:940
 msgid ""
 "Creates the specified ``<archive>`` file with the files and directories "
 "listed in ``<paths>``.  Note that ``<paths>`` must list actual files or "
 "directories; wildcards are not supported."
 msgstr ""
 
-#: ../../../command/file.rst:933
+#: ../../../command/file.rst:946
 msgid "``FORMAT <format>``"
 msgstr ""
 
-#: ../../../command/file.rst:934
+#: ../../../command/file.rst:947
 msgid ""
 "Specify the archive format.  Supported values for ``<format>`` are ``7zip``, "
 "``gnutar``, ``pax``, ``paxr``, ``raw`` and ``zip``. If ``FORMAT`` is not "
 "given, the default format is ``paxr``."
 msgstr ""
 
-#: ../../../command/file.rst:938
+#: ../../../command/file.rst:951
 msgid "The default compression method depends on the format:"
 msgstr ""
 
-#: ../../../command/file.rst:940
+#: ../../../command/file.rst:953
 msgid "``7zip`` uses ``LZMA`` compression"
 msgstr ""
 
-#: ../../../command/file.rst:941
+#: ../../../command/file.rst:954
 msgid "``zip`` uses ``Deflate`` compression"
 msgstr ""
 
-#: ../../../command/file.rst:942
+#: ../../../command/file.rst:955
 msgid "others uses no compression by default"
 msgstr ""
 
-#: ../../../command/file.rst:944
+#: ../../../command/file.rst:957
 msgid "``COMPRESSION <compression>``"
 msgstr ""
 
-#: ../../../command/file.rst:945
+#: ../../../command/file.rst:958
 msgid ""
 "Some archive formats allow the type of compression to be specified. The "
 "``7zip`` and ``zip`` archive formats already imply a specific type of "
@@ -1335,71 +1347,71 @@ msgid ""
 "``<compression>`` are:"
 msgstr ""
 
-#: ../../../command/file.rst:951
+#: ../../../command/file.rst:964
 msgid "``None``"
 msgstr ""
 
-#: ../../../command/file.rst:952
+#: ../../../command/file.rst:965
 msgid "``BZip2``"
 msgstr ""
 
-#: ../../../command/file.rst:953
+#: ../../../command/file.rst:966
 msgid "``Deflate``"
 msgstr ""
 
-#: ../../../command/file.rst:957
+#: ../../../command/file.rst:970
 msgid "This is an alias for ``GZip``."
 msgstr ""
 
-#: ../../../command/file.rst:959
+#: ../../../command/file.rst:972
 msgid "``GZip``"
 msgstr ""
 
-#: ../../../command/file.rst:960
+#: ../../../command/file.rst:973
 msgid "``LZMA``"
 msgstr ""
 
-#: ../../../command/file.rst:964
+#: ../../../command/file.rst:977
 msgid "``LZMA2``"
 msgstr ""
 
-#: ../../../command/file.rst:968
+#: ../../../command/file.rst:981
 msgid "This is an alias for ``XZ``."
 msgstr ""
 
-#: ../../../command/file.rst:970
+#: ../../../command/file.rst:983
 msgid "``PPMd``"
 msgstr ""
 
-#: ../../../command/file.rst:974
+#: ../../../command/file.rst:987
 msgid ""
 "This compression method is only supported by the ``7zip`` archive format."
 msgstr ""
 
-#: ../../../command/file.rst:976
+#: ../../../command/file.rst:989
 msgid "``XZ``"
 msgstr ""
 
-#: ../../../command/file.rst:977
+#: ../../../command/file.rst:990
 msgid "``Zstd``"
 msgstr ""
 
-#: ../../../command/file.rst:980
+#: ../../../command/file.rst:993
 msgid ""
 "With ``FORMAT`` set to ``raw``, only one file will be compressed with the "
 "compression type specified by ``COMPRESSION``."
 msgstr ""
 
-#: ../../../command/file.rst:985
+#: ../../../command/file.rst:998
 msgid ""
 "The ``7zip`` and ``zip`` formats support changing the default compression."
 msgstr ""
 
-#: ../../../command/file.rst:987
+#: ../../../command/file.rst:1000
 msgid "``COMPRESSION_LEVEL <compression-level>``"
 msgstr ""
 
-#: ../../../command/file.rst:990
+#: ../../../command/file.rst:1003
 msgid ""
 "The compression level can be specified with the ``COMPRESSION_LEVEL`` "
 "option.  The ``<compression-level>`` should be between 0-9, with the default "
@@ -1407,7 +1419,7 @@ msgid ""
 "``COMPRESSION_LEVEL`` is given."
 msgstr ""
 
-#: ../../../command/file.rst:995
+#: ../../../command/file.rst:1008
 msgid ""
 "The value ``0`` is used to specify the default compression level. It is "
 "selected automatically by the archive library backend and not directly set "
@@ -1415,46 +1427,113 @@ msgid ""
 "formats, platforms, etc."
 msgstr ""
 
-#: ../../../command/file.rst:1000
+#: ../../../command/file.rst:1013
 msgid ""
 "The ``<compression-level>`` of the ``Zstd`` algorithm can be set between "
 "0-19."
 msgstr ""
 
-#: ../../../command/file.rst:1004
+#: ../../../command/file.rst:1017
 msgid ""
 "The ``<compression-level>`` can be specified for the ``7zip`` and ``zip`` "
 "formats too. The ``Zstd`` algorithm compression level can be set between "
 "0-19, except for ``zip`` format."
 msgstr ""
 
-#: ../../../command/file.rst:1008
+#: ../../../command/file.rst:1022 ../../../command/file.rst:1100
+msgid "``ENCODING <encoding>``"
+msgstr ""
+
+#: ../../../command/file.rst:1025 ../../../command/file.rst:1103
+msgid "Specify the pathname character encoding used in the archive."
+msgstr ""
+
+#: ../../../command/file.rst:1027 ../../../command/file.rst:1105
+msgid "The ``<encoding>`` may be one of:"
+msgstr ""
+
+#: ../../../command/file.rst:1029 ../../../command/file.rst:1107
+msgid "``UTF-8``"
+msgstr ""
+
+#: ../../../command/file.rst:1030 ../../../command/file.rst:1108
+msgid "Archive pathnames are encoded as UTF-8."
+msgstr ""
+
+#: ../../../command/file.rst:1032
+msgid ""
+"In CMake 4.4 and below, this is the default. See policy :policy:`CMP0213` "
+"for CMake 4.3 and below compatibility details."
+msgstr ""
+
+#: ../../../command/file.rst:1036 ../../../command/file.rst:1113
+msgid "``OEM``"
+msgstr ""
+
+#: ../../../command/file.rst:1037 ../../../command/file.rst:1114
+msgid ""
+"On Windows platforms, pathnames are encoded as using the original equipment "
+"manufacturer (OEM) code page.  On non-Windows platforms, pathnames are "
+"encoded according to the current locale."
+msgstr ""
+
+#: ../../../command/file.rst:1041 ../../../command/file.rst:1118
+msgid ""
+"In CMake 4.3 and below, the ``OEM`` encoding (current locale) was always "
+"used."
+msgstr ""
+
+#: ../../../command/file.rst:1044 ../../../command/file.rst:1124
+msgid "``UTF-16LE``, ``UTF-16BE``"
+msgstr ""
+
+#: ../../../command/file.rst:1045 ../../../command/file.rst:1125
+msgid "Archive pathnames are encoded as UTF-16 little-endian or big-endian."
+msgstr ""
+
+#: ../../../command/file.rst:1047 ../../../command/file.rst:1127
+msgid "``...``"
+msgstr ""
+
+#: ../../../command/file.rst:1048 ../../../command/file.rst:1128
+msgid ""
+"Any encoding name supported by ``iconv`` on the current platform. On "
+"Windows, code page names may be specified."
+msgstr ""
+
+#: ../../../command/file.rst:1052 ../../../command/file.rst:1132
+msgid ""
+"``7zip`` archives always encode paths as ``UTF-16LE``, so this option is "
+"silently ignored for that format."
+msgstr ""
+
+#: ../../../command/file.rst:1055
 msgid "``MTIME <mtime>``"
 msgstr ""
 
-#: ../../../command/file.rst:1009
+#: ../../../command/file.rst:1056
 msgid "Specify the modification time recorded in tarball entries."
 msgstr ""
 
-#: ../../../command/file.rst:1011
+#: ../../../command/file.rst:1058
 msgid "``THREADS <number>``"
 msgstr ""
 
-#: ../../../command/file.rst:1014
+#: ../../../command/file.rst:1061
 msgid "Use the ``<number>`` threads to operate on the archive."
 msgstr ""
 
-#: ../../../command/file.rst:1016
+#: ../../../command/file.rst:1063
 msgid ""
 "The number of available cores on the machine will be used if set to ``0``. "
 "Note that not all compression modes support threading in all environments."
 msgstr ""
 
-#: ../../../command/file.rst:1019
+#: ../../../command/file.rst:1066
 msgid "``WORKING_DIRECTORY <dir>``"
 msgstr ""
 
-#: ../../../command/file.rst:1022
+#: ../../../command/file.rst:1069
 msgid ""
 "Specify the directory in which the archive creation operation will be "
 "executed.  Paths in the ``<paths>`` argument can be relative to this "
@@ -1462,69 +1541,81 @@ msgid ""
 "will be used by default."
 msgstr ""
 
-#: ../../../command/file.rst:1027 ../../../command/file.rst:1066
+#: ../../../command/file.rst:1074 ../../../command/file.rst:1149
 msgid "``VERBOSE``"
 msgstr ""
 
-#: ../../../command/file.rst:1028
+#: ../../../command/file.rst:1075
 msgid "Enable verbose output from the archive operation."
 msgstr ""
 
-#: ../../../command/file.rst:1042
+#: ../../../command/file.rst:1090
 msgid "Extracts or lists the content of the specified ``<archive>``."
 msgstr ""
 
-#: ../../../command/file.rst:1046
+#: ../../../command/file.rst:1094
 msgid "``DESTINATION <dir>``"
 msgstr ""
 
-#: ../../../command/file.rst:1047
+#: ../../../command/file.rst:1095
 msgid ""
 "Specify the directory under which the content of the archive will be "
 "extracted.  If the directory does not exist, it will be created. If "
 "``DESTINATION`` is not given, the current binary directory will be used."
 msgstr ""
 
-#: ../../../command/file.rst:1052
+#: ../../../command/file.rst:1110
+msgid ""
+"In CMake 4.3 and below, this is the default if the :policy:`CMP0213` is "
+"``NEW``."
+msgstr ""
+
+#: ../../../command/file.rst:1121
+msgid ""
+"In CMake 4.4 and above, the ``OEM`` encoding (current locale) is only used "
+"if the :policy:`CMP0213` is not ``NEW``."
+msgstr ""
+
+#: ../../../command/file.rst:1135
 msgid "``PATTERNS <pattern>...``"
 msgstr ""
 
-#: ../../../command/file.rst:1053
+#: ../../../command/file.rst:1136
 msgid ""
 "Extract/list only files and directories that match one of the given "
 "patterns.  Wildcards are supported.  If the ``PATTERNS`` option is not "
 "given, the entire archive will be listed or extracted."
 msgstr ""
 
-#: ../../../command/file.rst:1057
+#: ../../../command/file.rst:1140
 msgid "``LIST_ONLY``"
 msgstr ""
 
-#: ../../../command/file.rst:1058
+#: ../../../command/file.rst:1141
 msgid "List the files in the archive rather than extract them."
 msgstr ""
 
-#: ../../../command/file.rst:1060
+#: ../../../command/file.rst:1143
 msgid "``TOUCH``"
 msgstr ""
 
-#: ../../../command/file.rst:1063
+#: ../../../command/file.rst:1146
 msgid ""
 "Give extracted files a current local timestamp instead of extracting file "
 "timestamps from the archive."
 msgstr ""
 
-#: ../../../command/file.rst:1067
+#: ../../../command/file.rst:1150
 msgid "Enable verbose output from the extraction operation."
 msgstr ""
 
-#: ../../../command/file.rst:1069
+#: ../../../command/file.rst:1152
 msgid ""
 "Archive entries containing path traversal sequences (``..``), or absolute "
 "paths, are rejected for security."
 msgstr ""
 
-#: ../../../command/file.rst:1074
+#: ../../../command/file.rst:1157
 msgid ""
 "The working directory for this subcommand is the ``DESTINATION`` directory "
 "(provided or computed) except when ``LIST_ONLY`` is specified. Therefore, "
@@ -1533,15 +1624,15 @@ msgid ""
 "path works."
 msgstr ""
 
-#: ../../../command/file.rst:1081
+#: ../../../command/file.rst:1164
 msgid "Handling Runtime Binaries"
 msgstr ""
 
-#: ../../../command/file.rst:1088
+#: ../../../command/file.rst:1171
 msgid "Recursively get the list of libraries depended on by the given files:"
 msgstr ""
 
-#: ../../../command/file.rst:1090
+#: ../../../command/file.rst:1173
 msgid ""
 "file(GET_RUNTIME_DEPENDENCIES\n"
 "  [RESOLVED_DEPENDENCIES_VAR <deps_var>]\n"
@@ -1561,7 +1652,7 @@ msgid ""
 "  )"
 msgstr ""
 
-#: ../../../command/file.rst:1109
+#: ../../../command/file.rst:1192
 msgid ""
 "Please note that this sub-command is not intended to be used in project "
 "mode. It is intended for use at install time, either from code generated by "
@@ -1570,7 +1661,7 @@ msgid ""
 "`install(SCRIPT)`. For example:"
 msgstr ""
 
-#: ../../../command/file.rst:1115
+#: ../../../command/file.rst:1198
 msgid ""
 "install(CODE [[\n"
 "  file(GET_RUNTIME_DEPENDENCIES\n"
@@ -1579,35 +1670,35 @@ msgid ""
 "  ]])"
 msgstr ""
 
-#: ../../../command/file.rst:1123
+#: ../../../command/file.rst:1206
 msgid "The arguments are as follows:"
 msgstr ""
 
-#: ../../../command/file.rst:1125
+#: ../../../command/file.rst:1208
 msgid "``RESOLVED_DEPENDENCIES_VAR <deps_var>``"
 msgstr ""
 
-#: ../../../command/file.rst:1126
+#: ../../../command/file.rst:1209
 msgid ""
 "Name of the variable in which to store the list of resolved dependencies."
 msgstr ""
 
-#: ../../../command/file.rst:1128
+#: ../../../command/file.rst:1211
 msgid "``UNRESOLVED_DEPENDENCIES_VAR <unresolved_deps_var>``"
 msgstr ""
 
-#: ../../../command/file.rst:1129
+#: ../../../command/file.rst:1212
 msgid ""
 "Name of the variable in which to store the list of unresolved dependencies. "
 "If this variable is not specified, and there are any unresolved "
 "dependencies, an error is issued."
 msgstr ""
 
-#: ../../../command/file.rst:1133
+#: ../../../command/file.rst:1216
 msgid "``CONFLICTING_DEPENDENCIES_PREFIX <conflicting_deps_prefix>``"
 msgstr ""
 
-#: ../../../command/file.rst:1134
+#: ../../../command/file.rst:1217
 msgid ""
 "Variable prefix in which to store conflicting dependency information. "
 "Dependencies are conflicting if two files with the same name are found in "
@@ -1617,11 +1708,11 @@ msgid ""
 "``<conflicting_deps_prefix>_<filename>``."
 msgstr ""
 
-#: ../../../command/file.rst:1141
+#: ../../../command/file.rst:1224
 msgid "``EXECUTABLES <executable_files>...``"
 msgstr ""
 
-#: ../../../command/file.rst:1142
+#: ../../../command/file.rst:1225
 msgid ""
 "List of executable files to read for dependencies. These are executables "
 "that are typically created with :command:`add_executable`, but they do not "
@@ -1631,11 +1722,11 @@ msgid ""
 "``SHARED``) here will result in undefined behavior."
 msgstr ""
 
-#: ../../../command/file.rst:1149
+#: ../../../command/file.rst:1232
 msgid "``LIBRARIES <library_files>...``"
 msgstr ""
 
-#: ../../../command/file.rst:1150
+#: ../../../command/file.rst:1233
 msgid ""
 "List of library files to read for dependencies. These are libraries that are "
 "typically created with :command:`add_library(SHARED)`, but they do not have "
@@ -1643,11 +1734,11 @@ msgid ""
 "libraries, or executables here will result in undefined behavior."
 msgstr ""
 
-#: ../../../command/file.rst:1156
+#: ../../../command/file.rst:1239
 msgid "``MODULES <module_files>...``"
 msgstr ""
 
-#: ../../../command/file.rst:1157
+#: ../../../command/file.rst:1240
 msgid ""
 "List of loadable module files to read for dependencies. These are modules "
 "that are typically created with :command:`add_library(MODULE)`, but they do "
@@ -1657,11 +1748,11 @@ msgid ""
 "will result in undefined behavior."
 msgstr ""
 
-#: ../../../command/file.rst:1164
+#: ../../../command/file.rst:1247
 msgid "``DIRECTORIES <directories>...``"
 msgstr ""
 
-#: ../../../command/file.rst:1165
+#: ../../../command/file.rst:1248
 msgid ""
 "List of additional directories to search for dependencies. On Linux "
 "platforms, these directories are searched if the dependency is not found in "
@@ -1674,11 +1765,11 @@ msgid ""
 "argument has no effect."
 msgstr ""
 
-#: ../../../command/file.rst:1175
+#: ../../../command/file.rst:1258
 msgid "``BUNDLE_EXECUTABLE <bundle_executable_file>``"
 msgstr ""
 
-#: ../../../command/file.rst:1176
+#: ../../../command/file.rst:1259
 msgid ""
 "Executable to treat as the \"bundle executable\" when resolving libraries. "
 "On Apple platforms, this argument determines the value of "
@@ -1689,7 +1780,7 @@ msgid ""
 "executable of the package."
 msgstr ""
 
-#: ../../../command/file.rst:1184
+#: ../../../command/file.rst:1267
 msgid ""
 "The following arguments specify filters for including or excluding libraries "
 "to be resolved. See below for a full description of how they work. Directory "
@@ -1697,97 +1788,97 @@ msgid ""
 "policy:`CMP0207` is not set to ``NEW``."
 msgstr ""
 
-#: ../../../command/file.rst:1189
+#: ../../../command/file.rst:1272
 msgid "``PRE_INCLUDE_REGEXES <regexes>...``"
 msgstr ""
 
-#: ../../../command/file.rst:1190
+#: ../../../command/file.rst:1273
 msgid ""
 "List of pre-include regexes through which to filter the names of not-yet-"
 "resolved dependencies."
 msgstr ""
 
-#: ../../../command/file.rst:1193
+#: ../../../command/file.rst:1276
 msgid "``PRE_EXCLUDE_REGEXES <regexes>...``"
 msgstr ""
 
-#: ../../../command/file.rst:1194
+#: ../../../command/file.rst:1277
 msgid ""
 "List of pre-exclude regexes through which to filter the names of not-yet-"
 "resolved dependencies."
 msgstr ""
 
-#: ../../../command/file.rst:1197
+#: ../../../command/file.rst:1280
 msgid "``POST_INCLUDE_REGEXES <regexes>...``"
 msgstr ""
 
-#: ../../../command/file.rst:1198
+#: ../../../command/file.rst:1281
 msgid ""
 "List of post-include regexes through which to filter the names of resolved "
 "dependencies."
 msgstr ""
 
-#: ../../../command/file.rst:1201
+#: ../../../command/file.rst:1284
 msgid "``POST_EXCLUDE_REGEXES <regexes>...``"
 msgstr ""
 
-#: ../../../command/file.rst:1202
+#: ../../../command/file.rst:1285
 msgid ""
 "List of post-exclude regexes through which to filter the names of resolved "
 "dependencies."
 msgstr ""
 
-#: ../../../command/file.rst:1205
+#: ../../../command/file.rst:1288
 msgid "``POST_INCLUDE_FILES <files>...``"
 msgstr ""
 
-#: ../../../command/file.rst:1208
+#: ../../../command/file.rst:1291
 msgid ""
 "List of post-include filenames through which to filter the names of resolved "
 "dependencies. Symlinks are resolved when attempting to match these filenames."
 msgstr ""
 
-#: ../../../command/file.rst:1212
+#: ../../../command/file.rst:1295
 msgid "``POST_EXCLUDE_FILES <files>...``"
 msgstr ""
 
-#: ../../../command/file.rst:1215
+#: ../../../command/file.rst:1298
 msgid ""
 "List of post-exclude filenames through which to filter the names of resolved "
 "dependencies. Symlinks are resolved when attempting to match these filenames."
 msgstr ""
 
-#: ../../../command/file.rst:1219
+#: ../../../command/file.rst:1302
 msgid ""
 "These arguments can be used to exclude unwanted system libraries when "
 "resolving the dependencies, or to include libraries from a specific "
 "directory. The filtering works as follows:"
 msgstr ""
 
-#: ../../../command/file.rst:1223
+#: ../../../command/file.rst:1306
 msgid ""
 "If the not-yet-resolved dependency matches any of the "
 "``PRE_INCLUDE_REGEXES``, steps 2 and 3 are skipped, and the dependency "
 "resolution proceeds to step 4."
 msgstr ""
 
-#: ../../../command/file.rst:1227
+#: ../../../command/file.rst:1310
 msgid ""
 "If the not-yet-resolved dependency matches any of the "
 "``PRE_EXCLUDE_REGEXES``, dependency resolution stops for that dependency."
 msgstr ""
 
-#: ../../../command/file.rst:1230
+#: ../../../command/file.rst:1313
 msgid "Otherwise, dependency resolution proceeds."
 msgstr ""
 
-#: ../../../command/file.rst:1232
+#: ../../../command/file.rst:1315
 msgid ""
 "``file(GET_RUNTIME_DEPENDENCIES)`` searches for the dependency according to "
 "the linking rules of the platform (see below)."
 msgstr ""
 
-#: ../../../command/file.rst:1235
+#: ../../../command/file.rst:1318
 msgid ""
 "If the dependency is found, and its full path matches one of the "
 "``POST_INCLUDE_REGEXES`` or ``POST_INCLUDE_FILES``, the full path is added "
@@ -1796,14 +1887,14 @@ msgid ""
 "proceeds to step 6."
 msgstr ""
 
-#: ../../../command/file.rst:1241
+#: ../../../command/file.rst:1324
 msgid ""
 "If the dependency is found, but its full path matches one of the "
 "``POST_EXCLUDE_REGEXES`` or ``POST_EXCLUDE_FILES``, it is not added to the "
 "resolved dependencies, and dependency resolution stops for that dependency."
 msgstr ""
 
-#: ../../../command/file.rst:1245
+#: ../../../command/file.rst:1328
 msgid ""
 "If the dependency is found, and its full path does not match either "
 "``POST_INCLUDE_REGEXES``, ``POST_INCLUDE_FILES``, ``POST_EXCLUDE_REGEXES``, "
@@ -1812,37 +1903,37 @@ msgid ""
 "that library's own dependencies."
 msgstr ""
 
-#: ../../../command/file.rst:1251
+#: ../../../command/file.rst:1334
 msgid ""
 "Different platforms have different rules for how dependencies are resolved. "
 "These specifics are described here."
 msgstr ""
 
-#: ../../../command/file.rst:1254
+#: ../../../command/file.rst:1337
 msgid "On Linux platforms, library resolution works as follows:"
 msgstr ""
 
-#: ../../../command/file.rst:1256
+#: ../../../command/file.rst:1339
 msgid ""
 "If the depending file does not have any ``RUNPATH`` entries, and the library "
 "exists in one of the depending file's ``RPATH`` entries, or its parents', in "
 "that order, the dependency is resolved to that file."
 msgstr ""
 
-#: ../../../command/file.rst:1259
+#: ../../../command/file.rst:1342
 msgid ""
 "Otherwise, if the depending file has any ``RUNPATH`` entries, and the "
 "library exists in one of those entries, the dependency is resolved to that "
 "file."
 msgstr ""
 
-#: ../../../command/file.rst:1262
+#: ../../../command/file.rst:1345
 msgid ""
 "Otherwise, if the library exists in one of the directories listed by "
 "``ldconfig``, the dependency is resolved to that file."
 msgstr ""
 
-#: ../../../command/file.rst:1264
+#: ../../../command/file.rst:1347
 msgid ""
 "Otherwise, if the library exists in one of the ``DIRECTORIES`` entries, the "
 "dependency is resolved to that file. In this case, a warning is issued, "
@@ -1851,12 +1942,12 @@ msgid ""
 "which it pulls dependencies)."
 msgstr ""
 
-#: ../../../command/file.rst:1270 ../../../command/file.rst:1337
-#: ../../../command/file.rst:1365
+#: ../../../command/file.rst:1353 ../../../command/file.rst:1420
+#: ../../../command/file.rst:1448
 msgid "Otherwise, the dependency is unresolved."
 msgstr ""
 
-#: ../../../command/file.rst:1274
+#: ../../../command/file.rst:1357
 msgid ""
 "Resolution of each encountered library file name occurs at most once while "
 "processing a given root ELF file (executable or shared object). If a library "
@@ -1865,11 +1956,11 @@ msgid ""
 "loader's behavior on Linux."
 msgstr ""
 
-#: ../../../command/file.rst:1280
+#: ../../../command/file.rst:1363
 msgid "On Windows platforms, library resolution works as follows:"
 msgstr ""
 
-#: ../../../command/file.rst:1282
+#: ../../../command/file.rst:1365
 msgid ""
 "DLL dependency names are converted to lowercase for matching filters. "
 "Windows DLL names are case-insensitive, and some linkers mangle the case of "
@@ -1879,7 +1970,7 @@ msgid ""
 "would have to check for both uppercase and lowercase letters.  For example:"
 msgstr ""
 
-#: ../../../command/file.rst:1290
+#: ../../../command/file.rst:1373
 msgid ""
 "file(GET_RUNTIME_DEPENDENCIES\n"
 "  # ...\n"
@@ -1888,13 +1979,13 @@ msgid ""
 "  )"
 msgstr ""
 
-#: ../../../command/file.rst:1297
+#: ../../../command/file.rst:1380
 msgid ""
 "Converting the DLL name to lowercase allows the regexes to only match "
 "lowercase names, thus simplifying the regex. For example:"
 msgstr ""
 
-#: ../../../command/file.rst:1300
+#: ../../../command/file.rst:1383
 msgid ""
 "file(GET_RUNTIME_DEPENDENCIES\n"
 "  # ...\n"
@@ -1902,47 +1993,47 @@ msgid ""
 "  )"
 msgstr ""
 
-#: ../../../command/file.rst:1307
+#: ../../../command/file.rst:1390
 msgid ""
 "This regex will match ``mylibrary.dll`` regardless of how it is cased, "
 "either on disk or in the depending file. (For example, it will match "
 "``mylibrary.dll``, ``MyLibrary.dll``, and ``MYLIBRARY.DLL``.)"
 msgstr ""
 
-#: ../../../command/file.rst:1313
+#: ../../../command/file.rst:1396
 msgid ""
 "The conversion to lowercase only applies while matching filters. Results "
 "reported after filtering case-preserve each DLL name as it is found on disk, "
 "if resolved, and otherwise as it is referenced by the dependent binary."
 msgstr ""
 
-#: ../../../command/file.rst:1318
+#: ../../../command/file.rst:1401
 msgid ""
 "Prior to CMake 3.27, the results were reported with lowercase DLL file "
 "names, but the directory portion retained its casing."
 msgstr ""
 
-#: ../../../command/file.rst:1321
+#: ../../../command/file.rst:1404
 msgid ""
 "(**Not yet implemented**) If the depending file is a Windows Store app, and "
 "the dependency is listed as a dependency in the application's package "
 "manifest, the dependency is resolved to that file."
 msgstr ""
 
-#: ../../../command/file.rst:1325
+#: ../../../command/file.rst:1408
 msgid ""
 "Otherwise, if the library exists in the same directory as the depending "
 "file, the dependency is resolved to that file."
 msgstr ""
 
-#: ../../../command/file.rst:1328
+#: ../../../command/file.rst:1411
 msgid ""
 "Otherwise, if the library exists in either the operating system's "
 "``system32`` directory or the ``Windows`` directory, in that order, the "
 "dependency is resolved to that file."
 msgstr ""
 
-#: ../../../command/file.rst:1332
+#: ../../../command/file.rst:1415
 msgid ""
 "Otherwise, if the library exists in one of the directories specified by "
 "``DIRECTORIES``, in the order they are listed, the dependency is resolved to "
@@ -1950,11 +2041,11 @@ msgid ""
 "directories is a normal part of Windows library resolution."
 msgstr ""
 
-#: ../../../command/file.rst:1339
+#: ../../../command/file.rst:1422
 msgid "On Apple platforms, library resolution works as follows:"
 msgstr ""
 
-#: ../../../command/file.rst:1341
+#: ../../../command/file.rst:1424
 msgid ""
 "If the dependency starts with ``@executable_path/``, and an ``EXECUTABLES`` "
 "argument is in the process of being resolved, and replacing "
@@ -1962,7 +2053,7 @@ msgid ""
 "existing file, the dependency is resolved to that file."
 msgstr ""
 
-#: ../../../command/file.rst:1346
+#: ../../../command/file.rst:1429
 msgid ""
 "Otherwise, if the dependency starts with ``@executable_path/``, and there is "
 "a ``BUNDLE_EXECUTABLE`` argument, and replacing ``@executable_path/`` with "
@@ -1970,14 +2061,14 @@ msgid ""
 "dependency is resolved to that file."
 msgstr ""
 
-#: ../../../command/file.rst:1351
+#: ../../../command/file.rst:1434
 msgid ""
 "Otherwise, if the dependency starts with ``@loader_path/``, and replacing "
 "``@loader_path/`` with the directory of the depending file yields an "
 "existing file, the dependency is resolved to that file."
 msgstr ""
 
-#: ../../../command/file.rst:1355
+#: ../../../command/file.rst:1438
 msgid ""
 "Otherwise, if the dependency starts with ``@rpath/``, and replacing ``@rpath/"
 "`` with one of the ``RPATH`` entries of the depending file yields an "
@@ -1986,81 +2077,81 @@ msgid ""
 "these items replaced with the appropriate path."
 msgstr ""
 
-#: ../../../command/file.rst:1362
+#: ../../../command/file.rst:1445
 msgid ""
 "Otherwise, if the dependency is an absolute file that exists, the dependency "
 "is resolved to that file."
 msgstr ""
 
-#: ../../../command/file.rst:1367
+#: ../../../command/file.rst:1450
 msgid ""
 "This function accepts several variables that determine which tool is used "
 "for dependency resolution:"
 msgstr ""
 
-#: ../../../command/file.rst:1372
+#: ../../../command/file.rst:1455
 msgid ""
 "Determines which operating system and executable format the files are built "
 "for. This could be one of several values:"
 msgstr ""
 
-#: ../../../command/file.rst:1375 ../../../command/file.rst:1391
+#: ../../../command/file.rst:1458 ../../../command/file.rst:1474
 msgid "``linux+elf``"
 msgstr ""
 
-#: ../../../command/file.rst:1376 ../../../command/file.rst:1392
+#: ../../../command/file.rst:1459 ../../../command/file.rst:1475
 msgid "``windows+pe``"
 msgstr ""
 
-#: ../../../command/file.rst:1377 ../../../command/file.rst:1393
+#: ../../../command/file.rst:1460 ../../../command/file.rst:1476
 msgid "``macos+macho``"
 msgstr ""
 
-#: ../../../command/file.rst:1379 ../../../command/file.rst:1396
+#: ../../../command/file.rst:1462 ../../../command/file.rst:1479
 msgid ""
 "If this variable is not specified, it is determined automatically by system "
 "introspection."
 msgstr ""
 
-#: ../../../command/file.rst:1384
+#: ../../../command/file.rst:1467
 msgid ""
 "Determines the tool to use for dependency resolution. It could be one of "
 "several values, depending on the value of :variable:"
 "`CMAKE_GET_RUNTIME_DEPENDENCIES_PLATFORM`:"
 msgstr ""
 
-#: ../../../command/file.rst:1389
+#: ../../../command/file.rst:1472
 msgid "``CMAKE_GET_RUNTIME_DEPENDENCIES_PLATFORM``"
 msgstr ""
 
-#: ../../../command/file.rst:1389
+#: ../../../command/file.rst:1472
 msgid "``CMAKE_GET_RUNTIME_DEPENDENCIES_TOOL``"
 msgstr ""
 
-#: ../../../command/file.rst:1391
+#: ../../../command/file.rst:1474
 msgid "``objdump``"
 msgstr ""
 
-#: ../../../command/file.rst:1392
+#: ../../../command/file.rst:1475
 msgid "``objdump`` or ``dumpbin``"
 msgstr ""
 
-#: ../../../command/file.rst:1393
+#: ../../../command/file.rst:1476
 msgid "``otool``"
 msgstr ""
 
-#: ../../../command/file.rst:1401
+#: ../../../command/file.rst:1484
 msgid ""
 "Determines the path to the tool to use for dependency resolution. This is "
 "the actual path to ``objdump``, ``dumpbin``, or ``otool``."
 msgstr ""
 
-#: ../../../command/file.rst:1404
+#: ../../../command/file.rst:1487
 msgid ""
 "If this variable is not specified, it is determined by the value of :"
 "variable:`CMAKE_OBJDUMP` variable if set, else by system introspection."
 msgstr ""
 
-#: ../../../command/file.rst:1407
+#: ../../../command/file.rst:1490
 msgid "Uses :variable:`CMAKE_OBJDUMP` if set."
 msgstr ""

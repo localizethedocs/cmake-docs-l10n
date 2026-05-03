@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CMake master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-02 08:35+0000\n"
+"POT-Creation-Date: 2026-04-27 10:08+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -121,35 +121,62 @@ msgid ""
 "Adds a file set to a target, or adds files to an existing file set. Targets "
 "have zero or more named file sets. Each file set has a name, a type, a scope "
 "of ``INTERFACE``, ``PUBLIC``, or ``PRIVATE``, one or more base directories, "
-"and files within those directories. The acceptable types include:"
+"and files within those directories."
 msgstr ""
 
 #: ../../../command/target_sources.rst:82
-msgid "``HEADERS``"
-msgstr ""
-
-#: ../../../command/target_sources.rst:84
-msgid "Sources intended to be used via a language's ``#include`` mechanism."
+msgid ""
+"A file may only belong to at most one file set in a target. See policy  :"
+"policy:`CMP0211`."
 msgstr ""
 
 #: ../../../command/target_sources.rst:86
+msgid "The acceptable types include:"
+msgstr ""
+
+#: ../../../command/target_sources.rst:88
+msgid "``HEADERS``"
+msgstr ""
+
+#: ../../../command/target_sources.rst:90
+msgid "Sources intended to be used via a language's ``#include`` mechanism."
+msgstr ""
+
+#: ../../../command/target_sources.rst:92
+msgid "``SOURCES``"
+msgstr ""
+
+#: ../../../command/target_sources.rst:95
+msgid ""
+"Specifies sources to use when building a target and/or its dependents. With "
+"the scope ``PRIVATE`` and ``PUBLIC``, items will populate the :prop_fs:"
+"`SOURCES` property of ``<set>``, which are used when building the target "
+"itself. With the scope ``PUBLIC`` and ``INTERFACE``, items will populate "
+"the :prop_fs:`INTERFACE_SOURCES` property of ``<set>``, which are used when "
+"building dependents. The sources specified by the :prop_fs:"
+"`INTERFACE_SOURCES` property are propagated, transitively, to all the "
+"dependents."
+msgstr ""
+
+#: ../../../command/target_sources.rst:104
 msgid "``CXX_MODULES``"
 msgstr ""
 
-#: ../../../command/target_sources.rst:89
+#: ../../../command/target_sources.rst:107
 msgid ""
 "Sources which contain C++ interface module or partition units (i.e., those "
 "using the ``export`` keyword). This file set type may not have an "
 "``INTERFACE`` scope except on ``IMPORTED`` targets."
 msgstr ""
 
-#: ../../../command/target_sources.rst:93
+#: ../../../command/target_sources.rst:111
 msgid ""
 "The optional default file sets are named after their type. The target may "
-"not be a custom target or :prop_tgt:`FRAMEWORK` target."
+"not be a custom target or, for ``HEADERS`` and ``CXX_MODULES`` types, a :"
+"prop_tgt:`FRAMEWORK` target."
 msgstr ""
 
-#: ../../../command/target_sources.rst:96
+#: ../../../command/target_sources.rst:115
 msgid ""
 "Files in a ``PRIVATE`` or ``PUBLIC`` file set are marked as source files for "
 "the purposes of IDE integration. Additionally, files in ``HEADERS`` file "
@@ -159,17 +186,17 @@ msgid ""
 "`install(EXPORT)` and :command:`export` commands."
 msgstr ""
 
-#: ../../../command/target_sources.rst:103
+#: ../../../command/target_sources.rst:122
 msgid ""
 "Each ``target_sources(FILE_SET)`` entry starts with ``INTERFACE``, "
 "``PUBLIC``, or ``PRIVATE`` and accepts the following arguments:"
 msgstr ""
 
-#: ../../../command/target_sources.rst:106
+#: ../../../command/target_sources.rst:125
 msgid "``FILE_SET <set>``"
 msgstr ""
 
-#: ../../../command/target_sources.rst:108
+#: ../../../command/target_sources.rst:127
 msgid ""
 "The name of the file set to create or add to. It must contain only letters, "
 "numbers and underscores. Names starting with a capital letter are reserved "
@@ -178,11 +205,11 @@ msgid ""
 "with a capital letter or underscore."
 msgstr ""
 
-#: ../../../command/target_sources.rst:115
+#: ../../../command/target_sources.rst:134
 msgid "``TYPE <type>``"
 msgstr ""
 
-#: ../../../command/target_sources.rst:117
+#: ../../../command/target_sources.rst:136
 msgid ""
 "Every file set is associated with a particular type of file. Only types "
 "specified above may be used and it is an error to specify anything else. As "
@@ -191,11 +218,11 @@ msgid ""
 "omitted. For all other file set names, ``TYPE`` is required."
 msgstr ""
 
-#: ../../../command/target_sources.rst:123
+#: ../../../command/target_sources.rst:142
 msgid "``BASE_DIRS <dirs>...``"
 msgstr ""
 
-#: ../../../command/target_sources.rst:125
+#: ../../../command/target_sources.rst:144
 msgid ""
 "An optional list of base directories of the file set. Any relative path is "
 "treated as relative to the current source directory (i.e. :variable:"
@@ -205,18 +232,18 @@ msgid ""
 "generator-expressions(7)>`."
 msgstr ""
 
-#: ../../../command/target_sources.rst:132
+#: ../../../command/target_sources.rst:151
 msgid ""
 "No two base directories for a file set may be sub-directories of each other. "
 "This requirement must be met across all base directories added to a file "
 "set, not just those within a single call to ``target_sources()``."
 msgstr ""
 
-#: ../../../command/target_sources.rst:136
+#: ../../../command/target_sources.rst:155
 msgid "``FILES <files>...``"
 msgstr ""
 
-#: ../../../command/target_sources.rst:138
+#: ../../../command/target_sources.rst:157
 msgid ""
 "An optional list of files to add to the file set. Each file must be in one "
 "of the base directories, or a subdirectory of one of the base directories. "
@@ -224,7 +251,7 @@ msgid ""
 "expressions(7)>`."
 msgstr ""
 
-#: ../../../command/target_sources.rst:143
+#: ../../../command/target_sources.rst:162
 msgid ""
 "If relative paths are specified, they are considered relative to :variable:"
 "`CMAKE_CURRENT_SOURCE_DIR` at the time ``target_sources()`` is called. An "
@@ -233,136 +260,164 @@ msgid ""
 "expressions."
 msgstr ""
 
-#: ../../../command/target_sources.rst:149
+#: ../../../command/target_sources.rst:168
 msgid ""
 "The following target properties are set by ``target_sources(FILE_SET)``, but "
 "they should not generally be manipulated directly:"
 msgstr ""
 
-#: ../../../command/target_sources.rst:152
+#: ../../../command/target_sources.rst:171
 msgid "For file sets of type ``HEADERS``:"
 msgstr ""
 
-#: ../../../command/target_sources.rst:154
+#: ../../../command/target_sources.rst:173
 msgid ":prop_tgt:`HEADER_SETS`"
 msgstr ""
 
-#: ../../../command/target_sources.rst:155
+#: ../../../command/target_sources.rst:174
 msgid ":prop_tgt:`INTERFACE_HEADER_SETS`"
 msgstr ""
 
-#: ../../../command/target_sources.rst:156
+#: ../../../command/target_sources.rst:175
 msgid ":prop_tgt:`HEADER_SET`"
 msgstr ""
 
-#: ../../../command/target_sources.rst:157
+#: ../../../command/target_sources.rst:176
 msgid ":prop_tgt:`HEADER_SET_<NAME>`"
 msgstr ""
 
-#: ../../../command/target_sources.rst:158
+#: ../../../command/target_sources.rst:177
 msgid ":prop_tgt:`HEADER_DIRS`"
 msgstr ""
 
-#: ../../../command/target_sources.rst:159
+#: ../../../command/target_sources.rst:178
 msgid ":prop_tgt:`HEADER_DIRS_<NAME>`"
 msgstr ""
 
-#: ../../../command/target_sources.rst:161
+#: ../../../command/target_sources.rst:180
+msgid "For file sets of type ``SOURCES``:"
+msgstr ""
+
+#: ../../../command/target_sources.rst:182
+msgid ":prop_tgt:`SOURCE_SETS`"
+msgstr ""
+
+#: ../../../command/target_sources.rst:183
+msgid ":prop_tgt:`INTERFACE_SOURCE_SETS`"
+msgstr ""
+
+#: ../../../command/target_sources.rst:184
+msgid ":prop_tgt:`SOURCE_SET`"
+msgstr ""
+
+#: ../../../command/target_sources.rst:185
+msgid ":prop_tgt:`SOURCE_SET_<NAME>`"
+msgstr ""
+
+#: ../../../command/target_sources.rst:186
+msgid ":prop_tgt:`SOURCE_DIRS`"
+msgstr ""
+
+#: ../../../command/target_sources.rst:187
+msgid ":prop_tgt:`SOURCE_DIRS_<NAME>`"
+msgstr ""
+
+#: ../../../command/target_sources.rst:189
 msgid "For file sets of type ``CXX_MODULES``:"
 msgstr ""
 
-#: ../../../command/target_sources.rst:163
+#: ../../../command/target_sources.rst:191
 msgid ":prop_tgt:`CXX_MODULE_SETS`"
 msgstr ""
 
-#: ../../../command/target_sources.rst:164
+#: ../../../command/target_sources.rst:192
 msgid ":prop_tgt:`INTERFACE_CXX_MODULE_SETS`"
 msgstr ""
 
-#: ../../../command/target_sources.rst:165
+#: ../../../command/target_sources.rst:193
 msgid ":prop_tgt:`CXX_MODULE_SET`"
 msgstr ""
 
-#: ../../../command/target_sources.rst:166
+#: ../../../command/target_sources.rst:194
 msgid ":prop_tgt:`CXX_MODULE_SET_<NAME>`"
 msgstr ""
 
-#: ../../../command/target_sources.rst:167
+#: ../../../command/target_sources.rst:195
 msgid ":prop_tgt:`CXX_MODULE_DIRS`"
 msgstr ""
 
-#: ../../../command/target_sources.rst:168
+#: ../../../command/target_sources.rst:196
 msgid ":prop_tgt:`CXX_MODULE_DIRS_<NAME>`"
 msgstr ""
 
-#: ../../../command/target_sources.rst:170
+#: ../../../command/target_sources.rst:198
 msgid ""
 "Target properties related to include directories are also modified by "
 "``target_sources(FILE_SET)`` as follows:"
 msgstr ""
 
-#: ../../../command/target_sources.rst:173
+#: ../../../command/target_sources.rst:201
 msgid ":prop_tgt:`INCLUDE_DIRECTORIES`"
 msgstr ""
 
-#: ../../../command/target_sources.rst:175
+#: ../../../command/target_sources.rst:203
 msgid ""
 "If the ``TYPE`` is ``HEADERS``, and the scope of the file set is ``PRIVATE`` "
 "or ``PUBLIC``, all of the ``BASE_DIRS`` of the file set are wrapped in :"
 "genex:`$<BUILD_INTERFACE>` and appended to this property."
 msgstr ""
 
-#: ../../../command/target_sources.rst:179
+#: ../../../command/target_sources.rst:207
 msgid ":prop_tgt:`INTERFACE_INCLUDE_DIRECTORIES`"
 msgstr ""
 
-#: ../../../command/target_sources.rst:181
+#: ../../../command/target_sources.rst:209
 msgid ""
 "If the ``TYPE`` is ``HEADERS``, and the scope of the file set is "
 "``INTERFACE`` or ``PUBLIC``, all of the ``BASE_DIRS`` of the file set are "
 "wrapped in :genex:`$<BUILD_INTERFACE>` and appended to this property."
 msgstr ""
 
-#: ../../../command/target_sources.rst:186
+#: ../../../command/target_sources.rst:214
 msgid "See Also"
 msgstr ""
 
-#: ../../../command/target_sources.rst:188
+#: ../../../command/target_sources.rst:216
 msgid ":command:`add_executable`"
 msgstr ""
 
-#: ../../../command/target_sources.rst:189
+#: ../../../command/target_sources.rst:217
 msgid ":command:`add_library`"
 msgstr ""
 
-#: ../../../command/target_sources.rst:190
+#: ../../../command/target_sources.rst:218
 msgid ":command:`target_compile_definitions`"
 msgstr ""
 
-#: ../../../command/target_sources.rst:191
+#: ../../../command/target_sources.rst:219
 msgid ":command:`target_compile_features`"
 msgstr ""
 
-#: ../../../command/target_sources.rst:192
+#: ../../../command/target_sources.rst:220
 msgid ":command:`target_compile_options`"
 msgstr ""
 
-#: ../../../command/target_sources.rst:193
+#: ../../../command/target_sources.rst:221
 msgid ":command:`target_include_directories`"
 msgstr ""
 
-#: ../../../command/target_sources.rst:194
+#: ../../../command/target_sources.rst:222
 msgid ":command:`target_link_libraries`"
 msgstr ""
 
-#: ../../../command/target_sources.rst:195
+#: ../../../command/target_sources.rst:223
 msgid ":command:`target_link_directories`"
 msgstr ""
 
-#: ../../../command/target_sources.rst:196
+#: ../../../command/target_sources.rst:224
 msgid ":command:`target_link_options`"
 msgstr ""
 
-#: ../../../command/target_sources.rst:197
+#: ../../../command/target_sources.rst:225
 msgid ":command:`target_precompile_headers`"
 msgstr ""

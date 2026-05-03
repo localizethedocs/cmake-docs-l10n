@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CMake master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-16 08:47+0000\n"
+"POT-Creation-Date: 2026-04-27 10:08+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -35,16 +35,25 @@ msgstr ""
 
 #: ../../../prop_tgt/VERIFY_PRIVATE_HEADER_SETS.rst:13
 msgid ""
-"When this property is set to true, and the target is an object library, "
-"static library, shared library, module library, interface library, or "
-"executable, and the target has one or more ``PUBLIC`` or ``PRIVATE`` header "
-"sets, an object library target named "
-"``<target_name>_verify_private_header_sets`` is created. This verification "
-"target has one source file per header in the ``PUBLIC`` and ``PRIVATE`` "
-"header sets. Each source file only includes its associated header file."
+"Previously, the verification target was only created when the target had at "
+"least one matching header. Now it is always created when the property is "
+"enabled."
 msgstr ""
 
-#: ../../../prop_tgt/VERIFY_PRIVATE_HEADER_SETS.rst:21
+#: ../../../prop_tgt/VERIFY_PRIVATE_HEADER_SETS.rst:18
+msgid ""
+"When this property is set to true, and the target is an object library, "
+"static library, shared library, module library, interface library, or "
+"executable, an object library target named "
+"``<target_name>_verify_private_header_sets`` is created. This verification "
+"target has one source file per header in the target's ``PUBLIC`` and "
+"``PRIVATE`` header sets. Each source file only includes its associated "
+"header file. If the target has no matching header sets, a utility target is "
+"created instead so that the target name always exists for build system "
+"dependencies."
+msgstr ""
+
+#: ../../../prop_tgt/VERIFY_PRIVATE_HEADER_SETS.rst:27
 msgid ""
 "Properties affecting compilation are copied from the original target to the "
 "verification target so that the headers will be interpreted the same way by "
@@ -101,20 +110,19 @@ msgstr ""
 
 #: ../../../prop_tgt/include/VERIFY_XXX_HEADER_SETS.rst:29
 msgid ""
-"If any |xxx| file set verification targets are created, a top-level target "
-"called |THIS_ALL_TARGET| is created which depends on all |xxx| verification "
-"targets.  Another target called ``all_verify_header_sets`` is also created "
-"which depends on |THIS_ALL_TARGET|, and on |COMPLEMENTARY_ALL_TARGET| if it "
-"exists (see |COMPLEMENTARY_PROPERTY|)."
+"A top-level target called |THIS_ALL_TARGET| is created which depends on all |"
+"xxx| verification targets.  Another target called ``all_verify_header_sets`` "
+"is also created which depends on |THIS_ALL_TARGET|, and on |"
+"COMPLEMENTARY_ALL_TARGET| if it exists (see |COMPLEMENTARY_PROPERTY|)."
 msgstr ""
 
-#: ../../../prop_tgt/include/VERIFY_XXX_HEADER_SETS.rst:35
+#: ../../../prop_tgt/include/VERIFY_XXX_HEADER_SETS.rst:34
 msgid ""
 "This property is initialized by the value of the |INIT_VARIABLE| variable if "
 "it is set when a target is created."
 msgstr ""
 
-#: ../../../prop_tgt/include/VERIFY_XXX_HEADER_SETS.rst:38
+#: ../../../prop_tgt/include/VERIFY_XXX_HEADER_SETS.rst:37
 msgid ""
 "If the project wishes to control which header sets are verified by this "
 "property, it can set |SETS_TO_VERIFY_PROPERTY|."
