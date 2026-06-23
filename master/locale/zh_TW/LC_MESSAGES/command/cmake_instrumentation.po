@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CMake master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-25 11:44+0000\n"
+"POT-Creation-Date: 2026-06-22 13:28+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -44,14 +44,23 @@ msgid ""
 msgstr ""
 
 #: ../../../command/cmake_instrumentation.rst:22
+msgid "The ``API_VERSION`` and ``DATA_VERSION`` must always be given."
+msgstr ""
+
+#: ../../../command/cmake_instrumentation.rst:24
 msgid ""
-"The ``API_VERSION`` and ``DATA_VERSION`` must always be given.  Currently, "
-"the only supported value for both fields is 1.  See :ref:`cmake-"
-"instrumentation API v1` for details of the ``API_VERSION`` and :ref:`cmake-"
-"instrumentation Data Version` for details of the ``DATA_VERSION``."
+"``API_VERSION`` is an integer. Currently, the only supported value is ``1``. "
+"See :ref:`cmake-instrumentation API v1` for details."
 msgstr ""
 
 #: ../../../command/cmake_instrumentation.rst:27
+msgid ""
+"``DATA_VERSION`` is a version value of the form ``major`` or ``major."
+"minor``. Currently, the maximum supported version is ``1.1``. See :ref:"
+"`cmake-instrumentation Data Version` for details."
+msgstr ""
+
+#: ../../../command/cmake_instrumentation.rst:31
 msgid ""
 "Each of the optional keywords ``HOOKS``, ``OPTIONS``, and ``CALLBACK`` "
 "correspond to one of the parameters to the :ref:`cmake-instrumentation v1 "
@@ -59,18 +68,18 @@ msgid ""
 "create multiple callbacks."
 msgstr ""
 
-#: ../../../command/cmake_instrumentation.rst:31
+#: ../../../command/cmake_instrumentation.rst:35
 msgid ""
 "Whenever ``cmake_instrumentation`` is invoked, a query file is generated in "
 "``<build>/.cmake/instrumentation/v1/query/generated`` to enable "
 "instrumentation with the provided arguments."
 msgstr ""
 
-#: ../../../command/cmake_instrumentation.rst:38
+#: ../../../command/cmake_instrumentation.rst:42
 msgid "Custom CMake Content"
 msgstr ""
 
-#: ../../../command/cmake_instrumentation.rst:40
+#: ../../../command/cmake_instrumentation.rst:44
 msgid ""
 "The ``CUSTOM_CONTENT`` argument specifies certain data from configure time "
 "to include in each :ref:`cmake-instrumentation v1 CMake Content File`. This "
@@ -79,37 +88,37 @@ msgid ""
 "coverage build."
 msgstr ""
 
-#: ../../../command/cmake_instrumentation.rst:46
+#: ../../../command/cmake_instrumentation.rst:50
 msgid ""
 "``CUSTOM_CONTENT`` expects ``name``, ``type`` and ``content`` arguments."
 msgstr ""
 
-#: ../../../command/cmake_instrumentation.rst:48
+#: ../../../command/cmake_instrumentation.rst:52
 msgid "``name`` is a specifier to identify the content being reported."
 msgstr ""
 
-#: ../../../command/cmake_instrumentation.rst:50
+#: ../../../command/cmake_instrumentation.rst:54
 msgid ""
 "``type`` specifies how the content should be interpreted. Supported values "
 "are:"
 msgstr ""
 
-#: ../../../command/cmake_instrumentation.rst:51
+#: ../../../command/cmake_instrumentation.rst:55
 msgid "``STRING`` the content is a string."
 msgstr ""
 
-#: ../../../command/cmake_instrumentation.rst:52
+#: ../../../command/cmake_instrumentation.rst:56
 msgid ""
 "``BOOL`` the content should be interpreted as a boolean. It will be ``true`` "
 "under the same conditions that ``if()`` would be true for the given value."
 msgstr ""
 
-#: ../../../command/cmake_instrumentation.rst:54
+#: ../../../command/cmake_instrumentation.rst:58
 msgid ""
 "``LIST`` the content is a CMake ``;`` separated list that should be parsed."
 msgstr ""
 
-#: ../../../command/cmake_instrumentation.rst:55
+#: ../../../command/cmake_instrumentation.rst:59
 msgid ""
 "``JSON`` the content should be parsed as a JSON string. This can be a number "
 "such as ``1`` or ``5.0``, a quoted string such as ``\\\"string\\\"``, a "
@@ -118,27 +127,28 @@ msgid ""
 "commands."
 msgstr ""
 
-#: ../../../command/cmake_instrumentation.rst:61
+#: ../../../command/cmake_instrumentation.rst:65
 msgid "``content`` is the actual content to report."
 msgstr ""
 
-#: ../../../command/cmake_instrumentation.rst:64
+#: ../../../command/cmake_instrumentation.rst:68
 msgid "Example"
 msgstr "範例"
 
-#: ../../../command/cmake_instrumentation.rst:66
+#: ../../../command/cmake_instrumentation.rst:70
 msgid ""
 "The following example shows an invocation of the command and its equivalent "
 "JSON query file."
 msgstr ""
 
-#: ../../../command/cmake_instrumentation.rst:69
+#: ../../../command/cmake_instrumentation.rst:73
 msgid ""
 "cmake_instrumentation(\n"
 "  API_VERSION 1\n"
-"  DATA_VERSION 1\n"
+"  DATA_VERSION 1.0\n"
 "  HOOKS postGenerate preCMakeBuild postCMakeBuild\n"
-"  OPTIONS staticSystemInformation dynamicSystemInformation trace\n"
+"  OPTIONS staticSystemInformation dynamicSystemInformation compileTrace "
+"trace\n"
 "  CALLBACK ${CMAKE_COMMAND} -P /path/to/handle_data.cmake\n"
 "  CALLBACK ${CMAKE_COMMAND} -P /path/to/handle_data_2.cmake\n"
 "  CUSTOM_CONTENT myString STRING string\n"
@@ -147,7 +157,7 @@ msgid ""
 ")"
 msgstr ""
 
-#: ../../../command/cmake_instrumentation.rst:83
+#: ../../../command/cmake_instrumentation.rst:87
 msgid ""
 "{\n"
 "  \"version\": 1,\n"
@@ -155,22 +165,23 @@ msgid ""
 "    \"postGenerate\", \"preCMakeBuild\", \"postCMakeBuild\"\n"
 "  ],\n"
 "  \"options\": [\n"
-"    \"staticSystemInformation\", \"dynamicSystemInformation\", \"trace\"\n"
+"    \"staticSystemInformation\", \"dynamicSystemInformation\", "
+"\"compileTrace\", \"trace\"\n"
 "  ],\n"
 "  \"callbacks\": [\n"
-"    \"/path/to/cmake -P /path/to/handle_data.cmake\"\n"
+"    \"/path/to/cmake -P /path/to/handle_data.cmake\",\n"
 "    \"/path/to/cmake -P /path/to/handle_data_2.cmake\"\n"
 "  ]\n"
 "}"
 msgstr ""
 
-#: ../../../command/cmake_instrumentation.rst:99
+#: ../../../command/cmake_instrumentation.rst:103
 msgid ""
 "This will also result in the following content included in each :ref:`cmake-"
 "instrumentation v1 CMake Content File`:"
 msgstr ""
 
-#: ../../../command/cmake_instrumentation.rst:102
+#: ../../../command/cmake_instrumentation.rst:106
 msgid ""
 "\"custom\": {\n"
 "  \"myString\": \"string\",\n"

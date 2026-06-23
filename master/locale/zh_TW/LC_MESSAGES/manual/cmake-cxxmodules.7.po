@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CMake master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-27 10:08+0000\n"
+"POT-Creation-Date: 2026-06-22 13:28+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -832,28 +832,47 @@ msgstr ""
 
 #: ../../../manual/cmake-cxxmodules.7.rst:521
 msgid ""
-"The first step CMake performs is to generate a :term:`synthetic target` for "
-"each unique usage of a module-providing target.  These targets are based on "
-"other targets, but provide only :term:`BMI` files for other targets rather "
-"than object files.  This is because the compatibility of :term:`BMI` files "
-"is extremely narrow and cannot be shared between arbitrary ``import`` "
-"instances. Due to the internal workings of toolchains, there can generally "
-"only be a single set of settings for a variety of flags for any one "
-"compilation, including :term:`BMI` files for imported modules.  As an "
-"example, the C++ standard in use needs to be consistent across all modules, "
-"but there are many settings which may cause incompatibilities."
+"The first step CMake performs is to generate any :term:`synthetic targets "
+"<synthetic target>` needed for a module-providing target.  These targets are "
+"based on the module provider, but produce only :term:`BMI` files for "
+"consumers rather than object files. This is necessary because the "
+"compatibility of :term:`BMI` files is extremely narrow and cannot be shared "
+"between arbitrary ``import`` instances."
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:534
+#: ../../../manual/cmake-cxxmodules.7.rst:528
 msgid ""
-"CMake currently assumes that all usages are compatible and will only create "
-"one set of :term:`BMIs <BMI>` for each target.  This may cause build "
-"failures where multiple :term:`BMI` files are required, but CMake only "
-"provides one set.  See `CMake Issue 25916`_ for progress on removing this "
-"assumption."
+"Due to the internal workings of toolchains, there can generally only be a "
+"single set of settings for a variety of flags for any one compilation, "
+"including :term:`BMI` files for imported modules.  As an example, the C++ "
+"standard in use needs to be consistent across all modules imported to a "
+"given translation unit, mixing standards will cause incompatibilities."
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:542
+#: ../../../manual/cmake-cxxmodules.7.rst:536
+msgid ""
+"Prior to CMake 4.4, CMake assumed all usages were compatible and would only "
+"create one set of :term:`BMIs <BMI>` for each module-providing target. This "
+"could cause build failures due to incompatible :term:`BMI` usage."
+msgstr ""
+
+#: ../../../manual/cmake-cxxmodules.7.rst:540
+msgid ""
+"In CMake 4.4 and later, CMake attempts to determine :term:`BMI` "
+"compatibility on a target-by-target basis and will generate :term:`synthetic "
+"targets <synthetic target>` to provide compatible :term:`BMIs <BMI>` for "
+"consumers."
+msgstr ""
+
+#: ../../../manual/cmake-cxxmodules.7.rst:545
+msgid ""
+"The generated :term:`synthetic target` has a mix of properties from both the "
+"provider of the module and the consumer. :prop_tgt:`COMPILE_FEATURES` and :"
+"prop_tgt:`COMPILE_OPTIONS` are adopted from the consumer, while all other "
+"relevant properties are inherited from the provider."
+msgstr ""
+
+#: ../../../manual/cmake-cxxmodules.7.rst:550
 msgid ""
 "Once all of the :term:`synthetic targets <synthetic target>` are created, "
 "CMake looks at each target that has any source that might use C++ modules "
@@ -867,25 +886,25 @@ msgid ""
 "``CXXDependInfo.json`` file which contains the following information:"
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:553
+#: ../../../manual/cmake-cxxmodules.7.rst:561
 msgid ""
 "``compiler-*``: basic compiler information (``id``, ``frontend-variant``, "
 "and ``simulate-id``) which is used to generate correctly formatted paths "
 "when generating paths for the compiler"
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:556
+#: ../../../manual/cmake-cxxmodules.7.rst:564
 msgid ""
 "``cxx-modules``: a map of object files to the ``FILE_SET`` information, "
 "which is used to enforce :term:`module visibility` and generate install "
 "rules for :term:`module interface unit` sources"
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:559
+#: ../../../manual/cmake-cxxmodules.7.rst:567
 msgid "``module-dir``: where to place :term:`BMI` files for this target"
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:560
+#: ../../../manual/cmake-cxxmodules.7.rst:568
 msgid ""
 "``dir-{cur,top}-{src,bld}``: the source (``src``) and build (``bld``) "
 "directories for the current directory (``cur``) and the top (``top``) of the "
@@ -893,111 +912,111 @@ msgid ""
 "dynamic dependencies"
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:564
+#: ../../../manual/cmake-cxxmodules.7.rst:572
 msgid ""
 "``exports``: The list of exports which both contain the target and are "
 "providing C++ module information, used to provide accurate module properties "
 "on ``IMPORTED`` targets from the exported targets."
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:567
+#: ../../../manual/cmake-cxxmodules.7.rst:575
 msgid ""
 "``bmi-installation``: installation information, used to generate install "
 "scripts for :term:`BMI` files"
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:569
+#: ../../../manual/cmake-cxxmodules.7.rst:577
 msgid ""
 "``database-info``: information required to generate :term:`build database` "
 "information if requested by :prop_tgt:`EXPORT_BUILD_DATABASE`"
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:571
+#: ../../../manual/cmake-cxxmodules.7.rst:579
 msgid ""
 "``sources``: list of other source files in the target, used to add to the :"
 "term:`build database` if requested"
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:573
+#: ../../../manual/cmake-cxxmodules.7.rst:581
 msgid ""
 "``config``: the configuration for the target, used to set the appropriate "
 "properties in generated export files"
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:575
+#: ../../../manual/cmake-cxxmodules.7.rst:583
 msgid ""
 "``language``: the language (e.g., C++ or Fortran) the :term:`collation "
 "<collate>` metadata file is describing"
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:577
+#: ../../../manual/cmake-cxxmodules.7.rst:585
 msgid ""
 "``include-dirs`` and ``forward-modules-from-target-dirs``: unused for C++"
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:579
+#: ../../../manual/cmake-cxxmodules.7.rst:587
 msgid "Each entry in the ``cxx-modules`` map records the following:"
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:581
+#: ../../../manual/cmake-cxxmodules.7.rst:589
 msgid ""
 "``bmi-only`` (bool): True if only the BMI, not the source of the BMI, is "
 "available"
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:583
+#: ../../../manual/cmake-cxxmodules.7.rst:591
 msgid ""
 "``compile-features`` (list[string]): :manual:`cmake-compile-features(7)` "
 "used to build the object"
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:585
+#: ../../../manual/cmake-cxxmodules.7.rst:593
 msgid ""
 "``compile-options`` (list[string]): compilation options/flags used to build "
 "the object, except for those derived from ``compile-features``"
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:587
+#: ../../../manual/cmake-cxxmodules.7.rst:595
 msgid ""
 "``definitions`` (list[string]): preprocessor defines used to build the object"
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:588
+#: ../../../manual/cmake-cxxmodules.7.rst:596
 msgid ""
 "``destination`` (string): intended install destination of the source file"
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:589
+#: ../../../manual/cmake-cxxmodules.7.rst:597
 msgid ""
 "``include-directories`` (list[string]): include directories used to build "
 "the object"
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:591
+#: ../../../manual/cmake-cxxmodules.7.rst:599
 msgid "``name`` (string): name of the file set which owns the source file"
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:592
+#: ../../../manual/cmake-cxxmodules.7.rst:600
 msgid ""
 "``relative-directory`` (string): base path relative to which the source file "
 "will be relocated into the install destination"
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:594
+#: ../../../manual/cmake-cxxmodules.7.rst:602
 msgid "``source`` (string): path to the source file"
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:595
+#: ../../../manual/cmake-cxxmodules.7.rst:603
 msgid "``type`` (string): type of the file set which owns the source file"
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:596
+#: ../../../manual/cmake-cxxmodules.7.rst:604
 msgid ""
 "``visibility`` (string): visibility of the file set which owns the source "
 "file"
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:598
+#: ../../../manual/cmake-cxxmodules.7.rst:606
 msgid ""
 "For each compilation, CMake will also provide a :term:`module map` which "
 "will be created during the build by the :term:`collate` command.  How this "
@@ -1006,11 +1025,11 @@ msgid ""
 "variables."
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:604
+#: ../../../manual/cmake-cxxmodules.7.rst:612
 msgid "Scan"
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:606
+#: ../../../manual/cmake-cxxmodules.7.rst:614
 msgid ""
 "The compiler is expected to implement the :term:`scan` command.  This is "
 "because only the compiler itself can reliably answer preprocessor predicates "
@@ -1018,94 +1037,94 @@ msgid ""
 "in the face of arbitrary flags that may be used when compiling sources."
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:611
+#: ../../../manual/cmake-cxxmodules.7.rst:619
 msgid ""
 "CMake names these files with the ``.ddi`` extension, which stands for "
 "\"dynamic dependency information\".  These files are in `P1689R5`_ format "
 "and are used by the :term:`collate` command to perform its tasks."
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:616
+#: ../../../manual/cmake-cxxmodules.7.rst:624
 msgid "Collate"
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:618
+#: ../../../manual/cmake-cxxmodules.7.rst:626
 msgid ""
 "The :term:`collate` command performs the bulk of the work to make C++ "
 "modules work within the build graph.  It consumes the following files as "
 "input:"
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:621
+#: ../../../manual/cmake-cxxmodules.7.rst:629
 msgid "``CXXDependInfo.json`` from the generate step"
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:622
+#: ../../../manual/cmake-cxxmodules.7.rst:630
 msgid ""
 "``.ddi`` files from the :term:`scanning <scan>` results of the target's "
 "sources"
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:624
+#: ../../../manual/cmake-cxxmodules.7.rst:632
 msgid ""
 "``CXXModules.json`` files output from eligible dependent targets' :term:"
 "`collate` commands"
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:627
+#: ../../../manual/cmake-cxxmodules.7.rst:635
 msgid "It uses the information from these files to generate:"
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:629
+#: ../../../manual/cmake-cxxmodules.7.rst:637
 msgid ""
 "``CXX.dd`` files to inform the :term:`build tool` of dependencies that exist "
 "between the compilation of a source and the :term:`BMI` files of the modules "
 "that it imports"
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:632
+#: ../../../manual/cmake-cxxmodules.7.rst:640
 msgid ""
 "``CXXModules.json`` files for use in :term:`collate` commands of depending "
 "targets"
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:634
+#: ../../../manual/cmake-cxxmodules.7.rst:642
 msgid ""
 "``*.modmap`` files for each compilation to find :term:`BMI` files for "
 "imported modules"
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:636
+#: ../../../manual/cmake-cxxmodules.7.rst:644
 msgid ""
 "``install-cxx-module-bmi-$<CONFIG>.cmake`` scripts for the installation of "
 "any :term:`BMI` files (included by the ``install`` scripts)"
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:638
+#: ../../../manual/cmake-cxxmodules.7.rst:646
 msgid ""
 "``target-*-$<CONFIG>.cmake`` export files for any exports of the target to "
 "provide the :prop_tgt:`IMPORTED_CXX_MODULES_<CONFIG>` properties"
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:640
+#: ../../../manual/cmake-cxxmodules.7.rst:648
 msgid ""
 "``CXX_build_database.json`` :term:`build database` files for the target when "
 "the its :prop_tgt:`EXPORT_BUILD_DATABASE` property is set"
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:643
+#: ../../../manual/cmake-cxxmodules.7.rst:651
 msgid "During its processing, it enforces the following guarantees:"
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:645
+#: ../../../manual/cmake-cxxmodules.7.rst:653
 msgid ":term:`BMI` usage is consistent"
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:646
+#: ../../../manual/cmake-cxxmodules.7.rst:654
 msgid ":term:`module visibility` is respected"
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:648
+#: ../../../manual/cmake-cxxmodules.7.rst:656
 msgid ""
 "C++ modules have the rule that only a single module of a given name may "
 "exist within a program.  This is not exactly enforceable with the existence "
@@ -1117,11 +1136,11 @@ msgid ""
 "a given :term:`BMI` file to provide that module."
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:658
+#: ../../../manual/cmake-cxxmodules.7.rst:666
 msgid "Compile"
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:660
+#: ../../../manual/cmake-cxxmodules.7.rst:668
 msgid ""
 "Compilation uses the :term:`module map` file generated by the :term:"
 "`collate` command to find imported modules during compilation.  Because "
@@ -1130,19 +1149,11 @@ msgid ""
 "compilation."
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:665
-msgid ""
-"It is possible for toolchains to reject the :term:`BMI` file that CMake "
-"provides to a compilation as incompatible.  This is because CMake assumes "
-"that all usages are compatible at the moment.  See `CMake Issue 25916`_ for "
-"progress on removing this assumption."
-msgstr ""
-
-#: ../../../manual/cmake-cxxmodules.7.rst:671
+#: ../../../manual/cmake-cxxmodules.7.rst:674
 msgid "Install"
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:673
+#: ../../../manual/cmake-cxxmodules.7.rst:676
 msgid ""
 "During installation, install scripts which have been written by the :term:"
 "`collate` command during the build are included so that any :term:`BMI` "
@@ -1153,29 +1164,29 @@ msgid ""
 "incomplete build may result in an incomplete installation as well."
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:682
+#: ../../../manual/cmake-cxxmodules.7.rst:685
 msgid "Alternative Designs"
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:684
+#: ../../../manual/cmake-cxxmodules.7.rst:687
 msgid ""
 "There are alternative designs that CMake does not implement.  This section "
 "aims to give a brief overview and to explain why they were not chosen for "
 "CMake's implementation."
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:689
+#: ../../../manual/cmake-cxxmodules.7.rst:692
 msgid "Implicit Builds"
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:691
+#: ../../../manual/cmake-cxxmodules.7.rst:694
 msgid ""
 "An implicit build performs module builds using compile-time search paths to "
 "make the implementation of the build simpler.  This is certainly something "
 "that can be made to work.  However, CMake's goals exclude it as a solution."
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:695
+#: ../../../manual/cmake-cxxmodules.7.rst:698
 msgid ""
 "When a build uses search directory management, the compiler is directed to "
 "place module output files into a specified directory.  These directories are "
@@ -1183,7 +1194,7 @@ msgid ""
 "within them."
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:700
+#: ../../../manual/cmake-cxxmodules.7.rst:703
 msgid ""
 "This strategy risks running into problems with the `Correct Builds <design-"
 "goal-correct-builds_>`__ goal.  This stems from the hazard of stale files "
@@ -1196,7 +1207,7 @@ msgid ""
 "X\"."
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:710
+#: ../../../manual/cmake-cxxmodules.7.rst:713
 msgid ""
 "There is also a need to at least do some level of ordering of :term:`BMI` "
 "generation commands which share an output directory.  Separate directories "
@@ -1208,11 +1219,11 @@ msgid ""
 "specified."
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:719
+#: ../../../manual/cmake-cxxmodules.7.rst:722
 msgid "Static Scanning"
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:721
+#: ../../../manual/cmake-cxxmodules.7.rst:724
 msgid ""
 "A :term:`fixed build` performs a scan while generating the build graph and "
 "includes the necessary dependencies up-front.  In CMake's case, it would "
@@ -1222,7 +1233,7 @@ msgid ""
 "manipulation can be done cooperatively."
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:728
+#: ../../../manual/cmake-cxxmodules.7.rst:731
 msgid ""
 "No matter whether it is integrated or not, this strategy necessitates either "
 "a suitable C++ parser to extract the information in the first place, or "
@@ -1234,7 +1245,7 @@ msgid ""
 "external library support."
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:736
+#: ../../../manual/cmake-cxxmodules.7.rst:739
 msgid ""
 "For CMake, this strategy would mean that any change to a module-aware source "
 "file may need to trigger regeneration of the build graph.  A benign edit "
@@ -1245,7 +1256,7 @@ msgid ""
 "regeneration_>`__ goal."
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:744
+#: ../../../manual/cmake-cxxmodules.7.rst:747
 msgid ""
 "Additionally, CMake's `Support Generated Sources <design-goal-generated-"
 "sources_>`__ goal would be unsupportable with this strategy.  CMake could "
@@ -1255,11 +1266,11 @@ msgid ""
 "the build graph as sources become available."
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:753
+#: ../../../manual/cmake-cxxmodules.7.rst:756
 msgid "Module Mapping Service"
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:755
+#: ../../../manual/cmake-cxxmodules.7.rst:758
 msgid ""
 "Another strategy is to run a service alongside the build that can act as an "
 "oracle for where to place and discover modules.  The compiler is instructed "
@@ -1269,7 +1280,7 @@ msgid ""
 "service dynamically implements the collation logic."
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:762
+#: ../../../manual/cmake-cxxmodules.7.rst:765
 msgid ""
 "Of particular note, this conflicts with the `Deterministic Builds <design-"
 "goal-deterministic-builds_>`__ and `Static Communication <design-goal-static-"
@@ -1282,7 +1293,7 @@ msgid ""
 "that CMake supports today has such features."
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:773
+#: ../../../manual/cmake-cxxmodules.7.rst:776
 msgid ""
 "There are also hazards which conflict with the `Correct Builds <design-goal-"
 "correct-builds_>`__ goal.  When a module is imported, the compiler waits for "
@@ -1300,22 +1311,22 @@ msgid ""
 "compilations (e.g., memory or available file descriptors)?"
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:789
+#: ../../../manual/cmake-cxxmodules.7.rst:792
 msgid "Possible Future Enhancements"
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:791
+#: ../../../manual/cmake-cxxmodules.7.rst:794
 msgid ""
 "This section documents possible future enhancements to CMake's support of C+"
 "+ modules.  Nothing here is a guarantee of future implementation, and the "
 "ordering is arbitrary."
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:796
+#: ../../../manual/cmake-cxxmodules.7.rst:799
 msgid "Batch Scanning"
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:798
+#: ../../../manual/cmake-cxxmodules.7.rst:801
 msgid ""
 "It is possible to scan all sources within a target at once, which should be "
 "faster when sources share transitive includes.  This does have side effects "
@@ -1325,11 +1336,11 @@ msgid ""
 "unchanged results do not trigger recompilations."
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:806
+#: ../../../manual/cmake-cxxmodules.7.rst:809
 msgid "BMI Modification Optimization"
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:808
+#: ../../../manual/cmake-cxxmodules.7.rst:811
 msgid ""
 "Currently, as with object files, compilers always update a :term:`BMI` file "
 "even if the contents have not changed.  Because modules increase the "
@@ -1341,11 +1352,11 @@ msgid ""
 "recompiling importers if the :term:`BMI` file doesn't actually change."
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:820
+#: ../../../manual/cmake-cxxmodules.7.rst:823
 msgid "Easier Source Specification"
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:822
+#: ../../../manual/cmake-cxxmodules.7.rst:825
 msgid ""
 "The initial implementation of CMake's module support had used the \"just "
 "list sources; CMake will figure it out\" pattern.  However, this ran into "
@@ -1353,18 +1364,18 @@ msgid ""
 "implementing CMake support beyond just building the modules-using code."
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:827
+#: ../../../manual/cmake-cxxmodules.7.rst:830
 msgid ""
 "Conflicts with `Separate BMI Generation <separate-bmi-generation_>`__ on a "
 "single target, as that requires knowledge of all :term:`BMI`-generating "
 "rules at generate time."
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:834
+#: ../../../manual/cmake-cxxmodules.7.rst:837
 msgid "Separate BMI Generation"
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:836
+#: ../../../manual/cmake-cxxmodules.7.rst:839
 msgid ""
 "CMake currently uses a single rule to generate both the :term:`BMI` and the "
 "object file for a compilation.  At least Clang supports compiling an object "
@@ -1374,7 +1385,7 @@ msgid ""
 "for the object to also be generated."
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:843
+#: ../../../manual/cmake-cxxmodules.7.rst:846
 msgid ""
 "This is not supported in the current implementation as only Clang supports "
 "generating an object directly from the :term:`BMI`.  Other compilers either "
@@ -1382,7 +1393,7 @@ msgid ""
 "compilation from the source again."
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:848
+#: ../../../manual/cmake-cxxmodules.7.rst:851
 msgid ""
 "Conflicts with `Easier Source Specification <easier-source-"
 "specification_>`__ on a single target because CMake must know all :term:"
@@ -1390,219 +1401,219 @@ msgid ""
 "the two-phase rules."
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:853
+#: ../../../manual/cmake-cxxmodules.7.rst:856
 msgid "Module Compilation Glossary"
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:856
+#: ../../../manual/cmake-cxxmodules.7.rst:859
 msgid "BMI"
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:858
+#: ../../../manual/cmake-cxxmodules.7.rst:861
 msgid ""
 "Built Module Interface.  A compiler-generated binary representation of a C++ "
 "module's interface that is required by consumers of the module.  File "
 "extensions vary by compiler."
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:861
+#: ../../../manual/cmake-cxxmodules.7.rst:864
 msgid "CMI"
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:863
+#: ../../../manual/cmake-cxxmodules.7.rst:866
 msgid ""
 "Compiled Module Interface.  Alternative name for :term:`BMI` used by some "
 "compilers."
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:865
+#: ../../../manual/cmake-cxxmodules.7.rst:868
 msgid "build database"
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:867
+#: ../../../manual/cmake-cxxmodules.7.rst:870
 msgid ""
 "A JSON file containing compilation commands, module dependencies, and "
 "grouping information.  Used for IDE integration and build analysis."
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:869
+#: ../../../manual/cmake-cxxmodules.7.rst:872
 msgid "build system"
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:871
+#: ../../../manual/cmake-cxxmodules.7.rst:874
 msgid ""
 "A tool that facilitates the building of software which includes a model of "
 "how components of the build relate to each other.  For example, CMake, "
 "Meson, build2, and more."
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:874
+#: ../../../manual/cmake-cxxmodules.7.rst:877
 msgid "build tool"
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:876
+#: ../../../manual/cmake-cxxmodules.7.rst:879
 msgid ""
 "A build graph execution tool.  For example, `ninja` and `make`.  Some build "
 "tools are also their own :term:`build system`."
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:878
+#: ../../../manual/cmake-cxxmodules.7.rst:881
 msgid "C++ module"
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:880
+#: ../../../manual/cmake-cxxmodules.7.rst:883
 msgid ""
 "A C++20 language feature for describing the API of a piece of software. "
 "Intended as a replacement for headers for this purpose."
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:882
+#: ../../../manual/cmake-cxxmodules.7.rst:885
 msgid "collate"
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:884
+#: ../../../manual/cmake-cxxmodules.7.rst:887
 msgid ""
 "The process of aggregating module information from scanned sources to ensure "
 "correct compilation order and to provide metadata for other parts of the "
 "build (e.g., installation or a :term:`build database`)."
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:887
+#: ../../../manual/cmake-cxxmodules.7.rst:890
 msgid "discovered dependencies"
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:889
+#: ../../../manual/cmake-cxxmodules.7.rst:892
 msgid ""
 "Dependencies found during the processing of a command that do not need to be "
 "explicitly declared."
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:891
+#: ../../../manual/cmake-cxxmodules.7.rst:894
 msgid "dynamic dependencies"
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:893
+#: ../../../manual/cmake-cxxmodules.7.rst:896
 msgid ""
 "Dependencies which require a separate command to detect so that a further "
 "command may have its dependencies satisfied."
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:895
+#: ../../../manual/cmake-cxxmodules.7.rst:898
 msgid "embarrassingly parallel"
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:897
+#: ../../../manual/cmake-cxxmodules.7.rst:900
 msgid ""
 "A set of tasks which, due to having minimal dependencies between them, can "
 "be easily divided into many independent tasks that can be executed "
 "concurrently."
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:900
+#: ../../../manual/cmake-cxxmodules.7.rst:903
 msgid "explicit build"
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:902
+#: ../../../manual/cmake-cxxmodules.7.rst:905
 msgid ""
 "A build strategy where module dependencies are explicitly specified rather "
 "than discovered."
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:904
+#: ../../../manual/cmake-cxxmodules.7.rst:907
 msgid "fixed build"
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:906
+#: ../../../manual/cmake-cxxmodules.7.rst:909
 msgid ""
 "A build strategy where all module dependencies are computed and inserted "
 "directly into the build graph."
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:908
+#: ../../../manual/cmake-cxxmodules.7.rst:911
 msgid "header unit"
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:910
+#: ../../../manual/cmake-cxxmodules.7.rst:913
 msgid ""
 "A header file which is used via an ``import`` statement rather than an "
 "``#include`` preprocessor directive.  Implementations may provide support "
 "for treating ``#include`` as ``import`` as well."
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:913
+#: ../../../manual/cmake-cxxmodules.7.rst:916
 msgid "implementation unit"
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:915
+#: ../../../manual/cmake-cxxmodules.7.rst:918
 msgid ""
 "A C++ :term:`translation unit` that implements module entities declared in a "
 "module interface unit."
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:917
+#: ../../../manual/cmake-cxxmodules.7.rst:920
 msgid "implicit build"
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:919
+#: ../../../manual/cmake-cxxmodules.7.rst:922
 msgid ""
 "A build strategy where module dependencies are discovered by searching for :"
 "term:`BMI` files during compilation."
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:921
+#: ../../../manual/cmake-cxxmodules.7.rst:924
 msgid "internal partition unit"
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:923
+#: ../../../manual/cmake-cxxmodules.7.rst:926
 msgid ""
 "A :term:`translation unit` which contains a partition name and is not "
 "exported from the :term:`primary module interface unit`."
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:925
+#: ../../../manual/cmake-cxxmodules.7.rst:928
 msgid "module interface unit"
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:927
+#: ../../../manual/cmake-cxxmodules.7.rst:930
 msgid ""
 "A :term:`translation unit` that declares a module's public interface using "
 "``export module``.  Such a unit may or may not be also be a :term:`partition "
 "unit`."
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:930
+#: ../../../manual/cmake-cxxmodules.7.rst:933
 msgid "module map"
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:932
+#: ../../../manual/cmake-cxxmodules.7.rst:935
 msgid "A compiler-specific file mapping module names to BMI locations."
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:933
+#: ../../../manual/cmake-cxxmodules.7.rst:936
 msgid "module visibility"
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:935
+#: ../../../manual/cmake-cxxmodules.7.rst:938
 msgid ""
 "CMake's enforcement of access rules for modules based on their declaration "
 "scope (PUBLIC/PRIVATE)."
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:937
+#: ../../../manual/cmake-cxxmodules.7.rst:940
 msgid "ODR"
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:939
+#: ../../../manual/cmake-cxxmodules.7.rst:942
 msgid ""
 "One Definition Rule.  The C++ requirement that any entity be defined exactly "
 "once per program."
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:941
+#: ../../../manual/cmake-cxxmodules.7.rst:944
 msgid "partition unit"
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:943
+#: ../../../manual/cmake-cxxmodules.7.rst:946
 msgid ""
 "A :term:`translation unit` which describes a module with a partition name (i."
 "e., `module MODNAME:PARTITION;`).  The partition may or may not use the "
@@ -1610,62 +1621,62 @@ msgid ""
 "otherwise, it is a :term:`internal partition unit`."
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:948
+#: ../../../manual/cmake-cxxmodules.7.rst:951
 msgid "primary module interface unit"
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:950
+#: ../../../manual/cmake-cxxmodules.7.rst:953
 msgid ""
 "A :term:`module interface unit` which exports a named module that is not a :"
 "term:`partition unit`."
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:952
+#: ../../../manual/cmake-cxxmodules.7.rst:955
 msgid "scan"
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:954
+#: ../../../manual/cmake-cxxmodules.7.rst:957
 msgid ""
 "The process of analyzing a :term:`translation unit` to discover module "
 "imports and exports."
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:956
+#: ../../../manual/cmake-cxxmodules.7.rst:959
 msgid "static build"
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:958
+#: ../../../manual/cmake-cxxmodules.7.rst:961
 msgid ""
 "A build configuration where all compilation rules are determined at generate "
 "time."
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:960
+#: ../../../manual/cmake-cxxmodules.7.rst:963
 msgid "strong module ownership"
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:962
+#: ../../../manual/cmake-cxxmodules.7.rst:965
 msgid ""
 "C++ implementations have settled on a model where the module \"owns\" the "
 "symbols declared within it.  In practice, this means that the module name is "
 "included into the symbol mangling of entities declared within it."
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:965
+#: ../../../manual/cmake-cxxmodules.7.rst:968
 msgid "synthetic target"
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:967
+#: ../../../manual/cmake-cxxmodules.7.rst:970
 msgid ""
 "A CMake-generated build target used to supply :term:`BMIs <BMI>` to a "
 "specific user of a module-providing target."
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:969
+#: ../../../manual/cmake-cxxmodules.7.rst:972
 msgid "translation unit"
 msgstr ""
 
-#: ../../../manual/cmake-cxxmodules.7.rst:971
+#: ../../../manual/cmake-cxxmodules.7.rst:974
 msgid ""
 "The smallest component of a compilation for a C++ program.  Generally, there "
 "is one translation unit per source file.  C++ source files which do not use "

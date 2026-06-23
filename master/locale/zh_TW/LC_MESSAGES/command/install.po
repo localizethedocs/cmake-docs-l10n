@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CMake master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-18 11:39+0000\n"
+"POT-Creation-Date: 2026-06-22 13:28+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1654,11 +1654,11 @@ msgid ""
 "If ``DESTINATION`` is not specified, a platform-specific default is used."
 msgstr ""
 
-#: ../../../command/install.rst:1028 ../../../command/install.rst:1240
+#: ../../../command/install.rst:1028 ../../../command/install.rst:1243
 msgid "Several options may be used to specify package metadata:"
 msgstr ""
 
-#: ../../../command/install.rst:1030 ../../../command/install.rst:1242
+#: ../../../command/install.rst:1030 ../../../command/install.rst:1245
 msgid "``VERSION <version>``"
 msgstr ""
 
@@ -1723,11 +1723,11 @@ msgid ""
 "package's available configurations in an unspecified order."
 msgstr ""
 
-#: ../../../command/install.rst:1065 ../../../command/install.rst:1261
+#: ../../../command/install.rst:1065
 msgid "``LICENSE <license-string>``"
 msgstr "``LICENSE <license-string>``"
 
-#: ../../../command/install.rst:1068 ../../../command/install.rst:1263
+#: ../../../command/install.rst:1068
 msgid ""
 "A |SPDX|_ (SPDX) `License Expression`_ that describes the license(s) of the "
 "project as a whole, including documentation, resources, or other materials "
@@ -1736,37 +1736,37 @@ msgid ""
 "identifiers."
 msgstr ""
 
-#: ../../../command/install.rst:1074 ../../../command/install.rst:1269
+#: ../../../command/install.rst:1074
 msgid ""
 "The license of individual components is taken from the :prop_tgt:"
 "`SPDX_LICENSE` property of their respective targets."
 msgstr ""
 
-#: ../../../command/install.rst:1077
+#: ../../../command/install.rst:1077 ../../../command/install.rst:1275
 msgid "``DEFAULT_LICENSE <license-string>``"
 msgstr "``DEFAULT_LICENSE <license-string>``"
 
-#: ../../../command/install.rst:1080
+#: ../../../command/install.rst:1080 ../../../command/install.rst:1277
 msgid ""
 "A |SPDX|_ (SPDX) `License Expression`_ that describes the license(s) of any "
 "components which do not otherwise specify their license(s)."
 msgstr ""
 
-#: ../../../command/install.rst:1083 ../../../command/install.rst:1272
+#: ../../../command/install.rst:1083 ../../../command/install.rst:1280
 msgid "``DESCRIPTION <description-string>``"
 msgstr "``DESCRIPTION <description-string>``"
 
-#: ../../../command/install.rst:1086 ../../../command/install.rst:1274
+#: ../../../command/install.rst:1086 ../../../command/install.rst:1282
 msgid ""
 "An informational description of the project.  It is recommended that this "
 "description is a relatively short string, usually no more than a few words."
 msgstr ""
 
-#: ../../../command/install.rst:1089 ../../../command/install.rst:1253
+#: ../../../command/install.rst:1089 ../../../command/install.rst:1256
 msgid "``HOMEPAGE_URL <url-string>``"
 msgstr "``HOMEPAGE_URL <url-string>``"
 
-#: ../../../command/install.rst:1092 ../../../command/install.rst:1255
+#: ../../../command/install.rst:1092 ../../../command/install.rst:1258
 msgid "An informational canonical home URL for the project."
 msgstr ""
 
@@ -1932,18 +1932,19 @@ msgstr ""
 
 #: ../../../command/install.rst:1214
 msgid ""
-"install(SBOM <sbom-name> EXPORT <export-name>\n"
+"install(SBOM <sbom-name> EXPORTS <export-names>...\n"
 "        [PROJECT <project-name>|NO_PROJECT_METADATA]\n"
 "        [DESTINATION <dir>]\n"
 "        [VERSION <major>[.<minor>[.<patch>[.<tweak>]]]]\n"
-"        [LICENSE <license-string>]\n"
+"        [DATA_LICENSE <license-string>]\n"
+"        [DEFAULT_LICENSE <license-string>]\n"
 "        [DESCRIPTION <description-string>]\n"
 "        [HOMEPAGE_URL <url-string>]\n"
 "        [PACKAGE_URL <url-string>]\n"
 "        [FORMAT <string>])"
 msgstr ""
 
-#: ../../../command/install.rst:1226
+#: ../../../command/install.rst:1227
 msgid ""
 "The ``SBOM`` form generates a |SBOM| or \"SBOM\" file for a given project "
 "and installs it as part of the project installation.  A |SBOM| is a machine-"
@@ -1955,26 +1956,28 @@ msgid ""
 "in future CMake releases."
 msgstr ""
 
-#: ../../../command/install.rst:1235
+#: ../../../command/install.rst:1236
 msgid ""
-"Target installations are associated with the export ``<export-name>`` using "
-"the ``EXPORT`` option of the :command:`install(TARGETS)` signature "
-"documented above. If ``DESTINATION`` is not specified, a platform-specific "
+"Target installations are associated with each export ``<export-names>`` in "
+"the ``EXPORTS`` list using the ``EXPORTS`` option of the :command:"
+"`install(TARGETS)` signature documented above.  A single SBOM may cover "
+"multiple export sets; targets from all listed exports are aggregated into "
+"one document.  If ``DESTINATION`` is not specified, a platform-specific "
 "default is used."
 msgstr ""
 
-#: ../../../command/install.rst:1243
+#: ../../../command/install.rst:1246
 msgid ""
 "The package version, specified as a series of non-negative  integer "
 "components, i.e. <major>[.<minor>[.<patch>[.<tweak>]]].  See :command:"
 "`project(VERSION)` for more information."
 msgstr ""
 
-#: ../../../command/install.rst:1247
+#: ../../../command/install.rst:1250
 msgid "``FORMAT <string>``"
 msgstr ""
 
-#: ../../../command/install.rst:1248
+#: ../../../command/install.rst:1251
 msgid ""
 "The format in which the SBOM should be exported, which must be an expression "
 "of the form ``<format>[-<version>][+<representation>]``.  CMake currently "
@@ -1983,15 +1986,34 @@ msgid ""
 "specified."
 msgstr ""
 
-#: ../../../command/install.rst:1257
+#: ../../../command/install.rst:1260
 msgid "``PACKAGE_URL <url-string>``"
 msgstr ""
 
-#: ../../../command/install.rst:1259
+#: ../../../command/install.rst:1262
 msgid "An informational canonical package URL for the project."
 msgstr ""
 
-#: ../../../command/install.rst:1277
+#: ../../../command/install.rst:1264
+msgid "``DATA_LICENSE <license-string>``"
+msgstr ""
+
+#: ../../../command/install.rst:1266
+msgid ""
+"A |SPDX|_ (SPDX) `License Expression`_ that describes the license(s) of the "
+"SBOM data itself in the generated document.  See the SPDX `License List`_ "
+"for a list of commonly used licenses and their identifiers. In the SPDX "
+"format, it corresponds to the `dataLicense`_ property."
+msgstr ""
+
+#: ../../../command/install.rst:1271
+msgid ""
+"The license of individual components is taken from the :prop_tgt:"
+"`SPDX_LICENSE` property of their respective targets if set and the "
+"``DEFAULT_LICENSE`` otherwise."
+msgstr ""
+
+#: ../../../command/install.rst:1285
 msgid ""
 "By default, if the specified ``<sbom-name>`` matches the current CMake :"
 "variable:`PROJECT_NAME`, sbom metadata will be inherited from the project.  "
@@ -2002,7 +2024,7 @@ msgid ""
 "precedence."
 msgstr ""
 
-#: ../../../command/install.rst:1285
+#: ../../../command/install.rst:1293
 msgid ""
 "Note that an SBOM file cannot be generated for targets with generator "
 "expressions contained in their :prop_tgt:`LINK_LIBRARIES` or :prop_tgt:"
@@ -2010,19 +2032,19 @@ msgid ""
 "guarded by :genex:`LINK_ONLY`."
 msgstr ""
 
-#: ../../../command/install.rst:1291
+#: ../../../command/install.rst:1299
 msgid "Examples"
 msgstr "範例"
 
-#: ../../../command/install.rst:1294
+#: ../../../command/install.rst:1302
 msgid "Example: Install Targets with Per-Artifact Components"
 msgstr ""
 
-#: ../../../command/install.rst:1296
+#: ../../../command/install.rst:1304
 msgid "Consider a project that defines targets with different artifact kinds:"
 msgstr ""
 
-#: ../../../command/install.rst:1298
+#: ../../../command/install.rst:1306
 msgid ""
 "add_executable(myExe myExe.c)\n"
 "add_library(myStaticLib STATIC myStaticLib.c)\n"
@@ -2032,13 +2054,13 @@ msgid ""
 "set_property(TARGET mySharedLib PROPERTY SOVERSION 1)"
 msgstr ""
 
-#: ../../../command/install.rst:1307
+#: ../../../command/install.rst:1315
 msgid ""
 "We may call :command:`install(TARGETS)` with `\\<artifact-kind\\>`_ "
 "arguments to specify different options for each kind of artifact:"
 msgstr ""
 
-#: ../../../command/install.rst:1310
+#: ../../../command/install.rst:1318
 msgid ""
 "install(TARGETS\n"
 "          myExe\n"
@@ -2057,67 +2079,67 @@ msgid ""
 "        )"
 msgstr ""
 
-#: ../../../command/install.rst:1328
+#: ../../../command/install.rst:1336
 msgid "This will:"
 msgstr ""
 
-#: ../../../command/install.rst:1330
+#: ../../../command/install.rst:1338
 msgid ""
 "Install ``myExe`` to ``<prefix>/bin``, the default RUNTIME artifact "
 "destination, as part of the ``Runtime`` component."
 msgstr ""
 
-#: ../../../command/install.rst:1333
+#: ../../../command/install.rst:1341
 msgid "On non-DLL platforms:"
 msgstr "在非 DLL 平台上："
 
-#: ../../../command/install.rst:1335
+#: ../../../command/install.rst:1343
 msgid ""
 "Install ``libmySharedLib.so.1`` to ``<prefix>/lib``, the default LIBRARY "
 "artifact destination, as part of the ``Runtime`` component."
 msgstr ""
 
-#: ../../../command/install.rst:1338
+#: ../../../command/install.rst:1346
 msgid ""
 "Install the ``libmySharedLib.so`` \"namelink\" (symbolic link) to ``<prefix>/"
 "lib``, the default LIBRARY artifact destination, as part of the "
 "``Development`` component."
 msgstr ""
 
-#: ../../../command/install.rst:1342
+#: ../../../command/install.rst:1350
 msgid "On DLL platforms:"
 msgstr "在 DLL 平台上："
 
-#: ../../../command/install.rst:1344
+#: ../../../command/install.rst:1352
 msgid ""
 "Install ``mySharedLib.dll`` to ``<prefix>/bin``, the default RUNTIME "
 "artifact destination, as part of the ``Runtime`` component."
 msgstr ""
 
-#: ../../../command/install.rst:1347
+#: ../../../command/install.rst:1355
 msgid ""
 "Install ``mySharedLib.lib`` to ``<prefix>/lib/static``, the specified "
 "ARCHIVE artifact destination, as part of the ``Development`` component."
 msgstr ""
 
-#: ../../../command/install.rst:1350
+#: ../../../command/install.rst:1358
 msgid ""
 "Install ``myStaticLib`` to ``<prefix>/lib/static``, the specified ARCHIVE "
 "artifact destination, as part of the ``Development`` component."
 msgstr ""
 
-#: ../../../command/install.rst:1353
+#: ../../../command/install.rst:1361
 msgid ""
 "Install ``mySharedLib.h`` and ``myStaticLib.h`` to ``<prefix>/include``, the "
 "default destination for a file set of type HEADERS, as part of the "
 "``Development`` component."
 msgstr ""
 
-#: ../../../command/install.rst:1358
+#: ../../../command/install.rst:1366
 msgid "Example: Install Targets to Per-Config Destinations"
 msgstr ""
 
-#: ../../../command/install.rst:1360
+#: ../../../command/install.rst:1368
 msgid ""
 "Each :command:`install(TARGETS)` call installs a given target :ref:`output "
 "artifact <Output Artifacts>` to at most one ``DESTINATION``, but the install "
@@ -2126,7 +2148,7 @@ msgid ""
 "configuration is needed.  For example, the code:"
 msgstr ""
 
-#: ../../../command/install.rst:1366
+#: ../../../command/install.rst:1374
 msgid ""
 "install(TARGETS myExe\n"
 "        CONFIGURATIONS Debug\n"
@@ -2140,23 +2162,23 @@ msgid ""
 "        )"
 msgstr ""
 
-#: ../../../command/install.rst:1379
+#: ../../../command/install.rst:1387
 msgid ""
 "will install ``myExe`` to ``<prefix>/Debug/bin`` in the Debug configuration, "
 "and to ``<prefix>/Release/bin`` in the Release configuration."
 msgstr ""
 
-#: ../../../command/install.rst:1383
+#: ../../../command/install.rst:1391
 msgid "Generated Installation Script"
 msgstr ""
 
-#: ../../../command/install.rst:1387
+#: ../../../command/install.rst:1395
 msgid ""
 "Use of this feature is not recommended. Please consider using the :option:"
 "`cmake --install` instead."
 msgstr ""
 
-#: ../../../command/install.rst:1390
+#: ../../../command/install.rst:1398
 msgid ""
 "The ``install()`` command generates a file, ``cmake_install.cmake``, inside "
 "the build directory, which is used internally by the generated install "
@@ -2164,33 +2186,33 @@ msgid ""
 "`cmake -P`. This script accepts several variables:"
 msgstr ""
 
-#: ../../../command/install.rst:1395
+#: ../../../command/install.rst:1403
 msgid "``COMPONENT``"
 msgstr ""
 
-#: ../../../command/install.rst:1396
+#: ../../../command/install.rst:1404
 msgid ""
 "Set this variable to install only a single CPack component as opposed to all "
 "of them. For example, if you only want to install the ``Development`` "
 "component, run ``cmake -DCOMPONENT=Development -P cmake_install.cmake``."
 msgstr ""
 
-#: ../../../command/install.rst:1400
+#: ../../../command/install.rst:1408
 msgid "``BUILD_TYPE``"
 msgstr ""
 
-#: ../../../command/install.rst:1401
+#: ../../../command/install.rst:1409
 msgid ""
 "Set this variable to change the build type if you are using a multi-config "
 "generator. For example, to install with the ``Debug`` configuration, run "
 "``cmake -DBUILD_TYPE=Debug -P cmake_install.cmake``."
 msgstr ""
 
-#: ../../../command/install.rst:1405
+#: ../../../command/install.rst:1413
 msgid "``DESTDIR``"
 msgstr ""
 
-#: ../../../command/install.rst:1406
+#: ../../../command/install.rst:1414
 msgid ""
 "This is an environment variable rather than a CMake variable. It allows you "
 "to change the installation prefix on UNIX systems. See :envvar:`DESTDIR` for "
