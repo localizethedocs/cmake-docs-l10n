@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CMake latest\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-02 08:22+0000\n"
+"POT-Creation-Date: 2026-06-22 13:28+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -37,41 +37,43 @@ msgid ""
 "            [NUMBER_WARNINGS <num-warn-var>]\n"
 "            [RETURN_VALUE <result-var>]\n"
 "            [CAPTURE_CMAKE_ERROR <result-var>]\n"
+"            [PRESET <preset>]\n"
+"            [PRESETS_FILE <file>]\n"
 "            )"
 msgstr ""
 
-#: ../../../command/ctest_build.rst:20
+#: ../../../command/ctest_build.rst:22
 msgid ""
 "Build the project and store results in ``Build.xml`` for submission with "
 "the :command:`ctest_submit` command."
 msgstr ""
 
-#: ../../../command/ctest_build.rst:23
+#: ../../../command/ctest_build.rst:25
 msgid ""
 "The :variable:`CTEST_BUILD_COMMAND` variable may be set to explicitly "
-"specify the build command line.  Otherwise the build command line is "
-"computed automatically based on the options given."
+"specify the build command line when no preset is selected.  Otherwise the "
+"build command line is computed automatically based on the options given."
 msgstr ""
 
-#: ../../../command/ctest_build.rst:27
+#: ../../../command/ctest_build.rst:29
 msgid "The options are:"
 msgstr "選項有："
 
-#: ../../../command/ctest_build.rst:29
+#: ../../../command/ctest_build.rst:31
 msgid "``BUILD <build-dir>``"
 msgstr ""
 
-#: ../../../command/ctest_build.rst:30
+#: ../../../command/ctest_build.rst:32
 msgid ""
 "Specify the top-level build directory.  If not given, the :variable:"
 "`CTEST_BINARY_DIRECTORY` variable is used."
 msgstr ""
 
-#: ../../../command/ctest_build.rst:33
+#: ../../../command/ctest_build.rst:35
 msgid "``APPEND``"
 msgstr "``APPEND``"
 
-#: ../../../command/ctest_build.rst:34
+#: ../../../command/ctest_build.rst:36
 msgid ""
 "Mark ``Build.xml`` for append to results previously submitted to a dashboard "
 "server since the last :command:`ctest_start` call. Append semantics are "
@@ -79,11 +81,11 @@ msgid ""
 "appended to a ``.xml`` file produced by a previous call to this command."
 msgstr ""
 
-#: ../../../command/ctest_build.rst:40
+#: ../../../command/ctest_build.rst:42
 msgid "``CONFIGURATION <config>``"
 msgstr ""
 
-#: ../../../command/ctest_build.rst:41
+#: ../../../command/ctest_build.rst:43
 msgid ""
 "Specify the build configuration (e.g. ``Debug``).  If not specified the "
 "``CTEST_BUILD_CONFIGURATION`` variable will be checked. Otherwise the :"
@@ -91,22 +93,22 @@ msgid ""
 "command will be used, if any."
 msgstr ""
 
-#: ../../../command/ctest_build.rst:46
+#: ../../../command/ctest_build.rst:48
 msgid "``PARALLEL_LEVEL <parallel>``"
 msgstr ""
 
-#: ../../../command/ctest_build.rst:49
+#: ../../../command/ctest_build.rst:51
 msgid ""
 "Specify the parallel level of the underlying build system.  If not "
 "specified, the :envvar:`CMAKE_BUILD_PARALLEL_LEVEL` environment variable "
 "will be checked."
 msgstr ""
 
-#: ../../../command/ctest_build.rst:53
+#: ../../../command/ctest_build.rst:55
 msgid "``FLAGS <flags>``"
 msgstr ""
 
-#: ../../../command/ctest_build.rst:54
+#: ../../../command/ctest_build.rst:56
 msgid ""
 "Pass additional arguments to the underlying build command. If not specified "
 "the ``CTEST_BUILD_FLAGS`` variable will be checked. This can, e.g., be used "
@@ -114,23 +116,23 @@ msgid ""
 "module:`ProcessorCount` module for an example."
 msgstr ""
 
-#: ../../../command/ctest_build.rst:60
+#: ../../../command/ctest_build.rst:62
 msgid "``PROJECT_NAME <project-name>``"
 msgstr ""
 
-#: ../../../command/ctest_build.rst:61
+#: ../../../command/ctest_build.rst:63
 msgid "Ignored since CMake 3.0."
 msgstr ""
 
-#: ../../../command/ctest_build.rst:63
+#: ../../../command/ctest_build.rst:65
 msgid "This value is no longer required."
 msgstr ""
 
-#: ../../../command/ctest_build.rst:66
+#: ../../../command/ctest_build.rst:68
 msgid "``TARGET <target-name>``"
 msgstr ""
 
-#: ../../../command/ctest_build.rst:67
+#: ../../../command/ctest_build.rst:69
 msgid ""
 "Specify the name of a target to build.  If not specified the "
 "``CTEST_BUILD_TARGET`` variable will be checked.  Otherwise the default "
@@ -138,45 +140,87 @@ msgid ""
 "ref:`Visual Studio Generators`)."
 msgstr ""
 
-#: ../../../command/ctest_build.rst:72
+#: ../../../command/ctest_build.rst:74
 msgid "``NUMBER_ERRORS <num-err-var>``"
 msgstr ""
 
-#: ../../../command/ctest_build.rst:73
+#: ../../../command/ctest_build.rst:75
 msgid "Store the number of build errors detected in the given variable."
 msgstr ""
 
-#: ../../../command/ctest_build.rst:75
+#: ../../../command/ctest_build.rst:77
 msgid "``NUMBER_WARNINGS <num-warn-var>``"
 msgstr ""
 
-#: ../../../command/ctest_build.rst:76
+#: ../../../command/ctest_build.rst:78
 msgid "Store the number of build warnings detected in the given variable."
 msgstr ""
 
-#: ../../../command/ctest_build.rst:78
+#: ../../../command/ctest_build.rst:80
+msgid "``PRESET <preset>``"
+msgstr ""
+
+#: ../../../command/ctest_build.rst:83
+msgid ""
+"Specify a :manual:`preset <cmake-presets(7)>` to use when building the "
+"project.  Any value set in the CTest script will take priority over a "
+"corresponding setting from the preset.  For example, the ``TARGET`` argument "
+"will override the :preset:`buildPresets.targets` setting from the chosen "
+"preset."
+msgstr ""
+
+#: ../../../command/ctest_build.rst:89
+msgid ""
+"When a preset is specified, the :variable:`CTEST_BUILD_COMMAND` variable is "
+"ignored so that the preset is always honored."
+msgstr ""
+
+#: ../../../command/ctest_build.rst:92
+msgid ""
+"See also the :variable:`CTEST_BUILD_PRESET` and :variable:`CTEST_PRESET` "
+"variables."
+msgstr ""
+
+#: ../../../command/ctest_build.rst:95
+msgid "``PRESETS_FILE <file>``"
+msgstr ""
+
+#: ../../../command/ctest_build.rst:98
+msgid ""
+"Specify a :manual:`presets <cmake-presets(7)>` file to use instead of the "
+"default ``CMakePresets.json`` in the source directory. A relative path is "
+"interpreted relative to the source directory. Has no effect unless a preset "
+"is selected via the ``PRESET`` argument or the :variable:"
+"`CTEST_BUILD_PRESET` or :variable:`CTEST_PRESET` variables."
+msgstr ""
+
+#: ../../../command/ctest_build.rst:105
+msgid "See also the :variable:`CTEST_PRESETS_FILE` variable."
+msgstr ""
+
+#: ../../../command/ctest_build.rst:107
 msgid "``RETURN_VALUE <result-var>``"
 msgstr ""
 
-#: ../../../command/ctest_build.rst:79
+#: ../../../command/ctest_build.rst:108
 msgid "Store the return value of the native build tool in the given variable."
 msgstr ""
 
-#: ../../../command/ctest_build.rst:81
+#: ../../../command/ctest_build.rst:110
 msgid "``CAPTURE_CMAKE_ERROR <result-var>``"
 msgstr ""
 
-#: ../../../command/ctest_build.rst:84
+#: ../../../command/ctest_build.rst:113
 msgid ""
 "Store in the ``<result-var>`` variable -1 if there are any errors running "
 "the command and prevent ctest from returning non-zero if an error occurs."
 msgstr ""
 
-#: ../../../command/ctest_build.rst:87
+#: ../../../command/ctest_build.rst:116
 msgid "``QUIET``"
 msgstr ""
 
-#: ../../../command/ctest_build.rst:90
+#: ../../../command/ctest_build.rst:119
 msgid ""
 "Suppress any CTest-specific non-error output that would have been printed to "
 "the console otherwise.  The summary of warnings / errors, as well as the "

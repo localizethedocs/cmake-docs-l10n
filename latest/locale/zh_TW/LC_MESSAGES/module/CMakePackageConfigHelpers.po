@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CMake latest\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-11-02 08:20+0000\n"
+"POT-Creation-Date: 2026-06-22 13:28+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -231,31 +231,32 @@ msgstr ""
 msgid ""
 "write_basic_package_version_file(<filename>\n"
 "  [VERSION <major.minor.patch>]\n"
-"  COMPATIBILITY <AnyNewerVersion|SameMajorVersion|SameMinorVersion|"
-"ExactVersion>\n"
+"  COMPATIBILITY <AnyNewerVersion|SameMajorVersion|SameMinorVersion|\n"
+"                 SamePatchVersion|SameFullVersion|SemanticVersion|\n"
+"                 ExactVersion>\n"
 "  [ARCH_INDEPENDENT] )"
 msgstr ""
 
-#: ../../../../Modules/CMakePackageConfigHelpers.cmake:154
+#: ../../../../Modules/CMakePackageConfigHelpers.cmake:156
 msgid ""
 "Writes a file for use as a ``<PackageName>ConfigVersion.cmake`` file to "
 "``<filename>``.  See the documentation of :command:`find_package()` for "
 "details on such files."
 msgstr ""
 
-#: ../../../../Modules/CMakePackageConfigHelpers.cmake:158
+#: ../../../../Modules/CMakePackageConfigHelpers.cmake:160
 msgid ""
 "``<filename>`` is the output filename, which should be in the build tree. "
 "``<major.minor.patch>`` is the version number of the project to be installed."
 msgstr ""
 
-#: ../../../../Modules/CMakePackageConfigHelpers.cmake:161
+#: ../../../../Modules/CMakePackageConfigHelpers.cmake:163
 msgid ""
 "If no ``VERSION`` is given, the :variable:`PROJECT_VERSION` variable is "
 "used. If this hasn't been set, it errors out."
 msgstr ""
 
-#: ../../../../Modules/CMakePackageConfigHelpers.cmake:164
+#: ../../../../Modules/CMakePackageConfigHelpers.cmake:166
 msgid ""
 "The ``COMPATIBILITY`` mode ``AnyNewerVersion`` means that the installed "
 "package version will be considered compatible if it is newer or exactly the "
@@ -268,21 +269,36 @@ msgid ""
 "compatibility within the same major version. If ``SameMinorVersion`` is "
 "used, the behavior is the same as ``SameMajorVersion``, but both major and "
 "minor version must be the same as requested, e.g version 0.2 will not be "
-"compatible if 0.1 is requested. If ``ExactVersion`` is used, then the "
-"package is only considered compatible if the requested version matches "
-"exactly its own version number (not considering the tweak version).  For "
-"example, version 1.2.3 of a package is only considered compatible to "
-"requested version 1.2.3.  This mode is for packages without compatibility "
-"guarantees. If your project has more elaborate version matching rules, you "
-"will need to write your own custom ``<PackageName>ConfigVersion.cmake`` file "
-"instead of using this macro."
+"compatible if 0.1 is requested. If ``SamePatchVersion`` is used, the package "
+"is only considered compatible if the requested version matches exactly "
+"through the patch version, ignoring any tweak version.  For example, version "
+"1.2.3.4 of a package is considered compatible with requested version "
+"1.2.3.5, but not with requested version 1.2.4. If ``SameFullVersion`` is "
+"used, the package is only considered compatible if the requested version "
+"matches exactly through all specified version components. For example, "
+"version 1.2.3.4 of a package is only considered compatible with requested "
+"version 1.2.3.4.  Missing version components are not treated as implicit "
+"zeroes, so version 1.2.3 is not considered compatible with requested version "
+"1.2.3.0. If ``SemanticVersion`` is used, the behavior follows the usual "
+"semantic versioning interpretation: when the installed package version has a "
+"major component greater than zero, the behavior is the same as "
+"``SameMajorVersion``.  When the installed package version has a major "
+"component zero, the behavior is the same as ``SameMinorVersion``. If "
+"``ExactVersion`` is used, the behavior is the same as ``SamePatchVersion``."
 msgstr ""
 
-#: ../../../../Modules/CMakePackageConfigHelpers.cmake:185
+#: ../../../../Modules/CMakePackageConfigHelpers.cmake:197
+msgid ""
+"If your project has more elaborate version matching rules, you will need to "
+"write your own custom ``<PackageName>ConfigVersion.cmake`` file instead of "
+"using this macro."
+msgstr ""
+
+#: ../../../../Modules/CMakePackageConfigHelpers.cmake:201
 msgid "The ``SameMinorVersion`` compatibility mode."
 msgstr ""
 
-#: ../../../../Modules/CMakePackageConfigHelpers.cmake:188
+#: ../../../../Modules/CMakePackageConfigHelpers.cmake:204
 msgid ""
 "If ``ARCH_INDEPENDENT`` is given, the installed package version will be "
 "considered compatible even if it was built for a different architecture than "
@@ -294,13 +310,13 @@ msgid ""
 "the package is considered compatible on any architecture."
 msgstr ""
 
-#: ../../../../Modules/CMakePackageConfigHelpers.cmake:198
+#: ../../../../Modules/CMakePackageConfigHelpers.cmake:214
 msgid ""
 "``ARCH_INDEPENDENT`` is intended for header-only libraries or similar "
 "packages with no binaries."
 msgstr ""
 
-#: ../../../../Modules/CMakePackageConfigHelpers.cmake:201
+#: ../../../../Modules/CMakePackageConfigHelpers.cmake:217
 msgid ""
 "The version file generated by ``AnyNewerVersion``, ``SameMajorVersion`` and "
 "``SameMinorVersion`` arguments of ``COMPATIBILITY`` handle the version "
@@ -309,7 +325,28 @@ msgid ""
 "display an author warning if one is specified."
 msgstr ""
 
-#: ../../../../Modules/CMakePackageConfigHelpers.cmake:208
+#: ../../../../Modules/CMakePackageConfigHelpers.cmake:224
+msgid ""
+"The ``SamePatchVersion``, ``SameFullVersion``, and ``SemanticVersion`` "
+"compatibility modes."
+msgstr ""
+
+#: ../../../../Modules/CMakePackageConfigHelpers.cmake:228
+msgid ""
+"The version file generated by ``SemanticVersion`` handles version ranges if "
+"one is specified (see :command:`find_package` command for the details). "
+"``SamePatchVersion`` and ``SameFullVersion`` modes are incompatible with "
+"version ranges and will display an author warning if one is specified."
+msgstr ""
+
+#: ../../../../Modules/CMakePackageConfigHelpers.cmake:233
+msgid ""
+"The ``ExactVersion`` compatibility mode. Use ``SamePatchVersion`` or "
+"``SameFullVersion`` instead, depending on whether the tweak version should "
+"be ignored."
+msgstr ""
+
+#: ../../../../Modules/CMakePackageConfigHelpers.cmake:238
 msgid ""
 "Internally, this macro executes :command:`configure_file()` to create the "
 "resulting version file.  Depending on the ``COMPATIBILITY``, the "
@@ -320,15 +357,15 @@ msgid ""
 "``<PackageName>ConfigVersion.cmake`` files."
 msgstr ""
 
-#: ../../../../Modules/CMakePackageConfigHelpers.cmake:217
+#: ../../../../Modules/CMakePackageConfigHelpers.cmake:247
 msgid "Generating an Apple Platform Selection File"
 msgstr ""
 
-#: ../../../../Modules/CMakePackageConfigHelpers.cmake:223
+#: ../../../../Modules/CMakePackageConfigHelpers.cmake:253
 msgid "Create an Apple platform selection file:"
 msgstr ""
 
-#: ../../../../Modules/CMakePackageConfigHelpers.cmake:225
+#: ../../../../Modules/CMakePackageConfigHelpers.cmake:255
 msgid ""
 "generate_apple_platform_selection_file(<filename>\n"
 "  INSTALL_DESTINATION <path>\n"
@@ -347,7 +384,7 @@ msgid ""
 "  )"
 msgstr ""
 
-#: ../../../../Modules/CMakePackageConfigHelpers.cmake:243
+#: ../../../../Modules/CMakePackageConfigHelpers.cmake:273
 msgid ""
 "Write a file that includes an Apple-platform-specific ``.cmake`` file, e.g., "
 "for use as ``<PackageName>Config.cmake``.  This can be used in conjunction "
@@ -356,118 +393,118 @@ msgid ""
 "them."
 msgstr ""
 
-#: ../../../../Modules/CMakePackageConfigHelpers.cmake:249
-#: ../../../../Modules/CMakePackageConfigHelpers.cmake:328
+#: ../../../../Modules/CMakePackageConfigHelpers.cmake:279
+#: ../../../../Modules/CMakePackageConfigHelpers.cmake:358
 msgid "``INSTALL_DESTINATION <path>``"
 msgstr "``INSTALL_DESTINATION <path>``"
 
-#: ../../../../Modules/CMakePackageConfigHelpers.cmake:250
-#: ../../../../Modules/CMakePackageConfigHelpers.cmake:329
+#: ../../../../Modules/CMakePackageConfigHelpers.cmake:280
+#: ../../../../Modules/CMakePackageConfigHelpers.cmake:359
 msgid ""
 "Path to which the generated file will be installed by the caller, e.g., via :"
 "command:`install(FILES)`.  The path may be either relative to the "
 "``INSTALL_PREFIX`` or absolute."
 msgstr ""
 
-#: ../../../../Modules/CMakePackageConfigHelpers.cmake:254
-#: ../../../../Modules/CMakePackageConfigHelpers.cmake:333
+#: ../../../../Modules/CMakePackageConfigHelpers.cmake:284
+#: ../../../../Modules/CMakePackageConfigHelpers.cmake:363
 msgid "``INSTALL_PREFIX <path>``"
 msgstr "``INSTALL_PREFIX <path>``"
 
-#: ../../../../Modules/CMakePackageConfigHelpers.cmake:255
-#: ../../../../Modules/CMakePackageConfigHelpers.cmake:334
+#: ../../../../Modules/CMakePackageConfigHelpers.cmake:285
+#: ../../../../Modules/CMakePackageConfigHelpers.cmake:364
 msgid ""
 "Path prefix to which the package will be installed by the caller. The "
 "``<path>`` argument must be an absolute path.  If this argument is not "
 "passed, the :variable:`CMAKE_INSTALL_PREFIX` variable will be used instead."
 msgstr ""
 
-#: ../../../../Modules/CMakePackageConfigHelpers.cmake:260
+#: ../../../../Modules/CMakePackageConfigHelpers.cmake:290
 msgid "``MACOS_INCLUDE_FILE <file>``"
 msgstr "``MACOS_INCLUDE_FILE <file>``"
 
-#: ../../../../Modules/CMakePackageConfigHelpers.cmake:261
+#: ../../../../Modules/CMakePackageConfigHelpers.cmake:291
 msgid "File to include if the platform is macOS."
 msgstr ""
 
-#: ../../../../Modules/CMakePackageConfigHelpers.cmake:263
+#: ../../../../Modules/CMakePackageConfigHelpers.cmake:293
 msgid "``IOS_INCLUDE_FILE <file>``"
 msgstr "``IOS_INCLUDE_FILE <file>``"
 
-#: ../../../../Modules/CMakePackageConfigHelpers.cmake:264
+#: ../../../../Modules/CMakePackageConfigHelpers.cmake:294
 msgid "File to include if the platform is iOS."
 msgstr ""
 
-#: ../../../../Modules/CMakePackageConfigHelpers.cmake:266
+#: ../../../../Modules/CMakePackageConfigHelpers.cmake:296
 msgid "``IOS_SIMULATOR_INCLUDE_FILE <file>``"
 msgstr ""
 
-#: ../../../../Modules/CMakePackageConfigHelpers.cmake:267
+#: ../../../../Modules/CMakePackageConfigHelpers.cmake:297
 msgid "File to include if the platform is iOS Simulator."
 msgstr ""
 
-#: ../../../../Modules/CMakePackageConfigHelpers.cmake:269
+#: ../../../../Modules/CMakePackageConfigHelpers.cmake:299
 msgid "``IOS_CATALYST_INCLUDE_FILE <file>``"
 msgstr ""
 
-#: ../../../../Modules/CMakePackageConfigHelpers.cmake:272
+#: ../../../../Modules/CMakePackageConfigHelpers.cmake:302
 msgid "File to include if the platform is iOS Catalyst."
 msgstr ""
 
-#: ../../../../Modules/CMakePackageConfigHelpers.cmake:274
+#: ../../../../Modules/CMakePackageConfigHelpers.cmake:304
 msgid "``TVOS_INCLUDE_FILE <file>``"
 msgstr ""
 
-#: ../../../../Modules/CMakePackageConfigHelpers.cmake:275
+#: ../../../../Modules/CMakePackageConfigHelpers.cmake:305
 msgid "File to include if the platform is tvOS."
 msgstr ""
 
-#: ../../../../Modules/CMakePackageConfigHelpers.cmake:277
+#: ../../../../Modules/CMakePackageConfigHelpers.cmake:307
 msgid "``TVOS_SIMULATOR_INCLUDE_FILE <file>``"
 msgstr "``TVOS_SIMULATOR_INCLUDE_FILE <file>``"
 
-#: ../../../../Modules/CMakePackageConfigHelpers.cmake:278
+#: ../../../../Modules/CMakePackageConfigHelpers.cmake:308
 msgid "File to include if the platform is tvOS Simulator."
 msgstr ""
 
-#: ../../../../Modules/CMakePackageConfigHelpers.cmake:280
+#: ../../../../Modules/CMakePackageConfigHelpers.cmake:310
 msgid "``WATCHOS_INCLUDE_FILE <file>``"
 msgstr ""
 
-#: ../../../../Modules/CMakePackageConfigHelpers.cmake:281
+#: ../../../../Modules/CMakePackageConfigHelpers.cmake:311
 msgid "File to include if the platform is watchOS."
 msgstr ""
 
-#: ../../../../Modules/CMakePackageConfigHelpers.cmake:283
+#: ../../../../Modules/CMakePackageConfigHelpers.cmake:313
 msgid "``WATCHOS_SIMULATOR_INCLUDE_FILE <file>``"
 msgstr ""
 
-#: ../../../../Modules/CMakePackageConfigHelpers.cmake:284
+#: ../../../../Modules/CMakePackageConfigHelpers.cmake:314
 msgid "File to include if the platform is watchOS Simulator."
 msgstr ""
 
-#: ../../../../Modules/CMakePackageConfigHelpers.cmake:286
+#: ../../../../Modules/CMakePackageConfigHelpers.cmake:316
 msgid "``VISIONOS_INCLUDE_FILE <file>``"
 msgstr ""
 
-#: ../../../../Modules/CMakePackageConfigHelpers.cmake:287
+#: ../../../../Modules/CMakePackageConfigHelpers.cmake:317
 msgid "File to include if the platform is visionOS."
 msgstr ""
 
-#: ../../../../Modules/CMakePackageConfigHelpers.cmake:289
+#: ../../../../Modules/CMakePackageConfigHelpers.cmake:319
 msgid "``VISIONOS_SIMULATOR_INCLUDE_FILE <file>``"
 msgstr ""
 
-#: ../../../../Modules/CMakePackageConfigHelpers.cmake:290
+#: ../../../../Modules/CMakePackageConfigHelpers.cmake:320
 msgid "File to include if the platform is visionOS Simulator."
 msgstr ""
 
-#: ../../../../Modules/CMakePackageConfigHelpers.cmake:292
-#: ../../../../Modules/CMakePackageConfigHelpers.cmake:360
+#: ../../../../Modules/CMakePackageConfigHelpers.cmake:322
+#: ../../../../Modules/CMakePackageConfigHelpers.cmake:390
 msgid "``ERROR_VARIABLE <variable>``"
 msgstr ""
 
-#: ../../../../Modules/CMakePackageConfigHelpers.cmake:293
+#: ../../../../Modules/CMakePackageConfigHelpers.cmake:323
 msgid ""
 "If the consuming project is built for an unsupported platform, set "
 "``<variable>`` to an error message.  The includer may use this information "
@@ -475,7 +512,7 @@ msgid ""
 "default behavior is to issue a fatal error."
 msgstr ""
 
-#: ../../../../Modules/CMakePackageConfigHelpers.cmake:298
+#: ../../../../Modules/CMakePackageConfigHelpers.cmake:328
 msgid ""
 "If any of the optional include files is not specified, and the consuming "
 "project is built for its corresponding platform, the generated file will "
@@ -483,15 +520,15 @@ msgid ""
 "``ERROR_VARIABLE`` option."
 msgstr ""
 
-#: ../../../../Modules/CMakePackageConfigHelpers.cmake:304
+#: ../../../../Modules/CMakePackageConfigHelpers.cmake:334
 msgid "Generating an Apple Architecture Selection File"
 msgstr ""
 
-#: ../../../../Modules/CMakePackageConfigHelpers.cmake:310
+#: ../../../../Modules/CMakePackageConfigHelpers.cmake:340
 msgid "Create an Apple architecture selection file:"
 msgstr ""
 
-#: ../../../../Modules/CMakePackageConfigHelpers.cmake:312
+#: ../../../../Modules/CMakePackageConfigHelpers.cmake:342
 msgid ""
 "generate_apple_architecture_selection_file(<filename>\n"
 "  INSTALL_DESTINATION <path>\n"
@@ -504,60 +541,60 @@ msgid ""
 "  )"
 msgstr ""
 
-#: ../../../../Modules/CMakePackageConfigHelpers.cmake:324
+#: ../../../../Modules/CMakePackageConfigHelpers.cmake:354
 msgid ""
 "Write a file that includes an Apple-architecture-specific ``.cmake`` file "
 "based on :variable:`CMAKE_OSX_ARCHITECTURES`, e.g., for inclusion from an "
 "Apple-specific ``<PackageName>Config.cmake`` file."
 msgstr ""
 
-#: ../../../../Modules/CMakePackageConfigHelpers.cmake:339
+#: ../../../../Modules/CMakePackageConfigHelpers.cmake:369
 msgid "``SINGLE_ARCHITECTURES <arch>...``"
 msgstr ""
 
-#: ../../../../Modules/CMakePackageConfigHelpers.cmake:340
+#: ../../../../Modules/CMakePackageConfigHelpers.cmake:370
 msgid ""
 "Architectures provided by entries of ``SINGLE_ARCHITECTURE_INCLUDE_FILES``."
 msgstr ""
 
-#: ../../../../Modules/CMakePackageConfigHelpers.cmake:342
+#: ../../../../Modules/CMakePackageConfigHelpers.cmake:372
 msgid "``SINGLE_ARCHITECTURE_INCLUDE_FILES <file>...``"
 msgstr ""
 
-#: ../../../../Modules/CMakePackageConfigHelpers.cmake:343
+#: ../../../../Modules/CMakePackageConfigHelpers.cmake:373
 msgid ""
 "Architecture-specific files.  One of them will be loaded when :variable:"
 "`CMAKE_OSX_ARCHITECTURES` contains a single architecture matching the "
 "corresponding entry of ``SINGLE_ARCHITECTURES``."
 msgstr ""
 
-#: ../../../../Modules/CMakePackageConfigHelpers.cmake:348
+#: ../../../../Modules/CMakePackageConfigHelpers.cmake:378
 msgid "``UNIVERSAL_ARCHITECTURES <arch>...``"
 msgstr ""
 
-#: ../../../../Modules/CMakePackageConfigHelpers.cmake:349
+#: ../../../../Modules/CMakePackageConfigHelpers.cmake:379
 msgid "Architectures provided by the ``UNIVERSAL_INCLUDE_FILE``."
 msgstr ""
 
-#: ../../../../Modules/CMakePackageConfigHelpers.cmake:351
+#: ../../../../Modules/CMakePackageConfigHelpers.cmake:381
 msgid ""
 "The list may include ``$(ARCHS_STANDARD)`` to support consumption using the :"
 "generator:`Xcode` generator, but the architectures should always be listed "
 "individually too."
 msgstr ""
 
-#: ../../../../Modules/CMakePackageConfigHelpers.cmake:355
+#: ../../../../Modules/CMakePackageConfigHelpers.cmake:385
 msgid "``UNIVERSAL_INCLUDE_FILE <file>``"
 msgstr ""
 
-#: ../../../../Modules/CMakePackageConfigHelpers.cmake:356
+#: ../../../../Modules/CMakePackageConfigHelpers.cmake:386
 msgid ""
 "A file to load when :variable:`CMAKE_OSX_ARCHITECTURES` contains a (non-"
 "strict) subset of the ``UNIVERSAL_ARCHITECTURES`` and does not match any one "
 "of the ``SINGLE_ARCHITECTURES``."
 msgstr ""
 
-#: ../../../../Modules/CMakePackageConfigHelpers.cmake:361
+#: ../../../../Modules/CMakePackageConfigHelpers.cmake:391
 msgid ""
 "If the consuming project is built for an unsupported architecture, set "
 "``<variable>`` to an error message.  The includer may use this information "
@@ -565,21 +602,21 @@ msgid ""
 "default behavior is to issue a fatal error."
 msgstr ""
 
-#: ../../../../Modules/CMakePackageConfigHelpers.cmake:369
+#: ../../../../Modules/CMakePackageConfigHelpers.cmake:399
 msgid "Example Generating Package Files"
 msgstr ""
 
-#: ../../../../Modules/CMakePackageConfigHelpers.cmake:371
+#: ../../../../Modules/CMakePackageConfigHelpers.cmake:401
 msgid ""
 "Example using both the :command:`configure_package_config_file` and :command:"
 "`write_basic_package_version_file()` commands:"
 msgstr ""
 
-#: ../../../../Modules/CMakePackageConfigHelpers.cmake:374
+#: ../../../../Modules/CMakePackageConfigHelpers.cmake:404
 msgid "``CMakeLists.txt``"
 msgstr "``CMakeLists.txt``"
 
-#: ../../../../Modules/CMakePackageConfigHelpers.cmake:374
+#: ../../../../Modules/CMakePackageConfigHelpers.cmake:404
 msgid ""
 "include(GNUInstallDirs)\n"
 "set(INCLUDE_INSTALL_DIR ${CMAKE_INSTALL_INCLUDEDIR}/Foo\n"
@@ -601,11 +638,11 @@ msgid ""
 "        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/Foo )"
 msgstr ""
 
-#: ../../../../Modules/CMakePackageConfigHelpers.cmake:396
+#: ../../../../Modules/CMakePackageConfigHelpers.cmake:426
 msgid "``FooConfig.cmake.in``"
 msgstr ""
 
-#: ../../../../Modules/CMakePackageConfigHelpers.cmake:396
+#: ../../../../Modules/CMakePackageConfigHelpers.cmake:426
 msgid ""
 "set(FOO_VERSION x.y.z)\n"
 "...\n"
