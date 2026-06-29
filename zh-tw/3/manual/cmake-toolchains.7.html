@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+
+<html lang="zh-TW" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>cmake-工具鏈(7) &mdash; CMake 3.31.12-dirty Documentation</title>
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a3862c66" />
+    <link rel="stylesheet" type="text/css" href="../_static/cmake.css?v=4d06bd55" />
+    
+    <script src="../_static/documentation_options.js?v=bc20e1c6"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/translations.js?v=cbf116e0"></script>
+    
+    <link rel="canonical" href="https://projects.localizethedocs.org/cmake-docs-l10n/manual/cmake-toolchains.7.html" />
+    <link rel="icon" href="../_static/cmake-favicon.ico"/>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜尋" href="../search.html" />
+    <link rel="next" title="cmake-變數(7)" href="cmake-variables.7.html" />
+    <link rel="prev" title="cmake-伺服器(7)" href="cmake-server.7.html" />
+
+ 
+
+    <script type="text/javascript" src="../ltd-provenance.js"></script>
+    <script type="text/javascript" src="../ltd-current.js"></script>
+    <script type="text/javascript" src="../../../ltd-config.js"></script>
+    <script type="text/javascript" src="../../../ltd-flyout.js"></script>
+
+  </head><body>
+    <input id="sidebar-check" type="checkbox" />
+    <label id="sidebar-overlay" for="sidebar-check"></label>
+
+
+
+    <div class="related relbar1" role="navigation" aria-label="Related">
+      <h3>瀏覽</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="總索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="cmake-variables.7.html" title="cmake-變數(7)"
+             accesskey="N">下一頁</a> |</li>
+        <li class="right" >
+          <a href="cmake-server.7.html" title="cmake-伺服器(7)"
+             accesskey="P">上一頁</a> |</li>
+  <li>
+    <label class="sidebar-toggle" for="sidebar-check"></label>
+  </li>
+  <li class="rootlink">
+    <img src="../_static/cmake-logo-16.png" width="16" height="16" alt=""/>
+    <a href="https://cmake.org/">CMake 3.31.12-dirty</a>
+    <span class="reldelim1"> &#187;</span>
+  </li>
+  <li>
+    <a href="../index.html">文件</a> &#187;
+  </li>
+
+        <li class="nav-item nav-item-this"><a href="">cmake-工具鏈(7)</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <span class="target" id="manual:cmake-toolchains(7)"></span><section id="cmake-toolchains-7">
+<h1><a class="toc-backref" href="#id9" role="doc-backlink">cmake-工具鏈(7)</a><a class="headerlink" href="#cmake-toolchains-7" title="連結到這個標頭">¶</a></h1>
+<nav class="contents" id="id1">
+<p class="topic-title">目錄</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#cmake-toolchains-7" id="id9">cmake-工具鏈(7)</a></p>
+<ul>
+<li><p><a class="reference internal" href="#introduction" id="id10">介紹</a></p></li>
+<li><p><a class="reference internal" href="#languages" id="id11">語言</a></p></li>
+<li><p><a class="reference internal" href="#variables-and-properties" id="id12">變數與屬性</a></p></li>
+<li><p><a class="reference internal" href="#toolchain-features" id="id13">工具鏈功能</a></p></li>
+<li><p><a class="reference internal" href="#cross-compiling" id="id14">交叉編譯</a></p>
+<ul>
+<li><p><a class="reference internal" href="#cross-compiling-for-linux" id="id15">為 Linux 進行交叉編譯</a></p></li>
+<li><p><a class="reference internal" href="#cross-compiling-for-the-cray-linux-environment" id="id16">為 Cray Linux 環境進行交叉編譯</a></p></li>
+<li><p><a class="reference internal" href="#cross-compiling-using-clang" id="id17">使用 Clang 進行交叉編譯</a></p></li>
+<li><p><a class="reference internal" href="#cross-compiling-for-qnx" id="id18">為 QNX 進行交叉編譯</a></p></li>
+<li><p><a class="reference internal" href="#cross-compiling-for-windows-ce" id="id19">為 Windows CE 進行交叉編譯</a></p></li>
+<li><p><a class="reference internal" href="#cross-compiling-for-windows-10-universal-applications" id="id20">為 Windows 10 通用應用程式進行交叉編譯</a></p></li>
+<li><p><a class="reference internal" href="#cross-compiling-for-windows-phone" id="id21">為 Windows Phone 進行交叉編譯</a></p></li>
+<li><p><a class="reference internal" href="#cross-compiling-for-windows-store" id="id22">為 Windows Store 進行交叉編譯</a></p></li>
+<li><p><a class="reference internal" href="#cross-compiling-for-adsp-sharc-blackfin" id="id23">為 ADSP SHARC/Blackfin 進行交叉編譯</a></p></li>
+<li><p><a class="reference internal" href="#cross-compiling-for-android" id="id24">為 Android 進行交叉編譯</a></p>
+<ul>
+<li><p><a class="reference internal" href="#cross-compiling-for-android-with-the-ndk" id="id25">使用 NDK 為 Android 進行交叉編譯</a></p></li>
+<li><p><a class="reference internal" href="#cross-compiling-for-android-with-a-standalone-toolchain" id="id26">使用獨立工具鏈為 Android 進行交叉編譯</a></p></li>
+<li><p><a class="reference internal" href="#cross-compiling-for-android-with-nvidia-nsight-tegra-visual-studio-edition" id="id27">使用 NVIDIA Nsight Tegra Visual Studio Edition 為 Android 進行交叉編譯</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#cross-compiling-for-ios-tvos-visionos-or-watchos" id="id28">為 iOS、tvOS、visionOS 或 watchOS 進行交叉編譯</a></p>
+<ul>
+<li><p><a class="reference internal" href="#code-signing" id="id29">代碼簽署</a></p></li>
+<li><p><a class="reference internal" href="#switching-between-device-and-simulator" id="id30">在裝置和仿真器之間切換</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+<section id="introduction">
+<h2><a class="toc-backref" href="#id10" role="doc-backlink">介紹</a><a class="headerlink" href="#introduction" title="連結到這個標頭">¶</a></h2>
+<p>CMake 使用一系列工具鏈實用程式來編譯、連結程式庫、建立靜態庫以及執行其他建置任務。可用的工具鏈實用程式取決於所啟用的語言。在一般建置中，CMake 會根據系統內省和默認值自動決定主機建置的工具鏈。在交叉編譯情境中，可以指定一個工具鏈檔案，其中包含編譯器和實用程式的路徑資訊。</p>
+<div class="versionadded">
+<p><span class="versionmodified added">在 3.19 版被加入: </span>可以使用 <span class="target" id="index-0-manual:cmake-presets(7)"></span><a class="reference internal" href="cmake-presets.7.html#manual:cmake-presets(7)" title="cmake-presets(7)"><code class="xref cmake cmake-manual docutils literal notranslate"><span class="pre">cmake-presets(7)</span></code></a> 來指定工具鏈檔案。</p>
+</div>
+</section>
+<section id="languages">
+<h2><a class="toc-backref" href="#id11" role="doc-backlink">語言</a><a class="headerlink" href="#languages" title="連結到這個標頭">¶</a></h2>
+<p>語言是透過 <span class="target" id="index-0-command:project"></span><a class="reference internal" href="../command/project.html#command:project" title="project"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">project()</span></code></a> 命令啟用的。語言特定的內建變數，例如 <span class="target" id="index-0-variable:CMAKE_&lt;LANG&gt;_COMPILER"></span><a class="reference internal" href="../variable/CMAKE_LANG_COMPILER.html#variable:CMAKE_&lt;LANG&gt;_COMPILER" title="CMAKE_&lt;LANG&gt;_COMPILER"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_CXX_COMPILER</span></code></a>、<span class="target" id="index-0-variable:CMAKE_&lt;LANG&gt;_COMPILER_ID"></span><a class="reference internal" href="../variable/CMAKE_LANG_COMPILER_ID.html#variable:CMAKE_&lt;LANG&gt;_COMPILER_ID" title="CMAKE_&lt;LANG&gt;_COMPILER_ID"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_CXX_COMPILER_ID</span></code></a> 等，是透過呼叫 <span class="target" id="index-1-command:project"></span><a class="reference internal" href="../command/project.html#command:project" title="project"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">project()</span></code></a> 命令來設定的。如果最上層的 CMakeLists 檔案中沒有 project 命令，將會隱含地生成一個。默認情況下，啟用的語言是 <code class="docutils literal notranslate"><span class="pre">C</span></code> 和 <code class="docutils literal notranslate"><span class="pre">CXX</span></code>：</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">project(</span><span class="nb">C_Only</span><span class="w"> </span><span class="no">C</span><span class="nf">)</span>
+</pre></div>
+</div>
+<p>A special value of <code class="docutils literal notranslate"><span class="pre">NONE</span></code> can also be used with the <span class="target" id="index-2-command:project"></span><a class="reference internal" href="../command/project.html#command:project" title="project"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">project()</span></code></a> command
+to enable no languages:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">project(</span><span class="nb">MyProject</span><span class="w"> </span><span class="no">NONE</span><span class="nf">)</span>
+</pre></div>
+</div>
+<p>The <span class="target" id="index-0-command:enable_language"></span><a class="reference internal" href="../command/enable_language.html#command:enable_language" title="enable_language"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">enable_language()</span></code></a> command can be used to enable languages after the
+<span class="target" id="index-3-command:project"></span><a class="reference internal" href="../command/project.html#command:project" title="project"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">project()</span></code></a> command:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">enable_language(</span><span class="no">CXX</span><span class="nf">)</span>
+</pre></div>
+</div>
+<p>When a language is enabled, CMake finds a compiler for that language, and
+determines some information, such as the vendor and version of the compiler,
+the target architecture and bitwidth, the location of corresponding utilities
+etc.</p>
+<p>The <span class="target" id="index-0-prop_gbl:ENABLED_LANGUAGES"></span><a class="reference internal" href="../prop_gbl/ENABLED_LANGUAGES.html#prop_gbl:ENABLED_LANGUAGES" title="ENABLED_LANGUAGES"><code class="xref cmake cmake-prop_gbl docutils literal notranslate"><span class="pre">ENABLED_LANGUAGES</span></code></a> global property contains the languages which
+are currently enabled.</p>
+</section>
+<section id="variables-and-properties">
+<h2><a class="toc-backref" href="#id12" role="doc-backlink">變數與屬性</a><a class="headerlink" href="#variables-and-properties" title="連結到這個標頭">¶</a></h2>
+<p>有幾個變數與已啟用的工具鏈語言組件相關：</p>
+<dl class="simple">
+<dt><span class="target" id="index-1-variable:CMAKE_&lt;LANG&gt;_COMPILER"></span><a class="reference internal" href="../variable/CMAKE_LANG_COMPILER.html#variable:CMAKE_&lt;LANG&gt;_COMPILER" title="CMAKE_&lt;LANG&gt;_COMPILER"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_&lt;LANG&gt;_COMPILER</span></code></a></dt><dd><p>用於 <code class="docutils literal notranslate"><span class="pre">&lt;LANG&gt;</span></code> 的編譯器的完整路徑</p>
+</dd>
+<dt><span class="target" id="index-1-variable:CMAKE_&lt;LANG&gt;_COMPILER_ID"></span><a class="reference internal" href="../variable/CMAKE_LANG_COMPILER_ID.html#variable:CMAKE_&lt;LANG&gt;_COMPILER_ID" title="CMAKE_&lt;LANG&gt;_COMPILER_ID"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_&lt;LANG&gt;_COMPILER_ID</span></code></a></dt><dd><p>CMake 使用的編譯器識別碼</p>
+</dd>
+<dt><span class="target" id="index-0-variable:CMAKE_&lt;LANG&gt;_COMPILER_VERSION"></span><a class="reference internal" href="../variable/CMAKE_LANG_COMPILER_VERSION.html#variable:CMAKE_&lt;LANG&gt;_COMPILER_VERSION" title="CMAKE_&lt;LANG&gt;_COMPILER_VERSION"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_&lt;LANG&gt;_COMPILER_VERSION</span></code></a></dt><dd><p>編譯器的版本。</p>
+</dd>
+<dt><span class="target" id="index-0-variable:CMAKE_&lt;LANG&gt;_FLAGS"></span><a class="reference internal" href="../variable/CMAKE_LANG_FLAGS.html#variable:CMAKE_&lt;LANG&gt;_FLAGS" title="CMAKE_&lt;LANG&gt;_FLAGS"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_&lt;LANG&gt;_FLAGS</span></code></a></dt><dd><p>The variables and the configuration-specific equivalents contain flags that
+will be added to the compile command when compiling a file of a particular
+language.</p>
+</dd>
+</dl>
+<p>CMake 需要一種方法來確定使用哪個編譯器來呼叫連結器。這是由 <span class="target" id="index-0-manual:cmake-buildsystem(7)"></span><a class="reference internal" href="cmake-buildsystem.7.html#manual:cmake-buildsystem(7)" title="cmake-buildsystem(7)"><code class="xref cmake cmake-manual docutils literal notranslate"><span class="pre">target</span></code></a> 原始檔案的 <span class="target" id="index-0-prop_sf:LANGUAGE"></span><a class="reference internal" href="../prop_sf/LANGUAGE.html#prop_sf:LANGUAGE" title="LANGUAGE"><code class="xref cmake cmake-prop_sf docutils literal notranslate"><span class="pre">LANGUAGE</span></code></a> 屬性決定的，而在靜態庫的情況下，則由依賴程式庫的 <code class="docutils literal notranslate"><span class="pre">LANGUAGE</span></code> 決定。CMake 所做的選擇可以透過 <span class="target" id="index-0-prop_tgt:LINKER_LANGUAGE"></span><a class="reference internal" href="../prop_tgt/LINKER_LANGUAGE.html#prop_tgt:LINKER_LANGUAGE" title="LINKER_LANGUAGE"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">LINKER_LANGUAGE</span></code></a> 目標屬性來覆寫。</p>
+</section>
+<section id="toolchain-features">
+<h2><a class="toc-backref" href="#id13" role="doc-backlink">工具鏈功能</a><a class="headerlink" href="#toolchain-features" title="連結到這個標頭">¶</a></h2>
+<p>CMake provides the <span class="target" id="index-0-command:try_compile"></span><a class="reference internal" href="../command/try_compile.html#command:try_compile" title="try_compile"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">try_compile()</span></code></a> command and wrapper macros such as
+<span class="target" id="index-0-module:CheckSourceCompiles"></span><a class="reference internal" href="../module/CheckSourceCompiles.html#module:CheckSourceCompiles" title="CheckSourceCompiles"><code class="xref cmake cmake-module docutils literal notranslate"><span class="pre">CheckSourceCompiles</span></code></a>, <span class="target" id="index-0-module:CheckCXXSymbolExists"></span><a class="reference internal" href="../module/CheckCXXSymbolExists.html#module:CheckCXXSymbolExists" title="CheckCXXSymbolExists"><code class="xref cmake cmake-module docutils literal notranslate"><span class="pre">CheckCXXSymbolExists</span></code></a> and
+<span class="target" id="index-0-module:CheckIncludeFile"></span><a class="reference internal" href="../module/CheckIncludeFile.html#module:CheckIncludeFile" title="CheckIncludeFile"><code class="xref cmake cmake-module docutils literal notranslate"><span class="pre">CheckIncludeFile</span></code></a> to test capability and availability of various
+toolchain features. These APIs test the toolchain in some way and cache the
+result so that the test does not have to be performed again the next time
+CMake runs.</p>
+<p>某些工具鏈功能在 CMake 中有內建處理，不需要編譯測試。例如，如果編譯器支援該功能，<span class="target" id="index-0-prop_tgt:POSITION_INDEPENDENT_CODE"></span><a class="reference internal" href="../prop_tgt/POSITION_INDEPENDENT_CODE.html#prop_tgt:POSITION_INDEPENDENT_CODE" title="POSITION_INDEPENDENT_CODE"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">POSITION_INDEPENDENT_CODE</span></code></a> 允許指定目標應建置為位置獨立程式碼。如果編譯器支援，<span class="target" id="index-0-prop_tgt:&lt;LANG&gt;_VISIBILITY_PRESET"></span><a class="reference internal" href="../prop_tgt/LANG_VISIBILITY_PRESET.html#prop_tgt:&lt;LANG&gt;_VISIBILITY_PRESET" title="&lt;LANG&gt;_VISIBILITY_PRESET"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">&lt;LANG&gt;_VISIBILITY_PRESET</span></code></a> 和 <span class="target" id="index-0-prop_tgt:VISIBILITY_INLINES_HIDDEN"></span><a class="reference internal" href="../prop_tgt/VISIBILITY_INLINES_HIDDEN.html#prop_tgt:VISIBILITY_INLINES_HIDDEN" title="VISIBILITY_INLINES_HIDDEN"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">VISIBILITY_INLINES_HIDDEN</span></code></a> 目標屬性會新增隱藏可見性的旗標。</p>
+</section>
+<section id="cross-compiling">
+<span id="cross-compiling-toolchain"></span><h2><a class="toc-backref" href="#id14" role="doc-backlink">交叉編譯</a><a class="headerlink" href="#cross-compiling" title="連結到這個標頭">¶</a></h2>
+<p>如果使用命令行參數 <a class="reference internal" href="cmake.1.html#cmdoption-cmake-toolchain"><code class="xref std std-option docutils literal notranslate"><span class="pre">--toolchain</span> <span class="pre">path/to/file</span></code></a> 或 <a class="reference internal" href="cmake.1.html#cmdoption-cmake-D"><code class="xref std std-option docutils literal notranslate"><span class="pre">-DCMAKE_TOOLCHAIN_FILE=path/to/file</span></code></a> 呼叫 <span class="target" id="index-0-manual:cmake(1)"></span><a class="reference internal" href="cmake.1.html#manual:cmake(1)" title="cmake(1)"><code class="xref cmake cmake-manual docutils literal notranslate"><span class="pre">cmake(1)</span></code></a>，該檔案將被提前載入以設定編譯器的值。當 CMake 進行交叉編譯時，<span class="target" id="index-0-variable:CMAKE_CROSSCOMPILING"></span><a class="reference internal" href="../variable/CMAKE_CROSSCOMPILING.html#variable:CMAKE_CROSSCOMPILING" title="CMAKE_CROSSCOMPILING"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_CROSSCOMPILING</span></code></a> 變數會被設為 true。</p>
+<p>請注意，在工具鏈檔案內使用 <span class="target" id="index-0-variable:CMAKE_SOURCE_DIR"></span><a class="reference internal" href="../variable/CMAKE_SOURCE_DIR.html#variable:CMAKE_SOURCE_DIR" title="CMAKE_SOURCE_DIR"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_SOURCE_DIR</span></code></a> 或 <span class="target" id="index-0-variable:CMAKE_BINARY_DIR"></span><a class="reference internal" href="../variable/CMAKE_BINARY_DIR.html#variable:CMAKE_BINARY_DIR" title="CMAKE_BINARY_DIR"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_BINARY_DIR</span></code></a> 變數通常是不理想的。工具鏈檔案在這些變數在不同地方使用時具有不同值的上下文中被使用（例如作為 <span class="target" id="index-1-command:try_compile"></span><a class="reference internal" href="../command/try_compile.html#command:try_compile" title="try_compile"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">try_compile()</span></code></a> 呼叫的一部分）。在大多數情況下，如果需要評估工具鏈檔案內的路徑，更合適的變數是 <span class="target" id="index-0-variable:CMAKE_CURRENT_LIST_DIR"></span><a class="reference internal" href="../variable/CMAKE_CURRENT_LIST_DIR.html#variable:CMAKE_CURRENT_LIST_DIR" title="CMAKE_CURRENT_LIST_DIR"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_CURRENT_LIST_DIR</span></code></a>，因為它始終具有明確且可預測的值。</p>
+<section id="cross-compiling-for-linux">
+<h3><a class="toc-backref" href="#id15" role="doc-backlink">為 Linux 進行交叉編譯</a><a class="headerlink" href="#cross-compiling-for-linux" title="連結到這個標頭">¶</a></h3>
+<p>典型的 Linux 交叉編譯工具鏈的內容如下：</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">set(</span><span class="no">CMAKE_SYSTEM_NAME</span><span class="w"> </span><span class="nb">Linux</span><span class="nf">)</span>
+<span class="nf">set(</span><span class="no">CMAKE_SYSTEM_PROCESSOR</span><span class="w"> </span><span class="nb">arm</span><span class="nf">)</span>
+
+<span class="nf">set(</span><span class="no">CMAKE_SYSROOT</span><span class="w"> </span><span class="na">/home/devel/rasp-pi-rootfs</span><span class="nf">)</span>
+<span class="nf">set(</span><span class="no">CMAKE_STAGING_PREFIX</span><span class="w"> </span><span class="na">/home/devel/stage</span><span class="nf">)</span>
+
+<span class="nf">set(</span><span class="nb">tools</span><span class="w"> </span><span class="na">/home/devel/gcc-4.7-linaro-rpi-gnueabihf</span><span class="nf">)</span>
+<span class="nf">set(</span><span class="no">CMAKE_C_COMPILER</span><span class="w"> </span><span class="o">${</span><span class="nt">tools</span><span class="o">}</span><span class="na">/bin/arm-linux-gnueabihf-gcc</span><span class="nf">)</span>
+<span class="nf">set(</span><span class="no">CMAKE_CXX_COMPILER</span><span class="w"> </span><span class="o">${</span><span class="nt">tools</span><span class="o">}</span><span class="na">/bin/arm-linux-gnueabihf-g++</span><span class="nf">)</span>
+
+<span class="nf">set(</span><span class="no">CMAKE_FIND_ROOT_PATH_MODE_PROGRAM</span><span class="w"> </span><span class="no">NEVER</span><span class="nf">)</span>
+<span class="nf">set(</span><span class="no">CMAKE_FIND_ROOT_PATH_MODE_LIBRARY</span><span class="w"> </span><span class="no">ONLY</span><span class="nf">)</span>
+<span class="nf">set(</span><span class="no">CMAKE_FIND_ROOT_PATH_MODE_INCLUDE</span><span class="w"> </span><span class="no">ONLY</span><span class="nf">)</span>
+<span class="nf">set(</span><span class="no">CMAKE_FIND_ROOT_PATH_MODE_PACKAGE</span><span class="w"> </span><span class="no">ONLY</span><span class="nf">)</span>
+</pre></div>
+</div>
+<p>其中：</p>
+<dl class="simple">
+<dt><span class="target" id="index-0-variable:CMAKE_SYSTEM_NAME"></span><a class="reference internal" href="../variable/CMAKE_SYSTEM_NAME.html#variable:CMAKE_SYSTEM_NAME" title="CMAKE_SYSTEM_NAME"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_SYSTEM_NAME</span></code></a></dt><dd><p>是要建置的目標平台的 CMake 識別碼。</p>
+</dd>
+<dt><span class="target" id="index-0-variable:CMAKE_SYSTEM_PROCESSOR"></span><a class="reference internal" href="../variable/CMAKE_SYSTEM_PROCESSOR.html#variable:CMAKE_SYSTEM_PROCESSOR" title="CMAKE_SYSTEM_PROCESSOR"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_SYSTEM_PROCESSOR</span></code></a></dt><dd><p>是目標架構的 CMake 識別碼。</p>
+</dd>
+<dt><span class="target" id="index-0-variable:CMAKE_SYSROOT"></span><a class="reference internal" href="../variable/CMAKE_SYSROOT.html#variable:CMAKE_SYSROOT" title="CMAKE_SYSROOT"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_SYSROOT</span></code></a></dt><dd><p>是可選的，如果 sysroot 可用則可以指定。</p>
+</dd>
+<dt><span class="target" id="index-0-variable:CMAKE_STAGING_PREFIX"></span><a class="reference internal" href="../variable/CMAKE_STAGING_PREFIX.html#variable:CMAKE_STAGING_PREFIX" title="CMAKE_STAGING_PREFIX"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_STAGING_PREFIX</span></code></a></dt><dd><p>也是可選的。它可用於指定主機上要安裝到的路徑。<span class="target" id="index-0-variable:CMAKE_INSTALL_PREFIX"></span><a class="reference internal" href="../variable/CMAKE_INSTALL_PREFIX.html#variable:CMAKE_INSTALL_PREFIX" title="CMAKE_INSTALL_PREFIX"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_INSTALL_PREFIX</span></code></a> 始終是執行時期安裝位置，即使在交叉編譯時也是如此。</p>
+</dd>
+<dt><span class="target" id="index-2-variable:CMAKE_&lt;LANG&gt;_COMPILER"></span><a class="reference internal" href="../variable/CMAKE_LANG_COMPILER.html#variable:CMAKE_&lt;LANG&gt;_COMPILER" title="CMAKE_&lt;LANG&gt;_COMPILER"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_&lt;LANG&gt;_COMPILER</span></code></a></dt><dd><p>變數可以設定為完整路徑，或設定為要在標準位置搜尋的編譯器名稱。對於不支援在沒有自訂旗標或腳本的情況下連結二進位檔的工具鏈，可以將 <span class="target" id="index-0-variable:CMAKE_TRY_COMPILE_TARGET_TYPE"></span><a class="reference internal" href="../variable/CMAKE_TRY_COMPILE_TARGET_TYPE.html#variable:CMAKE_TRY_COMPILE_TARGET_TYPE" title="CMAKE_TRY_COMPILE_TARGET_TYPE"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_TRY_COMPILE_TARGET_TYPE</span></code></a> 變數設為 <code class="docutils literal notranslate"><span class="pre">STATIC_LIBRARY</span></code>，告訴 CMake 在其檢查期間不要嘗試連結可執行檔。</p>
+</dd>
+</dl>
+<p>CMake 的 <code class="docutils literal notranslate"><span class="pre">find_*</span></code> 命令默認會在 sysroot 和 <span class="target" id="index-0-variable:CMAKE_FIND_ROOT_PATH"></span><a class="reference internal" href="../variable/CMAKE_FIND_ROOT_PATH.html#variable:CMAKE_FIND_ROOT_PATH" title="CMAKE_FIND_ROOT_PATH"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_FIND_ROOT_PATH</span></code></a> 條目中進行查詢，同時也會在主機系統根前綴中進行查詢。雖然可以逐案控制此行為，但在交叉編譯時，排除在主機或目標中查詢特定工件可能很有用。通常，標頭檔、程式庫和套件應在目標系統前綴中尋找，而必須在建置期間執行的可執行檔應僅在主機上尋找，而不是在目標上尋找。這就是 <code class="docutils literal notranslate"><span class="pre">CMAKE_FIND_ROOT_PATH_MODE_*</span></code> 變數的目的。</p>
+</section>
+<section id="cross-compiling-for-the-cray-linux-environment">
+<span id="cray-cross-compile"></span><h3><a class="toc-backref" href="#id16" role="doc-backlink">為 Cray Linux 環境進行交叉編譯</a><a class="headerlink" href="#cross-compiling-for-the-cray-linux-environment" title="連結到這個標頭">¶</a></h3>
+<p>為 Cray Linux 環境中的計算節點進行交叉編譯不需要單獨的工具鏈檔案。在 CMake 命令行上指定 <code class="docutils literal notranslate"><span class="pre">-DCMAKE_SYSTEM_NAME=CrayLinuxEnvironment</span></code> 將確保設定適當的建置設定和搜尋路徑。該平台將從目前環境變數中提取其組態，如果存在且已載入，將設定專案組態使用 Cray Programming Environment 的 <code class="docutils literal notranslate"><span class="pre">PrgEnv-*</span></code> 模組中的編譯器包裝器。</p>
+<p>Cray Programming Environment 的默認組態僅支援靜態程式庫。可以透過將 <code class="docutils literal notranslate"><span class="pre">CRAYPE_LINK_TYPE</span></code> 環境變數設定為 <code class="docutils literal notranslate"><span class="pre">dynamic</span></code> 來覆寫此設定並啟用共享程式庫。</p>
+<p>在不指定 <span class="target" id="index-1-variable:CMAKE_SYSTEM_NAME"></span><a class="reference internal" href="../variable/CMAKE_SYSTEM_NAME.html#variable:CMAKE_SYSTEM_NAME" title="CMAKE_SYSTEM_NAME"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_SYSTEM_NAME</span></code></a> 的情況下執行 CMake 將在主機模式下執行組態步驟，假設為標準 Linux 環境。如果未覆寫，<code class="docutils literal notranslate"><span class="pre">PrgEnv-*</span></code> 編譯器包裝器最終將被使用，如果目標是登入節點或計算節點，這可能不是預期的行為。例外情況是您直接在 NID 上建置，而不是從登入節點進行交叉編譯。如果要為登入節點建置軟體，您需要先卸載目前已載入的 <code class="docutils literal notranslate"><span class="pre">PrgEnv-*</span></code> 模組，或明確告訴 CMake 使用 <code class="docutils literal notranslate"><span class="pre">/usr/bin</span></code> 中的系統編譯器而不是 Cray 包裝器。如果目標是計算節點，只需按上述方式指定 <span class="target" id="index-2-variable:CMAKE_SYSTEM_NAME"></span><a class="reference internal" href="../variable/CMAKE_SYSTEM_NAME.html#variable:CMAKE_SYSTEM_NAME" title="CMAKE_SYSTEM_NAME"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_SYSTEM_NAME</span></code></a> 即可。</p>
+</section>
+<section id="cross-compiling-using-clang">
+<h3><a class="toc-backref" href="#id17" role="doc-backlink">使用 Clang 進行交叉編譯</a><a class="headerlink" href="#cross-compiling-using-clang" title="連結到這個標頭">¶</a></h3>
+<p>某些編譯器（如 Clang）本質上就是交叉編譯器。可以設定 <span class="target" id="index-0-variable:CMAKE_&lt;LANG&gt;_COMPILER_TARGET"></span><a class="reference internal" href="../variable/CMAKE_LANG_COMPILER_TARGET.html#variable:CMAKE_&lt;LANG&gt;_COMPILER_TARGET" title="CMAKE_&lt;LANG&gt;_COMPILER_TARGET"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_&lt;LANG&gt;_COMPILER_TARGET</span></code></a> 來為受支援的編譯器在編譯時傳遞值：</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">set(</span><span class="no">CMAKE_SYSTEM_NAME</span><span class="w"> </span><span class="nb">Linux</span><span class="nf">)</span>
+<span class="nf">set(</span><span class="no">CMAKE_SYSTEM_PROCESSOR</span><span class="w"> </span><span class="nb">arm</span><span class="nf">)</span>
+
+<span class="nf">set(</span><span class="nb">triple</span><span class="w"> </span><span class="nb">arm-linux-gnueabihf</span><span class="nf">)</span>
+
+<span class="nf">set(</span><span class="no">CMAKE_C_COMPILER</span><span class="w"> </span><span class="nb">clang</span><span class="nf">)</span>
+<span class="nf">set(</span><span class="no">CMAKE_C_COMPILER_TARGET</span><span class="w"> </span><span class="o">${</span><span class="nt">triple</span><span class="o">}</span><span class="nf">)</span>
+<span class="nf">set(</span><span class="no">CMAKE_CXX_COMPILER</span><span class="w"> </span><span class="nb">clang++</span><span class="nf">)</span>
+<span class="nf">set(</span><span class="no">CMAKE_CXX_COMPILER_TARGET</span><span class="w"> </span><span class="o">${</span><span class="nt">triple</span><span class="o">}</span><span class="nf">)</span>
+</pre></div>
+</div>
+<p>同樣地，某些編譯器不附帶自己的輔助實用程式（如連結器），但提供了一種方式來指定將由編譯器驅動程式使用的外部工具鏈的位置。可以在工具鏈檔案中設定 <span class="target" id="index-0-variable:CMAKE_&lt;LANG&gt;_COMPILER_EXTERNAL_TOOLCHAIN"></span><a class="reference internal" href="../variable/CMAKE_LANG_COMPILER_EXTERNAL_TOOLCHAIN.html#variable:CMAKE_&lt;LANG&gt;_COMPILER_EXTERNAL_TOOLCHAIN" title="CMAKE_&lt;LANG&gt;_COMPILER_EXTERNAL_TOOLCHAIN"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_&lt;LANG&gt;_COMPILER_EXTERNAL_TOOLCHAIN</span></code></a> 變數，以將路徑傳遞給編譯器驅動程式。</p>
+</section>
+<section id="cross-compiling-for-qnx">
+<h3><a class="toc-backref" href="#id18" role="doc-backlink">為 QNX 進行交叉編譯</a><a class="headerlink" href="#cross-compiling-for-qnx" title="連結到這個標頭">¶</a></h3>
+<p>與 Clang 編譯器類似，QNX QCC 編譯器本質上就是交叉編譯器。可以設定 <span class="target" id="index-1-variable:CMAKE_&lt;LANG&gt;_COMPILER_TARGET"></span><a class="reference internal" href="../variable/CMAKE_LANG_COMPILER_TARGET.html#variable:CMAKE_&lt;LANG&gt;_COMPILER_TARGET" title="CMAKE_&lt;LANG&gt;_COMPILER_TARGET"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_&lt;LANG&gt;_COMPILER_TARGET</span></code></a> 來為受支援的編譯器在編譯時傳遞值：</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">set(</span><span class="no">CMAKE_SYSTEM_NAME</span><span class="w"> </span><span class="no">QNX</span><span class="nf">)</span>
+
+<span class="nf">set(</span><span class="nb">arch</span><span class="w"> </span><span class="nb">gcc_ntoarmv7le</span><span class="nf">)</span>
+
+<span class="nf">set(</span><span class="no">CMAKE_C_COMPILER</span><span class="w"> </span><span class="nb">qcc</span><span class="nf">)</span>
+<span class="nf">set(</span><span class="no">CMAKE_C_COMPILER_TARGET</span><span class="w"> </span><span class="o">${</span><span class="nt">arch</span><span class="o">}</span><span class="nf">)</span>
+<span class="nf">set(</span><span class="no">CMAKE_CXX_COMPILER</span><span class="w"> </span><span class="no">QCC</span><span class="nf">)</span>
+<span class="nf">set(</span><span class="no">CMAKE_CXX_COMPILER_TARGET</span><span class="w"> </span><span class="o">${</span><span class="nt">arch</span><span class="o">}</span><span class="nf">)</span>
+
+<span class="nf">set(</span><span class="no">CMAKE_SYSROOT</span><span class="w"> </span><span class="o">$ENV{</span><span class="nt">QNX_TARGET</span><span class="o">}</span><span class="nf">)</span>
+</pre></div>
+</div>
+</section>
+<section id="cross-compiling-for-windows-ce">
+<h3><a class="toc-backref" href="#id19" role="doc-backlink">為 Windows CE 進行交叉編譯</a><a class="headerlink" href="#cross-compiling-for-windows-ce" title="連結到這個標頭">¶</a></h3>
+<p>為 Windows CE 進行交叉編譯需要在系統上安裝相應的 SDK。這些 SDK 通常安裝在 <code class="docutils literal notranslate"><span class="pre">C:/Program</span> <span class="pre">Files</span> <span class="pre">(x86)/Windows</span> <span class="pre">CE</span> <span class="pre">Tools/SDKs</span></code> 下。</p>
+<p>A toolchain file to configure a Visual Studio generator for
+Windows CE may look like this:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">set(</span><span class="no">CMAKE_SYSTEM_NAME</span><span class="w"> </span><span class="nb">WindowsCE</span><span class="nf">)</span>
+
+<span class="nf">set(</span><span class="no">CMAKE_SYSTEM_VERSION</span><span class="w"> </span><span class="m">8.0</span><span class="nf">)</span>
+<span class="nf">set(</span><span class="no">CMAKE_SYSTEM_PROCESSOR</span><span class="w"> </span><span class="nb">arm</span><span class="nf">)</span>
+
+<span class="nf">set(</span><span class="no">CMAKE_GENERATOR_TOOLSET</span><span class="w"> </span><span class="no">CE800</span><span class="nf">)</span><span class="w"> </span><span class="c"># Can be omitted for 8.0</span>
+<span class="nf">set(</span><span class="no">CMAKE_GENERATOR_PLATFORM</span><span class="w"> </span><span class="no">SDK_AM335X_SK_WEC2013_V310</span><span class="nf">)</span>
+</pre></div>
+</div>
+<p><span class="target" id="index-0-variable:CMAKE_GENERATOR_PLATFORM"></span><a class="reference internal" href="../variable/CMAKE_GENERATOR_PLATFORM.html#variable:CMAKE_GENERATOR_PLATFORM" title="CMAKE_GENERATOR_PLATFORM"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_GENERATOR_PLATFORM</span></code></a> 告訴生成器要使用哪個 SDK。此外 <span class="target" id="index-0-variable:CMAKE_SYSTEM_VERSION"></span><a class="reference internal" href="../variable/CMAKE_SYSTEM_VERSION.html#variable:CMAKE_SYSTEM_VERSION" title="CMAKE_SYSTEM_VERSION"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_SYSTEM_VERSION</span></code></a> 告訴生成器要使用哪個版本的 Windows CE。目前版本 8.0（Windows Embedded Compact 2013）是開箱即用的支援版本。其他版本可能需要將 <span class="target" id="index-0-variable:CMAKE_GENERATOR_TOOLSET"></span><a class="reference internal" href="../variable/CMAKE_GENERATOR_TOOLSET.html#variable:CMAKE_GENERATOR_TOOLSET" title="CMAKE_GENERATOR_TOOLSET"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_GENERATOR_TOOLSET</span></code></a> 設定為正確的值。</p>
+</section>
+<section id="cross-compiling-for-windows-10-universal-applications">
+<h3><a class="toc-backref" href="#id20" role="doc-backlink">為 Windows 10 通用應用程式進行交叉編譯</a><a class="headerlink" href="#cross-compiling-for-windows-10-universal-applications" title="連結到這個標頭">¶</a></h3>
+<p>用於設定 Windows 10 通用應用程式組態的 <a class="reference internal" href="cmake-generators.7.html#visual-studio-generators"><span class="std std-ref">Visual Studio 生成器</span></a> 的工具鏈檔案可能如下所示：</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">set(</span><span class="no">CMAKE_SYSTEM_NAME</span><span class="w"> </span><span class="nb">WindowsStore</span><span class="nf">)</span>
+<span class="nf">set(</span><span class="no">CMAKE_SYSTEM_VERSION</span><span class="w"> </span><span class="m">10.0</span><span class="nf">)</span>
+</pre></div>
+</div>
+<p>Windows 10 通用應用程式的目標是 Windows Store 和 Windows Phone。將 <span class="target" id="index-1-variable:CMAKE_SYSTEM_VERSION"></span><a class="reference internal" href="../variable/CMAKE_SYSTEM_VERSION.html#variable:CMAKE_SYSTEM_VERSION" title="CMAKE_SYSTEM_VERSION"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_SYSTEM_VERSION</span></code></a> 變數設定為 <code class="docutils literal notranslate"><span class="pre">10.0</span></code> 或更高版本。</p>
+<p>CMake 按照 <span class="target" id="index-0-variable:CMAKE_VS_WINDOWS_TARGET_PLATFORM_VERSION"></span><a class="reference internal" href="../variable/CMAKE_VS_WINDOWS_TARGET_PLATFORM_VERSION.html#variable:CMAKE_VS_WINDOWS_TARGET_PLATFORM_VERSION" title="CMAKE_VS_WINDOWS_TARGET_PLATFORM_VERSION"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_VS_WINDOWS_TARGET_PLATFORM_VERSION</span></code></a> 變數的文件說明選擇 Windows SDK。</p>
+</section>
+<section id="cross-compiling-for-windows-phone">
+<h3><a class="toc-backref" href="#id21" role="doc-backlink">為 Windows Phone 進行交叉編譯</a><a class="headerlink" href="#cross-compiling-for-windows-phone" title="連結到這個標頭">¶</a></h3>
+<p>A toolchain file to configure a Visual Studio generator for
+Windows Phone may look like this:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">set(</span><span class="no">CMAKE_SYSTEM_NAME</span><span class="w"> </span><span class="nb">WindowsPhone</span><span class="nf">)</span>
+<span class="nf">set(</span><span class="no">CMAKE_SYSTEM_VERSION</span><span class="w"> </span><span class="m">8.1</span><span class="nf">)</span>
+</pre></div>
+</div>
+</section>
+<section id="cross-compiling-for-windows-store">
+<h3><a class="toc-backref" href="#id22" role="doc-backlink">為 Windows Store 進行交叉編譯</a><a class="headerlink" href="#cross-compiling-for-windows-store" title="連結到這個標頭">¶</a></h3>
+<p>A toolchain file to configure a Visual Studio generator for
+Windows Store may look like this:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">set(</span><span class="no">CMAKE_SYSTEM_NAME</span><span class="w"> </span><span class="nb">WindowsStore</span><span class="nf">)</span>
+<span class="nf">set(</span><span class="no">CMAKE_SYSTEM_VERSION</span><span class="w"> </span><span class="m">8.1</span><span class="nf">)</span>
+</pre></div>
+</div>
+</section>
+<section id="cross-compiling-for-adsp-sharc-blackfin">
+<span id="id2"></span><h3><a class="toc-backref" href="#id23" role="doc-backlink">為 ADSP SHARC/Blackfin 進行交叉編譯</a><a class="headerlink" href="#cross-compiling-for-adsp-sharc-blackfin" title="連結到這個標頭">¶</a></h3>
+<p>可透過將 <span class="target" id="index-3-variable:CMAKE_SYSTEM_NAME"></span><a class="reference internal" href="../variable/CMAKE_SYSTEM_NAME.html#variable:CMAKE_SYSTEM_NAME" title="CMAKE_SYSTEM_NAME"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_SYSTEM_NAME</span></code></a> 設定為 <code class="docutils literal notranslate"><span class="pre">ADSP</span></code>，並將 <span class="target" id="index-1-variable:CMAKE_SYSTEM_PROCESSOR"></span><a class="reference internal" href="../variable/CMAKE_SYSTEM_PROCESSOR.html#variable:CMAKE_SYSTEM_PROCESSOR" title="CMAKE_SYSTEM_PROCESSOR"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_SYSTEM_PROCESSOR</span></code></a> 設定為「零件編號」（不含 <code class="docutils literal notranslate"><span class="pre">ADSP-</span></code> 前綴）來設定 ADSP SHARC 或 Blackfin 的交叉編譯組態，例如 <code class="docutils literal notranslate"><span class="pre">21594</span></code>、<code class="docutils literal notranslate"><span class="pre">SC589</span></code> 等。此值不區分大小寫。</p>
+<p>CMake 會自動在其默認安裝位置搜尋 CCES 或 VDSP++ 安裝，並選擇找到的最新版本。如果同時安裝了兩者，CCES 將優先於 VDSP++ 被選中。自訂安裝路徑可以透過 <span class="target" id="index-0-variable:CMAKE_ADSP_ROOT"></span><a class="reference internal" href="../variable/CMAKE_ADSP_ROOT.html#variable:CMAKE_ADSP_ROOT" title="CMAKE_ADSP_ROOT"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_ADSP_ROOT</span></code></a> 變數或 <span class="target" id="index-0-envvar:ADSP_ROOT"></span><a class="reference internal" href="../envvar/ADSP_ROOT.html#envvar:ADSP_ROOT" title="ADSP_ROOT"><code class="xref cmake cmake-envvar docutils literal notranslate"><span class="pre">ADSP_ROOT</span></code></a> 環境變數設定。</p>
+<p>編譯器（<code class="docutils literal notranslate"><span class="pre">cc21k</span></code> 或 <code class="docutils literal notranslate"><span class="pre">ccblkfn</span></code>）會根據所提供的 <span class="target" id="index-2-variable:CMAKE_SYSTEM_PROCESSOR"></span><a class="reference internal" href="../variable/CMAKE_SYSTEM_PROCESSOR.html#variable:CMAKE_SYSTEM_PROCESSOR" title="CMAKE_SYSTEM_PROCESSOR"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_SYSTEM_PROCESSOR</span></code></a> 值自動選擇。</p>
+</section>
+<section id="cross-compiling-for-android">
+<span id="id3"></span><h3><a class="toc-backref" href="#id24" role="doc-backlink">為 Android 進行交叉編譯</a><a class="headerlink" href="#cross-compiling-for-android" title="連結到這個標頭">¶</a></h3>
+<p>工具鏈檔案可以透過將 <span class="target" id="index-4-variable:CMAKE_SYSTEM_NAME"></span><a class="reference internal" href="../variable/CMAKE_SYSTEM_NAME.html#variable:CMAKE_SYSTEM_NAME" title="CMAKE_SYSTEM_NAME"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_SYSTEM_NAME</span></code></a> 變數設定為 <code class="docutils literal notranslate"><span class="pre">Android</span></code> 來設定 Android 的交叉編譯組態。進一步的組態設定取決於所使用的 Android 開發環境。</p>
+<p>對於 <a class="reference internal" href="cmake-generators.7.html#visual-studio-generators"><span class="std std-ref">Visual Studio 生成器</span></a>，CMake 預期已安裝 <a class="reference internal" href="#cross-compiling-for-android-with-nvidia-nsight-tegra-visual-studio-edition"><span class="std std-ref">NVIDIA Nsight Tegra Visual Studio Edition</span></a> 或 <a class="reference internal" href="#cross-compiling-for-android-with-the-ndk"><span class="std std-ref">Visual Studio tools for Android</span></a>。請參見那些小節以了解進一步的組態設定詳細資訊。</p>
+<p>對於 <a class="reference internal" href="cmake-generators.7.html#makefile-generators"><span class="std std-ref">Makefile 生成器</span></a> 和 <span class="target" id="index-0-generator:Ninja"></span><a class="reference internal" href="../generator/Ninja.html#generator:Ninja" title="Ninja"><code class="xref cmake cmake-generator docutils literal notranslate"><span class="pre">Ninja</span></code></a> 生成器，CMake 預期以下環境之一：</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#cross-compiling-for-android-with-the-ndk"><span class="std std-ref">NDK</span></a></p></li>
+<li><p><a class="reference internal" href="#cross-compiling-for-android-with-a-standalone-toolchain"><span class="std std-ref">獨立工具鏈</span></a></p></li>
+</ul>
+<p>CMake 使用以下步驟來選擇其中一個環境：</p>
+<ul class="simple">
+<li><p>如果設定了 <span class="target" id="index-0-variable:CMAKE_ANDROID_NDK"></span><a class="reference internal" href="../variable/CMAKE_ANDROID_NDK.html#variable:CMAKE_ANDROID_NDK" title="CMAKE_ANDROID_NDK"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_ANDROID_NDK</span></code></a> 變數，則將使用指定位置的 NDK。</p></li>
+<li><p>否則，如果設定了 <span class="target" id="index-0-variable:CMAKE_ANDROID_STANDALONE_TOOLCHAIN"></span><a class="reference internal" href="../variable/CMAKE_ANDROID_STANDALONE_TOOLCHAIN.html#variable:CMAKE_ANDROID_STANDALONE_TOOLCHAIN" title="CMAKE_ANDROID_STANDALONE_TOOLCHAIN"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_ANDROID_STANDALONE_TOOLCHAIN</span></code></a> 變數，則將使用指定位置的獨立工具鏈。</p></li>
+<li><p>否則，如果 <span class="target" id="index-1-variable:CMAKE_SYSROOT"></span><a class="reference internal" href="../variable/CMAKE_SYSROOT.html#variable:CMAKE_SYSROOT" title="CMAKE_SYSROOT"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_SYSROOT</span></code></a> 變數設定為 <code class="docutils literal notranslate"><span class="pre">&lt;ndk&gt;/platforms/android-&lt;api&gt;/arch-&lt;arch&gt;</span></code> 形式的目錄，則 <code class="docutils literal notranslate"><span class="pre">&lt;ndk&gt;</span></code> 部分將用作 <span class="target" id="index-1-variable:CMAKE_ANDROID_NDK"></span><a class="reference internal" href="../variable/CMAKE_ANDROID_NDK.html#variable:CMAKE_ANDROID_NDK" title="CMAKE_ANDROID_NDK"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_ANDROID_NDK</span></code></a> 的值，並將使用 NDK。</p></li>
+<li><p>否則，如果 <span class="target" id="index-2-variable:CMAKE_SYSROOT"></span><a class="reference internal" href="../variable/CMAKE_SYSROOT.html#variable:CMAKE_SYSROOT" title="CMAKE_SYSROOT"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_SYSROOT</span></code></a> 變數設定為 <code class="docutils literal notranslate"><span class="pre">&lt;standalone-toolchain&gt;/sysroot</span></code> 形式的目錄，則 <code class="docutils literal notranslate"><span class="pre">&lt;standalone-toolchain&gt;</span></code> 部分將用作 <span class="target" id="index-1-variable:CMAKE_ANDROID_STANDALONE_TOOLCHAIN"></span><a class="reference internal" href="../variable/CMAKE_ANDROID_STANDALONE_TOOLCHAIN.html#variable:CMAKE_ANDROID_STANDALONE_TOOLCHAIN" title="CMAKE_ANDROID_STANDALONE_TOOLCHAIN"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_ANDROID_STANDALONE_TOOLCHAIN</span></code></a> 的值，並將使用獨立工具鏈。</p></li>
+<li><p>否則，如果設定了 cmake 變數 <code class="docutils literal notranslate"><span class="pre">ANDROID_NDK</span></code>，則它將用作 <span class="target" id="index-2-variable:CMAKE_ANDROID_NDK"></span><a class="reference internal" href="../variable/CMAKE_ANDROID_NDK.html#variable:CMAKE_ANDROID_NDK" title="CMAKE_ANDROID_NDK"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_ANDROID_NDK</span></code></a> 的值，並將使用 NDK。</p></li>
+<li><p>否則，如果設定了 cmake 變數 <code class="docutils literal notranslate"><span class="pre">ANDROID_STANDALONE_TOOLCHAIN</span></code>，則它將用作 <span class="target" id="index-2-variable:CMAKE_ANDROID_STANDALONE_TOOLCHAIN"></span><a class="reference internal" href="../variable/CMAKE_ANDROID_STANDALONE_TOOLCHAIN.html#variable:CMAKE_ANDROID_STANDALONE_TOOLCHAIN" title="CMAKE_ANDROID_STANDALONE_TOOLCHAIN"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_ANDROID_STANDALONE_TOOLCHAIN</span></code></a> 的值，並將使用獨立工具鏈。</p></li>
+<li><p>否則，如果設定了環境變數 <code class="docutils literal notranslate"><span class="pre">ANDROID_NDK_ROOT</span></code> 或 <code class="docutils literal notranslate"><span class="pre">ANDROID_NDK</span></code>，則它將用作 <span class="target" id="index-3-variable:CMAKE_ANDROID_NDK"></span><a class="reference internal" href="../variable/CMAKE_ANDROID_NDK.html#variable:CMAKE_ANDROID_NDK" title="CMAKE_ANDROID_NDK"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_ANDROID_NDK</span></code></a> 的值，並將使用 NDK。</p></li>
+<li><p>否則，如果設定了環境變數 <code class="docutils literal notranslate"><span class="pre">ANDROID_STANDALONE_TOOLCHAIN</span></code>，則它將用作 <span class="target" id="index-3-variable:CMAKE_ANDROID_STANDALONE_TOOLCHAIN"></span><a class="reference internal" href="../variable/CMAKE_ANDROID_STANDALONE_TOOLCHAIN.html#variable:CMAKE_ANDROID_STANDALONE_TOOLCHAIN" title="CMAKE_ANDROID_STANDALONE_TOOLCHAIN"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_ANDROID_STANDALONE_TOOLCHAIN</span></code></a> 的值，並將使用獨立工具鏈。</p></li>
+<li><p>否則，將會發出錯誤診斷，表示找不到 NDK 或獨立工具鏈。</p></li>
+</ul>
+<div class="versionadded">
+<p><span class="versionmodified added">在 3.20 版被加入: </span>如果選擇了 Android NDK，其版本號會記錄在 <span class="target" id="index-0-variable:CMAKE_ANDROID_NDK_VERSION"></span><a class="reference internal" href="../variable/CMAKE_ANDROID_NDK_VERSION.html#variable:CMAKE_ANDROID_NDK_VERSION" title="CMAKE_ANDROID_NDK_VERSION"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_ANDROID_NDK_VERSION</span></code></a> 變數中。</p>
+</div>
+<section id="cross-compiling-for-android-with-the-ndk">
+<span id="id4"></span><h4><a class="toc-backref" href="#id25" role="doc-backlink">使用 NDK 為 Android 進行交叉編譯</a><a class="headerlink" href="#cross-compiling-for-android-with-the-ndk" title="連結到這個標頭">¶</a></h4>
+<p>工具鏈檔案可以設定 <a class="reference internal" href="cmake-generators.7.html#makefile-generators"><span class="std std-ref">Makefile 生成器</span></a>、<a class="reference internal" href="cmake-generators.7.html#ninja-generators"><span class="std std-ref">Ninja 生成器</span></a> 或 <a class="reference internal" href="cmake-generators.7.html#visual-studio-generators"><span class="std std-ref">Visual Studio 生成器</span></a> 組態以 Android 為目標進行交叉編譯。</p>
+<p>使用以下變數設定 Android NDK 的使用組態：</p>
+<dl class="simple">
+<dt><span class="target" id="index-5-variable:CMAKE_SYSTEM_NAME"></span><a class="reference internal" href="../variable/CMAKE_SYSTEM_NAME.html#variable:CMAKE_SYSTEM_NAME" title="CMAKE_SYSTEM_NAME"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_SYSTEM_NAME</span></code></a></dt><dd><p>設定為 <code class="docutils literal notranslate"><span class="pre">Android</span></code>。必須指定才能啟用 Android 的交叉編譯。</p>
+</dd>
+<dt><span class="target" id="index-2-variable:CMAKE_SYSTEM_VERSION"></span><a class="reference internal" href="../variable/CMAKE_SYSTEM_VERSION.html#variable:CMAKE_SYSTEM_VERSION" title="CMAKE_SYSTEM_VERSION"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_SYSTEM_VERSION</span></code></a></dt><dd><p>設定為 Android API 層級。如果未指定，則按以下方式決定其值：</p>
+<ul class="simple">
+<li><p>如果設定了 <span class="target" id="index-0-variable:CMAKE_ANDROID_API"></span><a class="reference internal" href="../variable/CMAKE_ANDROID_API.html#variable:CMAKE_ANDROID_API" title="CMAKE_ANDROID_API"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_ANDROID_API</span></code></a> 變數，則其值將用作 API 層級。</p></li>
+<li><p>如果設定了 <span class="target" id="index-3-variable:CMAKE_SYSROOT"></span><a class="reference internal" href="../variable/CMAKE_SYSROOT.html#variable:CMAKE_SYSROOT" title="CMAKE_SYSROOT"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_SYSROOT</span></code></a> 變數，則從包含 sysroot 的 NDK 目錄結構中偵測 API 層級。</p></li>
+<li><p>否則，使用 NDK 中可用的最新 API 層級。</p></li>
+</ul>
+</dd>
+<dt><span class="target" id="index-0-variable:CMAKE_ANDROID_ARCH_ABI"></span><a class="reference internal" href="../variable/CMAKE_ANDROID_ARCH_ABI.html#variable:CMAKE_ANDROID_ARCH_ABI" title="CMAKE_ANDROID_ARCH_ABI"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_ANDROID_ARCH_ABI</span></code></a></dt><dd><p>設定為 Android ABI（架構）。如果未指定，此變數將默認為 <code class="docutils literal notranslate"><span class="pre">armeabi</span></code>、<code class="docutils literal notranslate"><span class="pre">armeabi-v7a</span></code> 和 <code class="docutils literal notranslate"><span class="pre">arm64-v8a</span></code> 列表中第一個支援的 ABI。<span class="target" id="index-0-variable:CMAKE_ANDROID_ARCH"></span><a class="reference internal" href="../variable/CMAKE_ANDROID_ARCH.html#variable:CMAKE_ANDROID_ARCH" title="CMAKE_ANDROID_ARCH"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_ANDROID_ARCH</span></code></a> 變數將從 <code class="docutils literal notranslate"><span class="pre">CMAKE_ANDROID_ARCH_ABI</span></code> 自動計算。另請參見 <span class="target" id="index-0-variable:CMAKE_ANDROID_ARM_MODE"></span><a class="reference internal" href="../variable/CMAKE_ANDROID_ARM_MODE.html#variable:CMAKE_ANDROID_ARM_MODE" title="CMAKE_ANDROID_ARM_MODE"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_ANDROID_ARM_MODE</span></code></a> 和 <span class="target" id="index-0-variable:CMAKE_ANDROID_ARM_NEON"></span><a class="reference internal" href="../variable/CMAKE_ANDROID_ARM_NEON.html#variable:CMAKE_ANDROID_ARM_NEON" title="CMAKE_ANDROID_ARM_NEON"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_ANDROID_ARM_NEON</span></code></a> 變數。</p>
+</dd>
+<dt><span class="target" id="index-4-variable:CMAKE_ANDROID_NDK"></span><a class="reference internal" href="../variable/CMAKE_ANDROID_NDK.html#variable:CMAKE_ANDROID_NDK" title="CMAKE_ANDROID_NDK"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_ANDROID_NDK</span></code></a></dt><dd><p>設定為 Android NDK 根目錄的絕對路徑。如果未指定，則將按照 <a class="reference internal" href="#cross-compiling-for-android"><span class="std std-ref">上述</span></a> 方式為此變數選擇默認值。</p>
+</dd>
+<dt><span class="target" id="index-0-variable:CMAKE_ANDROID_NDK_DEPRECATED_HEADERS"></span><a class="reference internal" href="../variable/CMAKE_ANDROID_NDK_DEPRECATED_HEADERS.html#variable:CMAKE_ANDROID_NDK_DEPRECATED_HEADERS" title="CMAKE_ANDROID_NDK_DEPRECATED_HEADERS"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_ANDROID_NDK_DEPRECATED_HEADERS</span></code></a></dt><dd><p>設為 true 值以使用已棄用的每個 API 層級的標頭，而不是統一標頭。如果未指定，默認為 false，除非使用的 NDK 不提供統一標頭。</p>
+</dd>
+<dt><span class="target" id="index-0-variable:CMAKE_ANDROID_NDK_TOOLCHAIN_VERSION"></span><a class="reference internal" href="../variable/CMAKE_ANDROID_NDK_TOOLCHAIN_VERSION.html#variable:CMAKE_ANDROID_NDK_TOOLCHAIN_VERSION" title="CMAKE_ANDROID_NDK_TOOLCHAIN_VERSION"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_ANDROID_NDK_TOOLCHAIN_VERSION</span></code></a></dt><dd><p>在 NDK r19 或更高版本上，此變數必須不設定或設為 <code class="docutils literal notranslate"><span class="pre">clang</span></code>。在 NDK r18 或更低版本上，將其設為要選作編譯器的 NDK 工具鏈版本。如果未指定，默認為最新的可用 GCC 工具鏈。</p>
+</dd>
+<dt><span class="target" id="index-0-variable:CMAKE_ANDROID_STL_TYPE"></span><a class="reference internal" href="../variable/CMAKE_ANDROID_STL_TYPE.html#variable:CMAKE_ANDROID_STL_TYPE" title="CMAKE_ANDROID_STL_TYPE"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_ANDROID_STL_TYPE</span></code></a></dt><dd><p>設定以指定要使用哪個 C++ 標準程式庫。如果未指定，將按照變數文件中的說明選擇默認值。</p>
+</dd>
+</dl>
+<p>以下變數將自動計算並提供：</p>
+<dl class="simple">
+<dt><span class="target" id="index-0-variable:CMAKE_&lt;LANG&gt;_ANDROID_TOOLCHAIN_PREFIX"></span><a class="reference internal" href="../variable/CMAKE_LANG_ANDROID_TOOLCHAIN_PREFIX.html#variable:CMAKE_&lt;LANG&gt;_ANDROID_TOOLCHAIN_PREFIX" title="CMAKE_&lt;LANG&gt;_ANDROID_TOOLCHAIN_PREFIX"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_&lt;LANG&gt;_ANDROID_TOOLCHAIN_PREFIX</span></code></a></dt><dd><p>NDK 工具鏈中 binutils 的絕對路徑前綴。</p>
+</dd>
+<dt><span class="target" id="index-0-variable:CMAKE_&lt;LANG&gt;_ANDROID_TOOLCHAIN_SUFFIX"></span><a class="reference internal" href="../variable/CMAKE_LANG_ANDROID_TOOLCHAIN_SUFFIX.html#variable:CMAKE_&lt;LANG&gt;_ANDROID_TOOLCHAIN_SUFFIX" title="CMAKE_&lt;LANG&gt;_ANDROID_TOOLCHAIN_SUFFIX"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_&lt;LANG&gt;_ANDROID_TOOLCHAIN_SUFFIX</span></code></a></dt><dd><p>NDK 工具鏈中 binutils 的主機平台後綴。</p>
+</dd>
+</dl>
+<p>例如，工具鏈檔案可能包含：</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">set(</span><span class="no">CMAKE_SYSTEM_NAME</span><span class="w"> </span><span class="nb">Android</span><span class="nf">)</span>
+<span class="nf">set(</span><span class="no">CMAKE_SYSTEM_VERSION</span><span class="w"> </span><span class="m">21</span><span class="nf">)</span><span class="w"> </span><span class="c"># API level</span>
+<span class="nf">set(</span><span class="no">CMAKE_ANDROID_ARCH_ABI</span><span class="w"> </span><span class="nb">arm64-v8a</span><span class="nf">)</span>
+<span class="nf">set(</span><span class="no">CMAKE_ANDROID_NDK</span><span class="w"> </span><span class="na">/path/to/android-ndk</span><span class="nf">)</span>
+<span class="nf">set(</span><span class="no">CMAKE_ANDROID_STL_TYPE</span><span class="w"> </span><span class="nb">gnustl_static</span><span class="nf">)</span>
+</pre></div>
+</div>
+<p>或者，也可以在沒有工具鏈檔案的情況下指定這些值：</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>cmake<span class="w"> </span>../src<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-DCMAKE_SYSTEM_NAME<span class="o">=</span>Android<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-DCMAKE_SYSTEM_VERSION<span class="o">=</span><span class="m">21</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-DCMAKE_ANDROID_ARCH_ABI<span class="o">=</span>arm64-v8a<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-DCMAKE_ANDROID_NDK<span class="o">=</span>/path/to/android-ndk<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-DCMAKE_ANDROID_STL_TYPE<span class="o">=</span>gnustl_static
+</pre></div>
+</div>
+</section>
+<section id="cross-compiling-for-android-with-a-standalone-toolchain">
+<span id="id5"></span><h4><a class="toc-backref" href="#id26" role="doc-backlink">使用獨立工具鏈為 Android 進行交叉編譯</a><a class="headerlink" href="#cross-compiling-for-android-with-a-standalone-toolchain" title="連結到這個標頭">¶</a></h4>
+<p>工具鏈檔案可以設定 <a class="reference internal" href="cmake-generators.7.html#makefile-generators"><span class="std std-ref">Makefile 生成器</span></a> 或 <span class="target" id="index-1-generator:Ninja"></span><a class="reference internal" href="../generator/Ninja.html#generator:Ninja" title="Ninja"><code class="xref cmake cmake-generator docutils literal notranslate"><span class="pre">Ninja</span></code></a> 生成器組態，使用獨立工具鏈以 Android 為目標進行交叉編譯。</p>
+<p>使用以下變數設定 Android 獨立工具鏈的使用組態：</p>
+<dl class="simple">
+<dt><span class="target" id="index-6-variable:CMAKE_SYSTEM_NAME"></span><a class="reference internal" href="../variable/CMAKE_SYSTEM_NAME.html#variable:CMAKE_SYSTEM_NAME" title="CMAKE_SYSTEM_NAME"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_SYSTEM_NAME</span></code></a></dt><dd><p>設定為 <code class="docutils literal notranslate"><span class="pre">Android</span></code>。必須指定才能啟用 Android 的交叉編譯。</p>
+</dd>
+<dt><span class="target" id="index-4-variable:CMAKE_ANDROID_STANDALONE_TOOLCHAIN"></span><a class="reference internal" href="../variable/CMAKE_ANDROID_STANDALONE_TOOLCHAIN.html#variable:CMAKE_ANDROID_STANDALONE_TOOLCHAIN" title="CMAKE_ANDROID_STANDALONE_TOOLCHAIN"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_ANDROID_STANDALONE_TOOLCHAIN</span></code></a></dt><dd><p>設定為獨立工具鏈根目錄的絕對路徑。必須存在 <code class="docutils literal notranslate"><span class="pre">${CMAKE_ANDROID_STANDALONE_TOOLCHAIN}/sysroot</span></code> 目錄。如果未指定，則將按照<a class="reference internal" href="#cross-compiling-for-android"><span class="std std-ref">上述</span></a>方式為此變數選擇默認值。</p>
+</dd>
+<dt><span class="target" id="index-1-variable:CMAKE_ANDROID_ARM_MODE"></span><a class="reference internal" href="../variable/CMAKE_ANDROID_ARM_MODE.html#variable:CMAKE_ANDROID_ARM_MODE" title="CMAKE_ANDROID_ARM_MODE"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_ANDROID_ARM_MODE</span></code></a></dt><dd><p>當獨立工具鏈以 ARM 為目標時，可選擇性地將其設為 <code class="docutils literal notranslate"><span class="pre">ON</span></code> 以定位 32 位元 ARM 而不是 16 位元 Thumb。詳情請參見變數文件。</p>
+</dd>
+<dt><span class="target" id="index-1-variable:CMAKE_ANDROID_ARM_NEON"></span><a class="reference internal" href="../variable/CMAKE_ANDROID_ARM_NEON.html#variable:CMAKE_ANDROID_ARM_NEON" title="CMAKE_ANDROID_ARM_NEON"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_ANDROID_ARM_NEON</span></code></a></dt><dd><p>當獨立工具鏈以 ARM v7 為目標時，可選擇性地將其設為 <code class="docutils literal notranslate"><span class="pre">ON</span></code> 以定位 ARM NEON 裝置。詳情請參見變數文件。</p>
+</dd>
+</dl>
+<p>以下變數將自動計算並提供：</p>
+<dl class="simple">
+<dt><span class="target" id="index-3-variable:CMAKE_SYSTEM_VERSION"></span><a class="reference internal" href="../variable/CMAKE_SYSTEM_VERSION.html#variable:CMAKE_SYSTEM_VERSION" title="CMAKE_SYSTEM_VERSION"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_SYSTEM_VERSION</span></code></a></dt><dd><p>從獨立工具鏈偵測到的 Android API 層級。</p>
+</dd>
+<dt><span class="target" id="index-1-variable:CMAKE_ANDROID_ARCH_ABI"></span><a class="reference internal" href="../variable/CMAKE_ANDROID_ARCH_ABI.html#variable:CMAKE_ANDROID_ARCH_ABI" title="CMAKE_ANDROID_ARCH_ABI"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_ANDROID_ARCH_ABI</span></code></a></dt><dd><p>從獨立工具鏈偵測到的 Android ABI。</p>
+</dd>
+<dt><span class="target" id="index-1-variable:CMAKE_&lt;LANG&gt;_ANDROID_TOOLCHAIN_PREFIX"></span><a class="reference internal" href="../variable/CMAKE_LANG_ANDROID_TOOLCHAIN_PREFIX.html#variable:CMAKE_&lt;LANG&gt;_ANDROID_TOOLCHAIN_PREFIX" title="CMAKE_&lt;LANG&gt;_ANDROID_TOOLCHAIN_PREFIX"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_&lt;LANG&gt;_ANDROID_TOOLCHAIN_PREFIX</span></code></a></dt><dd><p>獨立工具鏈中 <code class="docutils literal notranslate"><span class="pre">binutils</span></code> 的絕對路徑前綴。</p>
+</dd>
+<dt><span class="target" id="index-1-variable:CMAKE_&lt;LANG&gt;_ANDROID_TOOLCHAIN_SUFFIX"></span><a class="reference internal" href="../variable/CMAKE_LANG_ANDROID_TOOLCHAIN_SUFFIX.html#variable:CMAKE_&lt;LANG&gt;_ANDROID_TOOLCHAIN_SUFFIX" title="CMAKE_&lt;LANG&gt;_ANDROID_TOOLCHAIN_SUFFIX"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_&lt;LANG&gt;_ANDROID_TOOLCHAIN_SUFFIX</span></code></a></dt><dd><p>獨立工具鏈中 <code class="docutils literal notranslate"><span class="pre">binutils</span></code> 的主機平台後綴。</p>
+</dd>
+</dl>
+<p>例如，工具鏈檔案可能包含：</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">set(</span><span class="no">CMAKE_SYSTEM_NAME</span><span class="w"> </span><span class="nb">Android</span><span class="nf">)</span>
+<span class="nf">set(</span><span class="no">CMAKE_ANDROID_STANDALONE_TOOLCHAIN</span><span class="w"> </span><span class="na">/path/to/android-toolchain</span><span class="nf">)</span>
+</pre></div>
+</div>
+<p>或者，也可以在沒有工具鏈檔案的情況下指定這些值：</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>cmake<span class="w"> </span>../src<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-DCMAKE_SYSTEM_NAME<span class="o">=</span>Android<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-DCMAKE_ANDROID_STANDALONE_TOOLCHAIN<span class="o">=</span>/path/to/android-toolchain
+</pre></div>
+</div>
+</section>
+<section id="cross-compiling-for-android-with-nvidia-nsight-tegra-visual-studio-edition">
+<span id="id6"></span><h4><a class="toc-backref" href="#id27" role="doc-backlink">使用 NVIDIA Nsight Tegra Visual Studio Edition 為 Android 進行交叉編譯</a><a class="headerlink" href="#cross-compiling-for-android-with-nvidia-nsight-tegra-visual-studio-edition" title="連結到這個標頭">¶</a></h4>
+<p>用於設定其中一個 <a class="reference internal" href="cmake-generators.7.html#visual-studio-generators"><span class="std std-ref">Visual Studio 生成器</span></a> 組態以使用 NVIDIA Nsight Tegra 建置 Android 目標的工具鏈檔案可能如下所示：</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">set(</span><span class="no">CMAKE_SYSTEM_NAME</span><span class="w"> </span><span class="nb">Android</span><span class="nf">)</span>
+</pre></div>
+</div>
+<p>可以設定 <span class="target" id="index-1-variable:CMAKE_GENERATOR_TOOLSET"></span><a class="reference internal" href="../variable/CMAKE_GENERATOR_TOOLSET.html#variable:CMAKE_GENERATOR_TOOLSET" title="CMAKE_GENERATOR_TOOLSET"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_GENERATOR_TOOLSET</span></code></a> 來選擇 Nsight Tegra 的「Toolchain Version」值。</p>
+<p>另請參見目標屬性：</p>
+<ul class="simple">
+<li><p><span class="target" id="index-0-prop_tgt:ANDROID_ANT_ADDITIONAL_OPTIONS"></span><a class="reference internal" href="../prop_tgt/ANDROID_ANT_ADDITIONAL_OPTIONS.html#prop_tgt:ANDROID_ANT_ADDITIONAL_OPTIONS" title="ANDROID_ANT_ADDITIONAL_OPTIONS"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">ANDROID_ANT_ADDITIONAL_OPTIONS</span></code></a></p></li>
+<li><p><span class="target" id="index-0-prop_tgt:ANDROID_API_MIN"></span><a class="reference internal" href="../prop_tgt/ANDROID_API_MIN.html#prop_tgt:ANDROID_API_MIN" title="ANDROID_API_MIN"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">ANDROID_API_MIN</span></code></a></p></li>
+<li><p><span class="target" id="index-0-prop_tgt:ANDROID_API"></span><a class="reference internal" href="../prop_tgt/ANDROID_API.html#prop_tgt:ANDROID_API" title="ANDROID_API"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">ANDROID_API</span></code></a></p></li>
+<li><p><span class="target" id="index-0-prop_tgt:ANDROID_ARCH"></span><a class="reference internal" href="../prop_tgt/ANDROID_ARCH.html#prop_tgt:ANDROID_ARCH" title="ANDROID_ARCH"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">ANDROID_ARCH</span></code></a></p></li>
+<li><p><span class="target" id="index-0-prop_tgt:ANDROID_ASSETS_DIRECTORIES"></span><a class="reference internal" href="../prop_tgt/ANDROID_ASSETS_DIRECTORIES.html#prop_tgt:ANDROID_ASSETS_DIRECTORIES" title="ANDROID_ASSETS_DIRECTORIES"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">ANDROID_ASSETS_DIRECTORIES</span></code></a></p></li>
+<li><p><span class="target" id="index-0-prop_tgt:ANDROID_GUI"></span><a class="reference internal" href="../prop_tgt/ANDROID_GUI.html#prop_tgt:ANDROID_GUI" title="ANDROID_GUI"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">ANDROID_GUI</span></code></a></p></li>
+<li><p><span class="target" id="index-0-prop_tgt:ANDROID_JAR_DEPENDENCIES"></span><a class="reference internal" href="../prop_tgt/ANDROID_JAR_DEPENDENCIES.html#prop_tgt:ANDROID_JAR_DEPENDENCIES" title="ANDROID_JAR_DEPENDENCIES"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">ANDROID_JAR_DEPENDENCIES</span></code></a></p></li>
+<li><p><span class="target" id="index-0-prop_tgt:ANDROID_JAR_DIRECTORIES"></span><a class="reference internal" href="../prop_tgt/ANDROID_JAR_DIRECTORIES.html#prop_tgt:ANDROID_JAR_DIRECTORIES" title="ANDROID_JAR_DIRECTORIES"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">ANDROID_JAR_DIRECTORIES</span></code></a></p></li>
+<li><p><span class="target" id="index-0-prop_tgt:ANDROID_JAVA_SOURCE_DIR"></span><a class="reference internal" href="../prop_tgt/ANDROID_JAVA_SOURCE_DIR.html#prop_tgt:ANDROID_JAVA_SOURCE_DIR" title="ANDROID_JAVA_SOURCE_DIR"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">ANDROID_JAVA_SOURCE_DIR</span></code></a></p></li>
+<li><p><span class="target" id="index-0-prop_tgt:ANDROID_NATIVE_LIB_DEPENDENCIES"></span><a class="reference internal" href="../prop_tgt/ANDROID_NATIVE_LIB_DEPENDENCIES.html#prop_tgt:ANDROID_NATIVE_LIB_DEPENDENCIES" title="ANDROID_NATIVE_LIB_DEPENDENCIES"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">ANDROID_NATIVE_LIB_DEPENDENCIES</span></code></a></p></li>
+<li><p><span class="target" id="index-0-prop_tgt:ANDROID_NATIVE_LIB_DIRECTORIES"></span><a class="reference internal" href="../prop_tgt/ANDROID_NATIVE_LIB_DIRECTORIES.html#prop_tgt:ANDROID_NATIVE_LIB_DIRECTORIES" title="ANDROID_NATIVE_LIB_DIRECTORIES"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">ANDROID_NATIVE_LIB_DIRECTORIES</span></code></a></p></li>
+<li><p><span class="target" id="index-0-prop_tgt:ANDROID_PROCESS_MAX"></span><a class="reference internal" href="../prop_tgt/ANDROID_PROCESS_MAX.html#prop_tgt:ANDROID_PROCESS_MAX" title="ANDROID_PROCESS_MAX"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">ANDROID_PROCESS_MAX</span></code></a></p></li>
+<li><p><span class="target" id="index-0-prop_tgt:ANDROID_PROGUARD_CONFIG_PATH"></span><a class="reference internal" href="../prop_tgt/ANDROID_PROGUARD_CONFIG_PATH.html#prop_tgt:ANDROID_PROGUARD_CONFIG_PATH" title="ANDROID_PROGUARD_CONFIG_PATH"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">ANDROID_PROGUARD_CONFIG_PATH</span></code></a></p></li>
+<li><p><span class="target" id="index-0-prop_tgt:ANDROID_PROGUARD"></span><a class="reference internal" href="../prop_tgt/ANDROID_PROGUARD.html#prop_tgt:ANDROID_PROGUARD" title="ANDROID_PROGUARD"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">ANDROID_PROGUARD</span></code></a></p></li>
+<li><p><span class="target" id="index-0-prop_tgt:ANDROID_SECURE_PROPS_PATH"></span><a class="reference internal" href="../prop_tgt/ANDROID_SECURE_PROPS_PATH.html#prop_tgt:ANDROID_SECURE_PROPS_PATH" title="ANDROID_SECURE_PROPS_PATH"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">ANDROID_SECURE_PROPS_PATH</span></code></a></p></li>
+<li><p><span class="target" id="index-0-prop_tgt:ANDROID_SKIP_ANT_STEP"></span><a class="reference internal" href="../prop_tgt/ANDROID_SKIP_ANT_STEP.html#prop_tgt:ANDROID_SKIP_ANT_STEP" title="ANDROID_SKIP_ANT_STEP"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">ANDROID_SKIP_ANT_STEP</span></code></a></p></li>
+<li><p><span class="target" id="index-0-prop_tgt:ANDROID_STL_TYPE"></span><a class="reference internal" href="../prop_tgt/ANDROID_STL_TYPE.html#prop_tgt:ANDROID_STL_TYPE" title="ANDROID_STL_TYPE"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">ANDROID_STL_TYPE</span></code></a></p></li>
+</ul>
+</section>
+</section>
+<section id="cross-compiling-for-ios-tvos-visionos-or-watchos">
+<span id="id7"></span><h3><a class="toc-backref" href="#id28" role="doc-backlink">為 iOS、tvOS、visionOS 或 watchOS 進行交叉編譯</a><a class="headerlink" href="#cross-compiling-for-ios-tvos-visionos-or-watchos" title="連結到這個標頭">¶</a></h3>
+<p>對於 iOS、tvOS、visionOS 或 watchOS 的交叉編譯，建議使用 <span class="target" id="index-0-generator:Xcode"></span><a class="reference internal" href="../generator/Xcode.html#generator:Xcode" title="Xcode"><code class="xref cmake cmake-generator docutils literal notranslate"><span class="pre">Xcode</span></code></a> 生成器。也可以使用 <span class="target" id="index-0-generator:Unix Makefiles"></span><a class="reference internal" href="../generator/Unix%20Makefiles.html#generator:Unix Makefiles" title="Unix Makefiles"><code class="xref cmake cmake-generator docutils literal notranslate"><span class="pre">Unix</span> <span class="pre">Makefiles</span></code></a> 或 <span class="target" id="index-2-generator:Ninja"></span><a class="reference internal" href="../generator/Ninja.html#generator:Ninja" title="Ninja"><code class="xref cmake cmake-generator docutils literal notranslate"><span class="pre">Ninja</span></code></a> 生成器，但它們需要專案處理更多方面，例如目標 CPU 選擇和代碼簽署。</p>
+<p>任何 Apple 裝置平台都可以透過將 <span class="target" id="index-7-variable:CMAKE_SYSTEM_NAME"></span><a class="reference internal" href="../variable/CMAKE_SYSTEM_NAME.html#variable:CMAKE_SYSTEM_NAME" title="CMAKE_SYSTEM_NAME"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_SYSTEM_NAME</span></code></a> 變數設定為下表中的值來作為目標。默認情況下，會選擇最新的 Device SDK。對於所有 Apple 平台，可以透過設定 <span class="target" id="index-0-variable:CMAKE_OSX_SYSROOT"></span><a class="reference internal" href="../variable/CMAKE_OSX_SYSROOT.html#variable:CMAKE_OSX_SYSROOT" title="CMAKE_OSX_SYSROOT"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_OSX_SYSROOT</span></code></a> 變數來選擇不同的 SDK（例如仿真器），儘管通常不需要這樣做（請參見下面的 <span class="xref std std-ref">在裝置和仿真器之間切換</span>）。可以透過執行 <code class="docutils literal notranslate"><span class="pre">xcodebuild</span> <span class="pre">-showsdks</span></code> 來取得可用 SDK 的清單。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>作業系統</p></th>
+<th class="head"><p>CMAKE_SYSTEM_NAME</p></th>
+<th class="head"><p>裝置 SDK（默認）</p></th>
+<th class="head"><p>仿真器 SDK</p></th>
+<th class="head"><p>Catalyst SDK</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>iOS</p></td>
+<td><p>iOS</p></td>
+<td><p>iphoneos</p></td>
+<td><p>iphonesimulator</p></td>
+<td><p>macosx</p></td>
+</tr>
+<tr class="row-odd"><td><p>tvOS</p></td>
+<td><p>tvOS</p></td>
+<td><p>appletvos</p></td>
+<td><p>appletvsimulator</p></td>
+<td><p>不適用</p></td>
+</tr>
+<tr class="row-even"><td><p>visionOS</p></td>
+<td><p>visionOS</p></td>
+<td><p>xros</p></td>
+<td><p>xrsimulator</p></td>
+<td><p>不適用</p></td>
+</tr>
+<tr class="row-odd"><td><p>watchOS</p></td>
+<td><p>watchOS</p></td>
+<td><p>watchos</p></td>
+<td><p>watchsimulator</p></td>
+<td><p>不適用</p></td>
+</tr>
+</tbody>
+</table>
+<p>例如，要建立 iOS 的 CMake 組態，以下命令就足夠了：</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cmake .. -GXcode -DCMAKE_SYSTEM_NAME=iOS</span>
+</pre></div>
+</div>
+<p>變數 <span class="target" id="index-0-variable:CMAKE_OSX_ARCHITECTURES"></span><a class="reference internal" href="../variable/CMAKE_OSX_ARCHITECTURES.html#variable:CMAKE_OSX_ARCHITECTURES" title="CMAKE_OSX_ARCHITECTURES"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_OSX_ARCHITECTURES</span></code></a> 可用於設定裝置和仿真器的架構。變數 <span class="target" id="index-0-variable:CMAKE_OSX_DEPLOYMENT_TARGET"></span><a class="reference internal" href="../variable/CMAKE_OSX_DEPLOYMENT_TARGET.html#variable:CMAKE_OSX_DEPLOYMENT_TARGET" title="CMAKE_OSX_DEPLOYMENT_TARGET"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_OSX_DEPLOYMENT_TARGET</span></code></a> 可用於設定 iOS/tvOS/visionOS/watchOS 部署目標。</p>
+<p>下一個範例將五種架構安裝到一個 iOS 程式庫的通用二進位檔中。它會在適當的位置新增相關的 <code class="docutils literal notranslate"><span class="pre">-miphoneos-version-min=9.3</span></code> 或 <code class="docutils literal notranslate"><span class="pre">-mios-simulator-version-min=9.3</span></code> 編譯器旗標。請注意，範例中使用的 <span class="target" id="index-0-variable:CMAKE_IOS_INSTALL_COMBINED"></span><a class="reference internal" href="../variable/CMAKE_IOS_INSTALL_COMBINED.html#variable:CMAKE_IOS_INSTALL_COMBINED" title="CMAKE_IOS_INSTALL_COMBINED"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_IOS_INSTALL_COMBINED</span></code></a> 變數現已棄用，因此不再建議使用此方法。</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>cmake<span class="w"> </span>-S.<span class="w"> </span>-B_builds<span class="w"> </span>-GXcode<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DCMAKE_SYSTEM_NAME<span class="o">=</span>iOS<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="s2">&quot;-DCMAKE_OSX_ARCHITECTURES=armv7;armv7s;arm64;i386;x86_64&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DCMAKE_OSX_DEPLOYMENT_TARGET<span class="o">=</span><span class="m">9</span>.3<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DCMAKE_INSTALL_PREFIX<span class="o">=</span><span class="sb">`</span><span class="nb">pwd</span><span class="sb">`</span>/_install<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DCMAKE_XCODE_ATTRIBUTE_ONLY_ACTIVE_ARCH<span class="o">=</span>NO<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DCMAKE_IOS_INSTALL_COMBINED<span class="o">=</span>YES
+</pre></div>
+</div>
+<p>範例：</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="c"># CMakeLists.txt</span>
+<span class="nf">cmake_minimum_required(</span><span class="no">VERSION</span><span class="w"> </span><span class="m">3.14</span><span class="nf">)</span>
+<span class="nf">project(</span><span class="nb">foo</span><span class="nf">)</span>
+<span class="nf">add_library(</span><span class="nb">foo</span><span class="w"> </span><span class="nb">foo.cpp</span><span class="nf">)</span>
+<span class="nf">install(</span><span class="no">TARGETS</span><span class="w"> </span><span class="nb">foo</span><span class="w"> </span><span class="no">DESTINATION</span><span class="w"> </span><span class="nb">lib</span><span class="nf">)</span>
+</pre></div>
+</div>
+<p>安裝：</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>cmake<span class="w"> </span>--build<span class="w"> </span>_builds<span class="w"> </span>--config<span class="w"> </span>Release<span class="w"> </span>--target<span class="w"> </span>install
+</pre></div>
+</div>
+<p>檢查程式庫：</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>lipo<span class="w"> </span>-info<span class="w"> </span>_install/lib/libfoo.a
+<span class="go">Architectures in the fat file: _install/lib/libfoo.a are: i386 armv7 armv7s x86_64 arm64</span>
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>otool<span class="w"> </span>-l<span class="w"> </span>_install/lib/libfoo.a<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-A2<span class="w"> </span>LC_VERSION_MIN_IPHONEOS
+<span class="go">      cmd LC_VERSION_MIN_IPHONEOS</span>
+<span class="go">  cmdsize 16</span>
+<span class="go">  version 9.3</span>
+</pre></div>
+</div>
+<section id="code-signing">
+<h4><a class="toc-backref" href="#id29" role="doc-backlink">代碼簽署</a><a class="headerlink" href="#code-signing" title="連結到這個標頭">¶</a></h4>
+<p>如果在使用 <span class="target" id="index-1-generator:Xcode"></span><a class="reference internal" href="../generator/Xcode.html#generator:Xcode" title="Xcode"><code class="xref cmake cmake-generator docutils literal notranslate"><span class="pre">Xcode</span></code></a> 生成器時需要或希望進行代碼簽署，可以透過 <code class="docutils literal notranslate"><span class="pre">CMAKE_XCODE_ATTRIBUTE_DEVELOPMENT_TEAM</span></code> CMake 變數指定開發團隊 ID。此團隊 ID 將被包含在生成的 Xcode 專案中。默認情況下，CMake 在內部組態階段（即編譯器 ID 和功能偵測）避免需要代碼簽署。</p>
+</section>
+<section id="switching-between-device-and-simulator">
+<span id="id8"></span><h4><a class="toc-backref" href="#id30" role="doc-backlink">在裝置和仿真器之間切換</a><a class="headerlink" href="#switching-between-device-and-simulator" title="連結到這個標頭">¶</a></h4>
+<p>在為任何嵌入式平台進行組態時，您可以選擇以真實裝置或仿真器為目標。兩者都有各自獨立的 SDK，但 CMake 僅支援在組態階段指定單一 SDK。這意味著開發人員必須在組態時選擇其中一個。使用 <span class="target" id="index-2-generator:Xcode"></span><a class="reference internal" href="../generator/Xcode.html#generator:Xcode" title="Xcode"><code class="xref cmake cmake-generator docutils literal notranslate"><span class="pre">Xcode</span></code></a> 生成器時，這個限制較小，因為即使只針對其中一個進行了組態，Xcode 仍然允許您為裝置或仿真器進行建置。在 Xcode IDE 中，系統會針對所選的「目標平台」執行建置。從命令行建置時，可以透過向底層建置工具 (<code class="docutils literal notranslate"><span class="pre">xcodebuild</span></code>) 傳遞 <code class="docutils literal notranslate"><span class="pre">-sdk</span></code> 選項來直接指定所需的 SDK。例如：</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>cmake<span class="w"> </span>--build<span class="w"> </span>...<span class="w"> </span>--<span class="w"> </span>-sdk<span class="w"> </span>iphonesimulator
+</pre></div>
+</div>
+<p>請注意，組態期間進行的檢查是針對組態時的 SDK 執行的，對於其他 SDK 可能不成立。像 <span class="target" id="index-0-command:find_package"></span><a class="reference internal" href="../command/find_package.html#command:find_package" title="find_package"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">find_package()</span></code></a>、<span class="target" id="index-0-command:find_library"></span><a class="reference internal" href="../command/find_library.html#command:find_library" title="find_library"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">find_library()</span></code></a> 等命令僅儲存和使用所組態的 SDK/平台的詳細資訊，因此如果要在裝置和仿真器建置之間切換，可能會出現問題。您可以遵循以下規則來使裝置 + 仿真器組態正常運作：</p>
+<ul class="simple">
+<li><p>使用明確的 <code class="docutils literal notranslate"><span class="pre">-l</span></code> 連結器旗標，例如 <code class="docutils literal notranslate"><span class="pre">target_link_libraries(foo</span> <span class="pre">PUBLIC</span> <span class="pre">&quot;-lz&quot;)</span></code></p></li>
+<li><p>使用明確的 <code class="docutils literal notranslate"><span class="pre">-framework</span></code> 連結器旗標，例如 <code class="docutils literal notranslate"><span class="pre">target_link_libraries(foo</span> <span class="pre">PUBLIC</span> <span class="pre">&quot;-framework</span> <span class="pre">CoreFoundation&quot;)</span></code></p></li>
+<li><p>僅對使用 <span class="target" id="index-1-variable:CMAKE_IOS_INSTALL_COMBINED"></span><a class="reference internal" href="../variable/CMAKE_IOS_INSTALL_COMBINED.html#variable:CMAKE_IOS_INSTALL_COMBINED" title="CMAKE_IOS_INSTALL_COMBINED"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_IOS_INSTALL_COMBINED</span></code></a> 功能安裝的程式庫使用 <span class="target" id="index-1-command:find_package"></span><a class="reference internal" href="../command/find_package.html#command:find_package" title="find_package"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">find_package()</span></code></a></p></li>
+</ul>
+</section>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3>目次表</h3>
+    <ul>
+<li><a class="reference internal" href="#">cmake-工具鏈(7)</a><ul>
+<li><a class="reference internal" href="#introduction">介紹</a></li>
+<li><a class="reference internal" href="#languages">語言</a></li>
+<li><a class="reference internal" href="#variables-and-properties">變數與屬性</a></li>
+<li><a class="reference internal" href="#toolchain-features">工具鏈功能</a></li>
+<li><a class="reference internal" href="#cross-compiling">交叉編譯</a><ul>
+<li><a class="reference internal" href="#cross-compiling-for-linux">為 Linux 進行交叉編譯</a></li>
+<li><a class="reference internal" href="#cross-compiling-for-the-cray-linux-environment">為 Cray Linux 環境進行交叉編譯</a></li>
+<li><a class="reference internal" href="#cross-compiling-using-clang">使用 Clang 進行交叉編譯</a></li>
+<li><a class="reference internal" href="#cross-compiling-for-qnx">為 QNX 進行交叉編譯</a></li>
+<li><a class="reference internal" href="#cross-compiling-for-windows-ce">為 Windows CE 進行交叉編譯</a></li>
+<li><a class="reference internal" href="#cross-compiling-for-windows-10-universal-applications">為 Windows 10 通用應用程式進行交叉編譯</a></li>
+<li><a class="reference internal" href="#cross-compiling-for-windows-phone">為 Windows Phone 進行交叉編譯</a></li>
+<li><a class="reference internal" href="#cross-compiling-for-windows-store">為 Windows Store 進行交叉編譯</a></li>
+<li><a class="reference internal" href="#cross-compiling-for-adsp-sharc-blackfin">為 ADSP SHARC/Blackfin 進行交叉編譯</a></li>
+<li><a class="reference internal" href="#cross-compiling-for-android">為 Android 進行交叉編譯</a><ul>
+<li><a class="reference internal" href="#cross-compiling-for-android-with-the-ndk">使用 NDK 為 Android 進行交叉編譯</a></li>
+<li><a class="reference internal" href="#cross-compiling-for-android-with-a-standalone-toolchain">使用獨立工具鏈為 Android 進行交叉編譯</a></li>
+<li><a class="reference internal" href="#cross-compiling-for-android-with-nvidia-nsight-tegra-visual-studio-edition">使用 NVIDIA Nsight Tegra Visual Studio Edition 為 Android 進行交叉編譯</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#cross-compiling-for-ios-tvos-visionos-or-watchos">為 iOS、tvOS、visionOS 或 watchOS 進行交叉編譯</a><ul>
+<li><a class="reference internal" href="#code-signing">代碼簽署</a></li>
+<li><a class="reference internal" href="#switching-between-device-and-simulator">在裝置和仿真器之間切換</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>上個話題</h4>
+    <p class="topless"><a href="cmake-server.7.html"
+                          title="上個章節">cmake-伺服器(7)</a></p>
+  </div>
+  <div>
+    <h4>下個話題</h4>
+    <p class="topless"><a href="cmake-variables.7.html"
+                          title="下個章節">cmake-變數(7)</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>本頁</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/manual/cmake-toolchains.7.rst.txt"
+            rel="nofollow">顯示來源碼</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜尋</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="前往" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>瀏覽</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="總索引"
+             >索引</a></li>
+        <li class="right" >
+          <a href="cmake-variables.7.html" title="cmake-變數(7)"
+             >下一頁</a> |</li>
+        <li class="right" >
+          <a href="cmake-server.7.html" title="cmake-伺服器(7)"
+             >上一頁</a> |</li>
+  <li>
+    <label class="sidebar-toggle" for="sidebar-check"></label>
+  </li>
+  <li class="rootlink">
+    <img src="../_static/cmake-logo-16.png" width="16" height="16" alt=""/>
+    <a href="https://cmake.org/">CMake 3.31.12-dirty</a>
+    <span class="reldelim1"> &#187;</span>
+  </li>
+  <li>
+    <a href="../index.html">文件</a> &#187;
+  </li>
+
+        <li class="nav-item nav-item-this"><a href="">cmake-工具鏈(7)</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+    &#169; 著作權 2000-2024 Kitware, Inc. and Contributors.
+      使用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3 建立。
+    </div>
+<script type="text/javascript">
+(function() {
+  "use strict";
+  const hide = () => document.getElementById("sidebar-check").checked = false;
+  addEventListener("keydown", e => (e.key === "Escape") && hide());
+  addEventListener("click", e => (e.target.tagName === "A") && hide());
+  addEventListener("hashchange", hide)
+})();
+</script>
+  </body>
+</html>

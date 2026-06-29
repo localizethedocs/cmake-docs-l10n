@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+
+<html lang="zh-TW" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>CPack AppImage 生成器 &mdash; CMake 4.4.0-rc2 Documentation</title>
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a3862c66" />
+    <link rel="stylesheet" type="text/css" href="../_static/cmake.css?v=d27bb136" />
+    
+    <script src="../_static/documentation_options.js?v=a7aeb7e1"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/translations.js?v=cbf116e0"></script>
+    
+    <link rel="canonical" href="https://projects.localizethedocs.org/cmake-docs-l10n/cpack_gen/appimage.html" />
+    <link rel="icon" href="../_static/cmake-favicon.ico"/>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜尋" href="../search.html" />
+    <link rel="next" title="CPack Archive Generator" href="archive.html" />
+    <link rel="prev" title="cpack-生成器(7)" href="../manual/cpack-generators.7.html" />
+
+ 
+
+    <script type="text/javascript" src="../ltd-provenance.js"></script>
+    <script type="text/javascript" src="../ltd-current.js"></script>
+    <script type="text/javascript" src="../../../ltd-config.js"></script>
+    <script type="text/javascript" src="../../../ltd-flyout.js"></script>
+
+  </head><body>
+    <input id="sidebar-check" type="checkbox" />
+    <label id="sidebar-overlay" for="sidebar-check"></label>
+
+
+
+    <div class="related relbar1" role="navigation" aria-label="Related">
+      <h3>瀏覽</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="總索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="archive.html" title="CPack Archive Generator"
+             accesskey="N">下一頁</a> |</li>
+        <li class="right" >
+          <a href="../manual/cpack-generators.7.html" title="cpack-生成器(7)"
+             accesskey="P">上一頁</a> |</li>
+  <li>
+    <label class="sidebar-toggle" for="sidebar-check"></label>
+  </li>
+  <li class="rootlink">
+    <img src="../_static/cmake-logo-16.png" width="16" height="16" alt=""/>
+    <a href="https://cmake.org/">CMake 4.4.0-rc2</a>
+    <span class="reldelim1"> &#187;</span>
+  </li>
+  <li>
+    <a href="../index.html">文件</a> &#187;
+  </li>
+
+          <li class="nav-item nav-item-1"><a href="../manual/cpack-generators.7.html" accesskey="U">cpack-生成器(7)</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">CPack AppImage 生成器</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="cpack-appimage-generator">
+<span id="cpack_gen:CPack AppImage Generator"></span><h1>CPack AppImage 生成器<a class="headerlink" href="#cpack-appimage-generator" title="連結到這個標頭">¶</a></h1>
+<div class="versionadded">
+<p><span class="versionmodified added">在 4.2 版被加入.</span></p>
+</div>
+<p>The CPack <a class="reference external" href="https://appimage.org">AppImage</a> generator enables bundling an application into the
+AppImage format. It uses <code class="docutils literal notranslate"><span class="pre">appimagetool</span></code> to pack the application
+and <code class="docutils literal notranslate"><span class="pre">patchelf</span></code> to set the application <code class="docutils literal notranslate"><span class="pre">RPATH</span></code> to a relative path
+based on where the AppImage will be mounted.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">appimagetool</span></code> does not scan for libraries dependencies.  It only
+packs the installed content and checks if the provided <code class="docutils literal notranslate"><span class="pre">.desktop</span></code> file
+was properly created.  For best compatibility, it's recommended to build on
+an old LTS distribution and to include any dependencies in the generated file.</p>
+<p>The snippet below can be added to your <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code> file.
+Replace <code class="docutils literal notranslate"><span class="pre">my_application_target</span></code> with your application target.
+The example will do a best effort to identify the libraries your
+application links to and copy them to the install location.</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">install(</span><span class="no">CODE</span><span class="w"> </span><span class="s s-Multiline">[[</span>
+<span class="s s-Multiline">    file(GET_RUNTIME_DEPENDENCIES</span>
+<span class="s s-Multiline">        EXECUTABLES $&lt;TARGET_FILE:my_application_target&gt;</span>
+<span class="s s-Multiline">        RESOLVED_DEPENDENCIES_VAR resolved_deps</span>
+<span class="s s-Multiline">    )</span>
+
+<span class="s s-Multiline">    foreach(dep ${resolved_deps})</span>
+<span class="s s-Multiline">        # copy the symlink</span>
+<span class="s s-Multiline">        file(COPY ${dep} DESTINATION ${CMAKE_INSTALL_PREFIX}/lib)</span>
+
+<span class="s s-Multiline">        # Resolve the real path of the dependency (follows symlinks)</span>
+<span class="s s-Multiline">        file(REAL_PATH ${dep} resolved_dep_path)</span>
+
+<span class="s s-Multiline">        # Copy the resolved file to the destination</span>
+<span class="s s-Multiline">        file(COPY ${resolved_dep_path} DESTINATION ${CMAKE_INSTALL_PREFIX}/lib)</span>
+<span class="s s-Multiline">    endforeach()</span>
+<span class="s s-Multiline">]]</span><span class="nf">)</span>
+</pre></div>
+</div>
+<p>The CPack AppImage generator will generate a default <a class="reference external" href="https://docs.appimage.org/introduction/software-overview.html#apprun">AppRun</a> based on the
+provided <code class="docutils literal notranslate"><span class="pre">.desktop</span></code> entry.  Alternatively, if a custom <code class="docutils literal notranslate"><span class="pre">AppRun</span></code> is
+installed, e.g., via the <span class="target" id="index-0-command:install"></span><a class="reference internal" href="../command/install.html#command:install" title="install"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">install()</span></code></a> command, it will be used instead
+of the generated one.</p>
+<p>For Qt-based projects, it is recommended to call
+<code class="docutils literal notranslate"><span class="pre">qt_generate_deploy_app_script()</span></code> or <code class="docutils literal notranslate"><span class="pre">qt_generate_deploy_qml_app_script()</span></code>
+and install the files generated by the script.  This will install the
+Qt plugins.</p>
+<p>You must also set <span class="target" id="index-0-variable:CPACK_PACKAGE_ICON"></span><a class="reference internal" href="../module/CPack.html#variable:CPACK_PACKAGE_ICON" title="CPACK_PACKAGE_ICON"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CPACK_PACKAGE_ICON</span></code></a> with the same value
+listed in the Desktop file.</p>
+<section id="variables-specific-to-cpack-appimage-generator">
+<h2>Variables Specific to CPack AppImage Generator<a class="headerlink" href="#variables-specific-to-cpack-appimage-generator" title="連結到這個標頭">¶</a></h2>
+<dl class="cmake variable">
+<dt class="sig sig-object cmake" id="variable:CPACK_APPIMAGE_TOOL_EXECUTABLE">
+<span class="sig-name descname"><span class="pre">CPACK_APPIMAGE_TOOL_EXECUTABLE</span></span><a class="headerlink" href="#variable:CPACK_APPIMAGE_TOOL_EXECUTABLE" title="連結到這個定義">¶</a></dt>
+<dd><p>Name of the <code class="docutils literal notranslate"><span class="pre">appimagetool</span></code> executable.  If not given as an absolute path,
+logic based on <span class="target" id="index-0-command:find_program"></span><a class="reference internal" href="../command/find_program.html#command:find_program" title="find_program"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">find_program()</span></code></a> will be used internally with this
+value to find the executable.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">appimagetool</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cmake variable">
+<dt class="sig sig-object cmake" id="variable:CPACK_APPIMAGE_PATCHELF_EXECUTABLE">
+<span class="sig-name descname"><span class="pre">CPACK_APPIMAGE_PATCHELF_EXECUTABLE</span></span><a class="headerlink" href="#variable:CPACK_APPIMAGE_PATCHELF_EXECUTABLE" title="連結到這個定義">¶</a></dt>
+<dd><p>Name of the <code class="docutils literal notranslate"><span class="pre">patchelf</span></code> executable.  If not given as an absolute path,
+logic based on <span class="target" id="index-1-command:find_program"></span><a class="reference internal" href="../command/find_program.html#command:find_program" title="find_program"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">find_program()</span></code></a> will be used internally with this
+value to find the executable.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">patchelf</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cmake variable">
+<dt class="sig sig-object cmake" id="variable:CPACK_APPIMAGE_DESKTOP_FILE">
+<span class="sig-name descname"><span class="pre">CPACK_APPIMAGE_DESKTOP_FILE</span></span><a class="headerlink" href="#variable:CPACK_APPIMAGE_DESKTOP_FILE" title="連結到這個定義">¶</a></dt>
+<dd><p>Name of the freedesktop.org desktop file to be installed.  If not specified,
+the first <code class="docutils literal notranslate"><span class="pre">.desktop</span></code> file found in the list of files to be installed will
+be used.  There must be a valid <code class="docutils literal notranslate"><span class="pre">.desktop</span></code> file for the package, and it
+must include an <code class="docutils literal notranslate"><span class="pre">Icon</span></code> entry that matches <span class="target" id="index-1-variable:CPACK_PACKAGE_ICON"></span><a class="reference internal" href="../module/CPack.html#variable:CPACK_PACKAGE_ICON" title="CPACK_PACKAGE_ICON"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CPACK_PACKAGE_ICON</span></code></a>
+without the file extension.  The actual installed location of the icon
+should follow the freedesktop.org specification.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Unset</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cmake variable">
+<dt class="sig sig-object cmake" id="variable:CPACK_APPIMAGE_UPDATE_INFORMATION">
+<span class="sig-name descname"><span class="pre">CPACK_APPIMAGE_UPDATE_INFORMATION</span></span><a class="headerlink" href="#variable:CPACK_APPIMAGE_UPDATE_INFORMATION" title="連結到這個定義">¶</a></dt>
+<dd><p>Embed the value of this variable as the update information.  See the
+<code class="docutils literal notranslate"><span class="pre">appimagetool</span></code> source code for the supported values and formats of the
+<code class="docutils literal notranslate"><span class="pre">--updateinformation</span></code> option.  It is highly recommended to have
+the <code class="docutils literal notranslate"><span class="pre">zsyncmake</span></code> tool installed if using <code class="docutils literal notranslate"><span class="pre">zsync</span></code> update information.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Unset</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cmake variable">
+<dt class="sig sig-object cmake" id="variable:CPACK_APPIMAGE_GUESS_UPDATE_INFORMATION">
+<span class="sig-name descname"><span class="pre">CPACK_APPIMAGE_GUESS_UPDATE_INFORMATION</span></span><a class="headerlink" href="#variable:CPACK_APPIMAGE_GUESS_UPDATE_INFORMATION" title="連結到這個定義">¶</a></dt>
+<dd><p>When this variable is true, add the <code class="docutils literal notranslate"><span class="pre">--guess</span></code> option to the
+<code class="docutils literal notranslate"><span class="pre">appimagetool</span></code> invocation.  This directs the tool to try to guess
+appropriate update information based on GitHub or GitLab environment
+variables.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Unset</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cmake variable">
+<dt class="sig sig-object cmake" id="variable:CPACK_APPIMAGE_COMPRESSOR">
+<span class="sig-name descname"><span class="pre">CPACK_APPIMAGE_COMPRESSOR</span></span><a class="headerlink" href="#variable:CPACK_APPIMAGE_COMPRESSOR" title="連結到這個定義">¶</a></dt>
+<dd><p>Override the <code class="docutils literal notranslate"><span class="pre">appimagetool</span></code>'s default type of squashfs compression (zstd).
+This corresponds to the <code class="docutils literal notranslate"><span class="pre">appimagetool</span> <span class="pre">--comp</span></code> option.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Unset</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cmake variable">
+<dt class="sig sig-object cmake" id="variable:CPACK_APPIMAGE_MKSQUASHFS_OPTIONS">
+<span class="sig-name descname"><span class="pre">CPACK_APPIMAGE_MKSQUASHFS_OPTIONS</span></span><a class="headerlink" href="#variable:CPACK_APPIMAGE_MKSQUASHFS_OPTIONS" title="連結到這個定義">¶</a></dt>
+<dd><p>List of arguments to pass through to <code class="docutils literal notranslate"><span class="pre">mksquashfs</span></code>.  Each of these will be
+preceded by <code class="docutils literal notranslate"><span class="pre">--mksquashfs-opt</span></code> on the <code class="docutils literal notranslate"><span class="pre">appimagetool</span></code> command line.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Unset</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cmake variable">
+<dt class="sig sig-object cmake" id="variable:CPACK_APPIMAGE_NO_APPSTREAM">
+<span class="sig-name descname"><span class="pre">CPACK_APPIMAGE_NO_APPSTREAM</span></span><a class="headerlink" href="#variable:CPACK_APPIMAGE_NO_APPSTREAM" title="連結到這個定義">¶</a></dt>
+<dd><p>If set to true, do not check AppStream metadata.  This passes the
+<code class="docutils literal notranslate"><span class="pre">--no-appstream</span></code> option to <code class="docutils literal notranslate"><span class="pre">appimagetool</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Unset</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cmake variable">
+<dt class="sig sig-object cmake" id="variable:CPACK_APPIMAGE_EXCLUDE_FILE">
+<span class="sig-name descname"><span class="pre">CPACK_APPIMAGE_EXCLUDE_FILE</span></span><a class="headerlink" href="#variable:CPACK_APPIMAGE_EXCLUDE_FILE" title="連結到這個定義">¶</a></dt>
+<dd><p>Use the specified file as an exclude file for <code class="docutils literal notranslate"><span class="pre">mksquashfs</span></code>,
+in addition to <code class="docutils literal notranslate"><span class="pre">.appimageignore</span></code>.  This uses the <code class="docutils literal notranslate"><span class="pre">--exclude-file</span></code>
+option to <code class="docutils literal notranslate"><span class="pre">appimagetool</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Unset</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cmake variable">
+<dt class="sig sig-object cmake" id="variable:CPACK_APPIMAGE_RUNTIME_FILE">
+<span class="sig-name descname"><span class="pre">CPACK_APPIMAGE_RUNTIME_FILE</span></span><a class="headerlink" href="#variable:CPACK_APPIMAGE_RUNTIME_FILE" title="連結到這個定義">¶</a></dt>
+<dd><p>Specify a runtime file to use instead of letting the <code class="docutils literal notranslate"><span class="pre">appimagetool</span></code>
+download a runtime to embed in the generated AppImage.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Unset</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cmake variable">
+<dt class="sig sig-object cmake" id="variable:CPACK_APPIMAGE_SIGN">
+<span class="sig-name descname"><span class="pre">CPACK_APPIMAGE_SIGN</span></span><a class="headerlink" href="#variable:CPACK_APPIMAGE_SIGN" title="連結到這個定義">¶</a></dt>
+<dd><p>When set to true, sign the generated AppImage with gpg[2].
+<span class="target" id="index-0-variable:CPACK_APPIMAGE_SIGN_KEY"></span><a class="reference internal" href="#variable:CPACK_APPIMAGE_SIGN_KEY" title="CPACK_APPIMAGE_SIGN_KEY"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CPACK_APPIMAGE_SIGN_KEY</span></code></a> should also be specified if using this
+option.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Unset</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cmake variable">
+<dt class="sig sig-object cmake" id="variable:CPACK_APPIMAGE_SIGN_KEY">
+<span class="sig-name descname"><span class="pre">CPACK_APPIMAGE_SIGN_KEY</span></span><a class="headerlink" href="#variable:CPACK_APPIMAGE_SIGN_KEY" title="連結到這個定義">¶</a></dt>
+<dd><p>Key ID to use for gpg[2] signatures when signing is enabled with
+<span class="target" id="index-0-variable:CPACK_APPIMAGE_SIGN"></span><a class="reference internal" href="#variable:CPACK_APPIMAGE_SIGN" title="CPACK_APPIMAGE_SIGN"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CPACK_APPIMAGE_SIGN</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Unset</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3>目次表</h3>
+    <ul>
+<li><a class="reference internal" href="#">CPack AppImage 生成器</a><ul>
+<li><a class="reference internal" href="#variables-specific-to-cpack-appimage-generator">Variables Specific to CPack AppImage Generator</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>上個話題</h4>
+    <p class="topless"><a href="../manual/cpack-generators.7.html"
+                          title="上個章節">cpack-生成器(7)</a></p>
+  </div>
+  <div>
+    <h4>下個話題</h4>
+    <p class="topless"><a href="archive.html"
+                          title="下個章節">CPack Archive Generator</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>本頁</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/cpack_gen/appimage.rst.txt"
+            rel="nofollow">顯示來源碼</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜尋</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="前往" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>瀏覽</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="總索引"
+             >索引</a></li>
+        <li class="right" >
+          <a href="archive.html" title="CPack Archive Generator"
+             >下一頁</a> |</li>
+        <li class="right" >
+          <a href="../manual/cpack-generators.7.html" title="cpack-生成器(7)"
+             >上一頁</a> |</li>
+  <li>
+    <label class="sidebar-toggle" for="sidebar-check"></label>
+  </li>
+  <li class="rootlink">
+    <img src="../_static/cmake-logo-16.png" width="16" height="16" alt=""/>
+    <a href="https://cmake.org/">CMake 4.4.0-rc2</a>
+    <span class="reldelim1"> &#187;</span>
+  </li>
+  <li>
+    <a href="../index.html">文件</a> &#187;
+  </li>
+
+          <li class="nav-item nav-item-1"><a href="../manual/cpack-generators.7.html" >cpack-生成器(7)</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">CPack AppImage 生成器</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+    &#169; 著作權 2000-2026 Kitware, Inc. and Contributors.
+      使用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3 建立。
+    </div>
+<script type="text/javascript">
+(function() {
+  "use strict";
+  const hide = () => document.getElementById("sidebar-check").checked = false;
+  addEventListener("keydown", e => (e.key === "Escape") && hide());
+  addEventListener("click", e => (e.target.tagName === "A") && hide());
+  addEventListener("hashchange", hide)
+})();
+</script>
+  </body>
+</html>

@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+
+<html lang="ru-RU" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>discover_tests &mdash; CMake 4.4.0-rc2 Documentation</title>
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a3862c66" />
+    <link rel="stylesheet" type="text/css" href="../_static/cmake.css?v=d27bb136" />
+    
+    <script src="../_static/documentation_options.js?v=fcc45331"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    
+    <link rel="canonical" href="https://projects.localizethedocs.org/cmake-docs-l10n/command/discover_tests.html" />
+    <link rel="icon" href="../_static/cmake-favicon.ico"/>
+    <link rel="index" title="Алфавитный указатель" href="../genindex.html" />
+    <link rel="search" title="Поиск" href="../search.html" />
+    <link rel="next" title="enable_language" href="enable_language.html" />
+    <link rel="prev" title="define_property" href="define_property.html" />
+
+ 
+
+    <script type="text/javascript" src="../ltd-provenance.js"></script>
+    <script type="text/javascript" src="../ltd-current.js"></script>
+    <script type="text/javascript" src="../../../ltd-config.js"></script>
+    <script type="text/javascript" src="../../../ltd-flyout.js"></script>
+
+  </head><body>
+    <input id="sidebar-check" type="checkbox" />
+    <label id="sidebar-overlay" for="sidebar-check"></label>
+
+
+
+    <div class="related relbar1" role="navigation" aria-label="Related">
+      <h3>Навигация</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Алфавитный указатель"
+             accesskey="I">указатель</a></li>
+        <li class="right" >
+          <a href="enable_language.html" title="enable_language"
+             accesskey="N">вперёд</a> |</li>
+        <li class="right" >
+          <a href="define_property.html" title="define_property"
+             accesskey="P">назад</a> |</li>
+  <li>
+    <label class="sidebar-toggle" for="sidebar-check"></label>
+  </li>
+  <li class="rootlink">
+    <img src="../_static/cmake-logo-16.png" width="16" height="16" alt=""/>
+    <a href="https://cmake.org/">CMake 4.4.0-rc2</a>
+    <span class="reldelim1"> &#187;</span>
+  </li>
+  <li>
+    <a href="../index.html">Documentation</a> &#187;
+  </li>
+
+          <li class="nav-item nav-item-1"><a href="../manual/cmake-commands.7.html" accesskey="U">cmake-commands(7)</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">discover_tests</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="discover-tests">
+<span id="command:discover_tests"></span><h1>discover_tests<a class="headerlink" href="#discover-tests" title="Ссылка на этот заголовок">¶</a></h1>
+<div class="versionadded">
+<p><span class="versionmodified added">Добавлено в версии 4.4.</span></p>
+</div>
+<p>Register tests with names and properties discovered at test time by
+<span class="target" id="index-0-manual:ctest(1)"></span><a class="reference internal" href="../manual/ctest.1.html#manual:ctest(1)" title="ctest(1)"><code class="xref cmake cmake-manual docutils literal notranslate"><span class="pre">ctest(1)</span></code></a>.</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">discover_tests(</span><span class="no">COMMAND</span><span class="w"> </span><span class="nv">&lt;command&gt;</span><span class="w"> </span><span class="p">[</span><span class="nv">&lt;arg&gt;...</span><span class="p">]</span><span class="w"> </span><span class="p">[</span><span class="no">COMMAND_EXPAND_LISTS</span><span class="p">]</span>
+<span class="w">  </span><span class="p">[</span><span class="no">CONFIGURATIONS</span><span class="w"> </span><span class="nv">&lt;config&gt;...</span><span class="p">]</span>
+<span class="w">  </span><span class="no">DISCOVERY_ARGS</span><span class="w"> </span><span class="nv">&lt;arg&gt;...</span>
+<span class="w">  </span><span class="no">DISCOVERY_MATCH</span><span class="w"> </span><span class="nv">&lt;regex&gt;</span>
+<span class="w">  </span><span class="p">[</span><span class="no">DISCOVERY_PROPERTIES</span><span class="w"> </span><span class="nv">&lt;key&gt;</span><span class="w"> </span><span class="nv">&lt;value&gt;</span><span class="w"> </span><span class="p">[</span><span class="nv">&lt;key&gt;</span><span class="w"> </span><span class="nv">&lt;value&gt;</span><span class="p">]...]</span>
+<span class="w">  </span><span class="no">TEST_NAME</span><span class="w"> </span><span class="nv">&lt;replacement&gt;</span>
+<span class="w">  </span><span class="no">TEST_ARGS</span><span class="w"> </span><span class="nv">&lt;replacement&gt;...</span>
+<span class="w">  </span><span class="p">[</span><span class="no">TEST_PROPERTIES</span><span class="w"> </span><span class="nv">&lt;key&gt;</span><span class="w"> </span><span class="nv">&lt;replacement&gt;</span><span class="w"> </span><span class="p">[</span><span class="nv">&lt;key&gt;</span><span class="w"> </span><span class="nv">&lt;replacement&gt;</span><span class="p">]...]</span>
+<span class="nf">)</span>
+</pre></div>
+</div>
+<p>This command configures test discovery rather than defining a single test at
+configure time.  During test execution, <span class="target" id="index-1-manual:ctest(1)"></span><a class="reference internal" href="../manual/ctest.1.html#manual:ctest(1)" title="ctest(1)"><code class="xref cmake cmake-manual docutils literal notranslate"><span class="pre">ctest(1)</span></code></a> runs the specified
+discovery command, parses its output, and registers one or more tests based on
+the provided regular expression and replacement strings.</p>
+<p><code class="docutils literal notranslate"><span class="pre">discover_tests</span></code> options are:</p>
+<dl>
+<dt><code class="docutils literal notranslate"><span class="pre">COMMAND</span></code></dt><dd><p>Specify the command-line used for test discovery.</p>
+<p>The command is executed by <span class="target" id="index-2-manual:ctest(1)"></span><a class="reference internal" href="../manual/ctest.1.html#manual:ctest(1)" title="ctest(1)"><code class="xref cmake cmake-manual docutils literal notranslate"><span class="pre">ctest(1)</span></code></a> at test time (not by CMake at
+configure time).  With <code class="docutils literal notranslate"><span class="pre">DISCOVERY_ARGS</span></code> appended, it must print the list of
+available tests in a format matched by <code class="docutils literal notranslate"><span class="pre">DISCOVERY_MATCH</span></code>.</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">&lt;command&gt;</span></code> specifies an executable target created by
+<span class="target" id="index-0-command:add_executable"></span><a class="reference internal" href="add_executable.html#command:add_executable" title="add_executable"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">add_executable()</span></code></a>:</p>
+<ul>
+<li><p>It will automatically be replaced by the location of the executable
+created at build time.</p></li>
+<li><p>The target's <span class="target" id="index-0-prop_tgt:CROSSCOMPILING_EMULATOR"></span><a class="reference internal" href="../prop_tgt/CROSSCOMPILING_EMULATOR.html#prop_tgt:CROSSCOMPILING_EMULATOR" title="CROSSCOMPILING_EMULATOR"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">CROSSCOMPILING_EMULATOR</span></code></a>, if set, will be
+used to run the command on the host:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;emulator&gt; &lt;command&gt;
+</pre></div>
+</div>
+<p>The emulator is used only when
+<span class="target" id="index-0-variable:CMAKE_CROSSCOMPILING"></span><a class="reference internal" href="../variable/CMAKE_CROSSCOMPILING.html#variable:CMAKE_CROSSCOMPILING" title="CMAKE_CROSSCOMPILING"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">cross-compiling</span></code></a>.</p>
+</li>
+<li><p>The target's <span class="target" id="index-0-prop_tgt:TEST_LAUNCHER"></span><a class="reference internal" href="../prop_tgt/TEST_LAUNCHER.html#prop_tgt:TEST_LAUNCHER" title="TEST_LAUNCHER"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">TEST_LAUNCHER</span></code></a>, if set, will be used to launch the
+command:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;launcher&gt; &lt;command&gt;
+</pre></div>
+</div>
+<p>If the <span class="target" id="index-1-prop_tgt:CROSSCOMPILING_EMULATOR"></span><a class="reference internal" href="../prop_tgt/CROSSCOMPILING_EMULATOR.html#prop_tgt:CROSSCOMPILING_EMULATOR" title="CROSSCOMPILING_EMULATOR"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">CROSSCOMPILING_EMULATOR</span></code></a> is also set, both are used:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;launcher&gt; &lt;emulator&gt; &lt;command&gt;
+</pre></div>
+</div>
+</li>
+</ul>
+<p>The command may be specified using
+<span class="target" id="index-0-manual:cmake-generator-expressions(7)"></span><a class="reference internal" href="../manual/cmake-generator-expressions.7.html#manual:cmake-generator-expressions(7)" title="cmake-generator-expressions(7)"><code class="xref cmake cmake-manual docutils literal notranslate"><span class="pre">generator</span> <span class="pre">expressions</span></code></a>.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">COMMAND_EXPAND_LISTS</span></code></dt><dd><p>Lists in <code class="docutils literal notranslate"><span class="pre">COMMAND</span></code> arguments will be expanded, including those created with
+<span class="target" id="index-1-manual:cmake-generator-expressions(7)"></span><a class="reference internal" href="../manual/cmake-generator-expressions.7.html#manual:cmake-generator-expressions(7)" title="cmake-generator-expressions(7)"><code class="xref cmake cmake-manual docutils literal notranslate"><span class="pre">generator</span> <span class="pre">expressions</span></code></a>.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">CONFIGURATIONS</span></code></dt><dd><p>Restrict the test discovery only to the named configurations.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">DISCOVERY_ARGS</span></code></dt><dd><p>Additional arguments passed to <code class="docutils literal notranslate"><span class="pre">COMMAND</span></code> when performing discovery.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">DISCOVERY_MATCH</span></code></dt><dd><p>Regular expression used to parse each line produced by the discovery command.
+Capturing groups may be referenced by <code class="docutils literal notranslate"><span class="pre">TEST_NAME</span></code>, <code class="docutils literal notranslate"><span class="pre">TEST_ARGS</span></code>, and
+values in <code class="docutils literal notranslate"><span class="pre">TEST_PROPERTIES</span></code> using <code class="docutils literal notranslate"><span class="pre">\1</span></code>, <code class="docutils literal notranslate"><span class="pre">\2</span></code>, etc.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">DISCOVERY_PROPERTIES</span></code></dt><dd><p>Specify properties for the discovery run itself.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">TEST_NAME</span></code></dt><dd><p>Replacement string used to generate the test name for each discovered test.
+It may reference capture groups from <code class="docutils literal notranslate"><span class="pre">DISCOVERY_MATCH</span></code>.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">TEST_ARGS</span></code></dt><dd><p>Replacement strings used to generate the arguments passed to the discovered
+test.  Each argument may reference capture groups from <code class="docutils literal notranslate"><span class="pre">DISCOVERY_MATCH</span></code>.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">TEST_PROPERTIES</span></code></dt><dd><p>Specify test properties to set on each discovered test.  Values are
+replacement strings and may reference capture groups from
+<code class="docutils literal notranslate"><span class="pre">DISCOVERY_MATCH</span></code>.</p>
+</dd>
+</dl>
+<p>CTest executes the discovery step to obtain the list of tests and then runs
+each discovered test using the command-line produced by <code class="docutils literal notranslate"><span class="pre">COMMAND</span></code> together
+with <code class="docutils literal notranslate"><span class="pre">TEST_ARGS</span></code>.  The pass/fail behavior of each discovered test follows
+the usual CTest rules (exit code <code class="docutils literal notranslate"><span class="pre">0</span></code> indicates success unless inverted by
+the <span class="target" id="index-0-prop_test:WILL_FAIL"></span><a class="reference internal" href="../prop_test/WILL_FAIL.html#prop_test:WILL_FAIL" title="WILL_FAIL"><code class="xref cmake cmake-prop_test docutils literal notranslate"><span class="pre">WILL_FAIL</span></code></a> property). Output written to stdout or stderr is
+captured by <span class="target" id="index-3-manual:ctest(1)"></span><a class="reference internal" href="../manual/ctest.1.html#manual:ctest(1)" title="ctest(1)"><code class="xref cmake cmake-manual docutils literal notranslate"><span class="pre">ctest(1)</span></code></a> and only affects the pass/fail status via the
+<span class="target" id="index-0-prop_test:PASS_REGULAR_EXPRESSION"></span><a class="reference internal" href="../prop_test/PASS_REGULAR_EXPRESSION.html#prop_test:PASS_REGULAR_EXPRESSION" title="PASS_REGULAR_EXPRESSION"><code class="xref cmake cmake-prop_test docutils literal notranslate"><span class="pre">PASS_REGULAR_EXPRESSION</span></code></a>, <span class="target" id="index-0-prop_test:FAIL_REGULAR_EXPRESSION"></span><a class="reference internal" href="../prop_test/FAIL_REGULAR_EXPRESSION.html#prop_test:FAIL_REGULAR_EXPRESSION" title="FAIL_REGULAR_EXPRESSION"><code class="xref cmake cmake-prop_test docutils literal notranslate"><span class="pre">FAIL_REGULAR_EXPRESSION</span></code></a>,
+or <span class="target" id="index-0-prop_test:SKIP_REGULAR_EXPRESSION"></span><a class="reference internal" href="../prop_test/SKIP_REGULAR_EXPRESSION.html#prop_test:SKIP_REGULAR_EXPRESSION" title="SKIP_REGULAR_EXPRESSION"><code class="xref cmake cmake-prop_test docutils literal notranslate"><span class="pre">SKIP_REGULAR_EXPRESSION</span></code></a> test properties.</p>
+<p>Example usage:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">discover_tests(</span><span class="no">COMMAND</span><span class="w"> </span><span class="nb">testDriver</span><span class="w"> </span><span class="p">--</span><span class="nb">exe</span><span class="w"> </span><span class="o">$&lt;</span><span class="no">TARGET_FILE</span><span class="o">:</span><span class="nb">myexe</span><span class="p">&gt;</span>
+<span class="w">  </span><span class="no">DISCOVERY_ARGS</span><span class="w"> </span><span class="p">--</span><span class="nb">list-tests</span>
+<span class="w">  </span><span class="no">DISCOVERY_MATCH</span><span class="w"> </span><span class="s">&quot;^([^,]+),([^,]+),([^,]+),(.*)$&quot;</span>
+<span class="w">  </span><span class="no">TEST_NAME</span><span class="w"> </span><span class="s">&quot;${PROJECT_NAME}.\\1.\\2&quot;</span>
+<span class="w">  </span><span class="no">TEST_ARGS</span><span class="w"> </span><span class="p">--</span><span class="nb">run-test</span><span class="w"> </span><span class="s">&quot;\\1.\\2&quot;</span>
+<span class="w">  </span><span class="no">TEST_PROPERTIES</span>
+<span class="w">    </span><span class="no">PROCESSORS</span><span class="w"> </span><span class="s">&quot;\\3&quot;</span>
+<span class="w">    </span><span class="no">LABELS</span><span class="w"> </span><span class="s">&quot;\\4&quot;</span>
+<span class="nf">)</span>
+</pre></div>
+</div>
+<p>This example configures discovery by running <code class="docutils literal notranslate"><span class="pre">testDriver</span> <span class="pre">--list-tests</span></code>.
+For each line of output that matches <code class="docutils literal notranslate"><span class="pre">DISCOVERY_MATCH</span></code>, a test name is
+generated using <code class="docutils literal notranslate"><span class="pre">TEST_NAME</span></code>, the per-test command-line is generated using
+<code class="docutils literal notranslate"><span class="pre">TEST_ARGS</span></code>, and test properties are populated from the remaining capture
+groups.</p>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h4>Предыдущий раздел</h4>
+    <p class="topless"><a href="define_property.html"
+                          title="предыдущая глава">define_property</a></p>
+  </div>
+  <div>
+    <h4>Следующий раздел</h4>
+    <p class="topless"><a href="enable_language.html"
+                          title="следующая глава">enable_language</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>Эта страница</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/command/discover_tests.rst.txt"
+            rel="nofollow">Исходный текст</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Быстрый поиск</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Искать" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Навигация</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Алфавитный указатель"
+             >указатель</a></li>
+        <li class="right" >
+          <a href="enable_language.html" title="enable_language"
+             >вперёд</a> |</li>
+        <li class="right" >
+          <a href="define_property.html" title="define_property"
+             >назад</a> |</li>
+  <li>
+    <label class="sidebar-toggle" for="sidebar-check"></label>
+  </li>
+  <li class="rootlink">
+    <img src="../_static/cmake-logo-16.png" width="16" height="16" alt=""/>
+    <a href="https://cmake.org/">CMake 4.4.0-rc2</a>
+    <span class="reldelim1"> &#187;</span>
+  </li>
+  <li>
+    <a href="../index.html">Documentation</a> &#187;
+  </li>
+
+          <li class="nav-item nav-item-1"><a href="../manual/cmake-commands.7.html" >cmake-commands(7)</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">discover_tests</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+    &#169; Авторские права 2000-2026 Kitware, Inc. and Contributors.
+      Создано с использованием <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    </div>
+<script type="text/javascript">
+(function() {
+  "use strict";
+  const hide = () => document.getElementById("sidebar-check").checked = false;
+  addEventListener("keydown", e => (e.key === "Escape") && hide());
+  addEventListener("click", e => (e.target.tagName === "A") && hide());
+  addEventListener("hashchange", hide)
+})();
+</script>
+  </body>
+</html>

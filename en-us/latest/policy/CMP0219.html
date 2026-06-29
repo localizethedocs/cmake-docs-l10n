@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+
+<html lang="en-US" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>CMP0219 &mdash; CMake 4.4.0-rc2 Documentation</title>
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a3862c66" />
+    <link rel="stylesheet" type="text/css" href="../_static/cmake.css?v=d27bb136" />
+    
+    <script src="../_static/documentation_options.js?v=66e6d515"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    
+    <link rel="canonical" href="https://projects.localizethedocs.org/cmake-docs-l10n/policy/CMP0219.html" />
+    <link rel="icon" href="../_static/cmake-favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="CMP0218" href="CMP0218.html" />
+    <link rel="prev" title="cmake-policies(7)" href="../manual/cmake-policies.7.html" />
+
+ 
+
+    <script type="text/javascript" src="../ltd-provenance.js"></script>
+    <script type="text/javascript" src="../ltd-current.js"></script>
+    <script type="text/javascript" src="../../../ltd-config.js"></script>
+    <script type="text/javascript" src="../../../ltd-flyout.js"></script>
+
+  </head><body>
+    <input id="sidebar-check" type="checkbox" />
+    <label id="sidebar-overlay" for="sidebar-check"></label>
+
+
+
+    <div class="related relbar1" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="CMP0218.html" title="CMP0218"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../manual/cmake-policies.7.html" title="cmake-policies(7)"
+             accesskey="P">previous</a> |</li>
+  <li>
+    <label class="sidebar-toggle" for="sidebar-check"></label>
+  </li>
+  <li class="rootlink">
+    <img src="../_static/cmake-logo-16.png" width="16" height="16" alt=""/>
+    <a href="https://cmake.org/">CMake 4.4.0-rc2</a>
+    <span class="reldelim1"> &#187;</span>
+  </li>
+  <li>
+    <a href="../index.html">Documentation</a> &#187;
+  </li>
+
+          <li class="nav-item nav-item-1"><a href="../manual/cmake-policies.7.html" accesskey="U">cmake-policies(7)</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">CMP0219</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="cmp0219">
+<span id="policy:CMP0219"></span><h1>CMP0219<a class="headerlink" href="#cmp0219" title="Link to this heading">¶</a></h1>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 4.4.</span></p>
+</div>
+<p><span class="target" id="index-0-command:macro"></span><a class="reference internal" href="../command/macro.html#command:macro" title="macro"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">macro()</span></code></a> invocations preserve backslashes in arguments.</p>
+<p>In CMake 4.3 and below, macro argument references (<code class="docutils literal notranslate"><span class="pre">${ARGN}</span></code>, <code class="docutils literal notranslate"><span class="pre">${ARGV}</span></code>,
+<code class="docutils literal notranslate"><span class="pre">${ARGV&lt;n&gt;}</span></code>, and named macro arguments) are substituted textually and then
+evaluated by the called command. Backslashes in substituted values are
+re-evaluated as escape prefixes, and invalid escape sequences (such as
+<code class="docutils literal notranslate"><span class="pre">\b</span></code> in Windows paths) can cause errors. The same re-evaluation can also
+occur for arguments passed to a <span class="target" id="index-0-command:variable_watch"></span><a class="reference internal" href="../command/variable_watch.html#command:variable_watch" title="variable_watch"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">variable_watch()</span></code></a> callback command.</p>
+<p>CMake 4.4 and above prefer to preserve literal backslashes in those macro
+argument references.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">OLD</span></code> behavior for this policy is to interpret escape sequences in macro
+argument references and in arguments passed to <code class="docutils literal notranslate"><span class="pre">variable_watch()</span></code> callback
+commands. The <code class="docutils literal notranslate"><span class="pre">NEW</span></code> behavior is to preserve backslashes in those values
+before command invocation.</p>
+<p>This policy applies to macro argument references and to arguments passed to
+<code class="docutils literal notranslate"><span class="pre">variable_watch()</span></code> callback commands. Other variable references keep their
+existing behavior.</p>
+<section id="mixed-policy-chains">
+<h2>Mixed Policy Chains<a class="headerlink" href="#mixed-policy-chains" title="Link to this heading">¶</a></h2>
+<p>Whether pre-escaping occurs is determined by the policy setting at each
+call site. When a project and its dependencies use different <code class="docutils literal notranslate"><span class="pre">CMP0219</span></code>
+settings, each macro call in the chain follows the policy where that call
+appears.</p>
+<p>Consider a project (<code class="docutils literal notranslate"><span class="pre">CMP0219</span></code> is <code class="docutils literal notranslate"><span class="pre">OLD</span></code>) that calls a macro from
+dependency A (upgraded to
+<span class="target" id="index-0-command:cmake_minimum_required"></span><a class="reference internal" href="../command/cmake_minimum_required.html#command:cmake_minimum_required" title="cmake_minimum_required"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">cmake_minimum_required(VERSION</span> <span class="pre">4.4)</span></code></a>,
+so <code class="docutils literal notranslate"><span class="pre">CMP0219</span></code> is <code class="docutils literal notranslate"><span class="pre">NEW</span></code>), which in turn forwards arguments to a macro
+from dependency B (not yet upgraded, so <code class="docutils literal notranslate"><span class="pre">CMP0219</span></code> is <code class="docutils literal notranslate"><span class="pre">OLD</span></code>):</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="c"># Dependency B: cmake_minimum_required(VERSION 3.24)</span>
+<span class="c"># CMP0219 is OLD inside dependency B.</span>
+<span class="nf">macro(</span><span class="nb">depB_store</span><span class="w"> </span><span class="nb">var_name</span><span class="nf">)</span>
+<span class="w">  </span><span class="nf">set(</span><span class="o">${</span><span class="nt">var_name</span><span class="o">}</span><span class="w"> </span><span class="s">&quot;${ARGN}&quot;</span><span class="nf">)</span>
+<span class="nf">endmacro()</span>
+
+<span class="c"># Dependency A: cmake_minimum_required(VERSION 4.4)</span>
+<span class="c"># CMP0219 is NEW inside dependency A.</span>
+<span class="nf">macro(</span><span class="nb">depA_forward</span><span class="w"> </span><span class="nb">var_name</span><span class="nf">)</span>
+<span class="w">  </span><span class="nf">depB_store(</span><span class="o">${</span><span class="nt">var_name</span><span class="o">}</span><span class="w"> </span><span class="o">${</span><span class="nt">ARGN</span><span class="o">}</span><span class="nf">)</span><span class="w">  </span><span class="c"># call site is NEW -&gt; pre-escapes</span>
+<span class="nf">endmacro()</span>
+
+<span class="c"># Project: cmake_minimum_required(VERSION 3.24)</span>
+<span class="c"># CMP0219 is OLD in the project.</span>
+<span class="nf">macro(</span><span class="nb">my_wrapper</span><span class="w"> </span><span class="nb">var_name</span><span class="nf">)</span>
+<span class="w">  </span><span class="nf">depA_forward(</span><span class="o">${</span><span class="nt">var_name</span><span class="o">}</span><span class="w"> </span><span class="o">${</span><span class="nt">ARGN</span><span class="o">}</span><span class="nf">)</span><span class="w">  </span><span class="c"># call site is OLD -&gt; no pre-escaping</span>
+<span class="nf">endmacro()</span>
+</pre></div>
+</div>
+<p>In a fully <code class="docutils literal notranslate"><span class="pre">OLD</span></code> chain, each macro boundary re-evaluates backslash
+escapes, so callers must add extra escaping layers to compensate.
+To pass the Windows path <code class="docutils literal notranslate"><span class="pre">C:\build\new\temp</span></code> through three <code class="docutils literal notranslate"><span class="pre">OLD</span></code>
+boundaries, the caller needs eight backslashes per separator:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">my_wrapper(</span><span class="nb">result</span><span class="w"> </span><span class="s">&quot;C:\\\\\\\\build\\\\\\\\new\\\\\\\\temp&quot;</span><span class="nf">)</span>
+<span class="nf">message(</span><span class="s">&quot;${result}&quot;</span><span class="nf">)</span><span class="w">  </span><span class="c"># -&gt; C:\build\new\temp</span>
+</pre></div>
+</div>
+<p>When dependency A upgrades and the middle boundary becomes <code class="docutils literal notranslate"><span class="pre">NEW</span></code>,
+that boundary preserves backslashes instead of consuming a level.
+The same input now retains an extra layer:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="c"># Same 8x-escaped input through OLD -&gt; NEW -&gt; OLD:</span>
+<span class="nf">my_wrapper(</span><span class="nb">result</span><span class="w"> </span><span class="s">&quot;C:\\\\\\\\build\\\\\\\\new\\\\\\\\temp&quot;</span><span class="nf">)</span>
+<span class="nf">message(</span><span class="s">&quot;${result}&quot;</span><span class="nf">)</span><span class="w">  </span><span class="c"># -&gt; C:\\build\\new\\temp  (one extra layer)</span>
+</pre></div>
+</div>
+<p>The caller must then use half the escaping to reach the native path:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="c"># Only 4x-escaped input needed for OLD -&gt; NEW -&gt; OLD:</span>
+<span class="nf">my_wrapper(</span><span class="nb">result</span><span class="w"> </span><span class="s">&quot;C:\\\\build\\\\new\\\\temp&quot;</span><span class="nf">)</span>
+<span class="nf">message(</span><span class="s">&quot;${result}&quot;</span><span class="nf">)</span><span class="w">  </span><span class="c"># -&gt; C:\build\new\temp</span>
+</pre></div>
+</div>
+<p>When a dependency updates its <span class="target" id="index-1-command:cmake_minimum_required"></span><a class="reference internal" href="../command/cmake_minimum_required.html#command:cmake_minimum_required" title="cmake_minimum_required"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">cmake_minimum_required()</span></code></a> version
+to 4.4 or above, call sites inside that dependency begin pre-escaping.
+Callers that previously added extra backslash layers to compensate for
+multiple levels of <code class="docutils literal notranslate"><span class="pre">OLD</span></code> re-evaluation may then need fewer escape
+layers.</p>
+<p>Where possible, converting paths to forward slashes with
+<span class="target" id="index-0-command:cmake_path"></span><a class="reference internal" href="../command/cmake_path.html#convert-to-cmake-path-list" title="cmake_path(convert ... to_cmake_path_list)"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">cmake_path(CONVERT</span> <span class="pre">...</span> <span class="pre">TO_CMAKE_PATH_LIST)</span></code></a> avoids the issue entirely, because
+forward slashes require no escaping regardless of the policy setting.</p>
+<p>This policy was introduced in CMake version 4.4.
+It may be set by <span class="target" id="index-0-command:cmake_policy"></span><a class="reference internal" href="../command/cmake_policy.html#command:cmake_policy" title="cmake_policy"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">cmake_policy()</span></code></a> or <span class="target" id="index-2-command:cmake_minimum_required"></span><a class="reference internal" href="../command/cmake_minimum_required.html#command:cmake_minimum_required" title="cmake_minimum_required"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">cmake_minimum_required()</span></code></a>.
+If it is not set, CMake warns when backslashes are present, and uses <code class="docutils literal notranslate"><span class="pre">OLD</span></code> behavior.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">OLD</span></code> behavior of a policy is
+<a class="reference internal" href="../manual/cmake-policies.7.html#cmake-policies-intro"><span class="std std-ref">deprecated by definition</span></a>
+and may be removed in a future version of CMake.</p>
+</div>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3>Table of Contents</h3>
+    <ul>
+<li><a class="reference internal" href="#">CMP0219</a><ul>
+<li><a class="reference internal" href="#mixed-policy-chains">Mixed Policy Chains</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="../manual/cmake-policies.7.html"
+                          title="previous chapter">cmake-policies(7)</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="CMP0218.html"
+                          title="next chapter">CMP0218</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/policy/CMP0219.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="CMP0218.html" title="CMP0218"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../manual/cmake-policies.7.html" title="cmake-policies(7)"
+             >previous</a> |</li>
+  <li>
+    <label class="sidebar-toggle" for="sidebar-check"></label>
+  </li>
+  <li class="rootlink">
+    <img src="../_static/cmake-logo-16.png" width="16" height="16" alt=""/>
+    <a href="https://cmake.org/">CMake 4.4.0-rc2</a>
+    <span class="reldelim1"> &#187;</span>
+  </li>
+  <li>
+    <a href="../index.html">Documentation</a> &#187;
+  </li>
+
+          <li class="nav-item nav-item-1"><a href="../manual/cmake-policies.7.html" >cmake-policies(7)</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">CMP0219</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2000-2026 Kitware, Inc. and Contributors.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    </div>
+<script type="text/javascript">
+(function() {
+  "use strict";
+  const hide = () => document.getElementById("sidebar-check").checked = false;
+  addEventListener("keydown", e => (e.key === "Escape") && hide());
+  addEventListener("click", e => (e.target.tagName === "A") && hide());
+  addEventListener("hashchange", hide)
+})();
+</script>
+  </body>
+</html>
