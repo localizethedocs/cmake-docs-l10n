@@ -23,7 +23,7 @@ msgstr ""
 
 #: ../../../prop_sf/COMPILE_DEFINITIONS.rst:4
 msgid "Preprocessor definitions for compiling a source file."
-msgstr ""
+msgstr "用於編譯來源檔案的預處理器定義。"
 
 #: ../../../prop_sf/COMPILE_DEFINITIONS.rst:6
 msgid ""
@@ -36,6 +36,11 @@ msgid ""
 "``COMPILE_DEFINITIONS_<CONFIG>`` where ``<CONFIG>`` is an upper-case name "
 "(ex.  ``COMPILE_DEFINITIONS_DEBUG``)."
 msgstr ""
+"``COMPILE_DEFINITIONS`` 屬性可以設為使用 ``VAR`` 或 ``VAR=value`` 語法的分號"
+"分隔的預處理器定義清單。不支援函式風格的定義。CMake 會自動為原生建置系統正確"
+"跳脫值（請注意，CMake 語言語法可能需要跳脫才能指定某些值）。此屬性可以使用 "
+"``COMPILE_DEFINITIONS_<CONFIG>`` 名稱依組態設定，其中 ``<CONFIG>`` 是大寫名稱"
+"（例如 ``COMPILE_DEFINITIONS_DEBUG``）。"
 
 #: ../../../prop_sf/COMPILE_DEFINITIONS.rst:15
 msgid ""
@@ -43,10 +48,12 @@ msgid ""
 "native build tool.  :generator:`Xcode` does not support per-configuration "
 "definitions on source files."
 msgstr ""
+"CMake 會自動捨棄一些原生建置工具不支援的定義。:generator:`Xcode` 不支援來源檔"
+"案上的依組態定義。"
 
 #: ../../../prop_sf/COMPILE_DEFINITIONS.rst:19
 msgid "Any leading ``-D`` on an item will be removed."
-msgstr ""
+msgstr "項目上任何前導的 ``-D`` 都將被移除。"
 
 #: ../../../include/COMPILE_DEFINITIONS_DISCLAIMER.rst:1
 msgid ""
@@ -59,6 +66,11 @@ msgid ""
 "in a (configured) header file.  Then report the limitation.  Known "
 "limitations include:"
 msgstr ""
+"免責聲明：大多數原生建置工具對跳脫某些值的支援很差。CMake 對許多情況有因應措"
+"施，但某些值可能無法正確傳遞。如果某個值似乎沒有被正確跳脫，請不要嘗試透過在"
+"值中新增跳脫序列來解決問題。您的因應措施可能會在未來版本中具有改進跳脫支援的 "
+"CMake 中失效。請考慮在（配置過的）標頭檔中定義巨集，然後回報此限制。已知的限"
+"制包括："
 
 #: ../../../include/COMPILE_DEFINITIONS_DISCLAIMER.rst:11
 msgid "``#``"
@@ -66,7 +78,7 @@ msgstr ""
 
 #: ../../../include/COMPILE_DEFINITIONS_DISCLAIMER.rst:11
 msgid "Broken almost everywhere."
-msgstr ""
+msgstr "幾乎在所有地方都無法運作。"
 
 #: ../../../include/COMPILE_DEFINITIONS_DISCLAIMER.rst:12
 msgid "``;``"
@@ -74,7 +86,7 @@ msgstr ""
 
 #: ../../../include/COMPILE_DEFINITIONS_DISCLAIMER.rst:12
 msgid "Broken in VS IDE 7.0 and Borland Makefiles."
-msgstr ""
+msgstr "在 VS IDE 7.0 和 Borland Makefiles 中無法運作。"
 
 #: ../../../include/COMPILE_DEFINITIONS_DISCLAIMER.rst:13
 msgid "``,``"
@@ -82,7 +94,7 @@ msgstr ""
 
 #: ../../../include/COMPILE_DEFINITIONS_DISCLAIMER.rst:13
 msgid "Broken in VS IDE."
-msgstr ""
+msgstr "在 VS IDE 中無法運作。"
 
 #: ../../../include/COMPILE_DEFINITIONS_DISCLAIMER.rst:14
 msgid "``%``"
@@ -90,7 +102,7 @@ msgstr ""
 
 #: ../../../include/COMPILE_DEFINITIONS_DISCLAIMER.rst:14
 msgid "Broken in some cases in NMake."
-msgstr ""
+msgstr "在某些情況下的 NMake 中無法運作。"
 
 #: ../../../include/COMPILE_DEFINITIONS_DISCLAIMER.rst:15
 msgid "``& |``"
@@ -98,7 +110,7 @@ msgstr ""
 
 #: ../../../include/COMPILE_DEFINITIONS_DISCLAIMER.rst:15
 msgid "Broken in some cases on MinGW."
-msgstr ""
+msgstr "在某些情況下的 MinGW 中無法運作。"
 
 #: ../../../include/COMPILE_DEFINITIONS_DISCLAIMER.rst:16
 msgid "``^ < > \\ \"``"
@@ -106,13 +118,13 @@ msgstr ""
 
 #: ../../../include/COMPILE_DEFINITIONS_DISCLAIMER.rst:16
 msgid "Broken in most Make tools on Windows."
-msgstr ""
+msgstr "在 Windows 上的大多數 Make 工具中無法運作。"
 
 #: ../../../include/COMPILE_DEFINITIONS_DISCLAIMER.rst:19
 msgid ""
 "CMake does not reject these values outright because they do work in some "
 "cases.  Use with caution."
-msgstr ""
+msgstr "CMake 不會直接拒絕這些值，因為它們在某些情況下確實有效。請謹慎使用。"
 
 #: ../../../prop_sf/COMPILE_DEFINITIONS.rst:24
 msgid ""
@@ -123,9 +135,15 @@ msgid ""
 "expressions that depend on the build configuration are not allowed with that "
 "generator."
 msgstr ""
+"``COMPILE_DEFINITIONS`` 的內容可以使用 :manual:`cmake-generator-"
+"expressions(7)` 語法 ``$<...>``。請參閱 :manual:`cmake-generator-"
+"expressions(7)` 手冊以了解可用的表達式。但是，:generator:`Xcode` 不支援依組態"
+"和依來源的設定，因此不允許在該生成器中使用依賴於建置組態的表達式。"
 
 #: ../../../prop_sf/COMPILE_DEFINITIONS.rst:31
 msgid ""
 "Prefer using generator expressions in :prop_sf:`!COMPILE_DEFINITIONS` over "
 "the deprecated :prop_sf:`COMPILE_DEFINITIONS_<CONFIG>` property."
 msgstr ""
+"建議在 :prop_sf:`!COMPILE_DEFINITIONS` 中使用生成器表達式，而不是已棄用的 :"
+"prop_sf:`COMPILE_DEFINITIONS_<CONFIG>` 屬性。"

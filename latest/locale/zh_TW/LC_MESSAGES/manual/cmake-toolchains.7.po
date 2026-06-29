@@ -23,7 +23,7 @@ msgstr "cmake-工具鏈(7)"
 
 #: ../../../manual/cmake-toolchains.7.rst:7
 msgid "Contents"
-msgstr ""
+msgstr "目次"
 
 #: ../../../manual/cmake-toolchains.7.rst:11
 msgid "Introduction"
@@ -38,10 +38,14 @@ msgid ""
 "introspection and defaults. In cross-compiling scenarios, a toolchain file "
 "may be specified with information about compiler and utility paths."
 msgstr ""
+"CMake 使用一系列工具鏈實用程式來編譯、連結程式庫、建立靜態庫以及執行其他建置"
+"任務。可用的工具鏈實用程式取決於所啟用的語言。在一般建置中，CMake 會根據系統"
+"內省和默認值自動決定主機建置的工具鏈。在交叉編譯情境中，可以指定一個工具鏈檔"
+"案，其中包含編譯器和實用程式的路徑資訊。"
 
 #: ../../../manual/cmake-toolchains.7.rst:20
 msgid "One may use :manual:`cmake-presets(7)` to specify toolchain files."
-msgstr ""
+msgstr "可以使用 :manual:`cmake-presets(7)` 來指定工具鏈檔案。"
 
 #: ../../../manual/cmake-toolchains.7.rst:24
 msgid "Languages"
@@ -57,6 +61,11 @@ msgid ""
 "will be implicitly generated. By default the enabled languages are ``C`` and "
 "``CXX``:"
 msgstr ""
+"語言是透過 :command:`project` 命令啟用的。語言特定的內建變數，例如 :variable:"
+"`CMAKE_CXX_COMPILER <CMAKE_<LANG>_COMPILER>`、:variable:"
+"`CMAKE_CXX_COMPILER_ID <CMAKE_<LANG>_COMPILER_ID>` 等，是透過呼叫 :command:"
+"`project` 命令來設定的。如果最上層的 CMakeLists 檔案中沒有 project 命令，將會"
+"隱含地生成一個。默認情況下，啟用的語言是 ``C`` 和 ``CXX``："
 
 #: ../../../manual/cmake-toolchains.7.rst:34
 msgid "project(C_Only C)"
@@ -104,7 +113,7 @@ msgstr "變數與屬性"
 msgid ""
 "Several variables relate to the language components of a toolchain which are "
 "enabled:"
-msgstr ""
+msgstr "有幾個變數與已啟用的工具鏈語言組件相關："
 
 #: ../../../manual/cmake-toolchains.7.rst:66
 #: ../../../manual/cmake-toolchains.7.rst:162
@@ -113,7 +122,7 @@ msgstr ":variable:`CMAKE_<LANG>_COMPILER`"
 
 #: ../../../manual/cmake-toolchains.7.rst:67
 msgid "The full path to the compiler used for ``<LANG>``"
-msgstr ""
+msgstr "用於 ``<LANG>`` 的編譯器的完整路徑"
 
 #: ../../../manual/cmake-toolchains.7.rst:68
 msgid ":variable:`CMAKE_<LANG>_COMPILER_ID`"
@@ -121,7 +130,7 @@ msgstr ":variable:`CMAKE_<LANG>_COMPILER_ID`"
 
 #: ../../../manual/cmake-toolchains.7.rst:69
 msgid "The compiler identifier used by CMake"
-msgstr ""
+msgstr "CMake 使用的編譯器識別碼"
 
 #: ../../../manual/cmake-toolchains.7.rst:70
 msgid ":variable:`CMAKE_<LANG>_COMPILER_VERSION`"
@@ -141,6 +150,8 @@ msgid ""
 "that will be added to all invocations of the compiler for a particular "
 "language, including those driving compiling and linking."
 msgstr ""
+"這些變數及其特定組態的對應項包含了會新增到特定語言所有編譯器呼叫的旗標，包括"
+"驅動編譯和連結的呼叫。"
 
 #: ../../../manual/cmake-toolchains.7.rst:77
 msgid ":variable:`CMAKE_<LANG>_LINK_FLAGS`"
@@ -152,6 +163,8 @@ msgid ""
 "that will be added to all invocations of the compiler for a particular "
 "language when driving linking only."
 msgstr ""
+"這些變數及其特定組態的對應項包含了會新增到特定語言僅驅動連結時的所有編譯器呼"
+"叫的旗標。"
 
 #: ../../../manual/cmake-toolchains.7.rst:84
 msgid ""
@@ -161,6 +174,10 @@ msgid ""
 "libraries, the ``LANGUAGE`` of the dependent libraries. The choice CMake "
 "makes may be overridden with the :prop_tgt:`LINKER_LANGUAGE` target property."
 msgstr ""
+"CMake 需要一種方法來確定使用哪個編譯器來呼叫連結器。這是由 :manual:`target "
+"<cmake-buildsystem(7)>` 原始檔案的 :prop_sf:`LANGUAGE` 屬性決定的，而在靜態庫"
+"的情況下，則由依賴程式庫的 ``LANGUAGE`` 決定。CMake 所做的選擇可以透過 :"
+"prop_tgt:`LINKER_LANGUAGE` 目標屬性來覆寫。"
 
 #: ../../../manual/cmake-toolchains.7.rst:91
 msgid "Toolchain Features"
@@ -174,6 +191,10 @@ msgid ""
 "features. These APIs test the toolchain in some way and cache the result so "
 "that the test does not have to be performed again the next time CMake runs."
 msgstr ""
+"CMake 提供了 :command:`try_compile` 命令以及 :module:`CheckSourceCompiles`、:"
+"module:`CheckCXXSymbolExists` 和 :module:`CheckIncludeFile` 等模組，用於測試"
+"各種工具鏈功能的能力和可用性。這些 API 以某種方式測試工具鏈並快取結果，以便下"
+"次執行 CMake 時無需再次執行測試。"
 
 #: ../../../manual/cmake-toolchains.7.rst:100
 msgid ""
@@ -184,6 +205,10 @@ msgid ""
 "and :prop_tgt:`VISIBILITY_INLINES_HIDDEN` target properties add flags for "
 "hidden visibility, if supported by the compiler."
 msgstr ""
+"某些工具鏈功能在 CMake 中有內建處理，不需要編譯測試。例如，如果編譯器支援該功"
+"能，:prop_tgt:`POSITION_INDEPENDENT_CODE` 允許指定目標應建置為位置獨立程式"
+"碼。如果編譯器支援，:prop_tgt:`<LANG>_VISIBILITY_PRESET` 和 :prop_tgt:"
+"`VISIBILITY_INLINES_HIDDEN` 目標屬性會新增隱藏可見性的旗標。"
 
 #: ../../../manual/cmake-toolchains.7.rst:110
 msgid "Cross Compiling"
@@ -197,6 +222,10 @@ msgid ""
 "early to set values for the compilers. The :variable:`CMAKE_CROSSCOMPILING` "
 "variable is set to true when CMake is cross-compiling."
 msgstr ""
+"如果使用命令行參數 :option:`--toolchain path/to/file <cmake --toolchain>` "
+"或 :option:`-DCMAKE_TOOLCHAIN_FILE=path/to/file <cmake -D>` 呼叫 :manual:"
+"`cmake(1)`，該檔案將被提前載入以設定編譯器的值。當 CMake 進行交叉編譯時，:"
+"variable:`CMAKE_CROSSCOMPILING` 變數會被設為 true。"
 
 #: ../../../manual/cmake-toolchains.7.rst:119
 msgid ""
@@ -209,6 +238,11 @@ msgid ""
 "would be :variable:`CMAKE_CURRENT_LIST_DIR`, since it always has an "
 "unambiguous, predictable value."
 msgstr ""
+"請注意，在工具鏈檔案內使用 :variable:`CMAKE_SOURCE_DIR` 或 :variable:"
+"`CMAKE_BINARY_DIR` 變數通常是不理想的。工具鏈檔案在這些變數在不同地方使用時具"
+"有不同值的上下文中被使用（例如作為 :command:`try_compile` 呼叫的一部分）。在"
+"大多數情況下，如果需要評估工具鏈檔案內的路徑，更合適的變數是 :variable:"
+"`CMAKE_CURRENT_LIST_DIR`，因為它始終具有明確且可預測的值。"
 
 #: ../../../manual/cmake-toolchains.7.rst:128
 msgid "Cross Compiling for Linux"
@@ -216,7 +250,7 @@ msgstr "為 Linux 進行交叉編譯"
 
 #: ../../../manual/cmake-toolchains.7.rst:130
 msgid "A typical cross-compiling toolchain for Linux has content such as:"
-msgstr ""
+msgstr "典型的 Linux 交叉編譯工具鏈的內容如下："
 
 #: ../../../manual/cmake-toolchains.7.rst:133
 msgid ""
@@ -249,7 +283,7 @@ msgstr ":variable:`CMAKE_SYSTEM_NAME`"
 
 #: ../../../manual/cmake-toolchains.7.rst:153
 msgid "is the CMake-identifier of the target platform to build for."
-msgstr ""
+msgstr "是要建置的目標平台的 CMake 識別碼。"
 
 #: ../../../manual/cmake-toolchains.7.rst:154
 msgid ":variable:`CMAKE_SYSTEM_PROCESSOR`"
@@ -257,7 +291,7 @@ msgstr ""
 
 #: ../../../manual/cmake-toolchains.7.rst:155
 msgid "is the CMake-identifier of the target architecture."
-msgstr ""
+msgstr "是目標架構的 CMake 識別碼。"
 
 #: ../../../manual/cmake-toolchains.7.rst:156
 msgid ":variable:`CMAKE_SYSROOT`"
@@ -265,7 +299,7 @@ msgstr ""
 
 #: ../../../manual/cmake-toolchains.7.rst:157
 msgid "is optional, and may be specified if a sysroot is available."
-msgstr ""
+msgstr "是可選的，如果 sysroot 可用則可以指定。"
 
 #: ../../../manual/cmake-toolchains.7.rst:158
 msgid ":variable:`CMAKE_STAGING_PREFIX`"
@@ -277,6 +311,8 @@ msgid ""
 "to. The :variable:`CMAKE_INSTALL_PREFIX` is always the runtime installation "
 "location, even when cross-compiling."
 msgstr ""
+"也是可選的。它可用於指定主機上要安裝到的路徑。:variable:"
+"`CMAKE_INSTALL_PREFIX` 始終是執行時期安裝位置，即使在交叉編譯時也是如此。"
 
 #: ../../../manual/cmake-toolchains.7.rst:163
 msgid ""
@@ -286,6 +322,10 @@ msgid ""
 "`CMAKE_TRY_COMPILE_TARGET_TYPE` variable to ``STATIC_LIBRARY`` to tell CMake "
 "not to try to link executables during its checks."
 msgstr ""
+"變數可以設定為完整路徑，或設定為要在標準位置搜尋的編譯器名稱。對於不支援在沒"
+"有自訂旗標或腳本的情況下連結二進位檔的工具鏈，可以將 :variable:"
+"`CMAKE_TRY_COMPILE_TARGET_TYPE` 變數設為 ``STATIC_LIBRARY``，告訴 CMake 在其"
+"檢查期間不要嘗試連結可執行檔。"
 
 #: ../../../manual/cmake-toolchains.7.rst:169
 msgid ""
@@ -299,10 +339,15 @@ msgid ""
 "only on the host and not on the target. This is the purpose of the "
 "``CMAKE_FIND_ROOT_PATH_MODE_*`` variables."
 msgstr ""
+"CMake 的 ``find_*`` 命令默認會在 sysroot 和 :variable:`CMAKE_FIND_ROOT_PATH` "
+"條目中進行查詢，同時也會在主機系統根前綴中進行查詢。雖然可以逐案控制此行為，"
+"但在交叉編譯時，排除在主機或目標中查詢特定工件可能很有用。通常，標頭檔、程式"
+"庫和套件應在目標系統前綴中尋找，而必須在建置期間執行的可執行檔應僅在主機上尋"
+"找，而不是在目標上尋找。這就是 ``CMAKE_FIND_ROOT_PATH_MODE_*`` 變數的目的。"
 
 #: ../../../manual/cmake-toolchains.7.rst:181
 msgid "Cross Compiling for the Cray Linux Environment"
-msgstr ""
+msgstr "為 Cray Linux 環境進行交叉編譯"
 
 #: ../../../manual/cmake-toolchains.7.rst:183
 msgid ""
@@ -314,6 +359,11 @@ msgid ""
 "variables and will configure a project to use the compiler wrappers from the "
 "Cray Programming Environment's ``PrgEnv-*`` modules if present and loaded."
 msgstr ""
+"為 Cray Linux 環境中的計算節點進行交叉編譯不需要單獨的工具鏈檔案。在 CMake 命"
+"令行上指定 ``-DCMAKE_SYSTEM_NAME=CrayLinuxEnvironment`` 將確保設定適當的建置"
+"設定和搜尋路徑。該平台將從目前環境變數中提取其組態，如果存在且已載入，將設定"
+"專案組態使用 Cray Programming Environment 的 ``PrgEnv-*`` 模組中的編譯器包裝"
+"器。"
 
 #: ../../../manual/cmake-toolchains.7.rst:191
 msgid ""
@@ -322,6 +372,9 @@ msgid ""
 "enabled by setting the ``CRAYPE_LINK_TYPE`` environment variable to "
 "``dynamic``."
 msgstr ""
+"Cray Programming Environment 的默認組態僅支援靜態程式庫。可以透過將 "
+"``CRAYPE_LINK_TYPE`` 環境變數設定為 ``dynamic`` 來覆寫此設定並啟用共享程式"
+"庫。"
 
 #: ../../../manual/cmake-toolchains.7.rst:196
 msgid ""
@@ -337,6 +390,13 @@ msgid ""
 "targeting a compute node is desired, just specify the :variable:"
 "`CMAKE_SYSTEM_NAME` as mentioned above."
 msgstr ""
+"在不指定 :variable:`CMAKE_SYSTEM_NAME` 的情況下執行 CMake 將在主機模式下執行"
+"組態步驟，假設為標準 Linux 環境。如果未覆寫，``PrgEnv-*`` 編譯器包裝器最終將"
+"被使用，如果目標是登入節點或計算節點，這可能不是預期的行為。例外情況是您直接"
+"在 NID 上建置，而不是從登入節點進行交叉編譯。如果要為登入節點建置軟體，您需要"
+"先卸載目前已載入的 ``PrgEnv-*`` 模組，或明確告訴 CMake 使用 ``/usr/bin`` 中的"
+"系統編譯器而不是 Cray 包裝器。如果目標是計算節點，只需按上述方式指定 :"
+"variable:`CMAKE_SYSTEM_NAME` 即可。"
 
 #: ../../../manual/cmake-toolchains.7.rst:209
 msgid "Cross Compiling using Clang"
@@ -348,6 +408,8 @@ msgid ""
 "`CMAKE_<LANG>_COMPILER_TARGET` can be set to pass a value to those supported "
 "compilers when compiling:"
 msgstr ""
+"某些編譯器（如 Clang）本質上就是交叉編譯器。可以設定 :variable:"
+"`CMAKE_<LANG>_COMPILER_TARGET` 來為受支援的編譯器在編譯時傳遞值："
 
 #: ../../../manual/cmake-toolchains.7.rst:215
 msgid ""
@@ -370,6 +432,10 @@ msgid ""
 "`CMAKE_<LANG>_COMPILER_EXTERNAL_TOOLCHAIN` variable can be set in a "
 "toolchain file to pass the path to the compiler driver."
 msgstr ""
+"同樣地，某些編譯器不附帶自己的輔助實用程式（如連結器），但提供了一種方式來指"
+"定將由編譯器驅動程式使用的外部工具鏈的位置。可以在工具鏈檔案中設定 :variable:"
+"`CMAKE_<LANG>_COMPILER_EXTERNAL_TOOLCHAIN` 變數，以將路徑傳遞給編譯器驅動程"
+"式。"
 
 #: ../../../manual/cmake-toolchains.7.rst:234
 msgid "Cross Compiling for QNX"
@@ -381,6 +447,8 @@ msgid ""
 "And the :variable:`CMAKE_<LANG>_COMPILER_TARGET` can be set to pass a value "
 "to those supported compilers when compiling:"
 msgstr ""
+"與 Clang 編譯器類似，QNX QCC 編譯器本質上就是交叉編譯器。可以設定 :variable:"
+"`CMAKE_<LANG>_COMPILER_TARGET` 來為受支援的編譯器在編譯時傳遞值："
 
 #: ../../../manual/cmake-toolchains.7.rst:240
 msgid ""
@@ -406,12 +474,16 @@ msgid ""
 "installed on your system.  These SDKs are usually installed under ``C:/"
 "Program Files (x86)/Windows CE Tools/SDKs``."
 msgstr ""
+"為 Windows CE 進行交叉編譯需要在系統上安裝相應的 SDK。這些 SDK 通常安裝在 "
+"``C:/Program Files (x86)/Windows CE Tools/SDKs`` 下。"
 
 #: ../../../manual/cmake-toolchains.7.rst:261
 msgid ""
 "A toolchain file to configure :ref:`Visual Studio Generators` for Windows CE "
 "may look like this:"
 msgstr ""
+"用於設定 Windows CE 組態的 :ref:`Visual Studio Generators` 的工具鏈檔案可能如"
+"下所示："
 
 #: ../../../manual/cmake-toolchains.7.rst:264
 msgid ""
@@ -432,16 +504,22 @@ msgid ""
 "Compact 2013) is supported out of the box.  Other versions may require one "
 "to set :variable:`CMAKE_GENERATOR_TOOLSET` to the correct value."
 msgstr ""
+":variable:`CMAKE_GENERATOR_PLATFORM` 告訴生成器要使用哪個 SDK。此外 :"
+"variable:`CMAKE_SYSTEM_VERSION` 告訴生成器要使用哪個版本的 Windows CE。目前版"
+"本 8.0（Windows Embedded Compact 2013）是開箱即用的支援版本。其他版本可能需要"
+"將 :variable:`CMAKE_GENERATOR_TOOLSET` 設定為正確的值。"
 
 #: ../../../manual/cmake-toolchains.7.rst:281
 msgid "Cross Compiling for Windows 10 Universal Applications"
-msgstr ""
+msgstr "為 Windows 10 通用應用程式進行交叉編譯"
 
 #: ../../../manual/cmake-toolchains.7.rst:283
 msgid ""
 "A toolchain file to configure :ref:`Visual Studio Generators` for a Windows "
 "10 Universal Application may look like this:"
 msgstr ""
+"用於設定 Windows 10 通用應用程式組態的 :ref:`Visual Studio Generators` 的工具"
+"鏈檔案可能如下所示："
 
 #: ../../../manual/cmake-toolchains.7.rst:286
 msgid ""
@@ -455,12 +533,16 @@ msgid ""
 "Phone.  Specify the :variable:`CMAKE_SYSTEM_VERSION` variable to be ``10.0`` "
 "or higher."
 msgstr ""
+"Windows 10 通用應用程式的目標是 Windows Store 和 Windows Phone。將 :variable:"
+"`CMAKE_SYSTEM_VERSION` 變數設定為 ``10.0`` 或更高版本。"
 
 #: ../../../manual/cmake-toolchains.7.rst:295
 msgid ""
 "CMake selects a Windows SDK as described by documentation of the :variable:"
 "`CMAKE_VS_WINDOWS_TARGET_PLATFORM_VERSION` variable."
 msgstr ""
+"CMake 按照 :variable:`CMAKE_VS_WINDOWS_TARGET_PLATFORM_VERSION` 變數的文件說"
+"明選擇 Windows SDK。"
 
 #: ../../../manual/cmake-toolchains.7.rst:299
 msgid "Cross Compiling for Windows Phone"
@@ -471,6 +553,8 @@ msgid ""
 "A toolchain file to configure :ref:`Visual Studio Generators` for Windows "
 "Phone may look like this:"
 msgstr ""
+"用於設定 Windows Phone 組態的 :ref:`Visual Studio Generators` 的工具鏈檔案可"
+"能如下所示："
 
 #: ../../../manual/cmake-toolchains.7.rst:304
 msgid ""
@@ -487,6 +571,8 @@ msgid ""
 "A toolchain file to configure a :ref:`Visual Studio Generators` for Windows "
 "Store may look like this:"
 msgstr ""
+"用於設定 Windows Store 組態的 :ref:`Visual Studio Generators` 的工具鏈檔案可"
+"能如下所示："
 
 #: ../../../manual/cmake-toolchains.7.rst:315
 msgid ""
@@ -496,7 +582,7 @@ msgstr ""
 
 #: ../../../manual/cmake-toolchains.7.rst:323
 msgid "Cross Compiling for ADSP SHARC/Blackfin"
-msgstr ""
+msgstr "為 ADSP SHARC/Blackfin 進行交叉編譯"
 
 #: ../../../manual/cmake-toolchains.7.rst:325
 msgid ""
@@ -506,6 +592,10 @@ msgid ""
 "``ADSP-`` prefix, for example, ``21594``, ``SC589``, etc. This value is case "
 "insensitive."
 msgstr ""
+"可透過將 :variable:`CMAKE_SYSTEM_NAME` 設定為 ``ADSP``，並將 :variable:"
+"`CMAKE_SYSTEM_PROCESSOR` 設定為「零件編號」（不含 ``ADSP-`` 前綴）來設定 "
+"ADSP SHARC 或 Blackfin 的交叉編譯組態，例如 ``21594``、``SC589`` 等。此值不區"
+"分大小寫。"
 
 #: ../../../manual/cmake-toolchains.7.rst:332
 msgid ""
@@ -515,12 +605,17 @@ msgid ""
 "via the :variable:`CMAKE_ADSP_ROOT` variable or the :envvar:`ADSP_ROOT` "
 "environment variable."
 msgstr ""
+"CMake 會自動在其默認安裝位置搜尋 CCES 或 VDSP++ 安裝，並選擇找到的最新版本。"
+"如果同時安裝了兩者，CCES 將優先於 VDSP++ 被選中。自訂安裝路徑可以透過 :"
+"variable:`CMAKE_ADSP_ROOT` 變數或 :envvar:`ADSP_ROOT` 環境變數設定。"
 
 #: ../../../manual/cmake-toolchains.7.rst:339
 msgid ""
 "The compiler (``cc21k`` vs. ``ccblkfn``) is selected automatically based on "
 "the :variable:`CMAKE_SYSTEM_PROCESSOR` value provided."
 msgstr ""
+"編譯器（``cc21k`` 或 ``ccblkfn``）會根據所提供的 :variable:"
+"`CMAKE_SYSTEM_PROCESSOR` 值自動選擇。"
 
 #: ../../../manual/cmake-toolchains.7.rst:345
 msgid "Cross Compiling for Android"
@@ -532,6 +627,9 @@ msgid ""
 "variable:`CMAKE_SYSTEM_NAME` variable to ``Android``.  Further configuration "
 "is specific to the Android development environment to be used."
 msgstr ""
+"工具鏈檔案可以透過將 :variable:`CMAKE_SYSTEM_NAME` 變數設定為 ``Android`` 來"
+"設定 Android 的交叉編譯組態。進一步的組態設定取決於所使用的 Android 開發環"
+"境。"
 
 #: ../../../manual/cmake-toolchains.7.rst:351
 msgid ""
@@ -541,12 +639,19 @@ msgid ""
 "Compiling for Android with the NDK>` to be installed. See those sections for "
 "further configuration details."
 msgstr ""
+"對於 :ref:`Visual Studio Generators`，CMake 預期已安裝 :ref:`NVIDIA Nsight "
+"Tegra Visual Studio Edition <Cross Compiling for Android with NVIDIA Nsight "
+"Tegra Visual Studio Edition>` 或 :ref:`Visual Studio tools for Android "
+"<Cross Compiling for Android with the NDK>`。請參見那些小節以了解進一步的組態"
+"設定詳細資訊。"
 
 #: ../../../manual/cmake-toolchains.7.rst:357
 msgid ""
 "For :ref:`Makefile Generators` and the :generator:`Ninja` generator, CMake "
 "expects one of these environments:"
 msgstr ""
+"對於 :ref:`Makefile Generators` 和 :generator:`Ninja` 生成器，CMake 預期以下"
+"環境之一："
 
 #: ../../../manual/cmake-toolchains.7.rst:360
 msgid ":ref:`NDK <Cross Compiling for Android with the NDK>`"
@@ -561,19 +666,22 @@ msgstr ""
 
 #: ../../../manual/cmake-toolchains.7.rst:363
 msgid "CMake uses the following steps to select one of the environments:"
-msgstr ""
+msgstr "CMake 使用以下步驟來選擇其中一個環境："
 
 #: ../../../manual/cmake-toolchains.7.rst:365
 msgid ""
 "If the :variable:`CMAKE_ANDROID_NDK` variable is set, the NDK at the "
 "specified location will be used."
 msgstr ""
+"如果設定了 :variable:`CMAKE_ANDROID_NDK` 變數，則將使用指定位置的 NDK。"
 
 #: ../../../manual/cmake-toolchains.7.rst:368
 msgid ""
 "Else, if the :variable:`CMAKE_ANDROID_STANDALONE_TOOLCHAIN` variable is set, "
 "the Standalone Toolchain at the specified location will be used."
 msgstr ""
+"否則，如果設定了 :variable:`CMAKE_ANDROID_STANDALONE_TOOLCHAIN` 變數，則將使"
+"用指定位置的獨立工具鏈。"
 
 #: ../../../manual/cmake-toolchains.7.rst:371
 msgid ""
@@ -582,6 +690,9 @@ msgid ""
 "be used as the value of :variable:`CMAKE_ANDROID_NDK` and the NDK will be "
 "used."
 msgstr ""
+"否則，如果 :variable:`CMAKE_SYSROOT` 變數設定為 ``<ndk>/platforms/android-"
+"<api>/arch-<arch>`` 形式的目錄，則 ``<ndk>`` 部分將用作 :variable:"
+"`CMAKE_ANDROID_NDK` 的值，並將使用 NDK。"
 
 #: ../../../manual/cmake-toolchains.7.rst:376
 msgid ""
@@ -590,12 +701,17 @@ msgid ""
 "will be used as the value of :variable:`CMAKE_ANDROID_STANDALONE_TOOLCHAIN` "
 "and the Standalone Toolchain will be used."
 msgstr ""
+"否則，如果 :variable:`CMAKE_SYSROOT` 變數設定為 ``<standalone-toolchain>/"
+"sysroot`` 形式的目錄，則 ``<standalone-toolchain>`` 部分將用作 :variable:"
+"`CMAKE_ANDROID_STANDALONE_TOOLCHAIN` 的值，並將使用獨立工具鏈。"
 
 #: ../../../manual/cmake-toolchains.7.rst:381
 msgid ""
 "Else, if a cmake variable ``ANDROID_NDK`` is set it will be used as the "
 "value of :variable:`CMAKE_ANDROID_NDK`, and the NDK will be used."
 msgstr ""
+"否則，如果設定了 cmake 變數 ``ANDROID_NDK``，則它將用作 :variable:"
+"`CMAKE_ANDROID_NDK` 的值，並將使用 NDK。"
 
 #: ../../../manual/cmake-toolchains.7.rst:384
 msgid ""
@@ -603,6 +719,8 @@ msgid ""
 "be used as the value of :variable:`CMAKE_ANDROID_STANDALONE_TOOLCHAIN`, and "
 "the Standalone Toolchain will be used."
 msgstr ""
+"否則，如果設定了 cmake 變數 ``ANDROID_STANDALONE_TOOLCHAIN``，則它將用作 :"
+"variable:`CMAKE_ANDROID_STANDALONE_TOOLCHAIN` 的值，並將使用獨立工具鏈。"
 
 #: ../../../manual/cmake-toolchains.7.rst:388
 msgid ""
@@ -610,6 +728,8 @@ msgid ""
 "set, it will be used as the value of :variable:`CMAKE_ANDROID_NDK`, and the "
 "NDK will be used."
 msgstr ""
+"否則，如果設定了環境變數 ``ANDROID_NDK_ROOT`` 或 ``ANDROID_NDK``，則它將用"
+"作 :variable:`CMAKE_ANDROID_NDK` 的值，並將使用 NDK。"
 
 #: ../../../manual/cmake-toolchains.7.rst:392
 msgid ""
@@ -618,18 +738,22 @@ msgid ""
 "`CMAKE_ANDROID_STANDALONE_TOOLCHAIN`, and the Standalone Toolchain will be "
 "used."
 msgstr ""
+"否則，如果設定了環境變數 ``ANDROID_STANDALONE_TOOLCHAIN``，則它將用作 :"
+"variable:`CMAKE_ANDROID_STANDALONE_TOOLCHAIN` 的值，並將使用獨立工具鏈。"
 
 #: ../../../manual/cmake-toolchains.7.rst:397
 msgid ""
 "Else, an error diagnostic will be issued that neither the NDK or Standalone "
 "Toolchain can be found."
-msgstr ""
+msgstr "否則，將會發出錯誤診斷，表示找不到 NDK 或獨立工具鏈。"
 
 #: ../../../manual/cmake-toolchains.7.rst:400
 msgid ""
 "If an Android NDK is selected, its version number is reported in the :"
 "variable:`CMAKE_ANDROID_NDK_VERSION` variable."
 msgstr ""
+"如果選擇了 Android NDK，其版本號會記錄在 :variable:"
+"`CMAKE_ANDROID_NDK_VERSION` 變數中。"
 
 #: ../../../manual/cmake-toolchains.7.rst:407
 msgid "Cross Compiling for Android with the NDK"
@@ -641,16 +765,18 @@ msgid ""
 "Generators`, or :ref:`Visual Studio Generators` to target Android for cross-"
 "compiling."
 msgstr ""
+"工具鏈檔案可以設定 :ref:`Makefile Generators`、:ref:`Ninja Generators` 或 :"
+"ref:`Visual Studio Generators` 組態以 Android 為目標進行交叉編譯。"
 
 #: ../../../manual/cmake-toolchains.7.rst:413
 msgid "Configure use of an Android NDK with the following variables:"
-msgstr ""
+msgstr "使用以下變數設定 Android NDK 的使用組態："
 
 #: ../../../manual/cmake-toolchains.7.rst:416
 #: ../../../manual/cmake-toolchains.7.rst:500
 msgid ""
 "Set to ``Android``.  Must be specified to enable cross compiling for Android."
-msgstr ""
+msgstr "設定為 ``Android``。必須指定才能啟用 Android 的交叉編譯。"
 
 #: ../../../manual/cmake-toolchains.7.rst:419
 #: ../../../manual/cmake-toolchains.7.rst:521
@@ -661,23 +787,25 @@ msgstr ""
 msgid ""
 "Set to the Android API level.  If not specified, the value is determined as "
 "follows:"
-msgstr ""
+msgstr "設定為 Android API 層級。如果未指定，則按以下方式決定其值："
 
 #: ../../../manual/cmake-toolchains.7.rst:423
 msgid ""
 "If the :variable:`CMAKE_ANDROID_API` variable is set, its value is used as "
 "the API level."
-msgstr ""
+msgstr "如果設定了 :variable:`CMAKE_ANDROID_API` 變數，則其值將用作 API 層級。"
 
 #: ../../../manual/cmake-toolchains.7.rst:425
 msgid ""
 "If the :variable:`CMAKE_SYSROOT` variable is set, the API level is detected "
 "from the NDK directory structure containing the sysroot."
 msgstr ""
+"如果設定了 :variable:`CMAKE_SYSROOT` 變數，則從包含 sysroot 的 NDK 目錄結構中"
+"偵測 API 層級。"
 
 #: ../../../manual/cmake-toolchains.7.rst:427
 msgid "Otherwise, the latest API level available in the NDK is used."
-msgstr ""
+msgstr "否則，使用 NDK 中可用的最新 API 層級。"
 
 #: ../../../manual/cmake-toolchains.7.rst:429
 #: ../../../manual/cmake-toolchains.7.rst:524
@@ -693,6 +821,11 @@ msgid ""
 "variable:`CMAKE_ANDROID_ARM_MODE` and :variable:`CMAKE_ANDROID_ARM_NEON` "
 "variables."
 msgstr ""
+"設定為 Android ABI（架構）。如果未指定，此變數將默認為 ``armeabi``、"
+"``armeabi-v7a`` 和 ``arm64-v8a`` 列表中第一個支援的 ABI。:variable:"
+"`CMAKE_ANDROID_ARCH` 變數將從 ``CMAKE_ANDROID_ARCH_ABI`` 自動計算。另請參見 :"
+"variable:`CMAKE_ANDROID_ARM_MODE` 和 :variable:`CMAKE_ANDROID_ARM_NEON` 變"
+"數。"
 
 #: ../../../manual/cmake-toolchains.7.rst:438
 msgid ":variable:`CMAKE_ANDROID_NDK`"
@@ -704,6 +837,8 @@ msgid ""
 "specified, a default for this variable will be chosen as specified :ref:"
 "`above <Cross Compiling for Android>`."
 msgstr ""
+"設定為 Android NDK 根目錄的絕對路徑。如果未指定，則將按照 :ref:`上述 <Cross "
+"Compiling for Android>` 方式為此變數選擇默認值。"
 
 #: ../../../manual/cmake-toolchains.7.rst:443
 msgid ":variable:`CMAKE_ANDROID_NDK_DEPRECATED_HEADERS`"
@@ -715,6 +850,8 @@ msgid ""
 "the unified headers.  If not specified, the default will be false unless "
 "using a NDK that does not provide unified headers."
 msgstr ""
+"設為 true 值以使用已棄用的每個 API 層級的標頭，而不是統一標頭。如果未指定，默"
+"認為 false，除非使用的 NDK 不提供統一標頭。"
 
 #: ../../../manual/cmake-toolchains.7.rst:448
 msgid ":variable:`CMAKE_ANDROID_NDK_TOOLCHAIN_VERSION`"
@@ -727,6 +864,9 @@ msgid ""
 "the compiler.  If not specified, the default will be the latest available "
 "GCC toolchain."
 msgstr ""
+"在 NDK r19 或更高版本上，此變數必須不設定或設為 ``clang``。在 NDK r18 或更低"
+"版本上，將其設為要選作編譯器的 NDK 工具鏈版本。如果未指定，默認為最新的可用 "
+"GCC 工具鏈。"
 
 #: ../../../manual/cmake-toolchains.7.rst:454
 msgid ":variable:`CMAKE_ANDROID_STL_TYPE`"
@@ -737,11 +877,13 @@ msgid ""
 "Set to specify which C++ standard library to use.  If not specified, a "
 "default will be selected as described in the variable documentation."
 msgstr ""
+"設定以指定要使用哪個 C++ 標準程式庫。如果未指定，將按照變數文件中的說明選擇默"
+"認值。"
 
 #: ../../../manual/cmake-toolchains.7.rst:458
 #: ../../../manual/cmake-toolchains.7.rst:519
 msgid "The following variables will be computed and provided automatically:"
-msgstr ""
+msgstr "以下變數將自動計算並提供："
 
 #: ../../../manual/cmake-toolchains.7.rst:460
 #: ../../../manual/cmake-toolchains.7.rst:527
@@ -750,7 +892,7 @@ msgstr ""
 
 #: ../../../manual/cmake-toolchains.7.rst:461
 msgid "The absolute path prefix to the binutils in the NDK toolchain."
-msgstr ""
+msgstr "NDK 工具鏈中 binutils 的絕對路徑前綴。"
 
 #: ../../../manual/cmake-toolchains.7.rst:463
 #: ../../../manual/cmake-toolchains.7.rst:530
@@ -759,12 +901,12 @@ msgstr ""
 
 #: ../../../manual/cmake-toolchains.7.rst:464
 msgid "The host platform suffix of the binutils in the NDK toolchain."
-msgstr ""
+msgstr "NDK 工具鏈中 binutils 的主機平台後綴。"
 
 #: ../../../manual/cmake-toolchains.7.rst:467
 #: ../../../manual/cmake-toolchains.7.rst:533
 msgid "For example, a toolchain file might contain:"
-msgstr ""
+msgstr "例如，工具鏈檔案可能包含："
 
 #: ../../../manual/cmake-toolchains.7.rst:469
 msgid ""
@@ -778,7 +920,7 @@ msgstr ""
 #: ../../../manual/cmake-toolchains.7.rst:477
 #: ../../../manual/cmake-toolchains.7.rst:540
 msgid "Alternatively one may specify the values without a toolchain file:"
-msgstr ""
+msgstr "或者，也可以在沒有工具鏈檔案的情況下指定這些值："
 
 #: ../../../manual/cmake-toolchains.7.rst:479
 msgid ""
@@ -792,7 +934,7 @@ msgstr ""
 
 #: ../../../manual/cmake-toolchains.7.rst:491
 msgid "Cross Compiling for Android with a Standalone Toolchain"
-msgstr ""
+msgstr "使用獨立工具鏈為 Android 進行交叉編譯"
 
 #: ../../../manual/cmake-toolchains.7.rst:493
 msgid ""
@@ -800,12 +942,14 @@ msgid ""
 "`Ninja` generator to target Android for cross-compiling using a standalone "
 "toolchain."
 msgstr ""
+"工具鏈檔案可以設定 :ref:`Makefile Generators` 或 :generator:`Ninja` 生成器組"
+"態，使用獨立工具鏈以 Android 為目標進行交叉編譯。"
 
 #: ../../../manual/cmake-toolchains.7.rst:497
 msgid ""
 "Configure use of an Android standalone toolchain with the following "
 "variables:"
-msgstr ""
+msgstr "使用以下變數設定 Android 獨立工具鏈的使用組態："
 
 #: ../../../manual/cmake-toolchains.7.rst:503
 msgid ":variable:`CMAKE_ANDROID_STANDALONE_TOOLCHAIN`"
@@ -818,6 +962,9 @@ msgid ""
 "not specified, a default for this variable will be chosen as specified :ref:"
 "`above <Cross Compiling for Android>`."
 msgstr ""
+"設定為獨立工具鏈根目錄的絕對路徑。必須存在 "
+"``${CMAKE_ANDROID_STANDALONE_TOOLCHAIN}/sysroot`` 目錄。如果未指定，則將按照"
+"\\ :ref:`上述 <Cross Compiling for Android>`\\ 方式為此變數選擇默認值。"
 
 #: ../../../manual/cmake-toolchains.7.rst:510
 msgid ":variable:`CMAKE_ANDROID_ARM_MODE`"
@@ -829,6 +976,8 @@ msgid ""
 "target 32-bit ARM instead of 16-bit Thumb. See variable documentation for "
 "details."
 msgstr ""
+"當獨立工具鏈以 ARM 為目標時，可選擇性地將其設為 ``ON`` 以定位 32 位元 ARM 而"
+"不是 16 位元 Thumb。詳情請參見變數文件。"
 
 #: ../../../manual/cmake-toolchains.7.rst:515
 msgid ":variable:`CMAKE_ANDROID_ARM_NEON`"
@@ -839,24 +988,26 @@ msgid ""
 "When the standalone toolchain targets ARM v7, optionally set thisto ``ON`` "
 "to target ARM NEON devices.  See variable documentation for details."
 msgstr ""
+"當獨立工具鏈以 ARM v7 為目標時，可選擇性地將其設為 ``ON`` 以定位 ARM NEON 裝"
+"置。詳情請參見變數文件。"
 
 #: ../../../manual/cmake-toolchains.7.rst:522
 msgid "The Android API level detected from the standalone toolchain."
-msgstr ""
+msgstr "從獨立工具鏈偵測到的 Android API 層級。"
 
 #: ../../../manual/cmake-toolchains.7.rst:525
 msgid "The Android ABI detected from the standalone toolchain."
-msgstr ""
+msgstr "從獨立工具鏈偵測到的 Android ABI。"
 
 #: ../../../manual/cmake-toolchains.7.rst:528
 msgid ""
 "The absolute path prefix to the ``binutils`` in the standalone toolchain."
-msgstr ""
+msgstr "獨立工具鏈中 ``binutils`` 的絕對路徑前綴。"
 
 #: ../../../manual/cmake-toolchains.7.rst:531
 msgid ""
 "The host platform suffix of the ``binutils`` in the standalone toolchain."
-msgstr ""
+msgstr "獨立工具鏈中 ``binutils`` 的主機平台後綴。"
 
 #: ../../../manual/cmake-toolchains.7.rst:535
 msgid ""
@@ -874,13 +1025,15 @@ msgstr ""
 #: ../../../manual/cmake-toolchains.7.rst:551
 msgid ""
 "Cross Compiling for Android with NVIDIA Nsight Tegra Visual Studio Edition"
-msgstr ""
+msgstr "使用 NVIDIA Nsight Tegra Visual Studio Edition 為 Android 進行交叉編譯"
 
 #: ../../../manual/cmake-toolchains.7.rst:553
 msgid ""
 "A toolchain file to configure one of the :ref:`Visual Studio Generators` to "
 "build using NVIDIA Nsight Tegra targeting Android may look like this:"
 msgstr ""
+"用於設定其中一個 :ref:`Visual Studio Generators` 組態以使用 NVIDIA Nsight "
+"Tegra 建置 Android 目標的工具鏈檔案可能如下所示："
 
 #: ../../../manual/cmake-toolchains.7.rst:556
 msgid "set(CMAKE_SYSTEM_NAME Android)"
@@ -891,6 +1044,8 @@ msgid ""
 "The :variable:`CMAKE_GENERATOR_TOOLSET` may be set to select the Nsight "
 "Tegra \"Toolchain Version\" value."
 msgstr ""
+"可以設定 :variable:`CMAKE_GENERATOR_TOOLSET` 來選擇 Nsight Tegra 的"
+"「Toolchain Version」值。"
 
 #: ../../../manual/cmake-toolchains.7.rst:563
 msgid "See also target properties:"
@@ -966,7 +1121,7 @@ msgstr ":prop_tgt:`ANDROID_STL_TYPE`"
 
 #: ../../../manual/cmake-toolchains.7.rst:586
 msgid "Cross Compiling for iOS, tvOS, visionOS, or watchOS"
-msgstr ""
+msgstr "為 iOS、tvOS、visionOS 或 watchOS 進行交叉編譯"
 
 #: ../../../manual/cmake-toolchains.7.rst:588
 msgid ""
@@ -975,6 +1130,9 @@ msgid ""
 "generator:`Ninja` generators can also be used, but they require the project "
 "to handle more areas like target CPU selection and code signing."
 msgstr ""
+"對於 iOS、tvOS、visionOS 或 watchOS 的交叉編譯，建議使用 :generator:`Xcode` "
+"生成器。也可以使用 :generator:`Unix Makefiles` 或 :generator:`Ninja` 生成器，"
+"但它們需要專案處理更多方面，例如目標 CPU 選擇和代碼簽署。"
 
 #: ../../../manual/cmake-toolchains.7.rst:593
 msgid ""
@@ -986,10 +1144,15 @@ msgid ""
 "ref:`Switching Between Device and Simulator` below). A list of available "
 "SDKs can be obtained by running ``xcodebuild -showsdks``."
 msgstr ""
+"任何 Apple 裝置平台都可以透過將 :variable:`CMAKE_SYSTEM_NAME` 變數設定為下表"
+"中的值來作為目標。默認情況下，會選擇最新的 Device SDK。對於所有 Apple 平台，"
+"可以透過設定 :variable:`CMAKE_OSX_SYSROOT` 變數來選擇不同的 SDK（例如仿真"
+"器），儘管通常不需要這樣做（請參見下面的 :ref:`在裝置和仿真器之間切換`）。可"
+"以透過執行 ``xcodebuild -showsdks`` 來取得可用 SDK 的清單。"
 
 #: ../../../manual/cmake-toolchains.7.rst:602
 msgid "OS"
-msgstr ""
+msgstr "作業系統"
 
 #: ../../../manual/cmake-toolchains.7.rst:602
 msgid "CMAKE_SYSTEM_NAME"
@@ -997,11 +1160,11 @@ msgstr ""
 
 #: ../../../manual/cmake-toolchains.7.rst:602
 msgid "Device SDK (default)"
-msgstr ""
+msgstr "裝置 SDK（默認）"
 
 #: ../../../manual/cmake-toolchains.7.rst:602
 msgid "Simulator SDK"
-msgstr ""
+msgstr "仿真器 SDK"
 
 #: ../../../manual/cmake-toolchains.7.rst:602
 msgid "Catalyst SDK"
@@ -1039,7 +1202,7 @@ msgstr ""
 #: ../../../manual/cmake-toolchains.7.rst:606
 #: ../../../manual/cmake-toolchains.7.rst:607
 msgid "N/A"
-msgstr ""
+msgstr "不適用"
 
 #: ../../../manual/cmake-toolchains.7.rst:606
 msgid "visionOS"
@@ -1069,7 +1232,7 @@ msgstr ""
 msgid ""
 "For example, to create a CMake configuration for iOS, the following command "
 "is sufficient:"
-msgstr ""
+msgstr "例如，要建立 iOS 的 CMake 組態，以下命令就足夠了："
 
 #: ../../../manual/cmake-toolchains.7.rst:613
 msgid "cmake .. -GXcode -DCMAKE_SYSTEM_NAME=iOS"
@@ -1082,6 +1245,9 @@ msgid ""
 "`CMAKE_OSX_DEPLOYMENT_TARGET` can be used to set an iOS/tvOS/visionOS/"
 "watchOS deployment target."
 msgstr ""
+"變數 :variable:`CMAKE_OSX_ARCHITECTURES` 可用於設定裝置和仿真器的架構。變數 :"
+"variable:`CMAKE_OSX_DEPLOYMENT_TARGET` 可用於設定 iOS/tvOS/visionOS/watchOS "
+"部署目標。"
 
 #: ../../../manual/cmake-toolchains.7.rst:621
 msgid ""
@@ -1091,6 +1257,10 @@ msgid ""
 "variable:`CMAKE_IOS_INSTALL_COMBINED` variable used in the example is now "
 "deprecated, so this approach is no longer recommended."
 msgstr ""
+"下一個範例將五種架構安裝到一個 iOS 程式庫的通用二進位檔中。它會在適當的位置新"
+"增相關的 ``-miphoneos-version-min=9.3`` 或 ``-mios-simulator-version-"
+"min=9.3`` 編譯器旗標。請注意，範例中使用的 :variable:"
+"`CMAKE_IOS_INSTALL_COMBINED` 變數現已棄用，因此不再建議使用此方法。"
 
 #: ../../../manual/cmake-toolchains.7.rst:627
 msgid ""
@@ -1131,7 +1301,7 @@ msgstr ""
 
 #: ../../../manual/cmake-toolchains.7.rst:653
 msgid "Check library:"
-msgstr ""
+msgstr "檢查程式庫："
 
 #: ../../../manual/cmake-toolchains.7.rst:655
 msgid ""
@@ -1150,7 +1320,7 @@ msgstr ""
 
 #: ../../../manual/cmake-toolchains.7.rst:668
 msgid "Code Signing"
-msgstr ""
+msgstr "代碼簽署"
 
 #: ../../../manual/cmake-toolchains.7.rst:670
 msgid ""
@@ -1162,10 +1332,14 @@ msgid ""
 "the need for code signing during the internal configuration phase (i.e "
 "compiler ID and feature detection)."
 msgstr ""
+"如果在使用 :generator:`Xcode` 生成器時需要或希望進行代碼簽署，可以透過 "
+"``CMAKE_XCODE_ATTRIBUTE_DEVELOPMENT_TEAM`` CMake 變數指定開發團隊 ID。此團隊 "
+"ID 將被包含在生成的 Xcode 專案中。默認情況下，CMake 在內部組態階段（即編譯器 "
+"ID 和功能偵測）避免需要代碼簽署。"
 
 #: ../../../manual/cmake-toolchains.7.rst:681
 msgid "Switching Between Device and Simulator"
-msgstr "在裝置和模擬器之間切換"
+msgstr "在裝置和仿真器之間切換"
 
 #: ../../../manual/cmake-toolchains.7.rst:683
 msgid ""
@@ -1181,6 +1355,12 @@ msgid ""
 "directly by passing a ``-sdk`` option to the underlying build tool "
 "(``xcodebuild``).  For example:"
 msgstr ""
+"在為任何嵌入式平台進行組態時，您可以選擇以真實裝置或仿真器為目標。兩者都有各"
+"自獨立的 SDK，但 CMake 僅支援在組態階段指定單一 SDK。這意味著開發人員必須在組"
+"態時選擇其中一個。使用 :generator:`Xcode` 生成器時，這個限制較小，因為即使只"
+"針對其中一個進行了組態，Xcode 仍然允許您為裝置或仿真器進行建置。在 Xcode IDE "
+"中，系統會針對所選的「目標平台」執行建置。從命令行建置時，可以透過向底層建置"
+"工具 (``xcodebuild``) 傳遞 ``-sdk`` 選項來直接指定所需的 SDK。例如："
 
 #: ../../../manual/cmake-toolchains.7.rst:695
 msgid "$ cmake --build ... -- -sdk iphonesimulator"
@@ -1195,28 +1375,38 @@ msgid ""
 "to switch between device and simulator builds. You can follow the next rules "
 "to make device + simulator configuration work:"
 msgstr ""
+"請注意，組態期間進行的檢查是針對組態時的 SDK 執行的，對於其他 SDK 可能不成"
+"立。像 :command:`find_package`、:command:`find_library` 等命令僅儲存和使用所"
+"組態的 SDK/平台的詳細資訊，因此如果要在裝置和仿真器建置之間切換，可能會出現問"
+"題。您可以遵循以下規則來使裝置 + 仿真器組態正常運作："
 
 #: ../../../manual/cmake-toolchains.7.rst:706
 msgid ""
 "Use explicit ``-l`` linker flag, e.g. ``target_link_libraries(foo PUBLIC \"-"
 "lz\")``"
 msgstr ""
+"使用明確的 ``-l`` 連結器旗標，例如 ``target_link_libraries(foo PUBLIC \"-"
+"lz\")``"
 
 #: ../../../manual/cmake-toolchains.7.rst:709
 msgid ""
 "Use explicit ``-framework`` linker flag, e.g. ``target_link_libraries(foo "
 "PUBLIC \"-framework CoreFoundation\")``"
 msgstr ""
+"使用明確的 ``-framework`` 連結器旗標，例如 ``target_link_libraries(foo "
+"PUBLIC \"-framework CoreFoundation\")``"
 
 #: ../../../manual/cmake-toolchains.7.rst:712
 msgid ""
 "Use :command:`find_package` only for libraries installed with :variable:"
 "`CMAKE_IOS_INSTALL_COMBINED` feature"
 msgstr ""
+"僅對使用 :variable:`CMAKE_IOS_INSTALL_COMBINED` 功能安裝的程式庫使用 :"
+"command:`find_package`"
 
 #: ../../../manual/cmake-toolchains.7.rst:718
 msgid "Cross Compiling for Emscripten"
-msgstr ""
+msgstr "為 Emscripten 進行交叉編譯"
 
 #: ../../../manual/cmake-toolchains.7.rst:722
 msgid ""
@@ -1224,6 +1414,8 @@ msgid ""
 "the :variable:`CMAKE_SYSTEM_NAME` variable to ``Emscripten``. For example, a "
 "toolchain file might contain:"
 msgstr ""
+"工具鏈檔案可以透過將 :variable:`CMAKE_SYSTEM_NAME` 變數設定為 ``Emscripten`` "
+"來設定 `Emscripten`_ 的交叉編譯組態。例如，工具鏈檔案可能包含："
 
 #: ../../../manual/cmake-toolchains.7.rst:726
 msgid ""
@@ -1234,15 +1426,15 @@ msgstr ""
 
 #: ../../../manual/cmake-toolchains.7.rst:735
 msgid "Cross Compiling using Renesas compilers"
-msgstr ""
+msgstr "使用 Renesas 編譯器進行交叉編譯"
 
 #: ../../../manual/cmake-toolchains.7.rst:737
 msgid "For cross-compiling with Renesas compilers, specify at least:"
-msgstr ""
+msgstr "對於使用 Renesas 編譯器進行交叉編譯，至少需指定："
 
 #: ../../../manual/cmake-toolchains.7.rst:740
 msgid "Set to ``Generic``.  Must be specified to enable cross compiling."
-msgstr ""
+msgstr "設定為 ``Generic``。必須指定才能啟用交叉編譯。"
 
 #: ../../../manual/cmake-toolchains.7.rst:742
 msgid ":variable:`CMAKE_C_COMPILER <CMAKE_<LANG>_COMPILER>`"
@@ -1252,7 +1444,7 @@ msgstr ""
 msgid ""
 "Set to the path to the Renesas C compiler, e.g., ``ccrx``, ``ccrl``, or "
 "``ccrh``."
-msgstr ""
+msgstr "設定為 Renesas C 編譯器的路徑，例如 ``ccrx``、``ccrl`` 或 ``ccrh``。"
 
 #: ../../../manual/cmake-toolchains.7.rst:746
 msgid ":variable:`CMAKE_C_FLAGS <CMAKE_<LANG>_FLAGS>`"
@@ -1260,11 +1452,11 @@ msgstr ""
 
 #: ../../../manual/cmake-toolchains.7.rst:747
 msgid "Set to the ``-isa=`` or ``-cpu=`` flag the compiler requires."
-msgstr ""
+msgstr "設定為編譯器所需的 ``-isa=`` 或 ``-cpu=`` 旗標。"
 
 #: ../../../manual/cmake-toolchains.7.rst:749
 msgid "See example toolchain files in the following sections."
-msgstr ""
+msgstr "請參見以下小節中的工具鏈檔案範例。"
 
 #: ../../../manual/cmake-toolchains.7.rst:752
 msgid "Renesas CC-RX"
@@ -1278,6 +1470,11 @@ msgid ""
 "set(CMAKE_C_FLAGS \"-isa=rxv3\") # specify the version of target RX CPU\n"
 "set(CMAKE_EXE_LINKER_FLAGS \"-lnkopt=<your linker option here>\")"
 msgstr ""
+"set(CMAKE_SYSTEM_NAME Generic)\n"
+"set(CMAKE_C_COMPILER \"ccrx.exe\")\n"
+"set(CMAKE_ASM_COMPILER \"ccrx.exe\") # 如果使用 ASM 語言\n"
+"set(CMAKE_C_FLAGS \"-isa=rxv3\") # 指定目標 RX CPU 的版本\n"
+"set(CMAKE_EXE_LINKER_FLAGS \"-lnkopt=<您的連結器選項>\")"
 
 #: ../../../manual/cmake-toolchains.7.rst:763
 msgid "Renesas CC-RL"
@@ -1296,6 +1493,15 @@ msgid ""
 "set(CMAKE_EXE_LINKER_FLAGS \"-lnkopt=-device=dr5f10y14.dvf -lnkopt=-"
 "auto_section_layout\")"
 msgstr ""
+"set(CMAKE_SYSTEM_NAME Generic)\n"
+"set(CMAKE_C_COMPILER \"ccrl.exe\")\n"
+"set(CMAKE_ASM_COMPILER \"ccrl.exe\") # 如果使用 ASM 語言\n"
+"set(CMAKE_C_FLAGS \"-cpu=S3\") # 指定目標 RL CPU 的版本\n"
+"# 為避免測試可執行檔超出 const 區段的大小。\n"
+"set(CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY)\n"
+"# 透過編譯器驅動程式指定裝置檔案和區段配置連結器選項。\n"
+"set(CMAKE_EXE_LINKER_FLAGS \"-lnkopt=-device=dr5f10y14.dvf -lnkopt=-"
+"auto_section_layout\")"
 
 #: ../../../manual/cmake-toolchains.7.rst:777
 msgid "Renesas CC-RH"
@@ -1310,3 +1516,8 @@ msgid ""
 "CPU\n"
 "set(CMAKE_EXE_LINKER_FLAGS \"-lnkopt=<your linker option here>\")"
 msgstr ""
+"set(CMAKE_SYSTEM_NAME Generic)\n"
+"set(CMAKE_C_COMPILER \"ccrh.exe\")\n"
+"set(CMAKE_ASM_COMPILER \"ccrh.exe\") # 如果使用 ASM 語言\n"
+"set(CMAKE_C_FLAGS \"-Xcommon=rh850\") # 指定目標 RH850 CPU 的版本\n"
+"set(CMAKE_EXE_LINKER_FLAGS \"-lnkopt=<your linker option here>\")"
