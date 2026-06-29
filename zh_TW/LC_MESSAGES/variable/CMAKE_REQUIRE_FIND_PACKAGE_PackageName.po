@@ -1,0 +1,85 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2000-2025 Kitware, Inc. and Contributors
+# This file is distributed under the same license as the CMake package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CMake master\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-07-14 08:20+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../variable/CMAKE_REQUIRE_FIND_PACKAGE_PackageName.rst:2
+msgid "CMAKE_REQUIRE_FIND_PACKAGE_<PackageName>"
+msgstr ""
+
+#: ../../../variable/CMAKE_REQUIRE_FIND_PACKAGE_PackageName.rst:6
+msgid "Variable for making :command:`find_package` call ``REQUIRED``."
+msgstr ""
+
+#: ../../../variable/CMAKE_REQUIRE_FIND_PACKAGE_PackageName.rst:8
+msgid ""
+"Every non-``REQUIRED`` :command:`find_package` call in a project can be "
+"turned into ``REQUIRED`` by setting the variable "
+"``CMAKE_REQUIRE_FIND_PACKAGE_<PackageName>`` to ``TRUE``. This can be used "
+"to assert assumptions about build environment and to ensure the build will "
+"fail early if they do not hold."
+msgstr ""
+
+#: ../../../variable/CMAKE_REQUIRE_FIND_PACKAGE_PackageName.rst:14
+msgid ""
+"Note that setting this variable to true breaks some commonly used patterns. "
+"Multiple calls to :command:`find_package` are sometimes used to obtain a "
+"different search order to the default. For example, projects can force "
+"checking a known path for a particular package first before searching any of "
+"the other default search paths:"
+msgstr ""
+
+#: ../../../variable/CMAKE_REQUIRE_FIND_PACKAGE_PackageName.rst:20
+msgid ""
+"find_package(something PATHS /some/local/path NO_DEFAULT_PATH)\n"
+"find_package(something)"
+msgstr ""
+
+#: ../../../variable/CMAKE_REQUIRE_FIND_PACKAGE_PackageName.rst:25
+msgid ""
+"In the above, the first call looks for the ``something`` package in a "
+"specific directory.  If ``CMAKE_REQUIRE_FIND_PACKAGE_something`` is set to "
+"true, then this first call must succeed, otherwise a fatal error occurs.  "
+"The second call never gets a chance to provide a fall-back to using the "
+"default search locations."
+msgstr ""
+
+#: ../../../variable/CMAKE_REQUIRE_FIND_PACKAGE_PackageName.rst:31
+msgid ""
+"A similar pattern is used even by some of CMake's own Find modules to search "
+"for a config package first:"
+msgstr ""
+
+#: ../../../variable/CMAKE_REQUIRE_FIND_PACKAGE_PackageName.rst:34
+msgid ""
+"find_package(something CONFIG QUIET)\n"
+"if(NOT something_FOUND)\n"
+"  # Fall back to searching using typical Find module logic...\n"
+"endif()"
+msgstr ""
+
+#: ../../../variable/CMAKE_REQUIRE_FIND_PACKAGE_PackageName.rst:41
+msgid ""
+"Again, if ``CMAKE_REQUIRE_FIND_PACKAGE_something`` is true, the first call "
+"must succeed.  It effectively means a config package must be found for the "
+"dependency, and the Find module logic is never used."
+msgstr ""
+
+#: ../../../variable/CMAKE_REQUIRE_FIND_PACKAGE_PackageName.rst:45
+msgid ""
+"See also the :variable:`CMAKE_DISABLE_FIND_PACKAGE_<PackageName>` variable."
+msgstr ""
