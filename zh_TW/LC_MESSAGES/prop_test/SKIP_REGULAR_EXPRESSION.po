@@ -1,0 +1,83 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2000-2025 Kitware, Inc. and Contributors
+# This file is distributed under the same license as the CMake package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CMake master\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-07-14 08:20+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../prop_test/SKIP_REGULAR_EXPRESSION.rst:2
+msgid "SKIP_REGULAR_EXPRESSION"
+msgstr ""
+
+#: ../../../prop_test/SKIP_REGULAR_EXPRESSION.rst:6
+msgid ""
+"If the test output (stderr or stdout) matches this regular expression the "
+"test will be marked as skipped, regardless of the process exit code. Tests "
+"that exceed the timeout specified by :prop_test:`TIMEOUT` still fail "
+"regardless of ``SKIP_REGULAR_EXPRESSION``. System-level test failures "
+"including segmentation faults, signal abort, or heap errors may fail the "
+"test even if the regular expression matches."
+msgstr ""
+
+#: ../../../prop_test/SKIP_REGULAR_EXPRESSION.rst:13
+msgid "Example:"
+msgstr ""
+
+#: ../../../prop_test/SKIP_REGULAR_EXPRESSION.rst:15
+msgid ""
+"add_test(NAME mytest COMMAND ${CMAKE_COMMAND} -E echo \"Skipped this "
+"test\")\n"
+"\n"
+"set_property(TEST mytest PROPERTY\n"
+"  SKIP_REGULAR_EXPRESSION \"[^a-z]Skip\" \"SKIP\" \"Skipped\"\n"
+")"
+msgstr ""
+
+#: ../../../prop_test/SKIP_REGULAR_EXPRESSION.rst:23
+msgid "``SKIP_REGULAR_EXPRESSION`` expects a list of regular expressions."
+msgstr ""
+
+#: ../../../prop_test/SKIP_REGULAR_EXPRESSION.rst:25
+msgid ""
+"To run a test that may have a system-level failure, but still skip if "
+"``SKIP_REGULAR_EXPRESSION`` matches, use a CMake command to wrap the "
+"executable run. Note that this will prevent automatic handling of the :"
+"prop_tgt:`CROSSCOMPILING_EMULATOR` and :prop_tgt:`TEST_LAUNCHER` target "
+"property."
+msgstr ""
+
+#: ../../../prop_test/SKIP_REGULAR_EXPRESSION.rst:31
+msgid ""
+"add_executable(main main.c)\n"
+"\n"
+"add_test(NAME sigabrt COMMAND ${CMAKE_COMMAND} -E env $<TARGET_FILE:main>)\n"
+"\n"
+"set_property(TEST sigabrt PROPERTY SKIP_REGULAR_EXPRESSION \"SIGABRT;"
+"[aA]bort\")"
+msgstr ""
+
+#: ../../../prop_test/SKIP_REGULAR_EXPRESSION.rst:39
+msgid ""
+"#include <signal.h>\n"
+"\n"
+"int main(void){ raise(SIGABRT); return 0; }"
+msgstr ""
+
+#: ../../../prop_test/SKIP_REGULAR_EXPRESSION.rst:45
+msgid ""
+"See also the :prop_test:`SKIP_RETURN_CODE`, :prop_test:"
+"`PASS_REGULAR_EXPRESSION`, and :prop_test:`FAIL_REGULAR_EXPRESSION` test "
+"properties."
+msgstr ""
