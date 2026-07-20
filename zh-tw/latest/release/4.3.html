@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+
+<html lang="zh-TW" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>CMake 4.3 Release Notes &mdash; CMake 4.4.0-rc2 Documentation</title>
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a3862c66" />
+    <link rel="stylesheet" type="text/css" href="../_static/cmake.css?v=d27bb136" />
+    
+    <script src="../_static/documentation_options.js?v=a7aeb7e1"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/translations.js?v=cbf116e0"></script>
+    
+    <link rel="canonical" href="https://projects.localizethedocs.org/cmake-docs-l10n/release/4.3.html" />
+    <link rel="icon" href="../_static/cmake-favicon.ico"/>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜尋" href="../search.html" />
+    <link rel="next" title="CMake 4.2 Release Notes" href="4.2.html" />
+    <link rel="prev" title="CMake 4.4 Release Notes" href="4.4.html" />
+
+ 
+
+    <script type="text/javascript" src="../ltd-provenance.js"></script>
+    <script type="text/javascript" src="../ltd-current.js"></script>
+    <script type="text/javascript" src="../../../ltd-config.js"></script>
+    <script type="text/javascript" src="../../../ltd-flyout.js"></script>
+
+  </head><body>
+    <input id="sidebar-check" type="checkbox" />
+    <label id="sidebar-overlay" for="sidebar-check"></label>
+
+
+
+    <div class="related relbar1" role="navigation" aria-label="Related">
+      <h3>瀏覽</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="總索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="4.2.html" title="CMake 4.2 Release Notes"
+             accesskey="N">下一頁</a> |</li>
+        <li class="right" >
+          <a href="4.4.html" title="CMake 4.4 Release Notes"
+             accesskey="P">上一頁</a> |</li>
+  <li>
+    <label class="sidebar-toggle" for="sidebar-check"></label>
+  </li>
+  <li class="rootlink">
+    <img src="../_static/cmake-logo-16.png" width="16" height="16" alt=""/>
+    <a href="https://cmake.org/">CMake 4.4.0-rc2</a>
+    <span class="reldelim1"> &#187;</span>
+  </li>
+  <li>
+    <a href="../index.html">文件</a> &#187;
+  </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">CMake 發行備註</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">CMake 4.3 Release Notes</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="cmake-4-3-release-notes">
+<h1><a class="toc-backref" href="#id6" role="doc-backlink">CMake 4.3 Release Notes</a><a class="headerlink" href="#cmake-4-3-release-notes" title="連結到這個標頭">¶</a></h1>
+<nav class="contents" id="id1">
+<p class="topic-title">目錄</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#cmake-4-3-release-notes" id="id6">CMake 4.3 Release Notes</a></p>
+<ul>
+<li><p><a class="reference internal" href="#new-features" id="id7">新功能</a></p>
+<ul>
+<li><p><a class="reference internal" href="#common-package-specification" id="id8">Common Package Specification</a></p></li>
+<li><p><a class="reference internal" href="#instrumentation" id="id9">Instrumentation</a></p></li>
+<li><p><a class="reference internal" href="#presets" id="id10">Presets</a></p></li>
+<li><p><a class="reference internal" href="#file-based-api" id="id11">File-Based API</a></p></li>
+<li><p><a class="reference internal" href="#platforms" id="id12">平臺</a></p></li>
+<li><p><a class="reference internal" href="#command-line" id="id13">命令行</a></p></li>
+<li><p><a class="reference internal" href="#commands" id="id14">命令</a></p></li>
+<li><p><a class="reference internal" href="#variables" id="id15">變數</a></p></li>
+<li><p><a class="reference internal" href="#properties" id="id16">屬性</a></p></li>
+<li><p><a class="reference internal" href="#modules" id="id17">模組</a></p></li>
+<li><p><a class="reference internal" href="#generator-expressions" id="id18">生成器表達式</a></p></li>
+<li><p><a class="reference internal" href="#ctest" id="id19">CTest</a></p></li>
+<li><p><a class="reference internal" href="#cpack" id="id20">CPack</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#deprecated-and-removed-features" id="id21">Deprecated and Removed Features</a></p></li>
+<li><p><a class="reference internal" href="#other-changes" id="id22">其他變更</a></p></li>
+<li><p><a class="reference internal" href="#updates" id="id23">Updates</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id3" id="id24">4.3.1, 4.3.2</a></p></li>
+<li><p><a class="reference internal" href="#id4" id="id25">4.3.3</a></p></li>
+<li><p><a class="reference internal" href="#id5" id="id26">4.3.4</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+<p>Changes made since CMake 4.2 include the following.</p>
+<section id="new-features">
+<h2><a class="toc-backref" href="#id7" role="doc-backlink">新功能</a><a class="headerlink" href="#new-features" title="連結到這個標頭">¶</a></h2>
+<section id="common-package-specification">
+<h3><a class="toc-backref" href="#id8" role="doc-backlink">Common Package Specification</a><a class="headerlink" href="#common-package-specification" title="連結到這個標頭">¶</a></h3>
+<ul class="simple">
+<li><p>Support for importing and exporting packages described using the <a class="reference external" href="https://cps-org.github.io/cps/">Common Package Specification</a>
+(CPS) was added.  This improves build system interoperability by allowing
+expressive, feature-rich package descriptions to be exchanged in a format
+other than CMake Language.</p>
+<ul>
+<li><p>The <span class="target" id="index-0-command:find_package"></span><a class="reference internal" href="../command/find_package.html#command:find_package" title="find_package"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">find_package()</span></code></a> now searches for and can import CPS packages.</p></li>
+<li><p>The <span class="target" id="index-0-command:install"></span><a class="reference internal" href="../command/install.html#command:install" title="install"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">install()</span></code></a> and <span class="target" id="index-0-command:export"></span><a class="reference internal" href="../command/export.html#command:export" title="export"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">export()</span></code></a> commands gained a new
+<code class="docutils literal notranslate"><span class="pre">PACKAGE_INFO</span></code> sub-command to generate CPS package descriptions.</p></li>
+<li><p>The <span class="target" id="index-0-command:project"></span><a class="reference internal" href="../command/project.html#command:project" title="project"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">project()</span></code></a> command gained new <code class="docutils literal notranslate"><span class="pre">COMPAT_VERSION</span></code> and
+<code class="docutils literal notranslate"><span class="pre">SPDX_LICENSE</span></code> options.  These values may be inherited when creating a
+CPS package description.  See the <span class="target" id="index-1-command:install"></span><a class="reference internal" href="../command/install.html#package-info" title="install(package_info)"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">install(PACKAGE_INFO)</span></code></a>
+documentation for details.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="instrumentation">
+<h3><a class="toc-backref" href="#id9" role="doc-backlink">Instrumentation</a><a class="headerlink" href="#instrumentation" title="連結到這個標頭">¶</a></h3>
+<ul class="simple">
+<li><p><span class="target" id="index-0-manual:cmake-instrumentation(7)"></span><a class="reference internal" href="../manual/cmake-instrumentation.7.html#manual:cmake-instrumentation(7)" title="cmake-instrumentation(7)"><code class="xref cmake cmake-manual docutils literal notranslate"><span class="pre">cmake-instrumentation(7)</span></code></a> was added to enable collection of
+timing data, target information, and system diagnostic information during
+the configure, generate, build, test, and install steps of a CMake project:</p>
+<ul>
+<li><p>Instrumentation data are <a class="reference internal" href="../manual/cmake-instrumentation.7.html#cmake-instrumentation-indexing"><span class="std std-ref">indexed</span></a>
+and provided to <a class="reference internal" href="../manual/cmake-instrumentation.7.html#cmake-instrumentation-callbacks"><span class="std std-ref">callbacks</span></a> for
+custom processing.</p></li>
+<li><p>Instrumentation data are included in submissions to CDash.</p></li>
+<li><p>Optionally,
+<a class="reference internal" href="../manual/cmake-instrumentation.7.html#cmake-instrumentation-google-trace-file"><span class="std std-ref">Google Trace Event Format</span></a>
+files may be generated to visualize instrumentation data.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="presets">
+<h3><a class="toc-backref" href="#id10" role="doc-backlink">Presets</a><a class="headerlink" href="#presets" title="連結到這個標頭">¶</a></h3>
+<ul class="simple">
+<li><p><span class="target" id="index-0-manual:cmake-presets(7)"></span><a class="reference internal" href="../manual/cmake-presets.7.html#manual:cmake-presets(7)" title="cmake-presets(7)"><code class="xref cmake cmake-manual docutils literal notranslate"><span class="pre">cmake-presets(7)</span></code></a> files now support schema version <code class="docutils literal notranslate"><span class="pre">11</span></code>.
+The <code class="docutils literal notranslate"><span class="pre">jobs</span></code> field under test presets now supports an empty string, to
+match the behavior of <a class="reference internal" href="../manual/ctest.1.html#cmdoption-ctest-j"><code class="xref std std-option docutils literal notranslate"><span class="pre">ctest</span> <span class="pre">--parallel</span></code></a> with the value omitted.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">jobs</span></code> field under both build and test presets no longer accept
+negative integer values, regardless of the schema version.</p></li>
+</ul>
+</section>
+<section id="file-based-api">
+<h3><a class="toc-backref" href="#id11" role="doc-backlink">File-Based API</a><a class="headerlink" href="#file-based-api" title="連結到這個標頭">¶</a></h3>
+<ul class="simple">
+<li><p>The <span class="target" id="index-0-manual:cmake-file-api(7)"></span><a class="reference internal" href="../manual/cmake-file-api.7.html#manual:cmake-file-api(7)" title="cmake-file-api(7)"><code class="xref cmake cmake-manual docutils literal notranslate"><span class="pre">cmake-file-api(7)</span></code></a> &quot;codemodel&quot; version 2 version field
+has been updated to 2.10.</p></li>
+<li><p>The <span class="target" id="index-1-manual:cmake-file-api(7)"></span><a class="reference internal" href="../manual/cmake-file-api.7.html#manual:cmake-file-api(7)" title="cmake-file-api(7)"><code class="xref cmake cmake-manual docutils literal notranslate"><span class="pre">cmake-file-api(7)</span></code></a> &quot;codemodel&quot; version 2 &quot;target&quot; object
+gained a new <code class="docutils literal notranslate"><span class="pre">interfaceSources</span></code> array field, and the <code class="docutils literal notranslate"><span class="pre">sourceGroups</span></code>
+array items gained a new <code class="docutils literal notranslate"><span class="pre">interfaceSourceIndexes</span></code> array field.</p></li>
+</ul>
+</section>
+<section id="platforms">
+<h3><a class="toc-backref" href="#id12" role="doc-backlink">平臺</a><a class="headerlink" href="#platforms" title="連結到這個標頭">¶</a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">HIP</span></code> language code may now be compiled for SPIR-V targets,
+e.g., via chipStar.  See the <span class="target" id="index-0-variable:CMAKE_HIP_PLATFORM"></span><a class="reference internal" href="../variable/CMAKE_HIP_PLATFORM.html#variable:CMAKE_HIP_PLATFORM" title="CMAKE_HIP_PLATFORM"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_HIP_PLATFORM</span></code></a> variable.</p></li>
+</ul>
+</section>
+<section id="command-line">
+<h3><a class="toc-backref" href="#id13" role="doc-backlink">命令行</a><a class="headerlink" href="#command-line" title="連結到這個標頭">¶</a></h3>
+<ul class="simple">
+<li><p><a class="reference internal" href="../manual/cmake.1.html#cmdoption-cmake-version"><code class="xref std std-option docutils literal notranslate"><span class="pre">cmake</span> <span class="pre">--version</span></code></a> now supports a <code class="docutils literal notranslate"><span class="pre">=json-v1</span></code> value to print
+detailed version information in a JSON format.</p></li>
+<li><p><a class="reference internal" href="../manual/cmake.1.html#cmdoption-cmake-build"><code class="xref std std-option docutils literal notranslate"><span class="pre">cmake</span> <span class="pre">--build</span></code></a> now supports specifying a build directory and
+preset together.  The build preset will be used with the explicit
+build directory substituted.</p></li>
+<li><p>The <a class="reference internal" href="../manual/cmake.1.html#cmdoption-cmake-E"><code class="xref std std-option docutils literal notranslate"><span class="pre">cmake</span> <span class="pre">-E</span></code></a> commands
+<a class="reference internal" href="../manual/cmake.1.html#cmdoption-cmake-E-arg-md5sum"><code class="xref std std-option docutils literal notranslate"><span class="pre">md5sum</span></code></a>,
+<a class="reference internal" href="../manual/cmake.1.html#cmdoption-cmake-E-arg-sha1sum"><code class="xref std std-option docutils literal notranslate"><span class="pre">sha1sum</span></code></a>,
+<a class="reference internal" href="../manual/cmake.1.html#cmdoption-cmake-E-arg-sha224sum"><code class="xref std std-option docutils literal notranslate"><span class="pre">sha224sum</span></code></a>,
+<a class="reference internal" href="../manual/cmake.1.html#cmdoption-cmake-E-arg-sha256sum"><code class="xref std std-option docutils literal notranslate"><span class="pre">sha256sum</span></code></a>,
+<a class="reference internal" href="../manual/cmake.1.html#cmdoption-cmake-E-arg-sha384sum"><code class="xref std std-option docutils literal notranslate"><span class="pre">sha384sum</span></code></a>, and
+<a class="reference internal" href="../manual/cmake.1.html#cmdoption-cmake-E-arg-sha512sum"><code class="xref std std-option docutils literal notranslate"><span class="pre">sha512sum</span></code></a>
+now support reading from standard input by passing <code class="docutils literal notranslate"><span class="pre">-</span></code>.</p></li>
+<li><p>The <a class="reference internal" href="../manual/cmake.1.html#cmdoption-cmake-E-arg-bin2c"><code class="xref std std-option docutils literal notranslate"><span class="pre">cmake</span> <span class="pre">-E</span> <span class="pre">bin2c</span></code></a> command-line tool was added.</p></li>
+<li><p>The <a class="reference internal" href="../manual/cmake.1.html#cmdoption-cmake-E-arg-tar"><code class="xref std std-option docutils literal notranslate"><span class="pre">cmake</span> <span class="pre">-E</span> <span class="pre">tar</span></code></a> command-line tool:</p>
+<ul>
+<li><p>Gained a <code class="docutils literal notranslate"><span class="pre">--cmake-tar-compression-level</span></code> flag to specify the
+compression level.</p></li>
+<li><p>Gained a <code class="docutils literal notranslate"><span class="pre">--cmake-tar-compression-method</span></code> flag to specify the
+compression method.</p></li>
+<li><p>Gained a <code class="docutils literal notranslate"><span class="pre">--cmake-tar-threads</span></code> flag to enable multithreaded operations.</p></li>
+<li><p>Now supports specifying compression method and level for <code class="docutils literal notranslate"><span class="pre">7zip</span></code> and
+<code class="docutils literal notranslate"><span class="pre">zip</span></code> formats.</p></li>
+<li><p>Gained a <code class="docutils literal notranslate"><span class="pre">--format=raw</span></code> flag to disable compression.</p></li>
+<li><p>Gained a <code class="docutils literal notranslate"><span class="pre">--lzma</span></code> flag to specify <code class="docutils literal notranslate"><span class="pre">LZMA</span></code> compression.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="commands">
+<h3><a class="toc-backref" href="#id14" role="doc-backlink">命令</a><a class="headerlink" href="#commands" title="連結到這個標頭">¶</a></h3>
+<ul class="simple">
+<li><p>The <span class="target" id="index-0-command:cmake_instrumentation"></span><a class="reference internal" href="../command/cmake_instrumentation.html#command:cmake_instrumentation" title="cmake_instrumentation"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">cmake_instrumentation()</span></code></a> command was added to make
+project-level instrumentation queries.</p></li>
+<li><p>The <span class="target" id="index-0-command:file"></span><a class="reference internal" href="../command/file.html#archive-create" title="file(archive_create)"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">file(ARCHIVE_CREATE)</span></code></a> command:</p>
+<ul>
+<li><p>Gained a <code class="docutils literal notranslate"><span class="pre">THREADS</span></code> option to enable multithreaded operations.</p></li>
+<li><p>Now supports <code class="docutils literal notranslate"><span class="pre">COMPRESSION</span></code> method <code class="docutils literal notranslate"><span class="pre">Deflate</span></code> as an alias for <code class="docutils literal notranslate"><span class="pre">GZip</span></code>.</p></li>
+<li><p>Now supports <code class="docutils literal notranslate"><span class="pre">COMPRESSION</span></code> method <code class="docutils literal notranslate"><span class="pre">LZMA</span></code>.</p></li>
+<li><p>Now supports <code class="docutils literal notranslate"><span class="pre">COMPRESSION</span></code> method <code class="docutils literal notranslate"><span class="pre">LZMA2</span></code> as an alias for <code class="docutils literal notranslate"><span class="pre">XZ</span></code>.</p></li>
+<li><p>Now supports <code class="docutils literal notranslate"><span class="pre">COMPRESSION</span></code> method <code class="docutils literal notranslate"><span class="pre">PPMd</span></code> for format <code class="docutils literal notranslate"><span class="pre">7zip</span></code>.</p></li>
+<li><p>Now supports <code class="docutils literal notranslate"><span class="pre">COMPRESSION</span></code> and <code class="docutils literal notranslate"><span class="pre">COMPRESSION_LEVEL</span></code> options
+for formats <code class="docutils literal notranslate"><span class="pre">7zip</span></code> and <code class="docutils literal notranslate"><span class="pre">zip</span></code>.</p></li>
+</ul>
+</li>
+<li><p>The <span class="target" id="index-0-command:get_property"></span><a class="reference internal" href="../command/get_property.html#command:get_property" title="get_property"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">get_property()</span></code></a> and <span class="target" id="index-0-command:set_property"></span><a class="reference internal" href="../command/set_property.html#command:set_property" title="set_property"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">set_property()</span></code></a> commands
+now support a <code class="docutils literal notranslate"><span class="pre">FILE_SET</span></code> scope for file set properties of a target.</p></li>
+<li><p>The <span class="target" id="index-0-command:string"></span><a class="reference internal" href="../command/string.html#command:string" title="string(json)"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">string(JSON)</span></code></a> command gained new <code class="docutils literal notranslate"><span class="pre">GET_RAW</span></code> and
+<code class="docutils literal notranslate"><span class="pre">STRING_ENCODE</span></code> modes.</p></li>
+<li><p>The <span class="target" id="index-0-command:source_group"></span><a class="reference internal" href="../command/source_group.html#command:source_group" title="source_group"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">source_group()</span></code></a> command now supports
+<span class="target" id="index-0-manual:cmake-generator-expressions(7)"></span><a class="reference internal" href="../manual/cmake-generator-expressions.7.html#manual:cmake-generator-expressions(7)" title="cmake-generator-expressions(7)"><code class="xref cmake cmake-manual docutils literal notranslate"><span class="pre">generator</span> <span class="pre">expressions</span></code></a>.</p></li>
+<li><p>The <span class="target" id="index-0-command:cmake_host_system_information"></span><a class="reference internal" href="../command/cmake_host_system_information.html#command:cmake_host_system_information" title="cmake_host_system_information"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">cmake_host_system_information()</span></code></a> command gained a
+<code class="docutils literal notranslate"><span class="pre">LOCALE_CHARSET</span></code> query for the expected <span class="target" id="index-0-manual:cmake-language(7)"></span><a class="reference internal" href="../manual/cmake-language.7.html#manual:cmake-language(7)" title="cmake-language(7)"><code class="xref cmake cmake-manual docutils literal notranslate"><span class="pre">cmake-language(7)</span></code></a>
+script encoding.</p></li>
+</ul>
+</section>
+<section id="variables">
+<h3><a class="toc-backref" href="#id15" role="doc-backlink">變數</a><a class="headerlink" href="#variables" title="連結到這個標頭">¶</a></h3>
+<ul class="simple">
+<li><p>The <span class="target" id="index-0-variable:CMAKE_&lt;LANG&gt;_LINK_FLAGS"></span><a class="reference internal" href="../variable/CMAKE_LANG_LINK_FLAGS.html#variable:CMAKE_&lt;LANG&gt;_LINK_FLAGS" title="CMAKE_&lt;LANG&gt;_LINK_FLAGS"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_&lt;LANG&gt;_LINK_FLAGS</span></code></a> and
+<span class="target" id="index-0-variable:CMAKE_&lt;LANG&gt;_LINK_FLAGS_&lt;CONFIG&gt;"></span><a class="reference internal" href="../variable/CMAKE_LANG_LINK_FLAGS_CONFIG.html#variable:CMAKE_&lt;LANG&gt;_LINK_FLAGS_&lt;CONFIG&gt;" title="CMAKE_&lt;LANG&gt;_LINK_FLAGS_&lt;CONFIG&gt;"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_&lt;LANG&gt;_LINK_FLAGS_&lt;CONFIG&gt;</span></code></a> variables were added
+to support per-language link flags for all target types.
+See policy <span class="target" id="index-0-policy:CMP0210"></span><a class="reference internal" href="../policy/CMP0210.html#policy:CMP0210" title="CMP0210"><code class="xref cmake cmake-policy docutils literal notranslate"><span class="pre">CMP0210</span></code></a>.</p></li>
+<li><p>The <span class="target" id="index-0-variable:CMAKE_VERIFY_PRIVATE_HEADER_SETS"></span><a class="reference internal" href="../variable/CMAKE_VERIFY_PRIVATE_HEADER_SETS.html#variable:CMAKE_VERIFY_PRIVATE_HEADER_SETS" title="CMAKE_VERIFY_PRIVATE_HEADER_SETS"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_VERIFY_PRIVATE_HEADER_SETS</span></code></a> variable and corresponding
+<span class="target" id="index-0-prop_tgt:VERIFY_PRIVATE_HEADER_SETS"></span><a class="reference internal" href="../prop_tgt/VERIFY_PRIVATE_HEADER_SETS.html#prop_tgt:VERIFY_PRIVATE_HEADER_SETS" title="VERIFY_PRIVATE_HEADER_SETS"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">VERIFY_PRIVATE_HEADER_SETS</span></code></a> target property were added to
+enable build rules that verify all headers in private file sets can be used
+on their own.</p></li>
+</ul>
+</section>
+<section id="properties">
+<h3><a class="toc-backref" href="#id16" role="doc-backlink">屬性</a><a class="headerlink" href="#properties" title="連結到這個標頭">¶</a></h3>
+<ul class="simple">
+<li><p>A <span class="target" id="index-0-prop_tgt:&lt;LANG&gt;_PVS_STUDIO"></span><a class="reference internal" href="../prop_tgt/LANG_PVS_STUDIO.html#prop_tgt:&lt;LANG&gt;_PVS_STUDIO" title="&lt;LANG&gt;_PVS_STUDIO"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">&lt;LANG&gt;_PVS_STUDIO</span></code></a> target property and supporting
+<span class="target" id="index-0-variable:CMAKE_&lt;LANG&gt;_PVS_STUDIO"></span><a class="reference internal" href="../variable/CMAKE_LANG_PVS_STUDIO.html#variable:CMAKE_&lt;LANG&gt;_PVS_STUDIO" title="CMAKE_&lt;LANG&gt;_PVS_STUDIO"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_&lt;LANG&gt;_PVS_STUDIO</span></code></a> variable were introduced to tell
+<a class="reference internal" href="../manual/cmake-generators.7.html#makefile-generators"><span class="std std-ref">Makefile 生成器</span></a> and <a class="reference internal" href="../manual/cmake-generators.7.html#ninja-generators"><span class="std std-ref">Ninja 生成器</span></a> to run
+<code class="docutils literal notranslate"><span class="pre">pvs-studio-analyzer</span></code> with the compiler for <code class="docutils literal notranslate"><span class="pre">C</span></code> and <code class="docutils literal notranslate"><span class="pre">CXX</span></code> languages.</p></li>
+<li><p>When <span class="target" id="index-0-prop_tgt:VERIFY_INTERFACE_HEADER_SETS"></span><a class="reference internal" href="../prop_tgt/VERIFY_INTERFACE_HEADER_SETS.html#prop_tgt:VERIFY_INTERFACE_HEADER_SETS" title="VERIFY_INTERFACE_HEADER_SETS"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">VERIFY_INTERFACE_HEADER_SETS</span></code></a> is set to true on an executable
+target, that target's interface file sets are verified regardless of its
+<span class="target" id="index-0-prop_tgt:ENABLE_EXPORTS"></span><a class="reference internal" href="../prop_tgt/ENABLE_EXPORTS.html#prop_tgt:ENABLE_EXPORTS" title="ENABLE_EXPORTS"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">ENABLE_EXPORTS</span></code></a> property. See policy <span class="target" id="index-0-policy:CMP0209"></span><a class="reference internal" href="../policy/CMP0209.html#policy:CMP0209" title="CMP0209"><code class="xref cmake cmake-policy docutils literal notranslate"><span class="pre">CMP0209</span></code></a>.</p></li>
+<li><p>The <span class="target" id="index-0-prop_tgt:PRIVATE_HEADER_SETS_TO_VERIFY"></span><a class="reference internal" href="../prop_tgt/PRIVATE_HEADER_SETS_TO_VERIFY.html#prop_tgt:PRIVATE_HEADER_SETS_TO_VERIFY" title="PRIVATE_HEADER_SETS_TO_VERIFY"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">PRIVATE_HEADER_SETS_TO_VERIFY</span></code></a> target property was added to
+customize which private file sets to verify when the target's
+<span class="target" id="index-1-prop_tgt:VERIFY_PRIVATE_HEADER_SETS"></span><a class="reference internal" href="../prop_tgt/VERIFY_PRIVATE_HEADER_SETS.html#prop_tgt:VERIFY_PRIVATE_HEADER_SETS" title="VERIFY_PRIVATE_HEADER_SETS"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">VERIFY_PRIVATE_HEADER_SETS</span></code></a> property is true.</p></li>
+</ul>
+</section>
+<section id="modules">
+<h3><a class="toc-backref" href="#id17" role="doc-backlink">模組</a><a class="headerlink" href="#modules" title="連結到這個標頭">¶</a></h3>
+<ul class="simple">
+<li><p>The <span class="target" id="index-0-module:FindCUDAToolkit"></span><a class="reference internal" href="../module/FindCUDAToolkit.html#module:FindCUDAToolkit" title="FindCUDAToolkit"><code class="xref cmake cmake-module docutils literal notranslate"><span class="pre">FindCUDAToolkit</span></code></a> module now creates a <code class="docutils literal notranslate"><span class="pre">CUDA::bin2c</span></code>
+imported target for the <a class="reference internal" href="../module/FindCUDAToolkit.html#findcudatoolkit-bin2c"><span class="std std-ref">bin2c</span></a> utility.</p></li>
+<li><p>The <span class="target" id="index-0-module:FindLibXml2"></span><a class="reference internal" href="../module/FindLibXml2.html#module:FindLibXml2" title="FindLibXml2"><code class="xref cmake cmake-module docutils literal notranslate"><span class="pre">FindLibXml2</span></code></a> module gained a <code class="docutils literal notranslate"><span class="pre">LibXml2_USE_STATIC_LIBS</span></code> hint
+to select static libraries.</p></li>
+<li><p>The <span class="target" id="index-0-module:FindRuby"></span><a class="reference internal" href="../module/FindRuby.html#module:FindRuby" title="FindRuby"><code class="xref cmake cmake-module docutils literal notranslate"><span class="pre">FindRuby</span></code></a> module now provides imported targets.</p></li>
+<li><p>The <span class="target" id="index-0-module:FindSQLite3"></span><a class="reference internal" href="../module/FindSQLite3.html#module:FindSQLite3" title="FindSQLite3"><code class="xref cmake cmake-module docutils literal notranslate"><span class="pre">FindSQLite3</span></code></a> module now provides imported
+targets with the <code class="docutils literal notranslate"><span class="pre">SQLite3::</span></code> prefix.</p></li>
+<li><p>The <span class="target" id="index-0-module:UseJava"></span><a class="reference internal" href="../module/UseJava.html#module:UseJava" title="UseJava"><code class="xref cmake cmake-module docutils literal notranslate"><span class="pre">UseJava</span></code></a> module's <span class="target" id="index-0-command:add_jar"></span><a class="reference internal" href="../module/UseJava.html#command:add_jar" title="add_jar"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">add_jar()</span></code></a> command now accepts a new
+<code class="docutils literal notranslate"><span class="pre">INCLUDE_MODULES</span></code> option that adds its arguments to the <code class="docutils literal notranslate"><span class="pre">--module-path</span></code>
+argument to the Java compiler. This allows building JAR files that use JPMS
+modules in their build.</p></li>
+</ul>
+</section>
+<section id="generator-expressions">
+<h3><a class="toc-backref" href="#id18" role="doc-backlink">生成器表達式</a><a class="headerlink" href="#generator-expressions" title="連結到這個標頭">¶</a></h3>
+<ul class="simple">
+<li><p><a class="reference internal" href="../manual/cmake-generator-expressions.7.html#string-comparisons-generator-expressions"><span class="std std-ref">String Comparison</span></a>
+generator expressions were added.</p></li>
+<li><p><span class="target" id="index-0-genex:STRING"></span><a class="reference internal" href="../manual/cmake-generator-expressions.7.html#genex:STRING" title="STRING"><code class="xref cmake cmake-genex docutils literal notranslate"><span class="pre">$&lt;STRING:...&gt;</span></code></a> generator expressions were added for
+<a class="reference internal" href="../manual/cmake-generator-expressions.7.html#string-queries-generator-expressions"><span class="std std-ref">query</span></a>,
+<a class="reference internal" href="../manual/cmake-generator-expressions.7.html#string-generating-generator-expressions"><span class="std std-ref">generation</span></a>, and
+<a class="reference internal" href="../manual/cmake-generator-expressions.7.html#string-transforming-generator-expressions"><span class="std std-ref">transformation</span></a>
+operations on strings.</p></li>
+<li><p>The <span class="target" id="index-0-genex:FILE_SET_EXISTS"></span><a class="reference internal" href="../manual/cmake-generator-expressions.7.html#genex:FILE_SET_EXISTS" title="FILE_SET_EXISTS"><code class="xref cmake cmake-genex docutils literal notranslate"><span class="pre">$&lt;FILE_SET_EXISTS&gt;</span></code></a> and <span class="target" id="index-0-genex:FILE_SET_PROPERTY"></span><a class="reference internal" href="../manual/cmake-generator-expressions.7.html#genex:FILE_SET_PROPERTY" title="FILE_SET_PROPERTY"><code class="xref cmake cmake-genex docutils literal notranslate"><span class="pre">$&lt;FILE_SET_PROPERTY&gt;</span></code></a> generator
+expressions were added to query file set existence and properties.</p></li>
+<li><p>The <span class="target" id="index-0-genex:SOURCE_EXISTS"></span><a class="reference internal" href="../manual/cmake-generator-expressions.7.html#genex:SOURCE_EXISTS" title="SOURCE_EXISTS"><code class="xref cmake cmake-genex docutils literal notranslate"><span class="pre">$&lt;SOURCE_EXISTS&gt;</span></code></a> and <span class="target" id="index-0-genex:SOURCE_PROPERTY"></span><a class="reference internal" href="../manual/cmake-generator-expressions.7.html#genex:SOURCE_PROPERTY" title="SOURCE_PROPERTY"><code class="xref cmake cmake-genex docutils literal notranslate"><span class="pre">$&lt;SOURCE_PROPERTY&gt;</span></code></a> generator
+expressions were added to query source file existence and properties.</p></li>
+</ul>
+</section>
+<section id="ctest">
+<h3><a class="toc-backref" href="#id19" role="doc-backlink">CTest</a><a class="headerlink" href="#ctest" title="連結到這個標頭">¶</a></h3>
+<ul class="simple">
+<li><p>The <span class="target" id="index-0-module:CTestCoverageCollectGCOV"></span><a class="reference internal" href="../module/CTestCoverageCollectGCOV.html#module:CTestCoverageCollectGCOV" title="CTestCoverageCollectGCOV"><code class="xref cmake cmake-module docutils literal notranslate"><span class="pre">CTestCoverageCollectGCOV</span></code></a> module:</p>
+<ul>
+<li><p>Now supports <code class="docutils literal notranslate"><span class="pre">TARBALL_COMPRESSION</span></code> method <code class="docutils literal notranslate"><span class="pre">LZMA</span></code>.</p></li>
+<li><p>Now supports <code class="docutils literal notranslate"><span class="pre">TARBALL_COMPRESSION</span></code> method <code class="docutils literal notranslate"><span class="pre">LZMA2</span></code>
+as an alias for <code class="docutils literal notranslate"><span class="pre">XZ</span></code>.</p></li>
+<li><p>Now supports <code class="docutils literal notranslate"><span class="pre">FROM_EXT</span></code> with file extensions corresponding to
+<code class="docutils literal notranslate"><span class="pre">LZMA</span></code> and <code class="docutils literal notranslate"><span class="pre">ZSTD</span></code> compression.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="cpack">
+<h3><a class="toc-backref" href="#id20" role="doc-backlink">CPack</a><a class="headerlink" href="#cpack" title="連結到這個標頭">¶</a></h3>
+<ul class="simple">
+<li><p><span class="target" id="index-0-module:CPack"></span><a class="reference internal" href="../module/CPack.html#module:CPack" title="CPack"><code class="xref cmake cmake-module docutils literal notranslate"><span class="pre">CPack</span></code></a> gained the <span class="target" id="index-0-variable:CPACK_COMPRESSION_LEVEL"></span><a class="reference internal" href="../module/CPack.html#variable:CPACK_COMPRESSION_LEVEL" title="CPACK_COMPRESSION_LEVEL"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CPACK_COMPRESSION_LEVEL</span></code></a>
+variable to control the compression level used when creating
+packages.</p></li>
+<li><p>The <span class="target" id="index-0-cpack_gen:CPack Archive Generator"></span><a class="reference internal" href="../cpack_gen/archive.html#cpack_gen:CPack Archive Generator" title="CPack Archive Generator"><code class="xref cmake cmake-cpack_gen docutils literal notranslate"><span class="pre">CPack</span> <span class="pre">Archive</span> <span class="pre">Generator</span></code></a>:</p>
+<ul>
+<li><p>Now supports compression method specification for formats
+<code class="docutils literal notranslate"><span class="pre">7zip</span></code> and <code class="docutils literal notranslate"><span class="pre">zip</span></code>.</p></li>
+<li><p>Gained a <span class="target" id="index-0-variable:CPACK_ARCHIVE_COMPRESSION_LEVEL"></span><a class="reference internal" href="../cpack_gen/archive.html#variable:CPACK_ARCHIVE_COMPRESSION_LEVEL" title="CPACK_ARCHIVE_COMPRESSION_LEVEL"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CPACK_ARCHIVE_COMPRESSION_LEVEL</span></code></a> option to
+control the compression level used when creating archive packages.</p></li>
+<li><p>Gained <span class="target" id="index-0-variable:CPACK_ARCHIVE_UID"></span><a class="reference internal" href="../cpack_gen/archive.html#variable:CPACK_ARCHIVE_UID" title="CPACK_ARCHIVE_UID"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CPACK_ARCHIVE_UID</span></code></a> and <span class="target" id="index-0-variable:CPACK_ARCHIVE_GID"></span><a class="reference internal" href="../cpack_gen/archive.html#variable:CPACK_ARCHIVE_GID" title="CPACK_ARCHIVE_GID"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CPACK_ARCHIVE_GID</span></code></a>
+options to specify the UID and GID of archive entries, respectively.
+The defaults are UID <code class="docutils literal notranslate"><span class="pre">0</span></code> and GID <code class="docutils literal notranslate"><span class="pre">0</span></code>.  See policy <span class="target" id="index-0-policy:CMP0206"></span><a class="reference internal" href="../policy/CMP0206.html#policy:CMP0206" title="CMP0206"><code class="xref cmake cmake-policy docutils literal notranslate"><span class="pre">CMP0206</span></code></a>.</p></li>
+</ul>
+</li>
+<li><p>The <span class="target" id="index-0-cpack_gen:CPack DEB Generator"></span><a class="reference internal" href="../cpack_gen/deb.html#cpack_gen:CPack DEB Generator" title="CPack DEB Generator"><code class="xref cmake cmake-cpack_gen docutils literal notranslate"><span class="pre">CPack</span> <span class="pre">DEB</span> <span class="pre">Generator</span></code></a> gained a new
+<span class="target" id="index-0-variable:CPACK_DEBIAN_COMPRESSION_LEVEL"></span><a class="reference internal" href="../cpack_gen/deb.html#variable:CPACK_DEBIAN_COMPRESSION_LEVEL" title="CPACK_DEBIAN_COMPRESSION_LEVEL"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CPACK_DEBIAN_COMPRESSION_LEVEL</span></code></a> variable to control the
+compression level used when creating Debian packages.</p></li>
+<li><p>The <span class="target" id="index-0-cpack_gen:CPack WIX Generator"></span><a class="reference internal" href="../cpack_gen/wix.html#cpack_gen:CPack WIX Generator" title="CPack WIX Generator"><code class="xref cmake cmake-cpack_gen docutils literal notranslate"><span class="pre">CPack</span> <span class="pre">WIX</span> <span class="pre">Generator</span></code></a> now supports per-user installers
+by setting <span class="target" id="index-0-variable:CPACK_WIX_INSTALL_SCOPE"></span><a class="reference internal" href="../cpack_gen/wix.html#variable:CPACK_WIX_INSTALL_SCOPE" title="CPACK_WIX_INSTALL_SCOPE"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CPACK_WIX_INSTALL_SCOPE</span></code></a> to <code class="docutils literal notranslate"><span class="pre">perUser</span></code>.</p></li>
+</ul>
+</section>
+</section>
+<section id="deprecated-and-removed-features">
+<h2><a class="toc-backref" href="#id21" role="doc-backlink">Deprecated and Removed Features</a><a class="headerlink" href="#deprecated-and-removed-features" title="連結到這個標頭">¶</a></h2>
+<ul class="simple">
+<li><p>The <span class="target" id="index-0-variable:CMAKE_ENABLE_EXPORTS"></span><a class="reference internal" href="../variable/CMAKE_ENABLE_EXPORTS.html#variable:CMAKE_ENABLE_EXPORTS" title="CMAKE_ENABLE_EXPORTS"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_ENABLE_EXPORTS</span></code></a> variable is deprecated in favor of
+the <span class="target" id="index-0-variable:CMAKE_EXECUTABLE_ENABLE_EXPORTS"></span><a class="reference internal" href="../variable/CMAKE_EXECUTABLE_ENABLE_EXPORTS.html#variable:CMAKE_EXECUTABLE_ENABLE_EXPORTS" title="CMAKE_EXECUTABLE_ENABLE_EXPORTS"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_EXECUTABLE_ENABLE_EXPORTS</span></code></a> and
+<span class="target" id="index-0-variable:CMAKE_SHARED_LIBRARY_ENABLE_EXPORTS"></span><a class="reference internal" href="../variable/CMAKE_SHARED_LIBRARY_ENABLE_EXPORTS.html#variable:CMAKE_SHARED_LIBRARY_ENABLE_EXPORTS" title="CMAKE_SHARED_LIBRARY_ENABLE_EXPORTS"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_SHARED_LIBRARY_ENABLE_EXPORTS</span></code></a> variables.</p></li>
+<li><p>The <span class="target" id="index-1-command:export"></span><a class="reference internal" href="../command/export.html#command:export" title="export(export)"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">export(EXPORT)</span></code></a> command no longer allows certain
+arguments to be missing or empty.  See policy <span class="target" id="index-0-policy:CMP0208"></span><a class="reference internal" href="../policy/CMP0208.html#policy:CMP0208" title="CMP0208"><code class="xref cmake cmake-policy docutils literal notranslate"><span class="pre">CMP0208</span></code></a>.</p></li>
+</ul>
+</section>
+<section id="other-changes">
+<h2><a class="toc-backref" href="#id22" role="doc-backlink">其他變更</a><a class="headerlink" href="#other-changes" title="連結到這個標頭">¶</a></h2>
+<ul class="simple">
+<li><p>The <a class="reference internal" href="../manual/cmake.1.html#cmdoption-cmake-E-arg-tar"><code class="xref std std-option docutils literal notranslate"><span class="pre">cmake</span> <span class="pre">-E</span> <span class="pre">tar</span></code></a> command-line tool
+and the <span class="target" id="index-1-command:file"></span><a class="reference internal" href="../command/file.html#archive-extract" title="file(archive_extract)"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">file(ARCHIVE_EXTRACT)</span></code></a> command now reject archive
+entries whose paths are absolute or contain <code class="docutils literal notranslate"><span class="pre">..</span></code> path traversal
+components.</p></li>
+<li><p>The family of <a class="reference internal" href="../manual/cmake.1.html#cmdoption-cmake-trace"><code class="xref std std-option docutils literal notranslate"><span class="pre">cmake</span> <span class="pre">--trace</span></code></a> and related commands now print &quot;end&quot;
+commands for control structures: <span class="target" id="index-0-command:endblock"></span><a class="reference internal" href="../command/endblock.html#command:endblock" title="endblock"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">endblock()</span></code></a>, <span class="target" id="index-0-command:endforeach"></span><a class="reference internal" href="../command/endforeach.html#command:endforeach" title="endforeach"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">endforeach()</span></code></a>,
+<span class="target" id="index-0-command:endfunction"></span><a class="reference internal" href="../command/endfunction.html#command:endfunction" title="endfunction"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">endfunction()</span></code></a>, <span class="target" id="index-0-command:endif"></span><a class="reference internal" href="../command/endif.html#command:endif" title="endif"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">endif()</span></code></a>, <span class="target" id="index-0-command:endmacro"></span><a class="reference internal" href="../command/endmacro.html#command:endmacro" title="endmacro"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">endmacro()</span></code></a>, and
+<span class="target" id="index-0-command:endwhile"></span><a class="reference internal" href="../command/endwhile.html#command:endwhile" title="endwhile"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">endwhile()</span></code></a>.</p></li>
+<li><p>The <span class="target" id="index-2-command:file"></span><a class="reference internal" href="../command/file.html#create-link" title="file(create_link)"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">file(CREATE_LINK)</span></code></a> command's <code class="docutils literal notranslate"><span class="pre">COPY_ON_ERROR</span></code> option,
+when used with a directory, now copies directory content.
+See policy <span class="target" id="index-0-policy:CMP0205"></span><a class="reference internal" href="../policy/CMP0205.html#policy:CMP0205" title="CMP0205"><code class="xref cmake cmake-policy docutils literal notranslate"><span class="pre">CMP0205</span></code></a>.</p></li>
+<li><p>The <span class="target" id="index-3-command:file"></span><a class="reference internal" href="../command/file.html#get-runtime-dependencies" title="file(get_runtime_dependencies)"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">file(GET_RUNTIME_DEPENDENCIES)</span></code></a>
+and <span class="target" id="index-2-command:install"></span><a class="reference internal" href="../command/install.html#runtime-dependency-set" title="install(runtime_dependency_set)"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">install(RUNTIME_DEPENDENCY_SET)</span></code></a> commands now normalize
+paths before matching filters.  See policy <span class="target" id="index-0-policy:CMP0207"></span><a class="reference internal" href="../policy/CMP0207.html#policy:CMP0207" title="CMP0207"><code class="xref cmake cmake-policy docutils literal notranslate"><span class="pre">CMP0207</span></code></a>.</p></li>
+<li><p>The precompiled Linux <code class="docutils literal notranslate"><span class="pre">aarch64</span></code> binaries provided on
+<a class="reference external" href="https://cmake.org/download/">cmake.org</a> now require GLIBC 2.28 or higher.</p></li>
+<li><p>The precompiled macOS binary provided on <code class="docutils literal notranslate"><span class="pre">cmake.org</span></code> for macOS 10.13+
+now requires macOS 12 or newer for the <span class="target" id="index-0-manual:cmake-gui(1)"></span><a class="reference internal" href="../manual/cmake-gui.1.html#manual:cmake-gui(1)" title="cmake-gui(1)"><code class="xref cmake cmake-manual docutils literal notranslate"><span class="pre">cmake-gui(1)</span></code></a> application.
+The command-line tools still run on macOS 10.13.</p></li>
+<li><p>The precompiled Windows binaries provided on
+<a class="reference external" href="https://cmake.org/download/">cmake.org</a> now require Windows 10 or higher.</p></li>
+</ul>
+</section>
+<section id="updates">
+<h2><a class="toc-backref" href="#id23" role="doc-backlink">Updates</a><a class="headerlink" href="#updates" title="連結到這個標頭">¶</a></h2>
+<p>Changes made since CMake 4.3.0 include the following.</p>
+<section id="id3">
+<h3><a class="toc-backref" href="#id24" role="doc-backlink">4.3.1, 4.3.2</a><a class="headerlink" href="#id3" title="連結到這個標頭">¶</a></h3>
+<ul class="simple">
+<li><p>These versions made no changes to documented features or interfaces.
+Some implementation updates were made to support ecosystem changes
+and/or fix regressions.</p></li>
+</ul>
+</section>
+<section id="id4">
+<h3><a class="toc-backref" href="#id25" role="doc-backlink">4.3.3</a><a class="headerlink" href="#id4" title="連結到這個標頭">¶</a></h3>
+<ul class="simple">
+<li><p>The <span class="target" id="index-2-command:export"></span><a class="reference internal" href="../command/export.html#package-info" title="export(package_info)"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">export(PACKAGE_INFO)</span></code></a> command now writes to the
+<code class="docutils literal notranslate"><span class="pre">cps/&lt;package-name&gt;</span></code> subdirectory of the current build directory,
+rather than directly to the current build directory.</p></li>
+</ul>
+</section>
+<section id="id5">
+<h3><a class="toc-backref" href="#id26" role="doc-backlink">4.3.4</a><a class="headerlink" href="#id5" title="連結到這個標頭">¶</a></h3>
+<ul class="simple">
+<li><p><span class="target" id="index-1-manual:cmake-instrumentation(7)"></span><a class="reference internal" href="../manual/cmake-instrumentation.7.html#manual:cmake-instrumentation(7)" title="cmake-instrumentation(7)"><code class="xref cmake cmake-manual docutils literal notranslate"><span class="pre">cmake-instrumentation(7)</span></code></a>, introduced in 4.3.0, has been <em>changed</em>
+to generate <a class="reference internal" href="../manual/cmake-instrumentation.7.html#cmake-instrumentation-v1-index-file"><span class="std std-ref">index files</span></a> and
+<a class="reference internal" href="../manual/cmake-instrumentation.7.html#cmake-instrumentation-v1-snippet-file"><span class="std std-ref">snippet files</span></a> with a new
+<code class="docutils literal notranslate"><span class="pre">version</span></code> field format.  It is now an object with major and minor version
+components, <code class="docutils literal notranslate"><span class="pre">{</span> <span class="pre">&quot;major&quot;:</span> <span class="pre">1,</span> <span class="pre">&quot;minor&quot;:</span> <span class="pre">0</span> <span class="pre">}</span></code>.  Previously it was an integer
+with only the major version, <code class="docutils literal notranslate"><span class="pre">1</span></code>.</p></li>
+</ul>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3>目次表</h3>
+    <ul>
+<li><a class="reference internal" href="#">CMake 4.3 Release Notes</a><ul>
+<li><a class="reference internal" href="#new-features">新功能</a><ul>
+<li><a class="reference internal" href="#common-package-specification">Common Package Specification</a></li>
+<li><a class="reference internal" href="#instrumentation">Instrumentation</a></li>
+<li><a class="reference internal" href="#presets">Presets</a></li>
+<li><a class="reference internal" href="#file-based-api">File-Based API</a></li>
+<li><a class="reference internal" href="#platforms">平臺</a></li>
+<li><a class="reference internal" href="#command-line">命令行</a></li>
+<li><a class="reference internal" href="#commands">命令</a></li>
+<li><a class="reference internal" href="#variables">變數</a></li>
+<li><a class="reference internal" href="#properties">屬性</a></li>
+<li><a class="reference internal" href="#modules">模組</a></li>
+<li><a class="reference internal" href="#generator-expressions">生成器表達式</a></li>
+<li><a class="reference internal" href="#ctest">CTest</a></li>
+<li><a class="reference internal" href="#cpack">CPack</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#deprecated-and-removed-features">Deprecated and Removed Features</a></li>
+<li><a class="reference internal" href="#other-changes">其他變更</a></li>
+<li><a class="reference internal" href="#updates">Updates</a><ul>
+<li><a class="reference internal" href="#id3">4.3.1, 4.3.2</a></li>
+<li><a class="reference internal" href="#id4">4.3.3</a></li>
+<li><a class="reference internal" href="#id5">4.3.4</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>上個話題</h4>
+    <p class="topless"><a href="4.4.html"
+                          title="上個章節">CMake 4.4 Release Notes</a></p>
+  </div>
+  <div>
+    <h4>下個話題</h4>
+    <p class="topless"><a href="4.2.html"
+                          title="下個章節">CMake 4.2 Release Notes</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>本頁</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/release/4.3.rst.txt"
+            rel="nofollow">顯示來源碼</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜尋</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="前往" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>瀏覽</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="總索引"
+             >索引</a></li>
+        <li class="right" >
+          <a href="4.2.html" title="CMake 4.2 Release Notes"
+             >下一頁</a> |</li>
+        <li class="right" >
+          <a href="4.4.html" title="CMake 4.4 Release Notes"
+             >上一頁</a> |</li>
+  <li>
+    <label class="sidebar-toggle" for="sidebar-check"></label>
+  </li>
+  <li class="rootlink">
+    <img src="../_static/cmake-logo-16.png" width="16" height="16" alt=""/>
+    <a href="https://cmake.org/">CMake 4.4.0-rc2</a>
+    <span class="reldelim1"> &#187;</span>
+  </li>
+  <li>
+    <a href="../index.html">文件</a> &#187;
+  </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >CMake 發行備註</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">CMake 4.3 Release Notes</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+    &#169; 著作權 2000-2026 Kitware, Inc. and Contributors.
+      使用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3 建立。
+    </div>
+<script type="text/javascript">
+(function() {
+  "use strict";
+  const hide = () => document.getElementById("sidebar-check").checked = false;
+  addEventListener("keydown", e => (e.key === "Escape") && hide());
+  addEventListener("click", e => (e.target.tagName === "A") && hide());
+  addEventListener("hashchange", hide)
+})();
+</script>
+  </body>
+</html>

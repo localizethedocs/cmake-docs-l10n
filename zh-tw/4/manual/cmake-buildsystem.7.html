@@ -1,0 +1,1114 @@
+<!DOCTYPE html>
+
+<html lang="zh-TW" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>cmake-建置系統(7) &mdash; CMake 4.3.3 Documentation</title>
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a3862c66" />
+    <link rel="stylesheet" type="text/css" href="../_static/cmake.css?v=d27bb136" />
+    
+    <script src="../_static/documentation_options.js?v=5d645c8d"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/translations.js?v=cbf116e0"></script>
+    
+    <link rel="canonical" href="https://projects.localizethedocs.org/cmake-docs-l10n/manual/cmake-buildsystem.7.html" />
+    <link rel="icon" href="../_static/cmake-favicon.ico"/>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜尋" href="../search.html" />
+    <link rel="next" title="cmake-命令(7)" href="cmake-commands.7.html" />
+    <link rel="prev" title="ccmake(1)" href="ccmake.1.html" />
+
+ 
+
+    <script type="text/javascript" src="../ltd-provenance.js"></script>
+    <script type="text/javascript" src="../ltd-current.js"></script>
+    <script type="text/javascript" src="../../../ltd-config.js"></script>
+    <script type="text/javascript" src="../../../ltd-flyout.js"></script>
+
+  </head><body>
+    <input id="sidebar-check" type="checkbox" />
+    <label id="sidebar-overlay" for="sidebar-check"></label>
+
+
+
+    <div class="related relbar1" role="navigation" aria-label="Related">
+      <h3>瀏覽</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="總索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="cmake-commands.7.html" title="cmake-命令(7)"
+             accesskey="N">下一頁</a> |</li>
+        <li class="right" >
+          <a href="ccmake.1.html" title="ccmake(1)"
+             accesskey="P">上一頁</a> |</li>
+  <li>
+    <label class="sidebar-toggle" for="sidebar-check"></label>
+  </li>
+  <li class="rootlink">
+    <img src="../_static/cmake-logo-16.png" width="16" height="16" alt=""/>
+    <a href="https://cmake.org/">CMake 4.3.3</a>
+    <span class="reldelim1"> &#187;</span>
+  </li>
+  <li>
+    <a href="../index.html">文件</a> &#187;
+  </li>
+
+        <li class="nav-item nav-item-this"><a href="">cmake-建置系統(7)</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <span class="target" id="manual:cmake-buildsystem(7)"></span><section id="cmake-buildsystem-7">
+<h1><a class="toc-backref" href="#id25" role="doc-backlink">cmake-建置系統(7)</a><a class="headerlink" href="#cmake-buildsystem-7" title="連結到這個標頭">¶</a></h1>
+<nav class="contents" id="id1">
+<p class="topic-title">目錄</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#cmake-buildsystem-7" id="id25">cmake-建置系統(7)</a></p>
+<ul>
+<li><p><a class="reference internal" href="#introduction" id="id26">介紹</a></p></li>
+<li><p><a class="reference internal" href="#binary-targets" id="id27">二進位目標</a></p>
+<ul>
+<li><p><a class="reference internal" href="#executables" id="id28">可執行文件</a></p></li>
+<li><p><a class="reference internal" href="#static-libraries" id="id29">靜態程式庫</a></p></li>
+<li><p><a class="reference internal" href="#shared-libraries" id="id30">共享程式庫</a></p></li>
+<li><p><a class="reference internal" href="#apple-frameworks" id="id31">Apple 框架</a></p></li>
+<li><p><a class="reference internal" href="#module-libraries" id="id32">模組程式庫</a></p></li>
+<li><p><a class="reference internal" href="#object-libraries" id="id33">物件程式庫</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#build-specification-and-usage-requirements" id="id34">建置規範與使用要求</a></p>
+<ul>
+<li><p><a class="reference internal" href="#target-commands" id="id35">目標命令</a></p></li>
+<li><p><a class="reference internal" href="#target-build-specification" id="id36">目標建置規範</a></p>
+<ul>
+<li><p><a class="reference internal" href="#target-compile-properties" id="id37">目標編譯屬性</a></p></li>
+<li><p><a class="reference internal" href="#target-link-properties" id="id38">目標連結屬性</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#target-usage-requirements" id="id39">目標使用要求</a></p>
+<ul>
+<li><p><a class="reference internal" href="#transitive-compile-properties" id="id40">傳遞編譯屬性</a></p></li>
+<li><p><a class="reference internal" href="#transitive-link-properties" id="id41">傳遞鏈接屬性</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#custom-transitive-properties" id="id42">自定義傳遞屬性</a></p></li>
+<li><p><a class="reference internal" href="#compatible-interface-properties" id="id43">可兼容介面屬性</a></p></li>
+<li><p><a class="reference internal" href="#property-origin-debugging" id="id44">属性起源调试</a></p></li>
+<li><p><a class="reference internal" href="#build-specification-with-generator-expressions" id="id45">使用生成器表達式的建置規範</a></p>
+<ul>
+<li><p><a class="reference internal" href="#include-directories-and-usage-requirements" id="id46">包含目录和使用要求</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#link-libraries-and-generator-expressions" id="id47">連結程式庫與生成器表達式</a></p></li>
+<li><p><a class="reference internal" href="#output-artifacts" id="id48">輸出製品</a></p>
+<ul>
+<li><p><a class="reference internal" href="#runtime-output-artifacts" id="id49">執行時輸出製品</a></p></li>
+<li><p><a class="reference internal" href="#library-output-artifacts" id="id50">程式庫輸出製品</a></p></li>
+<li><p><a class="reference internal" href="#archive-output-artifacts" id="id51">封存檔輸出製品</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#directory-scoped-commands" id="id52">目錄作用域的命令</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#build-configurations" id="id53">建置組態</a></p>
+<ul>
+<li><p><a class="reference internal" href="#case-sensitivity" id="id54">大小寫敏感度</a></p></li>
+<li><p><a class="reference internal" href="#default-and-custom-configurations" id="id55">默認與自訂組態</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#pseudo-targets" id="id56">偽目標</a></p>
+<ul>
+<li><p><a class="reference internal" href="#imported-targets" id="id57">匯入目標</a></p></li>
+<li><p><a class="reference internal" href="#alias-targets" id="id58">別名目標</a></p></li>
+<li><p><a class="reference internal" href="#interface-libraries" id="id59">介面庫</a></p>
+<ul>
+<li><p><a class="reference internal" href="#properties-allowed-on-interface-libraries" id="id60">介面庫上允許的屬性</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+<section id="introduction">
+<h2><a class="toc-backref" href="#id26" role="doc-backlink">介紹</a><a class="headerlink" href="#introduction" title="連結到這個標頭">¶</a></h2>
+<p>基於CMake的構建系統被組織為一組高級邏輯目標。每個目標對應一個可執行文件或庫，或是一個包含自定義命令的自定義目標。目標之間的依賴性在構建系統中表達，以確定構建順序和響應變化的重生規則。</p>
+</section>
+<section id="binary-targets">
+<h2><a class="toc-backref" href="#id27" role="doc-backlink">二進位目標</a><a class="headerlink" href="#binary-targets" title="連結到這個標頭">¶</a></h2>
+<p>可執行文件和庫是通過:command:<cite>add_executable`和:command:`add_library`命令定義的。生成的二進制文件具有適合目標平台的:prop_tgt:`PREFIX</cite>，:prop_tgt:<a href="#id1"><span class="problematic" id="id2">`</span></a>SUFFIX`和擴展名。二進制目標之間的依賴性通過:command:<a href="#id3"><span class="problematic" id="id4">`</span></a>target_link_libraries`命令表達：</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">add_library(</span><span class="nb">archive</span><span class="w"> </span><span class="nb">archive.cpp</span><span class="w"> </span><span class="nb">zip.cpp</span><span class="w"> </span><span class="nb">lzma.cpp</span><span class="nf">)</span>
+<span class="nf">add_executable(</span><span class="nb">zipapp</span><span class="w"> </span><span class="nb">zipapp.cpp</span><span class="nf">)</span>
+<span class="nf">target_link_libraries(</span><span class="nb">zipapp</span><span class="w"> </span><span class="nb">archive</span><span class="nf">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">archive</span></code> 定義為一個 <code class="docutils literal notranslate"><span class="pre">STATIC</span></code> 庫——這是包含從 <code class="docutils literal notranslate"><span class="pre">archive.cpp</span></code>、<code class="docutils literal notranslate"><span class="pre">zip.cpp</span></code> 和 <code class="docutils literal notranslate"><span class="pre">lzma.cpp</span></code> 編譯而來的對象的檔案。 <code class="docutils literal notranslate"><span class="pre">zipapp</span></code> 定義為由編譯和鏈接 <code class="docutils literal notranslate"><span class="pre">zipapp.cpp</span></code> 構成的可執行文件。在鏈接 <code class="docutils literal notranslate"><span class="pre">zipapp</span></code> 可執行文件時，會鏈接 <code class="docutils literal notranslate"><span class="pre">archive</span></code> 靜態庫。</p>
+<section id="executables">
+<span id="id2"></span><h3><a class="toc-backref" href="#id28" role="doc-backlink">可執行文件</a><a class="headerlink" href="#executables" title="連結到這個標頭">¶</a></h3>
+<p>可執行檔案是由將物件檔連結起來所建立的二進位檔案，其中一個包含程式進入點，例如：<code class="docutils literal notranslate"><span class="pre">main</span></code>。</p>
+<p><span class="target" id="index-0-command:add_executable"></span><a class="reference internal" href="../command/add_executable.html#command:add_executable" title="add_executable"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">add_executable()</span></code></a> 命令定義了一個可執行目標：</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">add_executable(</span><span class="nb">mytool</span><span class="w"> </span><span class="nb">mytool.cpp</span><span class="nf">)</span>
+</pre></div>
+</div>
+<p>CMake生成構建規則，以將源文件編譯成對象文件並鏈接為一個可執行文件。</p>
+<p>可執行文件的鏈接依賴可以使用:command:<a href="#id1"><span class="problematic" id="id2">`</span></a>target_link_libraries`命令指定。鏈接器從可執行文件自己的源文件編譯的對象文件開始，然後通過搜索鏈接庫來解決剩餘的符號依賴。</p>
+<p>像 <span class="target" id="index-0-command:add_custom_command"></span><a class="reference internal" href="../command/add_custom_command.html#command:add_custom_command" title="add_custom_command"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">add_custom_command()</span></code></a> 這樣的命令會生成在構建時運行的規則，可以透明地使用 <span class="target" id="index-0-prop_tgt:TYPE"></span><a class="reference internal" href="../prop_tgt/TYPE.html#prop_tgt:TYPE" title="TYPE"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">EXECUTABLE</span></code></a> 目標作為 <code class="docutils literal notranslate"><span class="pre">COMMAND</span></code> 可執行文件。構建系統規則將確保在嘗試運行命令之前構建可執行文件。</p>
+</section>
+<section id="static-libraries">
+<span id="id3"></span><h3><a class="toc-backref" href="#id29" role="doc-backlink">靜態程式庫</a><a class="headerlink" href="#static-libraries" title="連結到這個標頭">¶</a></h3>
+<p>靜態庫是對象文件的檔案。它們由歸檔器而不是鏈接器生成。 <a class="reference internal" href="#id2">可執行文件</a>，<a href="#id1"><span class="problematic" id="id2">`</span></a>共享庫`_和 <a href="#id3"><span class="problematic" id="id4">`</span></a>模塊庫`_可以將靜態庫作為依賴項鏈接。鏈接器會根據需要從靜態庫中選擇對象文件的子集以解析符號並將它們鏈接到消費者二進制文件中。每個鏈接到靜態庫的二進制文件都會獲得其符號的副本，在運行時不需要靜態庫本身。</p>
+<p>當以 <code class="docutils literal notranslate"><span class="pre">STATIC</span></code> 庫類型調用時，<span class="target" id="index-0-command:add_library"></span><a class="reference internal" href="../command/add_library.html#command:add_library" title="add_library"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">add_library()</span></code></a> 命令定義了一個靜態庫目標：</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">add_library(</span><span class="nb">archive</span><span class="w"> </span><span class="no">STATIC</span><span class="w"> </span><span class="nb">archive.cpp</span><span class="w"> </span><span class="nb">zip.cpp</span><span class="w"> </span><span class="nb">lzma.cpp</span><span class="nf">)</span>
+</pre></div>
+</div>
+<p>或者，當 <span class="target" id="index-0-variable:BUILD_SHARED_LIBS"></span><a class="reference internal" href="../variable/BUILD_SHARED_LIBS.html#variable:BUILD_SHARED_LIBS" title="BUILD_SHARED_LIBS"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">BUILD_SHARED_LIBS</span></code></a> 變量為false時，無任何類型：</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">add_library(</span><span class="nb">archive</span><span class="w"> </span><span class="nb">archive.cpp</span><span class="w"> </span><span class="nb">zip.cpp</span><span class="w"> </span><span class="nb">lzma.cpp</span><span class="nf">)</span>
+</pre></div>
+</div>
+<p>CMake生成構建規則以將源文件編譯為對象文件並將其存檔到一個靜態庫中。</p>
+<p>靜態庫的鏈接依賴可以使用:command:<a class="reference internal" href="#object-libraries">target_link_libraries`命令指定。由於靜態庫是檔案而不是鏈接的二進制文件，其鏈接依賴的對象文件不包含在它們自己中（除了指定為*直接*鏈接依賴的 `對象庫</a>）。相反，CMake記錄靜態庫的鏈接依賴，以供連接消費者二進制時的傳遞使用。</p>
+</section>
+<section id="shared-libraries">
+<span id="id4"></span><h3><a class="toc-backref" href="#id30" role="doc-backlink">共享程式庫</a><a class="headerlink" href="#shared-libraries" title="連結到這個標頭">¶</a></h3>
+<p>共享庫是由鏈接對象文件創建的二進制文件。 <a class="reference internal" href="#id2">可執行文件</a>，其他共享庫和 <a href="#id1"><span class="problematic" id="id2">`</span></a>模塊庫`_可以將共享庫作為依賴項鏈接。鏈接器在消費者二進制文件中記錄共享庫的引用。在運行時，動態加載器搜索磁盤上的引用共享庫並加載其符號。</p>
+<p>當以 <code class="docutils literal notranslate"><span class="pre">SHARED</span></code> 庫類型調用時，<span class="target" id="index-1-command:add_library"></span><a class="reference internal" href="../command/add_library.html#command:add_library" title="add_library"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">add_library()</span></code></a> 命令定義了一個共享庫目標：</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">add_library(</span><span class="nb">archive</span><span class="w"> </span><span class="no">SHARED</span><span class="w"> </span><span class="nb">archive.cpp</span><span class="w"> </span><span class="nb">zip.cpp</span><span class="w"> </span><span class="nb">lzma.cpp</span><span class="nf">)</span>
+</pre></div>
+</div>
+<p>或者，當 <span class="target" id="index-1-variable:BUILD_SHARED_LIBS"></span><a class="reference internal" href="../variable/BUILD_SHARED_LIBS.html#variable:BUILD_SHARED_LIBS" title="BUILD_SHARED_LIBS"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">BUILD_SHARED_LIBS</span></code></a> 變量為true時，無任何類型：</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">add_library(</span><span class="nb">archive</span><span class="w"> </span><span class="nb">archive.cpp</span><span class="w"> </span><span class="nb">zip.cpp</span><span class="w"> </span><span class="nb">lzma.cpp</span><span class="nf">)</span>
+</pre></div>
+</div>
+<p>CMake生成構建規則以將源文件編譯成對象文件並將其鏈接成共享庫。</p>
+<p>共享庫的鏈接依賴可以使用:command:<a href="#id1"><span class="problematic" id="id2">`</span></a>target_link_libraries`命令指定。鏈接器從共享庫自身源文件編譯的對象文件開始，然後通過搜索鏈接庫來解決剩餘的符號依賴。</p>
+<div class="admonition note">
+<p class="admonition-title">備註</p>
+<p>CMake期望共享库至少导出一个符号。如果库没有导出任何未管理符号，如Windows资源DLL或C++/CLI DLL，应创建为`模块库 &lt;<a class="reference internal" href="#module-libraries">模块库</a>&gt;`_。</p>
+</div>
+</section>
+<section id="apple-frameworks">
+<span id="id5"></span><h3><a class="toc-backref" href="#id31" role="doc-backlink">Apple 框架</a><a class="headerlink" href="#apple-frameworks" title="連結到這個標頭">¶</a></h3>
+<p><cite>共享庫`_和 `靜態庫`_可以使用 :prop_tgt:`FRAMEWORK</cite> 目標屬性標記，以創建macOS或iOS框架。具有 <code class="docutils literal notranslate"><span class="pre">FRAMEWORK</span></code> 目標屬性的庫還應設置 <span class="target" id="index-0-prop_tgt:FRAMEWORK_VERSION"></span><a class="reference internal" href="../prop_tgt/FRAMEWORK_VERSION.html#prop_tgt:FRAMEWORK_VERSION" title="FRAMEWORK_VERSION"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">FRAMEWORK_VERSION</span></code></a> 目標屬性。此屬性通常按照macOS約定設置為&quot;A&quot;。 <code class="docutils literal notranslate"><span class="pre">MACOSX_FRAMEWORK_IDENTIFIER</span></code> 設置 <code class="docutils literal notranslate"><span class="pre">CFBundleIdentifier</span></code> 鑰匙並唯一標識包。</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">add_library(</span><span class="nb">MyFramework</span><span class="w"> </span><span class="no">SHARED</span><span class="w"> </span><span class="nb">MyFramework.cpp</span><span class="nf">)</span>
+<span class="nf">set_target_properties(</span><span class="nb">MyFramework</span><span class="w"> </span><span class="no">PROPERTIES</span>
+<span class="w">  </span><span class="no">FRAMEWORK</span><span class="w"> </span><span class="no">TRUE</span>
+<span class="w">  </span><span class="no">FRAMEWORK_VERSION</span><span class="w"> </span><span class="no">A</span><span class="w"> </span><span class="c"># Version &quot;A&quot; is macOS convention</span>
+<span class="w">  </span><span class="no">MACOSX_FRAMEWORK_IDENTIFIER</span><span class="w"> </span><span class="nb">org.cmake.MyFramework</span>
+<span class="nf">)</span>
+</pre></div>
+</div>
+</section>
+<section id="module-libraries">
+<span id="id6"></span><h3><a class="toc-backref" href="#id32" role="doc-backlink">模組程式庫</a><a class="headerlink" href="#module-libraries" title="連結到這個標頭">¶</a></h3>
+<p>模塊庫是通過鏈接對象文件創建的二進制文件。 與 <cite>共享庫`_不同，模塊庫可能不會被其他二進制文件作為依賴項鏈接——不要在:command:`target_link_libraries`命令的右側命名它們。相反，模塊庫是應用程序可以在運行時按需動態加載的插件，例如，通過``dlopen`</cite>。</p>
+<p>當以 <code class="docutils literal notranslate"><span class="pre">MODULE</span></code> 庫類型調用時，<span class="target" id="index-2-command:add_library"></span><a class="reference internal" href="../command/add_library.html#command:add_library" title="add_library"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">add_library()</span></code></a> 命令定義了一個模塊庫目標：</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">add_library(</span><span class="nb">archivePlugin</span><span class="w"> </span><span class="no">MODULE</span><span class="w"> </span><span class="m">7</span><span class="nb">z.cpp</span><span class="nf">)</span>
+</pre></div>
+</div>
+<p>CMake生成構建規則來將源文件編譯成對象文件並將其鏈接成模塊庫。</p>
+<p>模塊庫的鏈接依賴可以使用:command:<a href="#id1"><span class="problematic" id="id2">`</span></a>target_link_libraries`命令指定。鏈接器從模塊庫自己的源文件編譯的對象文件開始，然後通過搜索鏈接庫解決剩餘的符號依賴。</p>
+</section>
+<section id="object-libraries">
+<span id="id7"></span><h3><a class="toc-backref" href="#id33" role="doc-backlink">物件程式庫</a><a class="headerlink" href="#object-libraries" title="連結到這個標頭">¶</a></h3>
+<p>對象庫是源文件編譯而成的對象文件集合，不做任何歸檔或鏈接。這些對象文件可用於鏈接 <a class="reference internal" href="#id2">可執行文件</a>、 <a class="reference internal" href="#shared-libraries">共享庫</a> 和 <a class="reference internal" href="#executables">模塊庫</a>，或在歸檔 <a class="reference internal" href="#module-libraries">靜態庫</a> 時使用。</p>
+<p>當以 <code class="docutils literal notranslate"><span class="pre">OBJECT</span></code> 庫類型調用時，<span class="target" id="index-3-command:add_library"></span><a class="reference internal" href="../command/add_library.html#command:add_library" title="add_library"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">add_library()</span></code></a> 命令定義了一個對象庫目標：</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">add_library(</span><span class="nb">archiveObjs</span><span class="w"> </span><span class="no">OBJECT</span><span class="w"> </span><span class="nb">archive.cpp</span><span class="w"> </span><span class="nb">zip.cpp</span><span class="w"> </span><span class="nb">lzma.cpp</span><span class="nf">)</span>
+</pre></div>
+</div>
+<p>CMake生成構建規則以將源文件編譯為對象文件。</p>
+<p>其他目標可以使用 <span class="target" id="index-0-manual:cmake-generator-expressions(7)"></span><a class="reference internal" href="cmake-generator-expressions.7.html#manual:cmake-generator-expressions(7)" title="cmake-generator-expressions(7)"><code class="xref cmake cmake-manual docutils literal notranslate"><span class="pre">generator</span> <span class="pre">expression</span></code></a> 語法 <span class="target" id="index-0-genex:TARGET_OBJECTS"></span><a class="reference internal" href="cmake-generator-expressions.7.html#genex:TARGET_OBJECTS" title="TARGET_OBJECTS"><code class="xref cmake cmake-genex docutils literal notranslate"><span class="pre">$&lt;TARGET_OBJECTS:name&gt;</span></code></a> 將對象文件指定為源輸入：</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">add_library(</span><span class="nb">archiveExtras</span><span class="w"> </span><span class="no">STATIC</span><span class="w"> </span><span class="o">$&lt;</span><span class="no">TARGET_OBJECTS</span><span class="o">:</span><span class="nb">archiveObjs</span><span class="p">&gt;</span><span class="w"> </span><span class="nb">extras.cpp</span><span class="nf">)</span>
+
+<span class="nf">add_executable(</span><span class="nb">test_exe</span><span class="w"> </span><span class="o">$&lt;</span><span class="no">TARGET_OBJECTS</span><span class="o">:</span><span class="nb">archiveObjs</span><span class="p">&gt;</span><span class="w"> </span><span class="nb">test.cpp</span><span class="nf">)</span>
+</pre></div>
+</div>
+<p>消費目標使用來自其自身源和命名對象庫的對象文件進行鏈接（或存檔）。</p>
+<p>可選地，可以將對象庫指定為其他目標的鏈接依賴：</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">add_library(</span><span class="nb">archiveExtras</span><span class="w"> </span><span class="no">STATIC</span><span class="w"> </span><span class="nb">extras.cpp</span><span class="nf">)</span>
+<span class="nf">target_link_libraries(</span><span class="nb">archiveExtras</span><span class="w"> </span><span class="no">PUBLIC</span><span class="w"> </span><span class="nb">archiveObjs</span><span class="nf">)</span>
+
+<span class="nf">add_executable(</span><span class="nb">test_exe</span><span class="w"> </span><span class="nb">test.cpp</span><span class="nf">)</span>
+<span class="nf">target_link_libraries(</span><span class="nb">test_exe</span><span class="w"> </span><span class="nb">archiveObjs</span><span class="nf">)</span>
+</pre></div>
+</div>
+<p>消费目标通过其自身源文件和由：command:<cite>target_link_libraries`指定作为*直接*链接依赖的对象库中的对象文件进行链接（或存档）。 见:ref:`链接对象库</cite>。</p>
+<p>對象庫不能作為 <span class="target" id="index-1-command:add_custom_command"></span><a class="reference internal" href="../command/add_custom_command.html#target" title="add_custom_command(target)"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">add_custom_command(TARGET)</span></code></a> 命令簽名中 <code class="docutils literal notranslate"><span class="pre">TARGET</span></code> 使用。但是，可以使用 <code class="docutils literal notranslate"><span class="pre">$&lt;TARGET_OBJECTS:objlib&gt;</span></code> 列表通過 <span class="target" id="index-2-command:add_custom_command"></span><a class="reference internal" href="../command/add_custom_command.html#output" title="add_custom_command(output)"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">add_custom_command(OUTPUT)</span></code></a> 或 <span class="target" id="index-0-command:file"></span><a class="reference internal" href="../command/file.html#generate" title="file(generate)"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">file(GENERATE)</span></code></a> 使用對象列表。</p>
+</section>
+</section>
+<section id="build-specification-and-usage-requirements">
+<h2><a class="toc-backref" href="#id34" role="doc-backlink">建置規範與使用要求</a><a class="headerlink" href="#build-specification-and-usage-requirements" title="連結到這個標頭">¶</a></h2>
+<p>目標根據其自己 <a class="reference internal" href="#target-build-specification">構建規範</a> 與從其鏈接依賴傳播的 <a class="reference internal" href="#target-usage-requirements">使用要求</a> 結合而建。 兩者都可以使用目標特定的 <a class="reference internal" href="#target-commands">命令</a> 指定。</p>
+<p>例如：</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">add_library(</span><span class="nb">archive</span><span class="w"> </span><span class="no">SHARED</span><span class="w"> </span><span class="nb">archive.cpp</span><span class="w"> </span><span class="nb">zip.cpp</span><span class="nf">)</span>
+
+<span class="nf">if</span> <span class="nf">(</span><span class="no">LZMA_FOUND</span><span class="nf">)</span>
+<span class="w">  </span><span class="c"># Add a source implementing support for lzma.</span>
+<span class="w">  </span><span class="nf">target_sources(</span><span class="nb">archive</span><span class="w"> </span><span class="no">PRIVATE</span><span class="w"> </span><span class="nb">lzma.cpp</span><span class="nf">)</span>
+
+<span class="w">  </span><span class="c"># Compile the &#39;archive&#39; library sources with &#39;-DBUILDING_WITH_LZMA&#39;.</span>
+<span class="w">  </span><span class="nf">target_compile_definitions(</span><span class="nb">archive</span><span class="w"> </span><span class="no">PRIVATE</span><span class="w"> </span><span class="no">BUILDING_WITH_LZMA</span><span class="nf">)</span>
+<span class="nf">endif()</span>
+
+<span class="nf">target_compile_definitions(</span><span class="nb">archive</span><span class="w"> </span><span class="no">INTERFACE</span><span class="w"> </span><span class="no">USING_ARCHIVE_LIB</span><span class="nf">)</span>
+
+<span class="nf">add_executable(</span><span class="nb">consumer</span><span class="w"> </span><span class="nb">consumer.cpp</span><span class="nf">)</span>
+
+<span class="c"># Link &#39;consumer&#39; to &#39;archive&#39;.  This also consumes its usage requirements,</span>
+<span class="c"># so &#39;consumer.cpp&#39; is compiled with &#39;-DUSING_ARCHIVE_LIB&#39;.</span>
+<span class="nf">target_link_libraries(</span><span class="nb">consumer</span><span class="w"> </span><span class="nb">archive</span><span class="nf">)</span>
+</pre></div>
+</div>
+<section id="target-commands">
+<h3><a class="toc-backref" href="#id35" role="doc-backlink">目標命令</a><a class="headerlink" href="#target-commands" title="連結到這個標頭">¶</a></h3>
+<p>目标特定的命令填充了`二进制目标 &lt;Binary <a class="reference internal" href="#interface-libraries">Targets</a>&gt;`_的`构建规范 &lt;<a class="reference internal" href="#imported-targets">构建规范</a>&gt;`_以及`二进制目标 &lt;Binary <a class="reference internal" href="#target-usage-requirements">Targets</a>&gt;`_、<a class="reference internal" href="#binary-targets">接口库 &lt;接口库_&gt;`_和`已引入目标 &lt;已引入目标_&gt;`_的`使用要求</a>。</p>
+<p id="target-command-scope">調用必須指定作用域關鍵字，每個關鍵字影響後續參數的可見性。 作用域為：</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">PUBLIC</span></code></dt><dd><p>填充目標的 <a class="reference internal" href="#target-build-specification">構建規範</a> 與 <a class="reference internal" href="#target-usage-requirements">使用要求</a> 屬性。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">PRIVATE</span></code></dt><dd><p>僅填充<a class="reference internal" href="#target-build-specification">建置</a>目標的屬性。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">INTERFACE</span></code></dt><dd><p>僅填充<a class="reference internal" href="#target-usage-requirements">使用</a>目標的屬性。</p>
+</dd>
+</dl>
+<p>命令有：</p>
+<dl>
+<dt><span class="target" id="index-0-command:target_compile_definitions"></span><a class="reference internal" href="../command/target_compile_definitions.html#command:target_compile_definitions" title="target_compile_definitions"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">target_compile_definitions()</span></code></a></dt><dd><p>填充 <span class="target" id="index-0-prop_tgt:COMPILE_DEFINITIONS"></span><a class="reference internal" href="../prop_tgt/COMPILE_DEFINITIONS.html#prop_tgt:COMPILE_DEFINITIONS" title="COMPILE_DEFINITIONS"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">COMPILE_DEFINITIONS</span></code></a> 构建规范和 <span class="target" id="index-0-prop_tgt:INTERFACE_COMPILE_DEFINITIONS"></span><a class="reference internal" href="../prop_tgt/INTERFACE_COMPILE_DEFINITIONS.html#prop_tgt:INTERFACE_COMPILE_DEFINITIONS" title="INTERFACE_COMPILE_DEFINITIONS"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">INTERFACE_COMPILE_DEFINITIONS</span></code></a> 使用需求属性。</p>
+<p>例如，調用</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">target_compile_definitions(</span><span class="nb">archive</span>
+<span class="w">  </span><span class="no">PRIVATE</span><span class="w">   </span><span class="no">BUILDING_WITH_LZMA</span>
+<span class="w">  </span><span class="no">INTERFACE</span><span class="w"> </span><span class="no">USING_ARCHIVE_LIB</span>
+<span class="nf">)</span>
+</pre></div>
+</div>
+<p>將 <code class="docutils literal notranslate"><span class="pre">BUILDING_WITH_LZMA</span></code> 附加到目標的 <code class="docutils literal notranslate"><span class="pre">COMPILE_DEFINITIONS</span></code> 屬性上，並將 <code class="docutils literal notranslate"><span class="pre">USING_ARCHIVE_LIB</span></code> 附加到目標的 <code class="docutils literal notranslate"><span class="pre">INTERFACE_COMPILE_DEFINITIONS</span></code> 屬性上。</p>
+</dd>
+<dt><span class="target" id="index-0-command:target_compile_options"></span><a class="reference internal" href="../command/target_compile_options.html#command:target_compile_options" title="target_compile_options"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">target_compile_options()</span></code></a></dt><dd><p>填充 <span class="target" id="index-0-prop_tgt:COMPILE_OPTIONS"></span><a class="reference internal" href="../prop_tgt/COMPILE_OPTIONS.html#prop_tgt:COMPILE_OPTIONS" title="COMPILE_OPTIONS"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">COMPILE_OPTIONS</span></code></a> 構建規範和 <span class="target" id="index-0-prop_tgt:INTERFACE_COMPILE_OPTIONS"></span><a class="reference internal" href="../prop_tgt/INTERFACE_COMPILE_OPTIONS.html#prop_tgt:INTERFACE_COMPILE_OPTIONS" title="INTERFACE_COMPILE_OPTIONS"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">INTERFACE_COMPILE_OPTIONS</span></code></a> 使用需求屬性。</p>
+</dd>
+<dt><span class="target" id="index-0-command:target_compile_features"></span><a class="reference internal" href="../command/target_compile_features.html#command:target_compile_features" title="target_compile_features"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">target_compile_features()</span></code></a></dt><dd><div class="versionadded">
+<p><span class="versionmodified added">在 3.1 版被加入.</span></p>
+</div>
+<p>填充 <span class="target" id="index-0-prop_tgt:COMPILE_FEATURES"></span><a class="reference internal" href="../prop_tgt/COMPILE_FEATURES.html#prop_tgt:COMPILE_FEATURES" title="COMPILE_FEATURES"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">COMPILE_FEATURES</span></code></a> 构建规范和 <span class="target" id="index-0-prop_tgt:INTERFACE_COMPILE_FEATURES"></span><a class="reference internal" href="../prop_tgt/INTERFACE_COMPILE_FEATURES.html#prop_tgt:INTERFACE_COMPILE_FEATURES" title="INTERFACE_COMPILE_FEATURES"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">INTERFACE_COMPILE_FEATURES</span></code></a> 使用需求属性。</p>
+</dd>
+<dt><span class="target" id="index-0-command:target_include_directories"></span><a class="reference internal" href="../command/target_include_directories.html#command:target_include_directories" title="target_include_directories"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">target_include_directories()</span></code></a></dt><dd><p>填充 <span class="target" id="index-0-prop_tgt:INCLUDE_DIRECTORIES"></span><a class="reference internal" href="../prop_tgt/INCLUDE_DIRECTORIES.html#prop_tgt:INCLUDE_DIRECTORIES" title="INCLUDE_DIRECTORIES"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">INCLUDE_DIRECTORIES</span></code></a> 構建規範和 <span class="target" id="index-0-prop_tgt:INTERFACE_INCLUDE_DIRECTORIES"></span><a class="reference internal" href="../prop_tgt/INTERFACE_INCLUDE_DIRECTORIES.html#prop_tgt:INTERFACE_INCLUDE_DIRECTORIES" title="INTERFACE_INCLUDE_DIRECTORIES"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">INTERFACE_INCLUDE_DIRECTORIES</span></code></a> 使用需求屬性。使用 <code class="docutils literal notranslate"><span class="pre">SYSTEM</span></code> 選項，它還填充 <span class="target" id="index-0-prop_tgt:INTERFACE_SYSTEM_INCLUDE_DIRECTORIES"></span><a class="reference internal" href="../prop_tgt/INTERFACE_SYSTEM_INCLUDE_DIRECTORIES.html#prop_tgt:INTERFACE_SYSTEM_INCLUDE_DIRECTORIES" title="INTERFACE_SYSTEM_INCLUDE_DIRECTORIES"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">INTERFACE_SYSTEM_INCLUDE_DIRECTORIES</span></code></a> 使用需求。</p>
+<p>方便起見，<span class="target" id="index-0-variable:CMAKE_INCLUDE_CURRENT_DIR"></span><a class="reference internal" href="../variable/CMAKE_INCLUDE_CURRENT_DIR.html#variable:CMAKE_INCLUDE_CURRENT_DIR" title="CMAKE_INCLUDE_CURRENT_DIR"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_INCLUDE_CURRENT_DIR</span></code></a> 變量可以啟用以將源目錄及相應的構建目錄作為所有目標上的 <code class="docutils literal notranslate"><span class="pre">INCLUDE_DIRECTORIES</span></code>。另外，<span class="target" id="index-0-variable:CMAKE_INCLUDE_CURRENT_DIR_IN_INTERFACE"></span><a class="reference internal" href="../variable/CMAKE_INCLUDE_CURRENT_DIR_IN_INTERFACE.html#variable:CMAKE_INCLUDE_CURRENT_DIR_IN_INTERFACE" title="CMAKE_INCLUDE_CURRENT_DIR_IN_INTERFACE"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_INCLUDE_CURRENT_DIR_IN_INTERFACE</span></code></a> 變量可以啟用以將它們作為所有目標上的 <code class="docutils literal notranslate"><span class="pre">INTERFACE_INCLUDE_DIRECTORIES</span></code>。</p>
+</dd>
+<dt><span class="target" id="index-0-command:target_sources"></span><a class="reference internal" href="../command/target_sources.html#command:target_sources" title="target_sources"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">target_sources()</span></code></a></dt><dd><div class="versionadded">
+<p><span class="versionmodified added">在 3.1 版被加入.</span></p>
+</div>
+<p>填充 <span class="target" id="index-0-prop_tgt:SOURCES"></span><a class="reference internal" href="../prop_tgt/SOURCES.html#prop_tgt:SOURCES" title="SOURCES"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">SOURCES</span></code></a> 構建規範和 <span class="target" id="index-0-prop_tgt:INTERFACE_SOURCES"></span><a class="reference internal" href="../prop_tgt/INTERFACE_SOURCES.html#prop_tgt:INTERFACE_SOURCES" title="INTERFACE_SOURCES"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">INTERFACE_SOURCES</span></code></a> 使用需求屬性。</p>
+<p>它還支持指定 <span class="xref std std-ref">文件集</span>，可以添加不在 <code class="docutils literal notranslate"><span class="pre">SOURCES</span></code> 和 <code class="docutils literal notranslate"><span class="pre">INTERFACE_SOURCES</span></code> 屬性中列出的C++模塊源和頭文件。文件集還可以用包含頭文件的目錄來填充 <span class="target" id="index-1-prop_tgt:INCLUDE_DIRECTORIES"></span><a class="reference internal" href="../prop_tgt/INCLUDE_DIRECTORIES.html#prop_tgt:INCLUDE_DIRECTORIES" title="INCLUDE_DIRECTORIES"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">INCLUDE_DIRECTORIES</span></code></a> 構建規範和 <span class="target" id="index-1-prop_tgt:INTERFACE_INCLUDE_DIRECTORIES"></span><a class="reference internal" href="../prop_tgt/INTERFACE_INCLUDE_DIRECTORIES.html#prop_tgt:INTERFACE_INCLUDE_DIRECTORIES" title="INTERFACE_INCLUDE_DIRECTORIES"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">INTERFACE_INCLUDE_DIRECTORIES</span></code></a> 使用需求屬性。</p>
+</dd>
+<dt><span class="target" id="index-0-command:target_precompile_headers"></span><a class="reference internal" href="../command/target_precompile_headers.html#command:target_precompile_headers" title="target_precompile_headers"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">target_precompile_headers()</span></code></a></dt><dd><div class="versionadded">
+<p><span class="versionmodified added">在 3.16 版被加入.</span></p>
+</div>
+<p>填充 <span class="target" id="index-0-prop_tgt:PRECOMPILE_HEADERS"></span><a class="reference internal" href="../prop_tgt/PRECOMPILE_HEADERS.html#prop_tgt:PRECOMPILE_HEADERS" title="PRECOMPILE_HEADERS"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">PRECOMPILE_HEADERS</span></code></a> 構建規範和 <span class="target" id="index-0-prop_tgt:INTERFACE_PRECOMPILE_HEADERS"></span><a class="reference internal" href="../prop_tgt/INTERFACE_PRECOMPILE_HEADERS.html#prop_tgt:INTERFACE_PRECOMPILE_HEADERS" title="INTERFACE_PRECOMPILE_HEADERS"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">INTERFACE_PRECOMPILE_HEADERS</span></code></a> 使用需求屬性。</p>
+</dd>
+<dt><span class="target" id="index-0-command:target_link_libraries"></span><a class="reference internal" href="../command/target_link_libraries.html#command:target_link_libraries" title="target_link_libraries"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">target_link_libraries()</span></code></a></dt><dd><p>填充 <span class="target" id="index-0-prop_tgt:LINK_LIBRARIES"></span><a class="reference internal" href="../prop_tgt/LINK_LIBRARIES.html#prop_tgt:LINK_LIBRARIES" title="LINK_LIBRARIES"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">LINK_LIBRARIES</span></code></a> 構建規範和 <span class="target" id="index-0-prop_tgt:INTERFACE_LINK_LIBRARIES"></span><a class="reference internal" href="../prop_tgt/INTERFACE_LINK_LIBRARIES.html#prop_tgt:INTERFACE_LINK_LIBRARIES" title="INTERFACE_LINK_LIBRARIES"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">INTERFACE_LINK_LIBRARIES</span></code></a> 使用需求屬性。</p>
+<p>這是鏈接依賴及其 <a class="reference internal" href="#target-usage-requirements">使用需求</a> 傳遞傳播以影響目標的編譯和鏈接的主要機制。</p>
+</dd>
+<dt><span class="target" id="index-0-command:target_link_directories"></span><a class="reference internal" href="../command/target_link_directories.html#command:target_link_directories" title="target_link_directories"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">target_link_directories()</span></code></a></dt><dd><div class="versionadded">
+<p><span class="versionmodified added">在 3.13 版被加入.</span></p>
+</div>
+<p>填充 <span class="target" id="index-0-prop_tgt:LINK_DIRECTORIES"></span><a class="reference internal" href="../prop_tgt/LINK_DIRECTORIES.html#prop_tgt:LINK_DIRECTORIES" title="LINK_DIRECTORIES"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">LINK_DIRECTORIES</span></code></a> 構建規範和 <span class="target" id="index-0-prop_tgt:INTERFACE_LINK_DIRECTORIES"></span><a class="reference internal" href="../prop_tgt/INTERFACE_LINK_DIRECTORIES.html#prop_tgt:INTERFACE_LINK_DIRECTORIES" title="INTERFACE_LINK_DIRECTORIES"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">INTERFACE_LINK_DIRECTORIES</span></code></a> 使用需求屬性。</p>
+</dd>
+<dt><span class="target" id="index-0-command:target_link_options"></span><a class="reference internal" href="../command/target_link_options.html#command:target_link_options" title="target_link_options"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">target_link_options()</span></code></a></dt><dd><div class="versionadded">
+<p><span class="versionmodified added">在 3.13 版被加入.</span></p>
+</div>
+<p>填充 <span class="target" id="index-0-prop_tgt:LINK_OPTIONS"></span><a class="reference internal" href="../prop_tgt/LINK_OPTIONS.html#prop_tgt:LINK_OPTIONS" title="LINK_OPTIONS"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">LINK_OPTIONS</span></code></a> 構建規範和 <span class="target" id="index-0-prop_tgt:INTERFACE_LINK_OPTIONS"></span><a class="reference internal" href="../prop_tgt/INTERFACE_LINK_OPTIONS.html#prop_tgt:INTERFACE_LINK_OPTIONS" title="INTERFACE_LINK_OPTIONS"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">INTERFACE_LINK_OPTIONS</span></code></a> 使用需求屬性。</p>
+</dd>
+</dl>
+</section>
+<section id="target-build-specification">
+<span id="id8"></span><h3><a class="toc-backref" href="#id36" role="doc-backlink">目標建置規範</a><a class="headerlink" href="#target-build-specification" title="連結到這個標頭">¶</a></h3>
+<p><a href="#id1"><span class="problematic" id="id2">`</span></a>二进制目标 &lt;Binary <a class="reference internal" href="#binary-targets">Targets</a>&gt;`_的构建规范通过目标属性进行表示。对于以下`编译 &lt;<a class="reference internal" href="#target-compile-properties">项目编译属性</a>&gt;`_和`链接 &lt;<a class="reference internal" href="#target-usage-requirements">链接属性</a>&gt;`_属性，目标的编译和链接受其自身值以及从链接依赖的传递闭包收集到的以``INTERFACE_``为前缀的`使用需要 &lt;<a class="reference internal" href="#target-link-properties">项目使用需要</a>&gt;`_属性的影响。</p>
+<section id="target-compile-properties">
+<span id="id9"></span><h4><a class="toc-backref" href="#id37" role="doc-backlink">目標編譯屬性</a><a class="headerlink" href="#target-compile-properties" title="連結到這個標頭">¶</a></h4>
+<p>這些表示用於編譯目標的 <a class="reference internal" href="#target-build-specification">構建規範</a>。</p>
+<dl>
+<dt><span class="target" id="index-1-prop_tgt:COMPILE_DEFINITIONS"></span><a class="reference internal" href="../prop_tgt/COMPILE_DEFINITIONS.html#prop_tgt:COMPILE_DEFINITIONS" title="COMPILE_DEFINITIONS"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">COMPILE_DEFINITIONS</span></code></a></dt><dd><p>用於編譯目標中的源的編譯定義列表。這些會以``-D``標志或同等方式傳遞給編譯器，順序不定。</p>
+<p>在編譯``SHARED``庫、<code class="docutils literal notranslate"><span class="pre">MODULE``庫或開啟`:prop_tgt:`ENABLE_EXPORTS`的可執行文件的來源時，CMake會自動定義一個目標特定的預處理器符號。默認情況下，該定義的形式為``&lt;target&gt;_EXPORTS</span></code>，但可以通過`:prop_tgt:<a href="#id1"><span class="problematic" id="id2">`</span></a>DEFINE_SYMBOL`目標屬性覆蓋掉。這允許頭文件檢測它們是否從內部實施來源包含，並正確設置導出/導入註釋或符號的可見性。</p>
+</dd>
+<dt><span class="target" id="index-1-prop_tgt:COMPILE_OPTIONS"></span><a class="reference internal" href="../prop_tgt/COMPILE_OPTIONS.html#prop_tgt:COMPILE_OPTIONS" title="COMPILE_OPTIONS"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">COMPILE_OPTIONS</span></code></a></dt><dd><p>用於編譯目標中的源的編譯選項列表。這些以標志形式傳遞給編譯器，按出現順序排列。</p>
+<p>編譯選項會自動對shell轉義。</p>
+<p>某些編譯選項最好通過專用設置來指定，例如 <span class="target" id="index-0-prop_tgt:POSITION_INDEPENDENT_CODE"></span><a class="reference internal" href="../prop_tgt/POSITION_INDEPENDENT_CODE.html#prop_tgt:POSITION_INDEPENDENT_CODE" title="POSITION_INDEPENDENT_CODE"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">POSITION_INDEPENDENT_CODE</span></code></a> 目標屬性。</p>
+</dd>
+<dt><span class="target" id="index-1-prop_tgt:COMPILE_FEATURES"></span><a class="reference internal" href="../prop_tgt/COMPILE_FEATURES.html#prop_tgt:COMPILE_FEATURES" title="COMPILE_FEATURES"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">COMPILE_FEATURES</span></code></a></dt><dd><div class="versionadded">
+<p><span class="versionmodified added">在 3.1 版被加入.</span></p>
+</div>
+<p>用於編譯目標源所需的 <span class="target" id="index-0-manual:cmake-compiler-features(7)"></span><code class="xref cmake cmake-manual docutils literal notranslate"><span class="pre">編譯功能</span></code> 列表。通常，這些確保目標的源以足夠的語言標準級別編譯。</p>
+</dd>
+<dt><span class="target" id="index-2-prop_tgt:INCLUDE_DIRECTORIES"></span><a class="reference internal" href="../prop_tgt/INCLUDE_DIRECTORIES.html#prop_tgt:INCLUDE_DIRECTORIES" title="INCLUDE_DIRECTORIES"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">INCLUDE_DIRECTORIES</span></code></a></dt><dd><p>用於編譯目標源的包含目錄列表。這些由``-I``或``-isystem``旗標或同等旗標，按出現順序傳遞給編譯器。</p>
+<p>為方便起見，可以啟用 <span class="target" id="index-1-variable:CMAKE_INCLUDE_CURRENT_DIR"></span><a class="reference internal" href="../variable/CMAKE_INCLUDE_CURRENT_DIR.html#variable:CMAKE_INCLUDE_CURRENT_DIR" title="CMAKE_INCLUDE_CURRENT_DIR"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_INCLUDE_CURRENT_DIR</span></code></a> 變量以將源目錄和相應的構建目錄添加為所有目標上的 <code class="docutils literal notranslate"><span class="pre">INCLUDE_DIRECTORIES</span></code>。</p>
+</dd>
+<dt><span class="target" id="index-1-prop_tgt:SOURCES"></span><a class="reference internal" href="../prop_tgt/SOURCES.html#prop_tgt:SOURCES" title="SOURCES"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">SOURCES</span></code></a></dt><dd><p>与目标关联的源文件列表。这包括目标创建时通过：command:<cite>add_executable</cite>、：command:<cite>add_library`或：command:`add_custom_target`指定的源，也包括由：command:`target_sources`命令添加的源，但不包括：ref:`文件集</cite>。</p>
+</dd>
+<dt><span class="target" id="index-1-prop_tgt:PRECOMPILE_HEADERS"></span><a class="reference internal" href="../prop_tgt/PRECOMPILE_HEADERS.html#prop_tgt:PRECOMPILE_HEADERS" title="PRECOMPILE_HEADERS"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">PRECOMPILE_HEADERS</span></code></a></dt><dd><div class="versionadded">
+<p><span class="versionmodified added">在 3.16 版被加入.</span></p>
+</div>
+<p>預編譯並包含在目標中編譯源文件時的頭文件列表。</p>
+</dd>
+<dt><span class="target" id="index-0-prop_tgt:AUTOMOC_MACRO_NAMES"></span><a class="reference internal" href="../prop_tgt/AUTOMOC_MACRO_NAMES.html#prop_tgt:AUTOMOC_MACRO_NAMES" title="AUTOMOC_MACRO_NAMES"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">AUTOMOC_MACRO_NAMES</span></code></a></dt><dd><div class="versionadded">
+<p><span class="versionmodified added">在 3.10 版被加入.</span></p>
+</div>
+<p>由:prop_tgt:<a href="#id1"><span class="problematic" id="id2">`</span></a>AUTOMOC`使用的宏名稱列表，以確定目標中的C++源是否需要經過``moc``處理。</p>
+</dd>
+<dt><span class="target" id="index-0-prop_tgt:AUTOUIC_OPTIONS"></span><a class="reference internal" href="../prop_tgt/AUTOUIC_OPTIONS.html#prop_tgt:AUTOUIC_OPTIONS" title="AUTOUIC_OPTIONS"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">AUTOUIC_OPTIONS</span></code></a></dt><dd><div class="versionadded">
+<p><span class="versionmodified added">在 3.0 版被加入.</span></p>
+</div>
+<p>在調用``uic``時，:prop_tgt:<a href="#id1"><span class="problematic" id="id2">`</span></a>AUTOUIC`使用的選項列表。</p>
+</dd>
+</dl>
+</section>
+<section id="target-link-properties">
+<span id="id10"></span><h4><a class="toc-backref" href="#id38" role="doc-backlink">目標連結屬性</a><a class="headerlink" href="#target-link-properties" title="連結到這個標頭">¶</a></h4>
+<p>这些代表了连接目标的`构建规范 &lt;<a class="reference internal" href="#target-build-specification">目标构建规范</a>&gt;`_。</p>
+<dl>
+<dt><span class="target" id="index-1-prop_tgt:LINK_LIBRARIES"></span><a class="reference internal" href="../prop_tgt/LINK_LIBRARIES.html#prop_tgt:LINK_LIBRARIES" title="LINK_LIBRARIES"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">LINK_LIBRARIES</span></code></a></dt><dd><p>連接目標的鏈接庫列表，如果它是可執行文件，共享庫或模塊庫。<cite>靜態庫`_和`共享庫`_的條目將通過指向其鏈接工件的路徑或`</cite>-l``旗標或等效旗標傳遞給鏈接器。而`對象庫`_的條目則是通過對象文件的路徑傳遞給鏈接器。</p>
+<p>此外，用于编译和链接目标本身的`使用要求 &lt;<a class="reference internal" href="#interface-libraries">目标使用要求</a>&gt;`_会通过``LINK_LIBRARIES``条目指定的`静态库`_、<a class="reference internal" href="#shared-libraries">共享库</a>、<a class="reference internal" href="#object-libraries">接口库</a>、<cite>对象库`_及`已引入目标`_的传递闭包进行传播，并集合在其</cite>:prop_tgt:<a href="#id1"><span class="problematic" id="id2">`</span></a>INTERFACE_LINK_LIBRARIES`属性中。</p>
+</dd>
+<dt><span class="target" id="index-1-prop_tgt:LINK_DIRECTORIES"></span><a class="reference internal" href="../prop_tgt/LINK_DIRECTORIES.html#prop_tgt:LINK_DIRECTORIES" title="LINK_DIRECTORIES"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">LINK_DIRECTORIES</span></code></a></dt><dd><div class="versionadded">
+<p><span class="versionmodified added">在 3.13 版被加入.</span></p>
+</div>
+<p>鏈接目標的鏈接目錄列表，如果它是可執行文件，共享庫或模塊庫。 目錄通過``-L``標誌或等效旗標傳遞給鏈接程序。</p>
+</dd>
+<dt><span class="target" id="index-1-prop_tgt:LINK_OPTIONS"></span><a class="reference internal" href="../prop_tgt/LINK_OPTIONS.html#prop_tgt:LINK_OPTIONS" title="LINK_OPTIONS"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">LINK_OPTIONS</span></code></a></dt><dd><div class="versionadded">
+<p><span class="versionmodified added">在 3.13 版被加入.</span></p>
+</div>
+<p>鏈接目標的鏈接選項列表，如果它是可執行文件，共享庫或模塊庫。 這些選項按出現順序作為旗標傳遞給鏈接程序。</p>
+<p>鏈接選項被自動轉義以適應shell。</p>
+</dd>
+<dt><span class="target" id="index-0-prop_tgt:LINK_DEPENDS"></span><a class="reference internal" href="../prop_tgt/LINK_DEPENDS.html#prop_tgt:LINK_DEPENDS" title="LINK_DEPENDS"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">LINK_DEPENDS</span></code></a></dt><dd><p>链接目标所依赖的文件列表（如果它是可执行文件、共享库或模块库）。例如，通过:prop_tgt:<a href="#id1"><span class="problematic" id="id2">`</span></a>LINK_OPTIONS`指定的链接脚本可能会在此列出，这样在更改它们时会导致二进制文件重新链接。</p>
+</dd>
+</dl>
+</section>
+</section>
+<section id="target-usage-requirements">
+<span id="id11"></span><h3><a class="toc-backref" href="#id39" role="doc-backlink">目標使用要求</a><a class="headerlink" href="#target-usage-requirements" title="連結到這個標頭">¶</a></h3>
+<p>目标的*使用要求*是通过：command:<a href="#id1"><span class="problematic" id="id2">`</span></a>target_link_libraries`链接到目标以确保正确编译和链接而传递给消费者的设置。它们由传递的`编译 &lt;<a class="reference internal" href="#transitive-link-properties">传递编译属性</a>&gt;`_和`链接 &lt;<a class="reference internal" href="#transitive-compile-properties">传递链接属性</a>&gt;`_属性表示。</p>
+<p>請注意，使用要求並不是為了僅出於便利而讓下游使用特定的:prop_tgt:<cite>COMPILE_OPTIONS</cite>、:prop_tgt:<a href="#id1"><span class="problematic" id="id2">`</span></a>COMPILE_DEFINITIONS`等，屬性的內容必須是**要求**，而不僅僅是建議。</p>
+<p>請參閱 <span class="target" id="index-0-manual:cmake-packages(7)"></span><a class="reference internal" href="cmake-packages.7.html#manual:cmake-packages(7)" title="cmake-packages(7)"><code class="xref cmake cmake-manual docutils literal notranslate"><span class="pre">cmake-packages(7)</span></code></a> 手冊的 <span class="xref std std-ref">創建可重新定位包</span> 部分，討論在創建可分發包時指定使用要求時必須採取的額外注意事項。</p>
+<p>目標的使用要求可以傳遞地傳播到依賴項。<span class="target" id="index-0-command:target_link_libraries`命令擁有``private`"></span><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">target_link_libraries`命令擁有``PRIVATE`()</span></code>、<a href="#id1"><span class="problematic" id="id2">``</span></a>INTERFACE``和``PUBLIC``關鍵字，以控制傳播。</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">add_library(</span><span class="nb">archive</span><span class="w"> </span><span class="nb">archive.cpp</span><span class="nf">)</span>
+<span class="nf">target_compile_definitions(</span><span class="nb">archive</span><span class="w"> </span><span class="no">INTERFACE</span><span class="w"> </span><span class="no">USING_ARCHIVE_LIB</span><span class="nf">)</span>
+
+<span class="nf">add_library(</span><span class="nb">serialization</span><span class="w"> </span><span class="nb">serialization.cpp</span><span class="nf">)</span>
+<span class="nf">target_compile_definitions(</span><span class="nb">serialization</span><span class="w"> </span><span class="no">INTERFACE</span><span class="w"> </span><span class="no">USING_SERIALIZATION_LIB</span><span class="nf">)</span>
+
+<span class="nf">add_library(</span><span class="nb">archiveExtras</span><span class="w"> </span><span class="nb">extras.cpp</span><span class="nf">)</span>
+<span class="nf">target_link_libraries(</span><span class="nb">archiveExtras</span><span class="w"> </span><span class="no">PUBLIC</span><span class="w"> </span><span class="nb">archive</span><span class="nf">)</span>
+<span class="nf">target_link_libraries(</span><span class="nb">archiveExtras</span><span class="w"> </span><span class="no">PRIVATE</span><span class="w"> </span><span class="nb">serialization</span><span class="nf">)</span>
+<span class="c"># archiveExtras is compiled with -DUSING_ARCHIVE_LIB</span>
+<span class="c"># and -DUSING_SERIALIZATION_LIB</span>
+
+<span class="nf">add_executable(</span><span class="nb">consumer</span><span class="w"> </span><span class="nb">consumer.cpp</span><span class="nf">)</span>
+<span class="c"># consumer is compiled with -DUSING_ARCHIVE_LIB</span>
+<span class="nf">target_link_libraries(</span><span class="nb">consumer</span><span class="w"> </span><span class="nb">archiveExtras</span><span class="nf">)</span>
+</pre></div>
+</div>
+<p>因為``archive``是``archiveExtras``的``PUBLIC``依賴，所以它的使用要求也會傳播到``consumer``。</p>
+<p>因為``serialization``是``archiveExtras``的``PRIVATE``依賴，所以它的使用要求不會傳播到``consumer``。</p>
+<p>通常，應該在使用:command:<a href="#id1"><span class="problematic" id="id2">`</span></a>target_link_libraries`時指定``PRIVATE``關鍵詞，如果某依賴項僅由庫的實現使用，而不是在頭文件中。如果某依賴項還在庫的頭文件中使用（例如用於類繼承），則應將其指定為``PUBLIC``依賴。僅由頭文件使用而不由庫實現使用的依賴應指定為``INTERFACE``依賴。 :command:<a href="#id3"><span class="problematic" id="id4">`</span></a>target_link_libraries`命令可以多次使用每個關鍵字進行調用：</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">target_link_libraries(</span><span class="nb">archiveExtras</span>
+<span class="w">  </span><span class="no">PUBLIC</span><span class="w"> </span><span class="nb">archive</span>
+<span class="w">  </span><span class="no">PRIVATE</span><span class="w"> </span><span class="nb">serialization</span>
+<span class="nf">)</span>
+</pre></div>
+</div>
+<p>使用要求通過從依賴項中讀取``INTERFACE_``變體的目標屬性並將值附加到操作數的非``INTERFACE_``變體來傳播。例如，讀取和附加依賴項的 <span class="target" id="index-2-prop_tgt:INTERFACE_INCLUDE_DIRECTORIES"></span><a class="reference internal" href="../prop_tgt/INTERFACE_INCLUDE_DIRECTORIES.html#prop_tgt:INTERFACE_INCLUDE_DIRECTORIES" title="INTERFACE_INCLUDE_DIRECTORIES"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">INTERFACE_INCLUDE_DIRECTORIES</span></code></a> 到操作數的 <span class="target" id="index-3-prop_tgt:INCLUDE_DIRECTORIES"></span><a class="reference internal" href="../prop_tgt/INCLUDE_DIRECTORIES.html#prop_tgt:INCLUDE_DIRECTORIES" title="INCLUDE_DIRECTORIES"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">INCLUDE_DIRECTORIES</span></code></a>。在順序相關和維護的情況下，如果由 <span class="target" id="index-1-command:target_link_libraries"></span><a class="reference internal" href="../command/target_link_libraries.html#command:target_link_libraries" title="target_link_libraries"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">target_link_libraries()</span></code></a> 調用所產生的順序不允許正確編譯，則使用適當命令直接設置屬可能更新順序。</p>
+<p>例如，若鏈接的一個目標的庫必須按照順序``lib1`` <code class="docutils literal notranslate"><span class="pre">lib2</span></code> <code class="docutils literal notranslate"><span class="pre">lib3``指定，而包括的目錄必須按照``lib3</span></code> <code class="docutils literal notranslate"><span class="pre">lib1</span></code> <a href="#id1"><span class="problematic" id="id2">``</span></a>lib2``的順序指定：</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">target_link_libraries(</span><span class="nb">myExe</span><span class="w"> </span><span class="nb">lib1</span><span class="w"> </span><span class="nb">lib2</span><span class="w"> </span><span class="nb">lib3</span><span class="nf">)</span>
+<span class="nf">target_include_directories(</span><span class="nb">myExe</span>
+<span class="w">  </span><span class="no">PRIVATE</span><span class="w"> </span><span class="o">$&lt;</span><span class="no">TARGET_PROPERTY</span><span class="o">:</span><span class="nb">lib3</span><span class="p">,</span><span class="no">INTERFACE_INCLUDE_DIRECTORIES</span><span class="p">&gt;</span><span class="nf">)</span>
+</pre></div>
+</div>
+<p>請注意，指定用於使用:command:<cite>install(EXPORT)`命令安裝導出的目標的使用要求時，必須謹慎。請參閱 :ref:`創建包</cite> 以獲取更多信息。</p>
+<section id="transitive-compile-properties">
+<span id="id12"></span><h4><a class="toc-backref" href="#id40" role="doc-backlink">傳遞編譯屬性</a><a class="headerlink" href="#transitive-compile-properties" title="連結到這個標頭">¶</a></h4>
+<p>这些代表用于编译消费者的`使用要求 &lt;<a class="reference internal" href="#target-usage-requirements">目标使用要求</a>&gt;`_。</p>
+<dl>
+<dt><span class="target" id="index-1-prop_tgt:INTERFACE_COMPILE_DEFINITIONS"></span><a class="reference internal" href="../prop_tgt/INTERFACE_COMPILE_DEFINITIONS.html#prop_tgt:INTERFACE_COMPILE_DEFINITIONS" title="INTERFACE_COMPILE_DEFINITIONS"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">INTERFACE_COMPILE_DEFINITIONS</span></code></a></dt><dd><p>目標消費者中用於編譯源文件的編譯定義列表。通常這些是由目標的頭文件使用。</p>
+</dd>
+<dt><span class="target" id="index-1-prop_tgt:INTERFACE_COMPILE_OPTIONS"></span><a class="reference internal" href="../prop_tgt/INTERFACE_COMPILE_OPTIONS.html#prop_tgt:INTERFACE_COMPILE_OPTIONS" title="INTERFACE_COMPILE_OPTIONS"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">INTERFACE_COMPILE_OPTIONS</span></code></a></dt><dd><p>目標消費者中用於編譯源文件的編譯選項列表。</p>
+</dd>
+<dt><span class="target" id="index-1-prop_tgt:INTERFACE_COMPILE_FEATURES"></span><a class="reference internal" href="../prop_tgt/INTERFACE_COMPILE_FEATURES.html#prop_tgt:INTERFACE_COMPILE_FEATURES" title="INTERFACE_COMPILE_FEATURES"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">INTERFACE_COMPILE_FEATURES</span></code></a></dt><dd><div class="versionadded">
+<p><span class="versionmodified added">在 3.1 版被加入.</span></p>
+</div>
+<p>目標消費者中用於編譯源文件所需的:manual:<a href="#id1"><span class="problematic" id="id2">`</span></a>編譯特性 &lt;cmake-compile-features(7)&gt;`列表。 通常這些可確保在編譯消費者時使用足夠的語言標準水平處理目標的頭文件。</p>
+</dd>
+<dt><span class="target" id="index-3-prop_tgt:INTERFACE_INCLUDE_DIRECTORIES"></span><a class="reference internal" href="../prop_tgt/INTERFACE_INCLUDE_DIRECTORIES.html#prop_tgt:INTERFACE_INCLUDE_DIRECTORIES" title="INTERFACE_INCLUDE_DIRECTORIES"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">INTERFACE_INCLUDE_DIRECTORIES</span></code></a></dt><dd><p>目標消費者中用於編譯源文件的包含目錄列表。 通常這些是目標的頭文件的位置。</p>
+</dd>
+<dt><span class="target" id="index-1-prop_tgt:INTERFACE_SYSTEM_INCLUDE_DIRECTORIES"></span><a class="reference internal" href="../prop_tgt/INTERFACE_SYSTEM_INCLUDE_DIRECTORIES.html#prop_tgt:INTERFACE_SYSTEM_INCLUDE_DIRECTORIES" title="INTERFACE_SYSTEM_INCLUDE_DIRECTORIES"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">INTERFACE_SYSTEM_INCLUDE_DIRECTORIES</span></code></a></dt><dd><p>当指定为包含目录时，例如通过:prop_tgt:<a href="#id1"><span class="problematic" id="id2">`</span></a>INCLUDE_DIRECTORIES`或:prop_tgt:<a href="#id3"><span class="problematic" id="id4">`</span></a>INTERFACE_INCLUDE_DIRECTORIES`进行指定，在编译目标的消费者的源文件时应将以下目录视为“系统”包含目录的列表。</p>
+</dd>
+<dt><span class="target" id="index-1-prop_tgt:INTERFACE_SOURCES"></span><a class="reference internal" href="../prop_tgt/INTERFACE_SOURCES.html#prop_tgt:INTERFACE_SOURCES" title="INTERFACE_SOURCES"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">INTERFACE_SOURCES</span></code></a></dt><dd><p>要與目標消費者關聯的源文件列表。</p>
+</dd>
+<dt><span class="target" id="index-1-prop_tgt:INTERFACE_PRECOMPILE_HEADERS"></span><a class="reference internal" href="../prop_tgt/INTERFACE_PRECOMPILE_HEADERS.html#prop_tgt:INTERFACE_PRECOMPILE_HEADERS" title="INTERFACE_PRECOMPILE_HEADERS"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">INTERFACE_PRECOMPILE_HEADERS</span></code></a></dt><dd><div class="versionadded">
+<p><span class="versionmodified added">在 3.16 版被加入.</span></p>
+</div>
+<p>目標消費者中用於編譯源文件時要預編譯和包含的頭文件列表。</p>
+</dd>
+<dt><span class="target" id="index-0-prop_tgt:INTERFACE_AUTOMOC_MACRO_NAMES"></span><a class="reference internal" href="../prop_tgt/INTERFACE_AUTOMOC_MACRO_NAMES.html#prop_tgt:INTERFACE_AUTOMOC_MACRO_NAMES" title="INTERFACE_AUTOMOC_MACRO_NAMES"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">INTERFACE_AUTOMOC_MACRO_NAMES</span></code></a></dt><dd><div class="versionadded">
+<p><span class="versionmodified added">在 3.27 版被加入.</span></p>
+</div>
+<p>由:prop_tgt:<a href="#id1"><span class="problematic" id="id2">`</span></a>AUTOMOC`使用的宏名稱列表，以確定C++源文件在目標的消費者中是否需要經過``moc``處理。</p>
+</dd>
+<dt><span class="target" id="index-0-prop_tgt:INTERFACE_AUTOUIC_OPTIONS"></span><a class="reference internal" href="../prop_tgt/INTERFACE_AUTOUIC_OPTIONS.html#prop_tgt:INTERFACE_AUTOUIC_OPTIONS" title="INTERFACE_AUTOUIC_OPTIONS"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">INTERFACE_AUTOUIC_OPTIONS</span></code></a></dt><dd><div class="versionadded">
+<p><span class="versionmodified added">在 3.0 版被加入.</span></p>
+</div>
+<p>在調用``uic``時，:prop_tgt:<a href="#id1"><span class="problematic" id="id2">`</span></a>AUTOUIC`使用的選項列表。</p>
+</dd>
+</dl>
+</section>
+<section id="transitive-link-properties">
+<span id="id13"></span><h4><a class="toc-backref" href="#id41" role="doc-backlink">傳遞鏈接屬性</a><a class="headerlink" href="#transitive-link-properties" title="連結到這個標頭">¶</a></h4>
+<p>这些代表用于链接消费者的`使用要求 &lt;<a class="reference internal" href="#target-usage-requirements">目标使用要求</a>&gt;`_。</p>
+<dl>
+<dt><span class="target" id="index-1-prop_tgt:INTERFACE_LINK_LIBRARIES"></span><a class="reference internal" href="../prop_tgt/INTERFACE_LINK_LIBRARIES.html#prop_tgt:INTERFACE_LINK_LIBRARIES" title="INTERFACE_LINK_LIBRARIES"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">INTERFACE_LINK_LIBRARIES</span></code></a></dt><dd><p>鏈接目標的消費者的鏈接庫列表，對於可執行文件，共享庫或模塊庫而言。這些是目標的傳遞依賴。</p>
+<p>此外，对于编译和链接目标的消费者，<a class="reference internal" href="#interface-libraries">使用要求 &lt;目标使用要求_&gt;`_从``INTERFACE_LINK_LIBRARIES``条目命名的`静态库</a>、<a class="reference internal" href="#shared-libraries">共享库</a>、<a class="reference internal" href="#object-libraries">接口库</a>、<a class="reference internal" href="#target-usage-requirements">对象库</a>、<a href="#id1"><span class="problematic" id="id2">`</span></a>已引入目标`_的传递闭包中收集，</p>
+</dd>
+<dt><span class="target" id="index-1-prop_tgt:INTERFACE_LINK_DIRECTORIES"></span><a class="reference internal" href="../prop_tgt/INTERFACE_LINK_DIRECTORIES.html#prop_tgt:INTERFACE_LINK_DIRECTORIES" title="INTERFACE_LINK_DIRECTORIES"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">INTERFACE_LINK_DIRECTORIES</span></code></a></dt><dd><div class="versionadded">
+<p><span class="versionmodified added">在 3.13 版被加入.</span></p>
+</div>
+<p>鏈接目標消費者的鏈接目錄列表，對於那些是可執行文件、共享庫或模塊庫的。</p>
+</dd>
+<dt><span class="target" id="index-1-prop_tgt:INTERFACE_LINK_OPTIONS"></span><a class="reference internal" href="../prop_tgt/INTERFACE_LINK_OPTIONS.html#prop_tgt:INTERFACE_LINK_OPTIONS" title="INTERFACE_LINK_OPTIONS"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">INTERFACE_LINK_OPTIONS</span></code></a></dt><dd><div class="versionadded">
+<p><span class="versionmodified added">在 3.13 版被加入.</span></p>
+</div>
+<p>鏈接目標消費者的鏈接選項列表，對於那些是可執行文件、共享庫或模塊庫的。</p>
+</dd>
+<dt><span class="target" id="index-0-prop_tgt:INTERFACE_LINK_DEPENDS"></span><a class="reference internal" href="../prop_tgt/INTERFACE_LINK_DEPENDS.html#prop_tgt:INTERFACE_LINK_DEPENDS" title="INTERFACE_LINK_DEPENDS"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">INTERFACE_LINK_DEPENDS</span></code></a></dt><dd><div class="versionadded">
+<p><span class="versionmodified added">在 3.13 版被加入.</span></p>
+</div>
+<p>鏈接目標消費者依賴的文件列表，對於可執行文件、共享庫或模塊庫而言。</p>
+</dd>
+</dl>
+</section>
+</section>
+<section id="custom-transitive-properties">
+<span id="id14"></span><h3><a class="toc-backref" href="#id42" role="doc-backlink">自定義傳遞屬性</a><a class="headerlink" href="#custom-transitive-properties" title="連結到這個標頭">¶</a></h3>
+<div class="versionadded">
+<p><span class="versionmodified added">在 3.30 版被加入.</span></p>
+</div>
+<p><a href="#id1"><span class="problematic" id="id2">`</span></a>:genex:<a href="#id3"><span class="problematic" id="id4">`</span></a>TARGET_PROPERTY`生成器表达式用于将上述`构建规格 &lt;<a class="reference internal" href="#target-build-specification">目标构建规格</a>&gt;`_及`使用要求 &lt;<a class="reference internal" href="#target-usage-requirements">目标使用要求</a>&gt;`_属性视为内建的传递属性进行评估。它还支持在目标及其链接依赖项上定义的:prop_tgt:<a href="#id5"><span class="problematic" id="id6">`</span></a>TRANSITIVE_COMPILE_PROPERTIES`和:prop_tgt:<a href="#id7"><span class="problematic" id="id8">`</span></a>TRANSITIVE_LINK_PROPERTIES`属性自定义传递属性。</p>
+<p>例如：</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">add_library(</span><span class="nb">example</span><span class="w"> </span><span class="no">INTERFACE</span><span class="nf">)</span>
+<span class="nf">set_target_properties(</span><span class="nb">example</span><span class="w"> </span><span class="no">PROPERTIES</span>
+<span class="w">  </span><span class="no">TRANSITIVE_COMPILE_PROPERTIES</span><span class="w"> </span><span class="s">&quot;CUSTOM_C&quot;</span>
+<span class="w">  </span><span class="no">TRANSITIVE_LINK_PROPERTIES</span><span class="w"> </span><span class="s">&quot;CUSTOM_L&quot;</span>
+
+<span class="w">  </span><span class="no">INTERFACE_CUSTOM_C</span><span class="w"> </span><span class="s">&quot;EXAMPLE_CUSTOM_C&quot;</span>
+<span class="w">  </span><span class="no">INTERFACE_CUSTOM_L</span><span class="w"> </span><span class="s">&quot;EXAMPLE_CUSTOM_L&quot;</span>
+<span class="w">  </span><span class="nf">)</span>
+
+<span class="nf">add_library(</span><span class="nb">mylib</span><span class="w"> </span><span class="no">STATIC</span><span class="w"> </span><span class="nb">mylib.c</span><span class="nf">)</span>
+<span class="nf">target_link_libraries(</span><span class="nb">mylib</span><span class="w"> </span><span class="no">PRIVATE</span><span class="w"> </span><span class="nb">example</span><span class="nf">)</span>
+<span class="nf">set_target_properties(</span><span class="nb">mylib</span><span class="w"> </span><span class="no">PROPERTIES</span>
+<span class="w">  </span><span class="no">CUSTOM_C</span><span class="w"> </span><span class="s">&quot;MYLIB_PRIVATE_CUSTOM_C&quot;</span>
+<span class="w">  </span><span class="no">CUSTOM_L</span><span class="w"> </span><span class="s">&quot;MYLIB_PRIVATE_CUSTOM_L&quot;</span>
+<span class="w">  </span><span class="no">INTERFACE_CUSTOM_C</span><span class="w"> </span><span class="s">&quot;MYLIB_IFACE_CUSTOM_C&quot;</span>
+<span class="w">  </span><span class="no">INTERFACE_CUSTOM_L</span><span class="w"> </span><span class="s">&quot;MYLIB_IFACE_CUSTOM_L&quot;</span>
+<span class="w">  </span><span class="nf">)</span>
+
+<span class="nf">add_executable(</span><span class="nb">myexe</span><span class="w"> </span><span class="nb">myexe.c</span><span class="nf">)</span>
+<span class="nf">target_link_libraries(</span><span class="nb">myexe</span><span class="w"> </span><span class="no">PRIVATE</span><span class="w"> </span><span class="nb">mylib</span><span class="nf">)</span>
+<span class="nf">set_target_properties(</span><span class="nb">myexe</span><span class="w"> </span><span class="no">PROPERTIES</span>
+<span class="w">  </span><span class="no">CUSTOM_C</span><span class="w"> </span><span class="s">&quot;MYEXE_CUSTOM_C&quot;</span>
+<span class="w">  </span><span class="no">CUSTOM_L</span><span class="w"> </span><span class="s">&quot;MYEXE_CUSTOM_L&quot;</span>
+<span class="w">  </span><span class="nf">)</span>
+
+<span class="nf">add_custom_target(</span><span class="nb">print</span><span class="w"> </span><span class="no">ALL</span><span class="w"> </span><span class="no">VERBATIM</span>
+<span class="w">  </span><span class="no">COMMAND</span><span class="w"> </span><span class="o">${</span><span class="nt">CMAKE_COMMAND</span><span class="o">}</span><span class="w"> </span><span class="p">-</span><span class="no">E</span><span class="w"> </span><span class="nb">echo</span>
+<span class="w">    </span><span class="c"># Prints &quot;MYLIB_PRIVATE_CUSTOM_C;EXAMPLE_CUSTOM_C&quot;</span>
+<span class="w">    </span><span class="s">&quot;$&lt;TARGET_PROPERTY:mylib,CUSTOM_C&gt;&quot;</span>
+
+<span class="w">    </span><span class="c"># Prints &quot;MYLIB_PRIVATE_CUSTOM_L;EXAMPLE_CUSTOM_L&quot;</span>
+<span class="w">    </span><span class="s">&quot;$&lt;TARGET_PROPERTY:mylib,CUSTOM_L&gt;&quot;</span>
+
+<span class="w">    </span><span class="c"># Prints &quot;MYEXE_CUSTOM_C&quot;</span>
+<span class="w">    </span><span class="s">&quot;$&lt;TARGET_PROPERTY:myexe,CUSTOM_C&gt;&quot;</span>
+
+<span class="w">    </span><span class="c"># Prints &quot;MYEXE_CUSTOM_L;MYLIB_IFACE_CUSTOM_L;EXAMPLE_CUSTOM_L&quot;</span>
+<span class="w">    </span><span class="s">&quot;$&lt;TARGET_PROPERTY:myexe,CUSTOM_L&gt;&quot;</span>
+<span class="w">  </span><span class="nf">)</span>
+</pre></div>
+</div>
+</section>
+<section id="compatible-interface-properties">
+<span id="id15"></span><h3><a class="toc-backref" href="#id43" role="doc-backlink">可兼容介面屬性</a><a class="headerlink" href="#compatible-interface-properties" title="連結到這個標頭">¶</a></h3>
+<p>某些目標屬性需要與目標及每個依賴的介面兼容。例如，<span class="target" id="index-0-prop_tgt:POSITION_INDEPENDENT_CODE`目標屬性可能指定一個布爾值來表明一個目標是否應該以位置無關代碼編譯，這具有特定於平臺的影響。目標還可以指定使用要求 :prop_tgt:`INTERFACE_POSITION_INDEPENDENT_CODE"></span><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">POSITION_INDEPENDENT_CODE`目標屬性可能指定一個布爾值來表明一個目標是否應該以位置無關代碼編譯，這具有特定於平臺的影響。目標還可以指定使用要求</span> <span class="pre">:prop_tgt:`INTERFACE_POSITION_INDEPENDENT_CODE</span></code>，以表明消費者必須編譯為位置無關代碼。</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">add_executable(</span><span class="nb">exe1</span><span class="w"> </span><span class="nb">exe1.cpp</span><span class="nf">)</span>
+<span class="nf">set_property(</span><span class="no">TARGET</span><span class="w"> </span><span class="nb">exe1</span><span class="w"> </span><span class="no">PROPERTY</span><span class="w"> </span><span class="no">POSITION_INDEPENDENT_CODE</span><span class="w"> </span><span class="no">ON</span><span class="nf">)</span>
+
+<span class="nf">add_library(</span><span class="nb">lib1</span><span class="w"> </span><span class="no">SHARED</span><span class="w"> </span><span class="nb">lib1.cpp</span><span class="nf">)</span>
+<span class="nf">set_property(</span><span class="no">TARGET</span><span class="w"> </span><span class="nb">lib1</span><span class="w"> </span><span class="no">PROPERTY</span><span class="w"> </span><span class="no">INTERFACE_POSITION_INDEPENDENT_CODE</span><span class="w"> </span><span class="no">ON</span><span class="nf">)</span>
+
+<span class="nf">add_executable(</span><span class="nb">exe2</span><span class="w"> </span><span class="nb">exe2.cpp</span><span class="nf">)</span>
+<span class="nf">target_link_libraries(</span><span class="nb">exe2</span><span class="w"> </span><span class="nb">lib1</span><span class="nf">)</span>
+</pre></div>
+</div>
+<p>在這裡，<a href="#id1"><span class="problematic" id="id2">``</span></a>exe1``和``exe2``都將編譯為位置無關代碼。由於這是對於``SHARED``庫的默認設置，<a href="#id3"><span class="problematic" id="id4">``</span></a>lib1``也將編譯為位置無關代碼。若依賴有衝突且不兼容的要求，:manual:<a href="#id5"><span class="problematic" id="id6">`</span></a>cmake(1)`會發出診斷：</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">add_library(</span><span class="nb">lib1</span><span class="w"> </span><span class="no">SHARED</span><span class="w"> </span><span class="nb">lib1.cpp</span><span class="nf">)</span>
+<span class="nf">set_property(</span><span class="no">TARGET</span><span class="w"> </span><span class="nb">lib1</span><span class="w"> </span><span class="no">PROPERTY</span><span class="w"> </span><span class="no">INTERFACE_POSITION_INDEPENDENT_CODE</span><span class="w"> </span><span class="no">ON</span><span class="nf">)</span>
+
+<span class="nf">add_library(</span><span class="nb">lib2</span><span class="w"> </span><span class="no">SHARED</span><span class="w"> </span><span class="nb">lib2.cpp</span><span class="nf">)</span>
+<span class="nf">set_property(</span><span class="no">TARGET</span><span class="w"> </span><span class="nb">lib2</span><span class="w"> </span><span class="no">PROPERTY</span><span class="w"> </span><span class="no">INTERFACE_POSITION_INDEPENDENT_CODE</span><span class="w"> </span><span class="no">OFF</span><span class="nf">)</span>
+
+<span class="nf">add_executable(</span><span class="nb">exe1</span><span class="w"> </span><span class="nb">exe1.cpp</span><span class="nf">)</span>
+<span class="nf">target_link_libraries(</span><span class="nb">exe1</span><span class="w"> </span><span class="nb">lib1</span><span class="nf">)</span>
+<span class="nf">set_property(</span><span class="no">TARGET</span><span class="w"> </span><span class="nb">exe1</span><span class="w"> </span><span class="no">PROPERTY</span><span class="w"> </span><span class="no">POSITION_INDEPENDENT_CODE</span><span class="w"> </span><span class="no">OFF</span><span class="nf">)</span>
+
+<span class="nf">add_executable(</span><span class="nb">exe2</span><span class="w"> </span><span class="nb">exe2.cpp</span><span class="nf">)</span>
+<span class="nf">target_link_libraries(</span><span class="nb">exe2</span><span class="w"> </span><span class="nb">lib1</span><span class="w"> </span><span class="nb">lib2</span><span class="nf">)</span>
+</pre></div>
+</div>
+<p><a href="#id1"><span class="problematic" id="id2">``</span></a>lib1``的要求``INTERFACE_POSITION_INDEPENDENT_CODE``與``exe1``目標的:prop_tgt:<a href="#id3"><span class="problematic" id="id4">`</span></a>POSITION_INDEPENDENT_CODE`屬性不兼容。該庫要求消費者以位置無關代碼形式構建，而可執行文件則指定不構建為位置無關代碼，因此發出診斷。</p>
+<p><a href="#id1"><span class="problematic" id="id2">``</span></a>lib1``和``lib2``的要求不兼容。某一项要求消费者以位置无关代码形式构建，而另一项要求消费者不构建为位置无关代码。由于``exe2``同时链接到且彼此存在冲突，CMake发出错误消息：：</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>CMake 错误：&quot;lib2&quot;的INTERFACE_POSITION_INDEPENDENT_CODE属性不符合&quot;exe2&quot;已确定的 POSITION_INDEPENDENT_CODE值。
+</pre></div>
+</div>
+<p>為了“兼容”，<span class="target" id="index-0-prop_tgt:POSITION_INDEPENDENT_CODE`屬性，如果設置，必須與所有設置了該屬性的傳遞指定依賴項中的 :prop_tgt:`INTERFACE_POSITION_INDEPENDENT_CODE"></span><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">POSITION_INDEPENDENT_CODE`屬性，如果設置，必須與所有設置了該屬性的傳遞指定依賴項中的</span> <span class="pre">:prop_tgt:`INTERFACE_POSITION_INDEPENDENT_CODE</span></code> 屬性在布爾意義上相同。</p>
+<p>的“兼容界面要求”屬性可以通過在 <span class="target" id="index-0-prop_tgt:COMPATIBLE_INTERFACE_BOOL"></span><a class="reference internal" href="../prop_tgt/COMPATIBLE_INTERFACE_BOOL.html#prop_tgt:COMPATIBLE_INTERFACE_BOOL" title="COMPATIBLE_INTERFACE_BOOL"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">COMPATIBLE_INTERFACE_BOOL</span></code></a> 目標屬性內容中指定這一屬性擴展到其他屬性。每個指定的屬性必須在消耗目標和來自每個依賴的相應屬性與``INTERFACE_``前綴兼容：</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">add_library(</span><span class="nb">lib1Version2</span><span class="w"> </span><span class="no">SHARED</span><span class="w"> </span><span class="nb">lib1_v2.cpp</span><span class="nf">)</span>
+<span class="nf">set_property(</span><span class="no">TARGET</span><span class="w"> </span><span class="nb">lib1Version2</span><span class="w"> </span><span class="no">PROPERTY</span><span class="w"> </span><span class="no">INTERFACE_CUSTOM_PROP</span><span class="w"> </span><span class="no">ON</span><span class="nf">)</span>
+<span class="nf">set_property(</span><span class="no">TARGET</span><span class="w"> </span><span class="nb">lib1Version2</span><span class="w"> </span><span class="no">APPEND</span><span class="w"> </span><span class="no">PROPERTY</span>
+<span class="w">  </span><span class="no">COMPATIBLE_INTERFACE_BOOL</span><span class="w"> </span><span class="no">CUSTOM_PROP</span>
+<span class="nf">)</span>
+
+<span class="nf">add_library(</span><span class="nb">lib1Version3</span><span class="w"> </span><span class="no">SHARED</span><span class="w"> </span><span class="nb">lib1_v3.cpp</span><span class="nf">)</span>
+<span class="nf">set_property(</span><span class="no">TARGET</span><span class="w"> </span><span class="nb">lib1Version3</span><span class="w"> </span><span class="no">PROPERTY</span><span class="w"> </span><span class="no">INTERFACE_CUSTOM_PROP</span><span class="w"> </span><span class="no">OFF</span><span class="nf">)</span>
+
+<span class="nf">add_executable(</span><span class="nb">exe1</span><span class="w"> </span><span class="nb">exe1.cpp</span><span class="nf">)</span>
+<span class="nf">target_link_libraries(</span><span class="nb">exe1</span><span class="w"> </span><span class="nb">lib1Version2</span><span class="nf">)</span><span class="w"> </span><span class="c"># CUSTOM_PROP will be ON</span>
+
+<span class="nf">add_executable(</span><span class="nb">exe2</span><span class="w"> </span><span class="nb">exe2.cpp</span><span class="nf">)</span>
+<span class="nf">target_link_libraries(</span><span class="nb">exe2</span><span class="w"> </span><span class="nb">lib1Version2</span><span class="w"> </span><span class="nb">lib1Version3</span><span class="nf">)</span><span class="w"> </span><span class="c"># Diagnostic</span>
+</pre></div>
+</div>
+<p>非布爾屬性還可以參與“兼容界面”計算。屬性必須在 :prop_tgt:<a href="#id1"><span class="problematic" id="id2">`</span></a>COMPATIBLE_INTERFACE_STRING`屬性中指定，並且在所有傳遞指定的依賴項之間未指定或與相同字符串進行比較。這有助於確保不會通過目標的傳遞要求將多個不兼容的庫版本鏈接在一起：</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">add_library(</span><span class="nb">lib1Version2</span><span class="w"> </span><span class="no">SHARED</span><span class="w"> </span><span class="nb">lib1_v2.cpp</span><span class="nf">)</span>
+<span class="nf">set_property(</span><span class="no">TARGET</span><span class="w"> </span><span class="nb">lib1Version2</span><span class="w"> </span><span class="no">PROPERTY</span><span class="w"> </span><span class="no">INTERFACE_LIB_VERSION</span><span class="w"> </span><span class="m">2</span><span class="nf">)</span>
+<span class="nf">set_property(</span><span class="no">TARGET</span><span class="w"> </span><span class="nb">lib1Version2</span><span class="w"> </span><span class="no">APPEND</span><span class="w"> </span><span class="no">PROPERTY</span>
+<span class="w">  </span><span class="no">COMPATIBLE_INTERFACE_STRING</span><span class="w"> </span><span class="no">LIB_VERSION</span>
+<span class="nf">)</span>
+
+<span class="nf">add_library(</span><span class="nb">lib1Version3</span><span class="w"> </span><span class="no">SHARED</span><span class="w"> </span><span class="nb">lib1_v3.cpp</span><span class="nf">)</span>
+<span class="nf">set_property(</span><span class="no">TARGET</span><span class="w"> </span><span class="nb">lib1Version3</span><span class="w"> </span><span class="no">PROPERTY</span><span class="w"> </span><span class="no">INTERFACE_LIB_VERSION</span><span class="w"> </span><span class="m">3</span><span class="nf">)</span>
+
+<span class="nf">add_executable(</span><span class="nb">exe1</span><span class="w"> </span><span class="nb">exe1.cpp</span><span class="nf">)</span>
+<span class="nf">target_link_libraries(</span><span class="nb">exe1</span><span class="w"> </span><span class="nb">lib1Version2</span><span class="nf">)</span><span class="w"> </span><span class="c"># LIB_VERSION will be &quot;2&quot;</span>
+
+<span class="nf">add_executable(</span><span class="nb">exe2</span><span class="w"> </span><span class="nb">exe2.cpp</span><span class="nf">)</span>
+<span class="nf">target_link_libraries(</span><span class="nb">exe2</span><span class="w"> </span><span class="nb">lib1Version2</span><span class="w"> </span><span class="nb">lib1Version3</span><span class="nf">)</span><span class="w"> </span><span class="c"># Diagnostic</span>
+</pre></div>
+</div>
+<p>目标属性 <span class="target" id="index-0-prop_tgt:COMPATIBLE_INTERFACE_NUMBER_MAX"></span><a class="reference internal" href="../prop_tgt/COMPATIBLE_INTERFACE_NUMBER_MAX.html#prop_tgt:COMPATIBLE_INTERFACE_NUMBER_MAX" title="COMPATIBLE_INTERFACE_NUMBER_MAX"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">COMPATIBLE_INTERFACE_NUMBER_MAX</span></code></a> 指定内容将被数值评估，并计算所有指定内容中的最大值：</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">add_library(</span><span class="nb">lib1Version2</span><span class="w"> </span><span class="no">SHARED</span><span class="w"> </span><span class="nb">lib1_v2.cpp</span><span class="nf">)</span>
+<span class="nf">set_property(</span><span class="no">TARGET</span><span class="w"> </span><span class="nb">lib1Version2</span><span class="w"> </span><span class="no">PROPERTY</span><span class="w"> </span><span class="no">INTERFACE_CONTAINER_SIZE_REQUIRED</span><span class="w"> </span><span class="m">200</span><span class="nf">)</span>
+<span class="nf">set_property(</span><span class="no">TARGET</span><span class="w"> </span><span class="nb">lib1Version2</span><span class="w"> </span><span class="no">APPEND</span><span class="w"> </span><span class="no">PROPERTY</span>
+<span class="w">  </span><span class="no">COMPATIBLE_INTERFACE_NUMBER_MAX</span><span class="w"> </span><span class="no">CONTAINER_SIZE_REQUIRED</span>
+<span class="nf">)</span>
+
+<span class="nf">add_library(</span><span class="nb">lib1Version3</span><span class="w"> </span><span class="no">SHARED</span><span class="w"> </span><span class="nb">lib1_v3.cpp</span><span class="nf">)</span>
+<span class="nf">set_property(</span><span class="no">TARGET</span><span class="w"> </span><span class="nb">lib1Version3</span><span class="w"> </span><span class="no">PROPERTY</span><span class="w"> </span><span class="no">INTERFACE_CONTAINER_SIZE_REQUIRED</span><span class="w"> </span><span class="m">1000</span><span class="nf">)</span>
+
+<span class="nf">add_executable(</span><span class="nb">exe1</span><span class="w"> </span><span class="nb">exe1.cpp</span><span class="nf">)</span>
+<span class="c"># CONTAINER_SIZE_REQUIRED will be &quot;200&quot;</span>
+<span class="nf">target_link_libraries(</span><span class="nb">exe1</span><span class="w"> </span><span class="nb">lib1Version2</span><span class="nf">)</span>
+
+<span class="nf">add_executable(</span><span class="nb">exe2</span><span class="w"> </span><span class="nb">exe2.cpp</span><span class="nf">)</span>
+<span class="c"># CONTAINER_SIZE_REQUIRED will be &quot;1000&quot;</span>
+<span class="nf">target_link_libraries(</span><span class="nb">exe2</span><span class="w"> </span><span class="nb">lib1Version2</span><span class="w"> </span><span class="nb">lib1Version3</span><span class="nf">)</span>
+</pre></div>
+</div>
+<p>同样地，可以使用 <span class="target" id="index-0-prop_tgt:COMPATIBLE_INTERFACE_NUMBER_MIN"></span><a class="reference internal" href="../prop_tgt/COMPATIBLE_INTERFACE_NUMBER_MIN.html#prop_tgt:COMPATIBLE_INTERFACE_NUMBER_MIN" title="COMPATIBLE_INTERFACE_NUMBER_MIN"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">COMPATIBLE_INTERFACE_NUMBER_MIN</span></code></a> 来计算依赖关系属性的数值最小值。</p>
+<p>每个计算得出的 &quot;compatible&quot; 属性值可在生成时使用生成器表达式在消费端读取。</p>
+<p>注意，对于每个依赖项，在每个兼容接口属性中指定的属性集不应与任何其他属性中指定的集相交。</p>
+</section>
+<section id="property-origin-debugging">
+<h3><a class="toc-backref" href="#id44" role="doc-backlink">属性起源调试</a><a class="headerlink" href="#property-origin-debugging" title="連結到這個標頭">¶</a></h3>
+<p>由于构建规范可以通过依赖关系确定，缺乏生成目标的本地性和负责设置构建规范的代码，可能会使代码更难推理。<span class="target" id="index-0-manual:cmake(1)"></span><a class="reference internal" href="cmake.1.html#manual:cmake(1)" title="cmake(1)"><code class="xref cmake cmake-manual docutils literal notranslate"><span class="pre">cmake(1)</span></code></a> 提供了一种调试工具，可以打印由依赖关系决定的属性内容的起源。可以进行调试的属性列在 <span class="target" id="index-0-variable:CMAKE_DEBUG_TARGET_PROPERTIES"></span><a class="reference internal" href="../variable/CMAKE_DEBUG_TARGET_PROPERTIES.html#variable:CMAKE_DEBUG_TARGET_PROPERTIES" title="CMAKE_DEBUG_TARGET_PROPERTIES"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_DEBUG_TARGET_PROPERTIES</span></code></a> 变量文档中：</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">set(</span><span class="no">CMAKE_DEBUG_TARGET_PROPERTIES</span>
+<span class="w">  </span><span class="no">INCLUDE_DIRECTORIES</span>
+<span class="w">  </span><span class="no">COMPILE_DEFINITIONS</span>
+<span class="w">  </span><span class="no">POSITION_INDEPENDENT_CODE</span>
+<span class="w">  </span><span class="no">CONTAINER_SIZE_REQUIRED</span>
+<span class="w">  </span><span class="no">LIB_VERSION</span>
+<span class="nf">)</span>
+<span class="nf">add_executable(</span><span class="nb">exe1</span><span class="w"> </span><span class="nb">exe1.cpp</span><span class="nf">)</span>
+</pre></div>
+</div>
+<p>对于列在 <span class="target" id="index-1-prop_tgt:COMPATIBLE_INTERFACE_BOOL"></span><a class="reference internal" href="../prop_tgt/COMPATIBLE_INTERFACE_BOOL.html#prop_tgt:COMPATIBLE_INTERFACE_BOOL" title="COMPATIBLE_INTERFACE_BOOL"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">COMPATIBLE_INTERFACE_BOOL</span></code></a> 或 <span class="target" id="index-0-prop_tgt:COMPATIBLE_INTERFACE_STRING"></span><a class="reference internal" href="../prop_tgt/COMPATIBLE_INTERFACE_STRING.html#prop_tgt:COMPATIBLE_INTERFACE_STRING" title="COMPATIBLE_INTERFACE_STRING"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">COMPATIBLE_INTERFACE_STRING</span></code></a> 中的属性，调试输出显示了哪个目标负责设置该属性，以及哪个其他依赖关系也定义了该属性。对于 <span class="target" id="index-1-prop_tgt:COMPATIBLE_INTERFACE_NUMBER_MAX"></span><a class="reference internal" href="../prop_tgt/COMPATIBLE_INTERFACE_NUMBER_MAX.html#prop_tgt:COMPATIBLE_INTERFACE_NUMBER_MAX" title="COMPATIBLE_INTERFACE_NUMBER_MAX"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">COMPATIBLE_INTERFACE_NUMBER_MAX</span></code></a> 和 <span class="target" id="index-1-prop_tgt:COMPATIBLE_INTERFACE_NUMBER_MIN"></span><a class="reference internal" href="../prop_tgt/COMPATIBLE_INTERFACE_NUMBER_MIN.html#prop_tgt:COMPATIBLE_INTERFACE_NUMBER_MIN" title="COMPATIBLE_INTERFACE_NUMBER_MIN"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">COMPATIBLE_INTERFACE_NUMBER_MIN</span></code></a>，调试输出显示来自每个依赖关系的属性值，以及该值是否决定了新的极限。</p>
+</section>
+<section id="build-specification-with-generator-expressions">
+<h3><a class="toc-backref" href="#id45" role="doc-backlink">使用生成器表達式的建置規範</a><a class="headerlink" href="#build-specification-with-generator-expressions" title="連結到這個標頭">¶</a></h3>
+<p>构建规范可以使用 <span class="target" id="index-1-manual:cmake-generator-expressions(7)"></span><a class="reference internal" href="cmake-generator-expressions.7.html#manual:cmake-generator-expressions(7)" title="cmake-generator-expressions(7)"><code class="xref cmake cmake-manual docutils literal notranslate"><span class="pre">生成器表达式</span></code></a>，其中的内容可能根据条件或仅在生成时是已知的。例如，属性的计算 &quot;compatible&quot; 值可使用 <code class="docutils literal notranslate"><span class="pre">TARGET_PROPERTY</span></code> 表达式读取：</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">add_library(</span><span class="nb">lib1Version2</span><span class="w"> </span><span class="no">SHARED</span><span class="w"> </span><span class="nb">lib1_v2.cpp</span><span class="nf">)</span>
+<span class="nf">set_property(</span><span class="no">TARGET</span><span class="w"> </span><span class="nb">lib1Version2</span><span class="w"> </span><span class="no">PROPERTY</span>
+<span class="w">  </span><span class="no">INTERFACE_CONTAINER_SIZE_REQUIRED</span><span class="w"> </span><span class="m">200</span><span class="nf">)</span>
+<span class="nf">set_property(</span><span class="no">TARGET</span><span class="w"> </span><span class="nb">lib1Version2</span><span class="w"> </span><span class="no">APPEND</span><span class="w"> </span><span class="no">PROPERTY</span>
+<span class="w">  </span><span class="no">COMPATIBLE_INTERFACE_NUMBER_MAX</span><span class="w"> </span><span class="no">CONTAINER_SIZE_REQUIRED</span>
+<span class="nf">)</span>
+
+<span class="nf">add_executable(</span><span class="nb">exe1</span><span class="w"> </span><span class="nb">exe1.cpp</span><span class="nf">)</span>
+<span class="nf">target_link_libraries(</span><span class="nb">exe1</span><span class="w"> </span><span class="nb">lib1Version2</span><span class="nf">)</span>
+<span class="nf">target_compile_definitions(</span><span class="nb">exe1</span><span class="w"> </span><span class="no">PRIVATE</span>
+<span class="w">    </span><span class="no">CONTAINER_SIZE</span><span class="p">=</span><span class="o">$&lt;</span><span class="no">TARGET_PROPERTY</span><span class="o">:</span><span class="no">CONTAINER_SIZE_REQUIRED</span><span class="p">&gt;</span>
+<span class="nf">)</span>
+</pre></div>
+</div>
+<p>在这种情况下，<code class="docutils literal notranslate"><span class="pre">exe1</span></code> 源文件将用 <code class="docutils literal notranslate"><span class="pre">-DCONTAINER_SIZE=200</span></code> 编译。</p>
+<p>一元的 <code class="docutils literal notranslate"><span class="pre">TARGET_PROPERTY</span></code> 生成表达式和 <code class="docutils literal notranslate"><span class="pre">TARGET_POLICY</span></code> 生成表达式在消费目标上下文中进行评估。这意味着，使用需求规范根据消费者的不同可能会有不同的评估：</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">add_library(</span><span class="nb">lib1</span><span class="w"> </span><span class="nb">lib1.cpp</span><span class="nf">)</span>
+<span class="nf">target_compile_definitions(</span><span class="nb">lib1</span><span class="w"> </span><span class="no">INTERFACE</span>
+<span class="w">  </span><span class="o">$&lt;$&lt;</span><span class="no">STREQUAL</span><span class="o">:$&lt;</span><span class="no">TARGET_PROPERTY</span><span class="o">:</span><span class="no">TYPE</span><span class="p">&gt;,</span><span class="no">EXECUTABLE</span><span class="p">&gt;</span><span class="o">:</span><span class="no">LIB1_WITH_EXE</span><span class="p">&gt;</span>
+<span class="w">  </span><span class="o">$&lt;$&lt;</span><span class="no">STREQUAL</span><span class="o">:$&lt;</span><span class="no">TARGET_PROPERTY</span><span class="o">:</span><span class="no">TYPE</span><span class="p">&gt;,</span><span class="no">SHARED_LIBRARY</span><span class="p">&gt;</span><span class="o">:</span><span class="no">LIB1_WITH_SHARED_LIB</span><span class="p">&gt;</span>
+<span class="w">  </span><span class="o">$&lt;$&lt;</span><span class="no">TARGET_POLICY</span><span class="o">:</span><span class="no">CMP0182</span><span class="p">&gt;</span><span class="o">:</span><span class="no">CONSUMER_CMP0182_NEW</span><span class="p">&gt;</span>
+<span class="nf">)</span>
+
+<span class="nf">add_executable(</span><span class="nb">exe1</span><span class="w"> </span><span class="nb">exe1.cpp</span><span class="nf">)</span>
+<span class="nf">target_link_libraries(</span><span class="nb">exe1</span><span class="w"> </span><span class="nb">lib1</span><span class="nf">)</span>
+
+<span class="nf">cmake_policy(</span><span class="no">SET</span><span class="w"> </span><span class="no">CMP0182</span><span class="w"> </span><span class="no">NEW</span><span class="nf">)</span>
+
+<span class="nf">add_library(</span><span class="nb">shared_lib</span><span class="w"> </span><span class="nb">shared_lib.cpp</span><span class="nf">)</span>
+<span class="nf">target_link_libraries(</span><span class="nb">shared_lib</span><span class="w"> </span><span class="nb">lib1</span><span class="nf">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">exe1</span></code> 可执行文件将用 <code class="docutils literal notranslate"><span class="pre">-DLIB1_WITH_EXE</span></code> 编译，而 <code class="docutils literal notranslate"><span class="pre">shared_lib</span></code> 共享库将用 <code class="docutils literal notranslate"><span class="pre">-DLIB1_WITH_SHARED_LIB</span></code> 和 <code class="docutils literal notranslate"><span class="pre">-DCONSUMER_CMP0182_NEW</span></code> 编译，因为策略 <span class="target" id="index-0-policy:CMP0182"></span><a class="reference internal" href="../policy/CMP0182.html#policy:CMP0182" title="CMP0182"><code class="xref cmake cmake-policy docutils literal notranslate"><span class="pre">CMP0182</span></code></a> 在创建 <code class="docutils literal notranslate"><span class="pre">shared_lib</span></code> 目标时是 <code class="docutils literal notranslate"><span class="pre">NEW</span></code>。</p>
+<p><a href="#id1"><span class="problematic" id="id2">``</span></a>BUILD_INTERFACE``表达式包裹的需求仅在从同一构建系统中的目标消费或从导出到构建目录的目标消费时使用；<a href="#id3"><span class="problematic" id="id4">``</span></a>INSTALL_INTERFACE``表达式包裹的需求则是仅在已安装并使用命令：command:<a href="#id5"><span class="problematic" id="id6">`</span></a>install(EXPORT)`导出的目标消费时使用：</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">add_library(</span><span class="nb">ClimbingStats</span><span class="w"> </span><span class="nb">climbingstats.cpp</span><span class="nf">)</span>
+<span class="nf">target_compile_definitions(</span><span class="nb">ClimbingStats</span><span class="w"> </span><span class="no">INTERFACE</span>
+<span class="w">  </span><span class="o">$&lt;</span><span class="no">BUILD_INTERFACE</span><span class="o">:</span><span class="nb">ClimbingStats_FROM_BUILD_LOCATION</span><span class="p">&gt;</span>
+<span class="w">  </span><span class="o">$&lt;</span><span class="no">INSTALL_INTERFACE</span><span class="o">:</span><span class="nb">ClimbingStats_FROM_INSTALLED_LOCATION</span><span class="p">&gt;</span>
+<span class="nf">)</span>
+<span class="nf">install(</span><span class="no">TARGETS</span><span class="w"> </span><span class="nb">ClimbingStats</span><span class="w"> </span><span class="no">EXPORT</span><span class="w"> </span><span class="nb">libExport</span><span class="w"> </span><span class="o">${</span><span class="nt">InstallArgs</span><span class="o">}</span><span class="nf">)</span>
+<span class="nf">install(</span><span class="no">EXPORT</span><span class="w"> </span><span class="nb">libExport</span><span class="w"> </span><span class="no">NAMESPACE</span><span class="w"> </span><span class="nb">Upstream</span><span class="o">::</span>
+<span class="w">        </span><span class="no">DESTINATION</span><span class="w"> </span><span class="na">lib/cmake/ClimbingStats</span><span class="nf">)</span>
+<span class="nf">export(</span><span class="no">EXPORT</span><span class="w"> </span><span class="nb">libExport</span><span class="w"> </span><span class="no">NAMESPACE</span><span class="w"> </span><span class="nb">Upstream</span><span class="o">::</span><span class="nf">)</span>
+
+<span class="nf">add_executable(</span><span class="nb">exe1</span><span class="w"> </span><span class="nb">exe1.cpp</span><span class="nf">)</span>
+<span class="nf">target_link_libraries(</span><span class="nb">exe1</span><span class="w"> </span><span class="nb">ClimbingStats</span><span class="nf">)</span>
+</pre></div>
+</div>
+<p>在这种情况下，<code class="docutils literal notranslate"><span class="pre">exe1</span></code> 可执行文件将用 <code class="docutils literal notranslate"><span class="pre">-DClimbingStats_FROM_BUILD_LOCATION</span></code> 编译。导出命令生成的 <span class="target" id="index-0-prop_tgt:IMPORTED"></span><a class="reference internal" href="../prop_tgt/IMPORTED.html#prop_tgt:IMPORTED" title="IMPORTED"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">IMPORTED</span></code></a> 目标将省略 <code class="docutils literal notranslate"><span class="pre">INSTALL_INTERFACE</span></code> 或 <code class="docutils literal notranslate"><span class="pre">BUILD_INTERFACE</span></code>，并去掉 <code class="docutils literal notranslate"><span class="pre">*_INTERFACE</span></code> 标记。单独的项目使用 <code class="docutils literal notranslate"><span class="pre">ClimbingStats</span></code> 包将包括：</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">find_package(</span><span class="nb">ClimbingStats</span><span class="w"> </span><span class="no">REQUIRED</span><span class="nf">)</span>
+
+<span class="nf">add_executable(</span><span class="nb">Downstream</span><span class="w"> </span><span class="nb">main.cpp</span><span class="nf">)</span>
+<span class="nf">target_link_libraries(</span><span class="nb">Downstream</span><span class="w"> </span><span class="nb">Upstream</span><span class="o">::</span><span class="nb">ClimbingStats</span><span class="nf">)</span>
+</pre></div>
+</div>
+<p>根据 <code class="docutils literal notranslate"><span class="pre">ClimbingStats</span></code> 包是从构建位置还是安装位置使用的，<code class="docutils literal notranslate"><span class="pre">Downstream</span></code> 目标将分别用 <code class="docutils literal notranslate"><span class="pre">-DClimbingStats_FROM_BUILD_LOCATION</span></code> 或 <code class="docutils literal notranslate"><span class="pre">-DClimbingStats_FROM_INSTALL_LOCATION</span></code> 编译。有关包和导出的更多信息，请参阅 <span class="target" id="index-1-manual:cmake-packages(7)"></span><a class="reference internal" href="cmake-packages.7.html#manual:cmake-packages(7)" title="cmake-packages(7)"><code class="xref cmake cmake-manual docutils literal notranslate"><span class="pre">cmake-packages(7)</span></code></a> 手册。</p>
+<section id="include-directories-and-usage-requirements">
+<span id="id16"></span><h4><a class="toc-backref" href="#id46" role="doc-backlink">包含目录和使用要求</a><a class="headerlink" href="#include-directories-and-usage-requirements" title="連結到這個標頭">¶</a></h4>
+<p>当包含目录被指定为使用要求并与生成表达式一起使用时，需要特别考虑。<span class="target" id="index-1-command:target_include_directories"></span><a class="reference internal" href="../command/target_include_directories.html#command:target_include_directories" title="target_include_directories"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">target_include_directories()</span></code></a> 命令接受相对和绝对包含目录：</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">add_library(</span><span class="nb">lib1</span><span class="w"> </span><span class="nb">lib1.cpp</span><span class="nf">)</span>
+<span class="nf">target_include_directories(</span><span class="nb">lib1</span><span class="w"> </span><span class="no">PRIVATE</span>
+<span class="w">  </span><span class="na">/absolute/path</span>
+<span class="w">  </span><span class="err">相對路徑</span>
+<span class="nf">)</span>
+</pre></div>
+</div>
+<p>相对路径按照命令出现的源目录进行解释。在 <span class="target" id="index-1-prop_tgt:IMPORTED"></span><a class="reference internal" href="../prop_tgt/IMPORTED.html#prop_tgt:IMPORTED" title="IMPORTED"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">IMPORTED</span></code></a> 目标的 <span class="target" id="index-4-prop_tgt:INTERFACE_INCLUDE_DIRECTORIES"></span><a class="reference internal" href="../prop_tgt/INTERFACE_INCLUDE_DIRECTORIES.html#prop_tgt:INTERFACE_INCLUDE_DIRECTORIES" title="INTERFACE_INCLUDE_DIRECTORIES"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">INTERFACE_INCLUDE_DIRECTORIES</span></code></a> 中不允许使用相对路径。</p>
+<p>在使用非平凡生成表达式的情况下，可以在 <code class="docutils literal notranslate"><span class="pre">INSTALL_INTERFACE</span></code> 表达式参数中使用 <code class="docutils literal notranslate"><span class="pre">INSTALL_PREFIX</span></code> 表达式。它是一种替代标记，当由消费项目导入时，将扩展为安装前缀。</p>
+<p>在构建树和安装树之间，包含目录使用要求通常不同。<code class="docutils literal notranslate"><span class="pre">BUILD_INTERFACE</span></code> 和 <code class="docutils literal notranslate"><span class="pre">INSTALL_INTERFACE</span></code> 生成表达式可用于根据使用位置描述分别的使用要求。在 <code class="docutils literal notranslate"><span class="pre">INSTALL_INTERFACE</span></code> 表达式中允许使用相对路径，并根据安装前缀进行解释。例如：</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">add_library(</span><span class="nb">ClimbingStats</span><span class="w"> </span><span class="nb">climbingstats.cpp</span><span class="nf">)</span>
+<span class="nf">target_include_directories(</span><span class="nb">ClimbingStats</span><span class="w"> </span><span class="no">INTERFACE</span>
+<span class="w">  </span><span class="o">$&lt;</span><span class="no">BUILD_INTERFACE</span><span class="o">:${</span><span class="nt">CMAKE_CURRENT_BINARY_DIR</span><span class="o">}</span><span class="na">/generated</span><span class="p">&gt;</span>
+<span class="w">  </span><span class="o">$&lt;</span><span class="no">INSTALL_INTERFACE</span><span class="o">:</span><span class="na">/absolute/path</span><span class="p">&gt;</span>
+<span class="w">  </span><span class="o">$&lt;</span><span class="no">INSTALL_INTERFACE</span><span class="o">:</span><span class="na">relative/path</span><span class="p">&gt;</span>
+<span class="w">  </span><span class="o">$&lt;</span><span class="no">INSTALL_INTERFACE</span><span class="o">:$&lt;</span><span class="no">INSTALL_PREFIX</span><span class="p">&gt;</span><span class="na">/</span><span class="o">$&lt;</span><span class="no">CONFIG</span><span class="p">&gt;</span><span class="na">/generated</span><span class="p">&gt;</span>
+<span class="nf">)</span>
+</pre></div>
+</div>
+<p>提供了两个便捷的 API，涉及包含目录使用要求。可以启用 <span class="target" id="index-1-variable:CMAKE_INCLUDE_CURRENT_DIR_IN_INTERFACE"></span><a class="reference internal" href="../variable/CMAKE_INCLUDE_CURRENT_DIR_IN_INTERFACE.html#variable:CMAKE_INCLUDE_CURRENT_DIR_IN_INTERFACE" title="CMAKE_INCLUDE_CURRENT_DIR_IN_INTERFACE"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_INCLUDE_CURRENT_DIR_IN_INTERFACE</span></code></a> 变量，其效果相当于：</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">set_property(</span><span class="no">TARGET</span><span class="w"> </span><span class="nb">tgt</span><span class="w"> </span><span class="no">APPEND</span><span class="w"> </span><span class="no">PROPERTY</span><span class="w"> </span><span class="no">INTERFACE_INCLUDE_DIRECTORIES</span>
+<span class="w">  </span><span class="o">$&lt;</span><span class="no">BUILD_INTERFACE</span><span class="o">:${</span><span class="nt">CMAKE_CURRENT_SOURCE_DIR</span><span class="o">}</span><span class="p">;</span><span class="o">${</span><span class="nt">CMAKE_CURRENT_BINARY_DIR</span><span class="o">}</span><span class="p">&gt;</span>
+<span class="nf">)</span>
+</pre></div>
+</div>
+<p>对于每个受影响的目标。对已安装目标的便捷功能是使用 <span class="target" id="index-0-command:install"></span><a class="reference internal" href="../command/install.html#targets" title="install(targets)"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">install(TARGETS)</span></code></a> 命令的 <code class="docutils literal notranslate"><span class="pre">INCLUDES</span> <span class="pre">DESTINATION</span></code> 组件：</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">install(</span><span class="no">TARGETS</span><span class="w"> </span><span class="nb">foo</span><span class="w"> </span><span class="nb">bar</span><span class="w"> </span><span class="nb">bat</span><span class="w"> </span><span class="no">EXPORT</span><span class="w"> </span><span class="nb">tgts</span><span class="w"> </span><span class="o">${</span><span class="nt">dest_args</span><span class="o">}</span>
+<span class="w">  </span><span class="no">INCLUDES</span><span class="w"> </span><span class="no">DESTINATION</span><span class="w"> </span><span class="nb">include</span>
+<span class="nf">)</span>
+<span class="nf">install(</span><span class="no">EXPORT</span><span class="w"> </span><span class="nb">tgts</span><span class="w"> </span><span class="o">${</span><span class="nt">other_args</span><span class="o">}</span><span class="nf">)</span>
+<span class="nf">install(</span><span class="no">FILES</span><span class="w"> </span><span class="o">${</span><span class="nt">headers</span><span class="o">}</span><span class="w"> </span><span class="no">DESTINATION</span><span class="w"> </span><span class="nb">include</span><span class="nf">)</span>
+</pre></div>
+</div>
+<p>这相当于将 <code class="docutils literal notranslate"><span class="pre">${CMAKE_INSTALL_PREFIX}/include</span></code> 附加到由 <span class="target" id="index-1-command:install"></span><a class="reference internal" href="../command/install.html#export" title="install(export)"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">install(EXPORT)</span></code></a> 生成的每个已安装 <span class="target" id="index-2-prop_tgt:IMPORTED"></span><a class="reference internal" href="../prop_tgt/IMPORTED.html#prop_tgt:IMPORTED" title="IMPORTED"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">IMPORTED</span></code></a> 目标的 <span class="target" id="index-5-prop_tgt:INTERFACE_INCLUDE_DIRECTORIES"></span><a class="reference internal" href="../prop_tgt/INTERFACE_INCLUDE_DIRECTORIES.html#prop_tgt:INTERFACE_INCLUDE_DIRECTORIES" title="INTERFACE_INCLUDE_DIRECTORIES"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">INTERFACE_INCLUDE_DIRECTORIES</span></code></a>。</p>
+<p>当 <a class="reference internal" href="#imported-targets"><span class="std std-ref">导入的目标</span></a> 的 <span class="target" id="index-6-prop_tgt:INTERFACE_INCLUDE_DIRECTORIES"></span><a class="reference internal" href="../prop_tgt/INTERFACE_INCLUDE_DIRECTORIES.html#prop_tgt:INTERFACE_INCLUDE_DIRECTORIES" title="INTERFACE_INCLUDE_DIRECTORIES"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">INTERFACE_INCLUDE_DIRECTORIES</span></code></a> 被消费时，该属性中的条目可以被视为系统包含目录。其效果取决于工具链，但一个常见的效果是忽略在这些目录中找到的头文件的编译器警告。已安装目标的 <span class="target" id="index-0-prop_tgt:SYSTEM"></span><a class="reference internal" href="../prop_tgt/SYSTEM.html#prop_tgt:SYSTEM" title="SYSTEM"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">SYSTEM</span></code></a> 属性决定这种行为（有关如何修改目标的已安装值，请参阅 <span class="target" id="index-0-prop_tgt:EXPORT_NO_SYSTEM"></span><a class="reference internal" href="../prop_tgt/EXPORT_NO_SYSTEM.html#prop_tgt:EXPORT_NO_SYSTEM" title="EXPORT_NO_SYSTEM"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">EXPORT_NO_SYSTEM</span></code></a> 属性）。也可以通过在 <em>consumer</em> 上设置 <span class="target" id="index-0-prop_tgt:NO_SYSTEM_FROM_IMPORTED"></span><a class="reference internal" href="../prop_tgt/NO_SYSTEM_FROM_IMPORTED.html#prop_tgt:NO_SYSTEM_FROM_IMPORTED" title="NO_SYSTEM_FROM_IMPORTED"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">NO_SYSTEM_FROM_IMPORTED</span></code></a> 目标属性来更改消费者对消费导入目标的系统行为的解释。</p>
+<p>如果二进制目标具有传递链接的macOS <span class="target" id="index-0-prop_tgt:FRAMEWORK"></span><a class="reference internal" href="../prop_tgt/FRAMEWORK.html#prop_tgt:FRAMEWORK" title="FRAMEWORK"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">FRAMEWORK</span></code></a>，则框架的 <code class="docutils literal notranslate"><span class="pre">Headers</span></code> 目录也被视为使用要求。这与将框架目录作为包含目录传递的效果相同。</p>
+</section>
+</section>
+<section id="link-libraries-and-generator-expressions">
+<h3><a class="toc-backref" href="#id47" role="doc-backlink">連結程式庫與生成器表達式</a><a class="headerlink" href="#link-libraries-and-generator-expressions" title="連結到這個標頭">¶</a></h3>
+<p>与构建规范类似，可使用生成表达式条件指定 <span class="target" id="index-2-prop_tgt:LINK_LIBRARIES"></span><a class="reference internal" href="../prop_tgt/LINK_LIBRARIES.html#prop_tgt:LINK_LIBRARIES" title="LINK_LIBRARIES"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">link</span> <span class="pre">libraries</span></code></a>。然而，由于使用要求的消费是基于从链接依赖关系中收集的，因此另外的限制是链接依赖关系必须形成 &quot;有向无环图&quot;。即，如果链接到一个目标依赖于目标属性的值，则目标属性可能不依赖于链接依赖关系：</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">add_library(</span><span class="nb">lib1</span><span class="w"> </span><span class="nb">lib1.cpp</span><span class="nf">)</span>
+<span class="nf">add_library(</span><span class="nb">lib2</span><span class="w"> </span><span class="nb">lib2.cpp</span><span class="nf">)</span>
+<span class="nf">target_link_libraries(</span><span class="nb">lib1</span><span class="w"> </span><span class="no">PUBLIC</span>
+<span class="w">  </span><span class="o">$&lt;$&lt;</span><span class="no">TARGET_PROPERTY</span><span class="o">:</span><span class="no">POSITION_INDEPENDENT_CODE</span><span class="p">&gt;</span><span class="o">:</span><span class="nb">lib2</span><span class="p">&gt;</span>
+<span class="nf">)</span>
+<span class="nf">add_library(</span><span class="nb">lib3</span><span class="w"> </span><span class="nb">lib3.cpp</span><span class="nf">)</span>
+<span class="nf">set_property(</span><span class="no">TARGET</span><span class="w"> </span><span class="nb">lib3</span><span class="w"> </span><span class="no">PROPERTY</span><span class="w"> </span><span class="no">INTERFACE_POSITION_INDEPENDENT_CODE</span><span class="w"> </span><span class="no">ON</span><span class="nf">)</span>
+
+<span class="nf">add_executable(</span><span class="nb">exe1</span><span class="w"> </span><span class="nb">exe1.cpp</span><span class="nf">)</span>
+<span class="nf">target_link_libraries(</span><span class="nb">exe1</span><span class="w"> </span><span class="nb">lib1</span><span class="w"> </span><span class="nb">lib3</span><span class="nf">)</span>
+</pre></div>
+</div>
+<p>由于 <code class="docutils literal notranslate"><span class="pre">exe1</span></code> 目标的 <span class="target" id="index-1-prop_tgt:POSITION_INDEPENDENT_CODE"></span><a class="reference internal" href="../prop_tgt/POSITION_INDEPENDENT_CODE.html#prop_tgt:POSITION_INDEPENDENT_CODE" title="POSITION_INDEPENDENT_CODE"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">POSITION_INDEPENDENT_CODE</span></code></a> 属性的值依赖于链接库（<code class="docutils literal notranslate"><span class="pre">lib3</span></code>），且链接 <code class="docutils literal notranslate"><span class="pre">exe1</span></code> 的边缘由同一个 <span class="target" id="index-2-prop_tgt:POSITION_INDEPENDENT_CODE"></span><a class="reference internal" href="../prop_tgt/POSITION_INDEPENDENT_CODE.html#prop_tgt:POSITION_INDEPENDENT_CODE" title="POSITION_INDEPENDENT_CODE"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">POSITION_INDEPENDENT_CODE</span></code></a> 属性决定，所以上述依赖图中包含一个循环。<span class="target" id="index-1-manual:cmake(1)"></span><a class="reference internal" href="cmake.1.html#manual:cmake(1)" title="cmake(1)"><code class="xref cmake cmake-manual docutils literal notranslate"><span class="pre">cmake(1)</span></code></a> 发出错误信息。</p>
+</section>
+<section id="output-artifacts">
+<span id="id17"></span><h3><a class="toc-backref" href="#id48" role="doc-backlink">輸出製品</a><a class="headerlink" href="#output-artifacts" title="連結到這個標頭">¶</a></h3>
+<p><span class="target" id="index-4-command:add_library"></span><a class="reference internal" href="../command/add_library.html#command:add_library" title="add_library"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">add_library()</span></code></a> 和 <span class="target" id="index-1-command:add_executable"></span><a class="reference internal" href="../command/add_executable.html#command:add_executable" title="add_executable"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">add_executable()</span></code></a> 命令创建的构建系统目标会创建规则以创建二进制输出。二进制文件的确切输出位置只能在生成时确定，因为它可能取决于构建配置和链接依赖关系的链接语言等。可以使用 <code class="docutils literal notranslate"><span class="pre">TARGET_FILE</span></code>、<code class="docutils literal notranslate"><span class="pre">TARGET_LINKER_FILE</span></code> 和相关表达式访问生成的二进制文件的名称和位置。然而，对于 <code class="docutils literal notranslate"><span class="pre">OBJECT</span></code> 库，这些表达式不起作用，因为这样的库没有生成的单个文件与这些表达式相关。</p>
+<p>目标生成的输出文件可能有三种类型。在以下部分中详细讲述的这些分类在 DLL 平台和非 DLL 平台之间有所不同。包括 Cygwin 在内的所有基于 Windows 的系统都是 DLL 平台。</p>
+<section id="runtime-output-artifacts">
+<span id="id18"></span><h4><a class="toc-backref" href="#id49" role="doc-backlink">執行時輸出製品</a><a class="headerlink" href="#runtime-output-artifacts" title="連結到這個標頭">¶</a></h4>
+<p>构建系统目标的 <em>运行时</em> 输出文件可能是：</p>
+<ul class="simple">
+<li><p>由 <span class="target" id="index-2-command:add_executable"></span><a class="reference internal" href="../command/add_executable.html#command:add_executable" title="add_executable"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">add_executable()</span></code></a> 命令创建的可执行目标的可执行文件（例如 <code class="docutils literal notranslate"><span class="pre">.exe</span></code>）。</p></li>
+<li><p>在 DLL 平台上：由 <span class="target" id="index-5-command:add_library"></span><a class="reference internal" href="../command/add_library.html#command:add_library" title="add_library"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">add_library()</span></code></a> 命令使用 <code class="docutils literal notranslate"><span class="pre">SHARED</span></code> 选项创建的共享库目标的可执行文件（例如 <code class="docutils literal notranslate"><span class="pre">.dll</span></code>）。</p></li>
+</ul>
+<p>可以使用 <span class="target" id="index-0-prop_tgt:RUNTIME_OUTPUT_DIRECTORY"></span><a class="reference internal" href="../prop_tgt/RUNTIME_OUTPUT_DIRECTORY.html#prop_tgt:RUNTIME_OUTPUT_DIRECTORY" title="RUNTIME_OUTPUT_DIRECTORY"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">RUNTIME_OUTPUT_DIRECTORY</span></code></a> 和 <span class="target" id="index-0-prop_tgt:RUNTIME_OUTPUT_NAME"></span><a class="reference internal" href="../prop_tgt/RUNTIME_OUTPUT_NAME.html#prop_tgt:RUNTIME_OUTPUT_NAME" title="RUNTIME_OUTPUT_NAME"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">RUNTIME_OUTPUT_NAME</span></code></a> 目标属性控制构建树中运行时输出文件的位置和名称。</p>
+</section>
+<section id="library-output-artifacts">
+<span id="id19"></span><h4><a class="toc-backref" href="#id50" role="doc-backlink">程式庫輸出製品</a><a class="headerlink" href="#library-output-artifacts" title="連結到這個標頭">¶</a></h4>
+<p>构建系统目标的 <em>库</em> 输出文件可能是：</p>
+<ul class="simple">
+<li><p>由 <span class="target" id="index-6-command:add_library"></span><a class="reference internal" href="../command/add_library.html#command:add_library" title="add_library"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">add_library()</span></code></a> 命令使用 <code class="docutils literal notranslate"><span class="pre">MODULE</span></code> 选项创建的模块库目标的可加载模块文件（例如 <code class="docutils literal notranslate"><span class="pre">.dll</span></code> 或 <code class="docutils literal notranslate"><span class="pre">.so</span></code>）。</p></li>
+<li><p>在非 DLL 平台上：由 <span class="target" id="index-7-command:add_library"></span><a class="reference internal" href="../command/add_library.html#command:add_library" title="add_library"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">add_library()</span></code></a> 命令使用 <code class="docutils literal notranslate"><span class="pre">SHARED</span></code> 选项创建的共享库目标的共享库文件（例如 <code class="docutils literal notranslate"><span class="pre">.so</span></code> 或 <code class="docutils literal notranslate"><span class="pre">.dylib</span></code>）。</p></li>
+</ul>
+<p>可以使用 <span class="target" id="index-0-prop_tgt:LIBRARY_OUTPUT_DIRECTORY"></span><a class="reference internal" href="../prop_tgt/LIBRARY_OUTPUT_DIRECTORY.html#prop_tgt:LIBRARY_OUTPUT_DIRECTORY" title="LIBRARY_OUTPUT_DIRECTORY"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">LIBRARY_OUTPUT_DIRECTORY</span></code></a> 和 <span class="target" id="index-0-prop_tgt:LIBRARY_OUTPUT_NAME"></span><a class="reference internal" href="../prop_tgt/LIBRARY_OUTPUT_NAME.html#prop_tgt:LIBRARY_OUTPUT_NAME" title="LIBRARY_OUTPUT_NAME"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">LIBRARY_OUTPUT_NAME</span></code></a> 目标属性控制构建树中库输出文件的位置和名称。</p>
+</section>
+<section id="archive-output-artifacts">
+<span id="id20"></span><h4><a class="toc-backref" href="#id51" role="doc-backlink">封存檔輸出製品</a><a class="headerlink" href="#archive-output-artifacts" title="連結到這個標頭">¶</a></h4>
+<p>构建系统目标的 <em>存档</em> 输出文件可能是：</p>
+<ul class="simple">
+<li><p>由 <span class="target" id="index-8-command:add_library"></span><a class="reference internal" href="../command/add_library.html#command:add_library" title="add_library"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">add_library()</span></code></a> 命令使用 <code class="docutils literal notranslate"><span class="pre">STATIC</span></code> 选项创建的静态库目标的静态库文件（例如 <code class="docutils literal notranslate"><span class="pre">.lib</span></code> 或 <code class="docutils literal notranslate"><span class="pre">.a</span></code>）。</p></li>
+<li><p>在 DLL 平台上：由 <span class="target" id="index-9-command:add_library"></span><a class="reference internal" href="../command/add_library.html#command:add_library" title="add_library"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">add_library()</span></code></a> 命令使用 <code class="docutils literal notranslate"><span class="pre">SHARED</span></code> 选项创建的共享库目标的导入库文件（例如 <code class="docutils literal notranslate"><span class="pre">.lib</span></code>）。只有在库导出至少一个未托管符号时，该文件才保证存在。</p></li>
+<li><p>在 DLL 平台上：当其 <span class="target" id="index-0-prop_tgt:ENABLE_EXPORTS"></span><a class="reference internal" href="../prop_tgt/ENABLE_EXPORTS.html#prop_tgt:ENABLE_EXPORTS" title="ENABLE_EXPORTS"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">ENABLE_EXPORTS</span></code></a> 目标属性设置时，由 <span class="target" id="index-3-command:add_executable"></span><a class="reference internal" href="../command/add_executable.html#command:add_executable" title="add_executable"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">add_executable()</span></code></a> 命令创建的可执行目标的导入库文件（例如 <code class="docutils literal notranslate"><span class="pre">.lib</span></code>）。</p></li>
+<li><p>在 AIX 上：当其 <span class="target" id="index-1-prop_tgt:ENABLE_EXPORTS"></span><a class="reference internal" href="../prop_tgt/ENABLE_EXPORTS.html#prop_tgt:ENABLE_EXPORTS" title="ENABLE_EXPORTS"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">ENABLE_EXPORTS</span></code></a> 目标属性设置时，由 <span class="target" id="index-4-command:add_executable"></span><a class="reference internal" href="../command/add_executable.html#command:add_executable" title="add_executable"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">add_executable()</span></code></a> 命令创建的可执行目标的链接器导入文件（例如 <code class="docutils literal notranslate"><span class="pre">.imp</span></code>）。</p></li>
+<li><p>在 macOS 上：由 <span class="target" id="index-10-command:add_library"></span><a class="reference internal" href="../command/add_library.html#command:add_library" title="add_library"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">add_library()</span></code></a> 命令使用 <code class="docutils literal notranslate"><span class="pre">SHARED</span></code> 选项创建并且其 <span class="target" id="index-2-prop_tgt:ENABLE_EXPORTS"></span><a class="reference internal" href="../prop_tgt/ENABLE_EXPORTS.html#prop_tgt:ENABLE_EXPORTS" title="ENABLE_EXPORTS"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">ENABLE_EXPORTS</span></code></a> 目标属性设置时的共享库目标的链接器导入文件（例如 <code class="docutils literal notranslate"><span class="pre">.tbd</span></code>）。</p></li>
+</ul>
+<p><cite>:prop_tgt:`ARCHIVE_OUTPUT_DIRECTORY`和</cite>:prop_tgt:<a href="#id1"><span class="problematic" id="id2">`</span></a>ARCHIVE_OUTPUT_NAME`目標屬性可用於控制建置樹中的歸檔輸出項目位置和名稱。</p>
+</section>
+</section>
+<section id="directory-scoped-commands">
+<h3><a class="toc-backref" href="#id52" role="doc-backlink">目錄作用域的命令</a><a class="headerlink" href="#directory-scoped-commands" title="連結到這個標頭">¶</a></h3>
+<p><cite>:command:`target_include_directories</cite>、<cite>:command:`target_compile_definitions`和</cite><span class="target" id="index-0-command:target_compile_options`命令仅对单一目标产生作用。`add_compile_definitions"></span><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">target_compile_options`命令仅对单一目标产生作用。`add_compile_definitions()</span></code>、<a href="#id1"><span class="problematic" id="id2">`</span></a>add_compile_options`和`include_directories`命令具有类似功能，但为便捷起见适用于目录范围而不是目标范围。</p>
+</section>
+</section>
+<section id="build-configurations">
+<span id="id21"></span><h2><a class="toc-backref" href="#id53" role="doc-backlink">建置組態</a><a class="headerlink" href="#build-configurations" title="連結到這個標頭">¶</a></h2>
+<p>配置决定某种构建类型的规格，如``Release``或``Debug``。指定方式取决于所用的`:manual:<cite>生成器&lt;cmake-generators(7)&gt;`的类型。对于单一配置生成器，如</cite><span class="xref std std-ref">Makefile 向导`和</span><span class="target" id="index-0-generator:忍者"></span><code class="xref cmake cmake-generator docutils literal notranslate"><span class="pre">忍者</span></code>，在配置时通过`:variable:<cite>CMAKE_BUILD_TYPE`变量指定配置。对于多配置生成器，如</cite><span class="xref std std-ref">Visual Studio</span>、<cite>:generator:`Xcode`和</cite><span class="target" id="index-0-generator:Ninja Multi-Config"></span><a class="reference internal" href="../generator/Ninja%20Multi-Config.html#generator:Ninja Multi-Config" title="Ninja Multi-Config"><code class="xref cmake cmake-generator docutils literal notranslate"><span class="pre">Ninja</span> <span class="pre">Multi-Config</span></code></a>，用户可在构建时选择配置，而`:variable:<cite>CMAKE_BUILD_TYPE`会被忽略。多配置情况下，配置集合在配置时由</cite>:variable:<a href="#id1"><span class="problematic" id="id2">`</span></a>CMAKE_CONFIGURATION_TYPES`变量指定，但实际使用配置只会在构建阶段方能确定。这种差异往往容易被误解，导致如以下代码所示的问题出现：</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="c"># 警告：這對於多配置生成器是錯誤的，因為它們不使用並且通常甚至不設置CMAKE_BUILD_TYPE</span>
+<span class="nf">string(</span><span class="no">TOLOWER</span><span class="w"> </span><span class="o">${</span><span class="nt">CMAKE_BUILD_TYPE</span><span class="o">}</span><span class="w"> </span><span class="nb">build_type</span><span class="nf">)</span>
+<span class="nf">if</span> <span class="nf">(</span><span class="nb">build_type</span><span class="w"> </span><span class="no">STREQUAL</span><span class="w"> </span><span class="nb">debug</span><span class="nf">)</span>
+<span class="w">  </span><span class="nf">target_compile_definitions(</span><span class="nb">exe1</span><span class="w"> </span><span class="no">PRIVATE</span><span class="w"> </span><span class="no">DEBUG_BUILD</span><span class="nf">)</span>
+<span class="nf">endif()</span>
+</pre></div>
+</div>
+<p>相反，應使用`:manual:<a href="#id1"><span class="problematic" id="id2">`</span></a>生成器表達式 &lt;cmake-generator-expressions(7)&gt;`來正確處理配置特定的邏輯，而不管所使用的生成器。 例如：</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="c"># 對於單配置和多配置生成器都正確運行</span>
+<span class="nf">target_compile_definitions(</span><span class="nb">exe1</span><span class="w"> </span><span class="no">PRIVATE</span>
+<span class="w">  </span><span class="o">$&lt;$&lt;</span><span class="no">CONFIG</span><span class="o">:</span><span class="nb">Debug</span><span class="p">&gt;</span><span class="o">:</span><span class="no">DEBUG_BUILD</span><span class="p">&gt;</span>
+<span class="nf">)</span>
+</pre></div>
+</div>
+<p>在存在`:prop_tgt:<cite>已引入的`目标的情况时，</cite><span class="target" id="index-0-prop_tgt:MAP_IMPORTED_CONFIG_DEBUG &lt; MAP_IMPORTED_CONFIG_&lt; CONFIG&gt;&gt;`的内容也会被上文"></span><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">MAP_IMPORTED_CONFIG_DEBUG</span> <span class="pre">&lt;</span> <span class="pre">MAP_IMPORTED_CONFIG_&lt;</span> <span class="pre">CONFIG&gt;&gt;`的内容也会被上文</span></code>:genex:<a href="#id1"><span class="problematic" id="id2">`</span></a>$ &lt; CONFIG:Debug&gt;`表达式纳入考量。</p>
+<section id="case-sensitivity">
+<h3><a class="toc-backref" href="#id54" role="doc-backlink">大小寫敏感度</a><a class="headerlink" href="#case-sensitivity" title="連結到這個標頭">¶</a></h3>
+<p><span class="target" id="index-0-variable:CMAKE_BUILD_TYPE`和:variable:`CMAKE_CONFIGURATION_TYPES`就像其他變數一樣，與它們的值進行的任何字符串比較都將是大小寫敏感的。"></span><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_BUILD_TYPE`和:variable:`CMAKE_CONFIGURATION_TYPES`就像其他變數一樣，與它們的值進行的任何字符串比較都將是大小寫敏感的。</span></code>:genex:<a href="#id1"><span class="problematic" id="id2">`</span></a>$&lt;CONFIG&gt;`生成器表達式也保留了由用戶或CMake默認設置的配置的大小寫。例如：</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="c"># 注意：不要使用這些模式，它們僅用於說明。</span>
+
+<span class="nf">set(</span><span class="no">CMAKE_BUILD_TYPE</span><span class="w"> </span><span class="nb">Debug</span><span class="nf">)</span>
+<span class="nf">if(</span><span class="no">CMAKE_BUILD_TYPE</span><span class="w"> </span><span class="no">STREQUAL</span><span class="w"> </span><span class="no">DEBUG</span><span class="nf">)</span>
+<span class="w">  </span><span class="c"># ... 永遠到不了這裡，&quot;Debug&quot; != &quot;DEBUG&quot;</span>
+<span class="nf">endif()</span>
+<span class="nf">add_custom_target(</span><span class="nb">print_config</span><span class="w"> </span><span class="no">ALL</span>
+<span class="w">  </span><span class="c"># 在這單一配置情況下顯示&quot;Config is Debug&quot;</span>
+<span class="w">  </span><span class="no">COMMAND</span><span class="w"> </span><span class="o">${</span><span class="nt">CMAKE_COMMAND</span><span class="o">}</span><span class="w"> </span><span class="p">-</span><span class="no">E</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s">&quot;Config is $&lt;CONFIG&gt;&quot;</span>
+<span class="w">  </span><span class="no">VERBATIM</span>
+<span class="nf">)</span>
+
+<span class="nf">set(</span><span class="no">CMAKE_CONFIGURATION_TYPES</span><span class="w"> </span><span class="nb">Debug</span><span class="w"> </span><span class="nb">Release</span><span class="nf">)</span>
+<span class="nf">if(</span><span class="no">DEBUG</span><span class="w"> </span><span class="no">IN_LIST</span><span class="w"> </span><span class="no">CMAKE_CONFIGURATION_TYPES</span><span class="nf">)</span>
+<span class="w">  </span><span class="c"># ... 永遠到不了這裡，&quot;Debug&quot; != &quot;DEBUG&quot;</span>
+<span class="nf">endif()</span>
+</pre></div>
+</div>
+<p>相反，CMake內部在使用它進行更改行為的地方對配置類型是不區分大小寫的。例如，<cite>:genex:`$&lt;CONFIG:Debug&gt;`生成器表達式將對於配置的結果為`Debug</cite>、<cite>DEBUG</cite>、<cite>debug`甚至`DeBuG`值為1。因此，你可以用任意大小寫混合方式在</cite><span class="target" id="index-0-variable:CMAKE_BUILD_TYPE`和"></span><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_BUILD_TYPE`和</span></code>:variable:<a href="#id1"><span class="problematic" id="id2">`</span></a>CMAKE_CONFIGURATION_TYPES`中指定配置類型，儘管有強烈的慣例（見下一節）。如果必須在字符串比較中測試數值，則應先將數值轉換為大寫或小寫，並相應調整測試。</p>
+</section>
+<section id="default-and-custom-configurations">
+<h3><a class="toc-backref" href="#id55" role="doc-backlink">默認與自訂組態</a><a class="headerlink" href="#default-and-custom-configurations" title="連結到這個標頭">¶</a></h3>
+<p>默認情況下，CMake 定義了許多標準組態：</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Debug</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Debug</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">RelWithDebInfo</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">RelWithDebInfo</span></code></p></li>
+</ul>
+<p>在多組態生成器中，<a href="#id1"><span class="problematic" id="id2">`</span></a>:variable:<a href="#id3"><span class="problematic" id="id4">`</span></a>CMAKE_CONFIGURATION_TYPES`變數將默認填充為上述列表(可能是一個子集)，除非由專案或用戶重寫。實際使用的配置由用戶在構建時選擇。</p>
+<p>對於單配置生成器，組態在配置時間用`:variable:<a href="#id1"><span class="problematic" id="id2">`</span></a>CMAKE_BUILD_TYPE`變數指定且不能在建置時更改。默認值通常不是上述標準配置中的任何一個，而是空字符串。一種常見的誤解是這與“Debug”相同，但情況並非如此。用戶應始終明確指定構建類型以避免此常見問題。</p>
+<p>上述標準配置類型在大多數平台上提供合理的行為，但它們可以擴展以提供其他類型。每個配置都為所用語言定義一組編譯器和鏈接器旗標變量。這些變量遵循`:variable:<a href="#id1"><span class="problematic" id="id2">`</span></a>CMAKE_&lt;LANG&gt;_FLAGS_&lt;CONFIG&gt;`約定，其中`&lt;CONFIG&gt;`始終是大寫的配置名稱。在定義自定義組態類型時，確保正確設定這些變數，通常作為緩存變量。</p>
+</section>
+</section>
+<section id="pseudo-targets">
+<h2><a class="toc-backref" href="#id56" role="doc-backlink">偽目標</a><a class="headerlink" href="#pseudo-targets" title="連結到這個標頭">¶</a></h2>
+<p>某些目標類型不代表構建系統的輸出，而僅代表輸入，如外部依賴、別名或其他非構建工件。偽目標不在生成的構建系統中表示。</p>
+<section id="imported-targets">
+<span id="id22"></span><h3><a class="toc-backref" href="#id57" role="doc-backlink">匯入目標</a><a class="headerlink" href="#imported-targets" title="連結到這個標頭">¶</a></h3>
+<p><cite>:prop_tgt:`引入的`目标表示已有依赖。通常这样的目标由上游包定义并应被视为不可改变。声明一个</cite><span class="target" id="index-0-prop_tgt:已引入的`目标后，可以像常规目标一样使用如"></span><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">已引入的`目标后，可以像常规目标一样使用如</span></code><span class="target" id="index-1-command:target_compile_definitions"></span><a class="reference internal" href="../command/target_compile_definitions.html#command:target_compile_definitions" title="target_compile_definitions"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">target_compile_definitions()</span></code></a>、<cite>:command:`target_include_directories</cite>、<cite>:command:`target_compile_options`或</cite>:command:<a href="#id1"><span class="problematic" id="id2">`</span></a>target_link_libraries`等常用命令调整其目标属性。</p>
+<p><span class="target" id="index-0-prop_tgt:IMPORTED`目標可能具有與二進制目標相同的使用要求屬性，如："></span><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">IMPORTED`目標可能具有與二進制目標相同的使用要求屬性，如：</span></code><span class="target" id="index-7-prop_tgt:INTERFACE_INCLUDE_DIRECTORIES"></span><a class="reference internal" href="../prop_tgt/INTERFACE_INCLUDE_DIRECTORIES.html#prop_tgt:INTERFACE_INCLUDE_DIRECTORIES" title="INTERFACE_INCLUDE_DIRECTORIES"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">INTERFACE_INCLUDE_DIRECTORIES</span></code></a>, <cite>:prop_tgt:`INTERFACE_COMPILE_DEFINITIONS</cite>, <cite>:prop_tgt:`INTERFACE_COMPILE_OPTIONS</cite>, <cite>:prop_tgt:`INTERFACE_LINK_LIBRARIES</cite> 和 <cite>:prop_tgt:`INTERFACE_POSITION_INDEPENDENT_CODE</cite>。</p>
+<p>尽管很少需从引入的目标读取`LOCATION`，但也可以这么做。诸如`:command:<cite>添加自定义命令`的命令可以透明地用</cite><span class="target" id="index-0-prop_tgt:引入的"></span><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">引入的</span></code>:prop_tgt:<a href="#id1"><span class="problematic" id="id2">`</span></a>可执行&lt;TYPE&gt;`目标作为``命令``可执行文件。</p>
+<p><a href="#id1"><span class="problematic" id="id2">`</span></a>:prop_tgt:<a href="#id3"><span class="problematic" id="id4">`</span></a>IMPORTED`目標的定義範圍是它被定義的目錄。可以從子目錄中存取和使用，但不能從父目錄或同級目錄中存取。其範圍類似於cmake變數的範圍。</p>
+<p>還可以定義一個“GLOBAL”<a href="#id1"><span class="problematic" id="id2">`</span></a>:prop_tgt:<a href="#id3"><span class="problematic" id="id4">`</span></a>IMPORTED`目標，這在建置系統中可以全域存取。</p>
+<p>根据`:manual:<cite>cmake-packages(7)`手册查看更多有关使用</cite>:prop_tgt:<a href="#id1"><span class="problematic" id="id2">`</span></a>引入的`目标创建软件包的信息。</p>
+</section>
+<section id="alias-targets">
+<span id="id23"></span><h3><a class="toc-backref" href="#id58" role="doc-backlink">別名目標</a><a class="headerlink" href="#alias-targets" title="連結到這個標頭">¶</a></h3>
+<p><a href="#id1"><span class="problematic" id="id2">``</span></a>ALIAS``目標是一個可以在只讀上下文中與二進制目標名稱互換使用的名稱。<a href="#id3"><span class="problematic" id="id4">``</span></a>ALIAS``目標的主要用途是例如與庫配套的示例或單元測試可執行文件，這些可以是同一構建系統的一部分或根據用戶配置單獨構建。</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">add_library(</span><span class="nb">lib1</span><span class="w"> </span><span class="nb">lib1.cpp</span><span class="nf">)</span>
+<span class="nf">install(</span><span class="no">TARGETS</span><span class="w"> </span><span class="nb">lib1</span><span class="w"> </span><span class="no">EXPORT</span><span class="w"> </span><span class="nb">lib1Export</span><span class="w"> </span><span class="o">${</span><span class="nt">dest_args</span><span class="o">}</span><span class="nf">)</span>
+<span class="nf">install(</span><span class="no">EXPORT</span><span class="w"> </span><span class="nb">lib1Export</span><span class="w"> </span><span class="no">NAMESPACE</span><span class="w"> </span><span class="nb">Upstream</span><span class="o">::</span><span class="w"> </span><span class="o">${</span><span class="nt">other_args</span><span class="o">}</span><span class="nf">)</span>
+
+<span class="nf">add_library(</span><span class="nb">Upstream</span><span class="o">::</span><span class="nb">lib1</span><span class="w"> </span><span class="no">ALIAS</span><span class="w"> </span><span class="nb">lib1</span><span class="nf">)</span>
+</pre></div>
+</div>
+<p>在另一個目錄中，我們可以無條件地鏈接到“Upstream::lib1”目標，它可以是來自包的`:prop_tgt:<a href="#id1"><span class="problematic" id="id2">`</span></a>IMPORTED`目標，或者是作為同一構建系統一部分構建的“ALIAS”目標。</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">if</span> <span class="nf">(</span><span class="no">NOT</span><span class="w"> </span><span class="no">TARGET</span><span class="w"> </span><span class="nb">Upstream</span><span class="o">::</span><span class="nb">lib1</span><span class="nf">)</span>
+<span class="w">  </span><span class="nf">find_package(</span><span class="nb">lib1</span><span class="w"> </span><span class="no">REQUIRED</span><span class="nf">)</span>
+<span class="nf">endif()</span>
+<span class="nf">add_executable(</span><span class="nb">exe1</span><span class="w"> </span><span class="nb">exe1.cpp</span><span class="nf">)</span>
+<span class="nf">target_link_libraries(</span><span class="nb">exe1</span><span class="w"> </span><span class="nb">Upstream</span><span class="o">::</span><span class="nb">lib1</span><span class="nf">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">ALIAS</span></code> 目标不可变、无法安装或导出。 它们完全是构建系统描述的本地。在读取目标属性中提取``ALIASED_TARGET``属性，可以检查名称是否为“ALIAS”名称：</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">get_target_property(</span><span class="nb">_aliased</span><span class="w"> </span><span class="nb">Upstream</span><span class="o">::</span><span class="nb">lib1</span><span class="w"> </span><span class="no">ALIASED_TARGET</span><span class="nf">)</span>
+<span class="nf">if(</span><span class="nb">_aliased</span><span class="nf">)</span>
+<span class="w">  </span><span class="nf">message(</span><span class="no">STATUS</span><span class="w"> </span><span class="s">&quot;名稱 Upstream::lib1是 ${_aliased} 的別名。&quot;</span><span class="nf">)</span>
+<span class="nf">endif()</span>
+</pre></div>
+</div>
+</section>
+<section id="interface-libraries">
+<span id="id24"></span><h3><a class="toc-backref" href="#id59" role="doc-backlink">介面庫</a><a class="headerlink" href="#interface-libraries" title="連結到這個標頭">¶</a></h3>
+<p>&quot;INTERFACE&quot; 載體目標不編譯來源，且不生成磁碟上圖書檔，故無`:prop_tgt:<cite>LOCATION</cite>。</p>
+<p>它可以指定`使用需求 &lt;<a class="reference internal" href="#id14">目标使用需求</a>&gt;`_，<a class="reference internal" href="#id15">兼容接口属性</a>，和`自定义传递属性 &lt;<a class="reference internal" href="#target-usage-requirements">自定义传递属性</a>&gt;`_。仅``INTERFACE``模式下：command:<cite>target_include_directories</cite>、：command:<cite>target_compile_definitions</cite>、：command:<cite>target_compile_options</cite>、：command:<a href="#id1"><span class="problematic" id="id2">`</span></a>target_sources`和：command:<a href="#id3"><span class="problematic" id="id4">`</span></a>target_link_libraries`命令可以与``INTERFACE``库一起使用。</p>
+<p>從CMake 3.19開始，&quot;INTERFACE&quot;載體目標可能可選包含來源檔案。含有來源檔案的介面載體將會作為建置目標包含於生成的建置系統中。儘管它不編譯來源，也可能包含自定義指令用於生成其他來源。此外，IDE會將來源檔案作為載體的一部分顯示，以供互動式讀取和編輯。</p>
+<p>&quot;INTERFACE&quot; 資料庫的主要用途是僅頭文件型資料庫。自 CMake 3.23 起，頭文件可以通過`:command:<a href="#id1"><span class="problematic" id="id2">`</span></a>target_sources`命令將其添加到頭文件集來關聯到資料庫：</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">add_library(</span><span class="nb">Eigen</span><span class="w"> </span><span class="no">INTERFACE</span><span class="nf">)</span>
+
+<span class="nf">target_sources(</span><span class="nb">Eigen</span><span class="w"> </span><span class="no">PUBLIC</span>
+<span class="w">  </span><span class="no">FILE_SET</span><span class="w"> </span><span class="no">HEADERS</span>
+<span class="w">    </span><span class="no">BASE_DIRS</span><span class="w"> </span><span class="nb">src</span>
+<span class="w">    </span><span class="no">FILES</span><span class="w"> </span><span class="na">src/eigen.h</span><span class="w"> </span><span class="na">src/vector.h</span><span class="w"> </span><span class="na">src/matrix.h</span>
+<span class="nf">)</span>
+
+<span class="nf">add_executable(</span><span class="nb">exe1</span><span class="w"> </span><span class="nb">exe1.cpp</span><span class="nf">)</span>
+<span class="nf">target_link_libraries(</span><span class="nb">exe1</span><span class="w"> </span><span class="nb">Eigen</span><span class="nf">)</span>
+</pre></div>
+</div>
+<p>當我們在此指定`FILE_SET`時，我們定義的`BASE_DIRS`會自動成為目標`Eigen`的用法要求中的包含目錄。目標的使用要求在編譯時被消耗和使用，但對鏈接沒有影響。</p>
+<p>另一個用例是為使用要求擁有一個完全聚焦於目標的設計：</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">add_library(</span><span class="nb">pic_on</span><span class="w"> </span><span class="no">INTERFACE</span><span class="nf">)</span>
+<span class="nf">set_property(</span><span class="no">TARGET</span><span class="w"> </span><span class="nb">pic_on</span><span class="w"> </span><span class="no">PROPERTY</span><span class="w"> </span><span class="no">INTERFACE_POSITION_INDEPENDENT_CODE</span><span class="w"> </span><span class="no">ON</span><span class="nf">)</span>
+<span class="nf">add_library(</span><span class="nb">pic_off</span><span class="w"> </span><span class="no">INTERFACE</span><span class="nf">)</span>
+<span class="nf">set_property(</span><span class="no">TARGET</span><span class="w"> </span><span class="nb">pic_off</span><span class="w"> </span><span class="no">PROPERTY</span><span class="w"> </span><span class="no">INTERFACE_POSITION_INDEPENDENT_CODE</span><span class="w"> </span><span class="no">OFF</span><span class="nf">)</span>
+
+<span class="nf">add_library(</span><span class="nb">enable_rtti</span><span class="w"> </span><span class="no">INTERFACE</span><span class="nf">)</span>
+<span class="nf">target_compile_options(</span><span class="nb">enable_rtti</span><span class="w"> </span><span class="no">INTERFACE</span>
+<span class="w">  </span><span class="o">$&lt;$&lt;</span><span class="no">OR</span><span class="o">:$&lt;</span><span class="no">COMPILER_ID</span><span class="o">:</span><span class="no">GNU</span><span class="p">&gt;,</span><span class="o">$&lt;</span><span class="no">COMPILER_ID</span><span class="o">:</span><span class="nb">Clang</span><span class="p">&gt;&gt;</span><span class="o">:</span><span class="p">-</span><span class="nb">rtti</span><span class="p">&gt;</span>
+<span class="nf">)</span>
+
+<span class="nf">add_executable(</span><span class="nb">exe1</span><span class="w"> </span><span class="nb">exe1.cpp</span><span class="nf">)</span>
+<span class="nf">target_link_libraries(</span><span class="nb">exe1</span><span class="w"> </span><span class="nb">pic_on</span><span class="w"> </span><span class="nb">enable_rtti</span><span class="nf">)</span>
+</pre></div>
+</div>
+<p>這種方式，“exe1”的建置規範完全表述為鏈接目標，且編譯器特定旗標的複雜性封裝於“INTERFACE”載體目標中。</p>
+<p><a href="#id1"><span class="problematic" id="id2">``</span></a>INTERFACE``庫可以安裝及導出。我們可以將默認的頭文件集與目標一同安裝：</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">add_library(</span><span class="nb">Eigen</span><span class="w"> </span><span class="no">INTERFACE</span><span class="nf">)</span>
+
+<span class="nf">target_sources(</span><span class="nb">Eigen</span><span class="w"> </span><span class="no">PUBLIC</span>
+<span class="w">  </span><span class="no">FILE_SET</span><span class="w"> </span><span class="no">HEADERS</span>
+<span class="w">    </span><span class="no">BASE_DIRS</span><span class="w"> </span><span class="nb">src</span>
+<span class="w">    </span><span class="no">FILES</span><span class="w"> </span><span class="na">src/eigen.h</span><span class="w"> </span><span class="na">src/vector.h</span><span class="w"> </span><span class="na">src/matrix.h</span>
+<span class="nf">)</span>
+
+<span class="nf">install(</span><span class="no">TARGETS</span><span class="w"> </span><span class="nb">Eigen</span><span class="w"> </span><span class="no">EXPORT</span><span class="w"> </span><span class="nb">eigenExport</span>
+<span class="w">  </span><span class="no">FILE_SET</span><span class="w"> </span><span class="no">HEADERS</span><span class="w"> </span><span class="no">DESTINATION</span><span class="w"> </span><span class="na">include/Eigen</span><span class="nf">)</span>
+<span class="nf">install(</span><span class="no">EXPORT</span><span class="w"> </span><span class="nb">eigenExport</span><span class="w"> </span><span class="no">NAMESPACE</span><span class="w"> </span><span class="nb">Upstream</span><span class="o">::</span>
+<span class="w">  </span><span class="no">DESTINATION</span><span class="w"> </span><span class="na">lib/cmake/Eigen</span>
+<span class="nf">)</span>
+</pre></div>
+</div>
+<p>此處，在頭文件集中定義的頭文件被安裝至``include/Eigen``中。安裝目標自動成為互換工作的使用要求中的包含目錄。</p>
+<section id="properties-allowed-on-interface-libraries">
+<h4><a class="toc-backref" href="#id60" role="doc-backlink">介面庫上允許的屬性</a><a class="headerlink" href="#properties-allowed-on-interface-libraries" title="連結到這個標頭">¶</a></h4>
+<p>自CMake 3.19以來，介面庫允許像其他目標類型一樣，設定或閱讀具有任何名稱的目標屬性。</p>
+<p>在CMake 3.19以前，介面庫僅允許撰寫或讀取具有有限名稱集的目標屬性：</p>
+<ul>
+<li><p>以``INTERFACE_``前端命名的屬性，無論是內置`使用要求 &lt;Target Usage <a class="reference internal" href="#target-usage-requirements">Requirements</a>&gt;`_，還是個性化名稱。</p></li>
+<li><p>内建属性以``COMPATIBLE_INTERFACE_``前缀命名（<a class="reference internal" href="#id15">兼容接口属性</a>）。</p></li>
+<li><p>內置屬性`:prop_tgt:<cite>NAME</cite>、<cite>:prop_tgt:`EXPORT_NAME</cite>、<cite>:prop_tgt:`EXPORT_PROPERTIES</cite>、<cite>:prop_tgt:`MANUALLY_ADDED_DEPENDENCIES</cite>、<cite>:prop_tgt:`IMPORTED</cite>、<cite>:prop_tgt:`IMPORTED_LIBNAME_&lt;CONFIG&gt;</cite> 和 <cite>:prop_tgt:`MAP_IMPORTED_CONFIG_&lt;CONFIG&gt;</cite>。</p></li>
+<li><div class="versionadded">
+<p><span class="versionmodified added">在 3.11 版被加入: </span>以首字下劃線（<code class="docutils literal notranslate"><span class="pre">_</span></code>）或 ASCII 小寫字母命名的屬性。</p>
+</div>
+</li>
+</ul>
+</section>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3>目次表</h3>
+    <ul>
+<li><a class="reference internal" href="#">cmake-建置系統(7)</a><ul>
+<li><a class="reference internal" href="#introduction">介紹</a></li>
+<li><a class="reference internal" href="#binary-targets">二進位目標</a><ul>
+<li><a class="reference internal" href="#executables">可執行文件</a></li>
+<li><a class="reference internal" href="#static-libraries">靜態程式庫</a></li>
+<li><a class="reference internal" href="#shared-libraries">共享程式庫</a></li>
+<li><a class="reference internal" href="#apple-frameworks">Apple 框架</a></li>
+<li><a class="reference internal" href="#module-libraries">模組程式庫</a></li>
+<li><a class="reference internal" href="#object-libraries">物件程式庫</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#build-specification-and-usage-requirements">建置規範與使用要求</a><ul>
+<li><a class="reference internal" href="#target-commands">目標命令</a></li>
+<li><a class="reference internal" href="#target-build-specification">目標建置規範</a><ul>
+<li><a class="reference internal" href="#target-compile-properties">目標編譯屬性</a></li>
+<li><a class="reference internal" href="#target-link-properties">目標連結屬性</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#target-usage-requirements">目標使用要求</a><ul>
+<li><a class="reference internal" href="#transitive-compile-properties">傳遞編譯屬性</a></li>
+<li><a class="reference internal" href="#transitive-link-properties">傳遞鏈接屬性</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#custom-transitive-properties">自定義傳遞屬性</a></li>
+<li><a class="reference internal" href="#compatible-interface-properties">可兼容介面屬性</a></li>
+<li><a class="reference internal" href="#property-origin-debugging">属性起源调试</a></li>
+<li><a class="reference internal" href="#build-specification-with-generator-expressions">使用生成器表達式的建置規範</a><ul>
+<li><a class="reference internal" href="#include-directories-and-usage-requirements">包含目录和使用要求</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#link-libraries-and-generator-expressions">連結程式庫與生成器表達式</a></li>
+<li><a class="reference internal" href="#output-artifacts">輸出製品</a><ul>
+<li><a class="reference internal" href="#runtime-output-artifacts">執行時輸出製品</a></li>
+<li><a class="reference internal" href="#library-output-artifacts">程式庫輸出製品</a></li>
+<li><a class="reference internal" href="#archive-output-artifacts">封存檔輸出製品</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#directory-scoped-commands">目錄作用域的命令</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#build-configurations">建置組態</a><ul>
+<li><a class="reference internal" href="#case-sensitivity">大小寫敏感度</a></li>
+<li><a class="reference internal" href="#default-and-custom-configurations">默認與自訂組態</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#pseudo-targets">偽目標</a><ul>
+<li><a class="reference internal" href="#imported-targets">匯入目標</a></li>
+<li><a class="reference internal" href="#alias-targets">別名目標</a></li>
+<li><a class="reference internal" href="#interface-libraries">介面庫</a><ul>
+<li><a class="reference internal" href="#properties-allowed-on-interface-libraries">介面庫上允許的屬性</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>上個話題</h4>
+    <p class="topless"><a href="ccmake.1.html"
+                          title="上個章節">ccmake(1)</a></p>
+  </div>
+  <div>
+    <h4>下個話題</h4>
+    <p class="topless"><a href="cmake-commands.7.html"
+                          title="下個章節">cmake-命令(7)</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>本頁</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/manual/cmake-buildsystem.7.rst.txt"
+            rel="nofollow">顯示來源碼</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜尋</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="前往" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>瀏覽</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="總索引"
+             >索引</a></li>
+        <li class="right" >
+          <a href="cmake-commands.7.html" title="cmake-命令(7)"
+             >下一頁</a> |</li>
+        <li class="right" >
+          <a href="ccmake.1.html" title="ccmake(1)"
+             >上一頁</a> |</li>
+  <li>
+    <label class="sidebar-toggle" for="sidebar-check"></label>
+  </li>
+  <li class="rootlink">
+    <img src="../_static/cmake-logo-16.png" width="16" height="16" alt=""/>
+    <a href="https://cmake.org/">CMake 4.3.3</a>
+    <span class="reldelim1"> &#187;</span>
+  </li>
+  <li>
+    <a href="../index.html">文件</a> &#187;
+  </li>
+
+        <li class="nav-item nav-item-this"><a href="">cmake-建置系統(7)</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+    &#169; 著作權 2000-2026 Kitware, Inc. and Contributors.
+      使用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3 建立。
+    </div>
+<script type="text/javascript">
+(function() {
+  "use strict";
+  const hide = () => document.getElementById("sidebar-check").checked = false;
+  addEventListener("keydown", e => (e.key === "Escape") && hide());
+  addEventListener("click", e => (e.target.tagName === "A") && hide());
+  addEventListener("hashchange", hide)
+})();
+</script>
+  </body>
+</html>
