@@ -1,0 +1,252 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2000-2025 Kitware, Inc. and Contributors
+# This file is distributed under the same license as the CMake package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CMake latest\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-12-02 08:30+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: ru_RU\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../guide/tutorial/Miscellaneous Features.rst:2
+msgid "Step 11: Miscellaneous Features"
+msgstr ""
+
+#: ../../../guide/tutorial/Miscellaneous Features.rst:4
+msgid ""
+"Some features don't fit well or aren't important enough to receive attention "
+"in the main tutorial, but deserve mention. These exercises collect some of "
+"those features. They should be considered \"bonuses\"."
+msgstr ""
+
+#: ../../../guide/tutorial/Miscellaneous Features.rst:8
+msgid ""
+"There are many CMake features that are not covered by the tutorial, some of "
+"which are considered essential to the projects which use them. Others are in "
+"common use by packagers but see little discussion among software developers "
+"producing local builds."
+msgstr ""
+
+#: ../../../guide/tutorial/Miscellaneous Features.rst:13
+msgid ""
+"This list is not an exhaustive discussion of what remains of CMake's "
+"capabilities. It may grow or shrink with time and relevance."
+msgstr ""
+
+#: ../../../guide/tutorial/Miscellaneous Features.rst:17
+msgid "Exercise 1: Target Aliases"
+msgstr ""
+
+#: ../../../guide/tutorial/Miscellaneous Features.rst:19
+msgid ""
+"This tutorial focuses on installing dependencies and consuming them from an "
+"install tree. It also recommends the use of package managers to facilitate "
+"this process. However, for a variety of reasons both historical and "
+"contemporary this is not always how CMake projects are consumed."
+msgstr ""
+
+#: ../../../guide/tutorial/Miscellaneous Features.rst:24
+msgid ""
+"It is possible to vendor a dependency's source code entirely in a parent "
+"project and consume it with :command:`add_subdirectory`. When performed, the "
+"target names exposed are those used within the project, not those exported "
+"via :command:`install(EXPORT)`. The target names will not have the namespace "
+"string that command prefixes to targets."
+msgstr ""
+
+#: ../../../guide/tutorial/Miscellaneous Features.rst:30
+msgid ""
+"Some projects wish to support this workflow with an interface consistent "
+"with the one presented to :command:`find_package` consumers. CMake supports "
+"this via :command:`add_library(ALIAS)` and :command:`add_executable(ALIAS)`."
+msgstr ""
+
+#: ../../../guide/tutorial/Miscellaneous Features.rst:34
+msgid ""
+"add_library(MyLib INTERFACE)\n"
+"add_library(MyProject::MyLib ALIAS MyLib)"
+msgstr ""
+
+#: ../../../guide/tutorial/Miscellaneous Features.rst:40 Features.rst:124
+msgid "Goal"
+msgstr ""
+
+#: ../../../guide/tutorial/Miscellaneous Features.rst:42
+msgid "Add a library alias for the ``MathFunctions`` library."
+msgstr ""
+
+#: ../../../guide/tutorial/Miscellaneous Features.rst:45 Features.rst:130
+msgid "Helpful Resources"
+msgstr ""
+
+#: ../../../guide/tutorial/Miscellaneous Features.rst:47
+msgid ":command:`add_library`"
+msgstr ""
+
+#: ../../../guide/tutorial/Miscellaneous Features.rst:50 Features.rst:136
+msgid "Files to Edit"
+msgstr ""
+
+#: ../../../guide/tutorial/Miscellaneous Features.rst:52
+msgid "``TutorialProject/MathFunctions/CMakeLists.txt``"
+msgstr ""
+
+#: ../../../guide/tutorial/Miscellaneous Features.rst:55 Features.rst:141
+msgid "Getting Started"
+msgstr ""
+
+#: ../../../guide/tutorial/Miscellaneous Features.rst:57
+msgid ""
+"For this step we will only be editing the ``TutorialProject`` project in the "
+"``Step11`` folder. Complete ``TODO 1``."
+msgstr ""
+
+#: ../../../guide/tutorial/Miscellaneous Features.rst:61 Features.rst:147
+msgid "Build and Run"
+msgstr ""
+
+#: ../../../guide/tutorial/Miscellaneous Features.rst:63 Features.rst:149
+msgid ""
+"To build the project we first need configure and install ``SimpleTest``. "
+"Navigate to ``Help/guide/Step11/SimpleTest`` and run the appropriate "
+"commands."
+msgstr ""
+
+#: ../../../guide/tutorial/Miscellaneous Features.rst:66 Features.rst:152
+msgid ""
+"cmake --preset tutorial\n"
+"cmake --install build"
+msgstr ""
+
+#: ../../../guide/tutorial/Miscellaneous Features.rst:71 Features.rst:157
+msgid ""
+"Then navigate to ``Help/guide/Step11/TutorialProject`` and perform the usual "
+"build."
+msgstr ""
+
+#: ../../../guide/tutorial/Miscellaneous Features.rst:73 Features.rst:159
+msgid ""
+"cmake --preset tutorial\n"
+"cmake --build build"
+msgstr ""
+
+#: ../../../guide/tutorial/Miscellaneous Features.rst:78
+msgid "There should be no observable change in behavior from adding the alias."
+msgstr ""
+
+#: ../../../guide/tutorial/Miscellaneous Features.rst:81 Features.rst:171
+msgid "Solution"
+msgstr ""
+
+#: ../../../guide/tutorial/Miscellaneous Features.rst:83
+msgid "We add a single line to the ``MathFunctions`` CML."
+msgstr ""
+
+#: ../../../guide/tutorial/Miscellaneous Features.rst:85
+msgid "<details><summary>TODO 1 Click to show/hide answer</summary>"
+msgstr ""
+
+#: ../../../guide/tutorial/Miscellaneous Features.rst:89
+msgid "TODO 1: TutorialProject/MathFunctions/CMakeLists.txt"
+msgstr ""
+
+#: ../../../guide/tutorial/Miscellaneous Features.rst:89
+msgid "add_library(Tutorial::MathFunctions ALIAS MathFunctions)\n"
+msgstr ""
+
+#: ../../../guide/tutorial/Miscellaneous Features.rst:96 Features.rst:186
+msgid "</details>"
+msgstr ""
+
+#: ../../../guide/tutorial/Miscellaneous Features.rst:101
+msgid "Exercise 2: Generator Expressions"
+msgstr ""
+
+#: ../../../guide/tutorial/Miscellaneous Features.rst:103
+msgid ""
+":manual:`Generator expressions <cmake-generator-expressions(7)>` are a "
+"complicated domain-specific language supported in some contexts within "
+"CMake. They are most easily understood as deferred-evaluation conditionals, "
+"they express requirements where the inputs to determine the correct behavior "
+"are not known during the CMake configuration stage."
+msgstr ""
+
+#: ../../../guide/tutorial/Miscellaneous Features.rst:110
+msgid ""
+"This is where generator expressions get their name, they are evaluated when "
+"the underlying build system is being generated."
+msgstr ""
+
+#: ../../../guide/tutorial/Miscellaneous Features.rst:113
+msgid ""
+"Generator expressions were commonly used in combination with :command:"
+"`target_include_directories` to express include directory requirements "
+"across the build and install tree, but file sets have superseded this use "
+"case. Their most common applications now are in multi-config generators and "
+"intricate dependency injection systems."
+msgstr ""
+
+#: ../../../guide/tutorial/Miscellaneous Features.rst:119
+msgid ""
+"target_compile_definitions(MyApp PRIVATE \"MYAPP_BUILD_CONFIG=$<CONFIG>\")"
+msgstr ""
+
+#: ../../../guide/tutorial/Miscellaneous Features.rst:126
+msgid ""
+"Add a generator expression to ``SimpleTest`` that checks the build "
+"configuration inside a compile definition."
+msgstr ""
+
+#: ../../../guide/tutorial/Miscellaneous Features.rst:132
+msgid ":command:`target_compile_definitions`"
+msgstr ""
+
+#: ../../../guide/tutorial/Miscellaneous Features.rst:133
+msgid ":manual:`cmake-generator-expressions(7)`"
+msgstr ""
+
+#: ../../../guide/tutorial/Miscellaneous Features.rst:138
+msgid "``SimpleTest/CMakeLists.txt``"
+msgstr ""
+
+#: ../../../guide/tutorial/Miscellaneous Features.rst:143
+msgid ""
+"For this step we will only be editing the ``SimpleTest`` project in the "
+"``Step11`` folder. Complete ``TODO 2``."
+msgstr ""
+
+#: ../../../guide/tutorial/Miscellaneous Features.rst:164
+msgid ""
+"When running the ``TestMathFunctions`` binary directly, we should a message "
+"naming the build configuration used to build the executable (not necessarily "
+"the same as configuration used to configure ``SimpleTest``). On single "
+"configuration generators, the build configuration can be changed by setting :"
+"variable:`CMAKE_BUILD_TYPE`."
+msgstr ""
+
+#: ../../../guide/tutorial/Miscellaneous Features.rst:173
+msgid "We add a single line to the ``SimpleTest`` CML."
+msgstr ""
+
+#: ../../../guide/tutorial/Miscellaneous Features.rst:175
+msgid "<details><summary>TODO 2 Click to show/hide answer</summary>"
+msgstr ""
+
+#: ../../../guide/tutorial/Miscellaneous Features.rst:179
+msgid "TODO 2: SimpleTest/CMakeLists.txt"
+msgstr ""
+
+#: ../../../guide/tutorial/Miscellaneous Features.rst:179
+msgid ""
+"target_compile_definitions(SimpleTest INTERFACE "
+"\"SIMPLETEST_CONFIG=$<CONFIG>\")\n"
+msgstr ""
