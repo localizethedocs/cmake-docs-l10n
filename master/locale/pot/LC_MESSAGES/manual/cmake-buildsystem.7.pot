@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CMake master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-02 08:35+0000\n"
+"POT-Creation-Date: 2026-07-20 10:42+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2032,12 +2032,26 @@ msgstr ""
 #: ../../../manual/cmake-buildsystem.7.rst:1431
 msgid ""
 "``ALIAS`` targets are not mutable, installable or exportable.  They are "
-"entirely local to the buildsystem description.  A name can be tested for "
-"whether it is an ``ALIAS`` name by reading the :prop_tgt:`ALIASED_TARGET` "
-"property from it:"
+"entirely local to the buildsystem description."
 msgstr ""
 
-#: ../../../manual/cmake-buildsystem.7.rst:1436
+#: ../../../manual/cmake-buildsystem.7.rst:1434
+msgid ""
+"``ALIAS`` targets may be used as the operand for :command:`set_property` and "
+"similar commands used to modify properties of targets.  The :command:"
+"`install` and :command:`export` commands may also use an ``ALIAS`` target as "
+"the operand.  The commands operate on the target which the alias "
+"references.  CMake 4.4 and earlier did not allow modifying, installing, or "
+"exporting targets via an ``ALIAS``."
+msgstr ""
+
+#: ../../../manual/cmake-buildsystem.7.rst:1442
+msgid ""
+"A name can be tested for whether it is an ``ALIAS`` name by reading the :"
+"prop_tgt:`ALIASED_TARGET` property from it:"
+msgstr ""
+
+#: ../../../manual/cmake-buildsystem.7.rst:1445
 msgid ""
 "get_target_property(_aliased Upstream::lib1 ALIASED_TARGET)\n"
 "if(_aliased)\n"
@@ -2045,17 +2059,17 @@ msgid ""
 "endif()"
 msgstr ""
 
-#: ../../../manual/cmake-buildsystem.7.rst:1446
+#: ../../../manual/cmake-buildsystem.7.rst:1455
 msgid "Interface Libraries"
 msgstr ""
 
-#: ../../../manual/cmake-buildsystem.7.rst:1448
+#: ../../../manual/cmake-buildsystem.7.rst:1457
 msgid ""
 "An ``INTERFACE`` library target does not compile sources and does not "
 "produce a library artifact on disk, so it has no :prop_tgt:`LOCATION`."
 msgstr ""
 
-#: ../../../manual/cmake-buildsystem.7.rst:1451
+#: ../../../manual/cmake-buildsystem.7.rst:1460
 msgid ""
 "It may specify `usage requirements <Target Usage Requirements_>`_, "
 "`compatible interface properties <Compatible Interface Properties_>`_, and "
@@ -2066,7 +2080,7 @@ msgid ""
 "with ``INTERFACE`` libraries."
 msgstr ""
 
-#: ../../../manual/cmake-buildsystem.7.rst:1459
+#: ../../../manual/cmake-buildsystem.7.rst:1468
 msgid ""
 "Since CMake 3.19, an ``INTERFACE`` library target may optionally contain "
 "source files.  An interface library that contains source files will be "
@@ -2076,14 +2090,14 @@ msgid ""
 "interactive reading and editing."
 msgstr ""
 
-#: ../../../manual/cmake-buildsystem.7.rst:1466
+#: ../../../manual/cmake-buildsystem.7.rst:1475
 msgid ""
 "A primary use-case for ``INTERFACE`` libraries is header-only libraries. "
 "Since CMake 3.23, header files may be associated with a library by adding "
 "them to a header set using the :command:`target_sources` command:"
 msgstr ""
 
-#: ../../../manual/cmake-buildsystem.7.rst:1470
+#: ../../../manual/cmake-buildsystem.7.rst:1479
 msgid ""
 "add_library(Eigen INTERFACE)\n"
 "\n"
@@ -2097,7 +2111,7 @@ msgid ""
 "target_link_libraries(exe1 Eigen)"
 msgstr ""
 
-#: ../../../manual/cmake-buildsystem.7.rst:1483
+#: ../../../manual/cmake-buildsystem.7.rst:1492
 msgid ""
 "When we specify the ``FILE_SET`` here, the ``BASE_DIRS`` we define "
 "automatically become include directories in the usage requirements for the "
@@ -2105,13 +2119,13 @@ msgid ""
 "used when compiling, but have no effect on linking."
 msgstr ""
 
-#: ../../../manual/cmake-buildsystem.7.rst:1488
+#: ../../../manual/cmake-buildsystem.7.rst:1497
 msgid ""
 "Another use-case is to employ an entirely target-focussed design for usage "
 "requirements:"
 msgstr ""
 
-#: ../../../manual/cmake-buildsystem.7.rst:1491
+#: ../../../manual/cmake-buildsystem.7.rst:1500
 msgid ""
 "add_library(pic_on INTERFACE)\n"
 "set_property(TARGET pic_on PROPERTY INTERFACE_POSITION_INDEPENDENT_CODE ON)\n"
@@ -2128,20 +2142,20 @@ msgid ""
 "target_link_libraries(exe1 pic_on enable_rtti)"
 msgstr ""
 
-#: ../../../manual/cmake-buildsystem.7.rst:1506
+#: ../../../manual/cmake-buildsystem.7.rst:1515
 msgid ""
 "This way, the build specification of ``exe1`` is expressed entirely as "
 "linked targets, and the complexity of compiler-specific flags is "
 "encapsulated in an ``INTERFACE`` library target."
 msgstr ""
 
-#: ../../../manual/cmake-buildsystem.7.rst:1510
+#: ../../../manual/cmake-buildsystem.7.rst:1519
 msgid ""
 "``INTERFACE`` libraries may be installed and exported. We can install the "
 "default header set along with the target:"
 msgstr ""
 
-#: ../../../manual/cmake-buildsystem.7.rst:1513
+#: ../../../manual/cmake-buildsystem.7.rst:1522
 msgid ""
 "add_library(Eigen INTERFACE)\n"
 "\n"
@@ -2158,42 +2172,42 @@ msgid ""
 ")"
 msgstr ""
 
-#: ../../../manual/cmake-buildsystem.7.rst:1529
+#: ../../../manual/cmake-buildsystem.7.rst:1538
 msgid ""
 "Here, the headers defined in the header set are installed to ``include/"
 "Eigen``. The install destination automatically becomes an include directory "
 "that is a usage requirement for consumers."
 msgstr ""
 
-#: ../../../manual/cmake-buildsystem.7.rst:1534
+#: ../../../manual/cmake-buildsystem.7.rst:1543
 msgid "Properties Allowed on Interface Libraries"
 msgstr ""
 
-#: ../../../manual/cmake-buildsystem.7.rst:1536
+#: ../../../manual/cmake-buildsystem.7.rst:1545
 msgid ""
 "Since CMake 3.19, interface libraries allow setting or reading target "
 "properties with any name, just like other target kinds always have."
 msgstr ""
 
-#: ../../../manual/cmake-buildsystem.7.rst:1539
+#: ../../../manual/cmake-buildsystem.7.rst:1548
 msgid ""
 "Prior to CMake 3.19, interface libraries only allowed setting or reading "
 "target properties with a limited set of names:"
 msgstr ""
 
-#: ../../../manual/cmake-buildsystem.7.rst:1542
+#: ../../../manual/cmake-buildsystem.7.rst:1551
 msgid ""
 "Properties named with an ``INTERFACE_`` prefix, either builtin `usage "
 "requirements <Target Usage Requirements_>`_, or custom names."
 msgstr ""
 
-#: ../../../manual/cmake-buildsystem.7.rst:1545
+#: ../../../manual/cmake-buildsystem.7.rst:1554
 msgid ""
 "Built-in properties named with a ``COMPATIBLE_INTERFACE_`` prefix "
 "(`compatible interface properties <Compatible Interface Properties_>`_)."
 msgstr ""
 
-#: ../../../manual/cmake-buildsystem.7.rst:1548
+#: ../../../manual/cmake-buildsystem.7.rst:1557
 msgid ""
 "Built-in properties :prop_tgt:`NAME`, :prop_tgt:`EXPORT_NAME`, :prop_tgt:"
 "`EXPORT_PROPERTIES`, :prop_tgt:`MANUALLY_ADDED_DEPENDENCIES`, :prop_tgt:"
@@ -2201,7 +2215,7 @@ msgid ""
 "`MAP_IMPORTED_CONFIG_<CONFIG>`."
 msgstr ""
 
-#: ../../../manual/cmake-buildsystem.7.rst:1553
+#: ../../../manual/cmake-buildsystem.7.rst:1562
 msgid ""
 "Properties named with a leading underscore (``_``) or lowercase ASCII "
 "character."

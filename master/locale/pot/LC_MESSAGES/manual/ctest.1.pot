@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CMake master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-22 13:28+0000\n"
+"POT-Creation-Date: 2026-07-20 10:42+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -286,7 +286,7 @@ msgid ""
 "``ResourceSpecFile`` option of the `CTest Test Step`_."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:207 ../../../manual/ctest.1.rst:1487
+#: ../../../manual/ctest.1.rst:207 ../../../manual/ctest.1.rst:1506
 msgid ""
 "While running tests in parallel (e.g. with :ctest-option:`-j`), try not to "
 "start tests when they may cause the CPU load to pass above a given threshold."
@@ -607,8 +607,8 @@ msgid ""
 msgstr ""
 
 #: ../../../manual/ctest.1.rst:442 ../../../manual/ctest.1.rst:452
-#: ../../../manual/ctest.1.rst:1363 ../../../manual/ctest.1.rst:1416
-#: ../../../manual/ctest.1.rst:1484
+#: ../../../manual/ctest.1.rst:1382 ../../../manual/ctest.1.rst:1435
+#: ../../../manual/ctest.1.rst:1503
 msgid "See `Label and Subproject Summary`_."
 msgstr ""
 
@@ -796,11 +796,35 @@ msgid ""
 "appear first, followed by the ``<test-args>``."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:594
+#: ../../../manual/ctest.1.rst:597
+msgid ""
+"Run only tests whose build dependencies are newer than the last time the "
+"test ran."
+msgstr ""
+
+#: ../../../manual/ctest.1.rst:600
+msgid ""
+"This option tells CTest to skip tests that are already up to date with "
+"respect to their recorded build dependencies. Build dependencies include "
+"executables and targets in generator expressions as part of the test "
+"``COMMAND``, as well as the outputs of targets or files added as explicit "
+"dependencies with the ``BUILD_DEPENDS`` argument of :command:`add_test`."
+msgstr ""
+
+#: ../../../manual/ctest.1.rst:606
+msgid ""
+"A test is selected to run when any of its recorded build dependencies are "
+"newer than the test's last-run timestamp, or when the test has not been run "
+"before. Tests without any known build dependencies, including any tests not "
+"added by the :command:`add_test` command, are excluded when this argument is "
+"provided."
+msgstr ""
+
+#: ../../../manual/ctest.1.rst:613
 msgid "View Help"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:596
+#: ../../../manual/ctest.1.rst:615
 msgid ""
 "To print version details or selected pages from the CMake documentation, use "
 "one of the following options:"
@@ -1023,32 +1047,32 @@ msgid ""
 "format. |file|"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:604
+#: ../../../manual/ctest.1.rst:623
 msgid "Label Matching"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:606
+#: ../../../manual/ctest.1.rst:625
 msgid ""
 "Tests may have labels attached to them. Tests may be included or excluded "
 "from a test run by filtering on the labels. Each individual filter is a "
 "regular expression applied to the labels attached to a test."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:611
+#: ../../../manual/ctest.1.rst:630
 msgid ""
 "When :ctest-option:`-L` is used, in order for a test to be included in a "
 "test run, each regular expression must match at least one label.  Using more "
 "than one :ctest-option:`-L` option means \"match **all** of these\"."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:615
+#: ../../../manual/ctest.1.rst:634
 msgid ""
 "The :ctest-option:`-LE` option works just like :ctest-option:`-L`, but "
 "excludes tests rather than including them. A test is excluded if each "
 "regular expression matches at least one label."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:619
+#: ../../../manual/ctest.1.rst:638
 msgid ""
 "If a test has no labels attached to it, then :ctest-option:`-L` will never "
 "include that test, and :ctest-option:`-LE` will never exclude that test. As "
@@ -1056,27 +1080,27 @@ msgid ""
 "labels:"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:624
+#: ../../../manual/ctest.1.rst:643
 msgid "*test1* has labels *tuesday* and *production*"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:625
+#: ../../../manual/ctest.1.rst:644
 msgid "*test2* has labels *tuesday* and *test*"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:626
+#: ../../../manual/ctest.1.rst:645
 msgid "*test3* has labels *wednesday* and *production*"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:627
+#: ../../../manual/ctest.1.rst:646
 msgid "*test4* has label *wednesday*"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:628
+#: ../../../manual/ctest.1.rst:647
 msgid "*test5* has labels *friday* and *test*"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:630
+#: ../../../manual/ctest.1.rst:649
 msgid ""
 "Running :program:`ctest` with ``-L tuesday -L test`` will select *test2*, "
 "which has both labels. Running CTest with ``-L test`` will select *test2* "
@@ -1084,7 +1108,7 @@ msgid ""
 "expression."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:635
+#: ../../../manual/ctest.1.rst:654
 msgid ""
 "Because the matching works with regular expressions, take note that running "
 "CTest with ``-L es`` will match all five tests. To select the *tuesday* and "
@@ -1092,37 +1116,37 @@ msgid ""
 "either of them, like ``-L \"tue|wed\"``."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:643
+#: ../../../manual/ctest.1.rst:662
 msgid "Label and Subproject Summary"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:645
+#: ../../../manual/ctest.1.rst:664
 msgid ""
 "CTest prints timing summary information for each ``LABEL`` and subproject "
 "associated with the tests run. The label time summary will not include "
 "labels that are mapped to subprojects."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:649
+#: ../../../manual/ctest.1.rst:668
 msgid ""
 "Labels added dynamically during test execution are also reported in the "
 "timing summary.  See :ref:`Additional Labels`."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:653
+#: ../../../manual/ctest.1.rst:672
 msgid ""
 "When the :prop_test:`PROCESSORS` test property is set, CTest will display a "
 "weighted test timing result in label and subproject summaries. The time is "
 "reported with ``sec * proc`` instead of just ``sec``."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:657
+#: ../../../manual/ctest.1.rst:676
 msgid ""
 "The weighted time summary reported for each label or subproject ``j`` is "
 "computed as::"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:660
+#: ../../../manual/ctest.1.rst:679
 msgid ""
 "Weighted Time Summary for Label/Subproject j =\n"
 "    sum(raw_test_time[j,i] * num_processors[j,i], i=1...num_tests[j])\n"
@@ -1130,35 +1154,35 @@ msgid ""
 "for labels/subprojects j=1...total"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:665
+#: ../../../manual/ctest.1.rst:684
 msgid "where:"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:667
+#: ../../../manual/ctest.1.rst:686
 msgid ""
 "``raw_test_time[j,i]``: Wall-clock time for the ``i`` test for the ``j`` "
 "label or subproject"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:669
+#: ../../../manual/ctest.1.rst:688
 msgid ""
 "``num_processors[j,i]``: Value of the CTest :prop_test:`PROCESSORS` property "
 "for the ``i`` test for the ``j`` label or subproject"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:671
+#: ../../../manual/ctest.1.rst:690
 msgid ""
 "``num_tests[j]``: Number of tests associated with the ``j`` label or "
 "subproject"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:672
+#: ../../../manual/ctest.1.rst:691
 msgid ""
 "``total``: Total number of labels or subprojects that have at least one test "
 "run"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:674
+#: ../../../manual/ctest.1.rst:693
 msgid ""
 "Therefore, the weighted time summary for each label or subproject represents "
 "the amount of time that CTest gave to run the tests for each label or "
@@ -1166,7 +1190,7 @@ msgid ""
 "for each label or subproject when compared to other labels or subprojects."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:679
+#: ../../../manual/ctest.1.rst:698
 msgid ""
 "For example, if ``SubprojectA`` showed ``100 sec*proc`` and ``SubprojectB`` "
 "showed ``10 sec*proc``, then CTest allocated approximately 10 times the CPU/"
@@ -1177,17 +1201,17 @@ msgid ""
 "cost of the test suite for ``SubprojectB``)."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:690
+#: ../../../manual/ctest.1.rst:709
 msgid "Build and Test Mode"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:692
+#: ../../../manual/ctest.1.rst:711
 msgid ""
 "CTest provides a command-line signature to configure (i.e. run cmake on), "
 "build, and/or execute a test::"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:695
+#: ../../../manual/ctest.1.rst:714
 msgid ""
 "ctest --build-and-test <path-to-source> <path-to-build>\n"
 "      --build-generator <generator>\n"
@@ -1196,7 +1220,7 @@ msgid ""
 "      [--test-command <command> [<args>...]]"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:701
+#: ../../../manual/ctest.1.rst:720
 msgid ""
 "The configure and test steps are optional. The arguments to this command "
 "line are the source and binary directories.  The ``--build-generator`` "
@@ -1205,11 +1229,11 @@ msgid ""
 "Other options that affect this mode include:"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:709
+#: ../../../manual/ctest.1.rst:728
 msgid "Switch into the build and test mode."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:713
+#: ../../../manual/ctest.1.rst:732
 msgid ""
 "Specify a specific target to build.  The option can be given multiple times "
 "with different targets, in which case each target is built in turn. A clean "
@@ -1217,69 +1241,69 @@ msgid ""
 "noclean` option is given."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:718
+#: ../../../manual/ctest.1.rst:737
 msgid "If no ``--build-target`` is specified, the ``all`` target is built."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:722
+#: ../../../manual/ctest.1.rst:741
 msgid "Run the build without running :program:`cmake` first."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:724
+#: ../../../manual/ctest.1.rst:743
 msgid "Skip the :program:`cmake` step."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:728
+#: ../../../manual/ctest.1.rst:747
 msgid "Specify directory to run programs from."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:730
+#: ../../../manual/ctest.1.rst:749
 msgid "Directory where programs will be after it has been compiled."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:734
+#: ../../../manual/ctest.1.rst:753
 msgid "Run CMake twice."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:738
+#: ../../../manual/ctest.1.rst:757
 msgid "Specify the directory for the executable."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:742
+#: ../../../manual/ctest.1.rst:761
 msgid ""
 "Specify the generator to use. See the :manual:`cmake-generators(7)` manual."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:746
+#: ../../../manual/ctest.1.rst:765
 msgid "Specify the generator-specific platform."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:750
+#: ../../../manual/ctest.1.rst:769
 msgid "Specify the generator-specific toolset."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:754
+#: ../../../manual/ctest.1.rst:773
 msgid "Specify the name of the project to build."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:758
+#: ../../../manual/ctest.1.rst:777
 msgid ""
 "Specify the explicit make program to be used by CMake when configuring and "
 "building the project. Only applicable for :ref:`Makefile Generators` and :"
 "ref:`Ninja Generators`."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:764
+#: ../../../manual/ctest.1.rst:783
 msgid "Skip the make clean step."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:768
+#: ../../../manual/ctest.1.rst:787
 msgid ""
 "A sample executable to use to determine the configuration that should be "
 "used (e.g.  ``Debug``, ``Release``, etc.)."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:773
+#: ../../../manual/ctest.1.rst:792
 msgid ""
 "Additional options for configuring the build (i.e. for :manual:`cmake(1)`, "
 "not for the build tool).  Note that if this is specified, the ``--build-"
@@ -1287,22 +1311,22 @@ msgid ""
 "command line, with the possible exception of :ctest-option:`--test-command`."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:781
+#: ../../../manual/ctest.1.rst:800
 msgid ""
 "The command to run as the test step with the :ctest-option:`--build-and-"
 "test` option. All arguments following this keyword will be assumed to be "
 "part of the test command line, so it must be the last option given."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:788
+#: ../../../manual/ctest.1.rst:807
 msgid "The time limit in seconds."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:793
+#: ../../../manual/ctest.1.rst:812
 msgid "Dashboard Client"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:795
+#: ../../../manual/ctest.1.rst:814
 msgid ""
 "CTest can operate as a client for the `CDash`_ software quality dashboard "
 "application.  As a dashboard client, CTest performs a sequence of steps to "
@@ -1310,7 +1334,7 @@ msgid ""
 "`CDash`_ server. The command-line signature used to submit to `CDash`_ is::"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:800
+#: ../../../manual/ctest.1.rst:819
 msgid ""
 "ctest -D <dashboard>         [-- <dashboard-options>...]\n"
 "ctest -M <model> -T <action> [-- <dashboard-options>...]\n"
@@ -1318,15 +1342,15 @@ msgid ""
 "ctest -SP <script>           [-- <dashboard-options>...]"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:807
+#: ../../../manual/ctest.1.rst:826
 msgid "Options for Dashboard Client include:"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:811
+#: ../../../manual/ctest.1.rst:830
 msgid "Execute dashboard test."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:813
+#: ../../../manual/ctest.1.rst:832
 msgid ""
 "This option tells CTest to act as a CDash client and perform a dashboard "
 "test.  All tests are ``<Mode><Test>``, where ``<Mode>`` can be "
@@ -1335,29 +1359,29 @@ msgid ""
 "``Submit``."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:819
+#: ../../../manual/ctest.1.rst:838
 msgid ""
 "If ``<dashboard>`` is not one of the recognized ``<Mode><Test>`` values, "
 "this will be treated as a variable definition instead (see the :ref:"
 "`dashboard-options <Dashboard Options>` further below)."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:825
+#: ../../../manual/ctest.1.rst:844
 msgid "Sets the model for a dashboard."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:827
+#: ../../../manual/ctest.1.rst:846
 msgid ""
 "This option tells CTest to act as a CDash client where the ``<model>`` can "
 "be ``Experimental``, ``Nightly``, and ``Continuous``. Combining ``-M`` and :"
 "ctest-option:`-T` is similar to :ctest-option:`-D`."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:833
+#: ../../../manual/ctest.1.rst:852
 msgid "Sets the dashboard action to perform."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:835
+#: ../../../manual/ctest.1.rst:854
 msgid ""
 "This option tells CTest to act as a CDash client and perform some action "
 "such as ``start``, ``build``, ``test`` etc. See `Dashboard Client Steps`_ "
@@ -1365,11 +1389,11 @@ msgid ""
 "similar to :ctest-option:`-D`."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:842 ../../../manual/ctest.1.rst:852
+#: ../../../manual/ctest.1.rst:861 ../../../manual/ctest.1.rst:871
 msgid "Execute a dashboard for a configuration."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:844
+#: ../../../manual/ctest.1.rst:863
 msgid ""
 "This option tells CTest to load in a configuration script which sets a "
 "number of parameters such as the binary and source directories. Then CTest "
@@ -1378,7 +1402,7 @@ msgid ""
 "appropriate options."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:854
+#: ../../../manual/ctest.1.rst:873
 msgid ""
 "This option does the same operations as :ctest-option:`-S` but it will do "
 "them in a separate process.  This is primarily useful in cases where the "
@@ -1386,15 +1410,15 @@ msgid ""
 "environment to impact other :ctest-option:`-S` scripts."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:861
+#: ../../../manual/ctest.1.rst:880
 msgid "The available ``<dashboard-options>`` are the following:"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:867
+#: ../../../manual/ctest.1.rst:886
 msgid "Define a variable for dashboard client mode."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:869
+#: ../../../manual/ctest.1.rst:888
 msgid ""
 "Pass in variable values on the command line.  Use in conjunction with :ctest-"
 "option:`-S` to pass variable values to a dashboard script, or with :ctest-"
@@ -1403,7 +1427,7 @@ msgid ""
 "``-D`` does not match any of the known dashboard types."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:875
+#: ../../../manual/ctest.1.rst:894
 msgid ""
 "The ``<var>:<type>=<value>`` form accepts any variable name.  The simpler "
 "``<var>=<value>`` form (without a type) is accepted only for variables whose "
@@ -1412,7 +1436,7 @@ msgid ""
 "``DartConfiguration.tcl``) when using :ctest-option:`-T`."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:882
+#: ../../../manual/ctest.1.rst:901
 msgid ""
 "These definitions set CTest script variables (e.g., :variable:"
 "`CTEST_BUILD_NAME`), not CMake cache variables. To pass CMake cache "
@@ -1421,7 +1445,7 @@ msgid ""
 "`CTEST_CONFIGURE_COMMAND`."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:892
+#: ../../../manual/ctest.1.rst:911
 msgid ""
 "Specify the project source directory. When combined with :option:`-T "
 "Configure <ctest -T>`, this allows CTest to perform an initial configure "
@@ -1431,7 +1455,7 @@ msgid ""
 "if it does not yet exist."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:899
+#: ../../../manual/ctest.1.rst:918
 msgid ""
 "When a :manual:`configure preset <cmake-presets(7)>` is specified that "
 "defines a :preset:`binaryDir <configurePresets.binaryDir>`, CTest uses that "
@@ -1441,7 +1465,7 @@ msgid ""
 "<configurePresets.binaryDir>`."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:906
+#: ../../../manual/ctest.1.rst:925
 msgid ""
 "A CMake generator must also be specified. Use :option:`-D "
 "CTEST_CMAKE_GENERATOR=\\<gen\\> <ctest-dashboard -D>` to supply one, or set :"
@@ -1450,195 +1474,195 @@ msgid ""
 "generator>`."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:912
+#: ../../../manual/ctest.1.rst:931
 msgid "See the `CTest Configure Step`_ settings for more details."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:918
+#: ../../../manual/ctest.1.rst:937
 msgid ""
 "Specify the project binary (build) directory. This is an alias for :ctest-"
 "option:`--test-dir` intended for use with :ctest-dashboard-option:`--source-"
 "dir` when bootstrapping a build with :option:`-T Configure <ctest -T>`."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:925
+#: ../../../manual/ctest.1.rst:944
 msgid "Specify the group to which to submit results."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:927
+#: ../../../manual/ctest.1.rst:946
 msgid ""
 "Submit dashboard to specified group instead of the default.  By default, the "
 "dashboard is submitted to Nightly, Experimental, or Continuous group, but by "
 "specifying this option, the group can be arbitrary."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:932
+#: ../../../manual/ctest.1.rst:951
 msgid ""
 "This replaces the deprecated option ``--track``. Despite the name change its "
 "behavior is unchanged."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:937
+#: ../../../manual/ctest.1.rst:956
 msgid "Add a notes file with submission."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:939
+#: ../../../manual/ctest.1.rst:958
 msgid ""
 "This option tells CTest to include a notes file when submitting dashboard."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:944
+#: ../../../manual/ctest.1.rst:963
 msgid "``Nightly`` or ``Experimental`` starts with next day tag."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:946
+#: ../../../manual/ctest.1.rst:965
 msgid "This is useful if the build will not finish in one day."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:950
+#: ../../../manual/ctest.1.rst:969
 msgid ""
 "Submit extra ``.xml`` part files to the dashboard. See the :command:"
 "`ctest_submit` command's ``PARTS ExtraFiles`` option."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:957
+#: ../../../manual/ctest.1.rst:976
 msgid "Append HTTP header when submitting to the dashboard."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:959
+#: ../../../manual/ctest.1.rst:978
 msgid ""
 "This option will cause CTest to append the specified header when submitting "
 "to the dashboard. This option may be specified more than once."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:965
+#: ../../../manual/ctest.1.rst:984
 msgid "Submit using ``HTTP 1.0``."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:967
+#: ../../../manual/ctest.1.rst:986
 msgid ""
 "This option will force CTest to use ``HTTP 1.0`` to submit files to the "
 "dashboard, instead of ``HTTP 1.1``."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:972
+#: ../../../manual/ctest.1.rst:991
 msgid "Do not compress test output when submitting."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:974
+#: ../../../manual/ctest.1.rst:993
 msgid ""
 "This flag will turn off automatic compression of test output.  Use this to "
 "maintain compatibility with an older version of CDash which doesn't support "
 "compressed test output."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:979
+#: ../../../manual/ctest.1.rst:998
 msgid "Dashboard Client Steps"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:981
+#: ../../../manual/ctest.1.rst:1000
 msgid ""
 "CTest defines an ordered list of testing steps of which some or all may be "
 "run as a dashboard client:"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:984
+#: ../../../manual/ctest.1.rst:1003
 msgid "``Start``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:985
+#: ../../../manual/ctest.1.rst:1004
 msgid ""
 "Start a new dashboard submission to be composed of results recorded by the "
 "following steps. See the `CTest Start Step`_ section below."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:989
+#: ../../../manual/ctest.1.rst:1008
 msgid "``Update``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:990
+#: ../../../manual/ctest.1.rst:1009
 msgid ""
 "Update the source tree from its version control repository. Record the old "
 "and new versions and the list of updated source files. See the `CTest Update "
 "Step`_ section below."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:994
+#: ../../../manual/ctest.1.rst:1013
 msgid "``Configure``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:995
+#: ../../../manual/ctest.1.rst:1014
 msgid ""
 "Configure the software by running a command in the build tree. Record the "
 "configuration output log. See the `CTest Configure Step`_ section below."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:999
+#: ../../../manual/ctest.1.rst:1018
 msgid "``Build``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1000
+#: ../../../manual/ctest.1.rst:1019
 msgid ""
 "Build the software by running a command in the build tree. Record the build "
 "output log and detect warnings and errors. See the `CTest Build Step`_ "
 "section below."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1004
+#: ../../../manual/ctest.1.rst:1023
 msgid "``Test``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1005
+#: ../../../manual/ctest.1.rst:1024
 msgid ""
 "Test the software by loading a ``CTestTestfile.cmake`` from the build tree "
 "and executing the defined tests. Record the output and result of each test. "
 "See the `CTest Test Step`_ section below."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1010
+#: ../../../manual/ctest.1.rst:1029
 msgid "``Coverage``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1011
+#: ../../../manual/ctest.1.rst:1030
 msgid ""
 "Compute coverage of the source code by running a coverage analysis tool and "
 "recording its output. See the `CTest Coverage Step`_ section below."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1015
+#: ../../../manual/ctest.1.rst:1034
 msgid "``MemCheck``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1016
+#: ../../../manual/ctest.1.rst:1035
 msgid ""
 "Run the software test suite through a memory check tool. Record the test "
 "output, results, and issues reported by the tool. See the `CTest MemCheck "
 "Step`_ section below."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1020
+#: ../../../manual/ctest.1.rst:1039
 msgid "``Submit``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1021
+#: ../../../manual/ctest.1.rst:1040
 msgid ""
 "Submit results recorded from other testing steps to the software quality "
 "dashboard server. See the `CTest Submit Step`_ section below."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1026
+#: ../../../manual/ctest.1.rst:1045
 msgid "Dashboard Client Modes"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1028
+#: ../../../manual/ctest.1.rst:1047
 msgid "CTest defines three modes of operation as a dashboard client:"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1030
+#: ../../../manual/ctest.1.rst:1049
 msgid "``Nightly``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1031
+#: ../../../manual/ctest.1.rst:1050
 msgid ""
 "This mode is intended to be invoked once per day, typically at night. It "
 "enables the ``Start``, ``Update``, ``Configure``, ``Build``, ``Test``, "
@@ -1646,11 +1670,11 @@ msgid ""
 "the ``Update`` step reports no changes to the source tree."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1036
+#: ../../../manual/ctest.1.rst:1055
 msgid "``Continuous``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1037
+#: ../../../manual/ctest.1.rst:1056
 msgid ""
 "This mode is intended to be invoked repeatedly throughout the day. It "
 "enables the ``Start``, ``Update``, ``Configure``, ``Build``, ``Test``, "
@@ -1658,35 +1682,35 @@ msgid ""
 "``Update`` step if it reports no changes to the source tree."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1042
+#: ../../../manual/ctest.1.rst:1061
 msgid "``Experimental``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1043
+#: ../../../manual/ctest.1.rst:1062
 msgid ""
 "This mode is intended to be invoked by a developer to test local changes. It "
 "enables the ``Start``, ``Configure``, ``Build``, ``Test``, ``Coverage``, and "
 "``Submit`` steps by default."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1048
+#: ../../../manual/ctest.1.rst:1067
 msgid "Dashboard Client via CTest Command-Line"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1050
+#: ../../../manual/ctest.1.rst:1069
 msgid ""
 "CTest can perform testing on an already-generated build tree. Run the :"
 "program:`ctest` command with the current working directory set to the build "
 "tree and use one of these signatures::"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1054
+#: ../../../manual/ctest.1.rst:1073
 msgid ""
 "ctest -D <mode>[<step>]\n"
 "ctest -M <mode> [-T <step>]..."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1057
+#: ../../../manual/ctest.1.rst:1076
 msgid ""
 "The :ctest-dashboard-option:`--source-dir` option additionally allows the "
 "``Configure`` step to be performed on a build tree that does not yet exist, "
@@ -1694,20 +1718,20 @@ msgid ""
 "where to create it::"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1062
+#: ../../../manual/ctest.1.rst:1081
 msgid ""
 "ctest [-M <mode>] -T Configure\n"
 "    --source-dir <path-to-source> [--build-dir <path-to-build>]\n"
 "ctest --build-and-test <path-to-source> <path-to-build>"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1066
+#: ../../../manual/ctest.1.rst:1085
 msgid ""
 "The ``<mode>`` must be one of the above `Dashboard Client Modes`_, and each "
 "``<step>`` must be one of the above `Dashboard Client Steps`_."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1069
+#: ../../../manual/ctest.1.rst:1088
 msgid ""
 "CTest reads the `Dashboard Client Configuration`_ settings from a file in "
 "the build tree called either ``CTestConfiguration.ini`` or "
@@ -1715,19 +1739,19 @@ msgid ""
 "file is::"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1074
+#: ../../../manual/ctest.1.rst:1093
 msgid ""
 "# Lines starting in '#' are comments.\n"
 "# Other non-blank lines are key-value pairs.\n"
 "<setting>: <value>"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1078
+#: ../../../manual/ctest.1.rst:1097
 msgid ""
 "where ``<setting>`` is the setting name and ``<value>`` is the setting value."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1081
+#: ../../../manual/ctest.1.rst:1100
 msgid ""
 "In build trees generated by CMake, this configuration file is generated by "
 "the :module:`CTest` module if included by the project. The module uses "
@@ -1735,11 +1759,11 @@ msgid ""
 "below."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1089
+#: ../../../manual/ctest.1.rst:1108
 msgid "Dashboard Client via CTest Script"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1091
+#: ../../../manual/ctest.1.rst:1110
 msgid ""
 "CTest can perform testing driven by a :manual:`cmake-language(7)` script "
 "that creates and maintains the source and build tree as well as performing "
@@ -1748,13 +1772,13 @@ msgid ""
 "signatures::"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1097
+#: ../../../manual/ctest.1.rst:1116
 msgid ""
 "ctest -S <script>\n"
 "ctest -SP <script>"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1100
+#: ../../../manual/ctest.1.rst:1119
 msgid ""
 "The ``<script>`` file must call :ref:`CTest Commands` commands to run "
 "testing steps explicitly as documented below.  The commands obtain "
@@ -1762,27 +1786,27 @@ msgid ""
 "variables set in the script."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1106
+#: ../../../manual/ctest.1.rst:1125
 msgid "Dashboard Client Configuration"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1108
+#: ../../../manual/ctest.1.rst:1127
 msgid ""
 "The `Dashboard Client Steps`_ may be configured by named settings as "
 "documented in the following sections."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1114
+#: ../../../manual/ctest.1.rst:1133
 msgid "CTest Start Step"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1116
+#: ../../../manual/ctest.1.rst:1135
 msgid ""
 "Start a new dashboard submission to be composed of results recorded by the "
 "following steps."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1119
+#: ../../../manual/ctest.1.rst:1138
 msgid ""
 "In a `CTest Script`_, the :command:`ctest_start` command runs this step. "
 "Arguments to the command may specify some of the step settings. The command "
@@ -1790,157 +1814,157 @@ msgid ""
 "variable, if set, to initialize the source directory."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1125 ../../../manual/ctest.1.rst:1344
-#: ../../../manual/ctest.1.rst:1394 ../../../manual/ctest.1.rst:1465
-#: ../../../manual/ctest.1.rst:1545 ../../../manual/ctest.1.rst:1578
-#: ../../../manual/ctest.1.rst:1680
+#: ../../../manual/ctest.1.rst:1144 ../../../manual/ctest.1.rst:1363
+#: ../../../manual/ctest.1.rst:1413 ../../../manual/ctest.1.rst:1484
+#: ../../../manual/ctest.1.rst:1564 ../../../manual/ctest.1.rst:1597
+#: ../../../manual/ctest.1.rst:1699
 msgid "Configuration settings include:"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1127
+#: ../../../manual/ctest.1.rst:1146
 msgid "``BuildDirectory``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1128
+#: ../../../manual/ctest.1.rst:1147
 msgid "The full path to the project build tree."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1130
+#: ../../../manual/ctest.1.rst:1149
 msgid "`CTest Script`_ variable: :variable:`CTEST_BINARY_DIRECTORY`"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1131
+#: ../../../manual/ctest.1.rst:1150
 msgid ":module:`CTest` module variable: :variable:`PROJECT_BINARY_DIR`"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1133
+#: ../../../manual/ctest.1.rst:1152
 msgid "``SourceDirectory``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1134
+#: ../../../manual/ctest.1.rst:1153
 msgid "The full path to the project source tree."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1136
+#: ../../../manual/ctest.1.rst:1155
 msgid "`CTest Script`_ variable: :variable:`CTEST_SOURCE_DIRECTORY`"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1137
+#: ../../../manual/ctest.1.rst:1156
 msgid ":module:`CTest` module variable: :variable:`PROJECT_SOURCE_DIR`"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1139
+#: ../../../manual/ctest.1.rst:1158
 msgid "``CheckoutCommand``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1140
+#: ../../../manual/ctest.1.rst:1159
 msgid ""
 "Command-line to run before the start step to initialize the source "
 "directory, e.g. to perform an initial checkout from version control."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1143
+#: ../../../manual/ctest.1.rst:1162
 msgid "`CTest Script`_ variable: :variable:`CTEST_CHECKOUT_COMMAND`"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1144 ../../../manual/ctest.1.rst:1160
-#: ../../../manual/ctest.1.rst:1166 ../../../manual/ctest.1.rst:1215
-#: ../../../manual/ctest.1.rst:1221 ../../../manual/ctest.1.rst:1370
-#: ../../../manual/ctest.1.rst:1377 ../../../manual/ctest.1.rst:1384
-#: ../../../manual/ctest.1.rst:1448 ../../../manual/ctest.1.rst:1455
-#: ../../../manual/ctest.1.rst:1568 ../../../manual/ctest.1.rst:1621
-#: ../../../manual/ctest.1.rst:1813 ../../../manual/ctest.1.rst:1820
-#: ../../../manual/ctest.1.rst:1828 ../../../manual/ctest.1.rst:1836
+#: ../../../manual/ctest.1.rst:1163 ../../../manual/ctest.1.rst:1179
+#: ../../../manual/ctest.1.rst:1185 ../../../manual/ctest.1.rst:1234
+#: ../../../manual/ctest.1.rst:1240 ../../../manual/ctest.1.rst:1389
+#: ../../../manual/ctest.1.rst:1396 ../../../manual/ctest.1.rst:1403
+#: ../../../manual/ctest.1.rst:1467 ../../../manual/ctest.1.rst:1474
+#: ../../../manual/ctest.1.rst:1587 ../../../manual/ctest.1.rst:1640
+#: ../../../manual/ctest.1.rst:1832 ../../../manual/ctest.1.rst:1839
+#: ../../../manual/ctest.1.rst:1847 ../../../manual/ctest.1.rst:1855
 msgid ":module:`CTest` module variable: none"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1149
+#: ../../../manual/ctest.1.rst:1168
 msgid "CTest Update Step"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1151
+#: ../../../manual/ctest.1.rst:1170
 msgid ""
 "In a `CTest Script`_, the :command:`ctest_update` command runs this step. "
 "Arguments to the command may specify some of the step settings."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1154
+#: ../../../manual/ctest.1.rst:1173
 msgid "Configuration settings to specify the version control tool include:"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1156
+#: ../../../manual/ctest.1.rst:1175
 msgid "``BZRCommand``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1157
+#: ../../../manual/ctest.1.rst:1176
 msgid "``bzr`` command-line tool to use if source tree is managed by Bazaar."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1159
+#: ../../../manual/ctest.1.rst:1178
 msgid "`CTest Script`_ variable: :variable:`CTEST_BZR_COMMAND`"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1162
+#: ../../../manual/ctest.1.rst:1181
 msgid "``BZRUpdateOptions``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1163
+#: ../../../manual/ctest.1.rst:1182
 msgid "Command-line options to the ``BZRCommand`` when updating the source."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1165
+#: ../../../manual/ctest.1.rst:1184
 msgid "`CTest Script`_ variable: :variable:`CTEST_BZR_UPDATE_OPTIONS`"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1168
+#: ../../../manual/ctest.1.rst:1187
 msgid "``CVSCommand``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1169
+#: ../../../manual/ctest.1.rst:1188
 msgid "``cvs`` command-line tool to use if source tree is managed by CVS."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1171
+#: ../../../manual/ctest.1.rst:1190
 msgid "`CTest Script`_ variable: :variable:`CTEST_CVS_COMMAND`"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1172
+#: ../../../manual/ctest.1.rst:1191
 msgid ":module:`CTest` module variable: ``CVSCOMMAND``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1174
+#: ../../../manual/ctest.1.rst:1193
 msgid "``CVSUpdateOptions``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1175
+#: ../../../manual/ctest.1.rst:1194
 msgid "Command-line options to the ``CVSCommand`` when updating the source."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1177
+#: ../../../manual/ctest.1.rst:1196
 msgid "`CTest Script`_ variable: :variable:`CTEST_CVS_UPDATE_OPTIONS`"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1178
+#: ../../../manual/ctest.1.rst:1197
 msgid ":module:`CTest` module variable: ``CVS_UPDATE_OPTIONS``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1180
+#: ../../../manual/ctest.1.rst:1199
 msgid "``GITCommand``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1181
+#: ../../../manual/ctest.1.rst:1200
 msgid "``git`` command-line tool to use if source tree is managed by Git."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1183
+#: ../../../manual/ctest.1.rst:1202
 msgid "`CTest Script`_ variable: :variable:`CTEST_GIT_COMMAND`"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1184
+#: ../../../manual/ctest.1.rst:1203
 msgid ":module:`CTest` module variable: ``GITCOMMAND``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1186
+#: ../../../manual/ctest.1.rst:1205
 msgid ""
 "The source tree is updated by ``git fetch`` followed by ``git reset --hard`` "
 "to the ``FETCH_HEAD``.  The result is the same as ``git pull`` except that "
@@ -1948,304 +1972,304 @@ msgid ""
 "a different approach."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1191
+#: ../../../manual/ctest.1.rst:1210
 msgid "``GITInitSubmodules``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1192
+#: ../../../manual/ctest.1.rst:1211
 msgid "If set, CTest will update the repository's submodules before updating."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1194
+#: ../../../manual/ctest.1.rst:1213
 msgid "`CTest Script`_ variable: :variable:`CTEST_GIT_INIT_SUBMODULES`"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1195
+#: ../../../manual/ctest.1.rst:1214
 msgid ":module:`CTest` module variable: ``CTEST_GIT_INIT_SUBMODULES``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1197
+#: ../../../manual/ctest.1.rst:1216
 msgid "``GITUpdateCustom``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1198
+#: ../../../manual/ctest.1.rst:1217
 msgid ""
 "Specify a custom command line (as a semicolon-separated list) to run in the "
 "source tree (Git work tree) to update it instead of running the "
 "``GITCommand``."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1202
+#: ../../../manual/ctest.1.rst:1221
 msgid "`CTest Script`_ variable: :variable:`CTEST_GIT_UPDATE_CUSTOM`"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1203
+#: ../../../manual/ctest.1.rst:1222
 msgid ":module:`CTest` module variable: ``CTEST_GIT_UPDATE_CUSTOM``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1205
+#: ../../../manual/ctest.1.rst:1224
 msgid "``GITUpdateOptions``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1206
+#: ../../../manual/ctest.1.rst:1225
 msgid "Command-line options to the ``GITCommand`` when updating the source."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1208
+#: ../../../manual/ctest.1.rst:1227
 msgid "`CTest Script`_ variable: :variable:`CTEST_GIT_UPDATE_OPTIONS`"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1209
+#: ../../../manual/ctest.1.rst:1228
 msgid ":module:`CTest` module variable: ``GIT_UPDATE_OPTIONS``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1211
+#: ../../../manual/ctest.1.rst:1230
 msgid "``HGCommand``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1212
+#: ../../../manual/ctest.1.rst:1231
 msgid "``hg`` command-line tool to use if source tree is managed by Mercurial."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1214
+#: ../../../manual/ctest.1.rst:1233
 msgid "`CTest Script`_ variable: :variable:`CTEST_HG_COMMAND`"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1217
+#: ../../../manual/ctest.1.rst:1236
 msgid "``HGUpdateOptions``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1218
+#: ../../../manual/ctest.1.rst:1237
 msgid "Command-line options to the ``HGCommand`` when updating the source."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1220
+#: ../../../manual/ctest.1.rst:1239
 msgid "`CTest Script`_ variable: :variable:`CTEST_HG_UPDATE_OPTIONS`"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1223
+#: ../../../manual/ctest.1.rst:1242
 msgid "``P4Client``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1224
+#: ../../../manual/ctest.1.rst:1243
 msgid "Value of the ``-c`` option to the ``P4Command``."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1226
+#: ../../../manual/ctest.1.rst:1245
 msgid "`CTest Script`_ variable: :variable:`CTEST_P4_CLIENT`"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1227
+#: ../../../manual/ctest.1.rst:1246
 msgid ":module:`CTest` module variable: ``CTEST_P4_CLIENT``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1229
+#: ../../../manual/ctest.1.rst:1248
 msgid "``P4Command``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1230
+#: ../../../manual/ctest.1.rst:1249
 msgid "``p4`` command-line tool to use if source tree is managed by Perforce."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1232
+#: ../../../manual/ctest.1.rst:1251
 msgid "`CTest Script`_ variable: :variable:`CTEST_P4_COMMAND`"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1233
+#: ../../../manual/ctest.1.rst:1252
 msgid ":module:`CTest` module variable: ``P4COMMAND``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1235
+#: ../../../manual/ctest.1.rst:1254
 msgid "``P4Options``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1236
+#: ../../../manual/ctest.1.rst:1255
 msgid "Command-line options to the ``P4Command`` for all invocations."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1238
+#: ../../../manual/ctest.1.rst:1257
 msgid "`CTest Script`_ variable: :variable:`CTEST_P4_OPTIONS`"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1239
+#: ../../../manual/ctest.1.rst:1258
 msgid ":module:`CTest` module variable: ``CTEST_P4_OPTIONS``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1241
+#: ../../../manual/ctest.1.rst:1260
 msgid "``P4UpdateCustom``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1242
+#: ../../../manual/ctest.1.rst:1261
 msgid ""
 "Specify a custom command line (as a semicolon-separated list) to run in the "
 "source tree (Perforce tree) to update it instead of running the "
 "``P4Command``."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1246 ../../../manual/ctest.1.rst:1620
-#: ../../../manual/ctest.1.rst:1627 ../../../manual/ctest.1.rst:1634
-#: ../../../manual/ctest.1.rst:1641 ../../../manual/ctest.1.rst:1648
-#: ../../../manual/ctest.1.rst:1655 ../../../manual/ctest.1.rst:1662
-#: ../../../manual/ctest.1.rst:1669
+#: ../../../manual/ctest.1.rst:1265 ../../../manual/ctest.1.rst:1639
+#: ../../../manual/ctest.1.rst:1646 ../../../manual/ctest.1.rst:1653
+#: ../../../manual/ctest.1.rst:1660 ../../../manual/ctest.1.rst:1667
+#: ../../../manual/ctest.1.rst:1674 ../../../manual/ctest.1.rst:1681
+#: ../../../manual/ctest.1.rst:1688
 msgid "`CTest Script`_ variable: none"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1247
+#: ../../../manual/ctest.1.rst:1266
 msgid ":module:`CTest` module variable: ``CTEST_P4_UPDATE_CUSTOM``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1249
+#: ../../../manual/ctest.1.rst:1268
 msgid "``P4UpdateOptions``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1250
+#: ../../../manual/ctest.1.rst:1269
 msgid "Command-line options to the ``P4Command`` when updating the source."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1252
+#: ../../../manual/ctest.1.rst:1271
 msgid "`CTest Script`_ variable: :variable:`CTEST_P4_UPDATE_OPTIONS`"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1253
+#: ../../../manual/ctest.1.rst:1272
 msgid ":module:`CTest` module variable: ``CTEST_P4_UPDATE_OPTIONS``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1255
+#: ../../../manual/ctest.1.rst:1274
 msgid "``SVNCommand``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1256
+#: ../../../manual/ctest.1.rst:1275
 msgid ""
 "``svn`` command-line tool to use if source tree is managed by Subversion."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1258
+#: ../../../manual/ctest.1.rst:1277
 msgid "`CTest Script`_ variable: :variable:`CTEST_SVN_COMMAND`"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1259
+#: ../../../manual/ctest.1.rst:1278
 msgid ":module:`CTest` module variable: ``SVNCOMMAND``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1261
+#: ../../../manual/ctest.1.rst:1280
 msgid "``SVNOptions``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1262
+#: ../../../manual/ctest.1.rst:1281
 msgid "Command-line options to the ``SVNCommand`` for all invocations."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1264
+#: ../../../manual/ctest.1.rst:1283
 msgid "`CTest Script`_ variable: :variable:`CTEST_SVN_OPTIONS`"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1265
+#: ../../../manual/ctest.1.rst:1284
 msgid ":module:`CTest` module variable: ``CTEST_SVN_OPTIONS``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1267
+#: ../../../manual/ctest.1.rst:1286
 msgid "``SVNUpdateOptions``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1268
+#: ../../../manual/ctest.1.rst:1287
 msgid "Command-line options to the ``SVNCommand`` when updating the source."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1270
+#: ../../../manual/ctest.1.rst:1289
 msgid "`CTest Script`_ variable: :variable:`CTEST_SVN_UPDATE_OPTIONS`"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1271
+#: ../../../manual/ctest.1.rst:1290
 msgid ":module:`CTest` module variable: ``SVN_UPDATE_OPTIONS``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1273
+#: ../../../manual/ctest.1.rst:1292
 msgid "``UpdateCommand``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1274
+#: ../../../manual/ctest.1.rst:1293
 msgid ""
 "Specify the version-control command-line tool to use without detecting the "
 "VCS that manages the source tree."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1277
+#: ../../../manual/ctest.1.rst:1296
 msgid "`CTest Script`_ variable: :variable:`CTEST_UPDATE_COMMAND`"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1278
+#: ../../../manual/ctest.1.rst:1297
 msgid ""
 ":module:`CTest` module variable: ``<VCS>COMMAND`` when ``UPDATE_TYPE`` is "
 "``<vcs>``, else ``UPDATE_COMMAND``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1281
+#: ../../../manual/ctest.1.rst:1300
 msgid "``UpdateOptions``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1282
+#: ../../../manual/ctest.1.rst:1301
 msgid "Command-line options to the ``UpdateCommand``."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1284
+#: ../../../manual/ctest.1.rst:1303
 msgid "`CTest Script`_ variable: :variable:`CTEST_UPDATE_OPTIONS`"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1285
+#: ../../../manual/ctest.1.rst:1304
 msgid ""
 ":module:`CTest` module variable: ``<VCS>_UPDATE_OPTIONS`` when "
 "``UPDATE_TYPE`` is ``<vcs>``, else ``UPDATE_OPTIONS``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1288
+#: ../../../manual/ctest.1.rst:1307
 msgid "``UpdateType``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1289
+#: ../../../manual/ctest.1.rst:1308
 msgid ""
 "Specify the version-control system that manages the source tree if it cannot "
 "be detected automatically. The value may be ``bzr``, ``cvs``, ``git``, "
 "``hg``, ``p4``, or ``svn``."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1294
+#: ../../../manual/ctest.1.rst:1313
 msgid "`CTest Script`_ variable: none, detected from source tree"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1295
+#: ../../../manual/ctest.1.rst:1314
 msgid ""
 ":module:`CTest` module variable: ``UPDATE_TYPE`` if set, else "
 "``CTEST_UPDATE_TYPE``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1300
+#: ../../../manual/ctest.1.rst:1319
 msgid "``UpdateVersionOnly``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1301
+#: ../../../manual/ctest.1.rst:1320
 msgid ""
 "Specify that you want the version control update command to only discover "
 "the current version that is checked out, and not to update to a different "
 "version."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1305
+#: ../../../manual/ctest.1.rst:1324
 msgid "`CTest Script`_ variable: :variable:`CTEST_UPDATE_VERSION_ONLY`"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1306
+#: ../../../manual/ctest.1.rst:1325
 msgid ":command:`ctest_update` option: ``VERSION_ONLY``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1310
+#: ../../../manual/ctest.1.rst:1329
 msgid "``UpdateVersionOverride``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1311
+#: ../../../manual/ctest.1.rst:1330
 msgid "Specify the current version of your source tree."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1313
+#: ../../../manual/ctest.1.rst:1332
 msgid ""
 "When this variable is set to a non-empty string, CTest will report the value "
 "you specified rather than using the update command to discover the current "
@@ -2254,23 +2278,23 @@ msgid ""
 "CTest not to update the source tree to a different version."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1319
+#: ../../../manual/ctest.1.rst:1338
 msgid "`CTest Script`_ variable: :variable:`CTEST_UPDATE_VERSION_OVERRIDE`"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1320
+#: ../../../manual/ctest.1.rst:1339
 msgid ":command:`ctest_update` option: ``VERSION_OVERRIDE <version>``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1322 ../../../manual/ctest.1.rst:1614
+#: ../../../manual/ctest.1.rst:1341 ../../../manual/ctest.1.rst:1633
 msgid "Additional configuration settings include:"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1324
+#: ../../../manual/ctest.1.rst:1343
 msgid "``NightlyStartTime``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1325
+#: ../../../manual/ctest.1.rst:1344
 msgid ""
 "In the ``Nightly`` dashboard mode, specify the \"nightly start time\". With "
 "centralized version control systems (``cvs`` and ``svn``), the ``Update`` "
@@ -2279,126 +2303,126 @@ msgid ""
 "distributed version-control systems so the setting is ignored."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1332
+#: ../../../manual/ctest.1.rst:1351
 msgid "`CTest Script`_ variable: :variable:`CTEST_NIGHTLY_START_TIME`"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1333
+#: ../../../manual/ctest.1.rst:1352
 msgid ""
 ":module:`CTest` module variable: ``NIGHTLY_START_TIME`` if set, else "
 "``CTEST_NIGHTLY_START_TIME``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1339
+#: ../../../manual/ctest.1.rst:1358
 msgid "CTest Configure Step"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1341
+#: ../../../manual/ctest.1.rst:1360
 msgid ""
 "In a `CTest Script`_, the :command:`ctest_configure` command runs this step. "
 "Arguments to the command may specify some of the step settings."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1346
+#: ../../../manual/ctest.1.rst:1365
 msgid "``ConfigureCommand``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1347
+#: ../../../manual/ctest.1.rst:1366
 msgid ""
 "Command-line to launch the software configuration process. It will be "
 "executed in the location specified by the ``BuildDirectory`` setting."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1351
+#: ../../../manual/ctest.1.rst:1370
 msgid "`CTest Script`_ variable: :variable:`CTEST_CONFIGURE_COMMAND`"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1352
+#: ../../../manual/ctest.1.rst:1371
 msgid ""
 ":module:`CTest` module variable: :variable:`CMAKE_COMMAND` followed by :"
 "variable:`PROJECT_SOURCE_DIR`"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1355 ../../../manual/ctest.1.rst:1408
-#: ../../../manual/ctest.1.rst:1476
+#: ../../../manual/ctest.1.rst:1374 ../../../manual/ctest.1.rst:1427
+#: ../../../manual/ctest.1.rst:1495
 msgid "``LabelsForSubprojects``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1356 ../../../manual/ctest.1.rst:1409
-#: ../../../manual/ctest.1.rst:1477
+#: ../../../manual/ctest.1.rst:1375 ../../../manual/ctest.1.rst:1428
+#: ../../../manual/ctest.1.rst:1496
 msgid ""
 "Specify a semicolon-separated list of labels that will be treated as "
 "subprojects. This mapping will be passed on to CDash when configure, test or "
 "build results are submitted."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1360 ../../../manual/ctest.1.rst:1413
-#: ../../../manual/ctest.1.rst:1481
+#: ../../../manual/ctest.1.rst:1379 ../../../manual/ctest.1.rst:1432
+#: ../../../manual/ctest.1.rst:1500
 msgid "`CTest Script`_ variable: :variable:`CTEST_LABELS_FOR_SUBPROJECTS`"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1361 ../../../manual/ctest.1.rst:1414
-#: ../../../manual/ctest.1.rst:1482
+#: ../../../manual/ctest.1.rst:1380 ../../../manual/ctest.1.rst:1433
+#: ../../../manual/ctest.1.rst:1501
 msgid ":module:`CTest` module variable: ``CTEST_LABELS_FOR_SUBPROJECTS``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1365
+#: ../../../manual/ctest.1.rst:1384
 msgid "``CMakeGenerator``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1366
+#: ../../../manual/ctest.1.rst:1385
 msgid ""
 "The CMake generator to use for the configure step when ``ConfigureCommand`` "
 "is not set."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1369
+#: ../../../manual/ctest.1.rst:1388
 msgid "`CTest Script`_ variable: ``CTEST_CMAKE_GENERATOR``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1372
+#: ../../../manual/ctest.1.rst:1391
 msgid "``CMakeGeneratorPlatform``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1373
+#: ../../../manual/ctest.1.rst:1392
 msgid ""
 "The CMake generator platform to use for the configure step when "
 "``ConfigureCommand`` is not set."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1376
+#: ../../../manual/ctest.1.rst:1395
 msgid "`CTest Script`_ variable: ``CTEST_CMAKE_GENERATOR_PLATFORM``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1379
+#: ../../../manual/ctest.1.rst:1398
 msgid "``CMakeGeneratorToolset``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1380
+#: ../../../manual/ctest.1.rst:1399
 msgid ""
 "The CMake generator toolset to use for the configure step when "
 "``ConfigureCommand`` is not set."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1383
+#: ../../../manual/ctest.1.rst:1402
 msgid "`CTest Script`_ variable: ``CTEST_CMAKE_GENERATOR_TOOLSET``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1389
+#: ../../../manual/ctest.1.rst:1408
 msgid "CTest Build Step"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1391
+#: ../../../manual/ctest.1.rst:1410
 msgid ""
 "In a `CTest Script`_, the :command:`ctest_build` command runs this step. "
 "Arguments to the command may specify some of the step settings."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1396
+#: ../../../manual/ctest.1.rst:1415
 msgid "``DefaultCTestConfigurationType``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1397
+#: ../../../manual/ctest.1.rst:1416
 msgid ""
 "When the build system to be launched allows build-time selection of the "
 "configuration (e.g. ``Debug``, ``Release``), this specifies the default "
@@ -2408,41 +2432,41 @@ msgid ""
 "`` if it appears."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1404
+#: ../../../manual/ctest.1.rst:1423
 msgid "`CTest Script`_ variable: :variable:`CTEST_CONFIGURATION_TYPE`"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1405
+#: ../../../manual/ctest.1.rst:1424
 msgid ""
 ":module:`CTest` module variable: ``DEFAULT_CTEST_CONFIGURATION_TYPE``, "
 "initialized by the :envvar:`CMAKE_CONFIG_TYPE` environment variable"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1418
+#: ../../../manual/ctest.1.rst:1437
 msgid "``MakeCommand``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1419
+#: ../../../manual/ctest.1.rst:1438
 msgid ""
 "Command-line to launch the software build process. It will be executed in "
 "the location specified by the ``BuildDirectory`` setting."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1423
+#: ../../../manual/ctest.1.rst:1442
 msgid "`CTest Script`_ variable: :variable:`CTEST_BUILD_COMMAND`"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1424
+#: ../../../manual/ctest.1.rst:1443
 msgid ""
 ":module:`CTest` module variable: ``MAKECOMMAND``, initialized by the :"
 "command:`build_command` command"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1427
+#: ../../../manual/ctest.1.rst:1446
 msgid "``UseLaunchers``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1428
+#: ../../../manual/ctest.1.rst:1447
 msgid ""
 "For build trees generated by CMake using one of the :ref:`Makefile "
 "Generators` or the :generator:`Ninja` generator, specify whether the "
@@ -2455,126 +2479,126 @@ msgid ""
 "\"scrape\" the build output log for diagnostics."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1440
+#: ../../../manual/ctest.1.rst:1459
 msgid "`CTest Script`_ variable: :variable:`CTEST_USE_LAUNCHERS`"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1441
+#: ../../../manual/ctest.1.rst:1460
 msgid ":module:`CTest` module variable: ``CTEST_USE_LAUNCHERS``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1443
+#: ../../../manual/ctest.1.rst:1462
 msgid "``BuildFlags``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1444
+#: ../../../manual/ctest.1.rst:1463
 msgid ""
 "Additional flags to pass to the build tool when building the project. Only "
 "used when ``MakeCommand`` is not set explicitly."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1447
+#: ../../../manual/ctest.1.rst:1466
 msgid "`CTest Script`_ variable: ``CTEST_BUILD_FLAGS``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1450
+#: ../../../manual/ctest.1.rst:1469
 msgid "``BuildTarget``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1451
+#: ../../../manual/ctest.1.rst:1470
 msgid ""
 "Specify a specific target to build instead of the default target. Only used "
 "when ``MakeCommand`` is not set explicitly."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1454
+#: ../../../manual/ctest.1.rst:1473
 msgid "`CTest Script`_ variable: ``CTEST_BUILD_TARGET``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1460
+#: ../../../manual/ctest.1.rst:1479
 msgid "CTest Test Step"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1462
+#: ../../../manual/ctest.1.rst:1481
 msgid ""
 "In a `CTest Script`_, the :command:`ctest_test` command runs this step. "
 "Arguments to the command may specify some of the step settings."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1467
+#: ../../../manual/ctest.1.rst:1486
 msgid "``ResourceSpecFile``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1468
+#: ../../../manual/ctest.1.rst:1487
 msgid ""
 "Specify a :ref:`resource specification file <ctest-resource-specification-"
 "file>`."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1471
+#: ../../../manual/ctest.1.rst:1490
 msgid "`CTest Script`_ variable: :variable:`CTEST_RESOURCE_SPEC_FILE`"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1472
+#: ../../../manual/ctest.1.rst:1491
 msgid ":module:`CTest` module variable: ``CTEST_RESOURCE_SPEC_FILE``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1474
+#: ../../../manual/ctest.1.rst:1493
 msgid "See :ref:`ctest-resource-allocation` for more information."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1486
+#: ../../../manual/ctest.1.rst:1505
 msgid "``TestLoad``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1491
+#: ../../../manual/ctest.1.rst:1510
 msgid "`CTest Script`_ variable: :variable:`CTEST_TEST_LOAD`"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1492
+#: ../../../manual/ctest.1.rst:1511
 msgid ":module:`CTest` module variable: ``CTEST_TEST_LOAD``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1494
+#: ../../../manual/ctest.1.rst:1513
 msgid "``TimeOut``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1495
+#: ../../../manual/ctest.1.rst:1514
 msgid ""
 "The default timeout for each test if not specified by the :prop_test:"
 "`TIMEOUT` test property or the :ctest-option:`--timeout` flag."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1499
+#: ../../../manual/ctest.1.rst:1518
 msgid "`CTest Script`_ variable: :variable:`CTEST_TEST_TIMEOUT`"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1500
+#: ../../../manual/ctest.1.rst:1519
 msgid ":module:`CTest` module variable: ``DART_TESTING_TIMEOUT``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1504
+#: ../../../manual/ctest.1.rst:1523
 msgid "``CoverageTool``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1507
+#: ../../../manual/ctest.1.rst:1526
 msgid ""
 "Specify the tool used for collecting coverage during the running of the "
 "tests.  The tool may be one of:"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1510
+#: ../../../manual/ctest.1.rst:1529
 msgid "``LLVM-COV``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1511
+#: ../../../manual/ctest.1.rst:1530
 msgid ""
 "This value indicates the usage of Clang's source-based code coverage which "
 "\"operates on AST and preprocessor information directly\". For more "
 "information, see the `Clang Source-based Code Coverage`_ documentation."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1516
+#: ../../../manual/ctest.1.rst:1535
 msgid ""
 "CTest will run each test with the ``LLVM_PROFILE_FILE`` environment variable "
 "set to ``<directory>/<test-name>_<process-id>.profraw``, where "
@@ -2584,852 +2608,852 @@ msgid ""
 "information gathered by each test without any collisions."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1523
+#: ../../../manual/ctest.1.rst:1542
 msgid ""
 "Any existing ``<directory>/<test-name>_*.profraw`` files for a test are "
 "removed before running the test.  Any existing ``LLVM_PROFILE_FILE`` "
 "environment variable is ignored."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1527
+#: ../../../manual/ctest.1.rst:1546
 msgid ""
 "If no value is specified, no work is done and nothing is added to the "
 "environment."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1530
+#: ../../../manual/ctest.1.rst:1549
 msgid "`CTest Script`_ variable: :variable:`CTEST_TEST_COVERAGE_TOOL`"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1531
+#: ../../../manual/ctest.1.rst:1550
 msgid ":module:`CTest` module variable: :variable:`CTEST_TEST_COVERAGE_TOOL`"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1533
+#: ../../../manual/ctest.1.rst:1552
 msgid ""
 "To report extra test values to CDash, see :ref:`Additional Test "
 "Measurements`."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1540
+#: ../../../manual/ctest.1.rst:1559
 msgid "CTest Coverage Step"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1542
+#: ../../../manual/ctest.1.rst:1561
 msgid ""
 "In a `CTest Script`_, the :command:`ctest_coverage` command runs this step. "
 "Arguments to the command may specify some of the step settings."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1547
+#: ../../../manual/ctest.1.rst:1566
 msgid "``CoverageCommand``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1548
+#: ../../../manual/ctest.1.rst:1567
 msgid ""
 "Command-line tool to perform software coverage analysis. It will be executed "
 "in the location specified by the ``BuildDirectory`` setting."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1552
+#: ../../../manual/ctest.1.rst:1571
 msgid "`CTest Script`_ variable: :variable:`CTEST_COVERAGE_COMMAND`"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1553
+#: ../../../manual/ctest.1.rst:1572
 msgid ":module:`CTest` module variable: ``COVERAGE_COMMAND``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1555
+#: ../../../manual/ctest.1.rst:1574
 msgid "``CoverageExtraFlags``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1556
+#: ../../../manual/ctest.1.rst:1575
 msgid "Specify command-line options to the ``CoverageCommand`` tool."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1558
+#: ../../../manual/ctest.1.rst:1577
 msgid "`CTest Script`_ variable: :variable:`CTEST_COVERAGE_EXTRA_FLAGS`"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1559
+#: ../../../manual/ctest.1.rst:1578
 msgid ":module:`CTest` module variable: ``COVERAGE_EXTRA_FLAGS``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1561
+#: ../../../manual/ctest.1.rst:1580
 msgid "These options are the first arguments passed to ``CoverageCommand``."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1563
+#: ../../../manual/ctest.1.rst:1582
 msgid "``ExtraCoverageGlob``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1564
+#: ../../../manual/ctest.1.rst:1583
 msgid ""
 "A semicolon-separated list of glob patterns for additional source files to "
 "include in the coverage analysis."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1567
+#: ../../../manual/ctest.1.rst:1586
 msgid "`CTest Script`_ variable: :variable:`CTEST_EXTRA_COVERAGE_GLOB`"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1573
+#: ../../../manual/ctest.1.rst:1592
 msgid "CTest MemCheck Step"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1575
+#: ../../../manual/ctest.1.rst:1594
 msgid ""
 "In a `CTest Script`_, the :command:`ctest_memcheck` command runs this step. "
 "Arguments to the command may specify some of the step settings."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1580
+#: ../../../manual/ctest.1.rst:1599
 msgid "``MemoryCheckCommand``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1581
+#: ../../../manual/ctest.1.rst:1600
 msgid ""
 "Command-line tool to perform dynamic analysis.  Test command lines will be "
 "launched through this tool."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1584
+#: ../../../manual/ctest.1.rst:1603
 msgid "`CTest Script`_ variable: :variable:`CTEST_MEMORYCHECK_COMMAND`"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1585
+#: ../../../manual/ctest.1.rst:1604
 msgid ":module:`CTest` module variable: ``MEMORYCHECK_COMMAND``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1587
+#: ../../../manual/ctest.1.rst:1606
 msgid "``MemoryCheckCommandOptions``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1588
+#: ../../../manual/ctest.1.rst:1607
 msgid ""
 "Specify command-line options to the ``MemoryCheckCommand`` tool. They will "
 "be placed prior to the test command line."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1591
+#: ../../../manual/ctest.1.rst:1610
 msgid "`CTest Script`_ variable: :variable:`CTEST_MEMORYCHECK_COMMAND_OPTIONS`"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1592
+#: ../../../manual/ctest.1.rst:1611
 msgid ":module:`CTest` module variable: ``MEMORYCHECK_COMMAND_OPTIONS``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1594
+#: ../../../manual/ctest.1.rst:1613
 msgid "``MemoryCheckType``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1595
+#: ../../../manual/ctest.1.rst:1614
 msgid "Specify the type of memory checking to perform."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1597
+#: ../../../manual/ctest.1.rst:1616
 msgid "`CTest Script`_ variable: :variable:`CTEST_MEMORYCHECK_TYPE`"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1598
+#: ../../../manual/ctest.1.rst:1617
 msgid ":module:`CTest` module variable: ``MEMORYCHECK_TYPE``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1600
+#: ../../../manual/ctest.1.rst:1619
 msgid "``MemoryCheckSanitizerOptions``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1601
+#: ../../../manual/ctest.1.rst:1620
 msgid ""
 "Specify options to sanitizers when running with a sanitize-enabled build."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1603
+#: ../../../manual/ctest.1.rst:1622
 msgid ""
 "`CTest Script`_ variable: :variable:`CTEST_MEMORYCHECK_SANITIZER_OPTIONS`"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1604
+#: ../../../manual/ctest.1.rst:1623
 msgid ":module:`CTest` module variable: ``MEMORYCHECK_SANITIZER_OPTIONS``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1606
+#: ../../../manual/ctest.1.rst:1625
 msgid "``MemoryCheckSuppressionFile``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1607
+#: ../../../manual/ctest.1.rst:1626
 msgid ""
 "Specify a file containing suppression rules for the ``MemoryCheckCommand`` "
 "tool.  It will be passed with options appropriate to the tool."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1611
+#: ../../../manual/ctest.1.rst:1630
 msgid ""
 "`CTest Script`_ variable: :variable:`CTEST_MEMORYCHECK_SUPPRESSIONS_FILE`"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1612
+#: ../../../manual/ctest.1.rst:1631
 msgid ":module:`CTest` module variable: ``MEMORYCHECK_SUPPRESSIONS_FILE``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1616
+#: ../../../manual/ctest.1.rst:1635
 msgid "``BoundsCheckerCommand``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1617
+#: ../../../manual/ctest.1.rst:1636
 msgid ""
 "Specify a ``MemoryCheckCommand`` that is known to be command-line compatible "
 "with Bounds Checker."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1623
+#: ../../../manual/ctest.1.rst:1642
 msgid "``PurifyCommand``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1624
+#: ../../../manual/ctest.1.rst:1643
 msgid ""
 "Specify a ``MemoryCheckCommand`` that is known to be command-line compatible "
 "with Purify."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1628
+#: ../../../manual/ctest.1.rst:1647
 msgid ":module:`CTest` module variable: ``PURIFYCOMMAND``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1630
+#: ../../../manual/ctest.1.rst:1649
 msgid "``ValgrindCommand``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1631
+#: ../../../manual/ctest.1.rst:1650
 msgid ""
 "Specify a ``MemoryCheckCommand`` that is known to be command-line compatible "
 "with Valgrind."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1635
+#: ../../../manual/ctest.1.rst:1654
 msgid ":module:`CTest` module variable: ``VALGRIND_COMMAND``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1637
+#: ../../../manual/ctest.1.rst:1656
 msgid "``ValgrindCommandOptions``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1638
+#: ../../../manual/ctest.1.rst:1657
 msgid ""
 "Specify command-line options to the ``ValgrindCommand`` tool. They will be "
 "placed prior to the test command line."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1642
+#: ../../../manual/ctest.1.rst:1661
 msgid ":module:`CTest` module variable: ``VALGRIND_COMMAND_OPTIONS``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1644
+#: ../../../manual/ctest.1.rst:1663
 msgid "``DrMemoryCommand``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1645
+#: ../../../manual/ctest.1.rst:1664
 msgid ""
 "Specify a ``MemoryCheckCommand`` that is known to be a command-line "
 "compatible with DrMemory."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1649
+#: ../../../manual/ctest.1.rst:1668
 msgid ":module:`CTest` module variable: ``DRMEMORY_COMMAND``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1651
+#: ../../../manual/ctest.1.rst:1670
 msgid "``DrMemoryCommandOptions``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1652
+#: ../../../manual/ctest.1.rst:1671
 msgid ""
 "Specify command-line options to the ``DrMemoryCommand`` tool. They will be "
 "placed prior to the test command line."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1656
+#: ../../../manual/ctest.1.rst:1675
 msgid ":module:`CTest` module variable: ``DRMEMORY_COMMAND_OPTIONS``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1658
+#: ../../../manual/ctest.1.rst:1677
 msgid "``CudaSanitizerCommand``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1659
+#: ../../../manual/ctest.1.rst:1678
 msgid ""
 "Specify a ``MemoryCheckCommand`` that is known to be a command-line "
 "compatible with cuda-memcheck or compute-sanitizer."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1663
+#: ../../../manual/ctest.1.rst:1682
 msgid ":module:`CTest` module variable: ``CUDA_SANITIZER_COMMAND``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1665
+#: ../../../manual/ctest.1.rst:1684
 msgid "``CudaSanitizerCommandOptions``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1666
+#: ../../../manual/ctest.1.rst:1685
 msgid ""
 "Specify command-line options to the ``CudaSanitizerCommand`` tool. They will "
 "be placed prior to the test command line."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1670
+#: ../../../manual/ctest.1.rst:1689
 msgid ":module:`CTest` module variable: ``CUDA_SANITIZER_COMMAND_OPTIONS``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1675
+#: ../../../manual/ctest.1.rst:1694
 msgid "CTest Submit Step"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1677
+#: ../../../manual/ctest.1.rst:1696
 msgid ""
 "In a `CTest Script`_, the :command:`ctest_submit` command runs this step. "
 "Arguments to the command may specify some of the step settings."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1682
+#: ../../../manual/ctest.1.rst:1701
 msgid "``BuildName``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1683
+#: ../../../manual/ctest.1.rst:1702
 msgid ""
 "Describe the dashboard client platform with a short string. (Operating "
 "system, compiler, etc.)"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1686
+#: ../../../manual/ctest.1.rst:1705
 msgid "`CTest Script`_ variable: :variable:`CTEST_BUILD_NAME`"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1687
+#: ../../../manual/ctest.1.rst:1706
 msgid ":module:`CTest` module variable: ``BUILDNAME``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1689
+#: ../../../manual/ctest.1.rst:1708
 msgid "``CDashVersion``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1690 ../../../manual/ctest.1.rst:1775
-#: ../../../manual/ctest.1.rst:1781 ../../../manual/ctest.1.rst:1866
+#: ../../../manual/ctest.1.rst:1709 ../../../manual/ctest.1.rst:1794
+#: ../../../manual/ctest.1.rst:1800 ../../../manual/ctest.1.rst:1885
 msgid "Legacy option.  Not used."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1692
+#: ../../../manual/ctest.1.rst:1711
 msgid "`CTest Script`_ variable: none, detected from server"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1693
+#: ../../../manual/ctest.1.rst:1712
 msgid ":module:`CTest` module variable: ``CTEST_CDASH_VERSION``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1695
+#: ../../../manual/ctest.1.rst:1714
 msgid "``CTestSubmitRetryCount``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1696
+#: ../../../manual/ctest.1.rst:1715
 msgid "Specify a number of attempts to retry submission on network failure."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1698
+#: ../../../manual/ctest.1.rst:1717
 msgid ""
 "`CTest Script`_ variable: none, use the :command:`ctest_submit` "
 "``RETRY_COUNT`` option."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1700
+#: ../../../manual/ctest.1.rst:1719
 msgid ":module:`CTest` module variable: ``CTEST_SUBMIT_RETRY_COUNT``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1702
+#: ../../../manual/ctest.1.rst:1721
 msgid "``CTestSubmitRetryDelay``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1703
+#: ../../../manual/ctest.1.rst:1722
 msgid "Specify a delay before retrying submission on network failure."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1705
+#: ../../../manual/ctest.1.rst:1724
 msgid ""
 "`CTest Script`_ variable: none, use the :command:`ctest_submit` "
 "``RETRY_DELAY`` option."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1707
+#: ../../../manual/ctest.1.rst:1726
 msgid ":module:`CTest` module variable: ``CTEST_SUBMIT_RETRY_DELAY``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1709
+#: ../../../manual/ctest.1.rst:1728
 msgid "``CurlOptions``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1712
+#: ../../../manual/ctest.1.rst:1731
 msgid "Use ``TLSVerify`` instead."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1714
+#: ../../../manual/ctest.1.rst:1733
 msgid ""
 "Specify a semicolon-separated list of options to control the Curl library "
 "that CTest uses internally to connect to the server."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1718
+#: ../../../manual/ctest.1.rst:1737
 msgid "`CTest Script`_ variable: :variable:`CTEST_CURL_OPTIONS`"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1719
+#: ../../../manual/ctest.1.rst:1738
 msgid ":module:`CTest` module variable: ``CTEST_CURL_OPTIONS``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1721
+#: ../../../manual/ctest.1.rst:1740
 msgid "Possible options are:"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1723
+#: ../../../manual/ctest.1.rst:1742
 msgid "``CURLOPT_SSL_VERIFYPEER_OFF``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1724
+#: ../../../manual/ctest.1.rst:1743
 msgid "Disable the ``CURLOPT_SSL_VERIFYPEER`` curl option."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1726
+#: ../../../manual/ctest.1.rst:1745
 msgid "``CURLOPT_SSL_VERIFYHOST_OFF``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1727
+#: ../../../manual/ctest.1.rst:1746
 msgid "Disable the ``CURLOPT_SSL_VERIFYHOST`` curl option."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1729
+#: ../../../manual/ctest.1.rst:1748
 msgid "``DropLocation``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1730 ../../../manual/ctest.1.rst:1739
-#: ../../../manual/ctest.1.rst:1748 ../../../manual/ctest.1.rst:1757
-#: ../../../manual/ctest.1.rst:1766
+#: ../../../manual/ctest.1.rst:1749 ../../../manual/ctest.1.rst:1758
+#: ../../../manual/ctest.1.rst:1767 ../../../manual/ctest.1.rst:1776
+#: ../../../manual/ctest.1.rst:1785
 msgid ""
 "Legacy option.  When ``SubmitURL`` is not set, it is constructed from "
 "``DropMethod``, ``DropSiteUser``, ``DropSitePassword``, ``DropSite``, and "
 "``DropLocation``."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1734
+#: ../../../manual/ctest.1.rst:1753
 msgid "`CTest Script`_ variable: :variable:`CTEST_DROP_LOCATION`"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1735
+#: ../../../manual/ctest.1.rst:1754
 msgid ""
 ":module:`CTest` module variable: ``DROP_LOCATION`` if set, else "
 "``CTEST_DROP_LOCATION``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1738
+#: ../../../manual/ctest.1.rst:1757
 msgid "``DropMethod``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1743
+#: ../../../manual/ctest.1.rst:1762
 msgid "`CTest Script`_ variable: :variable:`CTEST_DROP_METHOD`"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1744
+#: ../../../manual/ctest.1.rst:1763
 msgid ""
 ":module:`CTest` module variable: ``DROP_METHOD`` if set, else "
 "``CTEST_DROP_METHOD``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1747
+#: ../../../manual/ctest.1.rst:1766
 msgid "``DropSite``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1752
+#: ../../../manual/ctest.1.rst:1771
 msgid "`CTest Script`_ variable: :variable:`CTEST_DROP_SITE`"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1753
+#: ../../../manual/ctest.1.rst:1772
 msgid ""
 ":module:`CTest` module variable: ``DROP_SITE`` if set, else "
 "``CTEST_DROP_SITE``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1756
+#: ../../../manual/ctest.1.rst:1775
 msgid "``DropSitePassword``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1761
+#: ../../../manual/ctest.1.rst:1780
 msgid "`CTest Script`_ variable: :variable:`CTEST_DROP_SITE_PASSWORD`"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1762
+#: ../../../manual/ctest.1.rst:1781
 msgid ""
 ":module:`CTest` module variable: ``DROP_SITE_PASSWORD`` if set, else "
 "``CTEST_DROP_SITE_PASSWORD``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1765
+#: ../../../manual/ctest.1.rst:1784
 msgid "``DropSiteUser``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1770
+#: ../../../manual/ctest.1.rst:1789
 msgid "`CTest Script`_ variable: :variable:`CTEST_DROP_SITE_USER`"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1771
+#: ../../../manual/ctest.1.rst:1790
 msgid ""
 ":module:`CTest` module variable: ``DROP_SITE_USER`` if set, else "
 "``CTEST_DROP_SITE_USER``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1774
+#: ../../../manual/ctest.1.rst:1793
 msgid "``IsCDash``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1777
+#: ../../../manual/ctest.1.rst:1796
 msgid "`CTest Script`_ variable: :variable:`CTEST_DROP_SITE_CDASH`"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1778
+#: ../../../manual/ctest.1.rst:1797
 msgid ":module:`CTest` module variable: ``CTEST_DROP_SITE_CDASH``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1780
+#: ../../../manual/ctest.1.rst:1799
 msgid "``ScpCommand``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1783
+#: ../../../manual/ctest.1.rst:1802
 msgid "`CTest Script`_ variable: :variable:`CTEST_SCP_COMMAND`"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1784
+#: ../../../manual/ctest.1.rst:1803
 msgid ":module:`CTest` module variable: ``SCPCOMMAND``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1786
+#: ../../../manual/ctest.1.rst:1805
 msgid "``Site``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1787
+#: ../../../manual/ctest.1.rst:1806
 msgid ""
 "Describe the dashboard client host site with a short string. (Hostname, "
 "domain, etc.)"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1790
+#: ../../../manual/ctest.1.rst:1809
 msgid "`CTest Script`_ variable: :variable:`CTEST_SITE`"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1791
+#: ../../../manual/ctest.1.rst:1810
 msgid ""
 ":module:`CTest` module variable: ``SITE``, initialized by the :command:"
 "`site_name` command"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1794
+#: ../../../manual/ctest.1.rst:1813
 msgid "``SubmitURL``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1795
+#: ../../../manual/ctest.1.rst:1814
 msgid ""
 "The ``http`` or ``https`` URL of the dashboard server to send the submission "
 "to."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1798
+#: ../../../manual/ctest.1.rst:1817
 msgid "`CTest Script`_ variable: :variable:`CTEST_SUBMIT_URL`"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1799
+#: ../../../manual/ctest.1.rst:1818
 msgid ""
 ":module:`CTest` module variable: ``SUBMIT_URL`` if set, else "
 "``CTEST_SUBMIT_URL``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1802
+#: ../../../manual/ctest.1.rst:1821
 msgid "``SubmitInactivityTimeout``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1803
+#: ../../../manual/ctest.1.rst:1822
 msgid ""
 "The time to wait for the submission after which it is canceled if not "
 "completed. Specify a zero value to disable timeout."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1806
+#: ../../../manual/ctest.1.rst:1825
 msgid "`CTest Script`_ variable: :variable:`CTEST_SUBMIT_INACTIVITY_TIMEOUT`"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1807
+#: ../../../manual/ctest.1.rst:1826
 msgid ":module:`CTest` module variable: ``CTEST_SUBMIT_INACTIVITY_TIMEOUT``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1809
+#: ../../../manual/ctest.1.rst:1828
 msgid "``NotesFiles``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1810
+#: ../../../manual/ctest.1.rst:1829
 msgid ""
 "A semicolon-separated list of notes files to upload with the submission."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1812
+#: ../../../manual/ctest.1.rst:1831
 msgid "`CTest Script`_ variable: :variable:`CTEST_NOTES_FILES`"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1815
+#: ../../../manual/ctest.1.rst:1834
 msgid "``ExtraSubmitFiles``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1816
+#: ../../../manual/ctest.1.rst:1835
 msgid ""
 "A semicolon-separated list of extra ``.xml`` files to upload with the "
 "submission."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1819
+#: ../../../manual/ctest.1.rst:1838
 msgid "`CTest Script`_ variable: :variable:`CTEST_EXTRA_SUBMIT_FILES`"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1822
+#: ../../../manual/ctest.1.rst:1841
 msgid "``SubmitParts``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1823
+#: ../../../manual/ctest.1.rst:1842
 msgid ""
 "A semicolon-separated list of part names to submit.  When set, only the "
 "named parts are submitted rather than all available parts.  Valid names are "
 "the same as the ``PARTS`` option of :command:`ctest_submit`."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1827
+#: ../../../manual/ctest.1.rst:1846
 msgid "`CTest Script`_ variable: :variable:`CTEST_SUBMIT_PARTS`"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1830
+#: ../../../manual/ctest.1.rst:1849
 msgid "``TimeLimit``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1831
+#: ../../../manual/ctest.1.rst:1850
 msgid ""
 "Maximum total time (in seconds) allowed for the entire dashboard run. CTest "
 "will not start additional steps once the remaining time drops below two "
 "minutes."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1835
+#: ../../../manual/ctest.1.rst:1854
 msgid "`CTest Script`_ variable: ``CTEST_TIME_LIMIT``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1838
+#: ../../../manual/ctest.1.rst:1857
 msgid "``TLSVersion``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1841
+#: ../../../manual/ctest.1.rst:1860
 msgid ""
 "Specify a minimum TLS version allowed when submitting to a dashboard via "
 "``https://`` URLs."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1844
+#: ../../../manual/ctest.1.rst:1863
 msgid "`CTest Script`_ variable: :variable:`CTEST_TLS_VERSION`"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1845
+#: ../../../manual/ctest.1.rst:1864
 msgid ":module:`CTest` module variable: ``CTEST_TLS_VERSION``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1847
+#: ../../../manual/ctest.1.rst:1866
 msgid ""
 "The default is TLS 1.2. Previously, no minimum version was enforced by "
 "default."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1851
+#: ../../../manual/ctest.1.rst:1870
 msgid "``TLSVerify``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1854
+#: ../../../manual/ctest.1.rst:1873
 msgid ""
 "Specify a boolean value indicating whether to verify the server certificate "
 "when submitting to a dashboard via ``https://`` URLs."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1857
+#: ../../../manual/ctest.1.rst:1876
 msgid "`CTest Script`_ variable: :variable:`CTEST_TLS_VERIFY`"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1858
+#: ../../../manual/ctest.1.rst:1877
 msgid ":module:`CTest` module variable: ``CTEST_TLS_VERIFY``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1860
+#: ../../../manual/ctest.1.rst:1879
 msgid ""
 "The default is on.  Previously, the default was off. Users may set the :"
 "envvar:`CMAKE_TLS_VERIFY` environment variable to ``0`` to restore the old "
 "default."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1865
+#: ../../../manual/ctest.1.rst:1884
 msgid "``TriggerSite``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1868
+#: ../../../manual/ctest.1.rst:1887
 msgid "`CTest Script`_ variable: :variable:`CTEST_TRIGGER_SITE`"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1869
+#: ../../../manual/ctest.1.rst:1888
 msgid ""
 ":module:`CTest` module variable: ``TRIGGER_SITE`` if set, else "
 "``CTEST_TRIGGER_SITE``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1875
+#: ../../../manual/ctest.1.rst:1894
 msgid "Show as JSON Object Model"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1879
+#: ../../../manual/ctest.1.rst:1898
 msgid ""
 "When the ``--show-only=json-v1`` command line option is given, the test "
 "information is output in JSON format.  Version 1.0 of the JSON object model "
 "is defined as follows:"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1883
+#: ../../../manual/ctest.1.rst:1902
 msgid "``kind``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1884
+#: ../../../manual/ctest.1.rst:1903
 msgid "The string \"ctestInfo\"."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1886 ../../../manual/ctest.1.rst:2096
+#: ../../../manual/ctest.1.rst:1905 ../../../manual/ctest.1.rst:2115
 msgid "``version``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1887
+#: ../../../manual/ctest.1.rst:1906
 msgid "A JSON object specifying the version components.  Its members are:"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1889
+#: ../../../manual/ctest.1.rst:1908
 msgid "``major``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1890
+#: ../../../manual/ctest.1.rst:1909
 msgid ""
 "A positive integer specifying the major version component of the JSON object "
 "model."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1892
+#: ../../../manual/ctest.1.rst:1911
 msgid "``minor``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1893
+#: ../../../manual/ctest.1.rst:1912
 msgid ""
 "A non-negative integer specifying the minor version component of the JSON "
 "object model."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1896
+#: ../../../manual/ctest.1.rst:1915
 msgid "``backtraceGraph``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1897
+#: ../../../manual/ctest.1.rst:1916
 msgid ""
 "JSON object representing backtrace information with the following members:"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1900
+#: ../../../manual/ctest.1.rst:1919
 msgid "``commands``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1901
+#: ../../../manual/ctest.1.rst:1920
 msgid "List of command names."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1902
+#: ../../../manual/ctest.1.rst:1921
 msgid "``files``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1903
+#: ../../../manual/ctest.1.rst:1922
 msgid "List of file names."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1904
+#: ../../../manual/ctest.1.rst:1923
 msgid "``nodes``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1905
+#: ../../../manual/ctest.1.rst:1924
 msgid "List of node JSON objects with members:"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1907 ../../../manual/ctest.1.rst:1935
+#: ../../../manual/ctest.1.rst:1926 ../../../manual/ctest.1.rst:1954
 msgid "``command``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1908
+#: ../../../manual/ctest.1.rst:1927
 msgid ""
 "An optional member present when the node represents a command invocation "
 "within the file.  The value is an unsigned integer 0-based index into the "
 "``commands`` member of the ``backtraceGraph``."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1911
+#: ../../../manual/ctest.1.rst:1930
 msgid "``file``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1912
+#: ../../../manual/ctest.1.rst:1931
 msgid ""
 "An unsigned integer 0-based index into the ``files`` member of the "
 "``backtraceGraph``."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1914
+#: ../../../manual/ctest.1.rst:1933
 msgid "``line``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1915
+#: ../../../manual/ctest.1.rst:1934
 msgid ""
 "An optional member present when the node represents a line within the file.  "
 "The value is an unsigned integer 1-based line number in the file where the "
 "backtrace was added."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1918
+#: ../../../manual/ctest.1.rst:1937
 msgid "``parent``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1919
+#: ../../../manual/ctest.1.rst:1938
 msgid ""
 "An optional member present when the node is not the bottom of the call "
 "stack.  The value is an unsigned integer 0-based index into the ``nodes`` "
 "member of the ``backtraceGraph`` representing the parent in the graph."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1924
+#: ../../../manual/ctest.1.rst:1943
 msgid "``tests``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1925
+#: ../../../manual/ctest.1.rst:1944
 msgid ""
 "A JSON array listing information about each test.  Each entry is a JSON "
 "object with members:"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1928 ../../../manual/ctest.1.rst:1947
+#: ../../../manual/ctest.1.rst:1947 ../../../manual/ctest.1.rst:1966
 msgid "``name``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1929
+#: ../../../manual/ctest.1.rst:1948
 msgid "Test name. This cannot be empty."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1930
+#: ../../../manual/ctest.1.rst:1949
 msgid "``config``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1931
+#: ../../../manual/ctest.1.rst:1950
 msgid ""
 "Optional field specifying the configuration for which the test will run. "
 "This will always match the :ctest-option:`-C` option specified on the :"
@@ -3437,7 +3461,7 @@ msgid ""
 "not be present."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1936
+#: ../../../manual/ctest.1.rst:1955
 msgid ""
 "Optional array where the first element is the test command and the remaining "
 "elements are the command arguments.  Normally, this field should be present "
@@ -3446,49 +3470,49 @@ msgid ""
 "missing."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1941
+#: ../../../manual/ctest.1.rst:1960
 msgid "``backtrace``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1942
+#: ../../../manual/ctest.1.rst:1961
 msgid "Index into the ``nodes`` member of the ``backtraceGraph``."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1943
+#: ../../../manual/ctest.1.rst:1962
 msgid "``properties``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1944
+#: ../../../manual/ctest.1.rst:1963
 msgid ""
 "Optional array of test properties. Each array item will be a JSON object "
 "with the following members:"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1948
+#: ../../../manual/ctest.1.rst:1967
 msgid "The name of the test property. This cannot be empty."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1949
+#: ../../../manual/ctest.1.rst:1968
 msgid "``value``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1950
+#: ../../../manual/ctest.1.rst:1969
 msgid ""
 "The property value, which can be a string, a number, a boolean, or an array "
 "of strings."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1953
+#: ../../../manual/ctest.1.rst:1972
 msgid ""
 "The JSON output format is described in machine-readable form by :download:"
 "`this JSON schema </manual/ctest/show-only-schema.json>`."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1960
+#: ../../../manual/ctest.1.rst:1979
 msgid "Resource Allocation"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1962
+#: ../../../manual/ctest.1.rst:1981
 msgid ""
 "CTest provides a mechanism for tests to specify the resources that they need "
 "in a fine-grained way, and for users to specify the resources available on "
@@ -3497,7 +3521,7 @@ msgid ""
 "prevents them from trying to claim resources that are not available."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1968
+#: ../../../manual/ctest.1.rst:1987
 msgid ""
 "When the resource allocation feature is used, CTest will not oversubscribe "
 "resources. For example, if a resource has 8 slots, CTest will not run tests "
@@ -3509,7 +3533,7 @@ msgid ""
 "reported as ``Not Run``)."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1977
+#: ../../../manual/ctest.1.rst:1996
 msgid ""
 "A common use case for this feature is for tests that require the use of a "
 "GPU. Multiple tests can simultaneously allocate memory from a GPU, but if "
@@ -3521,7 +3545,7 @@ msgid ""
 "exhaust the GPU's memory pool."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1986
+#: ../../../manual/ctest.1.rst:2005
 msgid ""
 "Please note that CTest has no concept of what a GPU is or how much memory it "
 "has. It does not have any way of communicating with a GPU to retrieve this "
@@ -3530,7 +3554,7 @@ msgid ""
 "resource-dynamically-generated-spec-file`)."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:1992
+#: ../../../manual/ctest.1.rst:2011
 msgid ""
 "CTest keeps track of a list of abstract resource types, each of which has a "
 "certain number of slots available for tests to use. Each test specifies the "
@@ -3541,23 +3565,23 @@ msgid ""
 "exclusive use of those slots for the duration of the test's process."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:2000
+#: ../../../manual/ctest.1.rst:2019
 msgid "The CTest resource allocation feature consists of at least two inputs:"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:2002
+#: ../../../manual/ctest.1.rst:2021
 msgid ""
 "The :ref:`resource specification file <ctest-resource-specification-file>`, "
 "described below, which describes the resources available on the system."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:2004
+#: ../../../manual/ctest.1.rst:2023
 msgid ""
 "The :prop_test:`RESOURCE_GROUPS` property of tests, which describes the "
 "resources required by the test."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:2007
+#: ../../../manual/ctest.1.rst:2026
 msgid ""
 "When CTest runs a test, the resources allocated to that test are passed in "
 "the form of a set of :ref:`environment variables <ctest-resource-environment-"
@@ -3565,7 +3589,7 @@ msgid ""
 "resource to connect to is left to the test writer."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:2013
+#: ../../../manual/ctest.1.rst:2032
 msgid ""
 "The :prop_test:`RESOURCE_GROUPS` property tells CTest what resources a test "
 "expects to use grouped in a way meaningful to the test.  The test itself "
@@ -3575,7 +3599,7 @@ msgid ""
 "executed."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:2019
+#: ../../../manual/ctest.1.rst:2038
 msgid ""
 "Note that even if a test specifies a :prop_test:`RESOURCE_GROUPS` property, "
 "it is still possible for that to test to run without any resource allocation "
@@ -3595,11 +3619,11 @@ msgid ""
 "properties to indicate a skipped test."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:2039
+#: ../../../manual/ctest.1.rst:2058
 msgid "Resource Specification File"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:2041
+#: ../../../manual/ctest.1.rst:2060
 msgid ""
 "The resource specification file is a JSON file which is passed to CTest in "
 "one of a number of ways. It can be specified on the command line with the :"
@@ -3609,7 +3633,7 @@ msgid ""
 "dynamically-generated-spec-file`)."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:2048
+#: ../../../manual/ctest.1.rst:2067
 msgid ""
 "If a dashboard script is used and ``RESOURCE_SPEC_FILE`` is not specified, "
 "the value of :variable:`CTEST_RESOURCE_SPEC_FILE` in the dashboard script is "
@@ -3620,13 +3644,13 @@ msgid ""
 "these are specified, no resource spec file is used."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:2055
+#: ../../../manual/ctest.1.rst:2074
 msgid ""
 "The resource specification file must be a JSON object. All examples in this "
 "document assume the following resource specification file:"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:2058
+#: ../../../manual/ctest.1.rst:2077
 msgid ""
 "{\n"
 "  \"version\": {\n"
@@ -3663,28 +3687,28 @@ msgid ""
 "}"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:2094
+#: ../../../manual/ctest.1.rst:2113
 msgid "The members are:"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:2097
+#: ../../../manual/ctest.1.rst:2116
 msgid ""
 "An object containing a ``major`` integer field and a ``minor`` integer "
 "field. Currently, the only supported version is major ``1``, minor ``0``. "
 "Any other value is an error."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:2101
+#: ../../../manual/ctest.1.rst:2120
 msgid "``local``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:2102
+#: ../../../manual/ctest.1.rst:2121
 msgid ""
 "A JSON array of resource sets present on the system.  Currently, this array "
 "is restricted to being of size 1."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:2105
+#: ../../../manual/ctest.1.rst:2124
 msgid ""
 "Each array element is a JSON object with members whose names are equal to "
 "the desired resource types, such as ``gpus``. These names must start with a "
@@ -3697,32 +3721,32 @@ msgid ""
 "``crypto_chip``.)"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:2115
+#: ../../../manual/ctest.1.rst:2134
 msgid ""
 "Please note that the names ``gpus`` and ``crypto_chips`` are just examples, "
 "and CTest does not interpret them in any way. You are free to make up any "
 "resource type you want to meet your own requirements."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:2119
+#: ../../../manual/ctest.1.rst:2138
 msgid ""
 "The value for each resource type is a JSON array consisting of JSON objects, "
 "each of which describe a specific instance of the specified resource. These "
 "objects have the following members:"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:2123
+#: ../../../manual/ctest.1.rst:2142
 msgid "``id``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:2124
+#: ../../../manual/ctest.1.rst:2143
 msgid ""
 "A string consisting of an identifier for the resource. Each character in the "
 "identifier can be a lowercase letter, a digit, or an underscore. Uppercase "
 "letters are not allowed."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:2128
+#: ../../../manual/ctest.1.rst:2147
 msgid ""
 "Identifiers must be unique within a resource type. However, they do not have "
 "to be unique across resource types. For example, it is valid to have a "
@@ -3730,18 +3754,18 @@ msgid ""
 "but not two ``gpus`` resources both named ``0``."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:2133
+#: ../../../manual/ctest.1.rst:2152
 msgid ""
 "Please note that the IDs ``0``, ``1``, ``2``, ``3``, and ``card0`` are just "
 "examples, and CTest does not interpret them in any way. You are free to make "
 "up any IDs you want to meet your own requirements."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:2137
+#: ../../../manual/ctest.1.rst:2156
 msgid "``slots``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:2138
+#: ../../../manual/ctest.1.rst:2157
 msgid ""
 "An optional unsigned number specifying the number of slots available on the "
 "resource. For example, this could be megabytes of RAM on a GPU, or "
@@ -3749,26 +3773,26 @@ msgid ""
 "specified, a default value of ``1`` is assumed."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:2143
+#: ../../../manual/ctest.1.rst:2162
 msgid ""
 "In the example file above, there are four GPUs with ID's 0 through 3. GPU 0 "
 "has 2 slots, GPU 1 has 4, GPU 2 has 2, and GPU 3 has a default of 1 slot. "
 "There is also one cryptography chip with 4 slots."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:2148
+#: ../../../manual/ctest.1.rst:2167
 msgid "``RESOURCE_GROUPS`` Property"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:2150
+#: ../../../manual/ctest.1.rst:2169
 msgid "See :prop_test:`RESOURCE_GROUPS` for a description of this property."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:2155
+#: ../../../manual/ctest.1.rst:2174
 msgid "Environment Variables"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:2157
+#: ../../../manual/ctest.1.rst:2176
 msgid ""
 "Once CTest has decided which resources to allocate to a test, it passes this "
 "information to the test executable as a series of environment variables. For "
@@ -3777,21 +3801,21 @@ msgid ""
 "crypto_chips:2``."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:2163
+#: ../../../manual/ctest.1.rst:2182
 msgid "The following variables are passed to the test process:"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:2167
+#: ../../../manual/ctest.1.rst:2186
 msgid ""
 "The total number of groups specified by the :prop_test:`RESOURCE_GROUPS` "
 "property. For example:"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:2170
+#: ../../../manual/ctest.1.rst:2189
 msgid "``CTEST_RESOURCE_GROUP_COUNT=3``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:2172
+#: ../../../manual/ctest.1.rst:2191
 msgid ""
 "This variable will only be defined if :manual:`ctest(1)` has been given a :"
 "ctest-option:`--resource-spec-file`, or if :command:`ctest_test` has been "
@@ -3799,7 +3823,7 @@ msgid ""
 "given, this variable will not be defined."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:2179
+#: ../../../manual/ctest.1.rst:2198
 msgid ""
 "The list of resource types allocated to each group, with each item separated "
 "by a comma. ``<num>`` is a number from zero to "
@@ -3807,19 +3831,19 @@ msgid ""
 "defined for each ``<num>`` in this range. For example:"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:2184
+#: ../../../manual/ctest.1.rst:2203
 msgid "``CTEST_RESOURCE_GROUP_0=gpus``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:2185
+#: ../../../manual/ctest.1.rst:2204
 msgid "``CTEST_RESOURCE_GROUP_1=gpus``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:2186
+#: ../../../manual/ctest.1.rst:2205
 msgid "``CTEST_RESOURCE_GROUP_2=crypto_chips,gpus``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:2190
+#: ../../../manual/ctest.1.rst:2209
 msgid ""
 "The list of resource IDs and number of slots from each ID allocated to each "
 "group for a given resource type. This variable consists of a series of "
@@ -3830,30 +3854,30 @@ msgid ""
 "the given group. For example:"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:2198
+#: ../../../manual/ctest.1.rst:2217
 msgid "``CTEST_RESOURCE_GROUP_0_GPUS=id:0,slots:2``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:2199
+#: ../../../manual/ctest.1.rst:2218
 msgid "``CTEST_RESOURCE_GROUP_1_GPUS=id:2,slots:2``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:2200
+#: ../../../manual/ctest.1.rst:2219
 msgid "``CTEST_RESOURCE_GROUP_2_GPUS=id:1,slots:4;id:3,slots:1``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:2201
+#: ../../../manual/ctest.1.rst:2220
 msgid "``CTEST_RESOURCE_GROUP_2_CRYPTO_CHIPS=id:card0,slots:2``"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:2203
+#: ../../../manual/ctest.1.rst:2222
 msgid ""
 "In this example, group 0 gets 2 slots from GPU ``0``, group 1 gets 2 slots "
 "from GPU ``2``, and group 2 gets 4 slots from GPU ``1``, 1 slot from GPU "
 "``3``, and 2 slots from cryptography chip ``card0``."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:2207
+#: ../../../manual/ctest.1.rst:2226
 msgid ""
 "``<num>`` is a number from zero to ``CTEST_RESOURCE_GROUP_COUNT`` minus one. "
 "``<resource-type>`` is the name of a resource type, converted to uppercase. "
@@ -3862,7 +3886,7 @@ msgid ""
 "``CTEST_RESOURCE_GROUP_<num>``."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:2213
+#: ../../../manual/ctest.1.rst:2232
 msgid ""
 "Because some platforms have case-insensitive names for environment "
 "variables, the names of resource types may not clash in a case-insensitive "
@@ -3873,11 +3897,11 @@ msgid ""
 "``CTEST_RESOURCE_GROUP_<num>_<resource-type>`` environment variable."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:2225
+#: ../../../manual/ctest.1.rst:2244
 msgid "Dynamically-Generated Resource Specification File"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:2229
+#: ../../../manual/ctest.1.rst:2248
 msgid ""
 "A project may optionally specify a single test which will be used to "
 "dynamically generate the resource specification file that CTest will use for "
@@ -3892,11 +3916,11 @@ msgid ""
 "argument or the :variable:`CTEST_RESOURCE_SPEC_FILE` variable."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:2244
+#: ../../../manual/ctest.1.rst:2263
 msgid "Job Server Integration"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:2248
+#: ../../../manual/ctest.1.rst:2267
 msgid ""
 "On POSIX systems, when running under the context of a `Job Server`_, CTest "
 "shares its job slots.  This is independent of the :prop_test:`PROCESSORS` "
@@ -3905,27 +3929,27 @@ msgid ""
 "running each test, and returns it when the test finishes."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:2254
+#: ../../../manual/ctest.1.rst:2273
 msgid "For example, consider the ``Makefile``:"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:2256
+#: ../../../manual/ctest.1.rst:2275
 msgid ""
 "test:\n"
 "\t+ctest -j 8\n"
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:2259
+#: ../../../manual/ctest.1.rst:2278
 msgid ""
 "When invoked via ``make -j 2 test``, CTest connects to the job server, "
 "acquires a token for each test, and runs at most 2 tests concurrently."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:2262
+#: ../../../manual/ctest.1.rst:2281
 msgid "On Windows systems, job server integration is not yet implemented."
 msgstr ""
 
-#: ../../../manual/ctest.1.rst:2267
+#: ../../../manual/ctest.1.rst:2286
 msgid "See Also"
 msgstr ""
 
