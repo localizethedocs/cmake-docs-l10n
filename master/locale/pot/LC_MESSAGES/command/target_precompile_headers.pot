@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CMake master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-02 08:35+0000\n"
+"POT-Creation-Date: 2026-07-20 10:42+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -48,11 +48,16 @@ msgid ""
 "The command adds header files to the :prop_tgt:`PRECOMPILE_HEADERS` and/or :"
 "prop_tgt:`INTERFACE_PRECOMPILE_HEADERS` target properties of ``<target>``. "
 "The named ``<target>`` must have been created by a command such as :command:"
-"`add_executable` or :command:`add_library` and must not be an :ref:`ALIAS "
-"target <Alias Targets>`."
+"`add_executable` or :command:`add_library`."
 msgstr ""
 
-#: ../../../command/target_precompile_headers.rst:27
+#: ../../../command/target_precompile_headers.rst:26
+msgid ""
+"If ``<target>`` is an :ref:`Alias Target <Alias Targets>`, the command "
+"operates on the target which the alias references."
+msgstr ""
+
+#: ../../../command/target_precompile_headers.rst:30
 msgid ""
 "The ``INTERFACE``, ``PUBLIC`` and ``PRIVATE`` keywords are required to "
 "specify the :ref:`scope <Target Command Scope>` of the following arguments. "
@@ -64,7 +69,7 @@ msgid ""
 "items in the order called."
 msgstr ""
 
-#: ../../../command/target_precompile_headers.rst:35
+#: ../../../command/target_precompile_headers.rst:38
 msgid ""
 "Projects should generally avoid using ``PUBLIC`` or ``INTERFACE`` for "
 "targets that will be :command:`exported <install(EXPORT)>`, or they should "
@@ -82,7 +87,7 @@ msgid ""
 "to the interface library or not."
 msgstr ""
 
-#: ../../../command/target_precompile_headers.rst:49
+#: ../../../command/target_precompile_headers.rst:52
 msgid ""
 "The list of header files is used to generate a header file named ``cmake_pch."
 "h|xx`` which is used to generate the precompiled header file (``.pch``, ``."
@@ -91,7 +96,7 @@ msgid ""
 "so sources do not need to have ``#include \"pch.h\"``."
 msgstr ""
 
-#: ../../../command/target_precompile_headers.rst:55
+#: ../../../command/target_precompile_headers.rst:58
 msgid ""
 "Header file names specified with angle brackets (e.g. ``<unordered_map>``) "
 "or explicit double quotes (escaped for the :manual:`cmake-language(7)`, e.g. "
@@ -102,7 +107,7 @@ msgid ""
 "included by absolute path.  For example:"
 msgstr ""
 
-#: ../../../command/target_precompile_headers.rst:63
+#: ../../../command/target_precompile_headers.rst:66
 msgid ""
 "target_precompile_headers(myTarget\n"
 "  PUBLIC\n"
@@ -120,7 +125,7 @@ msgid ""
 "available expressions.  |more_see_also|"
 msgstr ""
 
-#: ../../../command/target_precompile_headers.rst:85
+#: ../../../command/target_precompile_headers.rst:88
 msgid ""
 "target_precompile_headers(mylib PRIVATE\n"
 "  \"$<$<COMPILE_LANGUAGE:CXX>:${CMAKE_CURRENT_SOURCE_DIR}/cxx_only.h>\"\n"
@@ -129,22 +134,22 @@ msgid ""
 ")"
 msgstr ""
 
-#: ../../../command/target_precompile_headers.rst:95
+#: ../../../command/target_precompile_headers.rst:98
 msgid "Reusing Precompile Headers"
 msgstr ""
 
-#: ../../../command/target_precompile_headers.rst:97
+#: ../../../command/target_precompile_headers.rst:100
 msgid ""
 "The command also supports a second signature which can be used to specify "
 "that one target reuses a precompiled header file artifact from another "
 "target instead of generating its own:"
 msgstr ""
 
-#: ../../../command/target_precompile_headers.rst:101
+#: ../../../command/target_precompile_headers.rst:104
 msgid "target_precompile_headers(<target> REUSE_FROM <other_target>)"
 msgstr ""
 
-#: ../../../command/target_precompile_headers.rst:105
+#: ../../../command/target_precompile_headers.rst:108
 msgid ""
 "This form sets the :prop_tgt:`PRECOMPILE_HEADERS_REUSE_FROM` property to "
 "``<other_target>`` and adds a dependency such that ``<target>`` will depend "
@@ -153,7 +158,7 @@ msgid ""
 "``REUSE_FROM`` form is used."
 msgstr ""
 
-#: ../../../command/target_precompile_headers.rst:113
+#: ../../../command/target_precompile_headers.rst:116
 msgid ""
 "The ``REUSE_FROM`` form requires the same set of compiler options, compiler "
 "flags and compiler definitions for both ``<target>`` and "
@@ -161,50 +166,50 @@ msgid ""
 "precompiled header file cannot be used (``-Winvalid-pch``)."
 msgstr ""
 
-#: ../../../command/target_precompile_headers.rst:119
+#: ../../../command/target_precompile_headers.rst:122
 msgid "See Also"
 msgstr ""
 
-#: ../../../command/target_precompile_headers.rst:121
+#: ../../../command/target_precompile_headers.rst:124
 msgid ""
 "To disable precompile headers for specific targets, see the :prop_tgt:"
 "`DISABLE_PRECOMPILE_HEADERS` target property."
 msgstr ""
 
-#: ../../../command/target_precompile_headers.rst:124
+#: ../../../command/target_precompile_headers.rst:127
 msgid ""
 "To prevent precompile headers from being used when compiling a specific "
 "source file, see the :prop_sf:`SKIP_PRECOMPILE_HEADERS` source file property."
 msgstr ""
 
-#: ../../../command/target_precompile_headers.rst:127
+#: ../../../command/target_precompile_headers.rst:130
 msgid ":command:`target_compile_definitions`"
 msgstr ""
 
-#: ../../../command/target_precompile_headers.rst:128
+#: ../../../command/target_precompile_headers.rst:131
 msgid ":command:`target_compile_features`"
 msgstr ""
 
-#: ../../../command/target_precompile_headers.rst:129
+#: ../../../command/target_precompile_headers.rst:132
 msgid ":command:`target_compile_options`"
 msgstr ""
 
-#: ../../../command/target_precompile_headers.rst:130
+#: ../../../command/target_precompile_headers.rst:133
 msgid ":command:`target_include_directories`"
 msgstr ""
 
-#: ../../../command/target_precompile_headers.rst:131
+#: ../../../command/target_precompile_headers.rst:134
 msgid ":command:`target_link_libraries`"
 msgstr ""
 
-#: ../../../command/target_precompile_headers.rst:132
+#: ../../../command/target_precompile_headers.rst:135
 msgid ":command:`target_link_directories`"
 msgstr ""
 
-#: ../../../command/target_precompile_headers.rst:133
+#: ../../../command/target_precompile_headers.rst:136
 msgid ":command:`target_link_options`"
 msgstr ""
 
-#: ../../../command/target_precompile_headers.rst:134
+#: ../../../command/target_precompile_headers.rst:137
 msgid ":command:`target_sources`"
 msgstr ""
