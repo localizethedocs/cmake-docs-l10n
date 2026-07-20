@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CMake 4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-01 14:57+0000\n"
+"POT-Creation-Date: 2026-07-20 11:51+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -130,25 +130,26 @@ msgstr ""
 
 #: ../../../guide/tutorial/Configuration and Cache Variables.rst:85
 msgid ""
-"$ cmake -P StickyCacheVariable.cmake\n"
+"$ cmake -B build\n"
+"...\n"
 "StickyCacheVariable: I will not change"
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:90
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:91
 msgid ""
-"Because :option:`-D <cmake -D>` flags are processed before any other "
+"Because :option:`-D <cmake -D>` flags are processed before any project "
 "commands, they take precedence for setting the value of a cache variable."
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:93
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:94
 msgid ""
-"$ cmake \\\n"
-"  -DStickyCacheVariable=\"Commandline always wins\" \\\n"
-"  -P StickyCacheVariable.cmake\n"
+"$ cmake -B build \\\n"
+"  -DStickyCacheVariable=\"Commandline always wins\"\n"
+"...\n"
 "StickyCacheVariable: Commandline always wins"
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:100
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:101
 msgid ""
 "While cache variables cannot ordinarily be changed, they can be *shadowed* "
 "by normal variables. We can observe this by :command:`set`'ing a variable to "
@@ -156,7 +157,7 @@ msgid ""
 "remove the normal variable."
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:105
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:106
 msgid ""
 "set(ShadowVariable \"In the shadows\" CACHE STRING \"\")\n"
 "set(ShadowVariable \"Hiding the cache variable\")\n"
@@ -166,18 +167,26 @@ msgid ""
 "message(\"ShadowVariable: ${ShadowVariable}\")"
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:114
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:115
 msgid ""
-"$ cmake -P ShadowVariable.cmake\n"
+"$ cmake -B build\n"
+"...\n"
 "ShadowVariable: Hiding the cache variable\n"
 "ShadowVariable: In the shadows"
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:121
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:123
+msgid ""
+":ref:`Script mode <Script Processing Mode>` operates slightly differently, "
+"only :option:`-D <cmake -D>` flags provided before the :option:`-P <cmake -"
+"P>` flag in the command are evaluated and available in the running script."
+msgstr ""
+
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:128
 msgid "Exercise 1 - Using Options"
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:123
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:130
 msgid ""
 "We can imagine a scenario where consumers really want our ``MathFunctions`` "
 "library, and the ``Tutorial`` utility is a \"take it or leave it\" add-on. "
@@ -186,24 +195,24 @@ msgid ""
 "library."
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:128
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:135
 msgid ""
 "With our knowledge of options, conditionals, and cache variables we have all "
 "the pieces we need to make this configuration available."
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:132
-#: Variables.rst:303 Variables.rst:523
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:139
+#: Variables.rst:310 Variables.rst:536
 msgid "Goal"
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:134
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:141
 msgid ""
 "Add an option named ``TUTORIAL_BUILD_UTILITIES`` to control if the "
 "``Tutorial`` binary is configured and built."
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:138
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:145
 msgid ""
 "CMake allows us to determine which targets are built after configuration. "
 "Our users could ask for the ``MathFunctions`` library alone without "
@@ -211,65 +220,65 @@ msgid ""
 "default target which builds all the other available targets."
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:143
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:150
 msgid ""
 "However, options which completely exclude targets from the configuration are "
 "convenient and popular, especially if configuring those targets involves "
 "heavy-weight steps which might take some time."
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:147
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:154
 msgid ""
 "It also simplifies :command:`install()` logic, which we'll discuss in later "
 "steps, if targets the packager is uninterested in are completely excluded."
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:151
-#: Variables.rst:310 Variables.rst:529
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:158
+#: Variables.rst:317 Variables.rst:542
 msgid "Helpful Resources"
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:153
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:160
 msgid ":command:`option`"
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:154
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:161
 msgid ":command:`if`"
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:157
-#: Variables.rst:319 Variables.rst:534
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:164
+#: Variables.rst:326 Variables.rst:547
 msgid "Files to Edit"
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:159
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:166
 msgid "``CMakeLists.txt``"
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:162
-#: Variables.rst:325 Variables.rst:539
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:169
+#: Variables.rst:332 Variables.rst:552
 msgid "Getting Started"
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:164
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:171
 msgid ""
 "The ``Help/guide/tutorial/Step3`` folder contains the complete, recommended "
 "solution to ``Step1`` and the relevant ``TODOs`` for this step. Take a "
 "minute to review and refamiliarize yourself with the ``Tutorial`` project."
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:168
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:175
 msgid ""
 "When you feel you have an understanding of the current code, start with "
 "``TODO 1`` and complete through ``TODO 2``."
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:172
-#: Variables.rst:335 Variables.rst:558
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:179
+#: Variables.rst:342 Variables.rst:571
 msgid "Build and Run"
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:174
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:181
 msgid ""
 "We can now reconfigure our project. However, this time we want to control "
 "the configuration via :option:`-D <cmake -D>` flags. We again start by "
@@ -277,33 +286,33 @@ msgid ""
 "time with our configuration options."
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:179
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:186
 msgid "cmake -B build -DTUTORIAL_BUILD_UTILITIES=OFF"
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:183
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:190
 msgid "We can now build as usual."
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:185
-#: Variables.rst:354 Variables.rst:569
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:192
+#: Variables.rst:361 Variables.rst:582
 msgid "cmake --build build"
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:189
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:196
 msgid ""
 "After the build we should observe no Tutorial executable is produced. "
 "Because cache variables are sticky even a reconfigure shouldn't change this, "
 "despite the default-``ON`` option."
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:193
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:200
 msgid ""
 "cmake -B build\n"
 "cmake --build build"
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:198
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:205
 msgid ""
 "Will not produce the Tutorial executable, the cache variables are \"locked "
 "in\". To change this we have two options. First, we can edit the file which "
@@ -312,98 +321,98 @@ msgid ""
 "cache variable."
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:203
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:210
 msgid ""
 "//Build the Tutorial executable\n"
 "TUTORIAL_BUILD_UTILITIES:BOOL=OFF"
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:208
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:215
 msgid ""
 "We can change this from ``OFF`` to ``ON``, rerun the build, and we will get "
 "our ``Tutorial`` executable."
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:212
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:219
 msgid ""
 "``CMakeCache.txt`` entries are of the form ``<Name>:<Type>=<Value>``, "
 "however the \"type\" is only a hint. All objects in CMake are strings, "
 "regardless of what the cache says."
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:216
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:223
 msgid ""
 "Alternatively, we can change the value of the cache variable on the command "
 "line, because the command line runs before ``CMakeCache.txt`` is loaded its "
 "value take precedence over those in the cache file."
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:220
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:227
 msgid ""
 "cmake -B build -DTUTORIAL_BUILD_UTILITIES=ON\n"
 "cmake --build build"
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:225
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:232
 msgid ""
 "Doing so we observe the value in ``CMakeCache.txt`` has flipped from ``OFF`` "
 "to ``ON``, and that the ``Tutorial`` executable is built."
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:229
-#: Variables.rst:359 Variables.rst:574
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:236
+#: Variables.rst:366 Variables.rst:587
 msgid "Solution"
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:231
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:238
 msgid ""
 "First we create our :command:`option` to provide our cache variable with a "
 "reasonable default value."
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:234
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:241
 msgid "<details><summary>TODO 1: Click to show/hide answer</summary>"
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:238
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:245
 msgid "TODO 1: CMakeLists.txt"
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:238
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:245
 msgid "option(TUTORIAL_BUILD_UTILITIES \"Build the Tutorial executable\" ON)\n"
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:245
-#: Variables.rst:263 Variables.rst:391 Variables.rst:416 Variables.rst:604
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:252
+#: Variables.rst:270 Variables.rst:398 Variables.rst:423 Variables.rst:617
 msgid "</details>"
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:249
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:256
 msgid ""
 "Then we can check the cache variable to conditionally enable the "
 "``Tutorial`` executable (by way of adding its subdirectory)."
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:252
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:259
 msgid "<details><summary>TODO 2: Click to show/hide answer</summary>"
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:256
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:263
 msgid "TODO 2: CMakeLists.txt"
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:256
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:263
 msgid ""
 "if(TUTORIAL_BUILD_UTILITIES)\n"
 "  add_subdirectory(Tutorial)\n"
 "endif()\n"
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:268
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:275
 msgid "Exercise 2 - ``CMAKE`` Variables"
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:270
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:277
 msgid ""
 "CMake has several important normal and cache variables provided to allow "
 "packagers to control the build. Decisions such as compilers, default flags, "
@@ -411,7 +420,7 @@ msgid ""
 "own configuration variables."
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:275
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:282
 msgid ""
 "Among the most important are language standards. As the language standard "
 "can have significant impact on the ABI presented by a given package. For "
@@ -422,14 +431,14 @@ msgid ""
 "and runtime crashes."
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:283
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:290
 msgid ""
 "Ensuring all of our targets are built under the same language standard is "
 "achieved with the :variable:`CMAKE_<LANG>_STANDARD` cache variables. For C+"
 "+, this is ``CMAKE_CXX_STANDARD``."
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:288
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:295
 msgid ""
 "Because these variables are so important, it is equally important that "
 "developers not override or shadow them in their CMLs. Shadowing :variable:"
@@ -438,121 +447,121 @@ msgid ""
 "with C++23, can lead to the aforementioned terrible, incomprehensible errors."
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:295
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:302
 msgid ""
 "Do not :command:`set` ``CMAKE_`` globals without very strong reasons for "
 "doing so. We'll discuss better methods for targets to communicate "
 "requirements like definitions and minimum standards in later steps."
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:299
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:306
 msgid ""
 "In this exercise, we'll introduce some C++20 code into our library and "
 "executable and build them with C++20 by setting the appropriate cache "
 "variable."
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:305
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:312
 msgid ""
 "Use ``std::format`` to format printed strings instead of stream operators. "
 "To ensure availability of ``std::format``, configure CMake to use the C++20 "
 "standard for C++ targets."
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:312
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:319
 msgid ":option:`cmake -D`"
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:313
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:320
 msgid ":variable:`CMAKE_<LANG>_STANDARD`"
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:314
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:321
 msgid ":variable:`CMAKE_CXX_STANDARD`"
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:315
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:322
 msgid ":prop_tgt:`CXX_STANDARD`"
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:316
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:323
 msgid ""
-"`cppreference \\<format\\> <https://en.cppreference.com/w/cpp/utility/format/"
-"format.html>`_"
+"`cppreference \\<format\\> <https://en.cppreference.com/cpp/utility/format/"
+"format>`_"
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:321
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:328
 msgid "``Tutorial/Tutorial.cxx``"
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:322
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:329
 msgid "``MathFunctions/MathFunctions.cxx``"
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:327
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:334
 msgid ""
 "Continue to edit files from ``Step3``. Complete ``TODO 3`` through ``TODO "
 "7``. We'll be modifying our prints to use ``std::format`` instead of stream "
 "operators."
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:331
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:338
 msgid ""
 "Ensure your cache variables are set such that the Tutorial executable will "
 "be built, using any of the methods discussed in the previous exercise."
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:337
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:344
 msgid ""
 "We need to reconfigure our project with the new standard, we can do this "
 "using the same method as our ``TUTORIAL_BUILD_UTILITIES`` cache variable."
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:340
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:347
 msgid "cmake -B build -DCMAKE_CXX_STANDARD=20"
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:345
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:352
 msgid ""
 "Configuration variables are, by convention, prefixed with the provider of "
 "the variable. CMake configuration variables are prefixed with ``CMAKE_``, "
 "while projects should prefix their variables with ``<PROJECT>_``."
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:349
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:356
 msgid ""
 "The tutorial configuration variables follow this convention, and are "
 "prefixed with ``TUTORIAL_``."
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:352
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:359
 msgid "Now that we've configured with C++20, we can build as usual."
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:361
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:368
 msgid "We need to include ``<format>`` and then use it."
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:363
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:370
 msgid "<details><summary>TODO 3-5: Click to show/hide answer</summary>"
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:367
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:374
 msgid "TODO 3: Tutorial/Tutorial.cxx"
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:367
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:374
 msgid ""
 "#include <format>\n"
 "#include <iostream>\n"
 "#include <string>\n"
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:374
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:381
 msgid "TODO 4: Tutorial/Tutorial.cxx"
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:374
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:381
 msgid ""
 "if (argc < 2) {\n"
 "  std::cout << std::format(\"Usage: {} number\\n\", argv[0]);\n"
@@ -560,11 +569,11 @@ msgid ""
 "}\n"
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:383
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:390
 msgid "TODO 5: Tutorial/Tutorial.cxx"
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:383
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:390
 msgid ""
 "// calculate square root\n"
 "double const outputValue = mathfunctions::sqrt(inputValue);\n"
@@ -572,29 +581,29 @@ msgid ""
 "                         outputValue);\n"
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:395
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:402
 msgid "And again for the ``MathFunctions`` library."
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:397
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:404
 msgid "<details><summary>TODO 6-7: Click to show/hide answer</summary>"
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:401
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:408
 msgid "TODO 6: MathFunctions.cxx"
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:401
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:408
 msgid ""
 "#include <format>\n"
 "#include <iostream>\n"
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:408
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:415
 msgid "TODO 7: MathFunctions.cxx"
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:408
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:415
 msgid ""
 "double delta = x - (result * result);\n"
 "result = result + 0.5 * delta / result;\n"
@@ -602,11 +611,11 @@ msgid ""
 "std::cout << std::format(\"Computing sqrt of {} to be {}\\n\", x, result);\n"
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:421
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:428
 msgid "Exercise 3 - CMakePresets.json"
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:423
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:430
 msgid ""
 "Managing these configuration values can quickly become overwhelming. In CI "
 "systems it is appropriate to record these as part of a given CI step. For "
@@ -614,7 +623,7 @@ msgid ""
 "following:"
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:428
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:435
 msgid ""
 "- name: Configure and Build\n"
 "  run: |\n"
@@ -630,14 +639,14 @@ msgid ""
 "    cmake --build build"
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:443
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:450
 msgid ""
 "When developing code locally, typing all these options even once might be "
 "error prone. If a fresh configuration is needed for any reason, doing so "
 "multiple times could be exhausting."
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:447
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:454
 msgid ""
 "There are many and varied solutions to this problem, and your choice is "
 "ultimately up to your preferences as a developer. CLI-oriented developers "
@@ -646,7 +655,7 @@ msgid ""
 "configuration."
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:453
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:460
 msgid ""
 "It would be impossible to fully enumerate every possible configuration "
 "workflow here. Instead we will explore CMake's built-in solution, known as :"
@@ -654,20 +663,20 @@ msgid ""
 "and express collections of CMake configuration options."
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:459
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:466
 msgid ""
 "Presets are capable of expressing entire CMake workflows, from "
 "configuration, through building, all the way to installing the software "
 "package."
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:463
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:470
 msgid ""
 "They are far more flexible than can we have room for here. We'll limit "
 "ourselves to using them for configuration."
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:466
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:473
 msgid ""
 "CMake Presets come in two standard files, ``CMakePresets.json``, which is "
 "intended to be a part of the project and tracked in source control; and "
@@ -675,13 +684,13 @@ msgid ""
 "and should not be tracked in source control."
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:471
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:478
 msgid ""
 "The simplest preset which would be of use to a developer does nothing more "
 "than configure variables."
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:474
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:481
 msgid ""
 "{\n"
 "  \"version\": 4,\n"
@@ -697,36 +706,44 @@ msgid ""
 "}"
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:489
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:496
 msgid "When invoking CMake, where previously we would have done:"
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:491
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:498
 msgid "cmake -B build -DEXAMPLE_FOO=Bar -DEXAMPLE_QUX=Baz"
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:495
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:502
 msgid "We can now use the preset:"
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:497
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:504
 msgid "cmake -B build --preset example-preset"
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:501
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:508
 msgid ""
 "CMake will search for files named ``CMakePresets.json`` and "
 "``CMakeUserPresets.json``, and load the named configuration from them if "
 "available."
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:506
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:513
 msgid ""
 "Command line flags can be mixed with presets. Command line flags have "
 "precedence over values found in a preset."
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:509
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:517
+msgid ""
+"On CMake 4.4 and newer, CMake can also load presets from any file specified "
+"with :option:`cmake --presets-file`. This can be useful when reusing "
+"settings across multiple projects, since it avoids having to duplicate them "
+"in separate ``CMakePresets.json`` files for each project."
+msgstr ""
+
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:522
 msgid ""
 "Presets also support limited macros, variables that can be brace-expanded "
 "inside the preset. The only one of interest to us is the ``${sourceDir}`` "
@@ -735,7 +752,7 @@ msgid ""
 "configuring the project."
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:515
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:528
 msgid ""
 "{\n"
 "  \"name\": \"example-preset\",\n"
@@ -743,65 +760,65 @@ msgid ""
 "}"
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:525
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:538
 msgid ""
 "Configure and build the tutorial using a CMake Preset instead of command "
 "line flags."
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:531
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:544
 msgid ":manual:`cmake-presets(7)`"
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:536
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:549
 msgid "``CMakePresets.json``"
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:541
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:554
 msgid ""
 "Continue to edit files from ``Step3``. Complete ``TODO 8`` and ``TODO 9``."
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:544
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:557
 msgid ""
 "``TODOs`` inside ``CMakePresets.json`` need to be *replaced*. There should "
 "be no ``TODO`` keys left inside the file when you have completed the "
 "exercise."
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:547
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:560
 msgid ""
 "You can verify the preset is working correctly by deleting the existing "
 "build folder before you configure, this will ensure you're not reusing the "
 "existing CMake Cache for configuration."
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:552
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:565
 msgid ""
 "On CMake 3.24 and newer, the same effect can be achieved by configuring "
 "with :option:`cmake --fresh`."
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:555
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:568
 msgid ""
 "All future configuration changes will be via the ``CMakePresets.json`` file."
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:560
-msgid "We can now use the preset file to manage our configuration."
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:573
+msgid "We can now use the presets file to manage our configuration."
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:562
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:575
 msgid "cmake --preset tutorial"
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:566
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:579
 msgid ""
 "Presets are capable of running the build step for us, but for this tutorial "
 "we'll continue to run the build ourselves."
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:576
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:589
 msgid ""
 "There are two changes we need to make, first we want to set the build "
 "directory (also called the \"binary directory\") to the ``build`` "
@@ -809,15 +826,15 @@ msgid ""
 "``CMAKE_CXX_STANDARD`` to ``20``."
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:581
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:594
 msgid "<details><summary>TODO 8-9: Click to show/hide answer</summary>"
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:585
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:598
 msgid "TODO 8-9: CMakePresets.json"
 msgstr ""
 
-#: ../../../guide/tutorial/Configuration and Cache Variables.rst:585
+#: ../../../guide/tutorial/Configuration and Cache Variables.rst:598
 msgid ""
 "{\n"
 "  \"version\": 4,\n"
