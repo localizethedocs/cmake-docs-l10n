@@ -38,31 +38,31 @@
 
 <div align="center">
 <a href="https://localizethedocs.zulipchat.com" title="Zulip Chat" target="_blank">
-  <img alt="Zulip Chat" src="https://img.shields.io/badge/Zulip-Chat-blue.svg?logo=zulip&style=flat&logoColor=white" />
+  <img alt="Zulip Chat" src="https://img.shields.io/badge/Zulip-Chat-blue.svg?logo=zulip&style=for-the-badge&logoColor=white" />
 </a>
 <a href="https://github.com/localizethedocs/cmake-docs-l10n/stargazers" title="GitHub Stars" target="_blank">
-  <img alt="GitHub Stars" src="https://img.shields.io/github/stars/localizethedocs/cmake-docs-l10n.svg?logo=github&style=flat&color=blue" />
+  <img alt="GitHub Stars" src="https://img.shields.io/github/stars/localizethedocs/cmake-docs-l10n.svg?logo=github&style=for-the-badge&color=blue" />
 </a>
 <a href="https://github.com/localizethedocs/cmake-docs-l10n/network/members" title="GitHub Forks" target="_blank">
-  <img alt="GitHub Forks" src="https://img.shields.io/github/forks/localizethedocs/cmake-docs-l10n.svg?logo=github&style=flat&color=blue" />
+  <img alt="GitHub Forks" src="https://img.shields.io/github/forks/localizethedocs/cmake-docs-l10n.svg?logo=github&style=for-the-badge&color=blue" />
 </a>
 <a href="https://github.com/localizethedocs/cmake-docs-l10n/graphs/contributors" title="GitHub Contributors" target="_blank">
-  <img alt="GitHub Contributors" src="https://img.shields.io/github/contributors/localizethedocs/cmake-docs-l10n.svg?logo=github&style=flat&color=blue" />
+  <img alt="GitHub Contributors" src="https://img.shields.io/github/contributors/localizethedocs/cmake-docs-l10n.svg?logo=github&style=for-the-badge&color=blue" />
 </a>
 <a href="https://github.com/localizethedocs/cmake-docs-l10n" title="GitHub Repo Size" target="_blank">
-  <img alt="GitHub Repo Size" src="https://img.shields.io/github/repo-size/localizethedocs/cmake-docs-l10n?logo=github&style=flat&color=blue" />
+  <img alt="GitHub Repo Size" src="https://img.shields.io/github/repo-size/localizethedocs/cmake-docs-l10n?logo=github&style=for-the-badge&color=blue" />
 </a>
 <a href="https://github.com/localizethedocs/cmake-docs-l10n/issues" title="GitHub Open Issues" target="_blank">
-  <img alt="GitHub Open Issues" src="https://img.shields.io/github/issues/localizethedocs/cmake-docs-l10n.svg?logo=github&style=flat&color=blue" />
+  <img alt="GitHub Open Issues" src="https://img.shields.io/github/issues/localizethedocs/cmake-docs-l10n.svg?logo=github&style=for-the-badge&color=blue" />
 </a>
 <a href="https://github.com/localizethedocs/cmake-docs-l10n/pulls" title="GitHub Open Pull Requests" target="_blank">
-  <img alt="GitHub Open Pull Requests" src="https://img.shields.io/github/issues-pr/localizethedocs/cmake-docs-l10n?logo=github&style=flat&color=blue" />
+  <img alt="GitHub Open Pull Requests" src="https://img.shields.io/github/issues-pr/localizethedocs/cmake-docs-l10n?logo=github&style=for-the-badge&color=blue" />
 </a>
 <a href="https://opensource.org/licenses/BSD-3-Clause" title="License: BSD-3-Clause" target="_blank">
-  <img alt="License: BSD-3-Clause" src="https://img.shields.io/badge/License-BSD--3--Clause-blue.svg?logo=opensourceinitiative&style=flat&logoColor=white" />
+  <img alt="License: BSD-3-Clause" src="https://img.shields.io/badge/License-BSD--3--Clause-blue.svg?logo=opensourceinitiative&style=for-the-badge&logoColor=white" />
 </a>
 <a href="http://creativecommons.org/licenses/by-sa/4.0/" title="License: CC-BY-SA-4.0" target="_blank">
-  <img alt="License: CC-BY-SA-4.0" src="https://img.shields.io/badge/License-CC--BY--SA--4.0-blue.svg?logo=creativecommons&style=flat&logoColor=white" />
+  <img alt="License: CC-BY-SA-4.0" src="https://img.shields.io/badge/License-CC--BY--SA--4.0-blue.svg?logo=creativecommons&style=for-the-badge&logoColor=white" />
 </a>
 <a href="https://gitcode.com/localizethedocs/cmake-docs-l10n/stargazers" title="GitCode GStars" target="_blank">
   <img alt="GitCode GStars" src="https://gitcode.com/localizethedocs/cmake-docs-l10n/star/badge.svg" />
@@ -176,7 +176,7 @@ The goal of this project is to translate The CMake documentation into multiple l
   <tbody>
     <tr>
       <td rowspan="1" colspan="1" align="right" style="text-align: right;">
-        <div><a href="https://github.com/localizethedocs/cmake-docs-l10n/actions/workflows/ci-sphinx-build-docs.yml" ><img alt="ci-sphinx-build-docs" src="https://img.shields.io/github/actions/workflow/status/localizethedocs/cmake-docs-l10n/ci-sphinx-build-docs.yml?logo=github&label=ci-sphinx-build-docs" /></a></div>
+        <div><a href="https://github.com/localizethedocs/cmake-docs-l10n/actions/workflows/ci-sphinx-build-docs.yml" ><img alt="ci-sphinx-build-docs" src="https://img.shields.io/github/actions/workflow/status/localizethedocs/cmake-docs-l10n/ci-sphinx-build-docs.yml?logo=github&style=for-the-badge&label=ci-sphinx-build-docs" /></a></div>
       </td>
       <td rowspan="1" colspan="1" align="left" style="text-align: left;">
         <div>Build documents by Sphinx and upload build artifacts.</div>
@@ -184,7 +184,7 @@ The goal of this project is to translate The CMake documentation into multiple l
     </tr>
     <tr>
       <td rowspan="1" colspan="1" align="right" style="text-align: right;">
-        <div><a href="https://github.com/localizethedocs/cmake-docs-l10n/actions/workflows/ci-sphinx-update-pot.yml" ><img alt="ci-sphinx-update-pot" src="https://img.shields.io/github/actions/workflow/status/localizethedocs/cmake-docs-l10n/ci-sphinx-update-pot.yml?logo=github&label=ci-sphinx-update-pot" /></a></div>
+        <div><a href="https://github.com/localizethedocs/cmake-docs-l10n/actions/workflows/ci-sphinx-update-pot.yml" ><img alt="ci-sphinx-update-pot" src="https://img.shields.io/github/actions/workflow/status/localizethedocs/cmake-docs-l10n/ci-sphinx-update-pot.yml?logo=github&style=for-the-badge&label=ci-sphinx-update-pot" /></a></div>
       </td>
       <td rowspan="1" colspan="1" align="left" style="text-align: left;">
         <div>Update <code>.pot</code> files by Sphinx with <code>gettext</code> builder.</div>
@@ -192,7 +192,7 @@ The goal of this project is to translate The CMake documentation into multiple l
     </tr>
     <tr>
       <td rowspan="1" colspan="1" align="right" style="text-align: right;">
-        <div><a href="https://github.com/localizethedocs/cmake-docs-l10n/actions/workflows/ci-gettext-update-po.yml" ><img alt="ci-gettext-update-po" src="https://img.shields.io/github/actions/workflow/status/localizethedocs/cmake-docs-l10n/ci-gettext-update-po.yml?logo=github&label=ci-gettext-update-po" /></a></div>
+        <div><a href="https://github.com/localizethedocs/cmake-docs-l10n/actions/workflows/ci-gettext-update-po.yml" ><img alt="ci-gettext-update-po" src="https://img.shields.io/github/actions/workflow/status/localizethedocs/cmake-docs-l10n/ci-gettext-update-po.yml?logo=github&style=for-the-badge&label=ci-gettext-update-po" /></a></div>
       </td>
       <td rowspan="1" colspan="1" align="left" style="text-align: left;">
         <div>Update <code>.po</code> files from <code>.pot</code> files by Gettext toolkit.</div>
@@ -200,7 +200,7 @@ The goal of this project is to translate The CMake documentation into multiple l
     </tr>
     <tr>
       <td rowspan="1" colspan="1" align="right" style="text-align: right;">
-        <div><a href="https://github.com/localizethedocs/cmake-docs-l10n/actions/workflows/ci-gettext-compendium.yml"><img alt="ci-gettext-compendium" src="https://img.shields.io/github/actions/workflow/status/localizethedocs/cmake-docs-l10n/ci-gettext-compendium.yml?logo=github&label=ci-gettext-compendium" /></a></div>
+        <div><a href="https://github.com/localizethedocs/cmake-docs-l10n/actions/workflows/ci-gettext-compendium.yml"><img alt="ci-gettext-compendium" src="https://img.shields.io/github/actions/workflow/status/localizethedocs/cmake-docs-l10n/ci-gettext-compendium.yml?logo=github&style=for-the-badge&label=ci-gettext-compendium" /></a></div>
       </td>
       <td rowspan="1" colspan="1" align="left" style="text-align: left;">
         <div>Update <code>.po</code> files from the compendium by Gettext toolkit.</div>
@@ -208,7 +208,7 @@ The goal of this project is to translate The CMake documentation into multiple l
     </tr>
     <tr>
       <td rowspan="1" colspan="1" align="right" style="text-align: right;">
-        <div><a href="https://github.com/localizethedocs/cmake-docs-l10n/actions/workflows/ci-gettext-statistics.yml"><img alt="ci-gettext-statistics" src="https://img.shields.io/github/actions/workflow/status/localizethedocs/cmake-docs-l10n/ci-gettext-statistics.yml?logo=github&label=ci-gettext-statistics" /></a></div>
+        <div><a href="https://github.com/localizethedocs/cmake-docs-l10n/actions/workflows/ci-gettext-statistics.yml"><img alt="ci-gettext-statistics" src="https://img.shields.io/github/actions/workflow/status/localizethedocs/cmake-docs-l10n/ci-gettext-statistics.yml?logo=github&style=for-the-badge&label=ci-gettext-statistics" /></a></div>
       </td>
       <td rowspan="1" colspan="1" align="left" style="text-align: left;">
         <div>Update statistics information of <code>.po</code> files by Gettext toolkit.</div>
@@ -216,7 +216,7 @@ The goal of this project is to translate The CMake documentation into multiple l
     </tr>
     <tr>
       <td rowspan="1" colspan="1" align="right" style="text-align: right;">
-        <div><a href="https://github.com/localizethedocs/cmake-docs-l10n/actions/workflows/ci-crowdin-upload-pot.yml"><img alt="ci-crowdin-upload-pot" src="https://img.shields.io/github/actions/workflow/status/localizethedocs/cmake-docs-l10n/ci-crowdin-upload-pot.yml?logo=github&label=ci-crowdin-upload-pot" /></a></div>
+        <div><a href="https://github.com/localizethedocs/cmake-docs-l10n/actions/workflows/ci-crowdin-upload-pot.yml"><img alt="ci-crowdin-upload-pot" src="https://img.shields.io/github/actions/workflow/status/localizethedocs/cmake-docs-l10n/ci-crowdin-upload-pot.yml?logo=github&style=for-the-badge&label=ci-crowdin-upload-pot" /></a></div>
       </td>
       <td rowspan="1" colspan="1" align="left" style="text-align: left;">
         <div>Upload <code>.pot</code> files to Crowdin by its CLI tool.</div>
@@ -224,7 +224,7 @@ The goal of this project is to translate The CMake documentation into multiple l
     </tr>
     <tr>
       <td rowspan="1" colspan="1" align="right" style="text-align: right;">
-        <div><a href="https://github.com/localizethedocs/cmake-docs-l10n/actions/workflows/ci-crowdin-download-po.yml"><img alt="ci-crowdin-download-po" src="https://img.shields.io/github/actions/workflow/status/localizethedocs/cmake-docs-l10n/ci-crowdin-download-po.yml?logo=github&label=ci-crowdin-download-po" /></a></div>
+        <div><a href="https://github.com/localizethedocs/cmake-docs-l10n/actions/workflows/ci-crowdin-download-po.yml"><img alt="ci-crowdin-download-po" src="https://img.shields.io/github/actions/workflow/status/localizethedocs/cmake-docs-l10n/ci-crowdin-download-po.yml?logo=github&style=for-the-badge&label=ci-crowdin-download-po" /></a></div>
       </td>
       <td rowspan="1" colspan="1" align="left" style="text-align: left;">
         <div>Download <code>.po</code> files from Crowdin by its CLI tool.</div>
@@ -232,7 +232,7 @@ The goal of this project is to translate The CMake documentation into multiple l
     </tr>
     <tr>
       <td rowspan="1" colspan="1" align="right" style="text-align: right;">
-        <div><a href="https://github.com/localizethedocs/cmake-docs-l10n/actions/workflows/ci-crowdin-update-readme.yml"><img alt="ci-crowdin-update-readme" src="https://img.shields.io/github/actions/workflow/status/localizethedocs/cmake-docs-l10n/ci-crowdin-update-readme.yml?logo=github&label=ci-crowdin-update-readme" /></a></div>
+        <div><a href="https://github.com/localizethedocs/cmake-docs-l10n/actions/workflows/ci-crowdin-update-readme.yml"><img alt="ci-crowdin-update-readme" src="https://img.shields.io/github/actions/workflow/status/localizethedocs/cmake-docs-l10n/ci-crowdin-update-readme.yml?logo=github&style=for-the-badge&label=ci-crowdin-update-readme" /></a></div>
       </td>
       <td rowspan="1" colspan="1" align="left" style="text-align: left;">
         <div>Update README translations by Crowdin CLI tool.</div>
@@ -240,7 +240,7 @@ The goal of this project is to translate The CMake documentation into multiple l
     </tr>
     <tr>
       <td rowspan="1" colspan="1" align="right" style="text-align: right;">
-        <div><a href="https://github.com/localizethedocs/cmake-docs-l10n/actions/workflows/ci-deploy-pages.yml"><img alt="ci-deploy-pages" src="https://img.shields.io/github/actions/workflow/status/localizethedocs/cmake-docs-l10n/ci-deploy-pages.yml?logo=github&label=ci-deploy-pages" /></a></div>
+        <div><a href="https://github.com/localizethedocs/cmake-docs-l10n/actions/workflows/ci-deploy-pages.yml"><img alt="ci-deploy-pages" src="https://img.shields.io/github/actions/workflow/status/localizethedocs/cmake-docs-l10n/ci-deploy-pages.yml?logo=github&style=for-the-badge&label=ci-deploy-pages" /></a></div>
       </td>
       <td rowspan="1" colspan="1" align="left" style="text-align: left;">
         <div>Download and deploy build artifacts to <code>pages</code> branch.</div>
@@ -248,7 +248,7 @@ The goal of this project is to translate The CMake documentation into multiple l
     </tr>
     <tr>
       <td rowspan="1" colspan="1" align="right" style="text-align: right;">
-        <div><a href="https://github.com/localizethedocs/cmake-docs-l10n/actions/workflows/ci-deploy-po-version.yml"><img alt="ci-deploy-po-version" src="https://img.shields.io/github/actions/workflow/status/localizethedocs/cmake-docs-l10n/ci-deploy-po-version.yml?logo=github&label=ci-deploy-po-version" /></a></div>
+        <div><a href="https://github.com/localizethedocs/cmake-docs-l10n/actions/workflows/ci-deploy-po-version.yml"><img alt="ci-deploy-po-version" src="https://img.shields.io/github/actions/workflow/status/localizethedocs/cmake-docs-l10n/ci-deploy-po-version.yml?logo=github&style=for-the-badge&label=ci-deploy-po-version" /></a></div>
       </td>
       <td rowspan="1" colspan="1" align="left" style="text-align: left;">
         <div>Deploy <code>.po</code> files to <code>po/${VERSION}</code> branch.</div>
@@ -256,7 +256,7 @@ The goal of this project is to translate The CMake documentation into multiple l
     </tr>
     <tr>
       <td rowspan="1" colspan="1" align="right" style="text-align: right;">
-        <div><a href="https://github.com/localizethedocs/cmake-docs-l10n/actions/workflows/ci-update-contributors.yml"><img alt="ci-update-contributors" src="https://img.shields.io/github/actions/workflow/status/localizethedocs/cmake-docs-l10n/ci-update-contributors.yml?logo=github&label=ci-update-contributors" /></a></div>
+        <div><a href="https://github.com/localizethedocs/cmake-docs-l10n/actions/workflows/ci-update-contributors.yml"><img alt="ci-update-contributors" src="https://img.shields.io/github/actions/workflow/status/localizethedocs/cmake-docs-l10n/ci-update-contributors.yml?logo=github&style=for-the-badge&label=ci-update-contributors" /></a></div>
       </td>
       <td rowspan="1" colspan="1" align="left" style="text-align: left;">
         <div>Update contributors <code>.svg</code> files to <code>static</code> branch.</div>
@@ -264,7 +264,7 @@ The goal of this project is to translate The CMake documentation into multiple l
     </tr>
     <tr>
       <td rowspan="1" colspan="1" align="right" style="text-align: right;">
-        <div><a href="https://github.com/localizethedocs/cmake-docs-l10n/actions/workflows/ci-update-license-year.yml"><img alt="ci-update-license-year" src="https://img.shields.io/github/actions/workflow/status/localizethedocs/cmake-docs-l10n/ci-update-license-year.yml?logo=github&label=ci-update-license-year" /></a></div>
+        <div><a href="https://github.com/localizethedocs/cmake-docs-l10n/actions/workflows/ci-update-license-year.yml"><img alt="ci-update-license-year" src="https://img.shields.io/github/actions/workflow/status/localizethedocs/cmake-docs-l10n/ci-update-license-year.yml?logo=github&style=for-the-badge&label=ci-update-license-year" /></a></div>
       </td>
       <td rowspan="1" colspan="1" align="left" style="text-align: left;">
         <div>Update the copyright year in LICENSE to the current year.</div>
@@ -272,7 +272,7 @@ The goal of this project is to translate The CMake documentation into multiple l
     </tr>
     <tr>
       <td rowspan="1" colspan="1" align="right" style="text-align: right;">
-        <div><a href="https://github.com/localizethedocs/cmake-docs-l10n/actions/workflows/ci-update-submodule.yml"><img alt="ci-update-submodule" src="https://img.shields.io/github/actions/workflow/status/localizethedocs/cmake-docs-l10n/ci-update-submodule.yml?logo=github&label=ci-update-submodule" /></a></div>
+        <div><a href="https://github.com/localizethedocs/cmake-docs-l10n/actions/workflows/ci-update-submodule.yml"><img alt="ci-update-submodule" src="https://img.shields.io/github/actions/workflow/status/localizethedocs/cmake-docs-l10n/ci-update-submodule.yml?logo=github&style=for-the-badge&label=ci-update-submodule" /></a></div>
       </td>
       <td rowspan="1" colspan="1" align="left" style="text-align: left;">
         <div>Update each of the submodules to their latest commit.</div>
@@ -315,8 +315,8 @@ The goal of this project is to translate The CMake documentation into multiple l
       </td>
       <td rowspan="1" colspan="1" align="center" style="text-align: center;">
         <div>
-          <div><a href="https://localizethedocs.crowdin.com/cmake-docs-l10n/ru" title="ru translation" target="_blank"><img alt="ru translation" src="https://img.shields.io/badge/dynamic/json?color=blue&label=ru&style=flat&logo=crowdin&query=%24.progress.0.data.translationProgress&url=https%3A%2F%2Fbadges.awesome-crowdin.com%2Fstats-200032568-1.json" /></a></div>
-          <div><a href="https://localizethedocs.crowdin.com/cmake-docs-l10n/ru" title="ru proofreading" target="_blank"><img alt="ru proofreading" src="https://img.shields.io/badge/dynamic/json?color=green&label=ru&style=flat&logo=crowdin&query=%24.progress.0.data.approvalProgress&url=https%3A%2F%2Fbadges.awesome-crowdin.com%2Fstats-200032568-1.json" /></a></div>
+          <div><a href="https://localizethedocs.crowdin.com/cmake-docs-l10n/ru" title="ru translation" target="_blank"><img alt="ru translation" src="https://img.shields.io/badge/dynamic/json?color=blue&label=ru&style=for-the-badge&logo=crowdin&query=%24.progress.0.data.translationProgress&url=https%3A%2F%2Fbadges.awesome-crowdin.com%2Fstats-200032568-1.json" /></a></div>
+          <div><a href="https://localizethedocs.crowdin.com/cmake-docs-l10n/ru" title="ru proofreading" target="_blank"><img alt="ru proofreading" src="https://img.shields.io/badge/dynamic/json?color=green&label=ru&style=for-the-badge&logo=crowdin&query=%24.progress.0.data.approvalProgress&url=https%3A%2F%2Fbadges.awesome-crowdin.com%2Fstats-200032568-1.json" /></a></div>
         </div>
       </td>
     </tr>
@@ -331,8 +331,8 @@ The goal of this project is to translate The CMake documentation into multiple l
       </td>
       <td rowspan="1" colspan="1" align="center" style="text-align: center;">
         <div>
-          <div><a href="https://localizethedocs.crowdin.com/cmake-docs-l10n/zh-CN" title="zh-CN translation" target="_blank"><img alt="zh-CN translation" src="https://img.shields.io/badge/dynamic/json?color=blue&label=zh-CN&style=flat&logo=crowdin&query=%24.progress.1.data.translationProgress&url=https%3A%2F%2Fbadges.awesome-crowdin.com%2Fstats-200032568-1.json" /></a></div>
-          <div><a href="https://localizethedocs.crowdin.com/cmake-docs-l10n/zh-CN" title="zh-CN proofreading" target="_blank"><img alt="zh-CN proofreading" src="https://img.shields.io/badge/dynamic/json?color=green&label=zh-CN&style=flat&logo=crowdin&query=%24.progress.1.data.approvalProgress&url=https%3A%2F%2Fbadges.awesome-crowdin.com%2Fstats-200032568-1.json" /></a></div>
+          <div><a href="https://localizethedocs.crowdin.com/cmake-docs-l10n/zh-CN" title="zh-CN translation" target="_blank"><img alt="zh-CN translation" src="https://img.shields.io/badge/dynamic/json?color=blue&label=zh-CN&style=for-the-badge&logo=crowdin&query=%24.progress.1.data.translationProgress&url=https%3A%2F%2Fbadges.awesome-crowdin.com%2Fstats-200032568-1.json" /></a></div>
+          <div><a href="https://localizethedocs.crowdin.com/cmake-docs-l10n/zh-CN" title="zh-CN proofreading" target="_blank"><img alt="zh-CN proofreading" src="https://img.shields.io/badge/dynamic/json?color=green&label=zh-CN&style=for-the-badge&logo=crowdin&query=%24.progress.1.data.approvalProgress&url=https%3A%2F%2Fbadges.awesome-crowdin.com%2Fstats-200032568-1.json" /></a></div>
         </div>
       </td>
     </tr>
@@ -347,8 +347,8 @@ The goal of this project is to translate The CMake documentation into multiple l
       </td>
       <td rowspan="1" colspan="1" align="center" style="text-align: center;">
         <div>
-          <div><a href="https://localizethedocs.crowdin.com/cmake-docs-l10n/zh-TW" title="zh-TW translation" target="_blank"><img alt="zh-TW translation" src="https://img.shields.io/badge/dynamic/json?color=blue&label=zh-TW&style=flat&logo=crowdin&query=%24.progress.2.data.translationProgress&url=https%3A%2F%2Fbadges.awesome-crowdin.com%2Fstats-200032568-1.json" /></a></div>
-          <div><a href="https://localizethedocs.crowdin.com/cmake-docs-l10n/zh-TW" title="zh-TW proofreading" target="_blank"><img alt="zh-TW proofreading" src="https://img.shields.io/badge/dynamic/json?color=green&label=zh-TW&style=flat&logo=crowdin&query=%24.progress.2.data.approvalProgress&url=https%3A%2F%2Fbadges.awesome-crowdin.com%2Fstats-200032568-1.json" /></a></div>
+          <div><a href="https://localizethedocs.crowdin.com/cmake-docs-l10n/zh-TW" title="zh-TW translation" target="_blank"><img alt="zh-TW translation" src="https://img.shields.io/badge/dynamic/json?color=blue&label=zh-TW&style=for-the-badge&logo=crowdin&query=%24.progress.2.data.translationProgress&url=https%3A%2F%2Fbadges.awesome-crowdin.com%2Fstats-200032568-1.json" /></a></div>
+          <div><a href="https://localizethedocs.crowdin.com/cmake-docs-l10n/zh-TW" title="zh-TW proofreading" target="_blank"><img alt="zh-TW proofreading" src="https://img.shields.io/badge/dynamic/json?color=green&label=zh-TW&style=for-the-badge&logo=crowdin&query=%24.progress.2.data.approvalProgress&url=https%3A%2F%2Fbadges.awesome-crowdin.com%2Fstats-200032568-1.json" /></a></div>
         </div>
       </td>
     </tr>
