@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CMake master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-22 13:28+0000\n"
+"POT-Creation-Date: 2026-08-31 15:41+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -38,91 +38,107 @@ msgid ""
 "<methods>...)\n"
 "cmake_language(`GET_MESSAGE_LOG_LEVEL`_ <out-var>)\n"
 "cmake_language(`EXIT`_ <exit-code>)\n"
-"cmake_language(`TRACE`_ <boolean> ...)"
+"cmake_language(`TRACE`_ <boolean> ...)\n"
+"cmake_language(`PRINT_TARGETS`_ <filter>...)\n"
+"cmake_language(`PRINT_VARIABLES`_\n"
+"               [{ ALL [<filter>...] | NAMED <vars>... }])\n"
+"cmake_language(PRINT_PROPERTIES\n"
+"               `TARGETS <PRINT_PROPERTIES-TARGETS_>`__ <targets>...\n"
+"               <options>...\n"
+"               [{ ALL [<filter>] | NAMED <properties>... }])\n"
+"cmake_language(PRINT_PROPERTIES\n"
+"               { `SOURCES <PRINT_PROPERTIES-SOURCES_>`__       <sources>... "
+"|\n"
+"                 `DIRECTORIES <PRINT_PROPERTIES-DIRECTORIES_>`__   "
+"<dirs>...    |\n"
+"                 `TESTS <PRINT_PROPERTIES-TESTS_>`__         <tests>...   |\n"
+"                 `CACHE_ENTRIES <PRINT_PROPERTIES-CACHE_ENTRIES_>`__ "
+"<entries>... }\n"
+"               NAMED <properties>...)"
 msgstr ""
 
-#: ../../../command/cmake_language.rst:22
+#: ../../../command/cmake_language.rst:35
 msgid "Introduction"
 msgstr ""
 
-#: ../../../command/cmake_language.rst:24
+#: ../../../command/cmake_language.rst:37
 msgid ""
 "This command will call meta-operations on built-in CMake commands or those "
 "created via the :command:`macro` or :command:`function` commands."
 msgstr ""
 
-#: ../../../command/cmake_language.rst:27
+#: ../../../command/cmake_language.rst:40
 msgid "``cmake_language`` does not introduce a new variable or policy scope."
 msgstr ""
 
-#: ../../../command/cmake_language.rst:30
+#: ../../../command/cmake_language.rst:43
 msgid "Calling Commands"
 msgstr ""
 
-#: ../../../command/cmake_language.rst:35
+#: ../../../command/cmake_language.rst:48
 msgid ""
 "Calls the named ``<command>`` with the given arguments (if any). For "
 "example, the code:"
 msgstr ""
 
-#: ../../../command/cmake_language.rst:38
+#: ../../../command/cmake_language.rst:51
 msgid ""
 "set(message_command \"message\")\n"
 "cmake_language(CALL ${message_command} STATUS \"Hello World!\")"
 msgstr ""
 
-#: ../../../command/cmake_language.rst:43
-#: ../../../command/cmake_language.rst:85
+#: ../../../command/cmake_language.rst:56
+#: ../../../command/cmake_language.rst:98
 msgid "is equivalent to"
 msgstr ""
 
-#: ../../../command/cmake_language.rst:45
+#: ../../../command/cmake_language.rst:58
 msgid "message(STATUS \"Hello World!\")"
 msgstr ""
 
-#: ../../../command/cmake_language.rst:50
+#: ../../../command/cmake_language.rst:63
 msgid ""
 "To ensure consistency of the code, the following commands are not allowed:"
 msgstr ""
 
-#: ../../../command/cmake_language.rst:52
+#: ../../../command/cmake_language.rst:65
 msgid "``if`` / ``elseif`` / ``else`` / ``endif``"
 msgstr ""
 
-#: ../../../command/cmake_language.rst:53
+#: ../../../command/cmake_language.rst:66
 msgid "``block`` / ``endblock``"
 msgstr ""
 
-#: ../../../command/cmake_language.rst:54
+#: ../../../command/cmake_language.rst:67
 msgid "``while`` / ``endwhile``"
 msgstr ""
 
-#: ../../../command/cmake_language.rst:55
+#: ../../../command/cmake_language.rst:68
 msgid "``foreach`` / ``endforeach``"
 msgstr ""
 
-#: ../../../command/cmake_language.rst:56
+#: ../../../command/cmake_language.rst:69
 msgid "``function`` / ``endfunction``"
 msgstr ""
 
-#: ../../../command/cmake_language.rst:57
+#: ../../../command/cmake_language.rst:70
 msgid "``macro`` / ``endmacro``"
 msgstr ""
 
-#: ../../../command/cmake_language.rst:60
+#: ../../../command/cmake_language.rst:73
 msgid "Evaluating Code"
 msgstr ""
 
-#: ../../../command/cmake_language.rst:66
+#: ../../../command/cmake_language.rst:79
 msgid "Evaluates the ``<code>...`` as CMake code."
 msgstr ""
 
-#: ../../../command/cmake_language.rst:68
-#: ../../../command/cmake_language.rst:185
+#: ../../../command/cmake_language.rst:81
+#: ../../../command/cmake_language.rst:198
 msgid "For example, the code:"
 msgstr ""
 
-#: ../../../command/cmake_language.rst:70
+#: ../../../command/cmake_language.rst:83
 msgid ""
 "set(A TRUE)\n"
 "set(B TRUE)\n"
@@ -138,7 +154,7 @@ msgid ""
 ")"
 msgstr ""
 
-#: ../../../command/cmake_language.rst:87
+#: ../../../command/cmake_language.rst:100
 msgid ""
 "set(A TRUE)\n"
 "set(B TRUE)\n"
@@ -156,11 +172,11 @@ msgid ""
 "include(${CMAKE_CURRENT_BINARY_DIR}/eval.cmake)"
 msgstr ""
 
-#: ../../../command/cmake_language.rst:105
+#: ../../../command/cmake_language.rst:118
 msgid "Deferring Calls"
 msgstr ""
 
-#: ../../../command/cmake_language.rst:112
+#: ../../../command/cmake_language.rst:125
 msgid ""
 "Schedules a call to the named ``<command>`` with the given arguments (if "
 "any) to occur at a later time.  By default, deferred calls are executed as "
@@ -170,15 +186,15 @@ msgid ""
 "executed."
 msgstr ""
 
-#: ../../../command/cmake_language.rst:119
+#: ../../../command/cmake_language.rst:132
 msgid "The options are:"
 msgstr ""
 
-#: ../../../command/cmake_language.rst:121
+#: ../../../command/cmake_language.rst:134
 msgid "``DIRECTORY <dir>``"
 msgstr ""
 
-#: ../../../command/cmake_language.rst:122
+#: ../../../command/cmake_language.rst:135
 msgid ""
 "Schedule the call for the end of the given directory instead of the current "
 "directory.  The ``<dir>`` may reference either a source directory or its "
@@ -186,7 +202,7 @@ msgid ""
 "the current source directory."
 msgstr ""
 
-#: ../../../command/cmake_language.rst:127
+#: ../../../command/cmake_language.rst:140
 msgid ""
 "The given directory must be known to CMake, being either the top-level "
 "directory or one added by :command:`add_subdirectory`.  Furthermore, the "
@@ -194,11 +210,11 @@ msgid ""
 "the current directory or one of its ancestors."
 msgstr ""
 
-#: ../../../command/cmake_language.rst:132
+#: ../../../command/cmake_language.rst:145
 msgid "``ID <id>``"
 msgstr ""
 
-#: ../../../command/cmake_language.rst:133
+#: ../../../command/cmake_language.rst:146
 msgid ""
 "Specify an identification for the deferred call. The ``<id>`` may not be "
 "empty and may not begin with a capital letter ``A-Z``. The ``<id>`` may "
@@ -206,26 +222,26 @@ msgid ""
 "an earlier call that used ``ID_VAR`` to get the id."
 msgstr ""
 
-#: ../../../command/cmake_language.rst:138
+#: ../../../command/cmake_language.rst:151
 msgid "``ID_VAR <var>``"
 msgstr ""
 
-#: ../../../command/cmake_language.rst:139
+#: ../../../command/cmake_language.rst:152
 msgid ""
 "Specify a variable in which to store the identification for the deferred "
 "call.  If ``ID <id>`` is not given, a new identification will be generated "
 "and the generated id will start with an underscore (``_``)."
 msgstr ""
 
-#: ../../../command/cmake_language.rst:143
+#: ../../../command/cmake_language.rst:156
 msgid "The currently scheduled list of deferred calls may be retrieved:"
 msgstr ""
 
-#: ../../../command/cmake_language.rst:145
+#: ../../../command/cmake_language.rst:158
 msgid "cmake_language(DEFER [DIRECTORY <dir>] GET_CALL_IDS <var>)"
 msgstr ""
 
-#: ../../../command/cmake_language.rst:149
+#: ../../../command/cmake_language.rst:162
 msgid ""
 "This will store in ``<var>`` a :ref:`semicolon-separated list <CMake "
 "Language Lists>` of deferred call ids.  The ids are for the directory scope "
@@ -236,15 +252,15 @@ msgid ""
 "directory scope will be returned."
 msgstr ""
 
-#: ../../../command/cmake_language.rst:157
+#: ../../../command/cmake_language.rst:170
 msgid "Details of a specific call may be retrieved from its id:"
 msgstr ""
 
-#: ../../../command/cmake_language.rst:159
+#: ../../../command/cmake_language.rst:172
 msgid "cmake_language(DEFER [DIRECTORY <dir>] GET_CALL <id> <var>)"
 msgstr ""
 
-#: ../../../command/cmake_language.rst:163
+#: ../../../command/cmake_language.rst:176
 msgid ""
 "This will store in ``<var>`` a :ref:`semicolon-separated list <CMake "
 "Language Lists>` in which the first element is the name of the command to be "
@@ -257,26 +273,26 @@ msgid ""
 "string in the variable."
 msgstr ""
 
-#: ../../../command/cmake_language.rst:172
+#: ../../../command/cmake_language.rst:185
 msgid "Deferred calls may be canceled by their id:"
 msgstr ""
 
-#: ../../../command/cmake_language.rst:174
+#: ../../../command/cmake_language.rst:187
 msgid "cmake_language(DEFER [DIRECTORY <dir>] CANCEL_CALL <id>...)"
 msgstr ""
 
-#: ../../../command/cmake_language.rst:178
+#: ../../../command/cmake_language.rst:191
 msgid ""
 "This cancels all deferred calls matching any of the given ids in the "
 "specified ``DIRECTORY`` scope (or the current directory scope if no "
 "``DIRECTORY`` option is given).  Unknown ids are silently ignored."
 msgstr ""
 
-#: ../../../command/cmake_language.rst:183
+#: ../../../command/cmake_language.rst:196
 msgid "Deferred Call Examples"
 msgstr ""
 
-#: ../../../command/cmake_language.rst:187
+#: ../../../command/cmake_language.rst:200
 msgid ""
 "cmake_language(DEFER CALL message \"${deferred_message}\")\n"
 "cmake_language(DEFER ID_VAR id CALL message \"Canceled Message\")\n"
@@ -285,24 +301,24 @@ msgid ""
 "set(deferred_message \"Deferred Message\")"
 msgstr ""
 
-#: ../../../command/cmake_language.rst:195
+#: ../../../command/cmake_language.rst:208
 msgid "prints::"
 msgstr ""
 
-#: ../../../command/cmake_language.rst:197
+#: ../../../command/cmake_language.rst:210
 msgid ""
 "Immediate Message\n"
 "Deferred Message"
 msgstr ""
 
-#: ../../../command/cmake_language.rst:200
+#: ../../../command/cmake_language.rst:213
 msgid ""
 "The ``Canceled Message`` is never printed because its command is canceled.  "
 "The ``deferred_message`` variable reference is not evaluated until the call "
 "site, so it can be set after the deferred call is scheduled."
 msgstr ""
 
-#: ../../../command/cmake_language.rst:204
+#: ../../../command/cmake_language.rst:217
 msgid ""
 "In order to evaluate variable references immediately when scheduling a "
 "deferred call, wrap it using ``cmake_language(EVAL)``.  However, note that "
@@ -310,7 +326,7 @@ msgid ""
 "avoided by using bracket arguments.  For example:"
 msgstr ""
 
-#: ../../../command/cmake_language.rst:209
+#: ../../../command/cmake_language.rst:222
 msgid ""
 "set(deferred_message \"Deferred Message 1\")\n"
 "set(re_evaluated [[${deferred_message}]])\n"
@@ -322,28 +338,28 @@ msgid ""
 "set(deferred_message \"Deferred Message 2\")"
 msgstr ""
 
-#: ../../../command/cmake_language.rst:220
+#: ../../../command/cmake_language.rst:233
 msgid "also prints::"
 msgstr ""
 
-#: ../../../command/cmake_language.rst:222
+#: ../../../command/cmake_language.rst:235
 msgid ""
 "Immediate Message\n"
 "Deferred Message 1\n"
 "Deferred Message 2"
 msgstr ""
 
-#: ../../../command/cmake_language.rst:229
+#: ../../../command/cmake_language.rst:242
 msgid "Dependency Providers"
 msgstr ""
 
-#: ../../../command/cmake_language.rst:233
+#: ../../../command/cmake_language.rst:246
 msgid ""
 "A high-level introduction to this feature can be found in the :ref:`Using "
 "Dependencies Guide <dependency_providers_overview>`."
 msgstr ""
 
-#: ../../../command/cmake_language.rst:240
+#: ../../../command/cmake_language.rst:253
 msgid ""
 "When a call is made to :command:`find_package` or :command:"
 "`FetchContent_MakeAvailable`, the call may be forwarded to a dependency "
@@ -356,34 +372,34 @@ msgid ""
 "implementation is used to fulfill the request in the usual way."
 msgstr ""
 
-#: ../../../command/cmake_language.rst:251
+#: ../../../command/cmake_language.rst:264
 msgid ""
 "One or more of the following values can be specified for the ``<methods>`` "
 "when setting the provider:"
 msgstr ""
 
-#: ../../../command/cmake_language.rst:254
-#: ../../../command/cmake_language.rst:309
+#: ../../../command/cmake_language.rst:267
+#: ../../../command/cmake_language.rst:322
 msgid "``FIND_PACKAGE``"
 msgstr ""
 
-#: ../../../command/cmake_language.rst:255
+#: ../../../command/cmake_language.rst:268
 msgid "The provider command accepts :command:`find_package` requests."
 msgstr ""
 
-#: ../../../command/cmake_language.rst:257
-#: ../../../command/cmake_language.rst:327
+#: ../../../command/cmake_language.rst:270
+#: ../../../command/cmake_language.rst:340
 msgid "``FETCHCONTENT_MAKEAVAILABLE_SERIAL``"
 msgstr ""
 
-#: ../../../command/cmake_language.rst:258
+#: ../../../command/cmake_language.rst:271
 msgid ""
 "The provider command accepts :command:`FetchContent_MakeAvailable` "
 "requests.  It expects each dependency to be fed to the provider command one "
 "at a time, not the whole list in one go."
 msgstr ""
 
-#: ../../../command/cmake_language.rst:262
+#: ../../../command/cmake_language.rst:275
 msgid ""
 "Only one provider can be set at any point in time.  If a provider is already "
 "set when ``cmake_language(SET_DEPENDENCY_PROVIDER)`` is called, the new "
@@ -393,7 +409,7 @@ msgid ""
 "``<methods>`` will discard any previously set provider."
 msgstr ""
 
-#: ../../../command/cmake_language.rst:269
+#: ../../../command/cmake_language.rst:282
 msgid ""
 "The dependency provider can only be set while processing one of the files "
 "specified by the :variable:`CMAKE_PROJECT_TOP_LEVEL_INCLUDES` variable. "
@@ -402,14 +418,14 @@ msgid ""
 "outside of that context will result in an error."
 msgstr ""
 
-#: ../../../command/cmake_language.rst:275
+#: ../../../command/cmake_language.rst:288
 msgid ""
 "The :prop_gbl:`PROPAGATE_TOP_LEVEL_INCLUDES_TO_TRY_COMPILE` global property "
 "can be set if the dependency provider also wants to be enabled in whole-"
 "project calls to :command:`try_compile`."
 msgstr ""
 
-#: ../../../command/cmake_language.rst:281
+#: ../../../command/cmake_language.rst:294
 msgid ""
 "The choice of dependency provider should always be under the user's control. "
 "As a convenience, a project may choose to provide a file that users can list "
@@ -417,11 +433,11 @@ msgid ""
 "of such a file should always be the user's choice."
 msgstr ""
 
-#: ../../../command/cmake_language.rst:287
+#: ../../../command/cmake_language.rst:300
 msgid "Provider commands"
 msgstr ""
 
-#: ../../../command/cmake_language.rst:289
+#: ../../../command/cmake_language.rst:302
 msgid ""
 "Providers define a single ``<command>`` to accept requests.  The name of the "
 "command should be specific to that provider, not something overly generic "
@@ -432,11 +448,11 @@ msgid ""
 "``ourcompany_provide_dependency()``, and so on)."
 msgstr ""
 
-#: ../../../command/cmake_language.rst:297
+#: ../../../command/cmake_language.rst:310
 msgid "xxx_provide_dependency(<method> [<method-specific-args>...])"
 msgstr ""
 
-#: ../../../command/cmake_language.rst:301
+#: ../../../command/cmake_language.rst:314
 msgid ""
 "Because some methods expect certain variables to be set in the calling "
 "scope, the provider command should typically be implemented as a macro "
@@ -444,14 +460,14 @@ msgid ""
 "scope."
 msgstr ""
 
-#: ../../../command/cmake_language.rst:305
+#: ../../../command/cmake_language.rst:318
 msgid ""
 "The arguments CMake passes to the dependency provider depend on the type of "
 "request.  The first argument is always the method, and it will only ever be "
 "one of the ``<methods>`` that was specified when setting the provider."
 msgstr ""
 
-#: ../../../command/cmake_language.rst:310
+#: ../../../command/cmake_language.rst:323
 msgid ""
 "The ``<method-specific-args>`` will be everything passed to the :command:"
 "`find_package` call that requested the dependency.  The first of these "
@@ -460,7 +476,7 @@ msgid ""
 "command:`find_package` treats them case-sensitively too."
 msgstr ""
 
-#: ../../../command/cmake_language.rst:316
+#: ../../../command/cmake_language.rst:329
 msgid ""
 "If the provider command fulfills the request, it must set the same variable "
 "that :command:`find_package` expects to be set.  For a dependency named "
@@ -470,44 +486,44 @@ msgid ""
 "implementation."
 msgstr ""
 
-#: ../../../command/cmake_language.rst:323
+#: ../../../command/cmake_language.rst:336
 msgid ""
 "If the provider needs to call the built-in :command:`find_package` "
 "implementation as part of its processing, it can do so by including the "
 "``BYPASS_PROVIDER`` keyword as one of the arguments."
 msgstr ""
 
-#: ../../../command/cmake_language.rst:328
+#: ../../../command/cmake_language.rst:341
 msgid ""
 "The ``<method-specific-args>`` will be everything passed to the :command:"
 "`FetchContent_Declare` call that corresponds to the requested dependency, "
 "with the following exceptions:"
 msgstr ""
 
-#: ../../../command/cmake_language.rst:332
+#: ../../../command/cmake_language.rst:345
 msgid ""
 "If ``SOURCE_DIR`` or ``BINARY_DIR`` were not part of the original declared "
 "arguments, they will be added with their default values."
 msgstr ""
 
-#: ../../../command/cmake_language.rst:334
+#: ../../../command/cmake_language.rst:347
 msgid ""
 "If :variable:`FETCHCONTENT_TRY_FIND_PACKAGE_MODE` is set to ``NEVER``, any "
 "``FIND_PACKAGE_ARGS`` will be omitted."
 msgstr ""
 
-#: ../../../command/cmake_language.rst:336
+#: ../../../command/cmake_language.rst:349
 msgid "The ``OVERRIDE_FIND_PACKAGE`` keyword is always omitted."
 msgstr ""
 
-#: ../../../command/cmake_language.rst:338
+#: ../../../command/cmake_language.rst:351
 msgid ""
 "The first of the ``<method-specific-args>`` will always be the name of the "
 "dependency.  Dependency names are case-insensitive for this method because :"
 "module:`FetchContent` also treats them case-insensitively."
 msgstr ""
 
-#: ../../../command/cmake_language.rst:342
+#: ../../../command/cmake_language.rst:355
 msgid ""
 "If the provider fulfills the request, it should call :command:"
 "`FetchContent_SetPopulated`, passing the name of the dependency as the first "
@@ -517,14 +533,14 @@ msgid ""
 "`FetchContent_MakeAvailable` command."
 msgstr ""
 
-#: ../../../command/cmake_language.rst:349
+#: ../../../command/cmake_language.rst:362
 msgid ""
 "If the provider returns without calling :command:`FetchContent_SetPopulated` "
 "for the named dependency, CMake will assume the request was not fulfilled "
 "and will fall back to the built-in implementation."
 msgstr ""
 
-#: ../../../command/cmake_language.rst:353
+#: ../../../command/cmake_language.rst:366
 msgid ""
 "Note that empty arguments may be significant for this method (e.g. an empty "
 "string following a ``GIT_SUBMODULES`` keyword).  Therefore, if forwarding "
@@ -532,7 +548,7 @@ msgid ""
 "such arguments being silently dropped."
 msgstr ""
 
-#: ../../../command/cmake_language.rst:358
+#: ../../../command/cmake_language.rst:371
 msgid ""
 "If ``FETCHCONTENT_SOURCE_DIR_<uppercaseDepName>`` is set, then the "
 "dependency provider will never see requests for the ``<depName>`` dependency "
@@ -548,11 +564,11 @@ msgid ""
 "call too."
 msgstr ""
 
-#: ../../../command/cmake_language.rst:372
+#: ../../../command/cmake_language.rst:385
 msgid "Provider Examples"
 msgstr ""
 
-#: ../../../command/cmake_language.rst:374
+#: ../../../command/cmake_language.rst:387
 msgid ""
 "This first example only intercepts :command:`find_package` calls.  The "
 "provider command runs an external tool which copies the relevant artifacts "
@@ -561,13 +577,13 @@ msgid ""
 "command:`FetchContent_MakeAvailable` calls would not go through the provider."
 msgstr ""
 
-#: ../../../command/cmake_language.rst:380
-#: ../../../command/cmake_language.rst:420
-#: ../../../command/cmake_language.rst:479
+#: ../../../command/cmake_language.rst:393
+#: ../../../command/cmake_language.rst:433
+#: ../../../command/cmake_language.rst:492
 msgid "mycomp_provider.cmake"
 msgstr ""
 
-#: ../../../command/cmake_language.rst:380
+#: ../../../command/cmake_language.rst:393
 msgid ""
 "# Always ensure we have the policy settings this provider expects\n"
 "cmake_minimum_required(VERSION 3.24)\n"
@@ -594,16 +610,16 @@ msgid ""
 ")"
 msgstr ""
 
-#: ../../../command/cmake_language.rst:406
+#: ../../../command/cmake_language.rst:419
 msgid "The user would then typically use the above file like so::"
 msgstr ""
 
-#: ../../../command/cmake_language.rst:408
+#: ../../../command/cmake_language.rst:421
 msgid ""
 "cmake -DCMAKE_PROJECT_TOP_LEVEL_INCLUDES=/path/to/mycomp_provider.cmake ..."
 msgstr ""
 
-#: ../../../command/cmake_language.rst:410
+#: ../../../command/cmake_language.rst:423
 msgid ""
 "The next example demonstrates a provider that accepts both methods, but only "
 "handles one specific dependency.  It enforces providing Google Test using :"
@@ -616,7 +632,7 @@ msgid ""
 "`FetchContent_MakeAvailable`."
 msgstr ""
 
-#: ../../../command/cmake_language.rst:420
+#: ../../../command/cmake_language.rst:433
 msgid ""
 "cmake_minimum_required(VERSION 3.24)\n"
 "\n"
@@ -670,7 +686,7 @@ msgid ""
 ")"
 msgstr ""
 
-#: ../../../command/cmake_language.rst:474
+#: ../../../command/cmake_language.rst:487
 msgid ""
 "The final example demonstrates how to modify arguments to a :command:"
 "`find_package` call.  It forces all such calls to have the ``QUIET`` "
@@ -678,7 +694,7 @@ msgid ""
 "provider command recursively for the same dependency."
 msgstr ""
 
-#: ../../../command/cmake_language.rst:479
+#: ../../../command/cmake_language.rst:492
 msgid ""
 "cmake_minimum_required(VERSION 3.24)\n"
 "\n"
@@ -692,51 +708,51 @@ msgid ""
 ")"
 msgstr ""
 
-#: ../../../command/cmake_language.rst:494
+#: ../../../command/cmake_language.rst:507
 msgid "Getting current message log level"
 msgstr ""
 
-#: ../../../command/cmake_language.rst:501
+#: ../../../command/cmake_language.rst:514
 msgid ""
 "Writes the current :command:`message` logging level into the given "
 "``<output_variable>``."
 msgstr ""
 
-#: ../../../command/cmake_language.rst:504
+#: ../../../command/cmake_language.rst:517
 msgid "See :command:`message` for the possible logging levels."
 msgstr ""
 
-#: ../../../command/cmake_language.rst:506
+#: ../../../command/cmake_language.rst:519
 msgid ""
 "The current message logging level can be set either using the :cmake-option:"
 "`--log-level` command line option of the :manual:`cmake(1)` program or using "
 "the :variable:`CMAKE_MESSAGE_LOG_LEVEL` variable."
 msgstr ""
 
-#: ../../../command/cmake_language.rst:510
+#: ../../../command/cmake_language.rst:523
 msgid ""
 "If both the command line option and the variable are set, the command line "
 "option takes precedence. If neither are set, the default logging level is "
 "returned."
 msgstr ""
 
-#: ../../../command/cmake_language.rst:515
+#: ../../../command/cmake_language.rst:528
 msgid "Terminating Scripts"
 msgstr ""
 
-#: ../../../command/cmake_language.rst:522
+#: ../../../command/cmake_language.rst:535
 msgid ""
 "Terminate the current :option:`cmake -P` script and exit with ``<exit-"
 "code>``."
 msgstr ""
 
-#: ../../../command/cmake_language.rst:524
+#: ../../../command/cmake_language.rst:537
 msgid ""
 "This command works only in :ref:`script mode <Script Processing Mode>`. If "
 "used outside of that context, it will cause a fatal error."
 msgstr ""
 
-#: ../../../command/cmake_language.rst:527
+#: ../../../command/cmake_language.rst:540
 msgid ""
 "The ``<exit-code>`` should be non-negative. If ``<exit-code>`` is negative, "
 "then the behavior is unspecified (e.g., on Windows the error code -1 becomes "
@@ -746,11 +762,11 @@ msgid ""
 "specify an ``<exit-code>`` in the range 0 to 125."
 msgstr ""
 
-#: ../../../command/cmake_language.rst:537
+#: ../../../command/cmake_language.rst:550
 msgid "Trace Control"
 msgstr ""
 
-#: ../../../command/cmake_language.rst:548
+#: ../../../command/cmake_language.rst:561
 msgid ""
 "The TRACE subcommand controls runtime tracing of executed CMake commands and "
 "macros within the current process. When enabled, trace output is written in "
@@ -758,16 +774,431 @@ msgid ""
 "trace` or :option:`cmake --trace-expand` command line options."
 msgstr ""
 
-#: ../../../command/cmake_language.rst:553
+#: ../../../command/cmake_language.rst:566
 msgid ""
 "Tracing scopes are nestable. Multiple ``TRACE ON`` calls may be active at "
 "the same time, and each ``TRACE OFF`` deactivates one nesting level."
 msgstr ""
 
-#: ../../../command/cmake_language.rst:556
+#: ../../../command/cmake_language.rst:569
 msgid ""
 "If CMake is run with :option:`cmake --trace` or :option:`cmake --trace-"
 "expand`, those options override and force tracing globally, regardless of "
 "``cmake_language(TRACE OFF)`` calls. In such cases, the command may still be "
 "invoked but has no effect on the trace state."
+msgstr ""
+
+#: ../../../command/cmake_language.rst:575
+msgid "Printing Targets"
+msgstr ""
+
+#: ../../../command/cmake_language.rst:582
+msgid ""
+"Prints the names of all targets that currently exist, one per line, "
+"annotated with their types (e.g. ``EXECUTABLE``, ``STATIC_LIBRARY``, "
+"``INTERFACE_LIBRARY``, ``UTILITY``).  Imported targets are additionally "
+"annotated with ``IMPORTED``.  :ref:`Alias Targets` are not listed; their "
+"aliased target is."
+msgstr ""
+
+#: ../../../command/cmake_language.rst:588
+msgid ""
+"The output is sorted by target name and printed as a single status message. "
+"Each ``<filter>`` may be one of:"
+msgstr ""
+
+#: ../../../command/cmake_language.rst:591
+msgid "``REGEX <regex>``"
+msgstr ""
+
+#: ../../../command/cmake_language.rst:592
+msgid ""
+"Only list targets whose name matches the given :ref:`regular expression "
+"<Regex Specification>`.  If no target matches, a warning is issued."
+msgstr ""
+
+#: ../../../command/cmake_language.rst:596
+#: ../../../command/cmake_language.rst:653
+msgid "``IGNORE_CASE``"
+msgstr ""
+
+#: ../../../command/cmake_language.rst:597
+msgid "Match the ``REGEX`` case-insensitively.  Only valid with ``REGEX``."
+msgstr ""
+
+#: ../../../command/cmake_language.rst:599
+msgid "``IMPORTED_ONLY``"
+msgstr ""
+
+#: ../../../command/cmake_language.rst:600
+msgid "Only list :ref:`Imported Targets`."
+msgstr ""
+
+#: ../../../command/cmake_language.rst:602
+msgid "``NO_IMPORTED``"
+msgstr ""
+
+#: ../../../command/cmake_language.rst:603
+msgid "Exclude imported targets; only list targets built by this project."
+msgstr ""
+
+#: ../../../command/cmake_language.rst:605
+msgid ""
+"``IMPORTED_ONLY`` and ``NO_IMPORTED`` are mutually exclusive.  When neither "
+"is given, both imported and non-imported targets are listed."
+msgstr ""
+
+#: ../../../command/cmake_language.rst:609
+msgid "Printing Targets Examples"
+msgstr ""
+
+#: ../../../command/cmake_language.rst:611
+msgid ""
+"add_executable(app main.c)\n"
+"add_library(util STATIC util.c)\n"
+"find_package(Threads REQUIRED)  # provides imported Threads::Threads\n"
+"\n"
+"cmake_language(PRINT_TARGETS REGEX \"^(app|util)$\" NO_IMPORTED)"
+msgstr ""
+
+#: ../../../command/cmake_language.rst:619
+#: ../../../command/cmake_language.rst:674
+#: ../../../command/cmake_language.rst:690
+#: ../../../command/cmake_language.rst:787
+#: ../../../command/cmake_language.rst:811
+#: ../../../command/cmake_language.rst:832
+#: ../../../command/cmake_language.rst:856
+msgid "Gives::"
+msgstr ""
+
+#: ../../../command/cmake_language.rst:621
+msgid ""
+"-- Printing targets...\n"
+" Non-imported targets matching REGEX '^(app|util)$' (case sensitive):\n"
+"   app (EXECUTABLE)\n"
+"   util (STATIC_LIBRARY)"
+msgstr ""
+
+#: ../../../command/cmake_language.rst:627
+msgid "Printing Variables"
+msgstr ""
+
+#: ../../../command/cmake_language.rst:635
+msgid ""
+"Prints the values of variables in the current scope.  The set of variables "
+"to print may be specified by one of:"
+msgstr ""
+
+#: ../../../command/cmake_language.rst:638
+msgid "``ALL [<filter>...]`` (default)"
+msgstr ""
+
+#: ../../../command/cmake_language.rst:639
+msgid ""
+"Enumerates every regular variable in the current scope and every cache "
+"entry, printing one entry per line.  Cache entries are annotated as "
+"``CACHE{<name>}:<TYPE>`` (e.g. ``CACHE{CMAKE_INSTALL_PREFIX}:PATH = \"/usr/"
+"local\"``).  If a name corresponds to both a cache entry and a regular "
+"variable, both are printed."
+msgstr ""
+
+#: ../../../command/cmake_language.rst:645
+msgid "Each ``<filter>`` may be one of:"
+msgstr ""
+
+#: ../../../command/cmake_language.rst:647
+msgid "``NAME_REGEX <name-regex>``"
+msgstr ""
+
+#: ../../../command/cmake_language.rst:648
+msgid ""
+"Print only variables whose name matches the given :ref:`regular expression "
+"<Regex Specification>`."
+msgstr ""
+
+#: ../../../command/cmake_language.rst:650
+msgid "``VALUE_REGEX <value-regex>``"
+msgstr ""
+
+#: ../../../command/cmake_language.rst:651
+msgid ""
+"Print only variables whose value matches the given :ref:`regular expression "
+"<Regex Specification>`."
+msgstr ""
+
+#: ../../../command/cmake_language.rst:654
+msgid ""
+"Lower-case both the pattern and the candidate string before matching, so "
+"``NAME_REGEX`` and ``VALUE_REGEX`` match case-insensitively."
+msgstr ""
+
+#: ../../../command/cmake_language.rst:657
+msgid "``NAMED <vars>...``"
+msgstr ""
+
+#: ../../../command/cmake_language.rst:658
+msgid ""
+"Prints one ``<var> = \"<value>\"`` entry per line, in the order given.  Note "
+"that a regular variable shadows a cache entry of the same name.  A ``<var>`` "
+"that is not defined prints as ``<var> = <NOTFOUND>``; a variable set to the "
+"empty string is *defined* and prints as ``<var> = \"\"``."
+msgstr ""
+
+#: ../../../command/cmake_language.rst:664
+msgid "Printing Variables Examples"
+msgstr ""
+
+#: ../../../command/cmake_language.rst:666
+msgid "Printing a few specific variables:"
+msgstr ""
+
+#: ../../../command/cmake_language.rst:668
+msgid ""
+"cmake_language(\n"
+"  PRINT_VARIABLES NAMED CMAKE_C_COMPILER CMAKE_MAJOR_VERSION NOT_SET\n"
+")"
+msgstr ""
+
+#: ../../../command/cmake_language.rst:676
+msgid ""
+"-- Printing variables...\n"
+" Named variables:\n"
+"   CMAKE_C_COMPILER = \"/usr/bin/cc\"\n"
+"   CMAKE_MAJOR_VERSION = \"4\"\n"
+"   NOT_SET = <NOTFOUND>"
+msgstr ""
+
+#: ../../../command/cmake_language.rst:682
+msgid "Enumerating user variables and cache entries:"
+msgstr ""
+
+#: ../../../command/cmake_language.rst:684
+msgid ""
+"set(MY_FLAG \"on\")\n"
+"set(MY_PATH \"/some/path\" CACHE FILEPATH \"\")\n"
+"cmake_language(PRINT_VARIABLES ALL NAME_REGEX \"^MY_\")"
+msgstr ""
+
+#: ../../../command/cmake_language.rst:692
+msgid ""
+"-- Printing variables...\n"
+" Variables in scope at '/path/to/CMakeLists.txt' matching name '^MY_' (case "
+"sensitive):\n"
+"   MY_FLAG = \"on\"\n"
+"   CACHE{MY_PATH}:FILEPATH = \"/some/path\""
+msgstr ""
+
+#: ../../../command/cmake_language.rst:698
+msgid "Printing Properties"
+msgstr ""
+
+#: ../../../command/cmake_language.rst:708
+msgid ""
+"Prints the values of properties for the specified targets. The set of "
+"properties to print may be specified by one of:"
+msgstr ""
+
+#: ../../../command/cmake_language.rst:711
+msgid "``ALL [<filter>]`` (default)"
+msgstr ""
+
+#: ../../../command/cmake_language.rst:712
+msgid ""
+"Enumerates every property set on each named target, printing one entry per "
+"property."
+msgstr ""
+
+#: ../../../command/cmake_language.rst:715
+msgid "The optional ``<filter>`` may be one of:"
+msgstr ""
+
+#: ../../../command/cmake_language.rst:717
+msgid "``PROPERTY_NAME_REGEX <name-regex>``"
+msgstr ""
+
+#: ../../../command/cmake_language.rst:718
+msgid "Print properties whose name matches the given regular expression."
+msgstr ""
+
+#: ../../../command/cmake_language.rst:719
+msgid "``PROPERTY_VALUE_REGEX <value-regex>``"
+msgstr ""
+
+#: ../../../command/cmake_language.rst:720
+msgid "Print properties whose value matches the given regular expression."
+msgstr ""
+
+#: ../../../command/cmake_language.rst:722
+msgid ""
+"If no property survives the regex filters for a given target, a ``CMake "
+"Warning`` is emitted in place of that target's block."
+msgstr ""
+
+#: ../../../command/cmake_language.rst:725
+#: ../../../command/cmake_language.rst:769
+msgid "``NAMED <properties>...``"
+msgstr ""
+
+#: ../../../command/cmake_language.rst:726
+#: ../../../command/cmake_language.rst:770
+msgid ""
+"Prints exactly the named properties on each entity, in the order given. A "
+"property that is not set prints as ``<NOTFOUND>``."
+msgstr ""
+
+#: ../../../command/cmake_language.rst:729
+msgid "The ``<options>...`` are:"
+msgstr ""
+
+#: ../../../command/cmake_language.rst:731
+msgid "``DEFERRED``"
+msgstr ""
+
+#: ../../../command/cmake_language.rst:732
+msgid ""
+"Defers the print to generation time rather than running during configure.  "
+"Useful when the properties of interest are populated by later configure-time "
+"commands.  On its own it does not change which targets are visited - only "
+"the named targets are printed."
+msgstr ""
+
+#: ../../../command/cmake_language.rst:737
+msgid "``FOLLOW_DEPENDENCIES``"
+msgstr ""
+
+#: ../../../command/cmake_language.rst:738
+msgid ""
+"Implies ``DEFERRED``.  When set, the walk visits every target reachable from "
+"each named target through any linkage - ``PUBLIC``, ``INTERFACE``, "
+"``PRIVATE``, and :genex:`$<LINK_ONLY:...>` - and prints the requested "
+"properties for each."
+msgstr ""
+
+#: ../../../command/cmake_language.rst:744
+msgid ""
+"``FOLLOW_DEPENDENCIES`` does not turn on generator-expression evaluation for "
+"the property *values* this command prints. The only place generator "
+"expression evaluation happens is internal: on each visited target's link "
+"list (the effective ``LINK_LIBRARIES`` / ``INTERFACE_LINK_LIBRARIES``), "
+"evaluated solely to identify which dependencies are reachable.  Every "
+"printed property value, including the link-list properties themselves, is "
+"emitted exactly as stored, with generator expressions intact and "
+"unsubstituted. This matches the behavior of :command:`get_target_property`."
+msgstr ""
+
+#: ../../../command/cmake_language.rst:765
+msgid ""
+"Prints the values of properties for the specified source files, directories, "
+"tests, or cache entries.  Exactly one scope keyword must be specified. The "
+"set of properties to print must be specified by:"
+msgstr ""
+
+#: ../../../command/cmake_language.rst:774
+msgid "Printing Properties Examples"
+msgstr ""
+
+#: ../../../command/cmake_language.rst:776
+msgid ""
+"Printing the ``LOCATION`` and ``INTERFACE_INCLUDE_DIRECTORIES`` properties "
+"for both targets ``foo`` and ``bar``:"
+msgstr ""
+
+#: ../../../command/cmake_language.rst:779
+msgid ""
+"cmake_language(\n"
+"  PRINT_PROPERTIES\n"
+"  TARGETS foo bar\n"
+"  NAMED LOCATION INTERFACE_INCLUDE_DIRECTORIES\n"
+")"
+msgstr ""
+
+#: ../../../command/cmake_language.rst:789
+msgid ""
+"-- Printing properties...\n"
+" Properties for TARGET foo:\n"
+"   foo.LOCATION = \"/usr/lib/libfoo.so\"\n"
+"   foo.INTERFACE_INCLUDE_DIRECTORIES = \"/usr/include;/usr/include/foo\"\n"
+" Properties for TARGET bar:\n"
+"   bar.LOCATION = \"/usr/lib/libbar.so\"\n"
+"   bar.INTERFACE_INCLUDE_DIRECTORIES = \"/usr/include;/usr/include/bar\""
+msgstr ""
+
+#: ../../../command/cmake_language.rst:797
+msgid "Printing all properties on a target, filtered to a couple of names:"
+msgstr ""
+
+#: ../../../command/cmake_language.rst:799
+msgid ""
+"add_library(my_lib src.cpp)\n"
+"\n"
+"cmake_language(\n"
+"  PRINT_PROPERTIES\n"
+"  TARGETS my_lib\n"
+"  ALL\n"
+"  PROPERTY_NAME_REGEX \"AUTOMOC\"\n"
+"  PROPERTY_VALUE_REGEX \"(ON|OFF)\"\n"
+")"
+msgstr ""
+
+#: ../../../command/cmake_language.rst:813
+msgid ""
+"-- Printing properties...\n"
+" All properties for TARGET my_lib matching name 'AUTOMOC' and value '(ON|"
+"OFF)':\n"
+"   my_lib.AUTOMOC_COMPILER_PREDEFINES = \"ON\"\n"
+"   my_lib.AUTOMOC_PATH_PREFIX = \"OFF\""
+msgstr ""
+
+#: ../../../command/cmake_language.rst:818
+msgid ""
+"Deferring the print of one target's properties to generation time, without "
+"visiting any dependencies:"
+msgstr ""
+
+#: ../../../command/cmake_language.rst:821
+msgid ""
+"add_executable(myexe main.c)\n"
+"\n"
+"cmake_language(\n"
+"  PRINT_PROPERTIES\n"
+"  TARGETS myexe\n"
+"  DEFERRED\n"
+"  NAMED SOURCES\n"
+")"
+msgstr ""
+
+#: ../../../command/cmake_language.rst:834
+msgid ""
+"-- Printing properties...\n"
+" Properties for TARGET myexe:\n"
+"   myexe.SOURCES = \"main.c\""
+msgstr ""
+
+#: ../../../command/cmake_language.rst:838
+msgid "Printing a property on a target and every reachable dependency:"
+msgstr ""
+
+#: ../../../command/cmake_language.rst:840
+msgid ""
+"add_library(leaflib STATIC src.c)\n"
+"set_target_properties(leaflib PROPERTIES MY_PROP \"leaf\")\n"
+"\n"
+"add_library(mylib STATIC src.c)\n"
+"target_link_libraries(mylib PRIVATE leaflib)\n"
+"set_target_properties(mylib PROPERTIES MY_PROP \"mylib\")\n"
+"\n"
+"cmake_language(\n"
+"  PRINT_PROPERTIES\n"
+"  TARGETS mylib\n"
+"  FOLLOW_DEPENDENCIES\n"
+"  NAMED MY_PROP\n"
+")"
+msgstr ""
+
+#: ../../../command/cmake_language.rst:858
+msgid ""
+"-- Printing properties...\n"
+" Properties for TARGET mylib (and all reachable):\n"
+"   mylib.MY_PROP = \"mylib\"\n"
+"   leaflib.MY_PROP = \"leaf\""
 msgstr ""

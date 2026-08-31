@@ -1,0 +1,117 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2000-2026 Kitware, Inc. and Contributors
+# This file is distributed under the same license as the CMake package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CMake master\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-08-31 15:41+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../policy/CMP0220.rst:2
+msgid "CMP0220"
+msgstr ""
+
+#: ../../../policy/CMP0220.rst:6
+msgid ""
+"Languages enabled in subdirectories propagate to the top-level directory."
+msgstr ""
+
+#: ../../../policy/CMP0220.rst:8
+msgid ""
+"In CMake 4.4 and below, enabling a language with the :command:`project` "
+"command or :command:`enable_language` command had some restrictions:"
+msgstr ""
+
+#: ../../../policy/CMP0220.rst:11
+msgid ""
+"It had to be called in file scope, not in a :command:`function` call nor "
+"inside a :command:`block`."
+msgstr ""
+
+#: ../../../policy/CMP0220.rst:13
+msgid ""
+"It had be called in the highest directory common to all targets using the "
+"named language directly for compiling sources or indirectly through link "
+"dependencies."
+msgstr ""
+
+#: ../../../policy/CMP0220.rst:17
+msgid ""
+"While these restrictions could be met by enabling all needed languages in "
+"the top-level directory of a project, this was not always easy."
+msgstr ""
+
+#: ../../../policy/CMP0220.rst:20
+msgid ""
+"CMake 4.5 and above prefer to relax these restrictions so that languages "
+"enabled by calls to the :command:`project` and :command:`enable_language` "
+"commands in subdirectories are available to targets created in ancestor and "
+"sibling directories created afterward.  This policy provides compatibility "
+"with projects that have not been updated for the new behavior."
+msgstr ""
+
+#: ../../../policy/CMP0220.rst:26
+msgid ""
+"One may think of an :command:`add_subdirectory` call as an effective call "
+"site to :command:`enable_language` for languages enabled inside the "
+"subdirectory's tree.  Similarly, for languages enabled in :command:"
+"`function` and :command:`block` scopes, the function or :command:`endblock` "
+"calls are effectively call sites to :command:`enable_language`."
+msgstr ""
+
+#: ../../../policy/CMP0220.rst:32
+msgid ""
+"This policy is evaluated independently at each \"effective call site\", "
+"proceeding up the stack of variable scopes to determine if the language "
+"should be enabled at that level.  This propagation stops at the first "
+"ancestor scope whose ``CMP0220`` is not ``NEW``.  For example:"
+msgstr ""
+
+#: ../../../policy/CMP0220.rst:37
+msgid ""
+"cmake_policy(SET CMP0220 NEW)\n"
+"\n"
+"block()\n"
+"  cmake_policy(SET CMP0220 OLD)\n"
+"  block()\n"
+"    cmake_policy(SET CMP0220 NEW)\n"
+"    block()\n"
+"      cmake_policy(SET CMP0220 OLD)\n"
+"      enable_language(CXX)\n"
+"      # CXX is enabled in this scope\n"
+"    endblock()\n"
+"    # CXX is enabled in this scope\n"
+"  endblock()\n"
+"  # CXX is not enabled in this scope\n"
+"endblock()\n"
+"# CXX is not enabled in this scope"
+msgstr ""
+
+#: ../../../policy/include/STANDARD_ADVICE.rst:1
+msgid ""
+"This policy was introduced in CMake version |INTRODUCED_IN_CMAKE_VERSION|. "
+"It may be set by :command:`cmake_policy` or :command:"
+"`cmake_minimum_required`. If it is not set, CMake |WARNS_OR_DOES_NOT_WARN|, "
+"and uses ``OLD`` behavior."
+msgstr ""
+
+#: ../../../policy/CMP0220.rst:60
+msgid ""
+"See documentation of the :variable:`CMAKE_POLICY_WARNING_CMP0220 "
+"<CMAKE_POLICY_WARNING_CMP<NNNN>>` variable to control the warning."
+msgstr ""
+
+#: ../../../policy/include/DEPRECATED.rst:2
+msgid ""
+"The ``OLD`` behavior of a policy is :ref:`deprecated by definition <cmake-"
+"policies-intro>` and may be removed in a future version of CMake."
+msgstr ""

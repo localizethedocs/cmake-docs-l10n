@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CMake master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-25 08:20+0000\n"
+"POT-Creation-Date: 2026-08-31 15:41+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -336,42 +336,78 @@ msgstr ""
 
 #: ../../../manual/cmake-qt.7.rst:234
 msgid ""
-"If Qt 5.15 or later is used and the generator is either :generator:`Ninja` "
-"or :ref:`Makefile Generators`, see :ref:`<ORIGIN>_autogen_timestamp_deps`."
-msgstr ""
-
-#: ../../../manual/cmake-qt.7.rst:240
-msgid "The ``<ORIGIN>_autogen_timestamp_deps`` target"
+"If Qt 5.15 or later is used and a depfile is used to track the ``moc`` "
+"dependencies, see :ref:`<ORIGIN>_autogen_timestamp_deps`.  When using the :"
+"ref:`Visual Studio Generators`, the ``<ORIGIN>_autogen`` target may not be "
+"created at all, see `Visual Studio Generators`_ below."
 msgstr ""
 
 #: ../../../manual/cmake-qt.7.rst:242
-msgid ""
-"If Qt 5.15 or later is used and the generator is either :generator:`Ninja` "
-"or :ref:`Makefile Generators`, the ``<ORIGIN>_autogen_timestamp_deps`` "
-"target is also created in addition to the :ref:`<ORIGIN>_autogen "
-"<<ORIGIN>_autogen>` target.  This target does not have any sources or "
-"commands to execute, but it has dependencies that were previously inherited "
-"by the pre-Qt 5.15 :ref:`<ORIGIN>_autogen <<ORIGIN>_autogen>` target. These "
-"dependencies will serve as a list of order-only dependencies for the custom "
-"command, without forcing the custom command to re-execute."
+msgid "The ``<ORIGIN>_autogen_timestamp_deps`` target"
 msgstr ""
 
-#: ../../../manual/cmake-qt.7.rst:252
+#: ../../../manual/cmake-qt.7.rst:244
+msgid ""
+"If Qt 5.15 or later is used and the generator is :generator:`Ninja`, a :ref:"
+"`Makefile <Makefile Generators>` generator, a :ref:`Visual Studio <Visual "
+"Studio Generators>` generator or :generator:`Xcode`, the ``moc`` "
+"dependencies are tracked with a depfile.  In that case the "
+"``<ORIGIN>_autogen_timestamp_deps`` target is also created in addition to "
+"the :ref:`<ORIGIN>_autogen <<ORIGIN>_autogen>` target.  This target does not "
+"have any sources or commands to execute, but it has dependencies that were "
+"previously inherited by the pre-Qt 5.15 :ref:`<ORIGIN>_autogen "
+"<<ORIGIN>_autogen>` target. These dependencies will serve as a list of order-"
+"only dependencies for the custom command, without forcing the custom command "
+"to re-execute."
+msgstr ""
+
+#: ../../../manual/cmake-qt.7.rst:256
+msgid ""
+"Depfile support for the :ref:`Visual Studio Generators` and :generator:"
+"`Xcode`.  Earlier versions used a depfile only for the :generator:`Ninja` "
+"and :ref:`Makefile Generators`."
+msgstr ""
+
+#: ../../../manual/cmake-qt.7.rst:262
+msgid ""
+"When using the :ref:`Visual Studio Generators`, neither this target nor the :"
+"ref:`<ORIGIN>_autogen <<ORIGIN>_autogen>` target is created in the common "
+"case, see `Visual Studio Generators`_ below."
+msgstr ""
+
+#: ../../../manual/cmake-qt.7.rst:267
 msgid "Visual Studio Generators"
 msgstr ""
 
-#: ../../../manual/cmake-qt.7.rst:254
+#: ../../../manual/cmake-qt.7.rst:269
 msgid ""
-"When using the :ref:`Visual Studio Generators`, CMake generates a "
-"``PRE_BUILD`` :command:`custom command <add_custom_command>` instead of the :"
-"ref:`<ORIGIN>_autogen <<ORIGIN>_autogen>` :command:`custom target "
+"When using the :ref:`Visual Studio Generators`, CMake adds the ``moc`` and "
+"``uic`` step to the ``<ORIGIN>`` project itself instead of creating the :ref:"
+"`<ORIGIN>_autogen <<ORIGIN>_autogen>` :command:`custom target "
 "<add_custom_target>` (for :prop_tgt:`AUTOMOC` and :prop_tgt:`AUTOUIC`).  "
+"With Qt 5.15 or later, the step is a :command:`custom command "
+"<add_custom_command>` with a depfile, and therefore runs only when one of "
+"its dependencies changed.  With earlier Qt versions it is a ``PRE_BUILD`` "
+"command that runs on every build of ``<ORIGIN>``."
+msgstr ""
+
+#: ../../../manual/cmake-qt.7.rst:278
+msgid ""
+"With Qt 5.15 or later, the ``moc`` and ``uic`` step is a custom command in "
+"the ``<ORIGIN>`` project.  CMake 4.4.0 through 4.4.2 created the :ref:"
+"`<ORIGIN>_autogen <<ORIGIN>_autogen>` and :ref:"
+"`<ORIGIN>_autogen_timestamp_deps <<ORIGIN>_autogen_timestamp_deps>` targets "
+"instead."
+msgstr ""
+
+#: ../../../manual/cmake-qt.7.rst:285
+msgid ""
 "This isn't always possible though and an :ref:`<ORIGIN>_autogen "
 "<<ORIGIN>_autogen>` :command:`custom target <add_custom_target>` is used, "
 "when either"
 msgstr ""
 
-#: ../../../manual/cmake-qt.7.rst:262
+#: ../../../manual/cmake-qt.7.rst:289
 msgid ""
 "the ``<ORIGIN>`` target depends on :prop_sf:`GENERATED` files which aren't "
 "excluded from :prop_tgt:`AUTOMOC` and :prop_tgt:`AUTOUIC` by :prop_sf:"
@@ -379,33 +415,39 @@ msgid ""
 "`CMP0071`"
 msgstr ""
 
-#: ../../../manual/cmake-qt.7.rst:266
+#: ../../../manual/cmake-qt.7.rst:293
 msgid ":prop_tgt:`AUTOGEN_TARGET_DEPENDS` lists a source file"
 msgstr ""
 
-#: ../../../manual/cmake-qt.7.rst:267
+#: ../../../manual/cmake-qt.7.rst:294
 msgid ":variable:`CMAKE_GLOBAL_AUTOGEN_TARGET` is enabled"
 msgstr ""
 
-#: ../../../manual/cmake-qt.7.rst:270
+#: ../../../manual/cmake-qt.7.rst:296
+msgid ""
+"With Qt 5.15 or later, the :ref:`<ORIGIN>_autogen_timestamp_deps "
+"<<ORIGIN>_autogen_timestamp_deps>` target is created along with it."
+msgstr ""
+
+#: ../../../manual/cmake-qt.7.rst:301
 msgid "qtmain.lib on Windows"
 msgstr ""
 
-#: ../../../manual/cmake-qt.7.rst:272
+#: ../../../manual/cmake-qt.7.rst:303
 msgid ""
 "The Qt 4 and 5 :prop_tgt:`IMPORTED` targets for the QtGui libraries specify "
 "that the qtmain.lib static library shipped with Qt will be linked by all "
 "dependent executables which have the :prop_tgt:`WIN32_EXECUTABLE` enabled."
 msgstr ""
 
-#: ../../../manual/cmake-qt.7.rst:276
+#: ../../../manual/cmake-qt.7.rst:307
 msgid ""
 "To disable this behavior, enable the ``Qt5_NO_LINK_QTMAIN`` target property "
 "for Qt 5 based targets or ``QT4_NO_LINK_QTMAIN`` target property for Qt 4 "
 "based targets."
 msgstr ""
 
-#: ../../../manual/cmake-qt.7.rst:280
+#: ../../../manual/cmake-qt.7.rst:311
 msgid ""
 "add_executable(myexe WIN32 main.cpp)\n"
 "target_link_libraries(myexe Qt4::QtGui)\n"

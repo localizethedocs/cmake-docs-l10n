@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CMake master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-25 08:20+0000\n"
+"POT-Creation-Date: 2026-08-31 15:41+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -33,87 +33,127 @@ msgid ""
 "versions 4 to 6 are supported."
 msgstr ""
 
-#: ../../../prop_tgt/AUTOUIC.rst:13
+#: ../../../prop_tgt/AUTOUIC.rst:14
 msgid ""
 "This property is initialized by the value of the :variable:`CMAKE_AUTOUIC` "
 "variable if it is set when a target is created."
 msgstr ""
 
-#: ../../../prop_tgt/AUTOUIC.rst:16
+#: ../../../prop_tgt/AUTOUIC.rst:17
 msgid ""
 "When this property is ``ON``, CMake will scan the header and source files at "
 "build time and invoke ``uic`` accordingly."
 msgstr ""
 
-#: ../../../prop_tgt/AUTOUIC.rst:21
+#: ../../../prop_tgt/AUTOUIC.rst:22
 msgid "Header and source file processing"
 msgstr ""
 
-#: ../../../prop_tgt/AUTOUIC.rst:23
+#: ../../../prop_tgt/AUTOUIC.rst:24
 msgid ""
 "At build time, CMake scans each header and source file from the target's "
 "sources for include statements of the form"
 msgstr ""
 
-#: ../../../prop_tgt/AUTOUIC.rst:26
-msgid "#include \"ui_<ui_base>.h\""
+#: ../../../prop_tgt/AUTOUIC.rst:27
+msgid "#include \"<path>ui_<ui_base>.h\""
 msgstr ""
 
-#: ../../../prop_tgt/AUTOUIC.rst:30
+#: ../../../prop_tgt/AUTOUIC.rst:31
 msgid ""
 "Once such an include statement is found in a file, CMake searches for the "
 "``uic`` input file ``<ui_base>.ui``"
 msgstr ""
 
-#: ../../../prop_tgt/AUTOUIC.rst:33
+#: ../../../prop_tgt/AUTOUIC.rst:34
 msgid "in the vicinity of the file and"
 msgstr ""
 
-#: ../../../prop_tgt/AUTOUIC.rst:34
+#: ../../../prop_tgt/AUTOUIC.rst:35
 msgid "in the :prop_tgt:`AUTOUIC_SEARCH_PATHS` of the target."
 msgstr ""
 
-#: ../../../prop_tgt/AUTOUIC.rst:36
+#: ../../../prop_tgt/AUTOUIC.rst:37
 msgid ""
 "If the ``<ui_base>.ui`` file was found, ``uic`` is called on it to generate "
-"``ui_<ui_base>.h`` in the directory"
+"``<path>ui_<ui_base>.h`` in the directory"
 msgstr ""
 
-#: ../../../prop_tgt/AUTOUIC.rst:39
+#: ../../../prop_tgt/AUTOUIC.rst:40
 msgid ""
 "``<AUTOGEN_BUILD_DIR>/include`` for single configuration generators or in"
 msgstr ""
 
-#: ../../../prop_tgt/AUTOUIC.rst:40
+#: ../../../prop_tgt/AUTOUIC.rst:41
 msgid ""
 "``<AUTOGEN_BUILD_DIR>/include_<CONFIG>`` for :prop_gbl:`multi configuration "
 "<GENERATOR_IS_MULTI_CONFIG>` generators."
 msgstr ""
 
-#: ../../../prop_tgt/AUTOUIC.rst:43
+#: ../../../prop_tgt/AUTOUIC.rst:44
 msgid ""
 "Where ``<AUTOGEN_BUILD_DIR>`` is the value of the target property :prop_tgt:"
-"`AUTOGEN_BUILD_DIR`."
+"`AUTOGEN_BUILD_DIR`.  The optional ``<path>`` is taken from the ``#include`` "
+"statement and is unrelated to the location of the ``<ui_base>.ui`` file."
 msgstr ""
 
-#: ../../../prop_tgt/AUTOUIC.rst:46
+#: ../../../prop_tgt/AUTOUIC.rst:49
 msgid ""
 "The include directory is automatically added to the target's :prop_tgt:"
 "`INCLUDE_DIRECTORIES`."
 msgstr ""
 
-#: ../../../prop_tgt/AUTOUIC.rst:51
+#: ../../../prop_tgt/AUTOUIC.rst:54
+msgid "Generated ui header files as target sources"
+msgstr ""
+
+#: ../../../prop_tgt/AUTOUIC.rst:56
+msgid ""
+"``.ui`` files need not be listed in the sources of a target for ``AUTOUIC`` "
+"to process them, because they are located through the ``#include`` "
+"statements described above.  Listing them makes them visible in IDEs."
+msgstr ""
+
+#: ../../../prop_tgt/AUTOUIC.rst:60
+msgid ""
+"For every ``.ui`` file known in the current directory, whether or not it is "
+"listed in a target, CMake registers the header to be generated from it as a "
+"source of each target in that directory that has ``AUTOUIC`` enabled.  This "
+"happens at configure time, when the ``#include`` statements are not known "
+"yet, so the name is predicted by assuming that ``<path>`` matches the "
+"directory of the ``.ui`` file relative to :variable:"
+"`CMAKE_CURRENT_SOURCE_DIR`.  Where that assumption does not hold, the "
+"predicted path does not name a file that is ever generated.  This happens "
+"for example when the ``.ui`` file lies outside of :variable:"
+"`CMAKE_CURRENT_SOURCE_DIR`, or when it lies in a subdirectory but is "
+"included without a directory prefix.  IDEs are then unable to open the "
+"generated header, and because the build system is not told where the header "
+"really appears, a change to the ``.ui`` file can require two build "
+"invocations before the files including the header are recompiled."
+msgstr ""
+
+#: ../../../prop_tgt/AUTOUIC.rst:75
+msgid ""
+"To avoid the prediction, use Qt's `qt_add_ui()`_ command instead of "
+"``AUTOUIC``.  It is available since Qt 6.8, optionally takes the include "
+"prefix through its ``INCLUDE_PREFIX`` argument, and creates ``uic`` rules "
+"whose outputs are known at configure time.  It disables ``AUTOUIC`` for the "
+"target it is called on, so all ``.ui`` files of that target have to be "
+"passed to it."
+msgstr ""
+
+#: ../../../prop_tgt/AUTOUIC.rst:84
 msgid "Modifiers"
 msgstr ""
 
-#: ../../../prop_tgt/AUTOUIC.rst:53
+#: ../../../prop_tgt/AUTOUIC.rst:86
 msgid ""
 ":prop_tgt:`AUTOUIC_EXECUTABLE`: The ``uic`` executable will be detected "
 "automatically, but can be forced to a certain binary using this target "
 "property."
 msgstr ""
 
-#: ../../../prop_tgt/AUTOUIC.rst:57
+#: ../../../prop_tgt/AUTOUIC.rst:90
 msgid ""
 ":prop_tgt:`AUTOUIC_OPTIONS`: Additional command line options for ``uic`` can "
 "be set via this target property.  The corresponding :prop_sf:"
@@ -121,27 +161,27 @@ msgid ""
 "applied only to a specific ``<base_name>.ui`` file."
 msgstr ""
 
-#: ../../../prop_tgt/AUTOUIC.rst:63
+#: ../../../prop_tgt/AUTOUIC.rst:96
 msgid ""
 ":prop_sf:`SKIP_AUTOUIC`: Source files can be excluded from ``AUTOUIC`` "
 "processing by setting this source file property."
 msgstr ""
 
-#: ../../../prop_tgt/AUTOUIC.rst:67
+#: ../../../prop_tgt/AUTOUIC.rst:100
 msgid ""
 ":prop_sf:`SKIP_AUTOGEN`: Source files can be excluded from :prop_tgt:"
 "`AUTOMOC`, ``AUTOUIC`` and :prop_tgt:`AUTORCC` processing by setting this "
 "source file property."
 msgstr ""
 
-#: ../../../prop_tgt/AUTOUIC.rst:72
+#: ../../../prop_tgt/AUTOUIC.rst:105
 msgid ""
 ":prop_gbl:`AUTOGEN_TARGETS_FOLDER`: This global property can be used to "
 "group :prop_tgt:`AUTOMOC`, ``AUTOUIC`` and :prop_tgt:`AUTORCC` targets "
 "together in an IDE, e.g.  in MSVS."
 msgstr ""
 
-#: ../../../prop_tgt/AUTOUIC.rst:77
+#: ../../../prop_tgt/AUTOUIC.rst:110
 msgid ""
 ":variable:`CMAKE_GLOBAL_AUTOGEN_TARGET`: A global ``autogen`` target, that "
 "depends on all :prop_tgt:`AUTOMOC` or ``AUTOUIC`` generated :ref:"
@@ -149,20 +189,20 @@ msgid ""
 "generated when this variable is ``ON``."
 msgstr ""
 
-#: ../../../prop_tgt/AUTOUIC.rst:82
+#: ../../../prop_tgt/AUTOUIC.rst:115
 msgid ""
 ":prop_tgt:`AUTOGEN_PARALLEL`: This target property controls the number of "
 "``moc`` or ``uic`` processes to start in parallel during builds."
 msgstr ""
 
-#: ../../../prop_tgt/AUTOUIC.rst:86
+#: ../../../prop_tgt/AUTOUIC.rst:119
 msgid ""
 ":prop_tgt:`AUTOGEN_COMMAND_LINE_LENGTH_MAX`: This target property controls "
 "the limit when to use response files for ``moc`` or ``uic`` processes on "
 "Windows."
 msgstr ""
 
-#: ../../../prop_tgt/AUTOUIC.rst:90
+#: ../../../prop_tgt/AUTOUIC.rst:123
 msgid ""
 "See the :manual:`cmake-qt(7)` manual for more information on using CMake "
 "with Qt."
