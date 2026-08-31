@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+
+<html lang="zh-TW" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>cmake-cxx-模組(7) &mdash; CMake 4.4.0-rc2 Documentation</title>
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a3862c66" />
+    <link rel="stylesheet" type="text/css" href="../_static/cmake.css?v=d27bb136" />
+    
+    <script src="../_static/documentation_options.js?v=a7aeb7e1"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/translations.js?v=cbf116e0"></script>
+    
+    <link rel="canonical" href="https://projects.localizethedocs.org/cmake-docs-l10n/manual/cmake-cxxmodules.7.html" />
+    <link rel="icon" href="../_static/cmake-favicon.ico"/>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜尋" href="../search.html" />
+    <link rel="next" title="cmake-開發者(7)" href="cmake-developer.7.html" />
+    <link rel="prev" title="cmake-組態日誌(7)" href="cmake-configure-log.7.html" />
+
+ 
+
+    <script type="text/javascript" src="../ltd-provenance.js"></script>
+    <script type="text/javascript" src="../ltd-current.js"></script>
+    <script type="text/javascript" src="../../../ltd-config.js"></script>
+    <script type="text/javascript" src="../../../ltd-flyout.js"></script>
+
+  </head><body>
+    <input id="sidebar-check" type="checkbox" />
+    <label id="sidebar-overlay" for="sidebar-check"></label>
+
+
+
+    <div class="related relbar1" role="navigation" aria-label="Related">
+      <h3>瀏覽</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="總索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="cmake-developer.7.html" title="cmake-開發者(7)"
+             accesskey="N">下一頁</a> |</li>
+        <li class="right" >
+          <a href="cmake-configure-log.7.html" title="cmake-組態日誌(7)"
+             accesskey="P">上一頁</a> |</li>
+  <li>
+    <label class="sidebar-toggle" for="sidebar-check"></label>
+  </li>
+  <li class="rootlink">
+    <img src="../_static/cmake-logo-16.png" width="16" height="16" alt=""/>
+    <a href="https://cmake.org/">CMake 4.4.0-rc2</a>
+    <span class="reldelim1"> &#187;</span>
+  </li>
+  <li>
+    <a href="../index.html">文件</a> &#187;
+  </li>
+
+        <li class="nav-item nav-item-this"><a href="">cmake-cxx-模組(7)</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <span class="target" id="manual:cmake-cxxmodules(7)"></span><section id="cmake-cxxmodules-7">
+<h1>cmake-cxx-模組(7)<a class="headerlink" href="#cmake-cxxmodules-7" title="連結到這個標頭">¶</a></h1>
+<div class="versionadded">
+<p><span class="versionmodified added">在 3.28 版被加入.</span></p>
+</div>
+<p>C++ 20 為該語言引進了「<a class="reference internal" href="#term-C-module"><span class="xref std std-term">模組</span></a>」的概念。其設計要求<a class="reference internal" href="#term-build-system"><span class="xref std std-term">建置系統</span></a>必須對編譯順序進行排序，來可靠地滿足 <code class="docutils literal notranslate"><span class="pre">import</span></code> 陳述句。CMake 的實現方式是要求編譯器在建置期間掃描來源檔以獲取模組依賴，整理掃描結果以推導出排序限制，並告知<a class="reference internal" href="#term-build-tool"><span class="xref std std-term">建置工具</span></a>如何動態更新建置圖。</p>
+<section id="compilation-strategy">
+<h2>編譯策略<a class="headerlink" href="#compilation-strategy" title="連結到這個標頭">¶</a></h2>
+<p>With C++ modules, compiling a set of C++ sources is no longer
+<a class="reference internal" href="#term-embarrassingly-parallel"><span class="xref std std-term">embarrassingly parallel</span></a>.  That is, any given source may require the
+compilation of another source file first in order to provide a
+&quot;<abbr title="built module interface">BMI</abbr>&quot; (or
+&quot;<abbr title="compiled module interface">CMI</abbr>&quot;) that C++ compilers use to satisfy
+<code class="docutils literal notranslate"><span class="pre">import</span></code> statements in other sources.  With included headers, sources could
+share their declarations so that any consumers could compile independently.
+With modules, the compiler now generates <a class="reference internal" href="#term-BMI"><span class="xref std std-term">BMI</span></a> files during compilation
+based on the contents of the source file and its <code class="docutils literal notranslate"><span class="pre">export</span></code> statements.  This
+means that, to ensure a correct build without having to regenerate the build
+graph (by running configure and generate steps) for every source change, the
+correct ordering must be determined from the source files during the build
+phase.</p>
+<p><a class="reference internal" href="#term-build-system"><span class="xref std std-term">建置系統</span></a>必須能夠在建置圖中排列這些編譯的順序。有多種策略適用於此，但各有利弊。CMake 採用「掃描」步驟策略，這是 CMake 使用者在建置過程中能察覺到與模組相關最明顯的變化。CMake 提供了多種方式來控制來源檔的掃描行為。</p>
+</section>
+<section id="scanning-control">
+<span id="cxxmodules-scanning-control"></span><h2>掃描控制<a class="headerlink" href="#scanning-control" title="連結到這個標頭">¶</a></h2>
+<p>Whether or not sources get scanned for C++ module usage is dependent on the
+following queries.  The first query that provides a decision of whether to
+scan or not is used.</p>
+<ul class="simple">
+<li><p>If the source file belongs to a file set of type <code class="docutils literal notranslate"><span class="pre">CXX_MODULES</span></code>, it will
+be scanned.</p></li>
+<li><p>If the target does not use at least C++ 20, it will not be scanned.</p></li>
+<li><p>If the source file is not the language <code class="docutils literal notranslate"><span class="pre">CXX</span></code>, it will not be scanned.</p></li>
+<li><p>If the source file belongs to a file set that is not of type <code class="docutils literal notranslate"><span class="pre">CXX_MODULES</span></code>,
+and the <span class="target" id="index-0-prop_fs:CXX_SCAN_FOR_MODULES"></span><a class="reference internal" href="../prop_fs/CXX_SCAN_FOR_MODULES.html#prop_fs:CXX_SCAN_FOR_MODULES" title="CXX_SCAN_FOR_MODULES"><code class="xref cmake cmake-prop_fs docutils literal notranslate"><span class="pre">CXX_SCAN_FOR_MODULES</span></code></a> file set property is set, its
+value will be used.</p></li>
+<li><p>If the <span class="target" id="index-0-prop_sf:CXX_SCAN_FOR_MODULES"></span><a class="reference internal" href="../prop_sf/CXX_SCAN_FOR_MODULES.html#prop_sf:CXX_SCAN_FOR_MODULES" title="CXX_SCAN_FOR_MODULES"><code class="xref cmake cmake-prop_sf docutils literal notranslate"><span class="pre">CXX_SCAN_FOR_MODULES</span></code></a> source file property is set in the
+target's directory, its value will be used.</p></li>
+<li><p>If the <span class="target" id="index-0-prop_tgt:CXX_SCAN_FOR_MODULES"></span><a class="reference internal" href="../prop_tgt/CXX_SCAN_FOR_MODULES.html#prop_tgt:CXX_SCAN_FOR_MODULES" title="CXX_SCAN_FOR_MODULES"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">CXX_SCAN_FOR_MODULES</span></code></a> target property is set, its value
+will be used.  Set the <span class="target" id="index-0-variable:CMAKE_CXX_SCAN_FOR_MODULES"></span><a class="reference internal" href="../variable/CMAKE_CXX_SCAN_FOR_MODULES.html#variable:CMAKE_CXX_SCAN_FOR_MODULES" title="CMAKE_CXX_SCAN_FOR_MODULES"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_CXX_SCAN_FOR_MODULES</span></code></a> variable
+to initialize this property on all targets as they are created.</p></li>
+<li><p>否則，若編譯器與生成器支援掃描，則會掃描該來源檔。請參見方針 <span class="target" id="index-0-policy:CMP0155"></span><a class="reference internal" href="../policy/CMP0155.html#policy:CMP0155" title="CMP0155"><code class="xref cmake cmake-policy docutils literal notranslate"><span class="pre">CMP0155</span></code></a>。</p></li>
+</ul>
+<p>Note that any scanned source will be excluded from any unity build (see
+<span class="target" id="index-0-prop_tgt:UNITY_BUILD"></span><a class="reference internal" href="../prop_tgt/UNITY_BUILD.html#prop_tgt:UNITY_BUILD" title="UNITY_BUILD"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">UNITY_BUILD</span></code></a>) because module-related statements can only happen at
+one place within a C++ translation unit.</p>
+</section>
+<section id="compiler-support">
+<h2>編譯器支援<a class="headerlink" href="#compiler-support" title="連結到這個標頭">¶</a></h2>
+<p>The list of compilers for which CMake supports scanning sources for C++
+modules includes:</p>
+<ul>
+<li><p>MSVC toolset 14.34 and newer (provided with Visual Studio 17.4 and newer)</p></li>
+<li><p>LLVM/Clang 16.0 and newer</p>
+<div class="versionadded">
+<p><span class="versionmodified added">在 4.4 版被加入: </span><code class="docutils literal notranslate"><span class="pre">clang-cl</span></code> version 19.1 and newer</p>
+</div>
+</li>
+<li><p>GCC 14 and newer</p></li>
+</ul>
+</section>
+<section id="import-std-support">
+<h2><code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">std</span></code> Support<a class="headerlink" href="#import-std-support" title="連結到這個標頭">¶</a></h2>
+<p>Support for <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">std</span></code> is limited to the following toolchain and standard
+library combinations:</p>
+<ul>
+<li><p>Clang 18.1.2 and newer with standard library <code class="docutils literal notranslate"><span class="pre">libc++</span></code> or <code class="docutils literal notranslate"><span class="pre">libstdc++</span></code></p></li>
+<li><p>MSVC toolset 14.36 and newer (provided with Visual Studio 17.6 and newer)</p></li>
+<li><p>GCC 15 and newer</p>
+<div class="admonition note">
+<p class="admonition-title">備註</p>
+<p>Ubuntu prior to 26.04 ships broken <code class="docutils literal notranslate"><span class="pre">libstdc++.modules.json</span></code> files.
+See <a class="reference external" href="https://bugs.launchpad.net/ubuntu/+source/gcc-15/+bug/2141579">Ubuntu issue 2141579</a>.</p>
+</div>
+</li>
+</ul>
+<p>The <span class="target" id="index-0-variable:CMAKE_CXX_COMPILER_IMPORT_STD"></span><a class="reference internal" href="../variable/CMAKE_CXX_COMPILER_IMPORT_STD.html#variable:CMAKE_CXX_COMPILER_IMPORT_STD" title="CMAKE_CXX_COMPILER_IMPORT_STD"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_CXX_COMPILER_IMPORT_STD</span></code></a> variable lists standard levels
+which have support for <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">std</span></code> in the active C++ toolchain.</p>
+<p>Additionally, only the <a class="reference internal" href="cmake-generators.7.html#ninja-generators"><span class="std std-ref">Ninja 生成器</span></a> currently support
+<code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">std</span></code> at this time because <a class="reference internal" href="cmake-generators.7.html#visual-studio-generators"><span class="std std-ref">Visual Studio 生成器</span></a> do not
+support building <a class="reference internal" href="#term-BMI"><span class="xref std std-term">BMIs</span></a> for <code class="docutils literal notranslate"><span class="pre">IMPORTED</span></code> targets.</p>
+<div class="admonition note">
+<p class="admonition-title">備註</p>
+<p>This support is provided only when experimental support for
+<code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">std</span></code> has been enabled by the
+<code class="docutils literal notranslate"><span class="pre">CMAKE_EXPERIMENTAL_CXX_IMPORT_STD</span></code> gate.</p>
+</div>
+</section>
+<section id="generator-support">
+<h2>生成器支援<a class="headerlink" href="#generator-support" title="連結到這個標頭">¶</a></h2>
+<p>The list of generators which support scanning sources for C++ modules
+includes:</p>
+<ul class="simple">
+<li><p><span class="target" id="index-0-generator:Ninja"></span><a class="reference internal" href="../generator/Ninja.html#generator:Ninja" title="Ninja"><code class="xref cmake cmake-generator docutils literal notranslate"><span class="pre">Ninja</span></code></a></p></li>
+<li><p><span class="target" id="index-0-generator:Ninja Multi-Config"></span><a class="reference internal" href="../generator/Ninja%20Multi-Config.html#generator:Ninja Multi-Config" title="Ninja Multi-Config"><code class="xref cmake cmake-generator docutils literal notranslate"><span class="pre">Ninja</span> <span class="pre">Multi-Config</span></code></a></p></li>
+<li><p><span class="target" id="index-0-generator:Visual Studio 17 2022"></span><a class="reference internal" href="../generator/Visual%20Studio%2017%202022.html#generator:Visual Studio 17 2022" title="Visual Studio 17 2022"><code class="xref cmake cmake-generator docutils literal notranslate"><span class="pre">Visual</span> <span class="pre">Studio</span> <span class="pre">17</span> <span class="pre">2022</span></code></a></p></li>
+<li><p><span class="target" id="index-0-generator:Visual Studio 18 2026"></span><a class="reference internal" href="../generator/Visual%20Studio%2018%202026.html#generator:Visual Studio 18 2026" title="Visual Studio 18 2026"><code class="xref cmake cmake-generator docutils literal notranslate"><span class="pre">Visual</span> <span class="pre">Studio</span> <span class="pre">18</span> <span class="pre">2026</span></code></a></p></li>
+</ul>
+<p>Note that the <a class="reference internal" href="cmake-generators.7.html#ninja-generators"><span class="std std-ref">Ninja 生成器</span></a> require <code class="docutils literal notranslate"><span class="pre">ninja</span></code> 1.11 or newer.</p>
+<section id="limitations">
+<h3>限制<a class="headerlink" href="#limitations" title="連結到這個標頭">¶</a></h3>
+<p>There are a number of known limitations of the current C++ module support in
+CMake.  Known limitations or bugs in compilers are not listed here, as these
+can change over time.</p>
+<p>For all generators:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#term-header-unit"><span class="xref std std-term">Header units</span></a> are not supported.</p></li>
+</ul>
+<p>For the <a class="reference internal" href="cmake-generators.7.html#visual-studio-generators"><span class="std std-ref">Visual Studio 生成器</span></a>:</p>
+<ul class="simple">
+<li><p>Only Visual Studio 2022 and MSVC toolsets 14.34 (Visual Studio
+17.4) and newer are supported.</p></li>
+<li><p>Exporting or installing <a class="reference internal" href="#term-BMI"><span class="xref std std-term">BMI</span></a> or module information is not supported.</p></li>
+<li><p>Compiling <a class="reference internal" href="#term-BMI"><span class="xref std std-term">BMIs</span></a> from <code class="docutils literal notranslate"><span class="pre">IMPORTED</span></code> targets with C++ modules
+(including <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">std</span></code>) is not supported.</p></li>
+<li><p>Use of modules provided by <code class="docutils literal notranslate"><span class="pre">PRIVATE</span></code> sources from <code class="docutils literal notranslate"><span class="pre">PUBLIC</span></code> module
+sources is not diagnosed.</p></li>
+</ul>
+<p>Separately, as a design choice, CMake does not express configuration-agnostic
+module maps for imported targets. The <span class="target" id="index-0-prop_tgt:IMPORTED_CXX_MODULES_&lt;CONFIG&gt;"></span><a class="reference internal" href="../prop_tgt/IMPORTED_CXX_MODULES_CONFIG.html#prop_tgt:IMPORTED_CXX_MODULES_&lt;CONFIG&gt;" title="IMPORTED_CXX_MODULES_&lt;CONFIG&gt;"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">IMPORTED_CXX_MODULES_&lt;CONFIG&gt;</span></code></a>
+target property is always tied to a specific configuration. This can lead to
+some friction when importing/exporting targets from/to configuration-unaware
+build systems. Future work will alleviate this restriction.</p>
+</section>
+</section>
+<section id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="連結到這個標頭">¶</a></h2>
+<section id="troubleshooting-cmake">
+<h3>Troubleshooting CMake<a class="headerlink" href="#troubleshooting-cmake" title="連結到這個標頭">¶</a></h3>
+<p>This section aims to answer common questions about CMake's implementation and
+to help diagnose or explain errors in CMake's C++ modules support.</p>
+<section id="file-extension-support">
+<h4>File Extension Support<a class="headerlink" href="#file-extension-support" title="連結到這個標頭">¶</a></h4>
+<p>CMake imposes no requirements upon file extensions for modules of any unit
+type.  While there are preferences that differ between toolchains (e.g.,
+<code class="docutils literal notranslate"><span class="pre">.ixx</span></code> on MSVC and <code class="docutils literal notranslate"><span class="pre">.cppm</span></code> on Clang), there is no universally agreed-upon
+extension.  As such, CMake only requires that the file be recognized as a
+<code class="docutils literal notranslate"><span class="pre">CXX</span></code>-language source file.  By default, any recognized extension will
+suffice, but the <span class="target" id="index-0-prop_sf:LANGUAGE"></span><a class="reference internal" href="../prop_sf/LANGUAGE.html#prop_sf:LANGUAGE" title="LANGUAGE"><code class="xref cmake cmake-prop_sf docutils literal notranslate"><span class="pre">LANGUAGE</span></code></a> property may be used with any other
+extension as well.</p>
+</section>
+<section id="file-name-requirements">
+<h4>File Name Requirements<a class="headerlink" href="#file-name-requirements" title="連結到這個標頭">¶</a></h4>
+<p>The name of a module has no relation to the name or path of the file in which
+its declaration resides.  The C++ standard has no requirements here and
+neither does CMake.  However, it may be useful to have some pattern in use
+within a project for easier navigation within environments that lack IDE-like
+&quot;find symbol&quot; functionality (e.g., on code review platforms).</p>
+</section>
+<section id="scanning-without-modules">
+<h4>Scanning Without Modules<a class="headerlink" href="#scanning-without-modules" title="連結到這個標頭">¶</a></h4>
+<p>A common problem for projects that have not yet adopted modules is unnecessary
+scanning of sources.  This typically happens when a C++20 project becomes
+aware of CMake 3.28, or a 3.28-aware project starts using C++20.  Either case
+ends up setting <span class="target" id="index-1-policy:CMP0155"></span><a class="reference internal" href="../policy/CMP0155.html#policy:CMP0155" title="CMP0155"><code class="xref cmake cmake-policy docutils literal notranslate"><span class="pre">CMP0155</span></code></a> to <code class="docutils literal notranslate"><span class="pre">NEW</span></code>, which enables scanning of C++
+sources with C++20 or newer by default.  The easiest way for projects to turn
+this off is to add:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">set(</span><span class="no">CMAKE_CXX_SCAN_FOR_MODULES</span><span class="w"> </span><span class="m">0</span><span class="nf">)</span>
+</pre></div>
+</div>
+<p>near the top of their top-level <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code> file.  Note that it should
+<strong>not</strong> be in the cache, as it may otherwise affect projects using it via
+<code class="docutils literal notranslate"><span class="pre">FetchContent</span></code>.  Attention should also be paid to vendored projects which
+may want to enable scanning for their own sources, as this would change the
+default for them as well.</p>
+</section>
+</section>
+<section id="debugging-module-builds">
+<h3>Debugging Module Builds<a class="headerlink" href="#debugging-module-builds" title="連結到這個標頭">¶</a></h3>
+<p>This section aims to help diagnose or explain common errors that may arise on
+the build side of CMake's C++ modules support.</p>
+<section id="import-cycles">
+<h4>Import Cycles<a class="headerlink" href="#import-cycles" title="連結到這個標頭">¶</a></h4>
+<p>The C++ standard does not allow for cycles in the <code class="docutils literal notranslate"><span class="pre">import</span></code> graph of a
+<a class="reference internal" href="#term-translation-unit"><span class="xref std std-term">translation unit</span></a>; therefore, CMake does not either.  Currently, CMake
+will leave it to the <a class="reference internal" href="#term-build-tool"><span class="xref std std-term">build tool</span></a> to detect this based on the
+<a class="reference internal" href="#term-dynamic-dependencies"><span class="xref std std-term">dynamic dependencies</span></a> used to order module compilations.
+<a class="reference external" href="https://gitlab.kitware.com/cmake/cmake/-/issues/26119">CMake Issue 26119</a> tracks the desire to improve the user experience in this
+case.</p>
+</section>
+<section id="internal-module-partition-extension">
+<h4>Internal Module Partition Extension<a class="headerlink" href="#internal-module-partition-extension" title="連結到這個標頭">¶</a></h4>
+<p>When the implementation of building C++ modules was first investigated, it
+appeared as though there existed a type of <a class="reference internal" href="#term-translation-unit"><span class="xref std std-term">translation unit</span></a> that
+represented the intersection of a <a class="reference internal" href="#term-partition-unit"><span class="xref std std-term">partition unit</span></a> and an
+<a class="reference internal" href="#term-implementation-unit"><span class="xref std std-term">implementation unit</span></a>.  Initial CMake designs included specific support
+for these translation units; however, after a closer reading of the standard,
+these did not actually exist.  These units would have had <code class="docutils literal notranslate"><span class="pre">module</span> <span class="pre">M:part;</span></code>
+as their module declaration statement.  The problem is that this is also the
+exact syntax also used for declaring module partitions that do not contribute
+to the external interface of the primary module.  Only MSVC supports this
+distinction.  Other compilers do not and will treat such files as an
+<a class="reference internal" href="#term-internal-partition-unit"><span class="xref std std-term">internal partition unit</span></a> and CMake will raise an error that a
+module-providing C++ source must be in a <code class="docutils literal notranslate"><span class="pre">FILE_SET</span></code> of type <code class="docutils literal notranslate"><span class="pre">CXX_MODULES</span></code>.</p>
+<p>The fix is to not use the extension, as it provides no further expressivity
+over not using the extension.  All <a class="reference internal" href="#term-implementation-unit"><span class="xref std std-term">implementation unit</span></a> source files
+should instead only use <code class="docutils literal notranslate"><span class="pre">module</span> <span class="pre">M;</span></code> as their module declaration statement
+regardless of what partition the defined entities are declared within.  As an
+example:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// module-interface.cpp</span>
+<span class="k">export</span><span class="w"> </span><span class="k">module</span><span class="w"> </span><span class="n">M</span><span class="p">;</span>
+<span class="k">export</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">foo</span><span class="p">();</span>
+
+<span class="c1">// module-impl.cpp</span>
+<span class="k">module</span><span class="w"> </span><span class="n">M</span><span class="o">:</span><span class="n">part</span><span class="p">;</span><span class="w"> </span><span class="c1">// module M:part; looks like an internal partition</span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">foo</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="mi">42</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+</pre></div>
+</div>
+<p>Instead use explicit interface/implementation separation:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// module-interface.cpp</span>
+<span class="k">export</span><span class="w"> </span><span class="k">module</span><span class="w"> </span><span class="n">M</span><span class="p">;</span>
+<span class="k">export</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">foo</span><span class="p">();</span>
+
+<span class="c1">// module-impl.cpp</span>
+<span class="k">module</span><span class="w"> </span><span class="n">M</span><span class="p">;</span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">foo</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="mi">42</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="module-visibility">
+<h4>Module Visibility<a class="headerlink" href="#module-visibility" title="連結到這個標頭">¶</a></h4>
+<p>CMake enforces <a class="reference internal" href="#term-module-visibility"><span class="xref std std-term">module visibility</span></a> between and within targets.  This
+essentially means that a module (say, <code class="docutils literal notranslate"><span class="pre">I</span></code>) provided from a <code class="docutils literal notranslate"><span class="pre">PRIVATE</span></code>
+<code class="docutils literal notranslate"><span class="pre">FILE_SET</span></code> on a target <code class="docutils literal notranslate"><span class="pre">T</span></code> may not be imported by:</p>
+<ul class="simple">
+<li><p>other targets depending on <code class="docutils literal notranslate"><span class="pre">T</span></code>; or</p></li>
+<li><p>modules provided from a <code class="docutils literal notranslate"><span class="pre">PUBLIC</span></code> <code class="docutils literal notranslate"><span class="pre">FILE_SET</span></code> on target <code class="docutils literal notranslate"><span class="pre">T</span></code> itself.</p></li>
+</ul>
+<p>This is because, in general, all imported entities from a module must also be
+importable by all potential importers of that module.  Even if module <code class="docutils literal notranslate"><span class="pre">I</span></code> is
+only used within parts of a module without the <code class="docutils literal notranslate"><span class="pre">export</span></code> keyword, it may
+affect things within it in such a way that consumers of the module need to be
+able to transitively <code class="docutils literal notranslate"><span class="pre">import</span></code> it to work correctly.  As CMake uses the
+module visibility to determine whether to install <a class="reference internal" href="#term-module-interface-unit"><span class="xref std std-term">module interface
+units</span></a>, a <code class="docutils literal notranslate"><span class="pre">PRIVATE</span></code> module interface unit will not
+be installed, meaning that usage of any installed module which imports <code class="docutils literal notranslate"><span class="pre">I</span></code>
+would not work.</p>
+<p>Instead, import <code class="docutils literal notranslate"><span class="pre">PRIVATE</span></code> C++ modules only from within an
+<a class="reference internal" href="#term-implementation-unit"><span class="xref std std-term">implementation unit</span></a>, as these are not exposed to consumers of any
+module.</p>
+</section>
+</section>
+</section>
+<section id="design">
+<h2>Design<a class="headerlink" href="#design" title="連結到這個標頭">¶</a></h2>
+<p>The design of CMake's C++ module support makes a number of trade-offs compared
+to other designs.  First, CMake's chosen design will be covered.  Later
+sections cover alternative designs that were not chosen for CMake's
+implementation.</p>
+<p>Overall, the designs fall somewhere along two axes:</p>
+<table class="docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p>Explicit Dynamic</p></td>
+<td><p>Explicit Static</p></td>
+<td><p>Explicit Fixed</p></td>
+</tr>
+<tr class="row-even"><td><p>Implicit Dynamic</p></td>
+<td><p>Implicit Static</p></td>
+<td><p>Implicit Fixed</p></td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li><p><strong>Explicit</strong> builds control which modules are visible to each translation
+unit directly.  For example, when compiling a source requiring a module
+<code class="docutils literal notranslate"><span class="pre">M</span></code>, the compiler will be given information which states the exact BMI
+file to use when importing the <code class="docutils literal notranslate"><span class="pre">M</span></code> module.</p></li>
+<li><p><strong>Implicit</strong> builds can control module visibility as well, but do so by
+instead grouping <a class="reference internal" href="#term-BMI"><span class="xref std std-term">BMIs</span></a> into directories which are then searched
+for files to satisfy <code class="docutils literal notranslate"><span class="pre">import</span></code> statements in the source file.</p></li>
+<li><p><strong>Static</strong> builds use a static set of build commands in order to complete
+the build.  There must be support to add edges between nodes at build time.</p></li>
+<li><p><strong>Dynamic</strong> builds may create new build commands during the build and
+schedule any discovered work during the build.</p></li>
+<li><p><strong>Fixed</strong> builds are generated with all module dependencies already known.</p></li>
+</ul>
+<section id="design-goals">
+<h3>Design Goals<a class="headerlink" href="#design-goals" title="連結到這個標頭">¶</a></h3>
+<p>CMake's implementation of building C++ modules focuses on the following design
+goals:</p>
+<ol class="arabic simple">
+<li><p><a class="reference internal" href="#design-goal-correct-builds">Correct Builds</a></p></li>
+<li><p><a class="reference internal" href="#design-goal-deterministic-builds">Deterministic Builds</a></p></li>
+<li><p><a class="reference internal" href="#design-goal-generated-sources">Support Generated Sources</a></p></li>
+<li><p><a class="reference internal" href="#design-goal-static-communication">Static Communication</a></p></li>
+<li><p><a class="reference internal" href="#design-goal-minimize-regeneration">Minimize Regeneration</a></p></li>
+</ol>
+<section id="correct-builds">
+<span id="design-goal-correct-builds"></span><h4>Correct Builds<a class="headerlink" href="#correct-builds" title="連結到這個標頭">¶</a></h4>
+<p>Above all else, an incorrect build is a frustrating experience for all
+involved.  A build which does not detect errors and instead lets a build with
+detectable problems run to completion is a good way to start wild goose chase
+debugging sessions.  CMake errs on the side of avoiding such situations.</p>
+</section>
+<section id="deterministic-builds">
+<span id="design-goal-deterministic-builds"></span><h4>Deterministic Builds<a class="headerlink" href="#deterministic-builds" title="連結到這個標頭">¶</a></h4>
+<p>Given an on-disk state of a build, it should be possible to determine what
+steps will happen next.  This does not mean that the exact order of rules
+within the build that can be run concurrently is deterministic, but instead
+that the set of work to be done and its results are deterministic.  For
+example, if there is no dependency between tasks <code class="docutils literal notranslate"><span class="pre">A</span></code> and <code class="docutils literal notranslate"><span class="pre">B</span></code>, <code class="docutils literal notranslate"><span class="pre">A</span></code> should
+have no effects on the execution of <code class="docutils literal notranslate"><span class="pre">B</span></code> and vice versa.</p>
+</section>
+<section id="support-generated-sources">
+<span id="design-goal-generated-sources"></span><h4>Support Generated Sources<a class="headerlink" href="#support-generated-sources" title="連結到這個標頭">¶</a></h4>
+<p>Code generation is prevalent in the C++ ecosystem, so only supporting modules
+in files whose content is known at configure time is not suitable.  Without
+supporting generated sources which use or provide modules, code generation
+tools are effectively cut off from the use of modules, and any dependencies of
+generated sources must also provide non-modular ways of using their interfaces
+(i.e., provide headers).  Given that all C++ implementations use <a class="reference internal" href="#term-strong-module-ownership"><span class="xref std std-term">strong
+module ownership</span></a> for symbol mangling, this is problematic when such
+interfaces end up referring to compiled symbols in other libraries.</p>
+</section>
+<section id="static-communication">
+<span id="design-goal-static-communication"></span><h4>Static Communication<a class="headerlink" href="#static-communication" title="連結到這個標頭">¶</a></h4>
+<p>All communication between different steps of the build should be handled
+statically.  Given the <a class="reference internal" href="#term-build-tool"><span class="xref std std-term">build tools</span></a> that CMake supports,
+it is challenging to establish a controlled lifetime for a companion tool that
+needs to interact during compilation.  Neither <code class="docutils literal notranslate"><span class="pre">make</span></code> nor <code class="docutils literal notranslate"><span class="pre">ninja</span></code> offer a
+way to start a tool at the beginning of a build and ensure it is stopped at
+the end.  Instead, communication with compilers is managed through input and
+output files, using dependencies in the <a class="reference internal" href="#term-build-tool"><span class="xref std std-term">build tool</span></a> to keep everything
+up-to-date.  This approach enables standard debugging strategies for builds
+and allows developers to run build commands directly when investigating
+issues, without needing to account for other tools running in the background.</p>
+</section>
+<section id="minimize-regeneration">
+<span id="design-goal-minimize-regeneration"></span><h4>Minimize Regeneration<a class="headerlink" href="#minimize-regeneration" title="連結到這個標頭">¶</a></h4>
+<p>Active development of a build with modules should not require the build graph
+to be regenerated on every change.  This means that the module dependencies
+must be constructed after the build graph is available.  Without this, a
+<a class="reference internal" href="#design-goal-correct-builds">correct build</a> would need to regenerate the
+build graph any time a module-aware source file is edited, as any changes may
+alter module dependencies.</p>
+<p>It also means that all module-aware sources must be known at configure time
+(even if they do not yet exist) so that the build graph can include the
+commands to <a class="reference internal" href="#term-scan"><span class="xref std std-term">scan</span></a> for their dependencies.</p>
+<div class="admonition note">
+<p class="admonition-title">備註</p>
+<p>There is a known issue with <code class="docutils literal notranslate"><span class="pre">ninja</span></code> which can result in an erroneous
+detection of a dependency cycle when the dependency order between two
+sources reverses (i.e., <code class="docutils literal notranslate"><span class="pre">a</span></code> importing <code class="docutils literal notranslate"><span class="pre">b</span></code> becomes <code class="docutils literal notranslate"><span class="pre">b</span></code> importing
+<code class="docutils literal notranslate"><span class="pre">a</span></code>) between two builds.  See <a class="reference external" href="https://github.com/ninja-build/ninja/issues/2666">ninja issue 2666</a> for details.</p>
+</div>
+</section>
+</section>
+<section id="use-case-considerations">
+<h3>Use Case Considerations<a class="headerlink" href="#use-case-considerations" title="連結到這個標頭">¶</a></h3>
+<p>The design goals described above constrain the implementation.  Additionally,
+mixed configurations are supported by CMake via multi-config generators such
+as <span class="target" id="index-1-generator:Ninja Multi-Config"></span><a class="reference internal" href="../generator/Ninja%20Multi-Config.html#generator:Ninja Multi-Config" title="Ninja Multi-Config"><code class="xref cmake cmake-generator docutils literal notranslate"><span class="pre">Ninja</span> <span class="pre">Multi-Config</span></code></a> and <a class="reference internal" href="cmake-generators.7.html#visual-studio-generators"><span class="std std-ref">Visual Studio 生成器</span></a>.  This
+section describes how CMake addresses these constraints.</p>
+</section>
+<section id="selected-design">
+<h3>Selected Design<a class="headerlink" href="#selected-design" title="連結到這個標頭">¶</a></h3>
+<p>The general strategy CMake uses is to &quot;<a class="reference internal" href="#term-scan"><span class="xref std std-term">scan</span></a>&quot; sources to extract the
+ordering dependency information and update the build graph with new edges
+between existing edges.  This is done by taking the per-source scan results
+(represented by <a class="reference external" href="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2022/p1689r5.html">P1689R5</a> files) and then &quot;<a class="reference internal" href="#term-collate"><span class="xref std std-term">collating</span></a>&quot; them
+for each target with information from its dependencies.  The primary task of
+the collator is to generate &quot;<a class="reference internal" href="#term-module-map"><span class="xref std std-term">module map</span></a>&quot; files to pass to each compile
+rule with the paths to the <a class="reference internal" href="#term-BMI"><span class="xref std std-term">BMIs</span></a> needed to satisfy <code class="docutils literal notranslate"><span class="pre">import</span></code>
+statements, and to inform the <a class="reference internal" href="#term-build-tool"><span class="xref std std-term">build tool</span></a> of dependencies needed to
+satisfy those <code class="docutils literal notranslate"><span class="pre">import</span></code> statements during the compilation.  The collator also
+uses the build-time information to generate <code class="docutils literal notranslate"><span class="pre">install</span></code> rules for the module
+interface units, their <a class="reference internal" href="#term-BMI"><span class="xref std std-term">BMIs</span></a>, and properties for any exported
+targets with C++ modules.  It also enforces that <code class="docutils literal notranslate"><span class="pre">PRIVATE</span></code> modules may not
+be used by other targets or by any <code class="docutils literal notranslate"><span class="pre">PUBLIC</span></code> <a class="reference internal" href="#term-module-interface-unit"><span class="xref std std-term">module interface unit</span></a>
+within the target.</p>
+</section>
+<section id="implementation-details">
+<h3>Implementation Details<a class="headerlink" href="#implementation-details" title="連結到這個標頭">¶</a></h3>
+<div class="admonition warning">
+<p class="admonition-title">警告</p>
+<p>The implementation details are not a stable interface.  Each version
+of CMake may revise them without any attempt at providing compatibility.
+External toolchain maintainers are responsible for updating their
+implementations for each version of CMake they support.</p>
+</div>
+<p>This section describes how CMake actually structures the build graph, the data
+passed between various parts, and the files which contain that data.  It is
+intended to be used both as functional documentation and as a guide to help
+those debugging a module build to understand where to locate various bits of
+data.</p>
+<div class="admonition note">
+<p class="admonition-title">備註</p>
+<p>This section documents internal implementation details that may be useful
+for <span class="target" id="index-0-manual:cmake-toolchains(7)"></span><a class="reference internal" href="cmake-toolchains.7.html#manual:cmake-toolchains(7)" title="cmake-toolchains(7)"><code class="xref cmake cmake-manual docutils literal notranslate"><span class="pre">toolchain</span> <span class="pre">file</span></code></a> authors or during
+debugging of a module-related issue.  Projects should not need to inspect
+or modify any of the variables, properties, files, or targets mentioned
+here.</p>
+</div>
+<section id="toolchain-scanning">
+<h4>Toolchain (scanning)<a class="headerlink" href="#toolchain-scanning" title="連結到這個標頭">¶</a></h4>
+<p>Compilers which support modules must also provide a scanning tool.  This will
+usually be either the compiler itself with some extra flags or a tool shipped
+with the compiler.  The command template for scanning is stored in the
+<code class="docutils literal notranslate"><span class="pre">CMAKE_CXX_SCANDEP_SOURCE</span></code> variable.  The command is expected to write
+<a class="reference external" href="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2022/p1689r5.html">P1689R5</a> results to the <code class="docutils literal notranslate"><span class="pre">&lt;DYNDEP_FILE&gt;</span></code> placeholder.  Additionally, the
+command should provide any <a class="reference internal" href="#term-discovered-dependencies"><span class="xref std std-term">discovered dependencies</span></a> to the
+<code class="docutils literal notranslate"><span class="pre">&lt;DEP_FILE&gt;</span></code> placeholder.  This allows <a class="reference internal" href="#term-build-tool"><span class="xref std std-term">build tools</span></a> to
+rerun the scan if any of the dependencies of the scanning command change.</p>
+<p>Additionally, toolchains should set the following variables:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">CMAKE_CXX_MODULE_MAP_FORMAT</span></code>: The format of the <a class="reference internal" href="#term-module-map"><span class="xref std std-term">module map</span></a>
+describing where dependent <a class="reference internal" href="#term-BMI"><span class="xref std std-term">BMI</span></a> files for imported modules exist
+during compilation.  Must be one of <code class="docutils literal notranslate"><span class="pre">gcc</span></code>, <code class="docutils literal notranslate"><span class="pre">clang</span></code>, or <code class="docutils literal notranslate"><span class="pre">msvc</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CMAKE_CXX_MODULE_MAP_FLAG</span></code>: The arguments used to inform the compiler of
+the <a class="reference internal" href="#term-module-map"><span class="xref std std-term">module map</span></a> file.  It should use the <code class="docutils literal notranslate"><span class="pre">&lt;MODULE_MAP_FILE&gt;</span></code>
+placeholder.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CMAKE_CXX_COMPILE_BMI</span></code>: The command template to compile a <a class="reference internal" href="#term-BMI"><span class="xref std std-term">BMI</span></a>
+file from a <a class="reference internal" href="#term-module-interface-unit"><span class="xref std std-term">module interface unit</span></a>.  Used when
+<code class="docutils literal notranslate"><span class="pre">CMAKE_CXX_MODULE_BMI_ONLY_FLAG</span></code> is not completely additive to an
+object compilation template.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CMAKE_CXX_MODULE_BMI_ONLY_FLAG</span></code>: The arguments used to compile only a
+<a class="reference internal" href="#term-BMI"><span class="xref std std-term">BMI</span></a> file from a <a class="reference internal" href="#term-module-interface-unit"><span class="xref std std-term">module interface unit</span></a>.  This is used when
+consuming modules from external projects to compile <a class="reference internal" href="#term-BMI"><span class="xref std std-term">BMI</span></a> files for
+use within the current build.</p></li>
+</ul>
+<p>If a toolchain does not provide the <code class="docutils literal notranslate"><span class="pre">CMAKE_CXX_COMPILE_BMI</span></code> or
+<code class="docutils literal notranslate"><span class="pre">CMAKE_CXX_MODULE_BMI_ONLY_FLAG</span></code> variables, it will not be able to consume
+modules provided by <code class="docutils literal notranslate"><span class="pre">IMPORTED</span></code> targets.</p>
+</section>
+<section id="configure">
+<h4>Configure<a class="headerlink" href="#configure" title="連結到這個標頭">¶</a></h4>
+<p>During the configure step, CMake needs to track which sources care about
+modules at all.  See <a class="reference internal" href="#cxxmodules-scanning-control"><span class="std std-ref">Scanning Control</span></a> for
+how each source determines whether it cares about modules or not.  CMake
+tracks these in its internal target representation structure (<code class="docutils literal notranslate"><span class="pre">cmTarget</span></code>).
+The set of sources which need to be scanned may be modified using the
+<span class="target" id="index-0-command:target_sources"></span><a class="reference internal" href="../command/target_sources.html#command:target_sources" title="target_sources"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">target_sources()</span></code></a>, <span class="target" id="index-0-command:target_compile_features"></span><a class="reference internal" href="../command/target_compile_features.html#command:target_compile_features" title="target_compile_features"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">target_compile_features()</span></code></a>, and
+<span class="target" id="index-0-command:set_property"></span><a class="reference internal" href="../command/set_property.html#command:set_property" title="set_property"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">set_property()</span></code></a> commands.</p>
+<p>Additionally, targets may use the <span class="target" id="index-0-prop_tgt:CXX_MODULE_STD"></span><a class="reference internal" href="../prop_tgt/CXX_MODULE_STD.html#prop_tgt:CXX_MODULE_STD" title="CXX_MODULE_STD"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">CXX_MODULE_STD</span></code></a> target property
+to indicate that <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">std</span></code> is desired within the target's sources.</p>
+</section>
+<section id="generate">
+<h4>Generate<a class="headerlink" href="#generate" title="連結到這個標頭">¶</a></h4>
+<p>During generation, CMake needs to add additional rules to ensure that the
+sources providing modules can be built before sources that import those
+modules.  Since CMake uses a <a class="reference internal" href="#term-static-build"><span class="xref std std-term">static build</span></a>, the build graph must
+contain all possible commands for scanning and module generation.  The
+dependency edges between commands to ensure that modules are provided will
+then ensure that the build graph executes correctly.  This means that, while
+all sources may get scanned, only modules that are actually used will be
+generated.</p>
+<p>The first step CMake performs is to generate any
+<a class="reference internal" href="#term-synthetic-target"><span class="xref std std-term">synthetic targets</span></a> needed for a module-providing
+target.  These targets are based on the module provider, but produce only
+<a class="reference internal" href="#term-BMI"><span class="xref std std-term">BMI</span></a> files for consumers rather than object files. This is necessary
+because the compatibility of <a class="reference internal" href="#term-BMI"><span class="xref std std-term">BMI</span></a> files is extremely narrow and cannot be
+shared between arbitrary <code class="docutils literal notranslate"><span class="pre">import</span></code> instances.</p>
+<p>Due to the internal workings of toolchains, there can generally only be a single
+set of settings for a variety of flags for any one compilation, including
+<a class="reference internal" href="#term-BMI"><span class="xref std std-term">BMI</span></a> files for imported modules.  As an example, the C++ standard in
+use needs to be consistent across all modules imported to a given translation
+unit, mixing standards will cause incompatibilities.</p>
+<blockquote>
+<div><div class="versionadded">
+<p><span class="versionmodified added">在 4.4 版被加入: </span>Prior to CMake 4.4, CMake assumed all usages were compatible and would only
+create one set of <a class="reference internal" href="#term-BMI"><span class="xref std std-term">BMIs</span></a> for each module-providing target. This
+could cause build failures due to incompatible <a class="reference internal" href="#term-BMI"><span class="xref std std-term">BMI</span></a> usage.</p>
+<p>In CMake 4.4 and later, CMake attempts to determine <a class="reference internal" href="#term-BMI"><span class="xref std std-term">BMI</span></a>
+compatibility on a target-by-target basis and will generate
+<a class="reference internal" href="#term-synthetic-target"><span class="xref std std-term">synthetic targets</span></a> to provide compatible
+<a class="reference internal" href="#term-BMI"><span class="xref std std-term">BMIs</span></a> for consumers.</p>
+</div>
+</div></blockquote>
+<p>The generated <a class="reference internal" href="#term-synthetic-target"><span class="xref std std-term">synthetic target</span></a> has a mix of properties from both
+the provider of the module and the consumer. <span class="target" id="index-0-prop_tgt:COMPILE_FEATURES"></span><a class="reference internal" href="../prop_tgt/COMPILE_FEATURES.html#prop_tgt:COMPILE_FEATURES" title="COMPILE_FEATURES"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">COMPILE_FEATURES</span></code></a> and
+<span class="target" id="index-0-prop_tgt:COMPILE_OPTIONS"></span><a class="reference internal" href="../prop_tgt/COMPILE_OPTIONS.html#prop_tgt:COMPILE_OPTIONS" title="COMPILE_OPTIONS"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">COMPILE_OPTIONS</span></code></a> are adopted from the consumer, while all other
+relevant properties are inherited from the provider.</p>
+<p>Once all of the <a class="reference internal" href="#term-synthetic-target"><span class="xref std std-term">synthetic targets</span></a> are created,
+CMake looks at each target that has any source that might use C++ modules and
+creates a command to <a class="reference internal" href="#term-scan"><span class="xref std std-term">scan</span></a> each of them.  This command will output a
+<a class="reference external" href="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2022/p1689r5.html">P1689R5</a>-formatted file describing the C++ modules it uses and provides (if
+any).  It will also create a command to <a class="reference internal" href="#term-collate"><span class="xref std std-term">collate</span></a> module dependencies
+for the eligible compilations.  This command depends on the <a class="reference internal" href="#term-scan"><span class="xref std std-term">scan</span></a>
+results of all eligible sources, information about the target itself, as well
+as the <a class="reference internal" href="#term-collate"><span class="xref std std-term">collate</span></a> results of any dependent targets which provide C++
+modules.  The <a class="reference internal" href="#term-collate"><span class="xref std std-term">collate</span></a> step uses a target-specific
+<code class="docutils literal notranslate"><span class="pre">CXXDependInfo.json</span></code> file which contains the following information:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">compiler-*</span></code>: basic compiler information (<code class="docutils literal notranslate"><span class="pre">id</span></code>, <code class="docutils literal notranslate"><span class="pre">frontend-variant</span></code>,
+and <code class="docutils literal notranslate"><span class="pre">simulate-id</span></code>) which is used to generate correctly formatted paths
+when generating paths for the compiler</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cxx-modules</span></code>: a map of object files to the <code class="docutils literal notranslate"><span class="pre">FILE_SET</span></code> information,
+which is used to enforce <a class="reference internal" href="#term-module-visibility"><span class="xref std std-term">module visibility</span></a> and generate install
+rules for <a class="reference internal" href="#term-module-interface-unit"><span class="xref std std-term">module interface unit</span></a> sources</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">module-dir</span></code>: where to place <a class="reference internal" href="#term-BMI"><span class="xref std std-term">BMI</span></a> files for this target</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dir-{cur,top}-{src,bld}</span></code>: the source (<code class="docutils literal notranslate"><span class="pre">src</span></code>) and build (<code class="docutils literal notranslate"><span class="pre">bld</span></code>)
+directories for the current directory (<code class="docutils literal notranslate"><span class="pre">cur</span></code>) and the top (<code class="docutils literal notranslate"><span class="pre">top</span></code>) of the
+project, used to compute accurate relative paths for the <a class="reference internal" href="#term-build-tool"><span class="xref std std-term">build tool</span></a>
+dynamic dependencies</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">exports</span></code>: The list of exports which both contain the target and are
+providing C++ module information, used to provide accurate module properties
+on <code class="docutils literal notranslate"><span class="pre">IMPORTED</span></code> targets from the exported targets.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">bmi-installation</span></code>: installation information, used to generate install
+scripts for <a class="reference internal" href="#term-BMI"><span class="xref std std-term">BMI</span></a> files</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">database-info</span></code>: information required to generate <a class="reference internal" href="#term-build-database"><span class="xref std std-term">build database</span></a>
+information if requested by <span class="target" id="index-0-prop_tgt:EXPORT_BUILD_DATABASE"></span><a class="reference internal" href="../prop_tgt/EXPORT_BUILD_DATABASE.html#prop_tgt:EXPORT_BUILD_DATABASE" title="EXPORT_BUILD_DATABASE"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">EXPORT_BUILD_DATABASE</span></code></a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sources</span></code>: list of other source files in the target, used to add to the
+<a class="reference internal" href="#term-build-database"><span class="xref std std-term">build database</span></a> if requested</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">config</span></code>: the configuration for the target, used to set the appropriate
+properties in generated export files</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">language</span></code>: the language (e.g., C++ or Fortran) the
+<a class="reference internal" href="#term-collate"><span class="xref std std-term">collation</span></a> metadata file is describing</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">include-dirs</span></code> and <code class="docutils literal notranslate"><span class="pre">forward-modules-from-target-dirs</span></code>: unused for C++</p></li>
+</ul>
+<p>Each entry in the <code class="docutils literal notranslate"><span class="pre">cxx-modules</span></code> map records the following:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">bmi-only</span></code> (bool): True if only the BMI, not the source of the BMI, is
+available</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">compile-features</span></code> (list[string]): <span class="target" id="index-0-manual:cmake-compile-features(7)"></span><a class="reference internal" href="cmake-compile-features.7.html#manual:cmake-compile-features(7)" title="cmake-compile-features(7)"><code class="xref cmake cmake-manual docutils literal notranslate"><span class="pre">cmake-compile-features(7)</span></code></a> used
+to build the object</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">compile-options</span></code> (list[string]): compilation options/flags used to build
+the object, except for those derived from <code class="docutils literal notranslate"><span class="pre">compile-features</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">definitions</span></code> (list[string]): preprocessor defines used to build the object</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">destination</span></code> (string): intended install destination of the source file</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">include-directories</span></code> (list[string]): include directories used to build the
+object</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">name</span></code> (string): name of the file set which owns the source file</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">relative-directory</span></code> (string): base path relative to which the source file
+will be relocated into the install destination</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">source</span></code> (string): path to the source file</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">type</span></code> (string): type of the file set which owns the source file</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">visibility</span></code> (string): visibility of the file set which owns the source file</p></li>
+</ul>
+<p>For each compilation, CMake will also provide a <a class="reference internal" href="#term-module-map"><span class="xref std std-term">module map</span></a> which will
+be created during the build by the <a class="reference internal" href="#term-collate"><span class="xref std std-term">collate</span></a> command.  How this is
+provided to the compiler is specified by the <code class="docutils literal notranslate"><span class="pre">CMAKE_CXX_MODULE_MAP_FORMAT</span></code>
+and <code class="docutils literal notranslate"><span class="pre">CMAKE_CXX_MODULE_MAP_FLAG</span></code> toolchain variables.</p>
+</section>
+<section id="scan">
+<h4>Scan<a class="headerlink" href="#scan" title="連結到這個標頭">¶</a></h4>
+<p>The compiler is expected to implement the <a class="reference internal" href="#term-scan"><span class="xref std std-term">scan</span></a> command.  This is
+because only the compiler itself can reliably answer preprocessor predicates
+like <code class="docutils literal notranslate"><span class="pre">__has_builtin</span></code> in order to provide accurate module usage information
+in the face of arbitrary flags that may be used when compiling sources.</p>
+<p>CMake names these files with the <code class="docutils literal notranslate"><span class="pre">.ddi</span></code> extension, which stands for &quot;dynamic
+dependency information&quot;.  These files are in <a class="reference external" href="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2022/p1689r5.html">P1689R5</a> format and are used by
+the <a class="reference internal" href="#term-collate"><span class="xref std std-term">collate</span></a> command to perform its tasks.</p>
+</section>
+<section id="collate">
+<h4>Collate<a class="headerlink" href="#collate" title="連結到這個標頭">¶</a></h4>
+<p>The <a class="reference internal" href="#term-collate"><span class="xref std std-term">collate</span></a> command performs the bulk of the work to make C++ modules
+work within the build graph.  It consumes the following files as input:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">CXXDependInfo.json</span></code> from the generate step</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.ddi</span></code> files from the <a class="reference internal" href="#term-scan"><span class="xref std std-term">scanning</span></a> results of the target's
+sources</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CXXModules.json</span></code> files output from eligible dependent targets'
+<a class="reference internal" href="#term-collate"><span class="xref std std-term">collate</span></a> commands</p></li>
+</ul>
+<p>It uses the information from these files to generate:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">CXX.dd</span></code> files to inform the <a class="reference internal" href="#term-build-tool"><span class="xref std std-term">build tool</span></a> of dependencies that exist
+between the compilation of a source and the <a class="reference internal" href="#term-BMI"><span class="xref std std-term">BMI</span></a> files of the modules
+that it imports</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CXXModules.json</span></code> files for use in <a class="reference internal" href="#term-collate"><span class="xref std std-term">collate</span></a> commands of depending
+targets</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">*.modmap</span></code> files for each compilation to find <a class="reference internal" href="#term-BMI"><span class="xref std std-term">BMI</span></a> files for
+imported modules</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">install-cxx-module-bmi-$&lt;CONFIG&gt;.cmake</span></code> scripts for the installation of
+any <a class="reference internal" href="#term-BMI"><span class="xref std std-term">BMI</span></a> files (included by the <code class="docutils literal notranslate"><span class="pre">install</span></code> scripts)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">target-*-$&lt;CONFIG&gt;.cmake</span></code> export files for any exports of the target to
+provide the <span class="target" id="index-1-prop_tgt:IMPORTED_CXX_MODULES_&lt;CONFIG&gt;"></span><a class="reference internal" href="../prop_tgt/IMPORTED_CXX_MODULES_CONFIG.html#prop_tgt:IMPORTED_CXX_MODULES_&lt;CONFIG&gt;" title="IMPORTED_CXX_MODULES_&lt;CONFIG&gt;"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">IMPORTED_CXX_MODULES_&lt;CONFIG&gt;</span></code></a> properties</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CXX_build_database.json</span></code> <a class="reference internal" href="#term-build-database"><span class="xref std std-term">build database</span></a> files for the target when
+the its <span class="target" id="index-1-prop_tgt:EXPORT_BUILD_DATABASE"></span><a class="reference internal" href="../prop_tgt/EXPORT_BUILD_DATABASE.html#prop_tgt:EXPORT_BUILD_DATABASE" title="EXPORT_BUILD_DATABASE"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">EXPORT_BUILD_DATABASE</span></code></a> property is set</p></li>
+</ul>
+<p>During its processing, it enforces the following guarantees:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#term-BMI"><span class="xref std std-term">BMI</span></a> usage is consistent</p></li>
+<li><p><a class="reference internal" href="#term-module-visibility"><span class="xref std std-term">module visibility</span></a> is respected</p></li>
+</ul>
+<p>C++ modules have the rule that only a single module of a given name may
+exist within a program.  This is not exactly enforceable with the existence of
+private modules, but it is enforceable for public modules.  The enforcement is
+done by the <a class="reference internal" href="#term-collate"><span class="xref std std-term">collate</span></a> command.  Part of the <code class="docutils literal notranslate"><span class="pre">CXXModules.json</span></code> files is
+the set of modules that are transitively imported by each module it provides.
+When a module is then imported, the <a class="reference internal" href="#term-collate"><span class="xref std std-term">collate</span></a> command ensures that all
+modules with a given name agree upon a given <a class="reference internal" href="#term-BMI"><span class="xref std std-term">BMI</span></a> file to provide that
+module.</p>
+</section>
+<section id="compile">
+<h4>Compile<a class="headerlink" href="#compile" title="連結到這個標頭">¶</a></h4>
+<p>Compilation uses the <a class="reference internal" href="#term-module-map"><span class="xref std std-term">module map</span></a> file generated by the <a class="reference internal" href="#term-collate"><span class="xref std std-term">collate</span></a>
+command to find imported modules during compilation.  Because CMake only
+provides the locations of modules that are discovered by the <a class="reference internal" href="#term-scan"><span class="xref std std-term">scan</span></a>
+command, any modules missed by it will not be provided to the compilation.</p>
+</section>
+<section id="install">
+<h4>Install<a class="headerlink" href="#install" title="連結到這個標頭">¶</a></h4>
+<p>During installation, install scripts which have been written by the
+<a class="reference internal" href="#term-collate"><span class="xref std std-term">collate</span></a> command during the build are included so that any <a class="reference internal" href="#term-BMI"><span class="xref std std-term">BMI</span></a>
+files are installed as needed.  These need to be generated, as it is not
+known what the <a class="reference internal" href="#term-BMI"><span class="xref std std-term">BMI</span></a> file names will be during CMake's generation
+(because CMake names the <a class="reference internal" href="#term-BMI"><span class="xref std std-term">BMI</span></a> files after the module name itself).
+These install scripts are included with the <code class="docutils literal notranslate"><span class="pre">OPTIONAL</span></code> keyword, so an
+incomplete build may result in an incomplete installation as well.</p>
+</section>
+</section>
+<section id="alternative-designs">
+<h3>Alternative Designs<a class="headerlink" href="#alternative-designs" title="連結到這個標頭">¶</a></h3>
+<p>There are alternative designs that CMake does not implement.  This section
+aims to give a brief overview and to explain why they were not chosen for
+CMake's implementation.</p>
+<section id="implicit-builds">
+<h4>Implicit Builds<a class="headerlink" href="#implicit-builds" title="連結到這個標頭">¶</a></h4>
+<p>An implicit build performs module builds using compile-time search paths to
+make the implementation of the build simpler.  This is certainly something
+that can be made to work.  However, CMake's goals exclude it as a solution.</p>
+<p>When a build uses search directory management, the compiler is directed to
+place module output files into a specified directory.  These directories are
+then provided as search paths to any compilation allowed to use the modules
+within them.</p>
+<p>This strategy risks running into problems with the
+<a class="reference internal" href="#design-goal-correct-builds">Correct Builds</a> goal.  This stems from the
+hazard of stale files being present in the search directories.  Since the
+build system is unaware of the actual files being written, it is difficult to
+know which files are allowed to be deleted (e.g., using <code class="docutils literal notranslate"><span class="pre">ninja</span> <span class="pre">-t</span> <span class="pre">cleandead</span></code>
+to remove outputs <code class="docutils literal notranslate"><span class="pre">ninja</span></code> has encountered but are no longer generated).
+Removal of intermediate files may also cause the build to become stuck if the
+outputs are not known to the build system beyond consumers reporting &quot;usage of
+file X&quot;.</p>
+<p>There is also a need to at least do some level of ordering of <a class="reference internal" href="#term-BMI"><span class="xref std std-term">BMI</span></a>
+generation commands which share an output directory.  Separate directories may
+be used to order groups of modules (e.g., one directory per target);
+otherwise, modules within the same directory may not assume that other modules
+writing to the shared directory will complete first.  If module paths are
+grouped accurately according to the module dependency graph, it is a small
+step to being an explicit build where the files are directly specified.</p>
+</section>
+<section id="static-scanning">
+<h4>Static Scanning<a class="headerlink" href="#static-scanning" title="連結到這個標頭">¶</a></h4>
+<p>A <a class="reference internal" href="#term-fixed-build"><span class="xref std std-term">fixed build</span></a> performs a scan while generating the build graph and
+includes the necessary dependencies up-front.  In CMake's case, it would look
+at the source files during the generate phase and add the dependencies
+directly to the build graph.  This is more likely to be suitable for a
+<a class="reference internal" href="#term-build-system"><span class="xref std std-term">build system</span></a> that is also its own <a class="reference internal" href="#term-build-tool"><span class="xref std std-term">build tool</span></a> where build graph
+manipulation can be done cooperatively.</p>
+<p>No matter whether it is integrated or not, this strategy necessitates either a
+suitable C++ parser to extract the information in the first place, or toolchain
+cooperation to obtain it.  While module dependency information is available to
+a simpler C++ parser, dependencies may be hidden behind preprocessor
+conditionals that need to be understood in order to be accurate.  Of course,
+choosing to not support preprocessor conditionals around <code class="docutils literal notranslate"><span class="pre">import</span></code> statements
+is also an option, but this may severely limit external library support.</p>
+<p>For CMake, this strategy would mean that any change to a module-aware source
+file may need to trigger regeneration of the build graph.  A benign edit would
+at least need to trigger the <em>check</em> for changed imports, but may skip
+actually regenerating if it is unchanged.  This may be less critical for a
+<a class="reference internal" href="#term-build-system"><span class="xref std std-term">build system</span></a> which is also its own <a class="reference internal" href="#term-build-tool"><span class="xref std std-term">build tool</span></a>, but it is a
+direct violation of the
+<a class="reference internal" href="#design-goal-minimize-regeneration">Minimize Regeneration</a> goal.</p>
+<p>Additionally, CMake's
+<a class="reference internal" href="#design-goal-generated-sources">Support Generated Sources</a> goal would be
+unsupportable with this strategy.  CMake could defer scanning until the
+generated files are available, but those sources cannot be compiled until such
+a scan has been performed.  This would mean that there would be some unbounded
+(but finite) number of regenerations of the build graph as sources become
+available.</p>
+</section>
+<section id="module-mapping-service">
+<h4>Module Mapping Service<a class="headerlink" href="#module-mapping-service" title="連結到這個標頭">¶</a></h4>
+<p>Another strategy is to run a service alongside the build that can act as an
+oracle for where to place and discover modules.  The compiler is instructed to
+query the service with questions such as &quot;this source is exporting module X&quot;
+and &quot;this source is importing module Y&quot; and receive the path to either create
+or find the <a class="reference internal" href="#term-BMI"><span class="xref std std-term">BMI</span></a>, respectively.  In this case, the service dynamically
+implements the collation logic.</p>
+<p>Of particular note, this conflicts with the
+<a class="reference internal" href="#design-goal-deterministic-builds">Deterministic Builds</a> and
+<a class="reference internal" href="#design-goal-static-communication">Static Communication</a> goals because the
+on-disk state may not match the actual state, and coordinating the lifetime of
+the <a class="reference internal" href="#term-build-tool"><span class="xref std std-term">build tool</span></a> itself with the service is difficult.  The primary
+missing feature is some signal when a build session starts and ends so that
+such a service can know in what context it is answering requests.  There also
+needs to be a way to resume a session and detect when a session is
+invalidated.  No <a class="reference internal" href="#term-build-tool"><span class="xref std std-term">build tool</span></a> that CMake supports today has such
+features.</p>
+<p>There are also hazards which conflict with the
+<a class="reference internal" href="#design-goal-correct-builds">Correct Builds</a> goal.  When a module is
+imported, the compiler waits for a response before continuing.  However, there
+is no guarantee that a (visible) module of that name even exists, so it may
+wait indefinitely.  While waiting for a compilation to report that it creates
+that module, it may run into a dependency cycle which leaves the compilations
+hanging until some resource limit is reached (probably time, or that all
+possible providers of the module have not reported a module of that name).
+While these compilations are waiting on answers, there is the question of how
+they affect the parallelism limits of the <a class="reference internal" href="#term-build-tool"><span class="xref std std-term">build tool</span></a> in use.  Do
+compilations waiting on an answer count towards the limit and block other
+compilations from launching to potentially discover the module?  If they do
+not, what about other resources that may be held in use by those compilations
+(e.g., memory or available file descriptors)?</p>
+</section>
+</section>
+</section>
+<section id="possible-future-enhancements">
+<h2>Possible Future Enhancements<a class="headerlink" href="#possible-future-enhancements" title="連結到這個標頭">¶</a></h2>
+<p>This section documents possible future enhancements to CMake's support of C++
+modules.  Nothing here is a guarantee of future implementation, and the
+ordering is arbitrary.</p>
+<section id="batch-scanning">
+<h3>Batch Scanning<a class="headerlink" href="#batch-scanning" title="連結到這個標頭">¶</a></h3>
+<p>It is possible to scan all sources within a target at once, which should be
+faster when sources share transitive includes.  This does have side effects
+for incremental builds, as the update of any source in the target means that
+all sources in the target are scanned again.  Given how much faster scanning
+can be, it should be negligible to do such &quot;extra&quot; scanning assuming that
+unchanged results do not trigger recompilations.</p>
+</section>
+<section id="bmi-modification-optimization">
+<h3>BMI Modification Optimization<a class="headerlink" href="#bmi-modification-optimization" title="連結到這個標頭">¶</a></h3>
+<p>Currently, as with object files, compilers always update a <a class="reference internal" href="#term-BMI"><span class="xref std std-term">BMI</span></a> file
+even if the contents have not changed.  Because modules increase the potential
+scope of &quot;non-changes&quot; to cause (conceptually) unnecessary recompilation, it
+might be useful to avoid recompilation of module consumers if the <a class="reference internal" href="#term-BMI"><span class="xref std std-term">BMI</span></a>
+file has not changed.  This might be achieved by wrapping the compilation to
+juggle the <a class="reference internal" href="#term-BMI"><span class="xref std std-term">BMI</span></a> through a <code class="docutils literal notranslate"><span class="pre">cmake</span> <span class="pre">-E</span> <span class="pre">copy_if_different</span></code> pass with
+<code class="docutils literal notranslate"><span class="pre">ninja</span></code>'s <code class="docutils literal notranslate"><span class="pre">restat</span> <span class="pre">=</span> <span class="pre">1</span></code> feature to avoid recompiling importers if the
+<a class="reference internal" href="#term-BMI"><span class="xref std std-term">BMI</span></a> file doesn't actually change.</p>
+</section>
+<section id="easier-source-specification">
+<span id="id1"></span><h3>Easier Source Specification<a class="headerlink" href="#easier-source-specification" title="連結到這個標頭">¶</a></h3>
+<p>The initial implementation of CMake's module support had used the &quot;just list
+sources; CMake will figure it out&quot; pattern.  However, this ran into issues
+related to other metadata requirements.  These were discovered while
+implementing CMake support beyond just building the modules-using code.</p>
+<p>Conflicts with <a class="reference internal" href="#separate-bmi-generation">Separate BMI Generation</a> on a
+single target, as that requires knowledge of all <a class="reference internal" href="#term-BMI"><span class="xref std std-term">BMI</span></a>-generating rules
+at generate time.</p>
+</section>
+<section id="separate-bmi-generation">
+<span id="id2"></span><h3>Separate BMI Generation<a class="headerlink" href="#separate-bmi-generation" title="連結到這個標頭">¶</a></h3>
+<p>CMake currently uses a single rule to generate both the <a class="reference internal" href="#term-BMI"><span class="xref std std-term">BMI</span></a> and the
+object file for a compilation.  At least Clang supports compiling an object
+directly from the <a class="reference internal" href="#term-BMI"><span class="xref std std-term">BMI</span></a>.  This would be beneficial because <a class="reference internal" href="#term-BMI"><span class="xref std std-term">BMI</span></a>
+generation is typically faster than compilation and generating the <a class="reference internal" href="#term-BMI"><span class="xref std std-term">BMI</span></a>
+as a separate step allows importers to start compiling without waiting for the
+object to also be generated.</p>
+<p>This is not supported in the current implementation as only Clang supports
+generating an object directly from the <a class="reference internal" href="#term-BMI"><span class="xref std std-term">BMI</span></a>.  Other compilers either do
+not support such a two-phase generation (GCC) or need to start object
+compilation from the source again.</p>
+<p>Conflicts with <a class="reference internal" href="#easier-source-specification">Easier Source Specification</a>
+on a single target because CMake must know all <a class="reference internal" href="#term-BMI"><span class="xref std std-term">BMI</span></a>-generating sources
+at generate time rather than build time to create the two-phase rules.</p>
+</section>
+</section>
+<section id="module-compilation-glossary">
+<h2>Module Compilation Glossary<a class="headerlink" href="#module-compilation-glossary" title="連結到這個標頭">¶</a></h2>
+<dl class="simple glossary">
+<dt id="term-BMI">BMI<a class="headerlink" href="#term-BMI" title="連結到這個項目">¶</a></dt><dd><p>Built Module Interface.  A compiler-generated binary representation of a
+C++ module's interface that is required by consumers of the module.  File
+extensions vary by compiler.</p>
+</dd>
+<dt id="term-CMI">CMI<a class="headerlink" href="#term-CMI" title="連結到這個項目">¶</a></dt><dd><p>Compiled Module Interface.  Alternative name for <a class="reference internal" href="#term-BMI"><span class="xref std std-term">BMI</span></a> used by some
+compilers.</p>
+</dd>
+<dt id="term-build-database">build database<a class="headerlink" href="#term-build-database" title="連結到這個項目">¶</a></dt><dd><p>A JSON file containing compilation commands, module dependencies, and
+grouping information.  Used for IDE integration and build analysis.</p>
+</dd>
+<dt id="term-build-system">build system<a class="headerlink" href="#term-build-system" title="連結到這個項目">¶</a></dt><dd><p>A tool that facilitates the building of software which includes a model
+of how components of the build relate to each other.  For example, CMake,
+Meson, build2, and more.</p>
+</dd>
+<dt id="term-build-tool">build tool<a class="headerlink" href="#term-build-tool" title="連結到這個項目">¶</a></dt><dd><p>A build graph execution tool.  For example, <cite>ninja</cite> and <cite>make</cite>.  Some
+build tools are also their own <a class="reference internal" href="#term-build-system"><span class="xref std std-term">build system</span></a>.</p>
+</dd>
+<dt id="term-C-module">C++ module<a class="headerlink" href="#term-C-module" title="連結到這個項目">¶</a></dt><dd><p>A C++20 language feature for describing the API of a piece of software.
+Intended as a replacement for headers for this purpose.</p>
+</dd>
+<dt id="term-collate">collate<a class="headerlink" href="#term-collate" title="連結到這個項目">¶</a></dt><dd><p>The process of aggregating module information from scanned sources to
+ensure correct compilation order and to provide metadata for other parts
+of the build (e.g., installation or a <a class="reference internal" href="#term-build-database"><span class="xref std std-term">build database</span></a>).</p>
+</dd>
+<dt id="term-discovered-dependencies">discovered dependencies<a class="headerlink" href="#term-discovered-dependencies" title="連結到這個項目">¶</a></dt><dd><p>Dependencies found during the processing of a command that do not need to
+be explicitly declared.</p>
+</dd>
+<dt id="term-dynamic-dependencies">dynamic dependencies<a class="headerlink" href="#term-dynamic-dependencies" title="連結到這個項目">¶</a></dt><dd><p>Dependencies which require a separate command to detect so that a further
+command may have its dependencies satisfied.</p>
+</dd>
+<dt id="term-embarrassingly-parallel">embarrassingly parallel<a class="headerlink" href="#term-embarrassingly-parallel" title="連結到這個項目">¶</a></dt><dd><p>A set of tasks which, due to having minimal dependencies between them,
+can be easily divided into many independent tasks that can be executed
+concurrently.</p>
+</dd>
+<dt id="term-explicit-build">explicit build<a class="headerlink" href="#term-explicit-build" title="連結到這個項目">¶</a></dt><dd><p>A build strategy where module dependencies are explicitly specified
+rather than discovered.</p>
+</dd>
+<dt id="term-fixed-build">fixed build<a class="headerlink" href="#term-fixed-build" title="連結到這個項目">¶</a></dt><dd><p>A build strategy where all module dependencies are computed and inserted
+directly into the build graph.</p>
+</dd>
+<dt id="term-header-unit">header unit<a class="headerlink" href="#term-header-unit" title="連結到這個項目">¶</a></dt><dd><p>A header file which is used via an <code class="docutils literal notranslate"><span class="pre">import</span></code> statement rather than an
+<code class="docutils literal notranslate"><span class="pre">#include</span></code> preprocessor directive.  Implementations may provide support
+for treating <code class="docutils literal notranslate"><span class="pre">#include</span></code> as <code class="docutils literal notranslate"><span class="pre">import</span></code> as well.</p>
+</dd>
+<dt id="term-implementation-unit">implementation unit<a class="headerlink" href="#term-implementation-unit" title="連結到這個項目">¶</a></dt><dd><p>A C++ <a class="reference internal" href="#term-translation-unit"><span class="xref std std-term">translation unit</span></a> that implements module entities declared
+in a module interface unit.</p>
+</dd>
+<dt id="term-implicit-build">implicit build<a class="headerlink" href="#term-implicit-build" title="連結到這個項目">¶</a></dt><dd><p>A build strategy where module dependencies are discovered by searching
+for <a class="reference internal" href="#term-BMI"><span class="xref std std-term">BMI</span></a> files during compilation.</p>
+</dd>
+<dt id="term-internal-partition-unit">internal partition unit<a class="headerlink" href="#term-internal-partition-unit" title="連結到這個項目">¶</a></dt><dd><p>A <a class="reference internal" href="#term-translation-unit"><span class="xref std std-term">translation unit</span></a> which contains a partition name and is not
+exported from the <a class="reference internal" href="#term-primary-module-interface-unit"><span class="xref std std-term">primary module interface unit</span></a>.</p>
+</dd>
+<dt id="term-module-interface-unit">module interface unit<a class="headerlink" href="#term-module-interface-unit" title="連結到這個項目">¶</a></dt><dd><p>A <a class="reference internal" href="#term-translation-unit"><span class="xref std std-term">translation unit</span></a> that declares a module's public interface
+using <code class="docutils literal notranslate"><span class="pre">export</span> <span class="pre">module</span></code>.  Such a unit may or may not be also be a
+<a class="reference internal" href="#term-partition-unit"><span class="xref std std-term">partition unit</span></a>.</p>
+</dd>
+<dt id="term-module-map">module map<a class="headerlink" href="#term-module-map" title="連結到這個項目">¶</a></dt><dd><p>A compiler-specific file mapping module names to BMI locations.</p>
+</dd>
+<dt id="term-module-visibility">module visibility<a class="headerlink" href="#term-module-visibility" title="連結到這個項目">¶</a></dt><dd><p>CMake's enforcement of access rules for modules based on their
+declaration scope (PUBLIC/PRIVATE).</p>
+</dd>
+<dt id="term-ODR">ODR<a class="headerlink" href="#term-ODR" title="連結到這個項目">¶</a></dt><dd><p>One Definition Rule.  The C++ requirement that any entity be defined
+exactly once per program.</p>
+</dd>
+<dt id="term-partition-unit">partition unit<a class="headerlink" href="#term-partition-unit" title="連結到這個項目">¶</a></dt><dd><p>A <a class="reference internal" href="#term-translation-unit"><span class="xref std std-term">translation unit</span></a> which describes a module with a partition name
+(i.e., <cite>module MODNAME:PARTITION;</cite>).  The partition may or may not use
+the <code class="docutils literal notranslate"><span class="pre">export</span></code> keyword.  If it does, it is also a
+<a class="reference internal" href="#term-module-interface-unit"><span class="xref std std-term">module interface unit</span></a>; otherwise, it is a
+<a class="reference internal" href="#term-internal-partition-unit"><span class="xref std std-term">internal partition unit</span></a>.</p>
+</dd>
+<dt id="term-primary-module-interface-unit">primary module interface unit<a class="headerlink" href="#term-primary-module-interface-unit" title="連結到這個項目">¶</a></dt><dd><p>A <a class="reference internal" href="#term-module-interface-unit"><span class="xref std std-term">module interface unit</span></a> which exports a named module that is not
+a <a class="reference internal" href="#term-partition-unit"><span class="xref std std-term">partition unit</span></a>.</p>
+</dd>
+<dt id="term-scan">scan<a class="headerlink" href="#term-scan" title="連結到這個項目">¶</a></dt><dd><p>The process of analyzing a <a class="reference internal" href="#term-translation-unit"><span class="xref std std-term">translation unit</span></a> to discover module
+imports and exports.</p>
+</dd>
+<dt id="term-static-build">static build<a class="headerlink" href="#term-static-build" title="連結到這個項目">¶</a></dt><dd><p>A build configuration where all compilation rules are determined at
+generate time.</p>
+</dd>
+<dt id="term-strong-module-ownership">strong module ownership<a class="headerlink" href="#term-strong-module-ownership" title="連結到這個項目">¶</a></dt><dd><p>C++ implementations have settled on a model where the module &quot;owns&quot; the
+symbols declared within it.  In practice, this means that the module name
+is included into the symbol mangling of entities declared within it.</p>
+</dd>
+<dt id="term-synthetic-target">synthetic target<a class="headerlink" href="#term-synthetic-target" title="連結到這個項目">¶</a></dt><dd><p>A CMake-generated build target used to supply <a class="reference internal" href="#term-BMI"><span class="xref std std-term">BMIs</span></a> to a
+specific user of a module-providing target.</p>
+</dd>
+<dt id="term-translation-unit">translation unit<a class="headerlink" href="#term-translation-unit" title="連結到這個項目">¶</a></dt><dd><p>The smallest component of a compilation for a C++ program.  Generally,
+there is one translation unit per source file.  C++ source files which do
+not use C++ modules may be combined into a single translation unit.</p>
+</dd>
+</dl>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3>目次表</h3>
+    <ul>
+<li><a class="reference internal" href="#">cmake-cxx-模組(7)</a><ul>
+<li><a class="reference internal" href="#compilation-strategy">編譯策略</a></li>
+<li><a class="reference internal" href="#scanning-control">掃描控制</a></li>
+<li><a class="reference internal" href="#compiler-support">編譯器支援</a></li>
+<li><a class="reference internal" href="#import-std-support"><code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">std</span></code> Support</a></li>
+<li><a class="reference internal" href="#generator-support">生成器支援</a><ul>
+<li><a class="reference internal" href="#limitations">限制</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#usage">Usage</a><ul>
+<li><a class="reference internal" href="#troubleshooting-cmake">Troubleshooting CMake</a><ul>
+<li><a class="reference internal" href="#file-extension-support">File Extension Support</a></li>
+<li><a class="reference internal" href="#file-name-requirements">File Name Requirements</a></li>
+<li><a class="reference internal" href="#scanning-without-modules">Scanning Without Modules</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#debugging-module-builds">Debugging Module Builds</a><ul>
+<li><a class="reference internal" href="#import-cycles">Import Cycles</a></li>
+<li><a class="reference internal" href="#internal-module-partition-extension">Internal Module Partition Extension</a></li>
+<li><a class="reference internal" href="#module-visibility">Module Visibility</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#design">Design</a><ul>
+<li><a class="reference internal" href="#design-goals">Design Goals</a><ul>
+<li><a class="reference internal" href="#correct-builds">Correct Builds</a></li>
+<li><a class="reference internal" href="#deterministic-builds">Deterministic Builds</a></li>
+<li><a class="reference internal" href="#support-generated-sources">Support Generated Sources</a></li>
+<li><a class="reference internal" href="#static-communication">Static Communication</a></li>
+<li><a class="reference internal" href="#minimize-regeneration">Minimize Regeneration</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#use-case-considerations">Use Case Considerations</a></li>
+<li><a class="reference internal" href="#selected-design">Selected Design</a></li>
+<li><a class="reference internal" href="#implementation-details">Implementation Details</a><ul>
+<li><a class="reference internal" href="#toolchain-scanning">Toolchain (scanning)</a></li>
+<li><a class="reference internal" href="#configure">Configure</a></li>
+<li><a class="reference internal" href="#generate">Generate</a></li>
+<li><a class="reference internal" href="#scan">Scan</a></li>
+<li><a class="reference internal" href="#collate">Collate</a></li>
+<li><a class="reference internal" href="#compile">Compile</a></li>
+<li><a class="reference internal" href="#install">Install</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#alternative-designs">Alternative Designs</a><ul>
+<li><a class="reference internal" href="#implicit-builds">Implicit Builds</a></li>
+<li><a class="reference internal" href="#static-scanning">Static Scanning</a></li>
+<li><a class="reference internal" href="#module-mapping-service">Module Mapping Service</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#possible-future-enhancements">Possible Future Enhancements</a><ul>
+<li><a class="reference internal" href="#batch-scanning">Batch Scanning</a></li>
+<li><a class="reference internal" href="#bmi-modification-optimization">BMI Modification Optimization</a></li>
+<li><a class="reference internal" href="#easier-source-specification">Easier Source Specification</a></li>
+<li><a class="reference internal" href="#separate-bmi-generation">Separate BMI Generation</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-compilation-glossary">Module Compilation Glossary</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>上個話題</h4>
+    <p class="topless"><a href="cmake-configure-log.7.html"
+                          title="上個章節">cmake-組態日誌(7)</a></p>
+  </div>
+  <div>
+    <h4>下個話題</h4>
+    <p class="topless"><a href="cmake-developer.7.html"
+                          title="下個章節">cmake-開發者(7)</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>本頁</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/manual/cmake-cxxmodules.7.rst.txt"
+            rel="nofollow">顯示來源碼</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜尋</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="前往" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>瀏覽</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="總索引"
+             >索引</a></li>
+        <li class="right" >
+          <a href="cmake-developer.7.html" title="cmake-開發者(7)"
+             >下一頁</a> |</li>
+        <li class="right" >
+          <a href="cmake-configure-log.7.html" title="cmake-組態日誌(7)"
+             >上一頁</a> |</li>
+  <li>
+    <label class="sidebar-toggle" for="sidebar-check"></label>
+  </li>
+  <li class="rootlink">
+    <img src="../_static/cmake-logo-16.png" width="16" height="16" alt=""/>
+    <a href="https://cmake.org/">CMake 4.4.0-rc2</a>
+    <span class="reldelim1"> &#187;</span>
+  </li>
+  <li>
+    <a href="../index.html">文件</a> &#187;
+  </li>
+
+        <li class="nav-item nav-item-this"><a href="">cmake-cxx-模組(7)</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+    &#169; 著作權 2000-2026 Kitware, Inc. and Contributors.
+      使用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3 建立。
+    </div>
+<script type="text/javascript">
+(function() {
+  "use strict";
+  const hide = () => document.getElementById("sidebar-check").checked = false;
+  addEventListener("keydown", e => (e.key === "Escape") && hide());
+  addEventListener("click", e => (e.target.tagName === "A") && hide());
+  addEventListener("hashchange", hide)
+})();
+</script>
+  </body>
+</html>
