@@ -1,0 +1,103 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2000-2025 Kitware, Inc. and Contributors
+# This file is distributed under the same license as the CMake package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CMake master\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-07-14 08:20+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../prop_tgt/LINK_LIBRARIES_ONLY_TARGETS.rst:2
+msgid "LINK_LIBRARIES_ONLY_TARGETS"
+msgstr ""
+
+#: ../../../prop_tgt/LINK_LIBRARIES_ONLY_TARGETS.rst:6
+msgid ""
+"Enforce that link items that can be target names are actually existing "
+"targets."
+msgstr ""
+
+#: ../../../prop_tgt/LINK_LIBRARIES_ONLY_TARGETS.rst:8
+msgid ""
+"Set this property to a true value to enable additional checks on the "
+"contents of the :prop_tgt:`LINK_LIBRARIES` and :prop_tgt:"
+"`INTERFACE_LINK_LIBRARIES` target properties, typically populated by :"
+"command:`target_link_libraries`. Checks are also applied to libraries added "
+"to a target through the :prop_tgt:`INTERFACE_LINK_LIBRARIES_DIRECT` "
+"properties of its dependencies. CMake will verify that link items that might "
+"be target names actually name existing targets.  An item is considered a "
+"possible target name if:"
+msgstr ""
+
+#: ../../../prop_tgt/LINK_LIBRARIES_ONLY_TARGETS.rst:16
+msgid "it does not contain a ``/`` or ``\\``, and"
+msgstr ""
+
+#: ../../../prop_tgt/LINK_LIBRARIES_ONLY_TARGETS.rst:17
+msgid "it does not start in ``-``, and"
+msgstr ""
+
+#: ../../../prop_tgt/LINK_LIBRARIES_ONLY_TARGETS.rst:18
+msgid "(for historical reasons) it does not start in ``$`` or `````."
+msgstr ""
+
+#: ../../../prop_tgt/LINK_LIBRARIES_ONLY_TARGETS.rst:20
+msgid ""
+"This property is initialized by the value of the :variable:"
+"`CMAKE_LINK_LIBRARIES_ONLY_TARGETS` variable when a non-imported target is "
+"created.  The property may be explicitly enabled on an imported target to "
+"check its link interface."
+msgstr ""
+
+#: ../../../prop_tgt/LINK_LIBRARIES_ONLY_TARGETS.rst:25
+msgid ""
+"In the following example, CMake will halt with an error at configure time "
+"because ``miLib`` is not a target:"
+msgstr ""
+
+#: ../../../prop_tgt/LINK_LIBRARIES_ONLY_TARGETS.rst:28
+msgid ""
+"set(CMAKE_LINK_LIBRARIES_ONLY_TARGETS ON)\n"
+"add_library(myLib STATIC myLib.c)\n"
+"add_executable(myExe myExe.c)\n"
+"target_link_libraries(myExe PRIVATE miLib) # typo for myLib"
+msgstr ""
+
+#: ../../../prop_tgt/LINK_LIBRARIES_ONLY_TARGETS.rst:35
+msgid ""
+"In order to link toolchain-provided libraries by name while still enforcing "
+"``LINK_LIBRARIES_ONLY_TARGETS``, use an :ref:`imported <Imported Targets>` :"
+"ref:`Interface Library <Interface Libraries>` with the :prop_tgt:"
+"`IMPORTED_LIBNAME` target property:"
+msgstr ""
+
+#: ../../../prop_tgt/LINK_LIBRARIES_ONLY_TARGETS.rst:41
+msgid ""
+"add_library(toolchain::m INTERFACE IMPORTED)\n"
+"set_property(TARGET toolchain::m PROPERTY IMPORTED_LIBNAME \"m\")\n"
+"target_link_libraries(myExe PRIVATE toolchain::m)"
+msgstr ""
+
+#: ../../../prop_tgt/LINK_LIBRARIES_ONLY_TARGETS.rst:47
+msgid "See also policy :policy:`CMP0028`."
+msgstr ""
+
+#: ../../../prop_tgt/LINK_LIBRARIES_ONLY_TARGETS.rst:51
+msgid ""
+"If :prop_tgt:`INTERFACE_LINK_LIBRARIES` contains generator expressions, its "
+"actual list of link items may depend on the type and properties of the "
+"consuming target.  In such cases CMake may not always detect names of "
+"missing targets that only appear for specific consumers. A future version of "
+"CMake with improved heuristics may start triggering errors on projects "
+"accepted by previous versions of CMake."
+msgstr ""

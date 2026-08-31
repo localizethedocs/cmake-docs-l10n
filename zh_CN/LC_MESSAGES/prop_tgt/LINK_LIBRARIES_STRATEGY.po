@@ -1,0 +1,152 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2000-2025 Kitware, Inc. and Contributors
+# This file is distributed under the same license as the CMake package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CMake master\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-07-14 08:20+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../prop_tgt/LINK_LIBRARIES_STRATEGY.rst:2
+msgid "LINK_LIBRARIES_STRATEGY"
+msgstr ""
+
+#: ../../../prop_tgt/LINK_LIBRARIES_STRATEGY.rst:6
+msgid ""
+"Specify a strategy for ordering a target's direct link dependencies on "
+"linker command lines.  This property is initialized by the value of the :"
+"variable:`CMAKE_LINK_LIBRARIES_STRATEGY` variable if it is set when a target "
+"is created."
+msgstr ""
+
+#: ../../../prop_tgt/LINK_LIBRARIES_STRATEGY.rst:11
+msgid ""
+"CMake generates a target's link line using its :ref:`Target Link "
+"Properties`. In particular, the :prop_tgt:`LINK_LIBRARIES` target property "
+"records the target's direct link dependencies, typically populated by calls "
+"to :command:`target_link_libraries`.  Indirect link dependencies are "
+"propagated from those entries of :prop_tgt:`LINK_LIBRARIES` that name "
+"library targets by following the transitive closure of their :prop_tgt:"
+"`INTERFACE_LINK_LIBRARIES` properties.  CMake supports multiple strategies "
+"for nominally ordering direct and indirect link dependencies, which are then "
+"filtered for `Toolchain-Specific Behavior`_."
+msgstr ""
+
+#: ../../../prop_tgt/LINK_LIBRARIES_STRATEGY.rst:21
+msgid "Consider this example for the strategies below:"
+msgstr ""
+
+#: ../../../prop_tgt/LINK_LIBRARIES_STRATEGY.rst:23
+msgid ""
+"add_library(A STATIC ...)\n"
+"add_library(B STATIC ...)\n"
+"add_library(C STATIC ...)\n"
+"add_executable(main ...)\n"
+"target_link_libraries(B PRIVATE A)\n"
+"target_link_libraries(C PRIVATE A)\n"
+"target_link_libraries(main PRIVATE A B C)"
+msgstr ""
+
+#: ../../../prop_tgt/LINK_LIBRARIES_STRATEGY.rst:33
+msgid "The supported strategies are:"
+msgstr ""
+
+#: ../../../prop_tgt/LINK_LIBRARIES_STRATEGY.rst:35
+msgid "``REORDER_MINIMALLY``"
+msgstr ""
+
+#: ../../../prop_tgt/LINK_LIBRARIES_STRATEGY.rst:36
+msgid ""
+"Entries of :prop_tgt:`LINK_LIBRARIES` always appear first and in their "
+"original order.  Indirect link dependencies not satisfied by the original "
+"entries may be reordered and de-duplicated with respect to one another, but "
+"are always appended after the original entries. This may result in less "
+"efficient link lines, but gives projects control of ordering among "
+"independent entries.  Such control may be important when intermixing link "
+"flags with libraries, or when multiple libraries provide a given symbol."
+msgstr ""
+
+#: ../../../prop_tgt/LINK_LIBRARIES_STRATEGY.rst:45
+msgid "This is the default."
+msgstr ""
+
+#: ../../../prop_tgt/LINK_LIBRARIES_STRATEGY.rst:47
+msgid ""
+"In the above example, this strategy computes a link line for ``main`` by "
+"starting with its original entries ``A B C``, and then appends another ``A`` "
+"to satisfy the dependencies of ``B`` and ``C`` on ``A``. The nominal order "
+"produced by this strategy is ``A B C A``."
+msgstr ""
+
+#: ../../../prop_tgt/LINK_LIBRARIES_STRATEGY.rst:52
+msgid ""
+"Note that additional filtering for `Toolchain-Specific Behavior`_ may de-"
+"duplicate ``A`` on the actual linker invocation in the generated build "
+"system, resulting in either ``A B C`` or ``B C A``."
+msgstr ""
+
+#: ../../../prop_tgt/LINK_LIBRARIES_STRATEGY.rst:56
+msgid "``REORDER_FREELY``"
+msgstr ""
+
+#: ../../../prop_tgt/LINK_LIBRARIES_STRATEGY.rst:57
+msgid ""
+"Entries of :prop_tgt:`LINK_LIBRARIES` may be reordered, de-duplicated, and "
+"intermixed with indirect link dependencies.  This may result in more "
+"efficient link lines, but does not give projects any control of ordering "
+"among independent entries."
+msgstr ""
+
+#: ../../../prop_tgt/LINK_LIBRARIES_STRATEGY.rst:62
+msgid ""
+"In the above example, this strategy computes a link line for ``main`` by re-"
+"ordering its original entries ``A B C`` to satisfy the dependencies of ``B`` "
+"and ``C`` on ``A``. The nominal order produced by this strategy is ``B C A``."
+msgstr ""
+
+#: ../../../prop_tgt/LINK_LIBRARIES_STRATEGY.rst:68
+msgid "Toolchain-Specific Behavior"
+msgstr ""
+
+#: ../../../prop_tgt/LINK_LIBRARIES_STRATEGY.rst:70
+msgid ""
+"After one of the above strategies produces a nominal order among direct and "
+"indirect link dependencies, the actual linker invocation in the generated "
+"build system may de-duplicate entries based on platform-specific "
+"requirements and linker capabilities. See policy :policy:`CMP0156`."
+msgstr ""
+
+#: ../../../prop_tgt/LINK_LIBRARIES_STRATEGY.rst:76
+msgid ""
+"For example, if the ``REORDER_MINIMALLY`` strategy produces ``A B C A``, the "
+"actual link line may de-duplicate ``A`` as follows:"
+msgstr ""
+
+#: ../../../prop_tgt/LINK_LIBRARIES_STRATEGY.rst:79
+msgid ""
+"If ``A`` is a static library and the linker re-scans automatically, the "
+"first occurrence is kept, resulting in ``A B C``. See policy :policy:"
+"`CMP0179`"
+msgstr ""
+
+#: ../../../prop_tgt/LINK_LIBRARIES_STRATEGY.rst:83
+msgid ""
+"If ``A`` is a shared library on Windows, the first occurrence is kept, "
+"resulting in ``A B C``."
+msgstr ""
+
+#: ../../../prop_tgt/LINK_LIBRARIES_STRATEGY.rst:86
+msgid ""
+"If ``A`` is a shared library on macOS or UNIX platforms, the last occurrence "
+"is kept, resulting in ``B C A``."
+msgstr ""
