@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CMake master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-14 08:20+0000\n"
+"POT-Creation-Date: 2026-08-31 15:41+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -37,19 +37,36 @@ msgid ""
 "configuration are not accessible at test phase."
 msgstr ""
 
-#: ../../../prop_dir/TEST_INCLUDE_FILES.rst:17
+#: ../../../prop_dir/TEST_INCLUDE_FILES.rst:18
+msgid ""
+"Include paths may use :manual:`generator expressions <cmake-generator-"
+"expressions(7)>`.  This is most useful with :prop_gbl:`multi-config "
+"generators <GENERATOR_IS_MULTI_CONFIG>`, where a ``$<CONFIG>``-parameterized "
+"path selects a different script per configuration.  On multi-config "
+"generators, an entry whose evaluated result varies by configuration is "
+"emitted under a per-configuration guard, so it is included only for the "
+"matching ``ctest -C <config>`` run.  A path whose result is the same for all "
+"configurations is included unconditionally."
+msgstr ""
+
+#: ../../../prop_dir/TEST_INCLUDE_FILES.rst:27
+msgid "No build dependency is added for targets referenced in an include path."
+msgstr ""
+
+#: ../../../prop_dir/TEST_INCLUDE_FILES.rst:30
 msgid "Examples"
 msgstr ""
 
-#: ../../../prop_dir/TEST_INCLUDE_FILES.rst:19
+#: ../../../prop_dir/TEST_INCLUDE_FILES.rst:32
 msgid "Setting this directory property to append one or more CMake scripts:"
 msgstr ""
 
-#: ../../../prop_dir/TEST_INCLUDE_FILES.rst:21
+#: ../../../prop_dir/TEST_INCLUDE_FILES.rst:34
+#: ../../../prop_dir/TEST_INCLUDE_FILES.rst:57
 msgid "CMakeLists.txt"
 msgstr ""
 
-#: ../../../prop_dir/TEST_INCLUDE_FILES.rst:21
+#: ../../../prop_dir/TEST_INCLUDE_FILES.rst:34
 msgid ""
 "configure_file(script.cmake.in script.cmake)\n"
 "\n"
@@ -63,14 +80,34 @@ msgid ""
 ")"
 msgstr ""
 
-#: ../../../prop_dir/TEST_INCLUDE_FILES.rst:35
+#: ../../../prop_dir/TEST_INCLUDE_FILES.rst:48
 msgid "script.cmake.in"
 msgstr ""
 
-#: ../../../prop_dir/TEST_INCLUDE_FILES.rst:35
+#: ../../../prop_dir/TEST_INCLUDE_FILES.rst:48
 msgid ""
 "execute_process(\n"
 "  COMMAND \"@CMAKE_COMMAND@\" -E echo \"script.cmake executed during "
 "CTest\"\n"
+")"
+msgstr ""
+
+#: ../../../prop_dir/TEST_INCLUDE_FILES.rst:55
+msgid "Selecting a per-configuration script with a generator expression:"
+msgstr ""
+
+#: ../../../prop_dir/TEST_INCLUDE_FILES.rst:57
+msgid ""
+"file(GENERATE\n"
+"  OUTPUT \"props_$<CONFIG>.cmake\"\n"
+"  CONTENT \"set_tests_properties(some.test PROPERTIES LABELS \\\"$<CONFIG>\\"
+"\")\\n\"\n"
+")\n"
+"\n"
+"set_property(\n"
+"  DIRECTORY\n"
+"  APPEND\n"
+"  PROPERTY TEST_INCLUDE_FILES\n"
+"    \"${CMAKE_CURRENT_BINARY_DIR}/props_$<CONFIG>.cmake\"\n"
 ")"
 msgstr ""
