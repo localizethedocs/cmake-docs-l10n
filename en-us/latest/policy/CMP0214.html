@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+
+<html lang="en-US" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>CMP0214 &mdash; CMake 4.4.0-rc2 Documentation</title>
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a3862c66" />
+    <link rel="stylesheet" type="text/css" href="../_static/cmake.css?v=d27bb136" />
+    
+    <script src="../_static/documentation_options.js?v=66e6d515"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    
+    <link rel="canonical" href="https://projects.localizethedocs.org/cmake-docs-l10n/policy/CMP0214.html" />
+    <link rel="icon" href="../_static/cmake-favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="CMP0213" href="CMP0213.html" />
+    <link rel="prev" title="CMP0215" href="CMP0215.html" />
+
+ 
+
+    <script type="text/javascript" src="../ltd-provenance.js"></script>
+    <script type="text/javascript" src="../ltd-current.js"></script>
+    <script type="text/javascript" src="../../../ltd-config.js"></script>
+    <script type="text/javascript" src="../../../ltd-flyout.js"></script>
+
+  </head><body>
+    <input id="sidebar-check" type="checkbox" />
+    <label id="sidebar-overlay" for="sidebar-check"></label>
+
+
+
+    <div class="related relbar1" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="CMP0213.html" title="CMP0213"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="CMP0215.html" title="CMP0215"
+             accesskey="P">previous</a> |</li>
+  <li>
+    <label class="sidebar-toggle" for="sidebar-check"></label>
+  </li>
+  <li class="rootlink">
+    <img src="../_static/cmake-logo-16.png" width="16" height="16" alt=""/>
+    <a href="https://cmake.org/">CMake 4.4.0-rc2</a>
+    <span class="reldelim1"> &#187;</span>
+  </li>
+  <li>
+    <a href="../index.html">Documentation</a> &#187;
+  </li>
+
+          <li class="nav-item nav-item-1"><a href="../manual/cmake-policies.7.html" accesskey="U">cmake-policies(7)</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">CMP0214</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="cmp0214">
+<span id="policy:CMP0214"></span><h1>CMP0214<a class="headerlink" href="#cmp0214" title="Link to this heading">¶</a></h1>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 4.4.</span></p>
+</div>
+<p>Honor <code class="docutils literal notranslate"><span class="pre">CMAKE_EXE_LINKER_FLAGS</span></code> for Swift executable targets.</p>
+<p>CMake 3.29 introduced <span class="target" id="index-0-policy:CMP0157"></span><a class="reference internal" href="CMP0157.html#policy:CMP0157" title="CMP0157"><code class="xref cmake cmake-policy docutils literal notranslate"><span class="pre">CMP0157</span></code></a>, which provides an abstraction
+for selecting the Swift compilation mode.  In CMake 3.30,
+<span class="target" id="index-0-variable:CMAKE_SHARED_LINKER_FLAGS"></span><a class="reference internal" href="../variable/CMAKE_SHARED_LINKER_FLAGS.html#variable:CMAKE_SHARED_LINKER_FLAGS" title="CMAKE_SHARED_LINKER_FLAGS"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_SHARED_LINKER_FLAGS</span></code></a> was accidentally honored for
+Swift shared library targets when <span class="target" id="index-1-policy:CMP0157"></span><a class="reference internal" href="CMP0157.html#policy:CMP0157" title="CMP0157"><code class="xref cmake cmake-policy docutils literal notranslate"><span class="pre">CMP0157</span></code></a> is <code class="docutils literal notranslate"><span class="pre">NEW</span></code>, but
+the change went unnoticed and was not documented.  The corresponding
+change was not made for Swift executable targets, leaving linker flag
+handling inconsistent between Swift executables and Swift shared
+libraries in CMake 3.30 through 4.3.</p>
+<p>CMake 4.4 and above prefer to honor <span class="target" id="index-0-variable:CMAKE_EXE_LINKER_FLAGS"></span><a class="reference internal" href="../variable/CMAKE_EXE_LINKER_FLAGS.html#variable:CMAKE_EXE_LINKER_FLAGS" title="CMAKE_EXE_LINKER_FLAGS"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_EXE_LINKER_FLAGS</span></code></a>
+for Swift executable targets when <span class="target" id="index-2-policy:CMP0157"></span><a class="reference internal" href="CMP0157.html#policy:CMP0157" title="CMP0157"><code class="xref cmake cmake-policy docutils literal notranslate"><span class="pre">CMP0157</span></code></a> is set to <code class="docutils literal notranslate"><span class="pre">NEW</span></code>,
+restoring consistency with Swift shared library targets.  This policy
+provides compatibility for projects that have not been updated to
+expect <code class="docutils literal notranslate"><span class="pre">CMAKE_EXE_LINKER_FLAGS</span></code> to be honored for Swift executables.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">OLD</span></code> behavior for this policy is to not honor
+<span class="target" id="index-1-variable:CMAKE_EXE_LINKER_FLAGS"></span><a class="reference internal" href="../variable/CMAKE_EXE_LINKER_FLAGS.html#variable:CMAKE_EXE_LINKER_FLAGS" title="CMAKE_EXE_LINKER_FLAGS"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_EXE_LINKER_FLAGS</span></code></a> for Swift executable targets.
+The <code class="docutils literal notranslate"><span class="pre">NEW</span></code> behavior for this policy is to honor
+<span class="target" id="index-2-variable:CMAKE_EXE_LINKER_FLAGS"></span><a class="reference internal" href="../variable/CMAKE_EXE_LINKER_FLAGS.html#variable:CMAKE_EXE_LINKER_FLAGS" title="CMAKE_EXE_LINKER_FLAGS"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_EXE_LINKER_FLAGS</span></code></a> for Swift executable targets
+when <span class="target" id="index-3-policy:CMP0157"></span><a class="reference internal" href="CMP0157.html#policy:CMP0157" title="CMP0157"><code class="xref cmake cmake-policy docutils literal notranslate"><span class="pre">CMP0157</span></code></a> is set to <code class="docutils literal notranslate"><span class="pre">NEW</span></code>.</p>
+<p>This policy was introduced in CMake version 4.4.
+It may be set by <span class="target" id="index-0-command:cmake_policy"></span><a class="reference internal" href="../command/cmake_policy.html#command:cmake_policy" title="cmake_policy"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">cmake_policy()</span></code></a> or <span class="target" id="index-0-command:cmake_minimum_required"></span><a class="reference internal" href="../command/cmake_minimum_required.html#command:cmake_minimum_required" title="cmake_minimum_required"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">cmake_minimum_required()</span></code></a>.
+If it is not set, CMake does <em>not</em> warn, and uses <code class="docutils literal notranslate"><span class="pre">OLD</span></code> behavior.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">OLD</span></code> behavior of a policy is
+<a class="reference internal" href="../manual/cmake-policies.7.html#cmake-policies-intro"><span class="std std-ref">deprecated by definition</span></a>
+and may be removed in a future version of CMake.</p>
+</div>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="CMP0215.html"
+                          title="previous chapter">CMP0215</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="CMP0213.html"
+                          title="next chapter">CMP0213</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/policy/CMP0214.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="CMP0213.html" title="CMP0213"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="CMP0215.html" title="CMP0215"
+             >previous</a> |</li>
+  <li>
+    <label class="sidebar-toggle" for="sidebar-check"></label>
+  </li>
+  <li class="rootlink">
+    <img src="../_static/cmake-logo-16.png" width="16" height="16" alt=""/>
+    <a href="https://cmake.org/">CMake 4.4.0-rc2</a>
+    <span class="reldelim1"> &#187;</span>
+  </li>
+  <li>
+    <a href="../index.html">Documentation</a> &#187;
+  </li>
+
+          <li class="nav-item nav-item-1"><a href="../manual/cmake-policies.7.html" >cmake-policies(7)</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">CMP0214</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2000-2026 Kitware, Inc. and Contributors.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    </div>
+<script type="text/javascript">
+(function() {
+  "use strict";
+  const hide = () => document.getElementById("sidebar-check").checked = false;
+  addEventListener("keydown", e => (e.key === "Escape") && hide());
+  addEventListener("click", e => (e.target.tagName === "A") && hide());
+  addEventListener("hashchange", hide)
+})();
+</script>
+  </body>
+</html>
