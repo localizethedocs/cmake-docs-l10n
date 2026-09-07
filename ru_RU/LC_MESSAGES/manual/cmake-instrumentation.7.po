@@ -1,0 +1,1517 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2000-2025 Kitware, Inc. and Contributors
+# This file is distributed under the same license as the CMake package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CMake master\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-06-22 13:28+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: ru_RU\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../manual/cmake-instrumentation.7.rst:4
+msgid "cmake-instrumentation(7)"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:9
+msgid "Contents"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:13
+msgid "Introduction"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:15
+msgid ""
+"The CMake Instrumentation API allows for the collection of timing data, "
+"target information and system diagnostic information during the configure, "
+"generate, build, test and install steps for a CMake project."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:19
+msgid ""
+"All interactions with the CMake instrumentation API must specify both an API "
+"version and a `Data Version`_. There is only one API version, see the `API "
+"v1`_."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:24
+msgid ""
+"This feature is only available for projects using the :ref:`Makefile "
+"Generators`, :ref:`Ninja Generators` or :generator:`FASTBuild`."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:28
+msgid "Overview"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:30
+msgid ""
+"CMake Instrumentation works in 2 major stages: `Data Collection`_, and "
+"`Indexing`_."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:33
+msgid ""
+"`Data Collection`_ is the process by which CMake writes out instrumentation "
+"data into a project build tree. The commands instrumented in this way range "
+"from overall builds, to individual compile commands. The full list of "
+"commands instrumented is documented under the `v1 Snippet File`_."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:38
+msgid ""
+"Collected data will accumulate until `Indexing`_ occurs: the process of "
+"collating the generated data. Indexing occurs on events called \"hooks\", "
+"which can be configured as part of the `v1 Query Files`_. A `v1 Index File`_ "
+"is created and passed to any user-defined `Callbacks`_ provided to process "
+"the data. Once all `Callbacks`_ have run, CMake deletes the files."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:44
+msgid ""
+"Without the need for any custom `Callbacks`_, CMake can submit "
+"instrumentation data to `CDash`_, or generate a `Google Trace File`_ for "
+"visualization."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:48
+msgid "Data Collection"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:50
+msgid ""
+"Whenever a command is executed with instrumentation enabled, a `v1 Snippet "
+"File`_ is created in the project build tree with data specific to that "
+"command. These files remain until after `Indexing`_ occurs."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:54
+msgid ""
+"CMake sets the :prop_gbl:`RULE_LAUNCH_COMPILE`, :prop_gbl:`RULE_LAUNCH_LINK` "
+"and :prop_gbl:`RULE_LAUNCH_CUSTOM` global properties to wrap each compile, "
+"link and custom command invocation in a launcher that performs "
+"instrumentation and writes out a `v1 Snippet File`_. If the project has been "
+"configured with :module:`CTestUseLaunchers`, the launcher will collect "
+"instrumentation data in addition to performing the communication typically "
+"handled by that module."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:64
+msgid "Indexing"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:66
+msgid ""
+"Indexing is the process of collating generated instrumentation data. The "
+"available hooks to trigger indexing include options such as after every "
+"build, or every :manual:`ctest <ctest(1)>` invocation, and are configured as "
+"part of the `v1 Query Files`_. Whenever a hook is triggered, an index file "
+"is generated containing a list of snippet files newer than the previous "
+"indexing. This index file is passed to user-defined `Callbacks`_ commands to "
+"process the data."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:73
+msgid ""
+"Indexing and can also be performed by manually invoking :option:`ctest --"
+"collect-instrumentation`."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:76
+msgid ""
+"Indexing, and the subsequent callbacks, will not occur concurrently in a "
+"single build tree. When multiple hooks trigger indexing at the same time, a "
+"file-based lock is used to ensure one indexing completes, executes all of "
+"its callbacks, and deletes the instrumentation data before the next indexing "
+"can begin."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:85
+msgid "Callbacks"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:87
+msgid ""
+"As part of the `v1 Query Files`_, users can provide a list of callbacks "
+"intended to handle data collected by this feature."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:90
+msgid ""
+"Whenever `Indexing`_ occurs, each provided callback is executed, passing the "
+"path to the generated `v1 Index File`_ as an additional argument."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:93
+msgid ""
+"These callbacks, defined either at the user-level or project-level, should "
+"read the instrumentation data and perform any desired handling of it. The "
+"index file and its listed snippets are automatically deleted by CMake once "
+"all callbacks have completed. Note that a callback should never move or "
+"delete these data files manually as they may be needed by other callbacks."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:99
+msgid ""
+"If indexing is triggered again before `Callbacks`_ have finished running, "
+"the generated index file will contain only instrumentation data generated "
+"since the previous indexing."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:104
+msgid "Enabling Instrumentation"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:106
+msgid ""
+"Instrumentation can be enabled either for an individual CMake project, or "
+"for all CMake projects configured and built by a user. In all cases, a "
+"\"query\" represents a request for instrumentation behavior. See the `v1 "
+"Query Files`_ for details on configuring this feature."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:112
+msgid "Enabling Instrumentation at the Project-Level"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:114
+msgid ""
+"Project code can contain instrumentation queries by using the :command:"
+"`cmake_instrumentation` command."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:117
+msgid ""
+"In addition, query files can be placed manually under ``<build>/.cmake/"
+"instrumentation/<version>/query/`` at the top of a build tree. This version "
+"of CMake supports only one version schema, `API v1`_."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:122
+msgid "Enabling Instrumentation at the User-Level"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:124
+msgid ""
+"Instrumentation can be configured at the user-level by placing query files "
+"in the :envvar:`CMAKE_CONFIG_DIR` under ``<config_dir>/instrumentation/"
+"<version>/query/``."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:131
+msgid "Enabling Instrumentation for CDash Submissions"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:133
+msgid ""
+"You can enable instrumentation when using :module:`CTest` in :ref:`Dashboard "
+"Client` mode by setting the :envvar:`CTEST_USE_INSTRUMENTATION` environment "
+"variable. Doing so automatically enables the ``dynamicSystemInformation`` "
+"option."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:138
+msgid ""
+"The following table shows how each type of instrumented command gets mapped "
+"to a corresponding type of CTest XML file."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:142
+msgid ":ref:`Snippet Role <cmake-instrumentation v1 Snippet File>`"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:142
+msgid "CTest XML File"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:144
+msgid "``configure``"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:144
+#: ../../../manual/cmake-instrumentation.7.rst:145
+msgid "``Configure.xml``"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:145
+msgid "``generate``"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:146
+msgid "``compile``"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:146
+#: ../../../manual/cmake-instrumentation.7.rst:147
+#: ../../../manual/cmake-instrumentation.7.rst:148
+#: ../../../manual/cmake-instrumentation.7.rst:150
+#: ../../../manual/cmake-instrumentation.7.rst:151
+#: ../../../manual/cmake-instrumentation.7.rst:152
+#: ../../../manual/cmake-instrumentation.7.rst:153
+msgid "``Build.xml``"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:147
+msgid "``link``"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:148
+#: ../../../manual/cmake-instrumentation.7.rst:737
+msgid "``custom``"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:149
+msgid "``build``"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:149
+msgid "unused!"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:150
+msgid "``cmakeBuild``"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:151
+msgid "``cmakeInstall``"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:152
+msgid "``install``"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:153
+msgid "``ctest``"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:154
+msgid "``test``"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:154
+msgid "``Test.xml``"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:157
+msgid ""
+"By default the command line reported to CDash is truncated at the first "
+"space. You can instead choose to report the full command line (including "
+"arguments) by setting :envvar:`CTEST_USE_VERBOSE_INSTRUMENTATION` to 1."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:161
+msgid ""
+"Alternatively, you can use the `v1 Query Files`_ to enable instrumentation "
+"for CDash using the ``cdashSubmit`` and ``cdashVerbose`` options."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:164
+msgid ""
+"In order for the submitted ``Build.xml`` file to group the snippet files "
+"correctly, all configure and build commands should be executed with CTest in "
+"Dashboard Client mode."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:171
+msgid "API v1"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:173
+msgid ""
+"The API version specifies the layout of the instrumentation directory, as "
+"well as the general format of the query files and :command:"
+"`cmake_instrumentation` command arguments."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:177
+msgid ""
+"The Instrumentation API v1 is housed  in the ``instrumentation/v1/`` "
+"directory under either ``<build>/.cmake/`` for output data and project-level "
+"queries, or ``<config_dir>/`` for user-level queries. The ``v1`` component "
+"of this directory is what signifies the API version. It has the following "
+"subdirectories:"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:183
+msgid "``query/``"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:184
+msgid ""
+"Holds query files written by users or clients. Any file with the ``.json`` "
+"file extension will be recognized as a query file. These files are owned by "
+"whichever client or user creates them."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:188
+msgid "``query/generated/``"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:189
+msgid ""
+"Holds query files generated by a CMake project with the :command:"
+"`cmake_instrumentation` command or the :envvar:`CTEST_USE_INSTRUMENTATION` "
+"variable. These files are owned by CMake and are deleted and regenerated "
+"automatically during the CMake configure step."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:195
+msgid "``data/``"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:196
+msgid ""
+"Holds instrumentation data collected on the project. CMake owns all data "
+"files, they should never be removed by other processes. Data collected here "
+"remains until after `Indexing`_ occurs and all `Callbacks`_ are executed."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:200
+msgid "``data/index/``"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:201
+msgid ""
+"A subset of the collected data, containing any `v1 Index Files <v1 Index "
+"File_>`_."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:204
+msgid "``data/content/``"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:205
+msgid ""
+"A subset of the collected data, containing any `v1 CMake Content Files <v1 "
+"CMake Content File_>`_."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:208
+msgid "``data/trace/``"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:209
+msgid ""
+"A subset of the collected data, containing the `Google Trace File`_ created "
+"from the most recent `Indexing`_. Unlike other data files, the most recent "
+"trace file remains even after `Indexing`_ occurs and all `Callbacks`_ are "
+"executed, until the next time `Indexing`_ occurs."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:214
+msgid "``data/compile-trace/``"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:215
+msgid ""
+"A subset of the collected data, containing any trace files generated by the "
+"compiler, when the ``compileTrace`` `option <v1 Query Files_>`_ is enabled."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:219
+msgid "``cdash/``"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:220
+msgid ""
+"Holds temporary files used internally to generate XML content to be "
+"submitted to CDash."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:226
+msgid "Data Version"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:228
+msgid ""
+"The data version specifies the contents of the output files generated by the "
+"`API v1`_ as part of the `Data Collection`_ and `Indexing`_ processes."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:231
+msgid ""
+"`v1 Query Files`_, or a :command:`cmake_instrumentation` invocation, should "
+"request a specific Data Version, and `v1 Data Files`_ of the corresponding "
+"version will be generated and sent to the user `Callbacks`_ defined in that "
+"query."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:236
+msgid ""
+"Currently, the only supported major version is ``1``, and the maximum "
+"supported minor version is ``2``. A new major version number will be created "
+"whenever previously included data is removed or reformatted such that "
+"scripts written to parse this data may become incompatible with the new "
+"format. A new minor version number will be created whenever new data becomes "
+"available."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:245
+msgid "v1 Query Files"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:247
+msgid ""
+"Any file with the ``.json`` extension under the ``instrumentation/v1/query/"
+"`` directory is recognized as a query for instrumentation data."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:250
+msgid ""
+"These files must contain a JSON object with the following keys. The "
+"``version`` key is required, but all other fields are optional."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:253
+#: ../../../manual/cmake-instrumentation.7.rst:440
+#: ../../../manual/cmake-instrumentation.7.rst:627
+#: ../../../manual/cmake-instrumentation.7.rst:730
+msgid "``version``"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:254
+msgid "The `Data Version`_ of snippet files to generate."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:256
+msgid ""
+"In query files, this may be specified either as an integer major version or "
+"as an object with ``major`` and ``minor`` members. For example, ``1`` and "
+"``{ \"major\": 1, \"minor\": 0 }`` both request version ``1.0``. Specifying "
+"a minor version is optional. CMake will always generate instrumentation data "
+"for the most recent minor version, even if an earlier minor version is "
+"requested."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:263
+msgid ""
+"Currently, the only supported major version is ``1``.  Query files "
+"requesting a minor version up to the maximum described in `Data Version`_ "
+"are accepted; those with an unknown data version will be ignored."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:267
+msgid "``callbacks``"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:268
+msgid ""
+"A list of command-line strings for `Callbacks`_ to handle collected "
+"instrumentation data. Whenever these callbacks are executed, the full path "
+"to a `v1 Index File`_ is appended to the arguments included in the string."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:272
+msgid "``hooks``"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:273
+msgid ""
+"A list of strings specifying when `Indexing`_ should occur automatically. "
+"These are the intervals when instrumentation data should be collated and "
+"user `Callbacks`_ should be invoked to handle the data. Elements in this "
+"list should be one of the following:"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:278
+msgid "``postGenerate``"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:279
+msgid "``preBuild`` (called when ``ninja``  or ``make`` is invoked)"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:280
+msgid "``postBuild`` (called when ``ninja`` or ``make`` completes)"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:281
+msgid "``preCMakeBuild`` (called when :option:`cmake --build` is invoked)"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:282
+msgid "``postCMakeBuild`` (called when :option:`cmake --build` completes)"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:283
+msgid "``postCMakeInstall``"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:284
+msgid "``postCMakeWorkflow``"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:285
+msgid "``postCTest``"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:287
+msgid ""
+"``preBuild`` and ``postBuild`` are not supported when using the :generator:"
+"`MSYS Makefiles` or :generator:`FASTBuild` generators. Additionally, they "
+"will not be triggered when the build tool is invoked by :option:`cmake --"
+"build`."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:292
+msgid "``options``"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:293
+msgid ""
+"A list of strings used to enable certain optional behavior, including the "
+"collection of certain additional data. Elements in this list should be one "
+"of the following:"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:297
+#: ../../../manual/cmake-instrumentation.7.rst:661
+msgid "``staticSystemInformation``"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:298
+msgid ""
+"Enables collection of the static information about the host machine CMake is "
+"being run from. This data is collected during `Indexing`_ and is included in "
+"the generated `v1 Index File`_."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:302
+#: ../../../manual/cmake-instrumentation.7.rst:548
+msgid "``dynamicSystemInformation``"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:303
+msgid ""
+"Enables collection of the dynamic information about the host machine CMake "
+"is being run from. Data is collected for every `v1 Snippet File`_ generated "
+"by CMake, and includes information from immediately before and after the "
+"command is executed."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:308
+msgid "``captureOutput``"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:311
+msgid ""
+"Enables collection of command output in generated `v1 Snippet Files`_. When "
+"enabled, snippets for ``compile``, ``link``, ``custom``, ``test``, and "
+"``install`` commands include ``stdout`` and ``stderr`` fields."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:315
+#: ../../../manual/cmake-instrumentation.7.rst:325
+msgid "Only available as of data version ``1.1``."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:317
+msgid "``compileTrace``"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:320
+msgid ""
+"Enables collection of JSON files generated by Clang's ``-ftime-trace`` "
+"option. When such files are created for an instrumented compile command, "
+"they are copied into the instrumentation ``data`` directory and referenced "
+"from the compile snippet."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:327
+msgid "``cdashSubmit``"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:328
+msgid ""
+"Enables including instrumentation data in CDash. This is equivalent to "
+"having the :envvar:`CTEST_USE_INSTRUMENTATION` environment variable enabled."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:332
+msgid "``cdashVerbose``"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:333
+msgid ""
+"Enables including the full untruncated commands in data submitted to CDash. "
+"Equivalent to having the :envvar:`CTEST_USE_VERBOSE_INSTRUMENTATION` and :"
+"envvar:`CTEST_USE_INSTRUMENTATION` environment variables enabled."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:338
+#: ../../../manual/cmake-instrumentation.7.rst:656
+msgid "``trace``"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:339
+msgid ""
+"Enables generation of a `Google Trace File`_ during `Indexing`_ to visualize "
+"data from the `v1 Snippet Files <v1 Snippet File_>`_ collected."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:342
+msgid ""
+"The ``callbacks`` listed will be invoked during the specified hooks *at a "
+"minimum*. When there are multiple query files, the ``callbacks``, ``hooks`` "
+"and ``options`` between them will be merged. Therefore, if any query file "
+"includes any ``hooks``, every ``callback`` across all query files will be "
+"executed at every ``hook`` across all query files. Additionally, if any "
+"query file requests optional data using the ``options`` field, any related "
+"data will be present in all snippet files. User written ``callbacks`` should "
+"be able to handle the presence of this optional data, since it may be "
+"requested by an unrelated query."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:352
+msgid ""
+"The JSON format is described in machine-readable form by :download:`this "
+"JSON schema </manual/instrumentation/query-v1-schema.json>`."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:355
+#: ../../../manual/cmake-instrumentation.7.rst:580
+#: ../../../manual/cmake-instrumentation.7.rst:689
+msgid "Example:"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:357
+msgid ""
+"{\n"
+"  \"version\": 1,\n"
+"  \"callbacks\": [\n"
+"    \"/usr/bin/python callback.py\",\n"
+"    \"/usr/bin/cmake -P callback.cmake arg\",\n"
+"  ],\n"
+"  \"hooks\": [\n"
+"    \"postCMakeBuild\",\n"
+"    \"postCMakeInstall\"\n"
+"  ],\n"
+"  \"options\": [\n"
+"    \"staticSystemInformation\",\n"
+"    \"dynamicSystemInformation\",\n"
+"    \"captureOutput\",\n"
+"    \"cdashSubmit\",\n"
+"    \"trace\"\n"
+"  ]\n"
+"}"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:378
+msgid ""
+"In this example, after every :option:`cmake --build` or :option:`cmake --"
+"install` invocation, an index file ``index-<timestamp>.json`` will be "
+"generated in ``<build>/.cmake/instrumentation/v1/data/index`` containing a "
+"list of data snippet files created since the previous indexing. The commands "
+"``/usr/bin/python callback.py index-<timestamp>.json`` and ``/usr/bin/cmake -"
+"P callback.cmake arg index-<timestamp>.json`` will be executed in that "
+"order. The index file will contain the ``staticSystemInformation`` data and "
+"each snippet file listed in the index will contain the "
+"``dynamicSystemInformation`` data and captured command output. Additionally, "
+"the index file will contain the path to the generated `Google Trace File`_. "
+"Once both callbacks have completed, the index file and data files listed by "
+"it (including snippet files, but not the trace file) will be deleted from "
+"the project build tree. The instrumentation data will be present in the XML "
+"files submitted to CDash, but with truncated command strings because "
+"``cdashVerbose`` was not enabled."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:395
+msgid "v1 Data Files"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:397
+msgid ""
+"There are four types of data files generated as part of `API v1`_: the `v1 "
+"Snippet File`_, `v1 Index File`_, `v1 CMake Content File`_, and the `Google "
+"Trace File`_. These files live in ``<build>/.cmake/instrumentation/v1/data/"
+"`` under the project build tree."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:402
+msgid ""
+"Note that the ``v1`` delineation of these files refers to the `API v1`_. The "
+"`Data Version`_ of these files is specified with a ``version`` field as part "
+"of the file contents."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:410
+msgid "v1 Snippet File"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:412
+msgid ""
+"Snippet files are generated for every compile, link and custom command "
+"invoked as part of the CMake build or install step and contain "
+"instrumentation data about the command executed. Additionally, snippet files "
+"are created for the following:"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:417
+msgid "The CMake configure step"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:418
+msgid "The CMake generate step"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:419
+msgid "Entire build step (executed with :option:`cmake --build`)"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:420
+msgid "Entire install step (executed with :option:`cmake --install`)"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:421
+msgid ""
+"Each time :manual:`ctest <ctest(1)>` is invoked to :ref:`run tests <Run "
+"Tests>` (even if no tests are found)"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:423
+msgid "Each individual test executed by :manual:`ctest <ctest(1)>`"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:425
+msgid ""
+"These files remain in the build tree until after `Indexing`_ occurs and any "
+"user-specified `Callbacks`_ are executed."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:430
+msgid ""
+"Configure and generate snippet files are not written by CMake until the "
+"generate step is complete. When using :manual:`cmake-gui(1)` or :manual:"
+"`ccmake(1)`, triggering only configure step(s) without generating the "
+"project files will not generate any configure snippets. Once the generate "
+"step is run, there will be one configure snippet for each time the configure "
+"step was run."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:437
+msgid ""
+"Snippet files have a filename with the syntax ``<role>-<hash>-<timestamp>."
+"json`` and contain the following data:"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:441
+msgid ""
+"The `Data Version`_ of the snippet file, written as ``{ \"major\": 1, "
+"\"minor\": N }`` where ``N`` is the most recent minor version."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:444
+msgid "``command``"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:445
+msgid "The full command executed. Excluded when ``role`` is ``build``."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:447
+msgid "``workingDir``"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:448
+msgid "The working directory in which the ``command`` was executed."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:450
+msgid "``result``"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:451
+msgid ""
+"The exit code of the command, an integer. This will be ``null`` when "
+"``role`` is ``build``."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:454
+msgid "``interruptSignal``"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:457
+msgid ""
+"The integer signal number that interrupted the build before it completed "
+"(for example ``2`` for ``SIGINT`` from Ctrl+C). Only included when ``role`` "
+"is ``cmakeBuild`` and the build was interrupted. Consumers can use the "
+"presence of this field to distinguish an interrupted build from one that ran "
+"to completion."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:463
+msgid "Only available as of data version ``1.2``."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:465
+msgid "``stdout``"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:468
+msgid ""
+"The standard output produced by the command. Only included when enabled by "
+"the ``captureOutput`` `option <v1 Query Files_>`_ and when ``role`` is one "
+"of: ``compile``, ``link``, ``custom``, ``install`` or ``test``. For ``test`` "
+"snippets, this field contains the merged standard out and standard error "
+"streams."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:474
+msgid "``stderr``"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:477
+msgid ""
+"The standard error output produced by the command. Only included when "
+"enabled by the ``captureOutput`` `option <v1 Query Files_>`_ and when "
+"``role`` is one of: ``compile``, ``link``, ``custom``, ``install`` or "
+"``test``. For ``test`` snippets, error output is merged with ``stdout``, and "
+"the value of ``stderr`` is always empty."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:483
+msgid "``role``"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:484
+msgid ""
+"The type of command executed, which will be one of the following values:"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:486
+msgid "``configure``: the CMake configure step"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:487
+msgid "``generate``: the CMake generate step"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:488
+msgid "``compile``: an individual compile step invoked during the build"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:489
+msgid "``link``: an individual link step invoked during the build"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:490
+msgid "``custom``: an individual custom command invoked during the build"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:491
+msgid ""
+"``build``: a complete ``make`` or ``ninja`` invocation (not through :option:"
+"`cmake --build`)."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:493
+msgid "``cmakeBuild``: a complete :option:`cmake --build` invocation"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:494
+msgid "``cmakeInstall``: a complete :option:`cmake --install` invocation"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:495
+msgid "``install``: an individual ``cmake -P cmake_install.cmake`` invocation"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:496
+msgid "``ctest``: a complete :manual:`ctest <ctest(1)>` command invocation"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:497
+msgid "``test``: a single test executed by :manual:`ctest <ctest(1)>`"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:499
+msgid "``target``"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:500
+msgid ""
+"The CMake target associated with the command. Only included when ``role`` is "
+"``compile`` or ``link``, or when ``role`` is ``custom`` and the custom "
+"command is attached to a target with :command:`add_custom_command(TARGET)`. "
+"In conjunction with ``cmakeContent``, this can be used to look up the "
+"target :prop_tgt:`TYPE` and :prop_tgt:`LABELS`."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:506
+msgid "``timeStart``"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:507
+msgid ""
+"Time at which the command started, expressed as the number of milliseconds "
+"since the system epoch."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:510
+msgid "``duration``"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:511
+msgid "The duration that the command ran for, expressed in milliseconds."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:513
+msgid "``outputs``"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:514
+msgid ""
+"The command's output file(s), an array. Only included when ``role`` is one "
+"of: ``compile``, ``link``, ``custom``."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:517
+msgid "``outputSizes``"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:518
+msgid ""
+"The size(s) in bytes of the ``outputs``, an array. For files which do not "
+"exist, the size is 0. Included under the same conditions as the ``outputs`` "
+"field."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:522
+msgid "``source``"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:523
+msgid ""
+"The source file being compiled. Only included when ``role`` is ``compile``."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:525
+msgid "``language``"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:526
+msgid ""
+"The language of the source file being compiled. Only included when ``role`` "
+"is ``compile`` or ``link``."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:529
+msgid "``testName``"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:530
+msgid ""
+"The name of the test being executed. Only included when ``role`` is ``test``."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:533
+msgid "``config``"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:534
+msgid ""
+"The :ref:`Build Configuration <Build Configurations>`, such as ``Release`` "
+"or ``Debug``. Only included when ``role`` is one of: ``compile``, ``link``, "
+"``custom``, ``install``, ``test``."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:538
+msgid "``traceFile``"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:541
+msgid ""
+"A path, relative to the instrumentation ``data`` directory, referencing a "
+"copied JSON file generated by Clang's ``-ftime-trace`` option. Only included "
+"when the ``compileTrace`` `option <v1 Query Files_>`_ is enabled and  "
+"``role`` is ``compile``. If no JSON file was produced by the compile "
+"command, this value is ``null``."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:549
+msgid ""
+"Specifies the dynamic information collected about the host machine CMake is "
+"being run from. Data is collected for every snippet file generated by CMake, "
+"with data immediately before and after the command is executed. Only "
+"included when enabled by the `v1 Query Files`_."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:554
+msgid "``beforeHostMemoryUsed``"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:555
+msgid "The Host Memory Used in KiB at ``timeStart``."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:557
+msgid "``afterHostMemoryUsed``"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:558
+msgid "The Host Memory Used in KiB at ``timeStart + duration``."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:560
+msgid "``beforeCPULoadAverage``"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:561
+msgid ""
+"The Average CPU Load at ``timeStart``, or ``null`` if it cannot be "
+"determined."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:564
+msgid "``afterCPULoadAverage``"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:565
+msgid ""
+"The Average CPU Load at ``timeStart + duration``, or ``null`` if it cannot "
+"be determined."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:568
+msgid "``cmakeContent``"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:569
+msgid ""
+"The path to a `v1 CMake Content File`_ located under ``data``, which "
+"contains information about the CMake configure and generate steps "
+"responsible for generating the ``command`` in this snippet. When using :"
+"manual:`cmake-gui(1)` or :manual:`ccmake(1)`, this field may be ``null`` for "
+"all configure steps up to the most recent one before the generate step."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:575
+msgid "``showOnly``"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:576
+msgid ""
+"A boolean representing whether the :option:`--show-only <ctest --show-only>` "
+"option was passed to :manual:`ctest <ctest(1)>`. Only included when ``role`` "
+"is ``ctest``."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:582
+msgid ""
+"{\n"
+"  \"version\": {\n"
+"    \"major\": 1,\n"
+"    \"minor\": 1\n"
+"  },\n"
+"  \"command\" : \"\\\"/usr/bin/c++\\\" \\\"-MD\\\" \\\"-MT\\\" \\"
+"\"CMakeFiles/main.dir/main.cxx.o\\\" \\\"-MF\\\" \\\"CMakeFiles/main.dir/"
+"main.cxx.o.d\\\" \\\"-o\\\" \\\"CMakeFiles/main.dir/main.cxx.o\\\" \\\"-c\\"
+"\" \\\"<src>/main.cxx\\\"\",\n"
+"  \"role\" : \"compile\",\n"
+"  \"result\" : 1,\n"
+"  \"stdout\" : \"<compiler stdout>\",\n"
+"  \"stderr\" : \"<compiler stderr>\",\n"
+"  \"target\": \"main\",\n"
+"  \"language\" : \"C++\",\n"
+"  \"outputs\" : [ \"CMakeFiles/main.dir/main.cxx.o\" ],\n"
+"  \"outputSizes\" : [ 0 ],\n"
+"  \"traceFile\" : \"compile-trace/main.cxx-<hash>.json\",\n"
+"  \"source\" : \"<src>/main.cxx\",\n"
+"  \"config\" : \"Debug\",\n"
+"  \"dynamicSystemInformation\" :\n"
+"  {\n"
+"    \"afterCPULoadAverage\" : 2.3500000000000001,\n"
+"    \"afterHostMemoryUsed\" : 6635680.0\n"
+"    \"beforeCPULoadAverage\" : 2.3500000000000001,\n"
+"    \"beforeHostMemoryUsed\" : 6635832.0\n"
+"  },\n"
+"  \"timeStart\" : 1737053448177,\n"
+"  \"duration\" : 31,\n"
+"  \"cmakeContent\" : \"content/cmake-2025-07-11T12-46-32-0572.json\"\n"
+"}"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:613
+msgid ""
+"The JSON format is described in machine-readable form by :download:`this "
+"JSON schema </manual/instrumentation/snippet-v1-schema.json>`."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:620
+msgid "v1 Index File"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:622
+msgid ""
+"Index files contain a list of `v1 Snippet Files <v1 Snippet File_>`_. It "
+"serves as an entry point for navigating the instrumentation data. They are "
+"generated whenever `Indexing`_ occurs and deleted after any user-specified "
+"`Callbacks`_ are executed."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:628
+msgid ""
+"The `Data Version`_ of the index file, written as ``{ \"major\": 1, "
+"\"minor\": N }`` where ``N`` is the most recent minor version."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:631
+msgid "``buildDir``"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:632
+msgid "The build directory of the CMake project."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:634
+msgid "``dataDir``"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:635
+msgid ""
+"The full path to the ``<build>/.cmake/instrumentation/v1/data/`` directory."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:637
+msgid "``hook``"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:638
+msgid ""
+"The name of the hook responsible for generating the index file. In addition "
+"to the hooks that can be specified by one of the `v1 Query Files`_, this "
+"value may be set to ``manual`` if indexing is performed by invoking :option:"
+"`ctest --collect-instrumentation`."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:643
+msgid ""
+"Note that the hook is not directly tied to what data may be available. A "
+"``postBuild`` hook, for example, may include ``test`` or ``install`` "
+"snippets, if these steps were run since the previous indexing."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:647
+msgid "``snippets``"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:648
+msgid ""
+"Contains a list of `v1 Snippet Files <v1 Snippet File_>`_. This includes all "
+"snippet files generated since the previous index file was created. The file "
+"paths are relative to ``dataDir``."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:652
+msgid ""
+"This list may be empty if indexing was run twice in succession, such as when "
+"building multiple times with both the ``preBuild`` and ``postBuild`` hooks "
+"enabled."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:657
+msgid ""
+"Contains the path to the `Google Trace File`_. This includes data from all "
+"corresponding ``snippets`` in the index file. The file path is relative to "
+"``dataDir``. Only included when enabled by the `v1 Query Files`_."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:662
+msgid ""
+"Specifies the static information collected about the host machine CMake is "
+"being run from. If CMake is unable to determine the value of any given "
+"field, it will be ``null``. See :command:`cmake_host_system_information` for "
+"a description of each of the following fields."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:667
+msgid "Only included when enabled by the `v1 Query Files`_."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:669
+msgid "``OSName``"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:670
+msgid "``OSPlatform``"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:671
+msgid "``OSRelease``"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:672
+msgid "``OSVersion``"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:673
+msgid "``familyId``"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:674
+msgid "``hostname``"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:675
+msgid "``is64Bits``"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:676
+msgid "``modelId``"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:677
+msgid "``modelName``"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:678
+msgid "``numberOfLogicalCPU``"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:679
+msgid "``numberOfPhysicalCPU``"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:680
+msgid "``processorAPICID``"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:681
+msgid "``processorCacheSize``"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:682
+msgid "``processorClockFrequency``"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:683
+msgid "``processorName``"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:684
+msgid "``totalPhysicalMemory``"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:685
+msgid "``totalVirtualMemory``"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:686
+msgid "``vendorID``"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:687
+msgid "``vendorString``"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:691
+msgid ""
+"{\n"
+"  \"version\": {\n"
+"    \"major\": 1,\n"
+"    \"minor\": 0\n"
+"  },\n"
+"  \"hook\": \"manual\",\n"
+"  \"buildDir\": \"<build>\",\n"
+"  \"dataDir\": \"<build>/.cmake/instrumentation/v1/data\",\n"
+"  \"snippets\": [\n"
+"    \"configure-<hash>-<timestamp>.json\",\n"
+"    \"generate-<hash>-<timestamp>.json\",\n"
+"    \"compile-<hash>-<timestamp>.json\",\n"
+"    \"compile-<hash>-<timestamp>.json\",\n"
+"    \"link-<hash>-<timestamp>.json\",\n"
+"    \"install-<hash>-<timestamp>.json\",\n"
+"    \"ctest-<hash>-<timestamp>.json\",\n"
+"    \"test-<hash>-<timestamp>.json\",\n"
+"    \"test-<hash>-<timestamp>.json\",\n"
+"  ],\n"
+"  \"trace\": \"trace/trace-<timestamp>.json\"\n"
+"}"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:715
+msgid ""
+"The JSON format is described in machine-readable form by :download:`this "
+"JSON schema </manual/instrumentation/index-v1-schema.json>`."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:722
+msgid "v1 CMake Content File"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:724
+msgid ""
+"CMake content files contain information about the CMake configure and "
+"generate steps. Each `v1 Snippet File`_ provides the path to one of these "
+"files corresponding to the CMake invocation responsible for generating its "
+"command."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:728
+msgid "Each CMake content file contains the following:"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:731
+msgid ""
+"The `Data Version`_ of the content file, written as ``{ \"major\": 1, "
+"\"minor\": N }`` where ``N`` is the most recent minor version."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:734
+msgid "``project``"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:735
+msgid "The value of :variable:`CMAKE_PROJECT_NAME`."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:738
+msgid ""
+"An object containing arbitrary JSON data specified by the user with the :ref:"
+"`cmake_instrumentation CUSTOM_CONTENT` functionality of the :command:"
+"`cmake_instrumentation` command."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:742
+msgid "``targets``"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:743
+msgid ""
+"An object containing CMake targets, indexed by name, that have corresponding "
+"instrumentation data. Each target contains the following:"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:746
+msgid "``type``"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:747
+msgid ""
+"The :prop_tgt:`TYPE` property of the target. Only ``EXECUTABLE``, "
+"``STATIC_LIBRARY``, ``SHARED_LIBRARY``, ``MODULE_LIBRARY`` and "
+"``OBJECT_LIBRARY`` targets are included."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:751
+msgid "``labels``"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:752
+msgid "The :prop_tgt:`LABELS` property of the target."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:757
+msgid "Google Trace File"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:759
+msgid ""
+"CMake can generate a file in the `Google Trace Event Format`_ to help "
+"visualize collected instrumentation data. Enabling the ``trace`` option in "
+"the `v1 Query Files`_ causes such a file to be generated under ``<build>/."
+"cmake/instrumentation/v1/data/trace`` whenever `Indexing`_ occurs."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:764
+msgid ""
+"Generated trace files include data from all `v1 Snippet Files <v1 Snippet "
+"File_>`_ listed in the current index file."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:767
+msgid ""
+"When instrumentation data is deleted by CMake after `Indexing`_, the most "
+"recent trace file remains so that it can be manually inspected without the "
+"need for any custom `Callbacks`_."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:771
+msgid ""
+"Trace files are stored in the ``JSON Array Format``, where each `v1 Snippet "
+"File`_ corresponds to a single trace event object. Each trace event contains "
+"the following data:"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:775
+msgid "``name``"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:776
+msgid "A descriptive name generated by CMake based on the given snippet data."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:778
+msgid "``cat``"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:779
+msgid "The ``role`` from the `v1 Snippet File`_."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:781
+msgid "``ph``"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:782
+msgid "Currently, always ``\"X\"`` to represent \"Complete Events\"."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:784
+msgid "``ts``"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:785
+msgid ""
+"The ``timeStart`` from the `v1 Snippet File`_, converted from milliseconds "
+"to microseconds."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:788
+msgid "``dur``"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:789
+msgid ""
+"The ``duration`` from the `v1 Snippet File`_, converted from milliseconds to "
+"microseconds."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:792
+msgid "``pid``"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:793
+msgid "Unused (always zero)."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:795
+msgid "``tid``"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:796
+msgid ""
+"An integer ranging from zero to the number of concurrent jobs with which the "
+"processes being indexed ran. This is a synthetic ID calculated by CMake "
+"based on the ``ts`` and ``dur`` of all snippet files being indexed in order "
+"to produce a more useful visualization of the process concurrency."
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:801
+msgid "``args``"
+msgstr ""
+
+#: ../../../manual/cmake-instrumentation.7.rst:802
+msgid ""
+"Contains all data from the `v1 Snippet File`_ corresponding to this trace "
+"event."
+msgstr ""
