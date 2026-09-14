@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>cmake_diagnostic &mdash; CMake 4.4.20260622-gee0198b Documentation</title>
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a3862c66" />
+    <link rel="stylesheet" type="text/css" href="../_static/cmake.css?v=d27bb136" />
+    
+    <script src="../_static/documentation_options.js?v=7335f6bf"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/translations.js?v=beaddf03"></script>
+    
+    <link rel="canonical" href="https://projects.localizethedocs.org/cmake-docs-l10n/command/cmake_diagnostic.html" />
+    <link rel="icon" href="../_static/cmake-favicon.ico"/>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="cmake_host_system_information" href="cmake_host_system_information.html" />
+    <link rel="prev" title="break" href="break.html" />
+
+ 
+
+    <script type="text/javascript" src="../ltd-provenance.js"></script>
+    <script type="text/javascript" src="../ltd-current.js"></script>
+    <script type="text/javascript" src="../../../ltd-config.js"></script>
+    <script type="text/javascript" src="../../../ltd-flyout.js"></script>
+
+  </head><body>
+    <input id="sidebar-check" type="checkbox" />
+    <label id="sidebar-overlay" for="sidebar-check"></label>
+
+
+
+    <div class="related relbar1" role="navigation" aria-label="Related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="总索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="cmake_host_system_information.html" title="cmake_host_system_information"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="break.html" title="break"
+             accesskey="P">上一页</a> |</li>
+  <li>
+    <label class="sidebar-toggle" for="sidebar-check"></label>
+  </li>
+  <li class="rootlink">
+    <img src="../_static/cmake-logo-16.png" width="16" height="16" alt=""/>
+    <a href="https://cmake.org/">CMake 4.4.20260622-gee0198b</a>
+    <span class="reldelim1"> &#187;</span>
+  </li>
+  <li>
+    <a href="../index.html">Documentation</a> &#187;
+  </li>
+
+          <li class="nav-item nav-item-1"><a href="../manual/cmake-commands.7.html" accesskey="U">cmake-commands(7)</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">cmake_diagnostic</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="cmake-diagnostic">
+<span id="command:cmake_diagnostic"></span><h1>cmake_diagnostic<a class="headerlink" href="#cmake-diagnostic" title="Link to this heading">¶</a></h1>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 4.4.</span></p>
+</div>
+<p>Manage CMake Diagnostic settings.  See the <span class="target" id="index-0-manual:cmake-diagnostics(7)"></span><a class="reference internal" href="../manual/cmake-diagnostics.7.html#manual:cmake-diagnostics(7)" title="cmake-diagnostics(7)"><code class="xref cmake cmake-manual docutils literal notranslate"><span class="pre">cmake-diagnostics(7)</span></code></a>
+manual for a list of available categories.</p>
+<section id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Link to this heading">¶</a></h2>
+<pre class="literal-block"><a class="reference internal" href="#setting-diagnostics">Setting Diagnostics</a>
+  cmake_diagnostic(<a class="reference internal" href="#set">SET</a> &lt;category&gt; &lt;action&gt; [RECURSE])
+  cmake_diagnostic(<a class="reference internal" href="#promote">PROMOTE</a> &lt;category&gt; &lt;action&gt; [NO_RECURSE])
+  cmake_diagnostic(<a class="reference internal" href="#demote">DEMOTE</a> &lt;category&gt; &lt;action&gt; [NO_RECURSE])
+
+<a class="reference internal" href="#checking-diagnostic-actions">Checking Diagnostic Actions</a>
+  cmake_diagnostic(<a class="reference internal" href="#get">GET</a> &lt;diagnostic&gt; &lt;out-var&gt;)
+
+<a class="reference internal" href="#cmake-diagnostic-stack">CMake Diagnostic Stack</a>
+  cmake_diagnostic(<a class="reference internal" href="#push">PUSH</a>)
+  cmake_diagnostic(<a class="reference internal" href="#pop">POP</a>)</pre>
+</section>
+<section id="setting-diagnostics">
+<h2>Setting Diagnostics<a class="headerlink" href="#setting-diagnostics" title="Link to this heading">¶</a></h2>
+<dl class="cmake signature">
+<dt class="sig sig-object cmake" id="set">
+<span class="code cmake highlight sig-name descname"><span class="nf"><span class="pre">cmake_diagnostic(</span></span><span class="no"><span class="pre">SET</span></span><span class="w"> </span><span class="no"><span class="pre">CMD_</span></span><span class="nv"><span class="pre">&lt;CATEGORY&gt;</span></span><span class="w"> </span><span class="nv"><span class="pre">&lt;action&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">[</span></span><span class="no"><span class="pre">RECURSE</span></span><span class="p"><span class="pre">]</span></span><span class="nf"><span class="pre">)</span></span></span><a class="headerlink" href="#set" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object cmake" id="promote">
+<span class="code cmake highlight sig-name descname"><span class="nf"><span class="pre">cmake_diagnostic(</span></span><span class="no"><span class="pre">PROMOTE</span></span><span class="w"> </span><span class="no"><span class="pre">CMD_</span></span><span class="nv"><span class="pre">&lt;CATEGORY&gt;</span></span><span class="w"> </span><span class="nv"><span class="pre">&lt;action&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">[</span></span><span class="no"><span class="pre">NO_RECURSE</span></span><span class="p"><span class="pre">]</span></span><span class="nf"><span class="pre">)</span></span></span><a class="headerlink" href="#promote" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object cmake" id="demote">
+<span class="code cmake highlight sig-name descname"><span class="nf"><span class="pre">cmake_diagnostic(</span></span><span class="no"><span class="pre">DEMOTE</span></span><span class="w"> </span><span class="no"><span class="pre">CMD_</span></span><span class="nv"><span class="pre">&lt;CATEGORY&gt;</span></span><span class="w"> </span><span class="nv"><span class="pre">&lt;action&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">[</span></span><span class="no"><span class="pre">NO_RECURSE</span></span><span class="p"><span class="pre">]</span></span><span class="nf"><span class="pre">)</span></span></span><a class="headerlink" href="#demote" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>Set or alter the action taken when a diagnostic belonging to a particular
+category is triggered.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">SET</span></code> subcommand sets the action for the specified diagnostic category.
+The <code class="docutils literal notranslate"><span class="pre">PROMOTE</span></code> subcommand increases the severity for the specified diagnostic
+category, or does nothing if the action was already set to an equal or higher
+severity.  The <code class="docutils literal notranslate"><span class="pre">DEMOTE</span></code> subcommand decreases the severity for the specified
+diagnostic category, or does nothing if the action was already set to an equal
+or lower severity.</p>
+<p>The possible <code class="docutils literal notranslate"><span class="pre">&lt;action&gt;</span></code>s (in order of severity) are:</p>
+<dl>
+<dt><code class="docutils literal notranslate"><span class="pre">IGNORE</span></code></dt><dd><p>Do nothing.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">WARN</span></code></dt><dd><p>Report a warning and continue processing.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">SEND_ERROR</span></code></dt><dd><p>Report an error, continue processing, but skip generation.</p>
+<p>The <span class="target" id="index-0-manual:cmake(1)"></span><a class="reference internal" href="../manual/cmake.1.html#manual:cmake(1)" title="cmake(1)"><code class="xref cmake cmake-manual docutils literal notranslate"><span class="pre">cmake(1)</span></code></a> executable will return a non-zero
+<a class="reference internal" href="../manual/cmake.1.html#cmake-exit-code"><span class="std std-ref">exit code</span></a>.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">FATAL_ERROR</span></code></dt><dd><p>Report an error, stop processing and generation.</p>
+<p>The <span class="target" id="index-1-manual:cmake(1)"></span><a class="reference internal" href="../manual/cmake.1.html#manual:cmake(1)" title="cmake(1)"><code class="xref cmake cmake-manual docutils literal notranslate"><span class="pre">cmake(1)</span></code></a> executable will return a non-zero
+<a class="reference internal" href="../manual/cmake.1.html#cmake-exit-code"><span class="std std-ref">exit code</span></a>.</p>
+</dd>
+</dl>
+<p>Some diagnostic categories are hierarchical.  The <code class="docutils literal notranslate"><span class="pre">RECURSE</span></code> and
+<code class="docutils literal notranslate"><span class="pre">NO_RECURSE</span></code> options determine whether changing the action for a diagnostic
+category also modifies any child categories.  By default, the <code class="docutils literal notranslate"><span class="pre">PROMOTE</span></code> and
+<code class="docutils literal notranslate"><span class="pre">DEMOTE</span></code> subcommands are recursive, while the <code class="docutils literal notranslate"><span class="pre">SET</span></code> subcommand is not.
+Note that the alteration for child categories is independent of the prior
+action set on any parents; that is, <code class="docutils literal notranslate"><span class="pre">PROMOTE</span></code> and <code class="docutils literal notranslate"><span class="pre">DEMOTE</span></code>, when operating
+recursively, will operate on all child categories even if a parent category's
+action was not altered.</p>
+</section>
+<section id="checking-diagnostic-actions">
+<h2>Checking Diagnostic Actions<a class="headerlink" href="#checking-diagnostic-actions" title="Link to this heading">¶</a></h2>
+<dl class="cmake signature">
+<dt class="sig sig-object cmake" id="get">
+<span class="code cmake highlight sig-name descname"><span class="nf"><span class="pre">cmake_diagnostic(</span></span><span class="no"><span class="pre">GET</span></span><span class="w"> </span><span class="no"><span class="pre">CMD_</span></span><span class="nv"><span class="pre">&lt;CATEGORY&gt;</span></span><span class="w"> </span><span class="nv"><span class="pre">&lt;variable&gt;</span></span><span class="nf"><span class="pre">)</span></span></span><a class="headerlink" href="#get" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>Check what action is currently specified for a diagnostic category.
+The output <code class="docutils literal notranslate"><span class="pre">&lt;variable&gt;</span></code> value will be one of <code class="docutils literal notranslate"><span class="pre">IGNORE</span></code>, <code class="docutils literal notranslate"><span class="pre">WARN</span></code>,
+<code class="docutils literal notranslate"><span class="pre">SEND_ERROR</span></code> or <code class="docutils literal notranslate"><span class="pre">FATAL_ERROR</span></code>.</p>
+</section>
+<section id="cmake-diagnostic-stack">
+<h2>CMake Diagnostic Stack<a class="headerlink" href="#cmake-diagnostic-stack" title="Link to this heading">¶</a></h2>
+<p>CMake keeps diagnostic settings on a stack, so changes made by the
+<code class="docutils literal notranslate"><span class="pre">cmake_diagnostic</span></code> command affect only the top of the stack.  A new entry on
+the diagnostic stack is managed automatically for each subdirectory to protect
+its parents and siblings.  CMake also manages a new entry for scripts loaded by
+<span class="target" id="index-0-command:include"></span><a class="reference internal" href="include.html#command:include" title="include"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">include()</span></code></a> and <span class="target" id="index-0-command:find_package"></span><a class="reference internal" href="find_package.html#command:find_package" title="find_package"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">find_package()</span></code></a> commands except when invoked
+with the <code class="docutils literal notranslate"><span class="pre">NO_DIAGNOSTIC_SCOPE</span></code> option.  The <code class="docutils literal notranslate"><span class="pre">cmake_diagnostic</span></code> command
+provides an interface to manage custom entries on the diagnostic stack:</p>
+<dl class="cmake signature">
+<dt class="sig sig-object cmake" id="push">
+<span class="code cmake highlight sig-name descname"><span class="nf"><span class="pre">cmake_diagnostic(</span></span><span class="no"><span class="pre">PUSH</span></span><span class="nf"><span class="pre">)</span></span></span><a class="headerlink" href="#push" title="Link to this definition">¶</a></dt>
+<dd><p>Create a new entry on the diagnostic stack.</p>
+</dd></dl>
+
+<dl class="cmake signature">
+<dt class="sig sig-object cmake" id="pop">
+<span class="code cmake highlight sig-name descname"><span class="nf"><span class="pre">cmake_diagnostic(</span></span><span class="no"><span class="pre">POP</span></span><span class="nf"><span class="pre">)</span></span></span><a class="headerlink" href="#pop" title="Link to this definition">¶</a></dt>
+<dd><p>Remove the last diagnostic stack entry created with
+<code class="docutils literal notranslate"><span class="pre">cmake_diagnostic(PUSH)</span></code>.</p>
+</dd></dl>
+
+<p>Each <code class="docutils literal notranslate"><span class="pre">PUSH</span></code> must have a matching <code class="docutils literal notranslate"><span class="pre">POP</span></code> to erase any changes.
+This is useful to make temporary changes to diagnostic settings.
+Calls to the <span class="target" id="index-0-command:cmake_diagnostic"></span><a class="reference internal" href="#set" title="cmake_diagnostic(set)"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">cmake_diagnostic(SET)</span></code></a>,
+<span class="target" id="index-1-command:cmake_diagnostic"></span><a class="reference internal" href="#promote" title="cmake_diagnostic(promote)"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">cmake_diagnostic(PROMOTE)</span></code></a>, or <span class="target" id="index-2-command:cmake_diagnostic"></span><a class="reference internal" href="#demote" title="cmake_diagnostic(demote)"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">cmake_diagnostic(DEMOTE)</span></code></a>
+commands influence only the current top of the diagnostic stack.</p>
+<p>The <span class="target" id="index-0-command:block"></span><a class="reference internal" href="block.html#command:block" title="block(scope_for diagnostics)"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">block(SCOPE_FOR</span> <span class="pre">DIAGNOSTICS)</span></code></a> command offers a more flexible
+and more secure way to manage the diagnostic stack. The pop action is done
+automatically when leaving the block scope, so there is no need to
+precede each <span class="target" id="index-0-command:return"></span><a class="reference internal" href="return.html#command:return" title="return"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">return()</span></code></a> with a call to <span class="target" id="index-3-command:cmake_diagnostic"></span><a class="reference internal" href="#pop" title="cmake_diagnostic(pop)"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">cmake_diagnostic(POP)</span></code></a>.</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="c"># stack management with cmake_diagnostic()</span>
+<span class="nf">function(</span><span class="nb">my_func</span><span class="nf">)</span>
+<span class="w">  </span><span class="nf">cmake_diagnostic(</span><span class="no">PUSH</span><span class="nf">)</span>
+<span class="w">  </span><span class="nf">cmake_diagnostic(</span><span class="no">SET</span><span class="w"> </span><span class="p">...</span><span class="nf">)</span>
+<span class="w">  </span><span class="nf">if</span> <span class="nf">(</span><span class="nv">&lt;cond1&gt;</span><span class="nf">)</span>
+<span class="w">    </span><span class="p">...</span>
+<span class="w">    </span><span class="nf">cmake_diagnostic(</span><span class="no">POP</span><span class="nf">)</span>
+<span class="w">    </span><span class="nf">return()</span>
+<span class="w">  </span><span class="nf">elseif(</span><span class="nv">&lt;cond2&gt;</span><span class="nf">)</span>
+<span class="w">    </span><span class="p">...</span>
+<span class="w">    </span><span class="nf">cmake_diagnostic(</span><span class="no">POP</span><span class="nf">)</span>
+<span class="w">    </span><span class="nf">return()</span>
+<span class="w">  </span><span class="nf">endif()</span>
+<span class="w">  </span><span class="p">...</span>
+<span class="w">  </span><span class="nf">cmake_diagnostic(</span><span class="no">POP</span><span class="nf">)</span>
+<span class="nf">endfunction()</span>
+
+<span class="c"># stack management with block()/endblock()</span>
+<span class="nf">function(</span><span class="nb">my_func</span><span class="nf">)</span>
+<span class="w">  </span><span class="nf">block(</span><span class="no">SCOPE_FOR</span><span class="w"> </span><span class="no">DIAGNOSTICS</span><span class="nf">)</span>
+<span class="w">    </span><span class="nf">cmake_diagnostic(</span><span class="no">SET</span><span class="w"> </span><span class="p">...</span><span class="nf">)</span>
+<span class="w">    </span><span class="nf">if</span> <span class="nf">(</span><span class="nv">&lt;cond1&gt;</span><span class="nf">)</span>
+<span class="w">      </span><span class="p">...</span>
+<span class="w">      </span><span class="nf">return()</span>
+<span class="w">    </span><span class="nf">elseif(</span><span class="nv">&lt;cond2&gt;</span><span class="nf">)</span>
+<span class="w">      </span><span class="p">...</span>
+<span class="w">      </span><span class="nf">return()</span>
+<span class="w">    </span><span class="nf">endif()</span>
+<span class="w">    </span><span class="p">...</span>
+<span class="w">  </span><span class="nf">endblock()</span>
+<span class="nf">endfunction()</span>
+</pre></div>
+</div>
+<p>Commands created by the <span class="target" id="index-0-command:function"></span><a class="reference internal" href="function.html#command:function" title="function"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">function()</span></code></a> and <span class="target" id="index-0-command:macro"></span><a class="reference internal" href="macro.html#command:macro" title="macro"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">macro()</span></code></a> commands
+record diagnostic settings when they are created and use the pre-record
+diagnostics when they are invoked.  If the function or macro implementation
+sets diagnostics, the changes automatically propagate up through callers until
+they reach the closest nested diagnostic stack entry.</p>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3>目录</h3>
+    <ul>
+<li><a class="reference internal" href="#">cmake_diagnostic</a><ul>
+<li><a class="reference internal" href="#synopsis">Synopsis</a></li>
+<li><a class="reference internal" href="#setting-diagnostics">Setting Diagnostics</a></li>
+<li><a class="reference internal" href="#checking-diagnostic-actions">Checking Diagnostic Actions</a></li>
+<li><a class="reference internal" href="#cmake-diagnostic-stack">CMake Diagnostic Stack</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>上一主题</h4>
+    <p class="topless"><a href="break.html"
+                          title="上一章">break</a></p>
+  </div>
+  <div>
+    <h4>下一主题</h4>
+    <p class="topless"><a href="cmake_host_system_information.html"
+                          title="下一章">cmake_host_system_information</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>本页</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/command/cmake_diagnostic.rst.txt"
+            rel="nofollow">显示源代码</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="提交" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="总索引"
+             >索引</a></li>
+        <li class="right" >
+          <a href="cmake_host_system_information.html" title="cmake_host_system_information"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="break.html" title="break"
+             >上一页</a> |</li>
+  <li>
+    <label class="sidebar-toggle" for="sidebar-check"></label>
+  </li>
+  <li class="rootlink">
+    <img src="../_static/cmake-logo-16.png" width="16" height="16" alt=""/>
+    <a href="https://cmake.org/">CMake 4.4.20260622-gee0198b</a>
+    <span class="reldelim1"> &#187;</span>
+  </li>
+  <li>
+    <a href="../index.html">Documentation</a> &#187;
+  </li>
+
+          <li class="nav-item nav-item-1"><a href="../manual/cmake-commands.7.html" >cmake-commands(7)</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">cmake_diagnostic</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+    &#169; 版权所有 2000-2026 Kitware, Inc. and Contributors.
+      由 <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3创建。
+    </div>
+<script type="text/javascript">
+(function() {
+  "use strict";
+  const hide = () => document.getElementById("sidebar-check").checked = false;
+  addEventListener("keydown", e => (e.key === "Escape") && hide());
+  addEventListener("click", e => (e.target.tagName === "A") && hide());
+  addEventListener("hashchange", hide)
+})();
+</script>
+  </body>
+</html>

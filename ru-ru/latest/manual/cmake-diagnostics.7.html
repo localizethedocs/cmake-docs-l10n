@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+
+<html lang="ru-RU" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>cmake-diagnostics(7) &mdash; CMake 4.4.0-rc2 Documentation</title>
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a3862c66" />
+    <link rel="stylesheet" type="text/css" href="../_static/cmake.css?v=d27bb136" />
+    
+    <script src="../_static/documentation_options.js?v=fcc45331"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    
+    <link rel="canonical" href="https://projects.localizethedocs.org/cmake-docs-l10n/manual/cmake-diagnostics.7.html" />
+    <link rel="icon" href="../_static/cmake-favicon.ico"/>
+    <link rel="index" title="Алфавитный указатель" href="../genindex.html" />
+    <link rel="search" title="Поиск" href="../search.html" />
+    <link rel="next" title="CMD_AUTHOR" href="../diagnostic/CMD_AUTHOR.html" />
+    <link rel="prev" title="cmake-developer(7)" href="cmake-developer.7.html" />
+
+ 
+
+    <script type="text/javascript" src="../ltd-provenance.js"></script>
+    <script type="text/javascript" src="../ltd-current.js"></script>
+    <script type="text/javascript" src="../../../ltd-config.js"></script>
+    <script type="text/javascript" src="../../../ltd-flyout.js"></script>
+
+  </head><body>
+    <input id="sidebar-check" type="checkbox" />
+    <label id="sidebar-overlay" for="sidebar-check"></label>
+
+
+
+    <div class="related relbar1" role="navigation" aria-label="Related">
+      <h3>Навигация</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Алфавитный указатель"
+             accesskey="I">указатель</a></li>
+        <li class="right" >
+          <a href="../diagnostic/CMD_AUTHOR.html" title="CMD_AUTHOR"
+             accesskey="N">вперёд</a> |</li>
+        <li class="right" >
+          <a href="cmake-developer.7.html" title="cmake-developer(7)"
+             accesskey="P">назад</a> |</li>
+  <li>
+    <label class="sidebar-toggle" for="sidebar-check"></label>
+  </li>
+  <li class="rootlink">
+    <img src="../_static/cmake-logo-16.png" width="16" height="16" alt=""/>
+    <a href="https://cmake.org/">CMake 4.4.0-rc2</a>
+    <span class="reldelim1"> &#187;</span>
+  </li>
+  <li>
+    <a href="../index.html">Documentation</a> &#187;
+  </li>
+
+        <li class="nav-item nav-item-this"><a href="">cmake-diagnostics(7)</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <span class="target" id="manual:cmake-diagnostics(7)"></span><section id="cmake-diagnostics-7">
+<h1><a class="toc-backref" href="#id2" role="doc-backlink">cmake-diagnostics(7)</a><a class="headerlink" href="#cmake-diagnostics-7" title="Ссылка на этот заголовок">¶</a></h1>
+<nav class="contents" id="id1">
+<p class="topic-title">Содержание</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#cmake-diagnostics-7" id="id2">cmake-diagnostics(7)</a></p>
+<ul>
+<li><p><a class="reference internal" href="#introduction" id="id3">Introduction</a></p></li>
+<li><p><a class="reference internal" href="#controlling-diagnostics" id="id4">Controlling Diagnostics</a></p></li>
+<li><p><a class="reference internal" href="#diagnostic-categories" id="id5">Diagnostic Categories</a></p></li>
+</ul>
+</li>
+</ul>
+</nav>
+<section id="introduction">
+<span id="cmake-diagnostics-intro"></span><h2><a class="toc-backref" href="#id3" role="doc-backlink">Introduction</a><a class="headerlink" href="#introduction" title="Ссылка на этот заголовок">¶</a></h2>
+<div class="versionadded">
+<p><span class="versionmodified added">Добавлено в версии 4.4.</span></p>
+</div>
+<p>CMake Diagnostics are the mechanism by which CMake categorizes and presents
+certain advisory information about a project's configuration and the generation
+of its build system.  These diagnostics can be seen as the build system
+equivalent of compiler warnings.  Diagnostics provide feedback on potential
+issues in several categories:</p>
+<ul class="simple">
+<li><p>Issues that may impact the success of the build.</p></li>
+<li><p>Issues that may impact the correctness of the build.</p></li>
+<li><p>Issues that may impact the correctness of the project packaging.</p></li>
+<li><p>Issues that may impact the ability of the project
+to be built with newer versions of dependencies.</p></li>
+<li><p>Issues that may impact the ability of the project
+to be built with newer versions of CMake.</p></li>
+</ul>
+</section>
+<section id="controlling-diagnostics">
+<h2><a class="toc-backref" href="#id4" role="doc-backlink">Controlling Diagnostics</a><a class="headerlink" href="#controlling-diagnostics" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Each diagnostic category has an associated action to be taken when that
+diagnostic is triggered.  Most categories will warn by default.  The available
+actions are described in the <span class="target" id="index-0-command:cmake_diagnostic"></span><a class="reference internal" href="../command/cmake_diagnostic.html#command:cmake_diagnostic" title="cmake_diagnostic"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">cmake_diagnostic()</span></code></a> command documentation.</p>
+<p>CMake maintains a diagnostic state stack that is similar to the policy state.
+The initial state of the stack is determined by four factors, which are, in
+order of precedence:</p>
+<ul class="simple">
+<li><p>The default action associated with the diagnostic.</p></li>
+<li><p>The action associated with the diagnostic stored in the CMake variable cache,
+which is used to persist the initial state between CMake runs.</p></li>
+<li><p>The <a class="reference internal" href="cmake-presets.7.html#cmakepresets-configurepresets-warnings" title="cmakepresets.configurepresets.warnings"><code class="docutils literal notranslate"><span class="pre">warnings</span></code></a> and <a class="reference internal" href="cmake-presets.7.html#cmakepresets-configurepresets-errors" title="cmakepresets.configurepresets.errors"><code class="docutils literal notranslate"><span class="pre">errors</span></code></a>
+fields of <span class="target" id="index-0-manual:cmake-presets(7)"></span><a class="reference internal" href="cmake-presets.7.html#manual:cmake-presets(7)" title="cmake-presets(7)"><code class="xref cmake cmake-manual docutils literal notranslate"><span class="pre">CMake</span> <span class="pre">Presets</span></code></a>.</p></li>
+<li><p>The <a class="reference internal" href="cmake.1.html#cmdoption-cmake-W"><code class="xref std std-option docutils literal notranslate"><span class="pre">-W[no-][error=]</span></code></a> command line arguments.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Примечание</p>
+<p>Because command line arguments operate both recursively and in the order
+specified, some combinations of diagnostic arguments may result in later
+arguments completely overwriting the action of earlier arguments.  For
+example, <code class="docutils literal notranslate"><span class="pre">-Wno-child</span> <span class="pre">-Wparent</span></code> will result in the <code class="docutils literal notranslate"><span class="pre">child</span></code> warning being
+enabled, because <code class="docutils literal notranslate"><span class="pre">-Wparent</span></code> promotes both <code class="docutils literal notranslate"><span class="pre">parent</span></code> and <code class="docutils literal notranslate"><span class="pre">child</span></code> to at
+least <code class="docutils literal notranslate"><span class="pre">WARN</span></code> severity.  CMake presets are evaluated in order from most
+ancestral to least ancestral.</p>
+</div>
+<p>During script execution, the <span class="target" id="index-1-command:cmake_diagnostic"></span><a class="reference internal" href="../command/cmake_diagnostic.html#command:cmake_diagnostic" title="cmake_diagnostic"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">cmake_diagnostic()</span></code></a> command can be used to
+query or alter the state, or to perform limited stack manipulations.</p>
+<p>When a diagnostic is issued at configure time (or during script execution, when
+CMake is running in script mode), the current diagnostic state controls the
+action.  Diagnostics issued at generate time, or outside of the configuration
+and generation phases must make use of recorded state information. While CMake
+strives to preserve this information in a way that matches the recorded state
+to the state as of the CMake command which ultimately causes a diagnostic to be
+issued, CMake may sometimes fall back to the state when processing of a
+subdirectory completed, or even the root state.  This may limit the ability of
+the <span class="target" id="index-2-command:cmake_diagnostic"></span><a class="reference internal" href="../command/cmake_diagnostic.html#command:cmake_diagnostic" title="cmake_diagnostic"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">cmake_diagnostic()</span></code></a> command to control such diagnostics, especially
+if called from a function or included file.  This is especially the case for
+diagnostics that are not directly coupled to a CMake command.</p>
+</section>
+<section id="diagnostic-categories">
+<h2><a class="toc-backref" href="#id5" role="doc-backlink">Diagnostic Categories</a><a class="headerlink" href="#diagnostic-categories" title="Ссылка на этот заголовок">¶</a></h2>
+<p>The following categories are defined:</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../diagnostic/CMD_AUTHOR.html">CMD_AUTHOR</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../diagnostic/CMD_DEPRECATED.html">CMD_DEPRECATED</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../diagnostic/CMD_EXPERIMENTAL.html">CMD_EXPERIMENTAL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../diagnostic/CMD_INSTALL_ABSOLUTE_DESTINATION.html">CMD_INSTALL_ABSOLUTE_DESTINATION</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../diagnostic/CMD_POLICY.html">CMD_POLICY</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../diagnostic/CMD_UNINITIALIZED.html">CMD_UNINITIALIZED</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../diagnostic/CMD_UNUSED_CLI.html">CMD_UNUSED_CLI</a></li>
+</ul>
+</div>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3>Оглавление</h3>
+    <ul>
+<li><a class="reference internal" href="#">cmake-diagnostics(7)</a><ul>
+<li><a class="reference internal" href="#introduction">Introduction</a></li>
+<li><a class="reference internal" href="#controlling-diagnostics">Controlling Diagnostics</a></li>
+<li><a class="reference internal" href="#diagnostic-categories">Diagnostic Categories</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Предыдущий раздел</h4>
+    <p class="topless"><a href="cmake-developer.7.html"
+                          title="предыдущая глава">cmake-developer(7)</a></p>
+  </div>
+  <div>
+    <h4>Следующий раздел</h4>
+    <p class="topless"><a href="../diagnostic/CMD_AUTHOR.html"
+                          title="следующая глава">CMD_AUTHOR</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>Эта страница</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/manual/cmake-diagnostics.7.rst.txt"
+            rel="nofollow">Исходный текст</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Быстрый поиск</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Искать" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Навигация</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Алфавитный указатель"
+             >указатель</a></li>
+        <li class="right" >
+          <a href="../diagnostic/CMD_AUTHOR.html" title="CMD_AUTHOR"
+             >вперёд</a> |</li>
+        <li class="right" >
+          <a href="cmake-developer.7.html" title="cmake-developer(7)"
+             >назад</a> |</li>
+  <li>
+    <label class="sidebar-toggle" for="sidebar-check"></label>
+  </li>
+  <li class="rootlink">
+    <img src="../_static/cmake-logo-16.png" width="16" height="16" alt=""/>
+    <a href="https://cmake.org/">CMake 4.4.0-rc2</a>
+    <span class="reldelim1"> &#187;</span>
+  </li>
+  <li>
+    <a href="../index.html">Documentation</a> &#187;
+  </li>
+
+        <li class="nav-item nav-item-this"><a href="">cmake-diagnostics(7)</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+    &#169; Авторские права 2000-2026 Kitware, Inc. and Contributors.
+      Создано с использованием <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    </div>
+<script type="text/javascript">
+(function() {
+  "use strict";
+  const hide = () => document.getElementById("sidebar-check").checked = false;
+  addEventListener("keydown", e => (e.key === "Escape") && hide());
+  addEventListener("click", e => (e.target.tagName === "A") && hide());
+  addEventListener("hashchange", hide)
+})();
+</script>
+  </body>
+</html>
