@@ -1,0 +1,76 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2000-2025 Kitware, Inc. and Contributors
+# This file is distributed under the same license as the CMake package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CMake master\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-07-14 08:20+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../policy/CMP0023.rst:2
+msgid "CMP0023"
+msgstr ""
+
+#: ../../../policy/include/REMOVED_PROLOGUE.rst:2
+msgid ""
+"The ``OLD`` behavior of this policy was removed in CMake version |"
+"REMOVED_IN_CMAKE_VERSION|. This policy must be set to ``NEW`` by a call to :"
+"command:`cmake_minimum_required` or :command:`cmake_policy`."
+msgstr ""
+
+#: ../../../policy/CMP0023.rst:7
+msgid ""
+"Plain and keyword :command:`target_link_libraries` signatures cannot be "
+"mixed."
+msgstr ""
+
+#: ../../../policy/CMP0023.rst:9
+msgid ""
+"CMake 2.8.12 introduced the :command:`target_link_libraries` signature using "
+"the ``PUBLIC``, ``PRIVATE``, and ``INTERFACE`` keywords to generalize the "
+"``LINK_PUBLIC`` and ``LINK_PRIVATE`` keywords introduced in CMake 2.8.7. Use "
+"of signatures with any of these keywords sets the link interface of a target "
+"explicitly, even if empty.  This produces confusing behavior when used in "
+"combination with the historical behavior of the plain :command:"
+"`target_link_libraries` signature.  For example, consider the code:"
+msgstr ""
+
+#: ../../../policy/CMP0023.rst:17
+msgid ""
+"target_link_libraries(mylib A)\n"
+"target_link_libraries(mylib PRIVATE B)"
+msgstr ""
+
+#: ../../../policy/CMP0023.rst:22
+msgid ""
+"After the first line the link interface has not been set explicitly so CMake "
+"would use the link implementation, A, as the link interface. However, the "
+"second line sets the link interface to empty.  In order to avoid this subtle "
+"behavior CMake now prefers to disallow mixing the plain and keyword "
+"signatures of :command:`target_link_libraries` for a single target."
+msgstr ""
+
+#: ../../../policy/CMP0023.rst:29
+msgid ""
+"The ``OLD`` behavior for this policy is to allow keyword and plain :command:"
+"`target_link_libraries` signatures to be mixed.  The ``NEW`` behavior for "
+"this policy is to not to allow mixing of the keyword and plain signatures."
+msgstr ""
+
+#: ../../../policy/include/REMOVED_EPILOGUE.rst:1
+msgid ""
+"This policy was introduced in CMake version |INTRODUCED_IN_CMAKE_VERSION|. "
+"Prior to removal in CMake version |REMOVED_IN_CMAKE_VERSION|, it could be "
+"set by :command:`cmake_policy` or :command:`cmake_minimum_required`. If it "
+"was not set, CMake |WARNED_OR_DID_NOT_WARN|, and used ``OLD`` behavior."
+msgstr ""
