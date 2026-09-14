@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CMake master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-25 08:20+0000\n"
+"POT-Creation-Date: 2026-09-14 14:36+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -197,93 +197,123 @@ msgid ""
 msgstr ""
 
 #: ../../../prop_tgt/AUTOMOC.rst:111
+msgid "C++ module unit processing"
+msgstr ""
+
+#: ../../../prop_tgt/AUTOMOC.rst:113
+msgid ""
+"C++ module interface and partition units that are members of a ``FILE_SET`` "
+"of type ``CXX_MODULES`` (see :prop_tgt:`CXX_MODULE_SETS`) are scanned by "
+"``AUTOMOC`` for a Qt macro from :prop_tgt:`AUTOMOC_MACRO_NAMES`, just like "
+"other source files.  Running ``moc`` on them requires Qt 6.13 or newer, "
+"whose ``moc`` supports C++ module units.  With older Qt, a Qt macro found in "
+"such a unit is reported as an error, and a unit without one is left alone."
+msgstr ""
+
+#: ../../../prop_tgt/AUTOMOC.rst:121
+msgid ""
+"If a Qt macro is found, ``moc`` is run on the module unit and its generated "
+"output is compiled as its own translation unit, as a module implementation "
+"unit of the same module.  This output participates in the target's C++ "
+"module dependency scanning like any other source.  It is not added to the "
+"``mocs_compilation.cpp`` file described in `Output file location`_."
+msgstr ""
+
+#: ../../../prop_tgt/AUTOMOC.rst:128
+msgid ""
+"Module implementation units and private module fragments are not supported: "
+"``moc`` rejects a Qt macro found in either of these, and ``AUTOMOC`` does "
+"not work around that restriction."
+msgstr ""
+
+#: ../../../prop_tgt/AUTOMOC.rst:134
 msgid "Output file location"
 msgstr ""
 
-#: ../../../prop_tgt/AUTOMOC.rst:114
+#: ../../../prop_tgt/AUTOMOC.rst:137
 msgid "Included moc output files"
 msgstr ""
 
-#: ../../../prop_tgt/AUTOMOC.rst:116
+#: ../../../prop_tgt/AUTOMOC.rst:139
 msgid ""
 "``moc`` output files that are included by a source file will be generated in"
 msgstr ""
 
-#: ../../../prop_tgt/AUTOMOC.rst:118
+#: ../../../prop_tgt/AUTOMOC.rst:141
 msgid ""
 "``<AUTOGEN_BUILD_DIR>/include`` for single configuration generators or in"
 msgstr ""
 
-#: ../../../prop_tgt/AUTOMOC.rst:120
+#: ../../../prop_tgt/AUTOMOC.rst:143
 msgid ""
 "``<AUTOGEN_BUILD_DIR>/include_<CONFIG>`` for :prop_gbl:`multi configuration "
 "<GENERATOR_IS_MULTI_CONFIG>` generators."
 msgstr ""
 
-#: ../../../prop_tgt/AUTOMOC.rst:123
+#: ../../../prop_tgt/AUTOMOC.rst:146
 msgid ""
 "Where ``<AUTOGEN_BUILD_DIR>`` is the value of the target property :prop_tgt:"
 "`AUTOGEN_BUILD_DIR`."
 msgstr ""
 
-#: ../../../prop_tgt/AUTOMOC.rst:126
+#: ../../../prop_tgt/AUTOMOC.rst:149
 msgid ""
 "The include directory is automatically added to the target's :prop_tgt:"
 "`INCLUDE_DIRECTORIES`."
 msgstr ""
 
-#: ../../../prop_tgt/AUTOMOC.rst:130
+#: ../../../prop_tgt/AUTOMOC.rst:153
 msgid "Not included moc output files"
 msgstr ""
 
-#: ../../../prop_tgt/AUTOMOC.rst:132
+#: ../../../prop_tgt/AUTOMOC.rst:155
 msgid ""
 "``moc`` output files that are not included in a source file will be "
 "generated in"
 msgstr ""
 
-#: ../../../prop_tgt/AUTOMOC.rst:135
+#: ../../../prop_tgt/AUTOMOC.rst:158
 msgid ""
 "``<AUTOGEN_BUILD_DIR>/<SOURCE_DIR_CHECKSUM>`` for single configuration "
 "generators or in,"
 msgstr ""
 
-#: ../../../prop_tgt/AUTOMOC.rst:137
+#: ../../../prop_tgt/AUTOMOC.rst:160
 msgid ""
 "``<AUTOGEN_BUILD_DIR>/include_<CONFIG>/<SOURCE_DIR_CHECKSUM>`` for :prop_gbl:"
 "`multi configuration <GENERATOR_IS_MULTI_CONFIG>` generators."
 msgstr ""
 
-#: ../../../prop_tgt/AUTOMOC.rst:140
+#: ../../../prop_tgt/AUTOMOC.rst:163
 msgid ""
 "Where ``<SOURCE_DIR_CHECKSUM>`` is a checksum computed from the relative "
 "parent directory path of the ``moc`` input file.  This scheme allows to have "
 "``moc`` input files with the same name in different directories."
 msgstr ""
 
-#: ../../../prop_tgt/AUTOMOC.rst:144
+#: ../../../prop_tgt/AUTOMOC.rst:167
 msgid ""
 "All not included ``moc`` output files will be included automatically by the "
 "CMake generated file"
 msgstr ""
 
-#: ../../../prop_tgt/AUTOMOC.rst:147
+#: ../../../prop_tgt/AUTOMOC.rst:170
 msgid "``<AUTOGEN_BUILD_DIR>/mocs_compilation.cpp``, or"
 msgstr ""
 
-#: ../../../prop_tgt/AUTOMOC.rst:148
+#: ../../../prop_tgt/AUTOMOC.rst:171
 msgid "``<AUTOGEN_BUILD_DIR>/mocs_compilation_$<CONFIG>.cpp``,"
 msgstr ""
 
-#: ../../../prop_tgt/AUTOMOC.rst:150
+#: ../../../prop_tgt/AUTOMOC.rst:173
 msgid "which is added to the target's sources."
 msgstr ""
 
-#: ../../../prop_tgt/AUTOMOC.rst:154
+#: ../../../prop_tgt/AUTOMOC.rst:177
 msgid "Qt version detection"
 msgstr ""
 
-#: ../../../prop_tgt/AUTOMOC.rst:156
+#: ../../../prop_tgt/AUTOMOC.rst:179
 msgid ""
 "``AUTOMOC`` enabled targets need to know the Qt major and minor version "
 "they're working with.  The major version usually is provided by the "
@@ -292,45 +322,45 @@ msgid ""
 "available Qt versions from"
 msgstr ""
 
-#: ../../../prop_tgt/AUTOMOC.rst:162
+#: ../../../prop_tgt/AUTOMOC.rst:185
 msgid ""
 "``Qt6Core_VERSION_MAJOR`` and ``Qt6Core_VERSION_MINOR`` variables (usually "
 "set by ``find_package(Qt6...)``)"
 msgstr ""
 
-#: ../../../prop_tgt/AUTOMOC.rst:164
+#: ../../../prop_tgt/AUTOMOC.rst:187
 msgid ""
 "``Qt6Core_VERSION_MAJOR`` and ``Qt6Core_VERSION_MINOR`` directory properties"
 msgstr ""
 
-#: ../../../prop_tgt/AUTOMOC.rst:165
+#: ../../../prop_tgt/AUTOMOC.rst:188
 msgid ""
 "``Qt5Core_VERSION_MAJOR`` and ``Qt5Core_VERSION_MINOR`` variables (usually "
 "set by ``find_package(Qt5...)``)"
 msgstr ""
 
-#: ../../../prop_tgt/AUTOMOC.rst:167
+#: ../../../prop_tgt/AUTOMOC.rst:190
 msgid ""
 "``Qt5Core_VERSION_MAJOR`` and ``Qt5Core_VERSION_MINOR`` directory properties"
 msgstr ""
 
-#: ../../../prop_tgt/AUTOMOC.rst:168
+#: ../../../prop_tgt/AUTOMOC.rst:191
 msgid ""
 "``QT_VERSION_MAJOR`` and ``QT_VERSION_MINOR``  variables (usually set by "
 "``find_package(Qt4...)``)"
 msgstr ""
 
-#: ../../../prop_tgt/AUTOMOC.rst:170
+#: ../../../prop_tgt/AUTOMOC.rst:193
 msgid "``QT_VERSION_MAJOR`` and ``QT_VERSION_MINOR``  directory properties"
 msgstr ""
 
-#: ../../../prop_tgt/AUTOMOC.rst:172
+#: ../../../prop_tgt/AUTOMOC.rst:195
 msgid ""
 "in the context of the :command:`add_executable` or :command:`add_library` "
 "call."
 msgstr ""
 
-#: ../../../prop_tgt/AUTOMOC.rst:174
+#: ../../../prop_tgt/AUTOMOC.rst:197
 msgid ""
 "Assumed  ``INTERFACE_QT_MAJOR_VERSION`` is a valid number, the first entry "
 "in the list with a matching major version is taken.  If no matching major "
@@ -338,7 +368,7 @@ msgid ""
 "is not a valid number, the first entry in the list is taken."
 msgstr ""
 
-#: ../../../prop_tgt/AUTOMOC.rst:180
+#: ../../../prop_tgt/AUTOMOC.rst:203
 msgid ""
 "A ``find_package(Qt[456]...)`` call sets the ``QT/Qt[56]Core_VERSION_MAJOR/"
 "MINOR`` variables.  If the call is in a different context than the :command:"
@@ -350,7 +380,7 @@ msgid ""
 "properties. The following Qt5 example demonstrates the procedure."
 msgstr ""
 
-#: ../../../prop_tgt/AUTOMOC.rst:190
+#: ../../../prop_tgt/AUTOMOC.rst:213
 msgid ""
 "function (add_qt5_client)\n"
 "  find_package(Qt5 REQUIRED QUIET COMPONENTS Core Widgets)\n"
@@ -368,78 +398,78 @@ msgid ""
 "set_property(TARGET myTarget PROPERTY AUTOMOC ON)"
 msgstr ""
 
-#: ../../../prop_tgt/AUTOMOC.rst:209
+#: ../../../prop_tgt/AUTOMOC.rst:232
 msgid "Modifiers"
 msgstr ""
 
-#: ../../../prop_tgt/AUTOMOC.rst:211
+#: ../../../prop_tgt/AUTOMOC.rst:234
 msgid ""
 ":prop_tgt:`AUTOMOC_EXECUTABLE`: The ``moc`` executable will be detected "
 "automatically, but can be forced to a certain binary using this target "
 "property."
 msgstr ""
 
-#: ../../../prop_tgt/AUTOMOC.rst:215
+#: ../../../prop_tgt/AUTOMOC.rst:238
 msgid ""
 ":prop_tgt:`AUTOMOC_MOC_OPTIONS`: Additional command line options for ``moc`` "
 "can be set in this target property."
 msgstr ""
 
-#: ../../../prop_tgt/AUTOMOC.rst:218
+#: ../../../prop_tgt/AUTOMOC.rst:241
 msgid ""
 ":prop_tgt:`AUTOMOC_MACRO_NAMES`: This list of Qt macro names can be extended "
 "to search for additional macros in headers and sources."
 msgstr ""
 
-#: ../../../prop_tgt/AUTOMOC.rst:222
+#: ../../../prop_tgt/AUTOMOC.rst:245
 msgid ""
 ":prop_tgt:`AUTOMOC_DEPEND_FILTERS`: ``moc`` dependency file names can be "
 "extracted from headers or sources by defining file name filters in this "
 "target property."
 msgstr ""
 
-#: ../../../prop_tgt/AUTOMOC.rst:226
+#: ../../../prop_tgt/AUTOMOC.rst:249
 msgid ""
 ":prop_tgt:`AUTOMOC_COMPILER_PREDEFINES`: Compiler pre definitions for "
 "``moc`` are written to the ``moc_predefs.h`` file. The generation of this "
 "file can be enabled or disabled in this target property."
 msgstr ""
 
-#: ../../../prop_tgt/AUTOMOC.rst:230
+#: ../../../prop_tgt/AUTOMOC.rst:253
 msgid ""
 ":prop_tgt:`AUTOMOC_INCLUDE_DIRECTORIES`: Specifies one or more include "
 "directories for ``AUTOMOC`` to pass explicitly to ``moc`` instead of "
-"automatically discovering a target’s include directories."
+"automatically discovering a target's include directories."
 msgstr ""
 
-#: ../../../prop_tgt/AUTOMOC.rst:234
+#: ../../../prop_tgt/AUTOMOC.rst:257
 msgid ""
 ":prop_sf:`SKIP_AUTOMOC`: Sources and headers can be excluded from "
 "``AUTOMOC`` processing by setting this source file property."
 msgstr ""
 
-#: ../../../prop_tgt/AUTOMOC.rst:238
+#: ../../../prop_tgt/AUTOMOC.rst:261
 msgid ""
 ":prop_sf:`SKIP_AUTOGEN`: Source files can be excluded from ``AUTOMOC``, :"
 "prop_tgt:`AUTOUIC` and :prop_tgt:`AUTORCC` processing by setting this source "
 "file property."
 msgstr ""
 
-#: ../../../prop_tgt/AUTOMOC.rst:243
+#: ../../../prop_tgt/AUTOMOC.rst:266
 msgid ""
 ":prop_gbl:`AUTOGEN_SOURCE_GROUP`: This global property can be used to group "
 "files generated by ``AUTOMOC`` or :prop_tgt:`AUTORCC` together in an IDE, e."
 "g.  in MSVS."
 msgstr ""
 
-#: ../../../prop_tgt/AUTOMOC.rst:247
+#: ../../../prop_tgt/AUTOMOC.rst:270
 msgid ""
 ":prop_gbl:`AUTOGEN_TARGETS_FOLDER`: This global property can be used to "
 "group ``AUTOMOC``, :prop_tgt:`AUTOUIC` and :prop_tgt:`AUTORCC` targets "
 "together in an IDE, e.g.  in MSVS."
 msgstr ""
 
-#: ../../../prop_tgt/AUTOMOC.rst:252
+#: ../../../prop_tgt/AUTOMOC.rst:275
 msgid ""
 ":variable:`CMAKE_GLOBAL_AUTOGEN_TARGET`: A global ``autogen`` target, that "
 "depends on all ``AUTOMOC`` or :prop_tgt:`AUTOUIC` generated :ref:"
@@ -447,20 +477,20 @@ msgid ""
 "generated when this variable is ``ON``."
 msgstr ""
 
-#: ../../../prop_tgt/AUTOMOC.rst:257
+#: ../../../prop_tgt/AUTOMOC.rst:280
 msgid ""
 ":prop_tgt:`AUTOGEN_PARALLEL`: This target property controls the number of "
 "``moc`` or ``uic`` processes to start in parallel during builds."
 msgstr ""
 
-#: ../../../prop_tgt/AUTOMOC.rst:261
+#: ../../../prop_tgt/AUTOMOC.rst:284
 msgid ""
 ":prop_tgt:`AUTOGEN_COMMAND_LINE_LENGTH_MAX`: This target property controls "
 "the limit when to use response files for ``moc`` or ``uic`` processes on "
 "Windows."
 msgstr ""
 
-#: ../../../prop_tgt/AUTOMOC.rst:265
+#: ../../../prop_tgt/AUTOMOC.rst:288
 msgid ""
 "See the :manual:`cmake-qt(7)` manual for more information on using CMake "
 "with Qt."

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CMake master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-02 08:35+0000\n"
+"POT-Creation-Date: 2026-09-14 14:36+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -826,4 +826,179 @@ msgstr ""
 msgid ""
 "Note that this approach does not apply to :command:`macro` implementations "
 "because they reference arguments using placeholders, not real variables."
+msgstr ""
+
+#: ../../../manual/cmake-language.7.rst:696
+msgid "Regex Specification"
+msgstr ""
+
+#: ../../../manual/cmake-language.7.rst:698
+msgid ""
+"Several CMake commands accept regular expressions, including :command:"
+"`string(REGEX ...) <string>`, :command:`if(MATCHES)`, :command:"
+"`list(FILTER)`, and others, as well as command-line options such as :option:"
+"`ctest -L` and related modes."
+msgstr ""
+
+#: ../../../manual/cmake-language.7.rst:703
+msgid "The following characters have special meaning in regular expressions:"
+msgstr ""
+
+#: ../../../manual/cmake-language.7.rst:705
+msgid "``^``"
+msgstr ""
+
+#: ../../../manual/cmake-language.7.rst:706
+msgid "Matches at beginning of input"
+msgstr ""
+
+#: ../../../manual/cmake-language.7.rst:707
+msgid "``$``"
+msgstr ""
+
+#: ../../../manual/cmake-language.7.rst:708
+msgid "Matches at end of input"
+msgstr ""
+
+#: ../../../manual/cmake-language.7.rst:709
+msgid "``.``"
+msgstr ""
+
+#: ../../../manual/cmake-language.7.rst:710
+msgid "Matches any single character"
+msgstr ""
+
+#: ../../../manual/cmake-language.7.rst:711
+msgid "``\\<char>``"
+msgstr ""
+
+#: ../../../manual/cmake-language.7.rst:712
+msgid ""
+"Matches the single character specified by ``<char>``.  Use this to match "
+"special regex characters, e.g. ``\\.`` for a literal ``.`` or ``\\\\`` for a "
+"literal backslash ``\\``.  Escaping a non-special character is unnecessary "
+"but allowed, e.g. ``\\a`` matches ``a``."
+msgstr ""
+
+#: ../../../manual/cmake-language.7.rst:716
+msgid "``[ ]``"
+msgstr ""
+
+#: ../../../manual/cmake-language.7.rst:717
+msgid ""
+"Matches any character(s) inside the brackets. To match a literal ``]``, make "
+"it the first character, e.g., ``[]ab]``."
+msgstr ""
+
+#: ../../../manual/cmake-language.7.rst:719
+msgid "``[^ ]``"
+msgstr ""
+
+#: ../../../manual/cmake-language.7.rst:720
+msgid ""
+"Matches any character(s) not inside the brackets. To not match a literal "
+"``]``, make it the first character, e.g., ``[^]ab]``."
+msgstr ""
+
+#: ../../../manual/cmake-language.7.rst:722
+msgid "``-``"
+msgstr ""
+
+#: ../../../manual/cmake-language.7.rst:723
+msgid ""
+"Inside brackets, specifies an inclusive range between characters on either "
+"side, e.g., ``[a-f]`` is ``[abcdef]``. To match a literal ``-`` using "
+"brackets, make it the first or the last character, e.g., ``[+*/-]`` matches "
+"basic mathematical operators."
+msgstr ""
+
+#: ../../../manual/cmake-language.7.rst:727
+msgid "``*``"
+msgstr ""
+
+#: ../../../manual/cmake-language.7.rst:728
+msgid "Matches preceding pattern zero or more times"
+msgstr ""
+
+#: ../../../manual/cmake-language.7.rst:729
+msgid "``+``"
+msgstr ""
+
+#: ../../../manual/cmake-language.7.rst:730
+msgid "Matches preceding pattern one or more times"
+msgstr ""
+
+#: ../../../manual/cmake-language.7.rst:731
+msgid "``?``"
+msgstr ""
+
+#: ../../../manual/cmake-language.7.rst:732
+msgid "Matches preceding pattern zero or once only"
+msgstr ""
+
+#: ../../../manual/cmake-language.7.rst:733
+msgid "``|``"
+msgstr ""
+
+#: ../../../manual/cmake-language.7.rst:734
+msgid "Matches a pattern on either side of the ``|``"
+msgstr ""
+
+#: ../../../manual/cmake-language.7.rst:735
+msgid "``()``"
+msgstr ""
+
+#: ../../../manual/cmake-language.7.rst:736
+msgid ""
+"Saves a matched subexpression, which can be referenced in the ``REGEX "
+"REPLACE`` operation."
+msgstr ""
+
+#: ../../../manual/cmake-language.7.rst:739
+msgid ""
+"All regular expression-related commands, including e.g. :command:"
+"`if(MATCHES)`, save subgroup matches in the variables :variable:"
+"`CMAKE_MATCH_<n>` for ``<n>`` 0..9."
+msgstr ""
+
+#: ../../../manual/cmake-language.7.rst:746
+msgid ""
+"``*``, ``+`` and ``?`` have higher precedence than concatenation.  ``|`` has "
+"lower precedence than concatenation.  This means that the regular expression "
+"``^ab+d$`` matches ``abbd`` but not ``ababd``, and the regular expression "
+"``^(ab|cd)$`` matches ``ab`` but not ``abd``."
+msgstr ""
+
+#: ../../../manual/cmake-language.7.rst:753
+msgid ""
+"CMake language :ref:`Escape Sequences` such as ``\\t``, ``\\r``, ``\\n``, "
+"and ``\\\\`` may be used to construct literal tabs, carriage returns, "
+"newlines, and backslashes (respectively) to pass in a regex.  For example:"
+msgstr ""
+
+#: ../../../manual/cmake-language.7.rst:757
+msgid ""
+"The quoted argument ``\"[ \\t\\r\\n]\"`` specifies a regex that matches any "
+"single whitespace character."
+msgstr ""
+
+#: ../../../manual/cmake-language.7.rst:759
+msgid ""
+"The quoted argument ``\"[/\\\\]\"`` specifies a regex that matches a single "
+"forward slash ``/`` or backslash ``\\``."
+msgstr ""
+
+#: ../../../manual/cmake-language.7.rst:761
+msgid ""
+"The quoted argument ``\"[A-Za-z0-9_]\"`` specifies a regex that matches any "
+"single \"word\" character in the C locale."
+msgstr ""
+
+#: ../../../manual/cmake-language.7.rst:763
+msgid ""
+"The quoted argument ``\"\\\\(\\\\a\\\\+b\\\\)\"`` specifies a regex that "
+"matches the exact string ``(a+b)``.  Each ``\\\\`` is parsed in a quoted "
+"argument as just ``\\``, so the regex itself is actually ``\\(\\a\\+"
+"\\b\\)``.  This can alternatively be specified in a :ref:`bracket argument` "
+"without having to escape the backslashes, e.g. ``[[\\(\\a\\+\\b\\)]]``."
 msgstr ""
