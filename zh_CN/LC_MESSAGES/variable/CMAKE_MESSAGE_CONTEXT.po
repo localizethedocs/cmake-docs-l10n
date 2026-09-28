@@ -1,0 +1,94 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2000-2025 Kitware, Inc. and Contributors
+# This file is distributed under the same license as the CMake package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CMake master\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-07-14 08:20+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../variable/CMAKE_MESSAGE_CONTEXT.rst:2
+msgid "CMAKE_MESSAGE_CONTEXT"
+msgstr ""
+
+#: ../../../variable/CMAKE_MESSAGE_CONTEXT.rst:6
+msgid ""
+"When enabled by the :option:`cmake --log-context` command line option or "
+"the :variable:`CMAKE_MESSAGE_CONTEXT_SHOW` variable, the :command:`message` "
+"command converts the ``CMAKE_MESSAGE_CONTEXT`` list into a dot-separated "
+"string surrounded by square brackets and prepends it to each line for "
+"messages of log levels ``NOTICE`` and below."
+msgstr ""
+
+#: ../../../variable/CMAKE_MESSAGE_CONTEXT.rst:12
+msgid ""
+"For logging contexts to work effectively, projects should generally "
+"``APPEND`` and ``POP_BACK`` an item to the current value of "
+"``CMAKE_MESSAGE_CONTEXT`` rather than replace it. Projects should not assume "
+"the message context at the top of the source tree is empty, as there are "
+"scenarios where the context might have already been set (e.g. hierarchical "
+"projects)."
+msgstr ""
+
+#: ../../../variable/CMAKE_MESSAGE_CONTEXT.rst:21
+msgid ""
+"Valid context names are restricted to anything that could be used as a CMake "
+"variable name.  All names that begin with an underscore or the string "
+"``cmake_`` are also reserved for use by CMake and should not be used by "
+"projects."
+msgstr ""
+
+#: ../../../variable/CMAKE_MESSAGE_CONTEXT.rst:26
+msgid "Example:"
+msgstr ""
+
+#: ../../../variable/CMAKE_MESSAGE_CONTEXT.rst:28
+msgid ""
+"function(bar)\n"
+"  list(APPEND CMAKE_MESSAGE_CONTEXT \"bar\")\n"
+"  message(VERBOSE \"bar VERBOSE message\")\n"
+"endfunction()\n"
+"\n"
+"function(baz)\n"
+"  list(APPEND CMAKE_MESSAGE_CONTEXT \"baz\")\n"
+"  message(DEBUG \"baz DEBUG message\")\n"
+"endfunction()\n"
+"\n"
+"function(foo)\n"
+"  list(APPEND CMAKE_MESSAGE_CONTEXT \"foo\")\n"
+"  bar()\n"
+"  message(TRACE \"foo TRACE message\")\n"
+"  baz()\n"
+"endfunction()\n"
+"\n"
+"list(APPEND CMAKE_MESSAGE_CONTEXT \"top\")\n"
+"\n"
+"message(VERBOSE \"Before `foo`\")\n"
+"foo()\n"
+"message(VERBOSE \"After `foo`\")\n"
+"\n"
+"list(POP_BACK CMAKE_MESSAGE_CONTEXT)"
+msgstr ""
+
+#: ../../../variable/CMAKE_MESSAGE_CONTEXT.rst:56
+msgid "Which results in the following output:"
+msgstr ""
+
+#: ../../../variable/CMAKE_MESSAGE_CONTEXT.rst:58
+msgid ""
+"-- [top] Before `foo`\n"
+"-- [top.foo.bar] bar VERBOSE message\n"
+"-- [top.foo] foo TRACE message\n"
+"-- [top.foo.baz] baz DEBUG message\n"
+"-- [top] After `foo`"
+msgstr ""
