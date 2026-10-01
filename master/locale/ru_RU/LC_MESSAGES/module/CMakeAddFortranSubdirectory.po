@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CMake master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-25 08:20+0000\n"
+"POT-Creation-Date: 2026-09-28 16:16+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -65,119 +65,131 @@ msgstr ""
 
 #: ../../../../Modules/CMakeAddFortranSubdirectory.cmake:40
 msgid ""
-"This command checks whether the current compiler supports Fortran or "
-"attempts to locate a Fortran compiler.  If a compatible Fortran compiler is "
-"found, the Fortran project located in ``<subdir>`` is added as a "
-"subdirectory to the current project."
+"This command checks whether the current environment supports enabling "
+"Fortran:"
+msgstr ""
+
+#: ../../../../Modules/CMakeAddFortranSubdirectory.cmake:42
+msgid ""
+"If Fortran is supported in the current environment, the Fortran project "
+"located in ``<subdir>`` is added as a subdirectory to the current project."
 msgstr ""
 
 #: ../../../../Modules/CMakeAddFortranSubdirectory.cmake:45
 msgid ""
-"If no Fortran compiler is found and the compiler is ``MSVC``, it searches "
-"for the MinGW ``gfortran`` compiler.  In this case, the Fortran project is "
-"built as an external project using MinGW tools, and Fortran-related imported "
-"targets are created.  This setup works only if the Fortran code is built as "
-"a shared DLL library, so the :variable:`BUILD_SHARED_LIBS` variable is "
-"enabled in the external project.  Additionally, the :variable:"
+"If Fortran is not supported in the current environment, but the current C or "
+"CXX compiler is ``MSVC``, this command searches common locations for a MinGW "
+"``gfortran`` compiler and stores its full path in the ``MINGW_GFORTRAN`` "
+"cache variable.  One may optionally set the variable explicitly to specify a "
+"full path to a preferred ``gfortran``."
+msgstr ""
+
+#: ../../../../Modules/CMakeAddFortranSubdirectory.cmake:51
+msgid ""
+"If a ``gfortran`` compiler is found, the Fortran project located in "
+"``<subdir>``  is built as an external project using MinGW tools, and Fortran-"
+"related imported targets are created.  This setup works only if the Fortran "
+"code is built as a shared DLL library, so the :variable:`BUILD_SHARED_LIBS` "
+"variable is enabled in the external project. Additionally, the :variable:"
 "`CMAKE_GNUtoMS` variable is set to ``ON`` to ensure that Microsoft-"
 "compatible ``.lib`` files are created."
 msgstr ""
 
-#: ../../../../Modules/CMakeAddFortranSubdirectory.cmake:53
+#: ../../../../Modules/CMakeAddFortranSubdirectory.cmake:59
 msgid "The options are:"
 msgstr ""
 
-#: ../../../../Modules/CMakeAddFortranSubdirectory.cmake:55
+#: ../../../../Modules/CMakeAddFortranSubdirectory.cmake:61
 msgid "``PROJECT``"
 msgstr ""
 
-#: ../../../../Modules/CMakeAddFortranSubdirectory.cmake:56
+#: ../../../../Modules/CMakeAddFortranSubdirectory.cmake:62
 msgid ""
 "The name of the Fortran project as defined in the top-level ``CMakeLists."
 "txt`` located in ``<subdir>``."
 msgstr ""
 
-#: ../../../../Modules/CMakeAddFortranSubdirectory.cmake:59
+#: ../../../../Modules/CMakeAddFortranSubdirectory.cmake:65
 msgid "``ARCHIVE_DIR``"
 msgstr ""
 
-#: ../../../../Modules/CMakeAddFortranSubdirectory.cmake:60
+#: ../../../../Modules/CMakeAddFortranSubdirectory.cmake:66
 msgid ""
 "Directory where the project places ``.lib`` archive files.  A relative path "
 "is interpreted as relative to :variable:`CMAKE_CURRENT_BINARY_DIR`."
 msgstr ""
 
-#: ../../../../Modules/CMakeAddFortranSubdirectory.cmake:63
+#: ../../../../Modules/CMakeAddFortranSubdirectory.cmake:69
 msgid "``RUNTIME_DIR``"
 msgstr ""
 
-#: ../../../../Modules/CMakeAddFortranSubdirectory.cmake:64
+#: ../../../../Modules/CMakeAddFortranSubdirectory.cmake:70
 msgid ""
 "Directory where the project places ``.dll`` runtime files.  A relative path "
 "is interpreted as relative to :variable:`CMAKE_CURRENT_BINARY_DIR`."
 msgstr ""
 
-#: ../../../../Modules/CMakeAddFortranSubdirectory.cmake:67
+#: ../../../../Modules/CMakeAddFortranSubdirectory.cmake:73
 msgid "``LIBRARIES``"
 msgstr ""
 
-#: ../../../../Modules/CMakeAddFortranSubdirectory.cmake:68
+#: ../../../../Modules/CMakeAddFortranSubdirectory.cmake:74
 msgid "Names of library targets to create or import into the current project."
 msgstr ""
 
-#: ../../../../Modules/CMakeAddFortranSubdirectory.cmake:70
+#: ../../../../Modules/CMakeAddFortranSubdirectory.cmake:76
 msgid "``LINK_LIBRARIES``"
 msgstr ""
 
-#: ../../../../Modules/CMakeAddFortranSubdirectory.cmake:71
+#: ../../../../Modules/CMakeAddFortranSubdirectory.cmake:77
 msgid ""
 "Specifies link interface libraries for ``LIBRARIES``.  This option expects a "
 "list of ``LINK_LIBS <lib> <deps>...`` items, where:"
 msgstr ""
 
-#: ../../../../Modules/CMakeAddFortranSubdirectory.cmake:74
+#: ../../../../Modules/CMakeAddFortranSubdirectory.cmake:80
 msgid "``LINK_LIBS`` marks the start of a new pair"
 msgstr ""
 
-#: ../../../../Modules/CMakeAddFortranSubdirectory.cmake:75
+#: ../../../../Modules/CMakeAddFortranSubdirectory.cmake:81
 msgid "``<lib>`` is a library target."
 msgstr ""
 
-#: ../../../../Modules/CMakeAddFortranSubdirectory.cmake:76
+#: ../../../../Modules/CMakeAddFortranSubdirectory.cmake:82
 msgid ""
 "``<deps>...`` represents one or more dependencies required by ``<lib>``."
 msgstr ""
 
-#: ../../../../Modules/CMakeAddFortranSubdirectory.cmake:78
+#: ../../../../Modules/CMakeAddFortranSubdirectory.cmake:84
 msgid "``CMAKE_COMMAND_LINE``"
 msgstr ""
 
-#: ../../../../Modules/CMakeAddFortranSubdirectory.cmake:79
+#: ../../../../Modules/CMakeAddFortranSubdirectory.cmake:85
 msgid ""
 "Additional command-line flags passed to :manual:`cmake(1)` command when "
 "configuring the Fortran subproject."
 msgstr ""
 
-#: ../../../../Modules/CMakeAddFortranSubdirectory.cmake:82
+#: ../../../../Modules/CMakeAddFortranSubdirectory.cmake:88
 msgid "``NO_EXTERNAL_INSTALL``"
 msgstr ""
 
-#: ../../../../Modules/CMakeAddFortranSubdirectory.cmake:83
+#: ../../../../Modules/CMakeAddFortranSubdirectory.cmake:89
 msgid "Prevents installation of the external project."
 msgstr ""
 
-#: ../../../../Modules/CMakeAddFortranSubdirectory.cmake:87
+#: ../../../../Modules/CMakeAddFortranSubdirectory.cmake:93
 msgid ""
 "The ``NO_EXTERNAL_INSTALL`` option is required for forward compatibility "
 "with a future version that supports installation of the external project "
 "binaries during ``make install``."
 msgstr ""
 
-#: ../../../../Modules/CMakeAddFortranSubdirectory.cmake:92
+#: ../../../../Modules/CMakeAddFortranSubdirectory.cmake:98
 msgid "Examples"
 msgstr ""
 
-#: ../../../../Modules/CMakeAddFortranSubdirectory.cmake:94
+#: ../../../../Modules/CMakeAddFortranSubdirectory.cmake:100
 msgid ""
 "Adding a Fortran subdirectory to a project can be done by including this "
 "module and calling the ``cmake_add_fortran_subdirectory()`` command.  In the "
@@ -185,7 +197,7 @@ msgid ""
 "dependent ``world`` library:"
 msgstr ""
 
-#: ../../../../Modules/CMakeAddFortranSubdirectory.cmake:99
+#: ../../../../Modules/CMakeAddFortranSubdirectory.cmake:105
 msgid ""
 "include(CMakeAddFortranSubdirectory)\n"
 "\n"
@@ -205,29 +217,29 @@ msgid ""
 "target_link_libraries(main PRIVATE hello)"
 msgstr ""
 
-#: ../../../../Modules/CMakeAddFortranSubdirectory.cmake:119
+#: ../../../../Modules/CMakeAddFortranSubdirectory.cmake:125
 msgid "See Also"
 msgstr ""
 
-#: ../../../../Modules/CMakeAddFortranSubdirectory.cmake:121
+#: ../../../../Modules/CMakeAddFortranSubdirectory.cmake:127
 msgid ""
 "There are multiple ways to integrate Fortran libraries.  Alternative "
 "approaches include:"
 msgstr ""
 
-#: ../../../../Modules/CMakeAddFortranSubdirectory.cmake:124
+#: ../../../../Modules/CMakeAddFortranSubdirectory.cmake:130
 msgid ""
 "The :command:`add_subdirectory` command to add the subdirectory directly to "
 "the build."
 msgstr ""
 
-#: ../../../../Modules/CMakeAddFortranSubdirectory.cmake:126
+#: ../../../../Modules/CMakeAddFortranSubdirectory.cmake:132
 msgid ""
 "The :command:`export` command can be used in the subproject to provide :ref:"
 "`Imported Targets` or similar for integration with other projects."
 msgstr ""
 
-#: ../../../../Modules/CMakeAddFortranSubdirectory.cmake:128
+#: ../../../../Modules/CMakeAddFortranSubdirectory.cmake:134
 msgid ""
 "The :module:`FetchContent` or :module:`ExternalProject` modules when working "
 "with external dependencies."
