@@ -1,0 +1,29 @@
+CMAKE_TEST_BUILD_DEPENDS
+------------------------
+
+.. versionadded:: 4.4
+
+.. versionchanged:: 4.5
+
+  :generator:`FASTBuild` and the :ref:`Makefile Generators` gained support
+  for ``test_prep/<name>`` targets.
+
+Enable ``test_prep/<name>`` build targets for tests added by
+:command:`add_test` when using the :ref:`Ninja Generators`,
+:generator:`FASTBuild`, or :ref:`Makefile Generators`.
+
+When this variable is set to a true value, CMake generates a
+``test_prep/<name>`` target for each eligible test and a ``test_prep/all``
+target for all such tests. Building these targets ensures the test executable,
+targets referenced by test command generator expressions, and explicit
+``BUILD_DEPENDS`` entries are up-to-date before the test runs.
+
+Tests whose names are not valid target names are excluded from this behavior.
+If multiple tests in different directories share the same name, their
+dependencies are merged into a single ``test_prep/<name>`` target.
+
+With the :ref:`Makefile Generators`, a ``BUILD_DEPENDS`` file is built by
+building the target whose build produces it.  A generated file that is not the
+unique output of a single target is reported with a warning, and a test whose
+name contains a ``:`` character is excluded because it cannot be expressed as
+a Makefile target.

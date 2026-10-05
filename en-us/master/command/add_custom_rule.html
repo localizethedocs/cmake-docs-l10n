@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+
+<html lang="en-US" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>add_custom_rule &mdash; CMake 4.4.20260928-gb1b85b8 Documentation</title>
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a3862c66" />
+    <link rel="stylesheet" type="text/css" href="../_static/cmake.css?v=d27bb136" />
+    
+    <script src="../_static/documentation_options.js?v=c749b734"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    
+    <link rel="canonical" href="https://projects.localizethedocs.org/cmake-docs-l10n/command/add_custom_rule.html" />
+    <link rel="icon" href="../_static/cmake-favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="add_custom_target" href="add_custom_target.html" />
+    <link rel="prev" title="add_custom_command" href="add_custom_command.html" />
+
+ 
+
+    <script type="text/javascript" src="../ltd-provenance.js"></script>
+    <script type="text/javascript" src="../ltd-current.js"></script>
+    <script type="text/javascript" src="../../../ltd-config.js"></script>
+    <script type="text/javascript" src="../../../ltd-flyout.js"></script>
+
+  </head><body>
+    <input id="sidebar-check" type="checkbox" />
+    <label id="sidebar-overlay" for="sidebar-check"></label>
+
+
+
+    <div class="related relbar1" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="add_custom_target.html" title="add_custom_target"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="add_custom_command.html" title="add_custom_command"
+             accesskey="P">previous</a> |</li>
+  <li>
+    <label class="sidebar-toggle" for="sidebar-check"></label>
+  </li>
+  <li class="rootlink">
+    <img src="../_static/cmake-logo-16.png" width="16" height="16" alt=""/>
+    <a href="https://cmake.org/">CMake 4.4.20260928-gb1b85b8</a>
+    <span class="reldelim1"> &#187;</span>
+  </li>
+  <li>
+    <a href="../index.html">Documentation</a> &#187;
+  </li>
+
+          <li class="nav-item nav-item-1"><a href="../manual/cmake-commands.7.html" accesskey="U">cmake-commands(7)</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">add_custom_rule</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="add-custom-rule">
+<span id="command:add_custom_rule"></span><h1>add_custom_rule<a class="headerlink" href="#add-custom-rule" title="Link to this heading">¶</a></h1>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 4.5.</span></p>
+</div>
+<p>Add a custom template rule to the generated build system.</p>
+<section id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Link to this heading">¶</a></h2>
+<pre class="literal-block"><a class="reference internal" href="#generating-files">Generating Files</a>
+  add_custom_rule(&lt;name&gt; <a class="reference internal" href="#output">OUTPUT</a> &lt;output1&gt; [&lt;output2&gt; ...]
+                  COMMAND &lt;command1&gt; [&lt;args1&gt;...]
+                  [...])
+
+<a class="reference internal" href="#derived-rule">Derived Rule</a>
+  add_custom_rule(&lt;name&gt; <a class="reference internal" href="#from-rule">FROM_RULE</a> &lt;rule&gt;
+                  [...])</pre>
+</section>
+<section id="generating-files">
+<h2>Generating Files<a class="headerlink" href="#generating-files" title="Link to this heading">¶</a></h2>
+<dl class="cmake signature">
+<dt class="sig sig-object cmake" id="output">
+<span class="code cmake highlight sig-name descname"><span class="nf"><span class="pre">add_custom_rule(</span></span><span class="nv"><span class="pre">&lt;name&gt;</span></span><span class="w"> </span><span class="no"><span class="pre">OUTPUT</span></span><span class="w"> </span><span class="nv"><span class="pre">&lt;output1&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">[</span></span><span class="nv"><span class="pre">&lt;output2&gt;</span></span><span class="nbsp"> </span><span class="p"><span class="pre">...]</span></span><span class="w"> </span><span class="no"><span class="pre">COMMAND</span></span><span class="w"> </span><span class="nv"><span class="pre">&lt;command1&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">[</span></span><span class="nv"><span class="pre">&lt;args1&gt;...</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">[...]</span></span><span class="nf"><span class="pre">)</span></span></span><a class="headerlink" href="#output" title="Link to this definition">¶</a></dt>
+<dd><p>Add a custom template rule to produce an output:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">add_custom_rule(</span><span class="nv">&lt;name&gt;</span><span class="w"> </span><span class="no">OUTPUT</span><span class="w"> </span><span class="nv">&lt;output1&gt;</span><span class="w"> </span><span class="p">[</span><span class="nv">&lt;output2&gt;</span><span class="w"> </span><span class="p">...]</span>
+<span class="w">                       </span><span class="no">COMMAND</span><span class="w"> </span><span class="nv">&lt;command1&gt;</span><span class="w"> </span><span class="p">[</span><span class="nv">&lt;args1&gt;...</span><span class="p">]</span>
+<span class="w">                       </span><span class="p">[</span><span class="no">COMMAND</span><span class="w"> </span><span class="nv">&lt;command2&gt;</span><span class="w"> </span><span class="p">[</span><span class="nv">&lt;args2&gt;...</span><span class="p">]]</span><span class="w"> </span><span class="p">...</span>
+<span class="w">                       </span><span class="p">[</span><span class="no">DEPENDS</span><span class="w"> </span><span class="nv">&lt;depends&gt;...</span><span class="p">]</span>
+<span class="w">                       </span><span class="p">[</span><span class="no">BYPRODUCTS</span><span class="w"> </span><span class="nv">&lt;files&gt;...</span><span class="p">]</span>
+<span class="w">                       </span><span class="p">[</span><span class="no">DEPFILE</span><span class="w"> </span><span class="nv">&lt;depfile&gt;</span><span class="p">]</span>
+<span class="w">                       </span><span class="p">[</span><span class="no">CONFIGURATOR</span><span class="w"> </span><span class="p">[</span><span class="no">FOR_FILE_SET</span><span class="w"> </span><span class="nv">&lt;configurator&gt;</span><span class="p">]</span>
+<span class="w">                                     </span><span class="p">[</span><span class="no">FOR_SOURCE</span><span class="w"> </span><span class="nv">&lt;configurator&gt;</span><span class="p">]]</span>
+<span class="w">                       </span><span class="p">[</span><span class="no">GLOBAL</span><span class="p">]</span><span class="nf">)</span>
+</pre></div>
+</div>
+<p>This defines a template rule <code class="docutils literal notranslate"><span class="pre">&lt;name&gt;</span></code> to generate specified <code class="docutils literal notranslate"><span class="pre">OUTPUT</span></code>
+file(s). Rule names defined in all uppercase are reserved for CMake's own
+built-in rules.</p>
+<p>The association of source files with the template rule is done by creating
+<a class="reference internal" href="../manual/cmake-buildsystem.7.html#file-sets"><span class="std std-ref">file sets</span></a> of type <code class="docutils literal notranslate"><span class="pre">&lt;name&gt;</span></code>. For each file of the file
+set, a <span class="target" id="index-0-command:add_custom_command"></span><a class="reference internal" href="add_custom_command.html#command:add_custom_command" title="add_custom_command"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">custom</span> <span class="pre">command</span></code></a> will be created in the
+same directory as the target owning the file set and the output files of this
+custom command will be declared as part of a file set attached to
+the same target. The type of this file set, as well as its name, are
+controlled by the <span class="target" id="index-0-prop_rule:OUTPUT_FILE_SET"></span><a class="reference internal" href="../prop_rule/OUTPUT_FILE_SET.html#prop_rule:OUTPUT_FILE_SET" title="OUTPUT_FILE_SET"><code class="xref cmake cmake-prop_rule docutils literal notranslate"><span class="pre">OUTPUT_FILE_SET</span></code></a> rule property. This output
+file set will have the same scope (<code class="docutils literal notranslate"><span class="pre">PRIVATE</span></code>, <code class="docutils literal notranslate"><span class="pre">PUBLIC</span></code>, or <code class="docutils literal notranslate"><span class="pre">INTERFACE</span></code>)
+as the input file set.</p>
+<p>To parameterize the template, some patterns are defined which can be used as
+part of the <code class="docutils literal notranslate"><span class="pre">add_custom_rule</span></code> arguments as well as the <a class="reference internal" href="../manual/cmake-properties.7.html#rule-properties"><span class="std std-ref">rule's
+properties</span></a>. These patterns will be
+instantiated for each source file. The supported patterns are:</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The instantiation of the patterns are done in the context of the directory
+where the file set was created.</p>
+<p>These patterns cannot be changed by the functions specified by the
+<code class="docutils literal notranslate"><span class="pre">CONFIGURATOR</span></code> option.</p>
+</div>
+<dl>
+<dt><code class="docutils literal notranslate"><span class="pre">&lt;RULE&gt;</span></code></dt><dd><p>Name of the rule used as template.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">&lt;TARGET&gt;</span></code></dt><dd><p>Name of the target to which the file set of sources is attached.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">&lt;FILE_SET&gt;</span></code></dt><dd><p>Name of the file set used for the rule instantiation.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">&lt;SOURCE_DIR&gt;</span></code></dt><dd><p>The value of the <span class="target" id="index-0-variable:CMAKE_SOURCE_DIR"></span><a class="reference internal" href="../variable/CMAKE_SOURCE_DIR.html#variable:CMAKE_SOURCE_DIR" title="CMAKE_SOURCE_DIR"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_SOURCE_DIR</span></code></a> variable.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">&lt;BINARY_DIR&gt;</span></code></dt><dd><p>The value of the <span class="target" id="index-0-variable:CMAKE_BINARY_DIR"></span><a class="reference internal" href="../variable/CMAKE_BINARY_DIR.html#variable:CMAKE_BINARY_DIR" title="CMAKE_BINARY_DIR"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_BINARY_DIR</span></code></a> variable.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">&lt;CURRENT_SOURCE_DIR&gt;</span></code></dt><dd><p>The path to the source directory of the file set creation.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">&lt;CURRENT_BINARY_DIR&gt;</span></code></dt><dd><p>The path to the binary directory of the file set creation.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">&lt;SOURCE&gt;</span></code></dt><dd><p>The full path of the current source file being processed.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">&lt;INPUT_DIR&gt;</span></code></dt><dd><p>The directory of the current source file being processed.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">&lt;FILE_NAME&gt;</span></code></dt><dd><p>The file name of the current source file being processed.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">&lt;BASE_NAME&gt;</span></code></dt><dd><p>The stem name (i.e. without directory and extension) of the source file
+being processed.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">&lt;INCLUDE_DIRECTORIES&gt;</span></code></dt><dd><p>Content, in this order, of the <span class="target" id="index-0-prop_fs:INCLUDE_DIRECTORIES"></span><a class="reference internal" href="../prop_fs/INCLUDE_DIRECTORIES.html#prop_fs:INCLUDE_DIRECTORIES" title="INCLUDE_DIRECTORIES"><code class="xref cmake cmake-prop_fs docutils literal notranslate"><span class="pre">INCLUDE_DIRECTORIES</span></code></a> file set
+property, <span class="target" id="index-0-prop_sf:INCLUDE_DIRECTORIES"></span><a class="reference internal" href="../prop_sf/INCLUDE_DIRECTORIES.html#prop_sf:INCLUDE_DIRECTORIES" title="INCLUDE_DIRECTORIES"><code class="xref cmake cmake-prop_sf docutils literal notranslate"><span class="pre">INCLUDE_DIRECTORIES</span></code></a> source property, and
+<span class="target" id="index-0-prop_rule:INCLUDE_DIRECTORIES"></span><a class="reference internal" href="../prop_rule/INCLUDE_DIRECTORIES.html#prop_rule:INCLUDE_DIRECTORIES" title="INCLUDE_DIRECTORIES"><code class="xref cmake cmake-prop_rule docutils literal notranslate"><span class="pre">INCLUDE_DIRECTORIES</span></code></a> rule property.</p>
+<p>Because CMake is not aware of the tool involved by the rule, there is
+no specific processing regarding this pattern. This is the user's
+responsibility to format, using  <span class="target" id="index-0-manual:cmake-generator-expressions(7)"></span><a class="reference internal" href="../manual/cmake-generator-expressions.7.html#manual:cmake-generator-expressions(7)" title="cmake-generator-expressions(7)"><code class="xref cmake cmake-manual docutils literal notranslate"><span class="pre">generator</span> <span class="pre">expressions</span></code></a>, the content of pattern to be compatible
+with the tool.</p>
+<p>For example, if the tool requires the flag <code class="docutils literal notranslate"><span class="pre">-inc:</span></code> to identify an include
+directory, the following can be specified as part of the <code class="docutils literal notranslate"><span class="pre">COMMAND</span></code>
+option:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="o">$&lt;</span><span class="no">LIST</span><span class="o">:</span><span class="no">TRANSFORM</span><span class="p">,</span><span class="nv">&lt;INCLUDE_DIRECTORIES&gt;</span><span class="p">,</span><span class="no">PREPEND</span><span class="p">,-</span><span class="nb">inc</span><span class="o">:</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">&lt;COMPILE_DEFINITIONS&gt;</span></code></dt><dd><p>Content, in this order, of the <span class="target" id="index-0-prop_rule:COMPILE_DEFINITIONS"></span><a class="reference internal" href="../prop_rule/COMPILE_DEFINITIONS.html#prop_rule:COMPILE_DEFINITIONS" title="COMPILE_DEFINITIONS"><code class="xref cmake cmake-prop_rule docutils literal notranslate"><span class="pre">COMPILE_DEFINITIONS</span></code></a> rule
+property, <span class="target" id="index-0-prop_sf:COMPILE_DEFINITIONS"></span><a class="reference internal" href="../prop_sf/COMPILE_DEFINITIONS.html#prop_sf:COMPILE_DEFINITIONS" title="COMPILE_DEFINITIONS"><code class="xref cmake cmake-prop_sf docutils literal notranslate"><span class="pre">COMPILE_DEFINITIONS</span></code></a> source property, and
+<span class="target" id="index-0-prop_fs:COMPILE_DEFINITIONS"></span><a class="reference internal" href="../prop_fs/COMPILE_DEFINITIONS.html#prop_fs:COMPILE_DEFINITIONS" title="COMPILE_DEFINITIONS"><code class="xref cmake cmake-prop_fs docutils literal notranslate"><span class="pre">COMPILE_DEFINITIONS</span></code></a> file set property.</p>
+<p>Because CMake is not aware of the tool involved by the rule, there is
+no specific processing regarding this pattern. This is the user's
+responsibility to format, using  <span class="target" id="index-1-manual:cmake-generator-expressions(7)"></span><a class="reference internal" href="../manual/cmake-generator-expressions.7.html#manual:cmake-generator-expressions(7)" title="cmake-generator-expressions(7)"><code class="xref cmake cmake-manual docutils literal notranslate"><span class="pre">generator</span> <span class="pre">expressions</span></code></a>, the content of pattern to be compatible
+with the tool.</p>
+<p>For example, if the tool requires the flag <code class="docutils literal notranslate"><span class="pre">-def:</span></code> to identify a compile
+definition, the following can be specified as part of the <code class="docutils literal notranslate"><span class="pre">COMMAND</span></code>
+option:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="o">$&lt;</span><span class="no">LIST</span><span class="o">:</span><span class="no">TRANSFORM</span><span class="p">,</span><span class="nv">&lt;COMPILE_DEFINITIONS&gt;</span><span class="p">,</span><span class="no">PREPEND</span><span class="p">,-</span><span class="nb">def</span><span class="o">:</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">&lt;COMPILE_OPTIONS&gt;</span></code></dt><dd><p>Content, in this order, of the <span class="target" id="index-0-prop_rule:COMPILE_OPTIONS"></span><a class="reference internal" href="../prop_rule/COMPILE_OPTIONS.html#prop_rule:COMPILE_OPTIONS" title="COMPILE_OPTIONS"><code class="xref cmake cmake-prop_rule docutils literal notranslate"><span class="pre">COMPILE_OPTIONS</span></code></a> rule property,
+<span class="target" id="index-0-prop_sf:COMPILE_OPTIONS"></span><a class="reference internal" href="../prop_sf/COMPILE_OPTIONS.html#prop_sf:COMPILE_OPTIONS" title="COMPILE_OPTIONS"><code class="xref cmake cmake-prop_sf docutils literal notranslate"><span class="pre">COMPILE_OPTIONS</span></code></a> source property, and:prop_fs:<cite>COMPILE_OPTIONS</cite>
+file set property.</p>
+</dd>
+</dl>
+<p>The options, which have the same semantics as those of the
+<span class="target" id="index-1-command:add_custom_command"></span><a class="reference internal" href="add_custom_command.html#command:add_custom_command" title="add_custom_command"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">add_custom_command()</span></code></a> command, are:</p>
+<dl>
+<dt><code class="docutils literal notranslate"><span class="pre">OUTPUT</span></code></dt><dd><p>Specify the output files the command is expected to produce.
+Each output file will be marked with the <span class="target" id="index-0-prop_sf:GENERATED"></span><a class="reference internal" href="../prop_sf/GENERATED.html#prop_sf:GENERATED" title="GENERATED"><code class="xref cmake cmake-prop_sf docutils literal notranslate"><span class="pre">GENERATED</span></code></a>
+source file property automatically. At least one <code class="docutils literal notranslate"><span class="pre">OUTPUT</span></code> must be given.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">COMMAND</span></code></dt><dd><p>Specify the command-line(s) to execute at build time.
+At least one <code class="docutils literal notranslate"><span class="pre">COMMAND</span></code> must be given.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">DEPENDS</span></code></dt><dd><p>Specify files on which the command depends.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">BYPRODUCTS</span></code></dt><dd><p>Specify the files the command is expected to produce but whose
+modification time may or may not be newer than the dependencies.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">DEPFILE</span></code></dt><dd><p>Specify a depfile which holds dependencies for the custom command. It is
+usually emitted by the custom command itself.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">CONFIGURATOR</span></code></dt><dd><p>Specify one or two CMake functions which will be called at the generation
+step, in the context of the file set directory, before the effective
+instantiation and custom commands definition.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The rule properties are all read-only during the execution of the
+configurators. Moreover, it is strongly discouraged to change the
+target properties.</p>
+</div>
+<dl>
+<dt><code class="docutils literal notranslate"><span class="pre">FOR_FILE_SET</span></code></dt><dd><p>The specified function will be called once per file set.
+The expected signature is the following:</p>
+<dl class="cmake signature">
+<dt class="sig sig-object cmake" id="rule-target-fileset-outputfileset-patterns">
+<span class="code cmake highlight sig-name descname"><span class="nf"><span class="pre">configurator(</span></span><span class="nb"><span class="pre">rule</span></span><span class="w"> </span><span class="nb"><span class="pre">target</span></span><span class="w"> </span><span class="nb"><span class="pre">fileset</span></span><span class="w"> </span><span class="nb"><span class="pre">outputFileset</span></span><span class="w"> </span><span class="nb"><span class="pre">patterns</span></span><span class="nf"><span class="pre">)</span></span></span><a class="headerlink" href="#rule-target-fileset-outputfileset-patterns" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>The arguments provide the names of the effective artifacts involved in
+the current rule instantiation.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">patterns</span></code> argument holds the name of the variable which can be
+used to enrich the list of patterns. The expected value is a
+<a class="reference internal" href="../manual/cmake-language.7.html#cmake-language-lists"><span class="std std-ref">semicolon-separated list</span></a> of  items having
+the syntax <code class="docutils literal notranslate"><span class="pre">PATTERN=VALUE</span></code> or <code class="docutils literal notranslate"><span class="pre">PATTERN=</span></code>. More precisely, each item
+must match the regular expression <code class="docutils literal notranslate"><span class="pre">(^[A-Z][A-Z0-9_]+)=(.*)$</span></code>. Items
+which does not this regular expression will be ignored.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">FOR_SOURCE</span></code></dt><dd><p>The specified function will be called for each file of the file set.
+The expected signature is the following:</p>
+<dl class="cmake signature">
+<dt class="sig sig-object cmake" id="rule-target-fileset-outputfileset-source-patterns">
+<span class="code cmake highlight sig-name descname"><span class="nf"><span class="pre">configurator(</span></span><span class="nb"><span class="pre">rule</span></span><span class="w"> </span><span class="nb"><span class="pre">target</span></span><span class="w"> </span><span class="nb"><span class="pre">fileset</span></span><span class="w"> </span><span class="nb"><span class="pre">outputFileset</span></span><span class="w"> </span><span class="nb"><span class="pre">source</span></span><span class="w"> </span><span class="nb"><span class="pre">patterns</span></span><span class="nf"><span class="pre">)</span></span></span><a class="headerlink" href="#rule-target-fileset-outputfileset-source-patterns" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>The arguments provide the names of the effective artifacts involved in
+the current rule instantiation.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">patterns</span></code> argument holds the name of the variable which can be
+used to enrich the list of patterns. The expected value is a
+<a class="reference internal" href="../manual/cmake-language.7.html#cmake-language-lists"><span class="std std-ref">semicolon-separated list</span></a> of  items having
+the syntax <code class="docutils literal notranslate"><span class="pre">PATTERN=VALUE</span></code> or <code class="docutils literal notranslate"><span class="pre">PATTERN=</span></code>. More precisely, each item
+must match the regular expression <code class="docutils literal notranslate"><span class="pre">(^[A-Z][A-Z0-9_]+)=(.*)$</span></code>. Items
+which does not this regular expression will be ignored.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The source configurator is evaluated after the file set one. So, the
+changes done by it will overwrite any changes done by the file set
+configurator.</p>
+</div>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Any patterns specified through The <span class="target" id="index-0-prop_fs:RULE_PATTERNS"></span><a class="reference internal" href="../prop_fs/RULE_PATTERNS.html#prop_fs:RULE_PATTERNS" title="RULE_PATTERNS"><code class="xref cmake cmake-prop_fs docutils literal notranslate"><span class="pre">RULE_PATTERNS</span></code></a> file set
+and <span class="target" id="index-0-prop_sf:&lt;RULE&gt;_PATTERNS"></span><a class="reference internal" href="../prop_sf/RULE_PATTERNS.html#prop_sf:&lt;RULE&gt;_PATTERNS" title="&lt;RULE&gt;_PATTERNS"><code class="xref cmake cmake-prop_sf docutils literal notranslate"><span class="pre">&lt;RULE&gt;_PATTERNS</span></code></a> source file properties will take
+precedence over, respectively, the file set and the source configurators.</p>
+</div>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">GLOBAL</span></code></dt><dd><p>Make the rule name globally visible. Without this keyword, the rule will
+only be visible in the directory where it was created as well as the
+sub-directories.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<section id="example">
+<h3>Example<a class="headerlink" href="#example" title="Link to this heading">¶</a></h3>
+<p>Define a rule to compile swig files:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">function(</span><span class="nb">fileset_configurator</span><span class="w"> </span><span class="nb">rule</span><span class="w"> </span><span class="nb">target</span><span class="w"> </span><span class="nb">fileset</span><span class="w"> </span><span class="nb">patterns</span><span class="nf">)</span>
+<span class="w">  </span><span class="c"># define &lt;OUTFILE_DIR&gt; pattern</span>
+<span class="w">  </span><span class="nf">set(</span><span class="o">${</span><span class="nt">patterns</span><span class="o">}</span><span class="w"> </span><span class="s">"OUTFILE_DIR=&lt;CURRENT_BINARY_DIR&gt;"</span><span class="w"> </span><span class="no">PARENT_SCOPE</span><span class="nf">)</span>
+<span class="nf">endfunction()</span>
+
+<span class="nf">function(</span><span class="nb">source_configurator</span><span class="w"> </span><span class="nb">rule</span><span class="w"> </span><span class="nb">target</span><span class="w"> </span><span class="nb">fileset</span><span class="w"> </span><span class="nb">source</span><span class="w"> </span><span class="nb">patterns</span><span class="nf">)</span>
+<span class="w">  </span><span class="c"># define flag to handle C++</span>
+<span class="w">  </span><span class="nf">get_property(</span><span class="nb">cxx</span><span class="w"> </span><span class="no">SOURCE</span><span class="w"> </span><span class="s">"${source}"</span><span class="w"> </span><span class="no">TARGET_DIRECTORY</span><span class="w"> </span><span class="s">"${target}"</span><span class="w"> </span><span class="no">PROPERTY</span><span class="w"> </span><span class="no">CPLUSPLUS</span><span class="nf">)</span>
+<span class="w">  </span><span class="nf">if</span> <span class="nf">(</span><span class="nb">cxx</span><span class="nf">)</span>
+<span class="w">    </span><span class="nf">set_property(</span><span class="no">SOURCE</span><span class="w"> </span><span class="s">"${source}"</span><span class="w"> </span><span class="no">TARGET_DIRECTORY</span><span class="w"> </span><span class="s">"${target}"</span>
+<span class="w">                 </span><span class="no">APPEND</span><span class="w"> </span><span class="no">PROPERTY</span><span class="w"> </span><span class="no">COMPILE_OPTIONS</span><span class="w"> </span><span class="p">-</span><span class="nb">c++</span><span class="nf">)</span>
+<span class="w">  </span><span class="nf">endif()</span>
+<span class="nf">endfunction()</span>
+
+<span class="nf">set(</span><span class="no">OUTFILE_EXT</span><span class="w"> </span><span class="s">"$&lt;IF:$&lt;BOOL:$&lt;SOURCE_PROPERTY:&lt;SOURCE&gt;,TARGET_DIRECTORY:&lt;TARGET&gt;,CPLUSPLUS&gt;&gt;,.cxx,.c&gt;"</span><span class="nf">)</span>
+<span class="nf">set(</span><span class="no">SWIG_LANGUAGE</span><span class="w"> </span><span class="s">"-$&lt;STRING:TOLOWER,$&lt;FILE_SET_PROPERTY:&lt;FILE_SET&gt;,TARGET:&lt;TARGET&gt;,LANGUAGE&gt;&gt;"</span><span class="nf">)</span>
+
+<span class="nf">add_custom_rule(</span><span class="nb">swig</span>
+<span class="w">  </span><span class="no">OUTPUT</span><span class="w"> </span><span class="s">"&lt;OUTFILE_DIR&gt;/&lt;BASE_NAME&gt;${OUTFILE_EXT}"</span>
+<span class="w">  </span><span class="no">COMMAND</span><span class="w"> </span><span class="o">${</span><span class="nt">SWIG_EXECUTABLE</span><span class="o">}</span><span class="w"> </span><span class="s">"&lt;SOURCE&gt;"</span>
+<span class="w">                             </span><span class="s">"&lt;OUTFILE_DIR&gt;/&lt;BASE_NAME&gt;${OUTFILE_EXT}"</span>
+<span class="w">                             </span><span class="o">${</span><span class="nt">SWIG_LANGUAGE</span><span class="o">}</span>
+<span class="w">                             </span><span class="nv">&lt;COMPILE_OPTIONS&gt;</span>
+<span class="w">  </span><span class="no">CONFIGURATOR</span><span class="w"> </span><span class="no">FOR_FILE_SET</span><span class="w"> </span><span class="nb">fileset_configurator</span><span class="w"> </span><span class="no">FOR_SOURCE</span><span class="w"> </span><span class="nb">source_configurator</span><span class="nf">)</span>
+</pre></div>
+</div>
+<p>And, by defining a file set of type <code class="docutils literal notranslate"><span class="pre">swig</span></code>, we can compile swig sources:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">add_library(</span><span class="nb">swig_example</span><span class="nf">)</span>
+
+<span class="nf">target_sources(</span><span class="nb">swig_example</span><span class="w"> </span><span class="no">PRIVATE</span><span class="w"> </span><span class="no">FILE_SET</span><span class="w"> </span><span class="nb">swig_srcs</span><span class="w"> </span><span class="no">TYPE</span><span class="w"> </span><span class="nb">swig</span>
+<span class="w">                                    </span><span class="no">FILES</span><span class="w"> </span><span class="nb">file1.i</span><span class="w"> </span><span class="nb">file2.i</span><span class="nf">)</span>
+<span class="c"># define the target language</span>
+<span class="nf">set_property(</span><span class="no">FILE_SET</span><span class="w"> </span><span class="nb">swig_srcs</span><span class="w"> </span><span class="no">TARGET</span><span class="w"> </span><span class="nb">swig_example</span><span class="w"> </span><span class="no">PROPERTY</span><span class="w"> </span><span class="no">LANGUAGE</span><span class="w"> </span><span class="nb">python</span><span class="nf">)</span>
+<span class="c"># define swig c++ mode</span>
+<span class="nf">set_property(</span><span class="no">SOURCE</span><span class="w"> </span><span class="nb">file1.i</span><span class="w"> </span><span class="nb">file2.i</span><span class="w"> </span><span class="no">PROPERTY</span><span class="w"> </span><span class="no">CPLUSPLUS</span><span class="w"> </span><span class="no">ON</span><span class="nf">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="derived-rule">
+<h2>Derived Rule<a class="headerlink" href="#derived-rule" title="Link to this heading">¶</a></h2>
+<dl class="cmake signature">
+<dt class="sig sig-object cmake" id="from-rule">
+<span class="code cmake highlight sig-name descname"><span class="nf"><span class="pre">add_custom_rule(</span></span><span class="nv"><span class="pre">&lt;name&gt;</span></span><span class="w"> </span><span class="no"><span class="pre">FROM_RULE</span></span><span class="w"> </span><span class="nv"><span class="pre">&lt;rule&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">[...]</span></span><span class="nf"><span class="pre">)</span></span></span><a class="headerlink" href="#from-rule" title="Link to this definition">¶</a></dt>
+<dd><p>Create a new template rule <code class="docutils literal notranslate"><span class="pre">&lt;name&gt;</span></code> inheriting a snapshot of all the
+characteristics of the <code class="docutils literal notranslate"><span class="pre">&lt;rule&gt;</span></code>, including the properties except the
+<code class="docutils literal notranslate"><span class="pre">GLOBAL</span></code> one. Rule names defined in all uppercase are reserved for CMake's
+own built-in rules.</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">add_custom_rule(</span><span class="nv">&lt;name&gt;</span><span class="w"> </span><span class="no">FROM_RULE</span><span class="w"> </span><span class="nv">&lt;rule&gt;</span>
+<span class="w">                       </span><span class="p">[</span><span class="no">CONFIGURATOR</span><span class="w"> </span><span class="p">[</span><span class="no">FOR_FILE_SET</span><span class="w"> </span><span class="nv">&lt;configurator&gt;</span><span class="w"> </span><span class="p">[</span><span class="no">CHAIN</span><span class="p">|</span><span class="no">OVERRIDE</span><span class="p">]]</span>
+<span class="w">                                     </span><span class="p">[</span><span class="no">FOR_SOURCE</span><span class="w"> </span><span class="nv">&lt;configurator&gt;</span><span class="w"> </span><span class="p">[</span><span class="no">CHAIN</span><span class="p">|</span><span class="no">OVERRIDE</span><span class="p">]]]</span>
+<span class="w">                       </span><span class="p">[</span><span class="no">GLOBAL</span><span class="p">]</span><span class="nf">)</span>
+</pre></div>
+</div>
+<p>Properties attached to this new rule can be freely customized, independently
+of the rule we inherited from.</p>
+<p>The options are:</p>
+<dl>
+<dt><code class="docutils literal notranslate"><span class="pre">FROM_RULE</span></code></dt><dd><p>Specify the rule from which this new rule will inherit.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">CONFIGURATOR</span></code></dt><dd><p>Specify one or two CMake functions which will be called at the generation
+step before the effective instantiation and custom commands definition.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The rule properties are all read-only during the execution of the
+configurators. Moreover, it is strongly discouraged to change the
+target properties.</p>
+</div>
+<dl>
+<dt><code class="docutils literal notranslate"><span class="pre">FOR_FILE_SET</span></code></dt><dd><p>The specified function will be called once per file set.
+The expected signature is the following:</p>
+<dl class="cmake signature">
+<dt class="sig sig-object cmake">
+<span class="code cmake highlight sig-name descname"><span class="nf"><span class="pre">configurator(</span></span><span class="nb"><span class="pre">rule</span></span><span class="w"> </span><span class="nb"><span class="pre">target</span></span><span class="w"> </span><span class="nb"><span class="pre">fileset</span></span><span class="w"> </span><span class="nb"><span class="pre">outputFileset</span></span><span class="w"> </span><span class="nb"><span class="pre">patterns</span></span><span class="nf"><span class="pre">)</span></span></span></dt>
+<dd></dd></dl>
+
+<p>The arguments provide the names of the effective artifacts involved in
+the current rule instantiation.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">patterns</span></code> argument holds the name of the variable which can be
+used to enrich the list of patterns.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">FOR_SOURCE</span></code></dt><dd><p>The specified function will be called for each file of the file set.
+The expected signature is the following:</p>
+<dl class="cmake signature">
+<dt class="sig sig-object cmake">
+<span class="code cmake highlight sig-name descname"><span class="nf"><span class="pre">configurator(</span></span><span class="nb"><span class="pre">rule</span></span><span class="w"> </span><span class="nb"><span class="pre">target</span></span><span class="w"> </span><span class="nb"><span class="pre">fileset</span></span><span class="w"> </span><span class="nb"><span class="pre">outputFileset</span></span><span class="w"> </span><span class="nb"><span class="pre">source</span></span><span class="w"> </span><span class="nb"><span class="pre">patterns</span></span><span class="nf"><span class="pre">)</span></span></span></dt>
+<dd></dd></dl>
+
+<p>The arguments provide the names of the effective artifacts involved in
+the current rule instantiation.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">patterns</span></code> argument holds the name of the variable which can be
+used to enrich the list of patterns.</p>
+</dd>
+</dl>
+<p>For these two sub-options, there are two possible configurations:</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">CHAIN</span></code></dt><dd><p>This <code class="docutils literal notranslate"><span class="pre">&lt;configurator&gt;</span></code> will be added to the already specified
+configurators of inherited rules. Configurators will be called in order
+of their rules' definition.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">OVERRIDE</span></code></dt><dd><p>The specified <code class="docutils literal notranslate"><span class="pre">&lt;configurator&gt;</span></code> will override any other already defined
+configurators. This is the default.</p>
+</dd>
+</dl>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">GLOBAL</span></code></dt><dd><p>Make the rule name globally visible. Without this keyword, the rule will
+only be visible in the directory where it was created as well as the
+sub-directories.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<section id="id1">
+<h3>Example<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h3>
+<p>By reusing the previous defined rule <code class="docutils literal notranslate"><span class="pre">swig</span></code>, we can provide a more simple way
+to compile swig sources by creating a more specialized rule:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">function(</span><span class="nb">python_configurator</span><span class="w"> </span><span class="nb">rule</span><span class="w"> </span><span class="nb">target</span><span class="w"> </span><span class="nb">fileset</span><span class="w"> </span><span class="nb">outputFileset</span><span class="w"> </span><span class="nb">patterns</span><span class="nf">)</span>
+<span class="w">  </span><span class="c"># define target language</span>
+<span class="w">  </span><span class="nf">set_property(</span><span class="no">FILE_SET</span><span class="w"> </span><span class="o">${</span><span class="nt">fileset</span><span class="o">}</span><span class="w"> </span><span class="no">TARGET</span><span class="w"> </span><span class="o">${</span><span class="nt">target</span><span class="o">}</span><span class="w"> </span><span class="no">PROPERTY</span><span class="w"> </span><span class="no">LANGUAGE</span><span class="w"> </span><span class="nb">python</span><span class="nf">)</span>
+<span class="nf">endfunction()</span>
+
+<span class="nf">function(</span><span class="nb">cxx_configurator</span><span class="w"> </span><span class="nb">rule</span><span class="w"> </span><span class="nb">target</span><span class="w"> </span><span class="nb">fileset</span><span class="w"> </span><span class="nb">outputFileset</span><span class="w"> </span><span class="nb">source</span><span class="w"> </span><span class="nb">patterns</span><span class="nf">)</span>
+<span class="w">  </span><span class="c"># define swig c++ mode</span>
+<span class="w">  </span><span class="nf">set_property(</span><span class="no">SOURCE</span><span class="w"> </span><span class="s">"${source}"</span><span class="w"> </span><span class="no">TARGET_DIRECTORY</span><span class="w"> </span><span class="o">${</span><span class="nt">target</span><span class="o">}</span><span class="w"> </span><span class="no">PROPERTY</span><span class="w"> </span><span class="no">CPLUSPLUS</span><span class="w"> </span><span class="no">ON</span><span class="nf">)</span>
+<span class="w">  </span><span class="nf">set_property(</span><span class="no">SOURCE</span><span class="w"> </span><span class="s">"${source}"</span><span class="w"> </span><span class="no">TARGET_DIRECTORY</span><span class="w"> </span><span class="o">${</span><span class="nt">target</span><span class="o">}</span>
+<span class="w">               </span><span class="no">APPEND</span><span class="w"> </span><span class="no">PROPERTY</span><span class="w"> </span><span class="no">COMPILE_OPTIONS</span><span class="w"> </span><span class="p">-</span><span class="nb">c++</span><span class="nf">)</span>
+<span class="nf">endfunction()</span>
+
+<span class="nf">add_custom_rule(</span><span class="nb">swig_python</span><span class="w"> </span><span class="no">FROM_RULE</span><span class="w"> </span><span class="nb">swig</span>
+<span class="w">                            </span><span class="no">CONFIGURATOR</span><span class="w"> </span><span class="no">FOR_FILE_SET</span><span class="w"> </span><span class="nb">python_configurator</span><span class="w"> </span><span class="no">CHAIN</span>
+<span class="w">                                         </span><span class="no">FOR_SOURCE</span><span class="w"> </span><span class="nb">cxx_configurator</span><span class="w"> </span><span class="no">OVERRIDE</span><span class="nf">)</span>
+</pre></div>
+</div>
+<p>Now, we can define a file set which does not need any specific settings. And
+because the <code class="docutils literal notranslate"><span class="pre">CHAIN</span></code> option was specified for the file set configurator, the
+pattern <code class="docutils literal notranslate"><span class="pre">&lt;OUTFILE_DIR&gt;</span></code> will be defined as well.</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">add_library(</span><span class="nb">swig_example</span><span class="nf">)</span>
+
+<span class="nf">target_sources(</span><span class="nb">swig_example</span><span class="w"> </span><span class="no">PRIVATE</span><span class="w"> </span><span class="no">FILE_SET</span><span class="w"> </span><span class="nb">swig_srcs</span><span class="w"> </span><span class="no">TYPE</span><span class="w"> </span><span class="nb">swig_python</span>
+<span class="w">                                    </span><span class="no">FILES</span><span class="w"> </span><span class="nb">file1.i</span><span class="w"> </span><span class="nb">file2.i</span><span class="nf">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><span class="target" id="index-0-command:set_property"></span><a class="reference internal" href="set_property.html#command:set_property" title="set_property(rule)"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">set_property(RULE)</span></code></a></p></li>
+<li><p><span class="target" id="index-0-command:get_property"></span><a class="reference internal" href="get_property.html#command:get_property" title="get_property(rule)"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">get_property(RULE)</span></code></a></p></li>
+<li><p><span class="target" id="index-0-command:target_sources"></span><a class="reference internal" href="target_sources.html#command:target_sources" title="target_sources"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">target_sources()</span></code></a></p></li>
+<li><p><span class="target" id="index-2-command:add_custom_command"></span><a class="reference internal" href="add_custom_command.html#command:add_custom_command" title="add_custom_command"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">add_custom_command()</span></code></a></p></li>
+</ul>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3>Table of Contents</h3>
+    <ul>
+<li><a class="reference internal" href="#">add_custom_rule</a><ul>
+<li><a class="reference internal" href="#synopsis">Synopsis</a></li>
+<li><a class="reference internal" href="#generating-files">Generating Files</a><ul>
+<li><a class="reference internal" href="#example">Example</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#derived-rule">Derived Rule</a><ul>
+<li><a class="reference internal" href="#id1">Example</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="add_custom_command.html"
+                          title="previous chapter">add_custom_command</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="add_custom_target.html"
+                          title="next chapter">add_custom_target</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/command/add_custom_rule.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="add_custom_target.html" title="add_custom_target"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="add_custom_command.html" title="add_custom_command"
+             >previous</a> |</li>
+  <li>
+    <label class="sidebar-toggle" for="sidebar-check"></label>
+  </li>
+  <li class="rootlink">
+    <img src="../_static/cmake-logo-16.png" width="16" height="16" alt=""/>
+    <a href="https://cmake.org/">CMake 4.4.20260928-gb1b85b8</a>
+    <span class="reldelim1"> &#187;</span>
+  </li>
+  <li>
+    <a href="../index.html">Documentation</a> &#187;
+  </li>
+
+          <li class="nav-item nav-item-1"><a href="../manual/cmake-commands.7.html" >cmake-commands(7)</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">add_custom_rule</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2000-2026 Kitware, Inc. and Contributors.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    </div>
+<script type="text/javascript">
+(function() {
+  "use strict";
+  const hide = () => document.getElementById("sidebar-check").checked = false;
+  addEventListener("keydown", e => (e.key === "Escape") && hide());
+  addEventListener("click", e => (e.target.tagName === "A") && hide());
+  addEventListener("hashchange", hide)
+})();
+</script>
+  </body>
+</html>

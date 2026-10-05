@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+
+<html lang="zh-TW" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>CMP0224 &mdash; CMake 4.4.20260928-gb1b85b8 Documentation</title>
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a3862c66" />
+    <link rel="stylesheet" type="text/css" href="../_static/cmake.css?v=d27bb136" />
+    
+    <script src="../_static/documentation_options.js?v=0601d5c0"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/translations.js?v=cbf116e0"></script>
+    
+    <link rel="canonical" href="https://projects.localizethedocs.org/cmake-docs-l10n/policy/CMP0224.html" />
+    <link rel="icon" href="../_static/cmake-favicon.ico"/>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜尋" href="../search.html" />
+    <link rel="next" title="CMP0223" href="CMP0223.html" />
+    <link rel="prev" title="CMP0225" href="CMP0225.html" />
+
+ 
+
+    <script type="text/javascript" src="../ltd-provenance.js"></script>
+    <script type="text/javascript" src="../ltd-current.js"></script>
+    <script type="text/javascript" src="../../../ltd-config.js"></script>
+    <script type="text/javascript" src="../../../ltd-flyout.js"></script>
+
+  </head><body>
+    <input id="sidebar-check" type="checkbox" />
+    <label id="sidebar-overlay" for="sidebar-check"></label>
+
+
+
+    <div class="related relbar1" role="navigation" aria-label="Related">
+      <h3>瀏覽</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="總索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="CMP0223.html" title="CMP0223"
+             accesskey="N">下一頁</a> |</li>
+        <li class="right" >
+          <a href="CMP0225.html" title="CMP0225"
+             accesskey="P">上一頁</a> |</li>
+  <li>
+    <label class="sidebar-toggle" for="sidebar-check"></label>
+  </li>
+  <li class="rootlink">
+    <img src="../_static/cmake-logo-16.png" width="16" height="16" alt=""/>
+    <a href="https://cmake.org/">CMake 4.4.20260928-gb1b85b8</a>
+    <span class="reldelim1"> &#187;</span>
+  </li>
+  <li>
+    <a href="../index.html">文件</a> &#187;
+  </li>
+
+          <li class="nav-item nav-item-1"><a href="../manual/cmake-policies.7.html" accesskey="U">cmake-方針(7)</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">CMP0224</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="cmp0224">
+<span id="policy:CMP0224"></span><h1>CMP0224<a class="headerlink" href="#cmp0224" title="連結到這個標頭">¶</a></h1>
+<div class="versionadded">
+<p><span class="versionmodified added">在 4.5 版被加入.</span></p>
+</div>
+<p>Test fixtures use <code class="docutils literal notranslate"><span class="pre">AROUND_EACH_REPEAT</span></code> mode by default with
+<a class="reference internal" href="../manual/ctest.1.html#cmdoption-ctest-repeat"><code class="xref std std-option docutils literal notranslate"><span class="pre">ctest</span> <span class="pre">--repeat</span></code></a>.</p>
+<p>When <span class="target" id="index-0-manual:ctest(1)"></span><a class="reference internal" href="../manual/ctest.1.html#manual:ctest(1)" title="ctest(1)"><code class="xref cmake cmake-manual docutils literal notranslate"><span class="pre">ctest(1)</span></code></a> repeats tests with its <a class="reference internal" href="../manual/ctest.1.html#cmdoption-ctest-repeat"><code class="xref std std-option docutils literal notranslate"><span class="pre">--repeat</span></code></a>
+option, CMake 4.4 and below repeated fixture setup and cleanup tests along
+with the tests that require them.  Each test, including the fixture tests,
+ran all of its repetitions before the next test started:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>setup (xN) -&gt; test (xN) -&gt; cleanup (xN)
+</pre></div>
+</div>
+<p>CMake 4.5 and above prefer to repeat the fixture as a whole, so that each
+repetition of a test is surrounded by its own fixture setup and cleanup:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>(setup -&gt; test -&gt; cleanup) xN
+</pre></div>
+</div>
+<p>This policy provides compatibility with projects that rely on the old
+behavior.  It determines the default behavior when the
+<span class="target" id="index-0-prop_test:FIXTURE_REPEAT_MODE"></span><a class="reference internal" href="../prop_test/FIXTURE_REPEAT_MODE.html#prop_test:FIXTURE_REPEAT_MODE" title="FIXTURE_REPEAT_MODE"><code class="xref cmake cmake-prop_test docutils literal notranslate"><span class="pre">FIXTURE_REPEAT_MODE</span></code></a> test property is not set.  The <code class="docutils literal notranslate"><span class="pre">OLD</span></code>
+behavior for this policy is <code class="docutils literal notranslate"><span class="pre">EACH_TEST_SEPARATELY</span></code>.  The <code class="docutils literal notranslate"><span class="pre">NEW</span></code> behavior
+for this policy is <code class="docutils literal notranslate"><span class="pre">AROUND_EACH_REPEAT</span></code>.</p>
+<p>The property describes a fixture rather than one test, so setting it on any
+one of a fixture's setup or cleanup tests is enough to make this policy
+irrelevant to that fixture.</p>
+<p>Tests are not always created during the configure step by <span class="target" id="index-0-command:add_test"></span><a class="reference internal" href="../command/add_test.html#command:add_test" title="add_test"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">add_test()</span></code></a>.
+The <span class="target" id="index-0-command:discover_tests"></span><a class="reference internal" href="../command/discover_tests.html#command:discover_tests" title="discover_tests"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">discover_tests()</span></code></a> and <span class="target" id="index-0-command:gtest_discover_tests"></span><a class="reference internal" href="../module/GoogleTest.html#command:gtest_discover_tests" title="gtest_discover_tests"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">gtest_discover_tests()</span></code></a> commands
+defer test discovery to the build or test step, but they apply the policy
+setting as recorded when they were called.  If a project adds tests through
+its own script listed in <span class="target" id="index-0-prop_dir:TEST_INCLUDE_FILES"></span><a class="reference internal" href="../prop_dir/TEST_INCLUDE_FILES.html#prop_dir:TEST_INCLUDE_FILES" title="TEST_INCLUDE_FILES"><code class="xref cmake cmake-prop_dir docutils literal notranslate"><span class="pre">TEST_INCLUDE_FILES</span></code></a>, it should set
+<span class="target" id="index-1-prop_test:FIXTURE_REPEAT_MODE"></span><a class="reference internal" href="../prop_test/FIXTURE_REPEAT_MODE.html#prop_test:FIXTURE_REPEAT_MODE" title="FIXTURE_REPEAT_MODE"><code class="xref cmake cmake-prop_test docutils literal notranslate"><span class="pre">FIXTURE_REPEAT_MODE</span></code></a> on its fixture tests explicitly.</p>
+<p>This policy was introduced in CMake version 4.5.
+It may be set by <span class="target" id="index-0-command:cmake_policy"></span><a class="reference internal" href="../command/cmake_policy.html#command:cmake_policy" title="cmake_policy"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">cmake_policy()</span></code></a> or <span class="target" id="index-0-command:cmake_minimum_required"></span><a class="reference internal" href="../command/cmake_minimum_required.html#command:cmake_minimum_required" title="cmake_minimum_required"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">cmake_minimum_required()</span></code></a>.
+If it is not set, CMake does <em>not</em> warn by default, and uses <code class="docutils literal notranslate"><span class="pre">OLD</span></code> behavior.</p>
+<p>See documentation of the
+<span class="target" id="index-0-variable:CMAKE_POLICY_WARNING_CMP&lt;NNNN&gt;"></span><a class="reference internal" href="../variable/CMAKE_POLICY_WARNING_CMPNNNN.html#variable:CMAKE_POLICY_WARNING_CMP&lt;NNNN&gt;" title="CMAKE_POLICY_WARNING_CMP&lt;NNNN&gt;"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_POLICY_WARNING_CMP0224</span></code></a>
+variable to control the warning.</p>
+<div class="admonition note">
+<p class="admonition-title">備註</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">OLD</span></code> behavior of a policy is
+<a class="reference internal" href="../manual/cmake-policies.7.html#cmake-policies-intro"><span class="std std-ref">deprecated by definition</span></a>
+and may be removed in a future version of CMake.</p>
+</div>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h4>上個話題</h4>
+    <p class="topless"><a href="CMP0225.html"
+                          title="上個章節">CMP0225</a></p>
+  </div>
+  <div>
+    <h4>下個話題</h4>
+    <p class="topless"><a href="CMP0223.html"
+                          title="下個章節">CMP0223</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>本頁</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/policy/CMP0224.rst.txt"
+            rel="nofollow">顯示來源碼</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜尋</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="前往" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>瀏覽</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="總索引"
+             >索引</a></li>
+        <li class="right" >
+          <a href="CMP0223.html" title="CMP0223"
+             >下一頁</a> |</li>
+        <li class="right" >
+          <a href="CMP0225.html" title="CMP0225"
+             >上一頁</a> |</li>
+  <li>
+    <label class="sidebar-toggle" for="sidebar-check"></label>
+  </li>
+  <li class="rootlink">
+    <img src="../_static/cmake-logo-16.png" width="16" height="16" alt=""/>
+    <a href="https://cmake.org/">CMake 4.4.20260928-gb1b85b8</a>
+    <span class="reldelim1"> &#187;</span>
+  </li>
+  <li>
+    <a href="../index.html">文件</a> &#187;
+  </li>
+
+          <li class="nav-item nav-item-1"><a href="../manual/cmake-policies.7.html" >cmake-方針(7)</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">CMP0224</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+    &#169; 著作權 2000-2026 Kitware, Inc. and Contributors.
+      使用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3 建立。
+    </div>
+<script type="text/javascript">
+(function() {
+  "use strict";
+  const hide = () => document.getElementById("sidebar-check").checked = false;
+  addEventListener("keydown", e => (e.key === "Escape") && hide());
+  addEventListener("click", e => (e.target.tagName === "A") && hide());
+  addEventListener("hashchange", hide)
+})();
+</script>
+  </body>
+</html>
