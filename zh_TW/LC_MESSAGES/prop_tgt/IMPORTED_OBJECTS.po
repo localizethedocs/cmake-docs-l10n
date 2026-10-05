@@ -1,0 +1,137 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2000-2025 Kitware, Inc. and Contributors
+# This file is distributed under the same license as the CMake package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CMake master\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-07-14 08:20+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../prop_tgt/IMPORTED_OBJECTS.rst:2
+msgid "IMPORTED_OBJECTS"
+msgstr ""
+
+#: ../../../prop_tgt/IMPORTED_OBJECTS.rst:6
+msgid ""
+"A :ref:`semicolon-separated list <CMake Language Lists>` of absolute paths "
+"to the object files on disk for an :ref:`imported <Imported targets>` :ref:"
+"`object library <object libraries>`."
+msgstr ""
+
+#: ../../../prop_tgt/IMPORTED_OBJECTS.rst:10
+msgid "Ignored for non-imported targets."
+msgstr ""
+
+#: ../../../prop_tgt/IMPORTED_OBJECTS.rst:12
+msgid ""
+"Projects may skip ``IMPORTED_OBJECTS`` if the configuration-specific "
+"property :prop_tgt:`IMPORTED_OBJECTS_<CONFIG>` is set instead, except in "
+"situations as noted in the section below."
+msgstr ""
+
+#: ../../../prop_tgt/IMPORTED_OBJECTS.rst:18
+msgid "Xcode Generator Considerations"
+msgstr ""
+
+#: ../../../prop_tgt/IMPORTED_OBJECTS.rst:22
+msgid ""
+"For Apple platforms, a project may be built for more than one architecture. "
+"This is controlled by the :variable:`CMAKE_OSX_ARCHITECTURES` variable. For "
+"all but the :generator:`Xcode` generator, CMake invokes compilers once per "
+"source file and passes multiple ``-arch`` flags, leading to a single object "
+"file which will be a universal binary.  Such object files work well when "
+"listed in the ``IMPORTED_OBJECTS`` of a separate CMake build, even for the :"
+"generator:`Xcode` generator.  But producing such object files with the :"
+"generator:`Xcode` generator is more difficult, since it invokes the compiler "
+"once per architecture for each source file.  Unlike the other generators, it "
+"does not generate universal object file binaries."
+msgstr ""
+
+#: ../../../prop_tgt/IMPORTED_OBJECTS.rst:33
+msgid ""
+"A further complication with the :generator:`Xcode` generator is that when "
+"targeting device platforms (iOS, tvOS, visionOS or watchOS), the :generator:"
+"`Xcode` generator has the ability to use either the device or simulator SDK "
+"without needing CMake to be re-run.  The SDK can be selected at build time. "
+"But since some architectures can be supported by both the device and the "
+"simulator SDKs (e.g. ``arm64`` with Xcode 12 or later), not all combinations "
+"can be represented in a single universal binary.  The only solution in this "
+"case is to have multiple object files."
+msgstr ""
+
+#: ../../../prop_tgt/IMPORTED_OBJECTS.rst:42
+msgid ""
+"``IMPORTED_OBJECTS`` doesn't support generator expressions, so every file it "
+"lists needs to be valid for every architecture and SDK.  If incorporating "
+"object files that are not universal binaries, the path and/or file name of "
+"each object file has to somehow encapsulate the different architectures and "
+"SDKs.  With the :generator:`Xcode` generator, Xcode variables of the form "
+"``$(...)`` can be used to represent these aspects and Xcode will substitute "
+"the appropriate values at build time.  CMake doesn't interpret these "
+"variables and embeds them unchanged in the Xcode project file. "
+"``$(CURRENT_ARCH)`` can be used to represent the architecture, while "
+"``$(EFFECTIVE_PLATFORM_NAME)`` can be used to differentiate between SDKs."
+msgstr ""
+
+#: ../../../prop_tgt/IMPORTED_OBJECTS.rst:53
+msgid ""
+"The following shows one example of how these two variables can be used to "
+"refer to an object file whose location depends on both the SDK and the "
+"architecture:"
+msgstr ""
+
+#: ../../../prop_tgt/IMPORTED_OBJECTS.rst:57
+msgid ""
+"add_library(someObjs OBJECT IMPORTED)\n"
+"\n"
+"set_property(TARGET someObjs PROPERTY IMPORTED_OBJECTS\n"
+"  # Quotes are required because of the ()\n"
+"  \"/path/to/somewhere/objects$(EFFECTIVE_PLATFORM_NAME)/$(CURRENT_ARCH)/"
+"func.o\"\n"
+")\n"
+"\n"
+"# Example paths:\n"
+"#   /path/to/somewhere/objects-iphoneos/arm64/func.o\n"
+"#   /path/to/somewhere/objects-iphonesimulator/x86_64/func.o"
+msgstr ""
+
+#: ../../../prop_tgt/IMPORTED_OBJECTS.rst:70
+msgid ""
+"In some cases, you may want to have configuration-specific object files as "
+"well.  The ``$(CONFIGURATION)`` Xcode variable is often used for this and "
+"can be used in conjunction with the others mentioned above:"
+msgstr ""
+
+#: ../../../prop_tgt/IMPORTED_OBJECTS.rst:74
+msgid ""
+"add_library(someObjs OBJECT IMPORTED)\n"
+"set_property(TARGET someObjs PROPERTY IMPORTED_OBJECTS\n"
+"  \"/path/to/somewhere/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/"
+"$(CURRENT_ARCH)/func.o\"\n"
+")\n"
+"\n"
+"# Example paths:\n"
+"#   /path/to/somewhere/Release-iphoneos/arm64/func.o\n"
+"#   /path/to/somewhere/Debug-iphonesimulator/x86_64/func.o"
+msgstr ""
+
+#: ../../../prop_tgt/IMPORTED_OBJECTS.rst:85
+msgid ""
+"When any Xcode variable is used, CMake is not able to fully evaluate the "
+"path(s) at configure time.  One consequence of this is that the "
+"configuration-specific :prop_tgt:`IMPORTED_OBJECTS_<CONFIG>` properties "
+"cannot be used, since CMake cannot determine whether an object file exists "
+"at a particular ``<CONFIG>`` location.  The ``IMPORTED_OBJECTS`` property "
+"must be used for these situations and the configuration-specific aspects of "
+"the path should be handled by the ``$(CONFIGURATION)`` Xcode variable."
+msgstr ""

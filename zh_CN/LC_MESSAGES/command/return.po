@@ -1,0 +1,144 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2000-2025 Kitware, Inc. and Contributors
+# This file is distributed under the same license as the CMake package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CMake master\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-07-14 08:20+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../command/return.rst:2
+msgid "return"
+msgstr ""
+
+#: ../../../command/return.rst:4
+msgid "Return from a file, directory or function."
+msgstr ""
+
+#: ../../../command/return.rst:6
+msgid "return([PROPAGATE <var-name>...])"
+msgstr ""
+
+#: ../../../command/return.rst:10
+msgid ""
+"When this command is encountered in an included file (via :command:`include` "
+"or :command:`find_package`), it causes processing of the current file to "
+"stop and control is returned to the including file.  If it is encountered in "
+"a file which is not included by another file, e.g. a ``CMakeLists.txt``, "
+"deferred calls scheduled by :command:`cmake_language(DEFER)` are invoked and "
+"control is returned to the parent directory if there is one."
+msgstr ""
+
+#: ../../../command/return.rst:17
+msgid ""
+"If ``return()`` is called in a function, control is returned to the caller "
+"of that function.  Note that a :command:`macro`, unlike a :command:"
+"`function`, is expanded in place and therefore cannot handle ``return()``."
+msgstr ""
+
+#: ../../../command/return.rst:21
+msgid ""
+"Policy :policy:`CMP0140` controls the behavior regarding the arguments of "
+"the command.  All arguments are ignored unless that policy is set to ``NEW``."
+msgstr ""
+
+#: ../../../command/return.rst:24
+msgid "``PROPAGATE``"
+msgstr ""
+
+#: ../../../command/return.rst:27
+msgid ""
+"This option sets or unsets the specified variables in the parent directory "
+"or function caller scope. This is equivalent to :command:`set(PARENT_SCOPE)` "
+"or :command:`unset(PARENT_SCOPE)` commands, except for the way it interacts "
+"with the :command:`block` command, as described below."
+msgstr ""
+
+#: ../../../command/return.rst:32
+msgid ""
+"The ``PROPAGATE`` option can be very useful in conjunction with the :command:"
+"`block` command.  A ``return`` will propagate the specified variables "
+"through any enclosing block scopes created by the :command:`block` "
+"commands.  Inside a function, this ensures the variables are propagated to "
+"the function's caller, regardless of any blocks within the function.  If not "
+"inside a function, it ensures the variables are propagated to the parent "
+"file or directory scope. For example:"
+msgstr ""
+
+#: ../../../command/return.rst:40
+msgid "CMakeLists.txt"
+msgstr ""
+
+#: ../../../command/return.rst:40
+msgid ""
+"cmake_minimum_required(VERSION 3.25)\n"
+"project(example)\n"
+"\n"
+"set(var1 \"top-value\")\n"
+"\n"
+"block(SCOPE_FOR VARIABLES)\n"
+"  add_subdirectory(subDir)\n"
+"  # var1 has the value \"block-nested\"\n"
+"endblock()\n"
+"\n"
+"# var1 has the value \"top-value\""
+msgstr ""
+
+#: ../../../command/return.rst:55
+msgid "subDir/CMakeLists.txt"
+msgstr ""
+
+#: ../../../command/return.rst:55
+msgid ""
+"function(multi_scopes result_var1 result_var2)\n"
+"  block(SCOPE_FOR VARIABLES)\n"
+"    # This would only propagate out of the immediate block, not to\n"
+"    # the caller of the function.\n"
+"    #set(${result_var1} \"new-value\" PARENT_SCOPE)\n"
+"    #unset(${result_var2} PARENT_SCOPE)\n"
+"\n"
+"    # This propagates the variables through the enclosing block and\n"
+"    # out to the caller of the function.\n"
+"    set(${result_var1} \"new-value\")\n"
+"    unset(${result_var2})\n"
+"    return(PROPAGATE ${result_var1} ${result_var2})\n"
+"  endblock()\n"
+"endfunction()\n"
+"\n"
+"set(var1 \"some-value\")\n"
+"set(var2 \"another-value\")\n"
+"\n"
+"multi_scopes(var1 var2)\n"
+"# Now var1 will hold \"new-value\" and var2 will be unset\n"
+"\n"
+"block(SCOPE_FOR VARIABLES)\n"
+"  # This return() will set var1 in the directory scope that included us\n"
+"  # via add_subdirectory(). The surrounding block() here does not limit\n"
+"  # propagation to the current file, but the block() in the parent\n"
+"  # directory scope does prevent propagation going any further.\n"
+"  set(var1 \"block-nested\")\n"
+"  return(PROPAGATE var1)\n"
+"endblock()"
+msgstr ""
+
+#: ../../../command/return.rst:89
+msgid "See Also"
+msgstr ""
+
+#: ../../../command/return.rst:91
+msgid ":command:`block`"
+msgstr ""
+
+#: ../../../command/return.rst:92
+msgid ":command:`function`"
+msgstr ""

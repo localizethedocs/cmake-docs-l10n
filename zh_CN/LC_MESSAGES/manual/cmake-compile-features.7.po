@@ -1,0 +1,491 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2000-2025 Kitware, Inc. and Contributors
+# This file is distributed under the same license as the CMake package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CMake master\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-07-14 08:20+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../manual/cmake-compile-features.7.rst:4
+msgid "cmake-compile-features(7)"
+msgstr ""
+
+#: ../../../manual/cmake-compile-features.7.rst:7
+msgid "Contents"
+msgstr ""
+
+#: ../../../manual/cmake-compile-features.7.rst:11
+msgid "Introduction"
+msgstr ""
+
+#: ../../../manual/cmake-compile-features.7.rst:13
+msgid ""
+"Project source code may depend on, or be conditional on, the availability of "
+"certain features of the compiler.  There are three use-cases which arise: "
+"`Compile Feature Requirements`_, `Optional Compile Features`_ and "
+"`Conditional Compilation Options`_."
+msgstr ""
+
+#: ../../../manual/cmake-compile-features.7.rst:18
+msgid ""
+"While features are typically specified in programming language standards, "
+"CMake provides a primary user interface based on granular handling of the "
+"features, not the language standard that introduced the feature."
+msgstr ""
+
+#: ../../../manual/cmake-compile-features.7.rst:22
+msgid ""
+"The :prop_gbl:`CMAKE_C_KNOWN_FEATURES`, :prop_gbl:"
+"`CMAKE_CUDA_KNOWN_FEATURES`, and :prop_gbl:`CMAKE_CXX_KNOWN_FEATURES` global "
+"properties contain all the features known to CMake, regardless of compiler "
+"support for the feature. The :variable:`CMAKE_C_COMPILE_FEATURES`, :variable:"
+"`CMAKE_CUDA_COMPILE_FEATURES` , and :variable:`CMAKE_CXX_COMPILE_FEATURES` "
+"variables contain all features CMake knows are known to the compiler, "
+"regardless of language standard or compile flags needed to use them."
+msgstr ""
+
+#: ../../../manual/cmake-compile-features.7.rst:30
+msgid ""
+"Features known to CMake are named mostly following the same convention as "
+"the Clang feature test macros.  There are some exceptions, such as CMake "
+"using ``cxx_final`` and ``cxx_override`` instead of the single "
+"``cxx_override_control`` used by Clang."
+msgstr ""
+
+#: ../../../manual/cmake-compile-features.7.rst:35
+msgid ""
+"Note that there are no separate compile features properties or variables for "
+"the ``OBJC`` or ``OBJCXX`` languages.  These are based off ``C`` or ``C++`` "
+"respectively, so the properties and variables for their corresponding base "
+"language should be used instead."
+msgstr ""
+
+#: ../../../manual/cmake-compile-features.7.rst:41
+msgid "Compile Feature Requirements"
+msgstr ""
+
+#: ../../../manual/cmake-compile-features.7.rst:43
+msgid ""
+"Compile feature requirements may be specified with the :command:"
+"`target_compile_features` command.  For example, if a target must be "
+"compiled with compiler support for the :prop_gbl:`cxx_constexpr "
+"<CMAKE_CXX_KNOWN_FEATURES>` feature:"
+msgstr ""
+
+#: ../../../manual/cmake-compile-features.7.rst:48
+msgid ""
+"add_library(mylib requires_constexpr.cpp)\n"
+"target_compile_features(mylib PRIVATE cxx_constexpr)"
+msgstr ""
+
+#: ../../../manual/cmake-compile-features.7.rst:53
+msgid ""
+"In processing the requirement for the ``cxx_constexpr`` feature, :manual:"
+"`cmake(1)` will ensure that the in-use C++ compiler is capable of the "
+"feature, and will add any necessary flags such as ``-std=gnu++11`` to the "
+"compile lines of C++ files in the ``mylib`` target.  A ``FATAL_ERROR`` is "
+"issued if the compiler is not capable of the feature."
+msgstr ""
+
+#: ../../../manual/cmake-compile-features.7.rst:60
+msgid ""
+"The exact compile flags and language standard are deliberately not part of "
+"the user interface for this use-case.  CMake will compute the appropriate "
+"compile flags to use by considering the features specified for each target."
+msgstr ""
+
+#: ../../../manual/cmake-compile-features.7.rst:65
+msgid ""
+"Such compile flags are added even if the compiler supports the particular "
+"feature without the flag. For example, the GNU compiler supports variadic "
+"templates (with a warning) even if ``-std=gnu++98`` is used.  CMake adds the "
+"``-std=gnu++11`` flag if ``cxx_variadic_templates`` is specified as a "
+"requirement."
+msgstr ""
+
+#: ../../../manual/cmake-compile-features.7.rst:71
+msgid ""
+"In the above example, ``mylib`` requires ``cxx_constexpr`` when it is built "
+"itself, but consumers of ``mylib`` are not required to use a compiler which "
+"supports ``cxx_constexpr``.  If the interface of ``mylib`` does require the "
+"``cxx_constexpr`` feature (or any other known feature), that may be "
+"specified with the ``PUBLIC`` or ``INTERFACE`` signatures of :command:"
+"`target_compile_features`:"
+msgstr ""
+
+#: ../../../manual/cmake-compile-features.7.rst:78
+msgid ""
+"add_library(mylib requires_constexpr.cpp)\n"
+"# cxx_constexpr is a usage-requirement\n"
+"target_compile_features(mylib PUBLIC cxx_constexpr)\n"
+"\n"
+"# main.cpp will be compiled with -std=gnu++11 on GNU for cxx_constexpr.\n"
+"add_executable(myexe main.cpp)\n"
+"target_link_libraries(myexe mylib)"
+msgstr ""
+
+#: ../../../manual/cmake-compile-features.7.rst:88
+msgid ""
+"Feature requirements are evaluated transitively by consuming the link "
+"implementation.  See :manual:`cmake-buildsystem(7)` for more on transitive "
+"behavior of build properties and usage requirements."
+msgstr ""
+
+#: ../../../manual/cmake-compile-features.7.rst:95
+msgid "Requiring Language Standards"
+msgstr ""
+
+#: ../../../manual/cmake-compile-features.7.rst:97
+msgid ""
+"In projects that use a large number of commonly available features from a "
+"particular language standard (e.g. C++ 11) one may specify a meta-feature (e."
+"g. ``cxx_std_11``) that requires use of a compiler mode that is at minimum "
+"aware of that standard, but could be greater. This is simpler than "
+"specifying all the features individually, but does not guarantee the "
+"existence of any particular feature. Diagnosis of use of unsupported "
+"features will be delayed until compile time."
+msgstr ""
+
+#: ../../../manual/cmake-compile-features.7.rst:105
+msgid ""
+"For example, if C++ 11 features are used extensively in a project's header "
+"files, then clients must use a compiler mode that is no less than C++ 11.  "
+"This can be requested with the code:"
+msgstr ""
+
+#: ../../../manual/cmake-compile-features.7.rst:109
+msgid "target_compile_features(mylib PUBLIC cxx_std_11)"
+msgstr ""
+
+#: ../../../manual/cmake-compile-features.7.rst:113
+msgid ""
+"In this example, CMake will ensure the compiler is invoked in a mode of at-"
+"least C++ 11 (or C++ 14, C++ 17, ...), adding flags such as ``-std=gnu++11`` "
+"if necessary.  This applies to sources within ``mylib`` as well as any "
+"dependents (that may include headers from ``mylib``)."
+msgstr ""
+
+#: ../../../prop_gbl/include/CMAKE_LANG_STD_FLAGS.rst:3
+msgid ""
+"If the compiler's default standard level is at least that of the requested "
+"feature, CMake may omit the ``-std=`` flag. The flag may still be added if "
+"the compiler's default extensions mode does not match the :prop_tgt:"
+"`<LANG>_EXTENSIONS` target property, or if the :prop_tgt:`<LANG>_STANDARD` "
+"target property is set."
+msgstr ""
+
+#: ../../../manual/cmake-compile-features.7.rst:121
+msgid "Availability of Compiler Extensions"
+msgstr ""
+
+#: ../../../manual/cmake-compile-features.7.rst:123
+msgid ""
+"The :prop_tgt:`<LANG>_EXTENSIONS` target property defaults to the compiler's "
+"default (see :variable:`CMAKE_<LANG>_EXTENSIONS_DEFAULT`). Note that because "
+"most compilers enable extensions by default, this may expose portability "
+"bugs in user code or in the headers of third-party dependencies."
+msgstr ""
+
+#: ../../../manual/cmake-compile-features.7.rst:128
+msgid ""
+":prop_tgt:`<LANG>_EXTENSIONS` used to default to ``ON``. See :policy:"
+"`CMP0128`."
+msgstr ""
+
+#: ../../../manual/cmake-compile-features.7.rst:131
+msgid "Optional Compile Features"
+msgstr ""
+
+#: ../../../manual/cmake-compile-features.7.rst:133
+msgid ""
+"Compile features may be preferred if available, without creating a hard "
+"requirement.   This can be achieved by *not* specifying features with :"
+"command:`target_compile_features` and instead checking the compiler "
+"capabilities with preprocessor conditions in project code."
+msgstr ""
+
+#: ../../../manual/cmake-compile-features.7.rst:138
+msgid ""
+"In this use-case, the project may wish to establish a particular language "
+"standard if available from the compiler, and use preprocessor conditions to "
+"detect the features actually available.  A language standard may be "
+"established by `Requiring Language Standards`_ using :command:"
+"`target_compile_features` with meta-features like ``cxx_std_11``, or by "
+"setting the :prop_tgt:`CXX_STANDARD` target property or :variable:"
+"`CMAKE_CXX_STANDARD` variable."
+msgstr ""
+
+#: ../../../manual/cmake-compile-features.7.rst:146
+msgid ""
+"See also policy :policy:`CMP0120` and legacy documentation on :ref:`Example "
+"Usage <WCDH Example Usage>` of the deprecated :module:"
+"`WriteCompilerDetectionHeader` module."
+msgstr ""
+
+#: ../../../manual/cmake-compile-features.7.rst:151
+msgid "Conditional Compilation Options"
+msgstr ""
+
+#: ../../../manual/cmake-compile-features.7.rst:153
+msgid ""
+"Libraries may provide entirely different header files depending on requested "
+"compiler features."
+msgstr ""
+
+#: ../../../manual/cmake-compile-features.7.rst:156
+msgid "For example, a header at ``with_variadics/interface.h`` may contain:"
+msgstr ""
+
+#: ../../../manual/cmake-compile-features.7.rst:158
+msgid ""
+"template<int I, int... Is>\n"
+"struct Interface;\n"
+"\n"
+"template<int I>\n"
+"struct Interface<I>\n"
+"{\n"
+"  static int accumulate()\n"
+"  {\n"
+"    return I;\n"
+"  }\n"
+"};\n"
+"\n"
+"template<int I, int... Is>\n"
+"struct Interface\n"
+"{\n"
+"  static int accumulate()\n"
+"  {\n"
+"    return I + Interface<Is...>::accumulate();\n"
+"  }\n"
+"};"
+msgstr ""
+
+#: ../../../manual/cmake-compile-features.7.rst:181
+msgid "while a header at ``no_variadics/interface.h`` may contain:"
+msgstr ""
+
+#: ../../../manual/cmake-compile-features.7.rst:183
+msgid ""
+"template<int I1, int I2 = 0, int I3 = 0, int I4 = 0>\n"
+"struct Interface\n"
+"{\n"
+"  static int accumulate() { return I1 + I2 + I3 + I4; }\n"
+"};"
+msgstr ""
+
+#: ../../../manual/cmake-compile-features.7.rst:191
+msgid ""
+"It may be possible to write an abstraction ``interface.h`` header containing "
+"something like:"
+msgstr ""
+
+#: ../../../manual/cmake-compile-features.7.rst:194
+msgid ""
+"#ifdef HAVE_CXX_VARIADIC_TEMPLATES\n"
+"#include \"with_variadics/interface.h\"\n"
+"#else\n"
+"#include \"no_variadics/interface.h\"\n"
+"#endif"
+msgstr ""
+
+#: ../../../manual/cmake-compile-features.7.rst:202
+msgid ""
+"However this could be unmaintainable if there are many files to abstract. "
+"What is needed is to use alternative include directories depending on the "
+"compiler capabilities."
+msgstr ""
+
+#: ../../../manual/cmake-compile-features.7.rst:206
+msgid ""
+"CMake provides a ``COMPILE_FEATURES`` :manual:`generator expression <cmake-"
+"generator-expressions(7)>` to implement such conditions.  This may be used "
+"with the build-property commands such as :command:"
+"`target_include_directories` and :command:`target_link_libraries` to set the "
+"appropriate :manual:`buildsystem <cmake-buildsystem(7)>` properties:"
+msgstr ""
+
+#: ../../../manual/cmake-compile-features.7.rst:213
+msgid ""
+"add_library(foo INTERFACE)\n"
+"set(with_variadics ${CMAKE_CURRENT_SOURCE_DIR}/with_variadics)\n"
+"set(no_variadics ${CMAKE_CURRENT_SOURCE_DIR}/no_variadics)\n"
+"target_include_directories(foo\n"
+"  INTERFACE\n"
+"    \"$<$<COMPILE_FEATURES:cxx_variadic_templates>:${with_variadics}>\"\n"
+"    \"$<$<NOT:$<COMPILE_FEATURES:cxx_variadic_templates>>:${no_variadics}"
+">\"\n"
+"  )"
+msgstr ""
+
+#: ../../../manual/cmake-compile-features.7.rst:224
+msgid ""
+"Consuming code then simply links to the ``foo`` target as usual and uses the "
+"feature-appropriate include directory"
+msgstr ""
+
+#: ../../../manual/cmake-compile-features.7.rst:227
+msgid ""
+"add_executable(consumer_with consumer_with.cpp)\n"
+"target_link_libraries(consumer_with foo)\n"
+"set_property(TARGET consumer_with CXX_STANDARD 11)\n"
+"\n"
+"add_executable(consumer_no consumer_no.cpp)\n"
+"target_link_libraries(consumer_no foo)"
+msgstr ""
+
+#: ../../../manual/cmake-compile-features.7.rst:237
+msgid "Supported Compilers"
+msgstr ""
+
+#: ../../../manual/cmake-compile-features.7.rst:239
+msgid ""
+"CMake is currently aware of the :prop_tgt:`C++ standards <CXX_STANDARD>` "
+"and :prop_gbl:`compile features <CMAKE_CXX_KNOWN_FEATURES>` available from "
+"the following :variable:`compiler ids <CMAKE_<LANG>_COMPILER_ID>` as of the "
+"versions specified for each:"
+msgstr ""
+
+#: ../../../manual/cmake-compile-features.7.rst:244
+msgid "``AppleClang``: Apple Clang for Xcode versions 4.4+."
+msgstr ""
+
+#: ../../../manual/cmake-compile-features.7.rst:245
+msgid "``Clang``: Clang compiler versions 2.9+."
+msgstr ""
+
+#: ../../../manual/cmake-compile-features.7.rst:246
+msgid "``GNU``: GNU compiler versions 4.4+."
+msgstr ""
+
+#: ../../../manual/cmake-compile-features.7.rst:247
+msgid "``MSVC``: Microsoft Visual Studio versions 2010+."
+msgstr ""
+
+#: ../../../manual/cmake-compile-features.7.rst:248
+msgid "``SunPro``: Oracle SolarisStudio versions 12.4+."
+msgstr ""
+
+#: ../../../manual/cmake-compile-features.7.rst:249
+msgid "``Intel``: Intel compiler versions 12.1+."
+msgstr ""
+
+#: ../../../manual/cmake-compile-features.7.rst:251
+msgid ""
+"CMake is currently aware of the :prop_tgt:`C standards <C_STANDARD>` and :"
+"prop_gbl:`compile features <CMAKE_C_KNOWN_FEATURES>` available from the "
+"following :variable:`compiler ids <CMAKE_<LANG>_COMPILER_ID>` as of the "
+"versions specified for each:"
+msgstr ""
+
+#: ../../../manual/cmake-compile-features.7.rst:256
+msgid "all compilers and versions listed above for C++."
+msgstr ""
+
+#: ../../../manual/cmake-compile-features.7.rst:257
+msgid "``GNU``: GNU compiler versions 3.4+"
+msgstr ""
+
+#: ../../../manual/cmake-compile-features.7.rst:259
+msgid ""
+"CMake is currently aware of the :prop_tgt:`C++ standards <CXX_STANDARD>` and "
+"their associated meta-features (e.g. ``cxx_std_11``) available from the "
+"following :variable:`compiler ids <CMAKE_<LANG>_COMPILER_ID>` as of the "
+"versions specified for each:"
+msgstr ""
+
+#: ../../../manual/cmake-compile-features.7.rst:264
+msgid "``Cray``: Cray Compiler Environment version 8.1+."
+msgstr ""
+
+#: ../../../manual/cmake-compile-features.7.rst:265
+msgid "``Fujitsu``: Fujitsu HPC compiler 4.0+."
+msgstr ""
+
+#: ../../../manual/cmake-compile-features.7.rst:266
+msgid "``PGI``: PGI version 12.10+."
+msgstr ""
+
+#: ../../../manual/cmake-compile-features.7.rst:267
+msgid "``NVHPC``: NVIDIA HPC compilers version 11.0+."
+msgstr ""
+
+#: ../../../manual/cmake-compile-features.7.rst:268
+msgid "``TI``: Texas Instruments compiler."
+msgstr ""
+
+#: ../../../manual/cmake-compile-features.7.rst:269
+msgid "``TIClang``: Texas Instruments Clang-based compilers."
+msgstr ""
+
+#: ../../../manual/cmake-compile-features.7.rst:270
+msgid "``XL``: IBM XL version 10.1+."
+msgstr ""
+
+#: ../../../manual/cmake-compile-features.7.rst:272
+msgid ""
+"CMake is currently aware of the :prop_tgt:`C standards <C_STANDARD>` and "
+"their associated meta-features (e.g. ``c_std_99``) available from the "
+"following :variable:`compiler ids <CMAKE_<LANG>_COMPILER_ID>` as of the "
+"versions specified for each:"
+msgstr ""
+
+#: ../../../manual/cmake-compile-features.7.rst:277
+msgid ""
+"all compilers and versions listed above with only meta-features for C++."
+msgstr ""
+
+#: ../../../manual/cmake-compile-features.7.rst:279
+msgid ""
+"CMake is currently aware of the :prop_tgt:`CUDA standards <CUDA_STANDARD>` "
+"and their associated meta-features (e.g. ``cuda_std_11``) available from the "
+"following :variable:`compiler ids <CMAKE_<LANG>_COMPILER_ID>` as of the "
+"versions specified for each:"
+msgstr ""
+
+#: ../../../manual/cmake-compile-features.7.rst:284
+msgid "``Clang``: Clang compiler 5.0+."
+msgstr ""
+
+#: ../../../manual/cmake-compile-features.7.rst:285
+msgid "``NVIDIA``: NVIDIA nvcc compiler 7.5+."
+msgstr ""
+
+#: ../../../manual/cmake-compile-features.7.rst:290
+msgid "Language Standard Flags"
+msgstr ""
+
+#: ../../../manual/cmake-compile-features.7.rst:292
+msgid ""
+"In order to satisfy requirements specified by the :command:"
+"`target_compile_features` command or the :variable:`CMAKE_<LANG>_STANDARD` "
+"variable, CMake may pass a language standard flag to the compiler, such as "
+"``-std=c++11``."
+msgstr ""
+
+#: ../../../manual/cmake-compile-features.7.rst:297
+msgid ""
+"For :ref:`Visual Studio Generators`, CMake cannot precisely control the "
+"placement of the language standard flag on the compiler command line. For :"
+"ref:`Ninja Generators`, :ref:`Makefile Generators`, and :generator:`Xcode`, "
+"CMake places the language standard flag just after the language-wide flags "
+"from :variable:`CMAKE_<LANG>_FLAGS` and :variable:"
+"`CMAKE_<LANG>_FLAGS_<CONFIG>`."
+msgstr ""
+
+#: ../../../manual/cmake-compile-features.7.rst:304
+msgid ""
+"The language standard flag is placed before flags specified by other "
+"abstractions such as the :command:`target_compile_options` command. Prior to "
+"CMake 3.26, the language standard flag was placed after them."
+msgstr ""
