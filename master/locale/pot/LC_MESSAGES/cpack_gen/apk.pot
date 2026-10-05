@@ -1,0 +1,749 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2000-2026 Kitware, Inc. and Contributors
+# This file is distributed under the same license as the CMake package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CMake master\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-05 16:37+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../cpack_gen/apk.rst:2
+msgid "CPack APK Generator"
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:6
+msgid ""
+"The CPack ``APK`` generator packages an application for Android as an `APK`_ "
+"file.  It drives the Android SDK build tools (``aapt2``, ``d8``, "
+"``zipalign`` and ``apksigner``) and the JDK directly, so neither Gradle nor "
+"a Java build system of any kind is required."
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:13
+msgid ""
+"The generator is meant for applications whose Java code is shipped with the "
+"project or available as ``.jar`` or ``.aar`` files, locally or in Maven "
+"repositories.  Nothing is downloaded unless the project lists Maven "
+"dependencies in :variable:`CPACK_APK_MAVEN_DEPENDENCIES`; see `Maven "
+"dependencies`_.  Projects whose builds need more of Gradle should keep using "
+"Gradle."
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:21
+msgid "How the staging tree is packaged"
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:23
+msgid ""
+"CPack installs the project into a staging tree and the generator turns that "
+"tree into the contents of the APK.  Most files are added to the APK at the "
+"same relative path they were installed to, so a native library installed to "
+"``lib/arm64-v8a/`` ends up at ``lib/arm64-v8a/`` inside the APK.  The "
+"following entries of the staging tree are treated specially instead, because "
+"the build tools consume them:"
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:30
+msgid "``AndroidManifest.xml``"
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:31
+msgid ""
+"Used as the application manifest, unless :variable:`CPACK_APK_MANIFEST` "
+"points elsewhere."
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:34
+msgid "``res/``"
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:35
+msgid ""
+"Compiled and linked by ``aapt2``, unless :variable:"
+"`CPACK_APK_RESOURCE_DIRECTORIES` is set."
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:38
+msgid "``assets/``"
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:39
+msgid ""
+"Added to the APK by ``aapt2``, unless :variable:"
+"`CPACK_APK_ASSET_DIRECTORIES` is set."
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:42
+msgid "``*.jar`` and ``*.aar``"
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:43
+msgid ""
+"Converted to Dalvik bytecode by ``d8`` and added as ``classes.dex``. "
+"Archives below ``res/`` or ``assets/`` are left alone: those are resources "
+"of the application, not code.  See `Android archives`_ for what is taken "
+"from an ``.aar``."
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:48
+msgid ""
+"``AndroidManifest.xml``, ``res/`` and ``assets/`` are never copied into the "
+"APK as they are, because ``aapt2`` puts its own compiled versions of them "
+"there.  Overriding the variables above changes what ``aapt2`` is given, not "
+"whether the staged copies are packaged."
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:53
+msgid "A minimal example:"
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:55
+msgid ""
+"install(TARGETS my_application\n"
+"        LIBRARY DESTINATION lib/${CMAKE_ANDROID_ARCH_ABI})\n"
+"install(FILES AndroidManifest.xml DESTINATION .)\n"
+"install(DIRECTORY res DESTINATION .)\n"
+"\n"
+"set(CPACK_GENERATOR APK)\n"
+"set(CPACK_APK_JAVA_SOURCE_DIRECTORIES \"${CMAKE_CURRENT_SOURCE_DIR}/java\")\n"
+"include(CPack)"
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:66
+msgid ""
+"Like the Android Gradle plugin, the generator packages the shared C++ "
+"runtime of the NDK, ``libc++_shared.so``, into ``lib/<abi>/`` for the ABIs "
+"whose native libraries are linked to it, as those built with :variable:"
+"`CMAKE_ANDROID_STL_TYPE` set to ``c++_shared`` are, unless the project "
+"installs one itself.  The libraries linked to it are those whose dynamic "
+"section, as printed by ``<readelf> -d <library>``, lists it as ``NEEDED``.  :"
+"variable:`CPACK_READELF_EXECUTABLE`, which defaults to ``CMAKE_READELF``, "
+"the ``llvm-readelf`` of the NDK when cross-compiling for Android, is used "
+"for that; when it is not set, the ``llvm-readelf`` of the NDK is, found like "
+"the ``llvm-strip`` of :variable:`CPACK_APK_STRIP_EXECUTABLE`.  The runtime "
+"is taken from the sysroot of that same NDK, or else of the NDK the ``llvm-"
+"strip`` or the ``llvm-readelf`` belongs to.  The generator warns when it "
+"finds no ``readelf`` to check the libraries with, or no runtime to package."
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:81
+msgid ""
+"The resulting APK is signed, so it can be installed with ``adb install`` "
+"right away.  By default it is signed with the same debug keystore the rest "
+"of the Android tooling uses, ``debug.keystore`` in the directory named by "
+"the ``ANDROID_USER_HOME`` environment variable or else in ``~/.android``, "
+"which is created if it does not exist yet.  On Windows, ``~`` is the user's "
+"profile directory, ``%USERPROFILE%``.  Use :variable:`CPACK_APK_KEYSTORE` "
+"and the related variables to sign with a key of your own."
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:91
+msgid "Multiple ABIs"
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:93
+msgid ""
+"A build tree targets a single Android ABI.  To package the native code of "
+"several ABIs into one APK, use a superbuild: a project that builds the "
+"application once per ABI with :module:`ExternalProject`, from the same "
+"sources, and lists the build trees in :variable:"
+"`CPACK_INSTALL_CMAKE_PROJECTS`.  The superbuild names the build trees itself "
+"and brings all of them up to date whenever it is built, so the ABIs are "
+"always packaged from the same revision of the sources.  CPack installs each "
+"build tree into the same staging tree, so the native libraries end up side "
+"by side in ``lib/<abi>/``:"
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:103
+msgid ""
+"cmake_minimum_required(VERSION 4.5)\n"
+"project(MySuperBuild LANGUAGES NONE)\n"
+"\n"
+"include(ExternalProject)\n"
+"\n"
+"# The NDK is given with -DANDROID_NDK=<path>.\n"
+"foreach(abi IN ITEMS arm64-v8a x86_64)\n"
+"  set(binary_dir \"${CMAKE_CURRENT_BINARY_DIR}/${abi}\")\n"
+"  ExternalProject_Add(app-${abi}\n"
+"    SOURCE_DIR \"${CMAKE_CURRENT_SOURCE_DIR}/app\"\n"
+"    BINARY_DIR \"${binary_dir}\"\n"
+"    CMAKE_ARGS\n"
+"      \"-DCMAKE_TOOLCHAIN_FILE=${ANDROID_NDK}/build/cmake/android.toolchain."
+"cmake\"\n"
+"      -DANDROID_ABI=${abi}\n"
+"      -DCMAKE_BUILD_TYPE=$<CONFIG>\n"
+"    BUILD_ALWAYS TRUE\n"
+"    INSTALL_COMMAND \"\"\n"
+"  )\n"
+"  list(APPEND CPACK_INSTALL_CMAKE_PROJECTS \"${binary_dir};MyApp;ALL;/\")\n"
+"endforeach()\n"
+"\n"
+"set(CPACK_GENERATOR APK)\n"
+"set(CPACK_APK_NDK_ROOT \"${ANDROID_NDK}\")\n"
+"set(CPACK_APK_JAVA_SOURCE_DIRECTORIES \"${CMAKE_CURRENT_SOURCE_DIR}/app/"
+"java\")\n"
+"include(CPack)"
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:131
+msgid ""
+"The package is then made with ``cmake --build`` followed by ``cpack`` in the "
+"build tree of the superbuild.  It is the configuration of the superbuild "
+"that CPack reads, so the ``CPACK_APK_*`` variables are set there rather than "
+"in the application.  Since the superbuild does not cross-compile, :variable:"
+"`CPACK_APK_NDK_ROOT` tells where to take the ``llvm-strip``, the ``llvm-"
+"readelf`` and the shared C++ runtime from, unless the generator finds the "
+"NDK otherwise."
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:139
+msgid ""
+"The native libraries have to be installed into ``lib/<abi>/``, as in the "
+"example of `How the staging tree is packaged`_.  The files the build trees "
+"have in common, such as the manifest and the resources, are taken from the "
+"one installed last.  The shared C++ runtime and the native libraries of "
+"Android archives are packaged for each of the ABIs."
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:146
+msgid "Android archives"
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:148
+msgid "From an ``.aar``, the generator takes:"
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:150
+msgid ""
+"``classes.jar`` and ``libs/*.jar``, which are converted to Dalvik bytecode.  "
+"The ``R`` class of the archive's package, which the archive does not ship, "
+"is generated along with the application's."
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:153
+msgid ""
+"``res/`` and ``assets/``, which the application's own resources and assets "
+"override."
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:155
+msgid ""
+"``jni/<abi>/*.so``, packaged as ``lib/<abi>/`` and stripped like the "
+"application's own libraries, see :variable:`CPACK_APK_STRIP_EXECUTABLE`. "
+"Only the ABIs the application ships native code for, or :variable:"
+"`CPACK_APK_ABI`, are packaged; all of them when the application has no "
+"native code."
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:160
+msgid ""
+"The permissions, features, ``<queries>``, components, ``<meta-data>`` and "
+"libraries declared by ``AndroidManifest.xml``, which are merged into the "
+"application manifest.  An element the application manifest, or an archive "
+"before it, already declares under the same ``android:name`` is left out, "
+"except that the child elements of a component, such as the ``<meta-data>`` "
+"of the ``androidx.startup.InitializationProvider`` that several AndroidX "
+"libraries declare, are merged into the one declared first, unless it is "
+"marked ``tools:node=\"replace\"``.  Children declared under the same "
+"``android:name`` are again left out.  Beyond that, the merge rules of the "
+"Gradle manifest merger are not applied: ``tools:`` attributes are dropped, "
+"except that an element marked ``tools:node=\"remove\"``, at any depth, is "
+"not merged. Such an element at the top level of the application manifest is "
+"not packaged either, and keeps the elements of the archives declared under "
+"the same ``android:name`` out."
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:177
+msgid "Maven dependencies"
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:179
+msgid ""
+"Libraries such as those of AndroidX are published to Maven repositories "
+"rather than installed with the SDK.  Listing them in :variable:"
+"`CPACK_APK_MAVEN_DEPENDENCIES` makes the generator download them and the "
+"libraries they depend on at packaging time, and add them to :variable:"
+"`CPACK_APK_JARS`:"
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:185
+msgid "set(CPACK_APK_MAVEN_DEPENDENCIES androidx.core:core:1.17.0)"
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:189
+msgid ""
+"This is opt-in: when the variable is not set, no repository is contacted.  "
+"Each file that is downloaded is reported, and downloaded files are kept in :"
+"variable:`CPACK_APK_MAVEN_CACHE_DIRECTORY`, so that later runs work "
+"offline.  Dependencies are resolved like Gradle resolves the runtime "
+"classpath of an Android application:"
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:195
+msgid ""
+"The Gradle module metadata (``.module`` file) of an artifact is used when "
+"the repository has it, which is the case for AndroidX, Kotlin and most "
+"libraries built with Gradle.  Its variant for the Java runtime is selected, "
+"preferring the one for Android over the one for the JVM, and the one for the "
+"release build type over the one for debug.  A variant published as a "
+"separate module, as Kotlin Multiplatform libraries do, is followed there.  "
+"The files are checked against the SHA-256 hashes it lists."
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:203
+msgid ""
+"Otherwise the POM is used, for its dependencies of the ``compile`` and "
+"``runtime`` scopes that are not optional, and for the ``packaging`` of the "
+"artifact.  The dependencies of build plugins and of profiles are not used.  "
+"The file is checked against the SHA-1 hash published next to it, if any.  "
+"Parent POMs and imported BOMs are not read, so a version defined in one of "
+"them is an error.  The ``project.groupId``, ``project.artifactId`` and "
+"``project.version`` properties, and those of the POM's own ``<properties>``, "
+"are replaced."
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:211
+msgid ""
+"When an artifact is required in several versions, the highest one is used, "
+"in the order of Gradle: ``1.0-alpha01`` is lower than ``1.0-rc01``, which is "
+"lower than ``1.0``.  As with Gradle, the versions that an artifact requires "
+"stop counting once a higher version of it is selected instead.  Dependency "
+"constraints, including those of the platforms that Gradle module metadata "
+"depends on, such as BOMs, can raise the version of an artifact that is "
+"required anyway, or give one to a dependency that has none.  It is an error "
+"when no version is given.  Version ranges are not supported, except for a "
+"single version in brackets, like ``[1.2.3]``."
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:221
+msgid ""
+"Exclusions of transitive dependencies, in POMs or in Gradle module metadata, "
+"leave an artifact out when every path to it excludes it."
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:225
+msgid "The Android SDK"
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:227
+msgid ""
+"The SDK is looked for in :variable:`CPACK_APK_SDK_ROOT`, then in the "
+"``ANDROID_HOME`` and ``ANDROID_SDK_ROOT`` environment variables, and finally "
+"next to the NDK named by :variable:`CPACK_APK_NDK_ROOT` or by the "
+"``ANDROID_NDK_ROOT``, ``ANDROID_NDK_HOME`` and ``ANDROID_NDK`` environment "
+"variables.  When :variable:`CPACK_APK_SDK_ROOT` is set, it must hold the "
+"SDK: the other locations are not considered.  When the project is cross-"
+"compiled for Android, :variable:`CPACK_APK_NDK_ROOT` defaults to :variable:"
+"`CMAKE_ANDROID_NDK`."
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:236
+msgid ""
+"A JDK is required as well: ``d8`` and ``apksigner`` are Java programs, and "
+"``jar`` and ``keytool`` are used directly.  Java sources are compiled "
+"against the Java library of the Android platform rather than the one of the "
+"JDK, using a system image built from the platform's ``core-for-system-"
+"modules.jar`` with ``jmod`` and ``jlink``.  Platforms older than API level "
+"30 do not provide that file, in which case the Java library of the JDK is "
+"used."
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:245
+msgid "Variables Specific to CPack APK Generator"
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:247
+msgid ""
+"Relative paths given to the variables below are relative to the directory "
+"cpack runs in."
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:252
+msgid "Root directory of the Android SDK."
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:0
+msgid "Default"
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:254
+msgid "Detected as described above"
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:258
+msgid ""
+"Root directory of the JDK.  The Java tools are taken from it, and the "
+"``JAVA_HOME`` environment variable is set to it for the SDK build tools."
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:262
+msgid ""
+"The ``JAVA_HOME`` environment variable, then on macOS the output of ``/usr/"
+"libexec/java_home``, and finally the JDK the ``javac`` found on the ``PATH`` "
+"belongs to"
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:268
+msgid ""
+"Root directory of the Android NDK.  Used to locate the SDK it is installed "
+"in, the ``llvm-strip`` of :variable:`CPACK_APK_STRIP_EXECUTABLE`, and the "
+"``libc++_shared.so`` packaged for the native libraries linked to it."
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:273
+msgid ""
+":variable:`CMAKE_ANDROID_NDK` when cross-compiling for Android, otherwise "
+"unset"
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:278
+msgid "Version of the SDK build tools to use, e.g. ``35.0.0``."
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:280
+msgid "The highest version installed in ``<sdk>/build-tools``"
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:284
+msgid ""
+"API level whose ``android.jar`` the resources and the Java sources are "
+"compiled against, e.g. ``35``."
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:287
+msgid "The highest API level installed in ``<sdk>/platforms``"
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:291
+msgid ""
+"Minimum API level the application supports.  Written into the ``<uses-sdk>`` "
+"element of the manifest, replacing the value it declares.  Either way, "
+"``d8`` targets the resulting API level."
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:295 ../../../cpack_gen/apk.rst:338
+#: ../../../cpack_gen/apk.rst:364 ../../../cpack_gen/apk.rst:388
+#: ../../../cpack_gen/apk.rst:408 ../../../cpack_gen/apk.rst:546
+msgid "Unset"
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:299
+msgid ""
+"API level the application targets.  Written into the ``<uses-sdk>`` element "
+"of the manifest, replacing the value it declares."
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:302
+msgid ""
+"The value declared by the manifest, otherwise :variable:"
+"`CPACK_APK_COMPILE_SDK_VERSION`"
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:307
+msgid ""
+"Android ABI of the native code, e.g. ``arm64-v8a``.  Shared libraries "
+"installed directly into ``lib/`` are moved to ``lib/<abi>/`` inside the APK, "
+"which is where Android expects them.  Libraries already installed into an "
+"ABI sub-directory are left alone."
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:312
+msgid ""
+":variable:`CMAKE_ANDROID_ARCH_ABI` when cross-compiling for Android, "
+"otherwise unset"
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:317
+msgid ""
+"Tool that strips the debug symbols from the native libraries packaged in "
+"``lib/<abi>/``, those of Android archives included, as the Android Gradle "
+"plugin does.  It is run as ``<strip> --strip-unneeded -o <output> "
+"<input>``.  Files that are not ELF are packaged as they are.  When no tool "
+"is found, the libraries are packaged as they are, with a warning; when "
+"stripping a library fails, that one is, with a warning as well. A tool set "
+"explicitly that does not exist is an error."
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:325
+msgid ""
+"``CMAKE_STRIP`` when cross-compiling for Android, otherwise the ``llvm-"
+"strip`` of the NDK of :variable:`CPACK_APK_NDK_ROOT`, of the "
+"``ANDROID_NDK_ROOT``, ``ANDROID_NDK_HOME`` or ``ANDROID_NDK`` environment "
+"variables, or else of the highest version installed in ``<sdk>/ndk``"
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:333
+msgid ""
+"List of file name patterns, in which ``*`` and ``?`` are wildcards, of the "
+"native libraries to package with their debug symbols, like the "
+"``keepDebugSymbols`` packaging option of the Android Gradle plugin.  For "
+"example, ``*.so`` keeps them in all libraries."
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:342
+msgid "Path to the ``AndroidManifest.xml`` to package."
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:344
+msgid "``AndroidManifest.xml`` at the top of the staging tree"
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:348
+msgid ""
+"Package of the application, e.g. ``com.example.app``.  Written into the "
+"``package`` attribute of the manifest, replacing the value it declares. "
+"Relative class names of the manifest resolve against it.  This is what "
+"Gradle projects set as the ``namespace`` in their build script, leaving it "
+"out of the manifest."
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:354
+msgid "The value declared by the manifest, which must then declare one"
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:358
+msgid ""
+"List of ``<name>=<value>`` entries.  Each ``${<name>}`` in the manifest is "
+"replaced by the corresponding value before the manifest is compiled. This is "
+"how the Gradle-style placeholders found in manifest templates, most notably "
+"``${applicationId}``, can be resolved.  Unless listed here, "
+"``${applicationId}`` is the ``package`` of the manifest."
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:368
+msgid ""
+"List of Android resource directories to compile into the APK.  They are "
+"merged in order, with later directories overlaying earlier ones.  The "
+"resources of Android archives come before all of them."
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:372
+msgid "``res`` at the top of the staging tree, if present"
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:376
+msgid ""
+"List of directories whose contents are packaged as Android assets. They are "
+"merged in order, with files of later directories replacing those of earlier "
+"ones.  The assets of Android archives come before all of them."
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:381
+msgid "``assets`` at the top of the staging tree, if present"
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:385
+msgid ""
+"List of directories to compile ``.java`` files from.  They are searched "
+"recursively.  The generated ``R`` classes are compiled along with them."
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:392
+msgid ""
+"Java release to compile the Java sources for, passed to ``javac`` as its ``-"
+"source`` and ``-target`` options.  Left to itself, ``javac`` targets the "
+"release of the JDK, whose class files the ``d8`` of older build tools cannot "
+"read.  Set this to an empty string to pass neither option. It is not used "
+"when :variable:`CPACK_APK_JAVAC_EXTRA_OPTIONS` holds one of the ``--"
+"release``, ``-source`` or ``-target`` options."
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:399
+msgid "``11``"
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:403
+msgid ""
+"List of additional ``.jar`` and ``.aar`` files to convert to Dalvik bytecode "
+"and to compile the Java sources against.  Archives found in the staging "
+"tree, and those of :variable:`CPACK_APK_MAVEN_DEPENDENCIES`, are added to "
+"this list."
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:412
+msgid ""
+"List of Maven artifacts to download, with the artifacts they depend on, and "
+"to add to :variable:`CPACK_APK_JARS`, each given as ``<group>:<artifact>:"
+"<version>``.  See `Maven dependencies`_."
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:416
+msgid "Unset: nothing is downloaded"
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:420
+msgid ""
+"List of Maven repositories to download :variable:"
+"`CPACK_APK_MAVEN_DEPENDENCIES` from, tried in order for each file.  An entry "
+"is a URL, or else a path to a local directory laid out as a Maven "
+"repository.  The local repository of Maven itself, ``~/.m2/repository``, is "
+"one, so listing it first reuses the artifacts Maven has already downloaded.  "
+"Maven does not keep Gradle module metadata there, which is then still "
+"downloaded from the repositories listed after it:"
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:429
+msgid ""
+"set(CPACK_APK_MAVEN_REPOSITORIES\n"
+"  \"$ENV{HOME}/.m2/repository\"\n"
+"  https://maven.google.com\n"
+"  https://repo.maven.apache.org/maven2\n"
+"  )"
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:437
+msgid ""
+"On Windows, the user's home directory is ``$ENV{USERPROFILE}``.  A ``~`` in "
+"an entry is not expanded."
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:440
+msgid ""
+"``https://maven.google.com`` and ``https://repo.maven.apache.org/maven2``"
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:445
+msgid ""
+"Directory to download :variable:`CPACK_APK_MAVEN_DEPENDENCIES` to. Files "
+"found there are not downloaded again."
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:448
+msgid "``_CPack_Packages/maven`` in :variable:`CPACK_PACKAGE_DIRECTORY`"
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:453
+msgid ""
+"Integer version code of the application.  Written into the manifest, "
+"replacing the value it declares."
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:456
+msgid "The value declared by the manifest, otherwise ``1``"
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:460
+msgid ""
+"User visible version of the application.  Written into the manifest, "
+"replacing the value it declares."
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:463
+msgid ""
+"The value declared by the manifest, otherwise :variable:"
+"`CPACK_PACKAGE_VERSION`"
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:468
+msgid ""
+"List of file name extensions, leading dot included, to store in the APK "
+"uncompressed.  Android maps uncompressed native libraries straight out of "
+"the APK, which is required when the manifest sets ``android:"
+"extractNativeLibs`` to ``false``."
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:473
+msgid "``.so``"
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:477
+msgid ""
+"Boolean controlling whether the APK is signed.  An unsigned APK cannot be "
+"installed on a device."
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:480
+msgid "``TRUE``"
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:484
+msgid "Path to the Java keystore holding the signing key."
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:486
+msgid "The debug keystore described above, generated if missing"
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:490
+msgid "Password of the keystore."
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:492
+msgid "``android``, together with the default keystore"
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:496
+msgid "Alias of the key to sign with inside the keystore."
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:498
+msgid "``androiddebugkey``, together with the default keystore"
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:502
+msgid ""
+"Password of the key.  A PKCS12 keystore, which is what ``keytool`` creates "
+"by default since JDK 9, protects its keys with the keystore password and "
+"cannot hold a key with a password of its own.  Leave this unset for such a "
+"keystore."
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:507
+msgid ":variable:`CPACK_APK_KEYSTORE_PASSWORD`"
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:511
+msgid ""
+"Options passed to ``zipalign`` ahead of the input and output files. The "
+"default aligns uncompressed native libraries to 16 KB memory pages, which "
+"devices with such pages require to load them straight from the APK.  Build "
+"tools older than version 35 only support 4 KB pages."
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:516
+msgid "``-P;16;-f;4``, or ``-p;-f;4`` with build tools older than 35"
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:525
+msgid ""
+"Paths to the individual tools, overriding the ones that would be found in "
+"the SDK build tools directory and in the JDK."
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:528
+msgid "Detected"
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:535
+msgid ""
+"Additional options to pass to the respective tool.  To compile the Java "
+"sources for another Java release, set :variable:`CPACK_APK_JAVA_VERSION` or "
+"pass ``javac`` the ``-source`` and ``-target`` options rather than ``--"
+"release``, which makes it compile against the Java library of the JDK "
+"instead of the one of the Android platform.  For a target release older than "
+"9, ``android.jar`` is used as the boot class path instead of a system image."
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:543
+msgid ""
+"``d8`` is passed ``--release``, which leaves the debugging information out "
+"of the Dalvik bytecode, unless ``--debug`` is given here."
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:550
+msgid ""
+"Boolean enabling verbose output of every tool invocation and its result."
+msgstr ""
+
+#: ../../../cpack_gen/apk.rst:553
+msgid "``FALSE``"
+msgstr ""
