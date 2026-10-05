@@ -80,42 +80,37 @@ The goal of this project is to translate The CMake documentation into multiple l
 <table>
   <thead>
     <tr>
-      <th rowspan="1" colspan="2" align="center" style="text-align: center;"><div>Project Links</div></th>
+      <th rowspan="1" colspan="1" align="center" style="text-align: center;"><div>Project Links</div></th>
     </tr>
   </thead>
   <tbody>
     <!-- Preview -->
     <tr>
-      <th rowspan="1" colspan="1" align="center" style="text-align: center;"><div>Preview</div></th>
-      <td rowspan="1" colspan="1" align="center" style="text-align: center;">
-        <div><a href="https://projects.localizethedocs.org/cmake-docs-l10n" target="_blank">cmake-docs-l10n</a></div>
+      <td rowspan="1" colspan="1" align="right" style="text-align: right;">
+        <div><a href="https://projects.localizethedocs.org/cmake-docs-l10n" target="_blank"><img alt="Preview" src="https://img.shields.io/badge/Preview-sphinxcontrib--rust--docs--l10n-blue?style=for-the-badge&logo=readthedocs" /></a></div>
       </td>
     </tr>
     <!-- TMS -->
     <tr>
-      <th rowspan="1" colspan="1" align="center" style="text-align: center;"><div>Crowdin</div></th>
-      <td rowspan="1" colspan="1" align="center" style="text-align: center;">
-        <div><a href="https://localizethedocs.crowdin.com/cmake-docs-l10n" target="_blank">cmake-docs-l10n</a></div>
+      <td rowspan="1" colspan="1" align="right" style="text-align: right;">
+        <div><a href="https://localizethedocs.crowdin.com/cmake-docs-l10n" target="_blank"><img alt="Crowdin" src="https://img.shields.io/badge/Crowdin-sphinxcontrib--rust--docs--l10n-blue?style=for-the-badge&logo=crowdin" /></a></div>
       </td>
     </tr>
     <!-- Main -->
     <tr>
-      <th rowspan="1" colspan="1" align="center" style="text-align: center;"><div>GitHub</div></th>
-      <td rowspan="1" colspan="1" align="center" style="text-align: center;">
-        <div><a href="https://github.com/localizethedocs/cmake-docs-l10n" target="_blank">cmake-docs-l10n</a></div>
+      <td rowspan="1" colspan="1" align="right" style="text-align: right;">
+        <div><a href="https://github.com/localizethedocs/cmake-docs-l10n" target="_blank"><img alt="GitHub" src="https://img.shields.io/badge/GitHub-sphinxcontrib--rust--docs--l10n-blue?style=for-the-badge&logo=github" /></a></div>
       </td>
     </tr>
     <!-- Mirror -->
     <tr>
-      <th rowspan="1" colspan="1" align="center" style="text-align: center;"><div>GitCode</div></th>
-      <td rowspan="1" colspan="1" align="center" style="text-align: center;">
-        <div><a href="https://gitcode.com/localizethedocs/cmake-docs-l10n" target="_blank">cmake-docs-l10n</a></div>
+      <td rowspan="1" colspan="1" align="right" style="text-align: right;">
+        <div><a href="https://gitcode.com/localizethedocs/cmake-docs-l10n" target="_blank"><img alt="GitCode" src="https://img.shields.io/badge/GitCode-sphinxcontrib--rust--docs--l10n-blue?style=for-the-badge&logo=gitcode" /></a></div>
       </td>
     </tr>
     <tr>
-      <th rowspan="1" colspan="1" align="center" style="text-align: center;"><div>GitFlic</div></th>
-      <td rowspan="1" colspan="1" align="center" style="text-align: center;">
-        <div><a href="https://gitflic.ru/project/localizethedocs/cmake-docs-l10n" target="_blank">cmake-docs-l10n</a></div>
+      <td rowspan="1" colspan="1" align="right" style="text-align: right;">
+        <div><a href="https://gitflic.ru/project/localizethedocs/cmake-docs-l10n" target="_blank"><img alt="GitFlic" src="https://img.shields.io/badge/GitFlic-sphinxcontrib--rust--docs--l10n-blue?style=for-the-badge&logo=git" /></a></div>
       </td>
     </tr>
   </tbody>
