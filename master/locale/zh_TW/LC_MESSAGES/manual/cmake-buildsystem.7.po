@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CMake master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-12 17:10+0000\n"
+"POT-Creation-Date: 2026-10-19 15:09+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -82,10 +82,79 @@ msgstr ""
 "``archive`` 靜態庫。"
 
 #: ../../../manual/cmake-buildsystem.7.rst:43
+msgid "Target Names"
+msgstr ""
+
+#: ../../../manual/cmake-buildsystem.7.rst:45
+msgid ""
+"Targets are addressed by name throughout the buildsystem.  A target name "
+"must be non-empty and contain only ASCII letters, digits, ``_``, ``.``, "
+"``+``, and ``-``.  As a special case, ``ALIAS`` and :prop_tgt:`IMPORTED` "
+"targets may also contain ``:``.  By convention, a double colon (``::``) is "
+"used as a namespace separator, such as ``Upstream::lib1``, to distinguish "
+"``ALIAS`` and ``IMPORTED`` targets from targets of other types, and to "
+"reduce the likelihood of naming collisions.  See the :manual:`cmake-"
+"packages(7)` manual for more details."
+msgstr ""
+
+#: ../../../manual/cmake-buildsystem.7.rst:54
+msgid ""
+"Target names must be globally unique.  Non-``GLOBAL`` :prop_tgt:`IMPORTED` "
+"targets are visible only in the directory that defines them and their "
+"subdirectories."
+msgstr ""
+
+#: ../../../manual/cmake-buildsystem.7.rst:58
+msgid ""
+"CMake reserves some names for special targets created by the build tools and "
+"project-wide convenience targets."
+msgstr ""
+
+#: ../../../manual/cmake-buildsystem.7.rst:61
+msgid ""
+"The names ``all``, ``ALL_BUILD``, ``help``, ``install``, ``INSTALL``, "
+"``preinstall``, ``clean``, ``edit_cache``, ``rebuild_cache``, and "
+"``ZERO_CHECK`` are always reserved."
+msgstr ""
+
+#: ../../../manual/cmake-buildsystem.7.rst:64
+msgid ""
+"Some modules reserve additional names: e.g., ``test`` when :module:`CTest` "
+"is enabled, and ``package`` when :module:`CPack` is enabled."
+msgstr ""
+
+#: ../../../manual/cmake-buildsystem.7.rst:66
+msgid ""
+"Generators may also create their own convenience targets, such as ``install/"
+"parallel`` with the :ref:`Ninja Generators`.  See the :manual:`cmake-"
+"generators(7)` manual for the target names documented by each generator."
+msgstr ""
+
+#: ../../../manual/cmake-buildsystem.7.rst:71
+msgid ""
+"Some convenience targets derive their names from other names in the project:"
+msgstr ""
+
+#: ../../../manual/cmake-buildsystem.7.rst:73
+msgid ""
+"The ``test_prep/<name>`` targets use test names, which have their own "
+"representability rules beyond those above.  The :ref:`Makefile Generators` "
+"do not allow ``:``.  See also :ref:`Test Preparation Targets`."
+msgstr ""
+
+#: ../../../manual/cmake-buildsystem.7.rst:76
+msgid ""
+"The ``install_prep/<component>`` targets use install component names. A "
+"component name may contain the characters allowed in target names above, "
+"plus ``:`` and ``/``.  The :ref:`Makefile Generators` do not allow ``:``. "
+"See also :ref:`Install Preparation Targets`."
+msgstr ""
+
+#: ../../../manual/cmake-buildsystem.7.rst:84
 msgid "Executables"
 msgstr "可執行文件"
 
-#: ../../../manual/cmake-buildsystem.7.rst:45
+#: ../../../manual/cmake-buildsystem.7.rst:86
 msgid ""
 "Executables are binaries created by linking object files together, one of "
 "which contains a program entry point, e.g., ``main``."
@@ -93,21 +162,21 @@ msgstr ""
 "可執行檔案是由將物件檔連結起來所建立的二進位檔案，其中一個包含程式進入點，例"
 "如：``main``。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:48
+#: ../../../manual/cmake-buildsystem.7.rst:89
 msgid "The :command:`add_executable` command defines an executable target:"
 msgstr ":command:`add_executable` 命令定義了一個可執行目標："
 
-#: ../../../manual/cmake-buildsystem.7.rst:50
+#: ../../../manual/cmake-buildsystem.7.rst:91
 msgid "add_executable(mytool mytool.cpp)"
 msgstr "add_executable(mytool mytool.cpp)"
 
-#: ../../../manual/cmake-buildsystem.7.rst:54
+#: ../../../manual/cmake-buildsystem.7.rst:95
 msgid ""
 "CMake generates build rules to compile the source files into object files "
 "and link them into an executable."
 msgstr "CMake生成構建規則，以將源文件編譯成對象文件並鏈接為一個可執行文件。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:57
+#: ../../../manual/cmake-buildsystem.7.rst:98
 msgid ""
 "Link dependencies of executables may be specified using the :command:"
 "`target_link_libraries` command.  Linkers start with the object files "
@@ -118,7 +187,7 @@ msgstr ""
 "從可執行文件自己的源文件編譯的對象文件開始，然後通過搜索鏈接庫來解決剩餘的符"
 "號依賴。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:62
+#: ../../../manual/cmake-buildsystem.7.rst:103
 msgid ""
 "Commands such as :command:`add_custom_command`, which generates rules to be "
 "run at build time can transparently use an :prop_tgt:`EXECUTABLE <TYPE>` "
@@ -129,11 +198,11 @@ msgstr ""
 "地使用 :prop_tgt:`EXECUTABLE <TYPE>` 目標作為 ``COMMAND`` 可執行文件。構建系"
 "統規則將確保在嘗試運行命令之前構建可執行文件。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:70
+#: ../../../manual/cmake-buildsystem.7.rst:111
 msgid "Static Libraries"
 msgstr "靜態程式庫"
 
-#: ../../../manual/cmake-buildsystem.7.rst:72
+#: ../../../manual/cmake-buildsystem.7.rst:113
 msgid ""
 "Static libraries are archives of object files.  They are produced by an "
 "archiver, not a linker.  `Executables`_, `Shared Libraries`_, and `Module "
@@ -148,7 +217,7 @@ msgstr ""
 "文件的子集以解析符號並將它們鏈接到消費者二進制文件中。每個鏈接到靜態庫的二進"
 "制文件都會獲得其符號的副本，在運行時不需要靜態庫本身。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:80
+#: ../../../manual/cmake-buildsystem.7.rst:121
 msgid ""
 "The :command:`add_library` command defines a static library target when "
 "called with the ``STATIC`` library type:"
@@ -156,27 +225,27 @@ msgstr ""
 "當以 ``STATIC`` 庫類型調用時，:command:`add_library` 命令定義了一個靜態庫目"
 "標："
 
-#: ../../../manual/cmake-buildsystem.7.rst:83
+#: ../../../manual/cmake-buildsystem.7.rst:124
 msgid "add_library(archive STATIC archive.cpp zip.cpp lzma.cpp)"
 msgstr "add_library(archive STATIC archive.cpp zip.cpp lzma.cpp)"
 
-#: ../../../manual/cmake-buildsystem.7.rst:87
+#: ../../../manual/cmake-buildsystem.7.rst:128
 msgid ""
 "or, when the :variable:`BUILD_SHARED_LIBS` variable is false, with no type:"
 msgstr "或者，當 :variable:`BUILD_SHARED_LIBS` 變量為false時，無任何類型："
 
-#: ../../../manual/cmake-buildsystem.7.rst:89
-#: ../../../manual/cmake-buildsystem.7.rst:124
+#: ../../../manual/cmake-buildsystem.7.rst:130
+#: ../../../manual/cmake-buildsystem.7.rst:165
 msgid "add_library(archive archive.cpp zip.cpp lzma.cpp)"
 msgstr "add_library(archive archive.cpp zip.cpp lzma.cpp)"
 
-#: ../../../manual/cmake-buildsystem.7.rst:93
+#: ../../../manual/cmake-buildsystem.7.rst:134
 msgid ""
 "CMake generates build rules to compile the source files into object files "
 "and archive them into a static library."
 msgstr "CMake生成構建規則以將源文件編譯為對象文件並將其存檔到一個靜態庫中。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:96
+#: ../../../manual/cmake-buildsystem.7.rst:137
 msgid ""
 "Link dependencies of static libraries may be specified using the :command:"
 "`target_link_libraries` command.  Since static libraries are archives rather "
@@ -191,11 +260,11 @@ msgstr ""
 "定為*直接*鏈接依賴的 `對象庫`_）。相反，CMake記錄靜態庫的鏈接依賴，以供連接消"
 "費者二進制時的傳遞使用。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:107
+#: ../../../manual/cmake-buildsystem.7.rst:148
 msgid "Shared Libraries"
 msgstr "共享程式庫"
 
-#: ../../../manual/cmake-buildsystem.7.rst:109
+#: ../../../manual/cmake-buildsystem.7.rst:150
 msgid ""
 "Shared libraries are binaries created by linking object files together. "
 "`Executables`_, other shared libraries, and `Module Libraries`_ may link to "
@@ -207,7 +276,7 @@ msgstr ""
 "`_可以將共享庫作為依賴項鏈接。鏈接器在消費者二進制文件中記錄共享庫的引用。在"
 "運行時，動態加載器搜索磁盤上的引用共享庫並加載其符號。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:115
+#: ../../../manual/cmake-buildsystem.7.rst:156
 msgid ""
 "The :command:`add_library` command defines a shared library target when "
 "called with the ``SHARED`` library type:"
@@ -215,22 +284,22 @@ msgstr ""
 "當以 ``SHARED`` 庫類型調用時，:command:`add_library` 命令定義了一個共享庫目"
 "標："
 
-#: ../../../manual/cmake-buildsystem.7.rst:118
+#: ../../../manual/cmake-buildsystem.7.rst:159
 msgid "add_library(archive SHARED archive.cpp zip.cpp lzma.cpp)"
 msgstr "add_library(archive SHARED archive.cpp zip.cpp lzma.cpp)"
 
-#: ../../../manual/cmake-buildsystem.7.rst:122
+#: ../../../manual/cmake-buildsystem.7.rst:163
 msgid ""
 "or, when the :variable:`BUILD_SHARED_LIBS` variable is true, with no type:"
 msgstr "或者，當 :variable:`BUILD_SHARED_LIBS` 變量為true時，無任何類型："
 
-#: ../../../manual/cmake-buildsystem.7.rst:128
+#: ../../../manual/cmake-buildsystem.7.rst:169
 msgid ""
 "CMake generates build rules to compile the source files into object files "
 "and link them into a shared library."
 msgstr "CMake生成構建規則以將源文件編譯成對象文件並將其鏈接成共享庫。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:131
+#: ../../../manual/cmake-buildsystem.7.rst:172
 msgid ""
 "Link dependencies of shared libraries may be specified using the :command:"
 "`target_link_libraries` command.  Linkers start with the object files "
@@ -240,7 +309,7 @@ msgstr ""
 "共享庫的鏈接依賴可以使用:command:`target_link_libraries`命令指定。鏈接器從共"
 "享庫自身源文件編譯的對象文件開始，然後通過搜索鏈接庫來解決剩餘的符號依賴。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:138
+#: ../../../manual/cmake-buildsystem.7.rst:179
 msgid ""
 "CMake expects shared libraries to export at least one symbol.  If a library "
 "does not export any unmanaged symbols, e.g., a Windows resource DLL or C++/"
@@ -249,11 +318,11 @@ msgstr ""
 "CMake期望共享库至少导出一个符号。如果库没有导出任何未管理符号，如Windows资源"
 "DLL或C++/CLI DLL，应创建为`模块库 <模块库_>`_。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:145
+#: ../../../manual/cmake-buildsystem.7.rst:186
 msgid "Apple Frameworks"
 msgstr "Apple 框架"
 
-#: ../../../manual/cmake-buildsystem.7.rst:147
+#: ../../../manual/cmake-buildsystem.7.rst:188
 msgid ""
 "`Shared Libraries`_ and `Static Libraries`_ may be marked with the :prop_tgt:"
 "`FRAMEWORK` target property to create a macOS or iOS Framework. A library "
@@ -268,7 +337,7 @@ msgstr ""
 "``MACOSX_FRAMEWORK_IDENTIFIER`` 設置 ``CFBundleIdentifier`` 鑰匙並唯一標識"
 "包。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:155
+#: ../../../manual/cmake-buildsystem.7.rst:196
 msgid ""
 "add_library(MyFramework SHARED MyFramework.cpp)\n"
 "set_target_properties(MyFramework PROPERTIES\n"
@@ -284,11 +353,11 @@ msgstr ""
 "  MACOSX_FRAMEWORK_IDENTIFIER org.cmake.MyFramework\n"
 ")"
 
-#: ../../../manual/cmake-buildsystem.7.rst:167
+#: ../../../manual/cmake-buildsystem.7.rst:208
 msgid "Module Libraries"
 msgstr "模組程式庫"
 
-#: ../../../manual/cmake-buildsystem.7.rst:169
+#: ../../../manual/cmake-buildsystem.7.rst:210
 msgid ""
 "Module libraries are binaries created by linking object files together. "
 "Unlike `Shared Libraries`_, module libraries may not be linked by other "
@@ -302,7 +371,7 @@ msgstr ""
 "側命名它們。相反，模塊庫是應用程序可以在運行時按需動態加載的插件，例如，通過"
 "``dlopen``。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:176
+#: ../../../manual/cmake-buildsystem.7.rst:217
 msgid ""
 "The :command:`add_library` command defines a module library target when "
 "called with the ``MODULE`` library type:"
@@ -310,17 +379,17 @@ msgstr ""
 "當以 ``MODULE`` 庫類型調用時，:command:`add_library` 命令定義了一個模塊庫目"
 "標："
 
-#: ../../../manual/cmake-buildsystem.7.rst:179
+#: ../../../manual/cmake-buildsystem.7.rst:220
 msgid "add_library(archivePlugin MODULE 7z.cpp)"
 msgstr "add_library(archivePlugin MODULE 7z.cpp)"
 
-#: ../../../manual/cmake-buildsystem.7.rst:183
+#: ../../../manual/cmake-buildsystem.7.rst:224
 msgid ""
 "CMake generates build rules to compile the source files into object files "
 "and link them into a module library."
 msgstr "CMake生成構建規則來將源文件編譯成對象文件並將其鏈接成模塊庫。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:186
+#: ../../../manual/cmake-buildsystem.7.rst:227
 msgid ""
 "Link dependencies of module libraries may be specified using the :command:"
 "`target_link_libraries` command.  Linkers start with the object files "
@@ -330,11 +399,11 @@ msgstr ""
 "模塊庫的鏈接依賴可以使用:command:`target_link_libraries`命令指定。鏈接器從模"
 "塊庫自己的源文件編譯的對象文件開始，然後通過搜索鏈接庫解決剩餘的符號依賴。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:194
+#: ../../../manual/cmake-buildsystem.7.rst:235
 msgid "Object Libraries"
 msgstr "物件程式庫"
 
-#: ../../../manual/cmake-buildsystem.7.rst:196
+#: ../../../manual/cmake-buildsystem.7.rst:237
 msgid ""
 "Object libraries are collections of object files created by compiling source "
 "files without any archiving or linking.  The object files may be used when "
@@ -344,7 +413,7 @@ msgstr ""
 "對象庫是源文件編譯而成的對象文件集合，不做任何歸檔或鏈接。這些對象文件可用於"
 "鏈接 `可執行文件`_、 `共享庫`_ 和 `模塊庫`_，或在歸檔 `靜態庫`_ 時使用。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:201
+#: ../../../manual/cmake-buildsystem.7.rst:242
 msgid ""
 "The :command:`add_library` command defines an object library target when "
 "called with the ``OBJECT`` library type:"
@@ -352,16 +421,16 @@ msgstr ""
 "當以 ``OBJECT`` 庫類型調用時，:command:`add_library` 命令定義了一個對象庫目"
 "標："
 
-#: ../../../manual/cmake-buildsystem.7.rst:204
+#: ../../../manual/cmake-buildsystem.7.rst:245
 msgid "add_library(archiveObjs OBJECT archive.cpp zip.cpp lzma.cpp)"
 msgstr "add_library(archiveObjs OBJECT archive.cpp zip.cpp lzma.cpp)"
 
-#: ../../../manual/cmake-buildsystem.7.rst:208
+#: ../../../manual/cmake-buildsystem.7.rst:249
 msgid ""
 "CMake generates build rules to compile the source files into object files."
 msgstr "CMake生成構建規則以將源文件編譯為對象文件。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:210
+#: ../../../manual/cmake-buildsystem.7.rst:251
 msgid ""
 "Other targets may specify the object files as source inputs by using the :"
 "manual:`generator expression <cmake-generator-expressions(7)>` syntax :genex:"
@@ -371,7 +440,7 @@ msgstr ""
 "expressions(7)>` 語法 :genex:`$<TARGET_OBJECTS:name>` 將對象文件指定為源輸"
 "入："
 
-#: ../../../manual/cmake-buildsystem.7.rst:214
+#: ../../../manual/cmake-buildsystem.7.rst:255
 msgid ""
 "add_library(archiveExtras STATIC $<TARGET_OBJECTS:archiveObjs> extras.cpp)\n"
 "\n"
@@ -381,19 +450,19 @@ msgstr ""
 "\n"
 "add_executable(test_exe $<TARGET_OBJECTS:archiveObjs> test.cpp)"
 
-#: ../../../manual/cmake-buildsystem.7.rst:220
+#: ../../../manual/cmake-buildsystem.7.rst:261
 msgid ""
 "The consuming targets are linked (or archived) using object files both from "
 "their own sources and from the named object libraries."
 msgstr "消費目標使用來自其自身源和命名對象庫的對象文件進行鏈接（或存檔）。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:223
+#: ../../../manual/cmake-buildsystem.7.rst:264
 msgid ""
 "Alternatively, object libraries may be specified as link dependencies of "
 "other targets:"
 msgstr "可選地，可以將對象庫指定為其他目標的鏈接依賴："
 
-#: ../../../manual/cmake-buildsystem.7.rst:226
+#: ../../../manual/cmake-buildsystem.7.rst:267
 msgid ""
 "add_library(archiveExtras STATIC extras.cpp)\n"
 "target_link_libraries(archiveExtras PUBLIC archiveObjs)\n"
@@ -407,7 +476,7 @@ msgstr ""
 "add_executable(test_exe test.cpp)\n"
 "target_link_libraries(test_exe archiveObjs)"
 
-#: ../../../manual/cmake-buildsystem.7.rst:234
+#: ../../../manual/cmake-buildsystem.7.rst:275
 msgid ""
 "The consuming targets are linked (or archived) using object files both from "
 "their own sources and from object libraries specified as *direct* link "
@@ -417,7 +486,7 @@ msgstr ""
 "消费目标通过其自身源文件和由：command:`target_link_libraries`指定作为*直接*链"
 "接依赖的对象库中的对象文件进行链接（或存档）。 见:ref:`链接对象库`。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:239
+#: ../../../manual/cmake-buildsystem.7.rst:280
 msgid ""
 "Object libraries may not be used as the ``TARGET`` in a use of the :command:"
 "`add_custom_command(TARGET)` command signature.  However, the list of "
@@ -428,11 +497,11 @@ msgstr ""
 "用。但是，可以使用 ``$<TARGET_OBJECTS:objlib>`` 列表通過 :command:"
 "`add_custom_command(OUTPUT)` 或 :command:`file(GENERATE)` 使用對象列表。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:245
+#: ../../../manual/cmake-buildsystem.7.rst:286
 msgid "Build Specification and Usage Requirements"
 msgstr "建置規範與使用要求"
 
-#: ../../../manual/cmake-buildsystem.7.rst:247
+#: ../../../manual/cmake-buildsystem.7.rst:288
 msgid ""
 "Targets build according to their own `build specification <Target Build "
 "Specification_>`_ in combination with `usage requirements <Target Usage "
@@ -443,12 +512,14 @@ msgstr ""
 "的 `使用要求 <Target Usage Requirements_>`_ 結合而建。 兩者都可以使用目標特定"
 "的 `命令 <Target Commands_>`_ 指定。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:253
-#: ../../../manual/cmake-buildsystem.7.rst:883
+#: ../../../manual/cmake-buildsystem.7.rst:294
+#: ../../../manual/cmake-buildsystem.7.rst:924
+#: ../../../manual/cmake-buildsystem.7.rst:1864
+#: ../../../manual/cmake-buildsystem.7.rst:1930
 msgid "For example:"
 msgstr "例如："
 
-#: ../../../manual/cmake-buildsystem.7.rst:255
+#: ../../../manual/cmake-buildsystem.7.rst:296
 msgid ""
 "add_library(archive SHARED archive.cpp zip.cpp)\n"
 "\n"
@@ -486,11 +557,11 @@ msgstr ""
 "# so 'consumer.cpp' is compiled with '-DUSING_ARCHIVE_LIB'.\n"
 "target_link_libraries(consumer archive)"
 
-#: ../../../manual/cmake-buildsystem.7.rst:277
+#: ../../../manual/cmake-buildsystem.7.rst:318
 msgid "Target Commands"
 msgstr "目標命令"
 
-#: ../../../manual/cmake-buildsystem.7.rst:279
+#: ../../../manual/cmake-buildsystem.7.rst:320
 msgid ""
 "Target-specific commands populate the `build specification <Target Build "
 "Specification_>`_ of `Binary Targets`_ and `usage requirements <Target Usage "
@@ -501,17 +572,17 @@ msgstr ""
 "以及`二进制目标 <Binary Targets_>`_、`接口库 <接口库_>`_和`已引入目标 <已引入"
 "目标_>`_的`使用要求 <使用要求_>`_。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:286
+#: ../../../manual/cmake-buildsystem.7.rst:327
 msgid ""
 "Invocations must specify scope keywords, each affecting the visibility of "
 "arguments following it.  The scopes are:"
 msgstr "調用必須指定作用域關鍵字，每個關鍵字影響後續參數的可見性。 作用域為："
 
-#: ../../../manual/cmake-buildsystem.7.rst:289
+#: ../../../manual/cmake-buildsystem.7.rst:330
 msgid "``PUBLIC``"
 msgstr "``PUBLIC``"
 
-#: ../../../manual/cmake-buildsystem.7.rst:290
+#: ../../../manual/cmake-buildsystem.7.rst:331
 msgid ""
 "Populates both properties for `building <Target Build Specification_>`_ and "
 "properties for `using <Target Usage Requirements_>`_ a target."
@@ -519,34 +590,34 @@ msgstr ""
 "填充目標的 `構建規範 <Target Build Specification_>`_ 與 `使用要求 <Target "
 "Usage Requirements_>`_ 屬性。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:293
+#: ../../../manual/cmake-buildsystem.7.rst:334
 msgid "``PRIVATE``"
 msgstr "``PRIVATE``"
 
-#: ../../../manual/cmake-buildsystem.7.rst:294
+#: ../../../manual/cmake-buildsystem.7.rst:335
 msgid ""
 "Populates only properties for `building <Target Build Specification_>`_ a "
 "target."
 msgstr "僅填充\\ `建置 <Target Build Specification_>`_\\ 目標的屬性。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:297
+#: ../../../manual/cmake-buildsystem.7.rst:338
 msgid "``INTERFACE``"
 msgstr "``INTERFACE``"
 
-#: ../../../manual/cmake-buildsystem.7.rst:298
+#: ../../../manual/cmake-buildsystem.7.rst:339
 msgid ""
 "Populates only properties for `using <Target Usage Requirements_>`_ a target."
 msgstr "僅填充\\ `使用 <Target Usage Requirements_>`_\\ 目標的屬性。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:301
+#: ../../../manual/cmake-buildsystem.7.rst:342
 msgid "The commands are:"
 msgstr "命令有："
 
-#: ../../../manual/cmake-buildsystem.7.rst:303
+#: ../../../manual/cmake-buildsystem.7.rst:344
 msgid ":command:`target_compile_definitions`"
 msgstr ":command:`target_compile_definitions`"
 
-#: ../../../manual/cmake-buildsystem.7.rst:304
+#: ../../../manual/cmake-buildsystem.7.rst:345
 msgid ""
 "Populates the :prop_tgt:`COMPILE_DEFINITIONS` build specification and :"
 "prop_tgt:`INTERFACE_COMPILE_DEFINITIONS` usage requirement properties."
@@ -554,11 +625,11 @@ msgstr ""
 "填充 :prop_tgt:`COMPILE_DEFINITIONS` 构建规范和 :prop_tgt:"
 "`INTERFACE_COMPILE_DEFINITIONS` 使用需求属性。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:307
+#: ../../../manual/cmake-buildsystem.7.rst:348
 msgid "For example, the call"
 msgstr "例如，調用"
 
-#: ../../../manual/cmake-buildsystem.7.rst:309
+#: ../../../manual/cmake-buildsystem.7.rst:350
 msgid ""
 "target_compile_definitions(archive\n"
 "  PRIVATE   BUILDING_WITH_LZMA\n"
@@ -570,7 +641,7 @@ msgstr ""
 "  INTERFACE USING_ARCHIVE_LIB\n"
 ")"
 
-#: ../../../manual/cmake-buildsystem.7.rst:316
+#: ../../../manual/cmake-buildsystem.7.rst:357
 msgid ""
 "appends ``BUILDING_WITH_LZMA`` to the target's ``COMPILE_DEFINITIONS`` "
 "property and appends ``USING_ARCHIVE_LIB`` to the target's "
@@ -579,11 +650,11 @@ msgstr ""
 "將 ``BUILDING_WITH_LZMA`` 附加到目標的 ``COMPILE_DEFINITIONS`` 屬性上，並將 "
 "``USING_ARCHIVE_LIB`` 附加到目標的 ``INTERFACE_COMPILE_DEFINITIONS`` 屬性上。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:320
+#: ../../../manual/cmake-buildsystem.7.rst:361
 msgid ":command:`target_compile_options`"
 msgstr ":command:`target_compile_options`"
 
-#: ../../../manual/cmake-buildsystem.7.rst:321
+#: ../../../manual/cmake-buildsystem.7.rst:362
 msgid ""
 "Populates the :prop_tgt:`COMPILE_OPTIONS` build specification and :prop_tgt:"
 "`INTERFACE_COMPILE_OPTIONS` usage requirement properties."
@@ -591,11 +662,11 @@ msgstr ""
 "填充 :prop_tgt:`COMPILE_OPTIONS` 構建規範和 :prop_tgt:"
 "`INTERFACE_COMPILE_OPTIONS` 使用需求屬性。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:324
+#: ../../../manual/cmake-buildsystem.7.rst:365
 msgid ":command:`target_compile_features`"
 msgstr ":command:`target_compile_features`"
 
-#: ../../../manual/cmake-buildsystem.7.rst:327
+#: ../../../manual/cmake-buildsystem.7.rst:368
 msgid ""
 "Populates the :prop_tgt:`COMPILE_FEATURES` build specification and :prop_tgt:"
 "`INTERFACE_COMPILE_FEATURES` usage requirement properties."
@@ -603,11 +674,11 @@ msgstr ""
 "填充 :prop_tgt:`COMPILE_FEATURES` 构建规范和 :prop_tgt:"
 "`INTERFACE_COMPILE_FEATURES` 使用需求属性。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:330
+#: ../../../manual/cmake-buildsystem.7.rst:371
 msgid ":command:`target_include_directories`"
 msgstr ":command:`target_include_directories`"
 
-#: ../../../manual/cmake-buildsystem.7.rst:331
+#: ../../../manual/cmake-buildsystem.7.rst:372
 msgid ""
 "Populates the :prop_tgt:`INCLUDE_DIRECTORIES` build specification and :"
 "prop_tgt:`INTERFACE_INCLUDE_DIRECTORIES` usage requirement properties.  With "
@@ -618,7 +689,7 @@ msgstr ""
 "`INTERFACE_INCLUDE_DIRECTORIES` 使用需求屬性。使用 ``SYSTEM`` 選項，它還填"
 "充 :prop_tgt:`INTERFACE_SYSTEM_INCLUDE_DIRECTORIES` 使用需求。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:336
+#: ../../../manual/cmake-buildsystem.7.rst:377
 msgid ""
 "For convenience, the :variable:`CMAKE_INCLUDE_CURRENT_DIR` variable may be "
 "enabled to add the source directory and corresponding build directory as "
@@ -631,11 +702,11 @@ msgstr ""
 "`CMAKE_INCLUDE_CURRENT_DIR_IN_INTERFACE` 變量可以啟用以將它們作為所有目標上"
 "的 ``INTERFACE_INCLUDE_DIRECTORIES``。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:343
+#: ../../../manual/cmake-buildsystem.7.rst:384
 msgid ":command:`target_sources`"
 msgstr ":command:`target_sources`"
 
-#: ../../../manual/cmake-buildsystem.7.rst:346
+#: ../../../manual/cmake-buildsystem.7.rst:387
 msgid ""
 "Populates the :prop_tgt:`SOURCES` build specification and :prop_tgt:"
 "`INTERFACE_SOURCES` usage requirement properties."
@@ -643,7 +714,7 @@ msgstr ""
 "填充 :prop_tgt:`SOURCES` 構建規範和 :prop_tgt:`INTERFACE_SOURCES` 使用需求屬"
 "性。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:349
+#: ../../../manual/cmake-buildsystem.7.rst:390
 msgid ""
 "It also supports specifying :ref:`File Sets`, which can add C++ module "
 "sources and headers not listed in the ``SOURCES`` and ``INTERFACE_SOURCES`` "
@@ -656,11 +727,11 @@ msgstr ""
 "的目錄來填充 :prop_tgt:`INCLUDE_DIRECTORIES` 構建規範和 :prop_tgt:"
 "`INTERFACE_INCLUDE_DIRECTORIES` 使用需求屬性。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:355
+#: ../../../manual/cmake-buildsystem.7.rst:396
 msgid ":command:`target_precompile_headers`"
 msgstr ":command:`target_precompile_headers`"
 
-#: ../../../manual/cmake-buildsystem.7.rst:358
+#: ../../../manual/cmake-buildsystem.7.rst:399
 msgid ""
 "Populates the :prop_tgt:`PRECOMPILE_HEADERS` build specification and :"
 "prop_tgt:`INTERFACE_PRECOMPILE_HEADERS` usage requirement properties."
@@ -668,11 +739,11 @@ msgstr ""
 "填充 :prop_tgt:`PRECOMPILE_HEADERS` 構建規範和 :prop_tgt:"
 "`INTERFACE_PRECOMPILE_HEADERS` 使用需求屬性。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:361
+#: ../../../manual/cmake-buildsystem.7.rst:402
 msgid ":command:`target_link_libraries`"
 msgstr ":command:`target_link_libraries`"
 
-#: ../../../manual/cmake-buildsystem.7.rst:362
+#: ../../../manual/cmake-buildsystem.7.rst:403
 msgid ""
 "Populates the :prop_tgt:`LINK_LIBRARIES` build specification and :prop_tgt:"
 "`INTERFACE_LINK_LIBRARIES` usage requirement properties."
@@ -680,7 +751,7 @@ msgstr ""
 "填充 :prop_tgt:`LINK_LIBRARIES` 構建規範和 :prop_tgt:"
 "`INTERFACE_LINK_LIBRARIES` 使用需求屬性。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:365
+#: ../../../manual/cmake-buildsystem.7.rst:406
 msgid ""
 "This is the primary mechanism by which link dependencies and their `usage "
 "requirements <Target Usage Requirements_>`_ are transitively propagated to "
@@ -689,11 +760,11 @@ msgstr ""
 "這是鏈接依賴及其 `使用需求 <Target Usage Requirements_>`_ 傳遞傳播以影響目標"
 "的編譯和鏈接的主要機制。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:369
+#: ../../../manual/cmake-buildsystem.7.rst:410
 msgid ":command:`target_link_directories`"
 msgstr ":command:`target_link_directories`"
 
-#: ../../../manual/cmake-buildsystem.7.rst:372
+#: ../../../manual/cmake-buildsystem.7.rst:413
 msgid ""
 "Populates the :prop_tgt:`LINK_DIRECTORIES` build specification and :prop_tgt:"
 "`INTERFACE_LINK_DIRECTORIES` usage requirement properties."
@@ -701,11 +772,11 @@ msgstr ""
 "填充 :prop_tgt:`LINK_DIRECTORIES` 構建規範和 :prop_tgt:"
 "`INTERFACE_LINK_DIRECTORIES` 使用需求屬性。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:375
+#: ../../../manual/cmake-buildsystem.7.rst:416
 msgid ":command:`target_link_options`"
 msgstr ":command:`target_link_options`"
 
-#: ../../../manual/cmake-buildsystem.7.rst:378
+#: ../../../manual/cmake-buildsystem.7.rst:419
 msgid ""
 "Populates the :prop_tgt:`LINK_OPTIONS` build specification and :prop_tgt:"
 "`INTERFACE_LINK_OPTIONS` usage requirement properties."
@@ -713,66 +784,66 @@ msgstr ""
 "填充 :prop_tgt:`LINK_OPTIONS` 構建規範和 :prop_tgt:`INTERFACE_LINK_OPTIONS` "
 "使用需求屬性。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:384
+#: ../../../manual/cmake-buildsystem.7.rst:425
 msgid "File Sets"
 msgstr ""
 
-#: ../../../manual/cmake-buildsystem.7.rst:388
+#: ../../../manual/cmake-buildsystem.7.rst:429
 msgid ""
 "File sets associate files with a target as structured groups. A target has "
 "zero or more named file sets. Each file set has:"
 msgstr ""
 
-#: ../../../manual/cmake-buildsystem.7.rst:391
+#: ../../../manual/cmake-buildsystem.7.rst:432
 msgid "a name"
 msgstr ""
 
-#: ../../../manual/cmake-buildsystem.7.rst:392
+#: ../../../manual/cmake-buildsystem.7.rst:433
 msgid "a type"
 msgstr ""
 
-#: ../../../manual/cmake-buildsystem.7.rst:393
+#: ../../../manual/cmake-buildsystem.7.rst:434
 msgid "a scope of ``INTERFACE``, ``PUBLIC``, or ``PRIVATE``"
 msgstr ""
 
-#: ../../../manual/cmake-buildsystem.7.rst:394
+#: ../../../manual/cmake-buildsystem.7.rst:435
 msgid "one or more base directories"
 msgstr ""
 
-#: ../../../manual/cmake-buildsystem.7.rst:395
+#: ../../../manual/cmake-buildsystem.7.rst:436
 msgid "files within those directories"
 msgstr ""
 
-#: ../../../manual/cmake-buildsystem.7.rst:397
+#: ../../../manual/cmake-buildsystem.7.rst:438
 msgid ""
 "File sets are added to targets with :command:`target_sources` using the "
 "``FILE_SET`` signature. See :command:`target_sources` for argument syntax "
 "and validation details."
 msgstr ""
 
-#: ../../../manual/cmake-buildsystem.7.rst:401
+#: ../../../manual/cmake-buildsystem.7.rst:442
 msgid ""
 "A file may belong to at most one non-``HEADERS`` file set in a target. See "
 "policy :policy:`CMP0211`."
 msgstr ""
 
-#: ../../../manual/cmake-buildsystem.7.rst:405
+#: ../../../manual/cmake-buildsystem.7.rst:446
 msgid "Acceptable file set types are:"
 msgstr ""
 
-#: ../../../manual/cmake-buildsystem.7.rst:407
+#: ../../../manual/cmake-buildsystem.7.rst:448
 msgid "``HEADERS``"
 msgstr ""
 
-#: ../../../manual/cmake-buildsystem.7.rst:409
+#: ../../../manual/cmake-buildsystem.7.rst:450
 msgid "Sources intended to be used via a language's ``#include`` mechanism."
 msgstr ""
 
-#: ../../../manual/cmake-buildsystem.7.rst:411
+#: ../../../manual/cmake-buildsystem.7.rst:452
 msgid "``SOURCES``"
 msgstr "``SOURCES``"
 
-#: ../../../manual/cmake-buildsystem.7.rst:414
+#: ../../../manual/cmake-buildsystem.7.rst:455
 msgid ""
 "Specifies sources to use when building a target and/or its dependents. With "
 "the scope ``PRIVATE`` and ``PUBLIC``, items populate the :prop_fs:`SOURCES` "
@@ -783,11 +854,11 @@ msgid ""
 "transitively to dependents."
 msgstr ""
 
-#: ../../../manual/cmake-buildsystem.7.rst:422
+#: ../../../manual/cmake-buildsystem.7.rst:463
 msgid "``SYCL``"
 msgstr ""
 
-#: ../../../manual/cmake-buildsystem.7.rst:425
+#: ../../../manual/cmake-buildsystem.7.rst:466
 msgid ""
 "An alias for ``SOURCES`` that initializes the file set's :prop_fs:`LANGUAGE` "
 "property to ``SYCL``.  Files in the set are compiled as SYCL sources even "
@@ -795,22 +866,22 @@ msgid ""
 "source file's :prop_sf:`LANGUAGE` property is not changed."
 msgstr ""
 
-#: ../../../manual/cmake-buildsystem.7.rst:431
+#: ../../../manual/cmake-buildsystem.7.rst:472
 msgid ""
 "The file set is recorded as type ``SOURCES`` and otherwise has the same "
 "behavior and target properties as that type."
 msgstr ""
 
-#: ../../../manual/cmake-buildsystem.7.rst:434
-#: ../../../manual/cmake-buildsystem.7.rst:449
+#: ../../../manual/cmake-buildsystem.7.rst:475
+#: ../../../manual/cmake-buildsystem.7.rst:490
 msgid "This alias is experimental and gated by ``CMAKE_EXPERIMENTAL_SYCL``."
 msgstr ""
 
-#: ../../../manual/cmake-buildsystem.7.rst:436
+#: ../../../manual/cmake-buildsystem.7.rst:477
 msgid "``SYCL_HEADERS``"
 msgstr ""
 
-#: ../../../manual/cmake-buildsystem.7.rst:439
+#: ../../../manual/cmake-buildsystem.7.rst:480
 msgid ""
 "An alias for ``HEADERS`` that initializes the file set's :prop_fs:`LANGUAGE` "
 "property to ``SYCL``.  A target compiles all of its C++ sources as SYCL when "
@@ -819,196 +890,196 @@ msgid ""
 "linked target interfaces."
 msgstr ""
 
-#: ../../../manual/cmake-buildsystem.7.rst:445
+#: ../../../manual/cmake-buildsystem.7.rst:486
 msgid ""
 "The file set is recorded as type ``HEADERS`` and otherwise has the same "
 "behavior and target properties as that type.  The header files themselves "
 "are not compiled."
 msgstr ""
 
-#: ../../../manual/cmake-buildsystem.7.rst:451
+#: ../../../manual/cmake-buildsystem.7.rst:492
 msgid "``CXX_MODULES``"
 msgstr ""
 
-#: ../../../manual/cmake-buildsystem.7.rst:454
+#: ../../../manual/cmake-buildsystem.7.rst:495
 msgid ""
 "Sources which contain C++ interface module or partition units (i.e., those "
 "using the ``export`` keyword). This file set type may not have an "
 "``INTERFACE`` scope except on ``IMPORTED`` targets."
 msgstr ""
 
-#: ../../../manual/cmake-buildsystem.7.rst:458
+#: ../../../manual/cmake-buildsystem.7.rst:499
 msgid "``<rule>``"
 msgstr ""
 
-#: ../../../manual/cmake-buildsystem.7.rst:461
+#: ../../../manual/cmake-buildsystem.7.rst:502
 msgid ""
 "Specifies sources which will be processed by the custom rule defined by the :"
 "command:`add_custom_rule` command."
 msgstr ""
 
-#: ../../../manual/cmake-buildsystem.7.rst:464
+#: ../../../manual/cmake-buildsystem.7.rst:505
 msgid ""
 "For ``HEADERS``, ``SOURCES``, and ``CXX_MODULES`` types, the optional "
 "default file sets are named after their type."
 msgstr ""
 
-#: ../../../manual/cmake-buildsystem.7.rst:467
+#: ../../../manual/cmake-buildsystem.7.rst:508
 msgid "For ``<rule>`` types, the target may be a custom target."
 msgstr ""
 
-#: ../../../manual/cmake-buildsystem.7.rst:469
+#: ../../../manual/cmake-buildsystem.7.rst:510
 msgid ""
 "For ``HEADERS`` and ``CXX_MODULES`` types, the target may not be a :prop_tgt:"
 "`FRAMEWORK` target."
 msgstr ""
 
-#: ../../../manual/cmake-buildsystem.7.rst:472
+#: ../../../manual/cmake-buildsystem.7.rst:513
 msgid ""
 "Files in a ``PRIVATE`` or ``PUBLIC`` file set are marked as source files for "
 "IDE integration. Additionally, files in ``HEADERS`` file sets have their :"
 "prop_sf:`HEADER_FILE_ONLY` property set to ``TRUE``."
 msgstr ""
 
-#: ../../../manual/cmake-buildsystem.7.rst:476
+#: ../../../manual/cmake-buildsystem.7.rst:517
 msgid ""
 "Files in an ``INTERFACE`` or ``PUBLIC`` file set can be installed by :"
 "command:`install(TARGETS)` and exported by :command:`install(EXPORT)` and :"
 "command:`export`."
 msgstr ""
 
-#: ../../../manual/cmake-buildsystem.7.rst:480
+#: ../../../manual/cmake-buildsystem.7.rst:521
 msgid ""
 "The following target properties are set by file sets and should not "
 "generally be manipulated directly:"
 msgstr ""
 
-#: ../../../manual/cmake-buildsystem.7.rst:483
+#: ../../../manual/cmake-buildsystem.7.rst:524
 msgid "For file sets of type ``HEADERS``:"
 msgstr ""
 
-#: ../../../manual/cmake-buildsystem.7.rst:485
+#: ../../../manual/cmake-buildsystem.7.rst:526
 msgid ":prop_tgt:`HEADER_SETS`"
 msgstr ":prop_tgt:`HEADER_SETS`"
 
-#: ../../../manual/cmake-buildsystem.7.rst:486
+#: ../../../manual/cmake-buildsystem.7.rst:527
 msgid ":prop_tgt:`INTERFACE_HEADER_SETS`"
 msgstr ":prop_tgt:`INTERFACE_HEADER_SETS`"
 
-#: ../../../manual/cmake-buildsystem.7.rst:487
+#: ../../../manual/cmake-buildsystem.7.rst:528
 msgid ":prop_tgt:`HEADER_SET`"
 msgstr ":prop_tgt:`HEADER_SET`"
 
-#: ../../../manual/cmake-buildsystem.7.rst:488
+#: ../../../manual/cmake-buildsystem.7.rst:529
 msgid ":prop_tgt:`HEADER_SET_<NAME>`"
 msgstr ":prop_tgt:`HEADER_SET_<NAME>`"
 
-#: ../../../manual/cmake-buildsystem.7.rst:489
+#: ../../../manual/cmake-buildsystem.7.rst:530
 msgid ":prop_tgt:`HEADER_DIRS`"
 msgstr ":prop_tgt:`HEADER_DIRS`"
 
-#: ../../../manual/cmake-buildsystem.7.rst:490
+#: ../../../manual/cmake-buildsystem.7.rst:531
 msgid ":prop_tgt:`HEADER_DIRS_<NAME>`"
 msgstr ":prop_tgt:`HEADER_DIRS_<NAME>`"
 
-#: ../../../manual/cmake-buildsystem.7.rst:492
+#: ../../../manual/cmake-buildsystem.7.rst:533
 msgid "For file sets of type ``SOURCES``:"
 msgstr ""
 
-#: ../../../manual/cmake-buildsystem.7.rst:494
+#: ../../../manual/cmake-buildsystem.7.rst:535
 msgid ":prop_tgt:`SOURCE_SETS`"
 msgstr ""
 
-#: ../../../manual/cmake-buildsystem.7.rst:495
+#: ../../../manual/cmake-buildsystem.7.rst:536
 msgid ":prop_tgt:`INTERFACE_SOURCE_SETS`"
 msgstr ""
 
-#: ../../../manual/cmake-buildsystem.7.rst:496
+#: ../../../manual/cmake-buildsystem.7.rst:537
 msgid ":prop_tgt:`SOURCE_SET`"
 msgstr ""
 
-#: ../../../manual/cmake-buildsystem.7.rst:497
+#: ../../../manual/cmake-buildsystem.7.rst:538
 msgid ":prop_tgt:`SOURCE_SET_<NAME>`"
 msgstr ""
 
-#: ../../../manual/cmake-buildsystem.7.rst:498
+#: ../../../manual/cmake-buildsystem.7.rst:539
 msgid ":prop_tgt:`SOURCE_DIRS`"
 msgstr ""
 
-#: ../../../manual/cmake-buildsystem.7.rst:499
+#: ../../../manual/cmake-buildsystem.7.rst:540
 msgid ":prop_tgt:`SOURCE_DIRS_<NAME>`"
 msgstr ""
 
-#: ../../../manual/cmake-buildsystem.7.rst:501
+#: ../../../manual/cmake-buildsystem.7.rst:542
 msgid "For file sets of type ``CXX_MODULES``:"
 msgstr ""
 
-#: ../../../manual/cmake-buildsystem.7.rst:503
+#: ../../../manual/cmake-buildsystem.7.rst:544
 msgid ":prop_tgt:`CXX_MODULE_SETS`"
 msgstr ":prop_tgt:`CXX_MODULE_SETS`"
 
-#: ../../../manual/cmake-buildsystem.7.rst:504
+#: ../../../manual/cmake-buildsystem.7.rst:545
 msgid ":prop_tgt:`INTERFACE_CXX_MODULE_SETS`"
 msgstr ":prop_tgt:`INTERFACE_CXX_MODULE_SETS`"
 
-#: ../../../manual/cmake-buildsystem.7.rst:505
+#: ../../../manual/cmake-buildsystem.7.rst:546
 msgid ":prop_tgt:`CXX_MODULE_SET`"
 msgstr ":prop_tgt:`CXX_MODULE_SET`"
 
-#: ../../../manual/cmake-buildsystem.7.rst:506
+#: ../../../manual/cmake-buildsystem.7.rst:547
 msgid ":prop_tgt:`CXX_MODULE_SET_<NAME>`"
 msgstr ":prop_tgt:`CXX_MODULE_SET_<NAME>`"
 
-#: ../../../manual/cmake-buildsystem.7.rst:507
+#: ../../../manual/cmake-buildsystem.7.rst:548
 msgid ":prop_tgt:`CXX_MODULE_DIRS`"
 msgstr ":prop_tgt:`CXX_MODULE_DIRS`"
 
-#: ../../../manual/cmake-buildsystem.7.rst:508
+#: ../../../manual/cmake-buildsystem.7.rst:549
 msgid ":prop_tgt:`CXX_MODULE_DIRS_<NAME>`"
 msgstr ":prop_tgt:`CXX_MODULE_DIRS_<NAME>`"
 
-#: ../../../manual/cmake-buildsystem.7.rst:510
+#: ../../../manual/cmake-buildsystem.7.rst:551
 msgid ""
 "Target properties related to include directories are also modified by file "
 "sets as follows:"
 msgstr ""
 
-#: ../../../manual/cmake-buildsystem.7.rst:513
-#: ../../../manual/cmake-buildsystem.7.rst:580
+#: ../../../manual/cmake-buildsystem.7.rst:554
+#: ../../../manual/cmake-buildsystem.7.rst:621
 msgid ":prop_tgt:`INCLUDE_DIRECTORIES`"
 msgstr ":prop_tgt:`INCLUDE_DIRECTORIES`"
 
-#: ../../../manual/cmake-buildsystem.7.rst:515
+#: ../../../manual/cmake-buildsystem.7.rst:556
 msgid ""
 "If the type is ``HEADERS``, and the scope of the file set is ``PRIVATE`` or "
 "``PUBLIC``, all ``BASE_DIRS`` of the file set are wrapped in :genex:"
 "`$<BUILD_INTERFACE>` and appended to this property."
 msgstr ""
 
-#: ../../../manual/cmake-buildsystem.7.rst:519
-#: ../../../manual/cmake-buildsystem.7.rst:786
+#: ../../../manual/cmake-buildsystem.7.rst:560
+#: ../../../manual/cmake-buildsystem.7.rst:827
 msgid ":prop_tgt:`INTERFACE_INCLUDE_DIRECTORIES`"
 msgstr ":prop_tgt:`INTERFACE_INCLUDE_DIRECTORIES`"
 
-#: ../../../manual/cmake-buildsystem.7.rst:521
+#: ../../../manual/cmake-buildsystem.7.rst:562
 msgid ""
 "If the type is ``HEADERS``, and the scope of the file set is ``INTERFACE`` "
 "or ``PUBLIC``, all ``BASE_DIRS`` of the file set are wrapped in :genex:"
 "`$<BUILD_INTERFACE>` and appended to this property."
 msgstr ""
 
-#: ../../../manual/cmake-buildsystem.7.rst:525
+#: ../../../manual/cmake-buildsystem.7.rst:566
 msgid ""
 "File sets do not populate the :prop_tgt:`SOURCES` or :prop_tgt:"
 "`INTERFACE_SOURCES` target properties. They are represented by their own "
 "file set and type-specific properties."
 msgstr ""
 
-#: ../../../manual/cmake-buildsystem.7.rst:532
+#: ../../../manual/cmake-buildsystem.7.rst:573
 msgid "Target Build Specification"
 msgstr "目標建置規範"
 
-#: ../../../manual/cmake-buildsystem.7.rst:534
+#: ../../../manual/cmake-buildsystem.7.rst:575
 msgid ""
 "The build specification of `Binary Targets`_ is represented by target "
 "properties.  For each of the following `compile <Target Compile "
@@ -1023,21 +1094,21 @@ msgstr ""
 "链接依赖的传递闭包收集到的以``INTERFACE_``为前缀的`使用需要 <项目使用需要_>`_"
 "属性的影响。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:545
+#: ../../../manual/cmake-buildsystem.7.rst:586
 msgid "Target Compile Properties"
 msgstr "目標編譯屬性"
 
-#: ../../../manual/cmake-buildsystem.7.rst:547
+#: ../../../manual/cmake-buildsystem.7.rst:588
 msgid ""
 "These represent the `build specification <Target Build Specification_>`_ for "
 "compiling a target."
 msgstr "這些表示用於編譯目標的 `構建規範 <Target Build Specification_>`_。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:550
+#: ../../../manual/cmake-buildsystem.7.rst:591
 msgid ":prop_tgt:`COMPILE_DEFINITIONS`"
 msgstr ":prop_tgt:`COMPILE_DEFINITIONS`"
 
-#: ../../../manual/cmake-buildsystem.7.rst:551
+#: ../../../manual/cmake-buildsystem.7.rst:592
 msgid ""
 "List of compile definitions for compiling sources in the target. These are "
 "passed to the compiler with ``-D`` flags, or equivalent, in an unspecified "
@@ -1046,7 +1117,7 @@ msgstr ""
 "用於編譯目標中的源的編譯定義列表。這些會以``-D``標志或同等方式傳遞給編譯器，"
 "順序不定。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:555
+#: ../../../manual/cmake-buildsystem.7.rst:596
 msgid ""
 "When compiling sources of a ``SHARED`` library, a ``MODULE`` library, or an "
 "``EXECUTABLE`` with :prop_tgt:`ENABLE_EXPORTS` enabled, CMake automatically "
@@ -1062,11 +1133,11 @@ msgstr ""
 "這允許頭文件檢測它們是否從內部實施來源包含，並正確設置導出/導入註釋或符號的可"
 "見性。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:564
+#: ../../../manual/cmake-buildsystem.7.rst:605
 msgid ":prop_tgt:`COMPILE_OPTIONS`"
 msgstr ":prop_tgt:`COMPILE_OPTIONS`"
 
-#: ../../../manual/cmake-buildsystem.7.rst:565
+#: ../../../manual/cmake-buildsystem.7.rst:606
 msgid ""
 "List of compile options for compiling sources in the target. These are "
 "passed to the compiler as flags, in the order of appearance."
@@ -1074,11 +1145,11 @@ msgstr ""
 "用於編譯目標中的源的編譯選項列表。這些以標志形式傳遞給編譯器，按出現順序排"
 "列。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:568
+#: ../../../manual/cmake-buildsystem.7.rst:609
 msgid "Compile options are automatically escaped for the shell."
 msgstr "編譯選項會自動對shell轉義。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:570
+#: ../../../manual/cmake-buildsystem.7.rst:611
 msgid ""
 "Some compile options are best specified via dedicated settings, such as the :"
 "prop_tgt:`POSITION_INDEPENDENT_CODE` target property."
@@ -1086,11 +1157,11 @@ msgstr ""
 "某些編譯選項最好通過專用設置來指定，例如 :prop_tgt:"
 "`POSITION_INDEPENDENT_CODE` 目標屬性。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:573
+#: ../../../manual/cmake-buildsystem.7.rst:614
 msgid ":prop_tgt:`COMPILE_FEATURES`"
 msgstr ":prop_tgt:`COMPILE_FEATURES`"
 
-#: ../../../manual/cmake-buildsystem.7.rst:576
+#: ../../../manual/cmake-buildsystem.7.rst:617
 msgid ""
 "List of :manual:`compile features <cmake-compile-features(7)>` needed for "
 "compiling sources in the target.  Typically these ensure the target's "
@@ -1099,7 +1170,7 @@ msgstr ""
 "用於編譯目標源所需的 :manual:`編譯功能 <cmake-compiler-features(7)>` 列表。通"
 "常，這些確保目標的源以足夠的語言標準級別編譯。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:581
+#: ../../../manual/cmake-buildsystem.7.rst:622
 msgid ""
 "List of include directories for compiling sources in the target. These are "
 "passed to the compiler with ``-I`` or ``-isystem`` flags, or equivalent, in "
@@ -1108,7 +1179,7 @@ msgstr ""
 "用於編譯目標源的包含目錄列表。這些由``-I``或``-isystem``旗標或同等旗標，按出"
 "現順序傳遞給編譯器。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:585
+#: ../../../manual/cmake-buildsystem.7.rst:626
 msgid ""
 "For convenience, the :variable:`CMAKE_INCLUDE_CURRENT_DIR` variable may be "
 "enabled to add the source directory and corresponding build directory as "
@@ -1117,11 +1188,11 @@ msgstr ""
 "為方便起見，可以啟用 :variable:`CMAKE_INCLUDE_CURRENT_DIR` 變量以將源目錄和相"
 "應的構建目錄添加為所有目標上的 ``INCLUDE_DIRECTORIES``。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:589
+#: ../../../manual/cmake-buildsystem.7.rst:630
 msgid ":prop_tgt:`SOURCES`"
 msgstr ":prop_tgt:`SOURCES`"
 
-#: ../../../manual/cmake-buildsystem.7.rst:590
+#: ../../../manual/cmake-buildsystem.7.rst:631
 msgid ""
 "List of source files associated with the target.  This includes sources "
 "specified when the target was created by the :command:`add_executable`, :"
@@ -1133,31 +1204,31 @@ msgstr ""
 "command:`add_library`或：command:`add_custom_target`指定的源，也包括由："
 "command:`target_sources`命令添加的源，但不包括：ref:`文件集`。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:596
+#: ../../../manual/cmake-buildsystem.7.rst:637
 msgid ":prop_tgt:`PRECOMPILE_HEADERS`"
 msgstr ":prop_tgt:`PRECOMPILE_HEADERS`"
 
-#: ../../../manual/cmake-buildsystem.7.rst:599
+#: ../../../manual/cmake-buildsystem.7.rst:640
 msgid ""
 "List of header files to precompile and include when compiling sources in the "
 "target."
 msgstr "預編譯並包含在目標中編譯源文件時的頭文件列表。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:602
+#: ../../../manual/cmake-buildsystem.7.rst:643
 msgid ":prop_tgt:`COMPILE_WRAPPERS`"
 msgstr ""
 
-#: ../../../manual/cmake-buildsystem.7.rst:605
+#: ../../../manual/cmake-buildsystem.7.rst:646
 msgid ""
 "List of wrapper names to be prepended to the compile commands for a target's "
 "sources. See also :prop_gbl:`CMAKE_COMPILE_WRAPPER_<NAME>`."
 msgstr ""
 
-#: ../../../manual/cmake-buildsystem.7.rst:608
+#: ../../../manual/cmake-buildsystem.7.rst:649
 msgid ":prop_tgt:`AUTOMOC_MACRO_NAMES`"
 msgstr ":prop_tgt:`AUTOMOC_MACRO_NAMES`"
 
-#: ../../../manual/cmake-buildsystem.7.rst:611
+#: ../../../manual/cmake-buildsystem.7.rst:652
 msgid ""
 "List of macro names used by :prop_tgt:`AUTOMOC` to determine if a C++ source "
 "in the target needs to be processed by ``moc``."
@@ -1165,31 +1236,31 @@ msgstr ""
 "由:prop_tgt:`AUTOMOC`使用的宏名稱列表，以確定目標中的C++源是否需要經過``moc``"
 "處理。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:614
+#: ../../../manual/cmake-buildsystem.7.rst:655
 msgid ":prop_tgt:`AUTOUIC_OPTIONS`"
 msgstr ":prop_tgt:`AUTOUIC_OPTIONS`"
 
-#: ../../../manual/cmake-buildsystem.7.rst:617
+#: ../../../manual/cmake-buildsystem.7.rst:658
 msgid ""
 "List of options used by :prop_tgt:`AUTOUIC` when invoking ``uic`` for the "
 "target."
 msgstr "在調用``uic``時，:prop_tgt:`AUTOUIC`使用的選項列表。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:623
+#: ../../../manual/cmake-buildsystem.7.rst:664
 msgid "Target Link Properties"
 msgstr "目標連結屬性"
 
-#: ../../../manual/cmake-buildsystem.7.rst:625
+#: ../../../manual/cmake-buildsystem.7.rst:666
 msgid ""
 "These represent the `build specification <Target Build Specification_>`_ for "
 "linking a target."
 msgstr "这些代表了连接目标的`构建规范 <目标构建规范_>`_。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:628
+#: ../../../manual/cmake-buildsystem.7.rst:669
 msgid ":prop_tgt:`LINK_LIBRARIES`"
 msgstr ":prop_tgt:`LINK_LIBRARIES`"
 
-#: ../../../manual/cmake-buildsystem.7.rst:629
+#: ../../../manual/cmake-buildsystem.7.rst:670
 msgid ""
 "List of link libraries for linking the target, if it is an executable, "
 "shared library, or module library.  Entries for `Static Libraries`_ and "
@@ -1201,7 +1272,7 @@ msgstr ""
 "`_的條目將通過指向其鏈接工件的路徑或``-l``旗標或等效旗標傳遞給鏈接器。而`對象"
 "庫`_的條目則是通過對象文件的路徑傳遞給鏈接器。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:636
+#: ../../../manual/cmake-buildsystem.7.rst:677
 msgid ""
 "Additionally, for compiling and linking the target itself, `usage "
 "requirements <Target Usage Requirements_>`_ are propagated from "
@@ -1215,11 +1286,11 @@ msgstr ""
 "入目标`_的传递闭包进行传播，并集合在其`:prop_tgt:`INTERFACE_LINK_LIBRARIES`属"
 "性中。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:643
+#: ../../../manual/cmake-buildsystem.7.rst:684
 msgid ":prop_tgt:`LINK_DIRECTORIES`"
 msgstr ":prop_tgt:`LINK_DIRECTORIES`"
 
-#: ../../../manual/cmake-buildsystem.7.rst:646
+#: ../../../manual/cmake-buildsystem.7.rst:687
 msgid ""
 "List of link directories for linking the target, if it is an executable, "
 "shared library, or module library.  The directories are passed to the linker "
@@ -1228,11 +1299,11 @@ msgstr ""
 "鏈接目標的鏈接目錄列表，如果它是可執行文件，共享庫或模塊庫。 目錄通過``-L``標"
 "誌或等效旗標傳遞給鏈接程序。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:650
+#: ../../../manual/cmake-buildsystem.7.rst:691
 msgid ":prop_tgt:`LINK_OPTIONS`"
 msgstr ":prop_tgt:`LINK_OPTIONS`"
 
-#: ../../../manual/cmake-buildsystem.7.rst:653
+#: ../../../manual/cmake-buildsystem.7.rst:694
 msgid ""
 "List of link options for linking the target, if it is an executable, shared "
 "library, or module library.  The options are passed to the linker as flags, "
@@ -1241,15 +1312,15 @@ msgstr ""
 "鏈接目標的鏈接選項列表，如果它是可執行文件，共享庫或模塊庫。 這些選項按出現順"
 "序作為旗標傳遞給鏈接程序。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:657
+#: ../../../manual/cmake-buildsystem.7.rst:698
 msgid "Link options are automatically escaped for the shell."
 msgstr "鏈接選項被自動轉義以適應shell。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:659
+#: ../../../manual/cmake-buildsystem.7.rst:700
 msgid ":prop_tgt:`LINK_DEPENDS`"
 msgstr ":prop_tgt:`LINK_DEPENDS`"
 
-#: ../../../manual/cmake-buildsystem.7.rst:660
+#: ../../../manual/cmake-buildsystem.7.rst:701
 msgid ""
 "List of files on which linking the target depends, if it is an executable, "
 "shared library, or module library.  For example, linker scripts specified "
@@ -1260,22 +1331,22 @@ msgstr ""
 "prop_tgt:`LINK_OPTIONS`指定的链接脚本可能会在此列出，这样在更改它们时会导致二"
 "进制文件重新链接。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:665
+#: ../../../manual/cmake-buildsystem.7.rst:706
 msgid ":prop_tgt:`LINK_WRAPPERS`"
 msgstr ""
 
-#: ../../../manual/cmake-buildsystem.7.rst:668
+#: ../../../manual/cmake-buildsystem.7.rst:709
 msgid ""
 "List of wrapper names to be prepended to the link command for a target's "
 "output artifact, if it is an executable, shared library, or module library. "
 "See also :prop_gbl:`CMAKE_LINK_WRAPPER_<NAME>`."
 msgstr ""
 
-#: ../../../manual/cmake-buildsystem.7.rst:675
+#: ../../../manual/cmake-buildsystem.7.rst:716
 msgid "Target Usage Requirements"
 msgstr "目標使用要求"
 
-#: ../../../manual/cmake-buildsystem.7.rst:677
+#: ../../../manual/cmake-buildsystem.7.rst:718
 msgid ""
 "The *usage requirements* of a target are settings that propagate to "
 "consumers, which link to the target via :command:`target_link_libraries`, in "
@@ -1287,7 +1358,7 @@ msgstr ""
 "译和链接而传递给消费者的设置。它们由传递的`编译 <传递编译属性_>`_和`链接 <传"
 "递链接属性_>`_属性表示。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:683
+#: ../../../manual/cmake-buildsystem.7.rst:724
 msgid ""
 "Note that usage requirements are not designed as a way to make downstreams "
 "use particular :prop_tgt:`COMPILE_OPTIONS`, :prop_tgt:`COMPILE_DEFINITIONS`, "
@@ -1298,7 +1369,7 @@ msgstr ""
 "`COMPILE_OPTIONS`、:prop_tgt:`COMPILE_DEFINITIONS`等，屬性的內容必須是**要求"
 "**，而不僅僅是建議。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:688
+#: ../../../manual/cmake-buildsystem.7.rst:729
 msgid ""
 "See the :ref:`Creating Relocatable Packages` section of the :manual:`cmake-"
 "packages(7)` manual for discussion of additional care that must be taken "
@@ -1308,7 +1379,7 @@ msgstr ""
 "請參閱 :manual:`cmake-packages(7)` 手冊的 :ref:`創建可重新定位包` 部分，討論"
 "在創建可分發包時指定使用要求時必須採取的額外注意事項。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:693
+#: ../../../manual/cmake-buildsystem.7.rst:734
 msgid ""
 "The usage requirements of a target can transitively propagate to the "
 "dependents. The :command:`target_link_libraries` command has ``PRIVATE``, "
@@ -1317,7 +1388,7 @@ msgstr ""
 "目標的使用要求可以傳遞地傳播到依賴項。:command:`target_link_libraries`命令擁"
 "有``PRIVATE``、``INTERFACE``和``PUBLIC``關鍵字，以控制傳播。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:697
+#: ../../../manual/cmake-buildsystem.7.rst:738
 msgid ""
 "add_library(archive archive.cpp)\n"
 "target_compile_definitions(archive INTERFACE USING_ARCHIVE_LIB)\n"
@@ -1351,7 +1422,7 @@ msgstr ""
 "# consumer is compiled with -DUSING_ARCHIVE_LIB\n"
 "target_link_libraries(consumer archiveExtras)"
 
-#: ../../../manual/cmake-buildsystem.7.rst:715
+#: ../../../manual/cmake-buildsystem.7.rst:756
 msgid ""
 "Because the ``archive`` is a ``PUBLIC`` dependency of ``archiveExtras``, the "
 "usage requirements of it are propagated to ``consumer`` too."
@@ -1359,7 +1430,7 @@ msgstr ""
 "因為``archive``是``archiveExtras``的``PUBLIC``依賴，所以它的使用要求也會傳播"
 "到``consumer``。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:718
+#: ../../../manual/cmake-buildsystem.7.rst:759
 msgid ""
 "Because ``serialization`` is a ``PRIVATE`` dependency of ``archiveExtras``, "
 "the usage requirements of it are not propagated to ``consumer``."
@@ -1367,7 +1438,7 @@ msgstr ""
 "因為``serialization``是``archiveExtras``的``PRIVATE``依賴，所以它的使用要求不"
 "會傳播到``consumer``。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:722
+#: ../../../manual/cmake-buildsystem.7.rst:763
 msgid ""
 "Generally, a dependency should be specified in a use of :command:"
 "`target_link_libraries` with the ``PRIVATE`` keyword if it is used by only "
@@ -1385,7 +1456,7 @@ msgstr ""
 "使用的依賴應指定為``INTERFACE``依賴。 :command:`target_link_libraries`命令可"
 "以多次使用每個關鍵字進行調用："
 
-#: ../../../manual/cmake-buildsystem.7.rst:732
+#: ../../../manual/cmake-buildsystem.7.rst:773
 msgid ""
 "target_link_libraries(archiveExtras\n"
 "  PUBLIC archive\n"
@@ -1397,7 +1468,7 @@ msgstr ""
 "  PRIVATE serialization\n"
 ")"
 
-#: ../../../manual/cmake-buildsystem.7.rst:739
+#: ../../../manual/cmake-buildsystem.7.rst:780
 msgid ""
 "Usage requirements are propagated by reading the ``INTERFACE_`` variants of "
 "target properties from dependencies and appending the values to the non-"
@@ -1414,7 +1485,7 @@ msgstr ""
 "在順序相關和維護的情況下，如果由 :command:`target_link_libraries` 調用所產生"
 "的順序不允許正確編譯，則使用適當命令直接設置屬可能更新順序。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:749
+#: ../../../manual/cmake-buildsystem.7.rst:790
 msgid ""
 "For example, if the linked libraries for a target must be specified in the "
 "order ``lib1`` ``lib2`` ``lib3`` , but the include directories must be "
@@ -1423,7 +1494,7 @@ msgstr ""
 "例如，若鏈接的一個目標的庫必須按照順序``lib1`` ``lib2`` ``lib3``指定，而包括"
 "的目錄必須按照``lib3`` ``lib1`` ``lib2``的順序指定："
 
-#: ../../../manual/cmake-buildsystem.7.rst:753
+#: ../../../manual/cmake-buildsystem.7.rst:794
 msgid ""
 "target_link_libraries(myExe lib1 lib2 lib3)\n"
 "target_include_directories(myExe\n"
@@ -1433,7 +1504,7 @@ msgstr ""
 "target_include_directories(myExe\n"
 "  PRIVATE $<TARGET_PROPERTY:lib3,INTERFACE_INCLUDE_DIRECTORIES>)"
 
-#: ../../../manual/cmake-buildsystem.7.rst:759
+#: ../../../manual/cmake-buildsystem.7.rst:800
 msgid ""
 "Note that care must be taken when specifying usage requirements for targets "
 "which will be exported for installation using the :command:`install(EXPORT)` "
@@ -1442,41 +1513,41 @@ msgstr ""
 "請注意，指定用於使用:command:`install(EXPORT)`命令安裝導出的目標的使用要求"
 "時，必須謹慎。請參閱 :ref:`創建包` 以獲取更多信息。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:766
+#: ../../../manual/cmake-buildsystem.7.rst:807
 msgid "Transitive Compile Properties"
 msgstr "傳遞編譯屬性"
 
-#: ../../../manual/cmake-buildsystem.7.rst:768
+#: ../../../manual/cmake-buildsystem.7.rst:809
 msgid ""
 "These represent `usage requirements <Target Usage Requirements_>`_ for "
 "compiling consumers."
 msgstr "这些代表用于编译消费者的`使用要求 <目标使用要求_>`_。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:771
+#: ../../../manual/cmake-buildsystem.7.rst:812
 msgid ":prop_tgt:`INTERFACE_COMPILE_DEFINITIONS`"
 msgstr ":prop_tgt:`INTERFACE_COMPILE_DEFINITIONS`"
 
-#: ../../../manual/cmake-buildsystem.7.rst:772
+#: ../../../manual/cmake-buildsystem.7.rst:813
 msgid ""
 "List of compile definitions for compiling sources in the target's consumers. "
 "Typically these are used by the target's header files."
 msgstr ""
 "目標消費者中用於編譯源文件的編譯定義列表。通常這些是由目標的頭文件使用。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:775
+#: ../../../manual/cmake-buildsystem.7.rst:816
 msgid ":prop_tgt:`INTERFACE_COMPILE_OPTIONS`"
 msgstr ":prop_tgt:`INTERFACE_COMPILE_OPTIONS`"
 
-#: ../../../manual/cmake-buildsystem.7.rst:776
+#: ../../../manual/cmake-buildsystem.7.rst:817
 msgid ""
 "List of compile options for compiling sources in the target's consumers."
 msgstr "目標消費者中用於編譯源文件的編譯選項列表。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:778
+#: ../../../manual/cmake-buildsystem.7.rst:819
 msgid ":prop_tgt:`INTERFACE_COMPILE_FEATURES`"
 msgstr ":prop_tgt:`INTERFACE_COMPILE_FEATURES`"
 
-#: ../../../manual/cmake-buildsystem.7.rst:781
+#: ../../../manual/cmake-buildsystem.7.rst:822
 msgid ""
 "List of :manual:`compile features <cmake-compile-features(7)>` needed for "
 "compiling sources in the target's consumers.  Typically these ensure the "
@@ -1487,18 +1558,18 @@ msgstr ""
 "features(7)>`列表。 通常這些可確保在編譯消費者時使用足夠的語言標準水平處理目"
 "標的頭文件。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:787
+#: ../../../manual/cmake-buildsystem.7.rst:828
 msgid ""
 "List of include directories for compiling sources in the target's consumers. "
 "Typically these are the locations of the target's header files."
 msgstr ""
 "目標消費者中用於編譯源文件的包含目錄列表。 通常這些是目標的頭文件的位置。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:790
+#: ../../../manual/cmake-buildsystem.7.rst:831
 msgid ":prop_tgt:`INTERFACE_SYSTEM_INCLUDE_DIRECTORIES`"
 msgstr ":prop_tgt:`INTERFACE_SYSTEM_INCLUDE_DIRECTORIES`"
 
-#: ../../../manual/cmake-buildsystem.7.rst:791
+#: ../../../manual/cmake-buildsystem.7.rst:832
 msgid ""
 "List of directories that, when specified as include directories, e.g., by :"
 "prop_tgt:`INCLUDE_DIRECTORIES` or :prop_tgt:`INTERFACE_INCLUDE_DIRECTORIES`, "
@@ -1509,40 +1580,40 @@ msgstr ""
 "`INTERFACE_INCLUDE_DIRECTORIES`进行指定，在编译目标的消费者的源文件时应将以下"
 "目录视为“系统”包含目录的列表。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:796
+#: ../../../manual/cmake-buildsystem.7.rst:837
 msgid ":prop_tgt:`INTERFACE_SOURCES`"
 msgstr ":prop_tgt:`INTERFACE_SOURCES`"
 
-#: ../../../manual/cmake-buildsystem.7.rst:797
+#: ../../../manual/cmake-buildsystem.7.rst:838
 msgid "List of source files to associate with the target's consumers."
 msgstr "要與目標消費者關聯的源文件列表。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:799
+#: ../../../manual/cmake-buildsystem.7.rst:840
 msgid ":prop_tgt:`INTERFACE_PRECOMPILE_HEADERS`"
 msgstr ":prop_tgt:`INTERFACE_PRECOMPILE_HEADERS`"
 
-#: ../../../manual/cmake-buildsystem.7.rst:802
+#: ../../../manual/cmake-buildsystem.7.rst:843
 msgid ""
 "List of header files to precompile and include when compiling sources in the "
 "target's consumers."
 msgstr "目標消費者中用於編譯源文件時要預編譯和包含的頭文件列表。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:805
+#: ../../../manual/cmake-buildsystem.7.rst:846
 msgid ":prop_tgt:`INTERFACE_COMPILE_WRAPPERS`"
 msgstr ""
 
-#: ../../../manual/cmake-buildsystem.7.rst:808
+#: ../../../manual/cmake-buildsystem.7.rst:849
 msgid ""
 "List of wrapper names to be prepended to the compile commands when compiling "
 "sources in the target's consumers. See also :prop_gbl:"
 "`CMAKE_COMPILE_WRAPPER_<NAME>`."
 msgstr ""
 
-#: ../../../manual/cmake-buildsystem.7.rst:812
+#: ../../../manual/cmake-buildsystem.7.rst:853
 msgid ":prop_tgt:`INTERFACE_AUTOMOC_MACRO_NAMES`"
 msgstr ":prop_tgt:`INTERFACE_AUTOMOC_MACRO_NAMES`"
 
-#: ../../../manual/cmake-buildsystem.7.rst:815
+#: ../../../manual/cmake-buildsystem.7.rst:856
 msgid ""
 "List of macro names used by :prop_tgt:`AUTOMOC` to determine if a C++ source "
 "in the target's consumers needs to be processed by ``moc``."
@@ -1550,31 +1621,31 @@ msgstr ""
 "由:prop_tgt:`AUTOMOC`使用的宏名稱列表，以確定C++源文件在目標的消費者中是否需"
 "要經過``moc``處理。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:818
+#: ../../../manual/cmake-buildsystem.7.rst:859
 msgid ":prop_tgt:`INTERFACE_AUTOUIC_OPTIONS`"
 msgstr ":prop_tgt:`INTERFACE_AUTOUIC_OPTIONS`"
 
-#: ../../../manual/cmake-buildsystem.7.rst:821
+#: ../../../manual/cmake-buildsystem.7.rst:862
 msgid ""
 "List of options used by :prop_tgt:`AUTOUIC` when invoking ``uic`` for the "
 "target's consumers."
 msgstr "在調用``uic``時，:prop_tgt:`AUTOUIC`使用的選項列表。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:827
+#: ../../../manual/cmake-buildsystem.7.rst:868
 msgid "Transitive Link Properties"
 msgstr "傳遞鏈接屬性"
 
-#: ../../../manual/cmake-buildsystem.7.rst:829
+#: ../../../manual/cmake-buildsystem.7.rst:870
 msgid ""
 "These represent `usage requirements <Target Usage Requirements_>`_ for "
 "linking consumers."
 msgstr "这些代表用于链接消费者的`使用要求 <目标使用要求_>`_。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:832
+#: ../../../manual/cmake-buildsystem.7.rst:873
 msgid ":prop_tgt:`INTERFACE_LINK_LIBRARIES`"
 msgstr ":prop_tgt:`INTERFACE_LINK_LIBRARIES`"
 
-#: ../../../manual/cmake-buildsystem.7.rst:833
+#: ../../../manual/cmake-buildsystem.7.rst:874
 msgid ""
 "List of link libraries for linking the target's consumers, for those that "
 "are executables, shared libraries, or module libraries. These are the "
@@ -1583,7 +1654,7 @@ msgstr ""
 "鏈接目標的消費者的鏈接庫列表，對於可執行文件，共享庫或模塊庫而言。這些是目標"
 "的傳遞依賴。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:837
+#: ../../../manual/cmake-buildsystem.7.rst:878
 msgid ""
 "Additionally, for compiling and linking the target's consumers, `usage "
 "requirements <Target Usage Requirements_>`_ are collected from the "
@@ -1595,41 +1666,41 @@ msgstr ""
 "``INTERFACE_LINK_LIBRARIES``条目命名的`静态库`_、`共享库`_、`接口库`_、`对象"
 "库`_、`已引入目标`_的传递闭包中收集，"
 
-#: ../../../manual/cmake-buildsystem.7.rst:843
+#: ../../../manual/cmake-buildsystem.7.rst:884
 msgid ":prop_tgt:`INTERFACE_LINK_DIRECTORIES`"
 msgstr ":prop_tgt:`INTERFACE_LINK_DIRECTORIES`"
 
-#: ../../../manual/cmake-buildsystem.7.rst:846
+#: ../../../manual/cmake-buildsystem.7.rst:887
 msgid ""
 "List of link directories for linking the target's consumers, for those that "
 "are executables, shared libraries, or module libraries."
 msgstr "鏈接目標消費者的鏈接目錄列表，對於那些是可執行文件、共享庫或模塊庫的。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:849
+#: ../../../manual/cmake-buildsystem.7.rst:890
 msgid ":prop_tgt:`INTERFACE_LINK_OPTIONS`"
 msgstr ":prop_tgt:`INTERFACE_LINK_OPTIONS`"
 
-#: ../../../manual/cmake-buildsystem.7.rst:852
+#: ../../../manual/cmake-buildsystem.7.rst:893
 msgid ""
 "List of link options for linking the target's consumers, for those that are "
 "executables, shared libraries, or module libraries."
 msgstr "鏈接目標消費者的鏈接選項列表，對於那些是可執行文件、共享庫或模塊庫的。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:855
+#: ../../../manual/cmake-buildsystem.7.rst:896
 msgid ":prop_tgt:`INTERFACE_LINK_DEPENDS`"
 msgstr ":prop_tgt:`INTERFACE_LINK_DEPENDS`"
 
-#: ../../../manual/cmake-buildsystem.7.rst:858
+#: ../../../manual/cmake-buildsystem.7.rst:899
 msgid ""
 "List of files on which linking the target's consumers depends, for those "
 "that are executables, shared libraries, or module libraries."
 msgstr "鏈接目標消費者依賴的文件列表，對於可執行文件、共享庫或模塊庫而言。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:861
+#: ../../../manual/cmake-buildsystem.7.rst:902
 msgid ":prop_tgt:`INTERFACE_LINK_WRAPPERS`"
 msgstr ""
 
-#: ../../../manual/cmake-buildsystem.7.rst:864
+#: ../../../manual/cmake-buildsystem.7.rst:905
 msgid ""
 "List of wrapper names to be prepended to the link commands for a target's "
 "consumers' output artifact, for those that are executables, shared "
@@ -1637,11 +1708,11 @@ msgid ""
 "`CMAKE_LINK_WRAPPER_<NAME>`."
 msgstr ""
 
-#: ../../../manual/cmake-buildsystem.7.rst:871
+#: ../../../manual/cmake-buildsystem.7.rst:912
 msgid "Custom Transitive Properties"
 msgstr "自定義傳遞屬性"
 
-#: ../../../manual/cmake-buildsystem.7.rst:875
+#: ../../../manual/cmake-buildsystem.7.rst:916
 msgid ""
 "The :genex:`TARGET_PROPERTY` generator expression evaluates the above `build "
 "specification <Target Build Specification_>`_ and `usage requirement <Target "
@@ -1655,7 +1726,7 @@ msgstr ""
 "链接依赖项上定义的:prop_tgt:`TRANSITIVE_COMPILE_PROPERTIES`和:prop_tgt:"
 "`TRANSITIVE_LINK_PROPERTIES`属性自定义传递属性。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:885
+#: ../../../manual/cmake-buildsystem.7.rst:926
 msgid ""
 "add_library(example INTERFACE)\n"
 "set_target_properties(example PROPERTIES\n"
@@ -1737,11 +1808,11 @@ msgstr ""
 "    \"$<TARGET_PROPERTY:myexe,CUSTOM_L>\"\n"
 "  )"
 
-#: ../../../manual/cmake-buildsystem.7.rst:930
+#: ../../../manual/cmake-buildsystem.7.rst:971
 msgid "Compatible Interface Properties"
 msgstr "可兼容介面屬性"
 
-#: ../../../manual/cmake-buildsystem.7.rst:932
+#: ../../../manual/cmake-buildsystem.7.rst:973
 msgid ""
 "Some target properties are required to be compatible between a target and "
 "the interface of each dependency.  For example, the :prop_tgt:"
@@ -1756,7 +1827,7 @@ msgstr ""
 "位置無關代碼編譯，這具有特定於平臺的影響。目標還可以指定使用要求 :prop_tgt:"
 "`INTERFACE_POSITION_INDEPENDENT_CODE`，以表明消費者必須編譯為位置無關代碼。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:941
+#: ../../../manual/cmake-buildsystem.7.rst:982
 msgid ""
 "add_executable(exe1 exe1.cpp)\n"
 "set_property(TARGET exe1 PROPERTY POSITION_INDEPENDENT_CODE ON)\n"
@@ -1776,7 +1847,7 @@ msgstr ""
 "add_executable(exe2 exe2.cpp)\n"
 "target_link_libraries(exe2 lib1)"
 
-#: ../../../manual/cmake-buildsystem.7.rst:952
+#: ../../../manual/cmake-buildsystem.7.rst:993
 msgid ""
 "Here, both ``exe1`` and ``exe2`` will be compiled as position-independent-"
 "code. ``lib1`` will also be compiled as position-independent-code because "
@@ -1788,7 +1859,7 @@ msgstr ""
 "默認設置，``lib1``也將編譯為位置無關代碼。若依賴有衝突且不兼容的要求，:"
 "manual:`cmake(1)`會發出診斷："
 
-#: ../../../manual/cmake-buildsystem.7.rst:957
+#: ../../../manual/cmake-buildsystem.7.rst:998
 msgid ""
 "add_library(lib1 SHARED lib1.cpp)\n"
 "set_property(TARGET lib1 PROPERTY INTERFACE_POSITION_INDEPENDENT_CODE ON)\n"
@@ -1816,7 +1887,7 @@ msgstr ""
 "add_executable(exe2 exe2.cpp)\n"
 "target_link_libraries(exe2 lib1 lib2)"
 
-#: ../../../manual/cmake-buildsystem.7.rst:972
+#: ../../../manual/cmake-buildsystem.7.rst:1013
 msgid ""
 "The ``lib1`` requirement ``INTERFACE_POSITION_INDEPENDENT_CODE`` is not "
 "\"compatible\" with the :prop_tgt:`POSITION_INDEPENDENT_CODE` property of "
@@ -1828,7 +1899,7 @@ msgstr ""
 "prop_tgt:`POSITION_INDEPENDENT_CODE`屬性不兼容。該庫要求消費者以位置無關代碼"
 "形式構建，而可執行文件則指定不構建為位置無關代碼，因此發出診斷。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:978
+#: ../../../manual/cmake-buildsystem.7.rst:1019
 msgid ""
 "The ``lib1`` and ``lib2`` requirements are not \"compatible\".  One of them "
 "requires that consumers are built as position-independent-code, while the "
@@ -1840,7 +1911,7 @@ msgstr ""
 "一项要求消费者不构建为位置无关代码。由于``exe2``同时链接到且彼此存在冲突，"
 "CMake发出错误消息：："
 
-#: ../../../manual/cmake-buildsystem.7.rst:984
+#: ../../../manual/cmake-buildsystem.7.rst:1025
 msgid ""
 "CMake Error: The INTERFACE_POSITION_INDEPENDENT_CODE property of \"lib2\" "
 "does\n"
@@ -1850,7 +1921,7 @@ msgstr ""
 "CMake 错误：\"lib2\"的INTERFACE_POSITION_INDEPENDENT_CODE属性不符合\"exe2\"已"
 "确定的 POSITION_INDEPENDENT_CODE值。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:988
+#: ../../../manual/cmake-buildsystem.7.rst:1029
 msgid ""
 "To be \"compatible\", the :prop_tgt:`POSITION_INDEPENDENT_CODE` property, if "
 "set must be either the same, in a boolean sense, as the :prop_tgt:"
@@ -1861,7 +1932,7 @@ msgstr ""
 "置了該屬性的傳遞指定依賴項中的 :prop_tgt:"
 "`INTERFACE_POSITION_INDEPENDENT_CODE` 屬性在布爾意義上相同。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:993
+#: ../../../manual/cmake-buildsystem.7.rst:1034
 msgid ""
 "This property of \"compatible interface requirement\" may be extended to "
 "other properties by specifying the property in the content of the :prop_tgt:"
@@ -1873,7 +1944,7 @@ msgstr ""
 "內容中指定這一屬性擴展到其他屬性。每個指定的屬性必須在消耗目標和來自每個依賴"
 "的相應屬性與``INTERFACE_``前綴兼容："
 
-#: ../../../manual/cmake-buildsystem.7.rst:999
+#: ../../../manual/cmake-buildsystem.7.rst:1040
 msgid ""
 "add_library(lib1Version2 SHARED lib1_v2.cpp)\n"
 "set_property(TARGET lib1Version2 PROPERTY INTERFACE_CUSTOM_PROP ON)\n"
@@ -1905,7 +1976,7 @@ msgstr ""
 "add_executable(exe2 exe2.cpp)\n"
 "target_link_libraries(exe2 lib1Version2 lib1Version3) # Diagnostic"
 
-#: ../../../manual/cmake-buildsystem.7.rst:1016
+#: ../../../manual/cmake-buildsystem.7.rst:1057
 msgid ""
 "Non-boolean properties may also participate in \"compatible interface\" "
 "computations.  Properties specified in the :prop_tgt:"
@@ -1919,7 +1990,7 @@ msgstr ""
 "或與相同字符串進行比較。這有助於確保不會通過目標的傳遞要求將多個不兼容的庫版"
 "本鏈接在一起："
 
-#: ../../../manual/cmake-buildsystem.7.rst:1024
+#: ../../../manual/cmake-buildsystem.7.rst:1065
 msgid ""
 "add_library(lib1Version2 SHARED lib1_v2.cpp)\n"
 "set_property(TARGET lib1Version2 PROPERTY INTERFACE_LIB_VERSION 2)\n"
@@ -1951,7 +2022,7 @@ msgstr ""
 "add_executable(exe2 exe2.cpp)\n"
 "target_link_libraries(exe2 lib1Version2 lib1Version3) # Diagnostic"
 
-#: ../../../manual/cmake-buildsystem.7.rst:1041
+#: ../../../manual/cmake-buildsystem.7.rst:1082
 msgid ""
 "The :prop_tgt:`COMPATIBLE_INTERFACE_NUMBER_MAX` target property specifies "
 "that content will be evaluated numerically and the maximum number among all "
@@ -1960,7 +2031,7 @@ msgstr ""
 "目标属性 :prop_tgt:`COMPATIBLE_INTERFACE_NUMBER_MAX` 指定内容将被数值评估，并"
 "计算所有指定内容中的最大值："
 
-#: ../../../manual/cmake-buildsystem.7.rst:1045
+#: ../../../manual/cmake-buildsystem.7.rst:1086
 msgid ""
 "add_library(lib1Version2 SHARED lib1_v2.cpp)\n"
 "set_property(TARGET lib1Version2 PROPERTY INTERFACE_CONTAINER_SIZE_REQUIRED "
@@ -2000,7 +2071,7 @@ msgstr ""
 "# CONTAINER_SIZE_REQUIRED will be \"1000\"\n"
 "target_link_libraries(exe2 lib1Version2 lib1Version3)"
 
-#: ../../../manual/cmake-buildsystem.7.rst:1064
+#: ../../../manual/cmake-buildsystem.7.rst:1105
 msgid ""
 "Similarly, the :prop_tgt:`COMPATIBLE_INTERFACE_NUMBER_MIN` may be used to "
 "calculate the numeric minimum value for a property from dependencies."
@@ -2008,14 +2079,14 @@ msgstr ""
 "同样地，可以使用 :prop_tgt:`COMPATIBLE_INTERFACE_NUMBER_MIN` 来计算依赖关系属"
 "性的数值最小值。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:1067
+#: ../../../manual/cmake-buildsystem.7.rst:1108
 msgid ""
 "Each calculated \"compatible\" property value may be read in the consumer at "
 "generate-time using generator expressions."
 msgstr ""
 "每个计算得出的 \"compatible\" 属性值可在生成时使用生成器表达式在消费端读取。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:1070
+#: ../../../manual/cmake-buildsystem.7.rst:1111
 msgid ""
 "Note that for each dependee, the set of properties specified in each "
 "compatible interface property must not intersect with the set specified in "
@@ -2024,11 +2095,11 @@ msgstr ""
 "注意，对于每个依赖项，在每个兼容接口属性中指定的属性集不应与任何其他属性中指"
 "定的集相交。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:1075
+#: ../../../manual/cmake-buildsystem.7.rst:1116
 msgid "Property Origin Debugging"
 msgstr "属性起源调试"
 
-#: ../../../manual/cmake-buildsystem.7.rst:1077
+#: ../../../manual/cmake-buildsystem.7.rst:1118
 msgid ""
 "Because build specifications can be determined by dependencies, the lack of "
 "locality of code which creates a target and code which is responsible for "
@@ -2043,7 +2114,7 @@ msgstr ""
 "赖关系决定的属性内容的起源。可以进行调试的属性列在 :variable:"
 "`CMAKE_DEBUG_TARGET_PROPERTIES` 变量文档中："
 
-#: ../../../manual/cmake-buildsystem.7.rst:1085
+#: ../../../manual/cmake-buildsystem.7.rst:1126
 msgid ""
 "set(CMAKE_DEBUG_TARGET_PROPERTIES\n"
 "  INCLUDE_DIRECTORIES\n"
@@ -2063,7 +2134,7 @@ msgstr ""
 ")\n"
 "add_executable(exe1 exe1.cpp)"
 
-#: ../../../manual/cmake-buildsystem.7.rst:1096
+#: ../../../manual/cmake-buildsystem.7.rst:1137
 msgid ""
 "In the case of properties listed in :prop_tgt:`COMPATIBLE_INTERFACE_BOOL` "
 "or :prop_tgt:`COMPATIBLE_INTERFACE_STRING`, the debug output shows which "
@@ -2081,11 +2152,11 @@ msgstr ""
 "`COMPATIBLE_INTERFACE_NUMBER_MIN`，调试输出显示来自每个依赖关系的属性值，以及"
 "该值是否决定了新的极限。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:1106
+#: ../../../manual/cmake-buildsystem.7.rst:1147
 msgid "Build Specification with Generator Expressions"
 msgstr "使用生成器表達式的建置規範"
 
-#: ../../../manual/cmake-buildsystem.7.rst:1108
+#: ../../../manual/cmake-buildsystem.7.rst:1149
 msgid ""
 "Build specifications may use :manual:`generator expressions <cmake-generator-"
 "expressions(7)>` containing content which may be conditional or known only "
@@ -2096,7 +2167,7 @@ msgstr ""
 "中的内容可能根据条件或仅在生成时是已知的。例如，属性的计算 \"compatible\" 值"
 "可使用 ``TARGET_PROPERTY`` 表达式读取："
 
-#: ../../../manual/cmake-buildsystem.7.rst:1114
+#: ../../../manual/cmake-buildsystem.7.rst:1155
 msgid ""
 "add_library(lib1Version2 SHARED lib1_v2.cpp)\n"
 "set_property(TARGET lib1Version2 PROPERTY\n"
@@ -2124,13 +2195,13 @@ msgstr ""
 "    CONTAINER_SIZE=$<TARGET_PROPERTY:CONTAINER_SIZE_REQUIRED>\n"
 ")"
 
-#: ../../../manual/cmake-buildsystem.7.rst:1129
+#: ../../../manual/cmake-buildsystem.7.rst:1170
 msgid ""
 "In this case, the ``exe1`` source files will be compiled with ``-"
 "DCONTAINER_SIZE=200``."
 msgstr "在这种情况下，``exe1`` 源文件将用 ``-DCONTAINER_SIZE=200`` 编译。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:1132
+#: ../../../manual/cmake-buildsystem.7.rst:1173
 msgid ""
 "The unary ``TARGET_PROPERTY`` generator expression and the ``TARGET_POLICY`` "
 "generator expression are evaluated with the consuming target context.  This "
@@ -2141,7 +2212,7 @@ msgstr ""
 "标上下文中进行评估。这意味着，使用需求规范根据消费者的不同可能会有不同的评"
 "估："
 
-#: ../../../manual/cmake-buildsystem.7.rst:1137
+#: ../../../manual/cmake-buildsystem.7.rst:1178
 msgid ""
 "add_library(lib1 lib1.cpp)\n"
 "target_compile_definitions(lib1 INTERFACE\n"
@@ -2175,7 +2246,7 @@ msgstr ""
 "add_library(shared_lib shared_lib.cpp)\n"
 "target_link_libraries(shared_lib lib1)"
 
-#: ../../../manual/cmake-buildsystem.7.rst:1154
+#: ../../../manual/cmake-buildsystem.7.rst:1195
 msgid ""
 "The ``exe1`` executable will be compiled with ``-DLIB1_WITH_EXE``, while the "
 "``shared_lib`` shared library will be compiled with ``-"
@@ -2187,7 +2258,7 @@ msgstr ""
 "用 ``-DLIB1_WITH_SHARED_LIB`` 和 ``-DCONSUMER_CMP0182_NEW`` 编译，因为策略 :"
 "policy:`CMP0182` 在创建 ``shared_lib`` 目标时是 ``NEW``。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:1159
+#: ../../../manual/cmake-buildsystem.7.rst:1200
 msgid ""
 "The ``BUILD_INTERFACE`` expression wraps requirements which are only used "
 "when consumed from a target in the same buildsystem, or when consumed from a "
@@ -2200,7 +2271,7 @@ msgstr ""
 "建目录的目标消费时使用；``INSTALL_INTERFACE``表达式包裹的需求则是仅在已安装并"
 "使用命令：command:`install(EXPORT)`导出的目标消费时使用："
 
-#: ../../../manual/cmake-buildsystem.7.rst:1166
+#: ../../../manual/cmake-buildsystem.7.rst:1207
 msgid ""
 "add_library(ClimbingStats climbingstats.cpp)\n"
 "target_compile_definitions(ClimbingStats INTERFACE\n"
@@ -2228,7 +2299,7 @@ msgstr ""
 "add_executable(exe1 exe1.cpp)\n"
 "target_link_libraries(exe1 ClimbingStats)"
 
-#: ../../../manual/cmake-buildsystem.7.rst:1181
+#: ../../../manual/cmake-buildsystem.7.rst:1222
 msgid ""
 "In this case, the ``exe1`` executable will be compiled with ``-"
 "DClimbingStats_FROM_BUILD_LOCATION``.  The exporting commands generate :"
@@ -2241,7 +2312,7 @@ msgstr ""
 "`IMPORTED` 目标将省略 ``INSTALL_INTERFACE`` 或 ``BUILD_INTERFACE``，并去掉 "
 "``*_INTERFACE`` 标记。单独的项目使用 ``ClimbingStats`` 包将包括："
 
-#: ../../../manual/cmake-buildsystem.7.rst:1187
+#: ../../../manual/cmake-buildsystem.7.rst:1228
 msgid ""
 "find_package(ClimbingStats REQUIRED)\n"
 "\n"
@@ -2253,7 +2324,7 @@ msgstr ""
 "add_executable(Downstream main.cpp)\n"
 "target_link_libraries(Downstream Upstream::ClimbingStats)"
 
-#: ../../../manual/cmake-buildsystem.7.rst:1194
+#: ../../../manual/cmake-buildsystem.7.rst:1235
 msgid ""
 "Depending on whether the ``ClimbingStats`` package was used from the build "
 "location or the install location, the ``Downstream`` target would be "
@@ -2266,11 +2337,11 @@ msgstr ""
 "DClimbingStats_FROM_INSTALL_LOCATION`` 编译。有关包和导出的更多信息，请参阅 :"
 "manual:`cmake-packages(7)` 手册。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:1203
+#: ../../../manual/cmake-buildsystem.7.rst:1244
 msgid "Include Directories and Usage Requirements"
 msgstr "包含目录和使用要求"
 
-#: ../../../manual/cmake-buildsystem.7.rst:1205
+#: ../../../manual/cmake-buildsystem.7.rst:1246
 msgid ""
 "Include directories require some special consideration when specified as "
 "usage requirements and when used with generator expressions.  The :command:"
@@ -2280,7 +2351,7 @@ msgstr ""
 "当包含目录被指定为使用要求并与生成表达式一起使用时，需要特别考虑。:command:"
 "`target_include_directories` 命令接受相对和绝对包含目录："
 
-#: ../../../manual/cmake-buildsystem.7.rst:1210
+#: ../../../manual/cmake-buildsystem.7.rst:1251
 msgid ""
 "add_library(lib1 lib1.cpp)\n"
 "target_include_directories(lib1 PRIVATE\n"
@@ -2294,7 +2365,7 @@ msgstr ""
 "  相對路徑\n"
 ")"
 
-#: ../../../manual/cmake-buildsystem.7.rst:1218
+#: ../../../manual/cmake-buildsystem.7.rst:1259
 msgid ""
 "Relative paths are interpreted relative to the source directory where the "
 "command appears.  Relative paths are not allowed in the :prop_tgt:"
@@ -2303,7 +2374,7 @@ msgstr ""
 "相对路径按照命令出现的源目录进行解释。在 :prop_tgt:`IMPORTED` 目标的 :"
 "prop_tgt:`INTERFACE_INCLUDE_DIRECTORIES` 中不允许使用相对路径。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:1222
+#: ../../../manual/cmake-buildsystem.7.rst:1263
 msgid ""
 "In cases where a non-trivial generator expression is used, the "
 "``INSTALL_PREFIX`` expression may be used within the argument of an "
@@ -2314,7 +2385,7 @@ msgstr ""
 "用 ``INSTALL_PREFIX`` 表达式。它是一种替代标记，当由消费项目导入时，将扩展为"
 "安装前缀。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:1227
+#: ../../../manual/cmake-buildsystem.7.rst:1268
 msgid ""
 "Include directories usage requirements commonly differ between the build-"
 "tree and the install-tree.  The ``BUILD_INTERFACE`` and "
@@ -2328,7 +2399,7 @@ msgstr ""
 "``INSTALL_INTERFACE`` 表达式中允许使用相对路径，并根据安装前缀进行解释。例"
 "如："
 
-#: ../../../manual/cmake-buildsystem.7.rst:1234
+#: ../../../manual/cmake-buildsystem.7.rst:1275
 msgid ""
 "add_library(ClimbingStats climbingstats.cpp)\n"
 "target_include_directories(ClimbingStats INTERFACE\n"
@@ -2346,7 +2417,7 @@ msgstr ""
 "  $<INSTALL_INTERFACE:$<INSTALL_PREFIX>/$<CONFIG>/generated>\n"
 ")"
 
-#: ../../../manual/cmake-buildsystem.7.rst:1244
+#: ../../../manual/cmake-buildsystem.7.rst:1285
 msgid ""
 "Two convenience APIs are provided relating to include directories usage "
 "requirements.  The :variable:`CMAKE_INCLUDE_CURRENT_DIR_IN_INTERFACE` "
@@ -2355,7 +2426,7 @@ msgstr ""
 "提供了两个便捷的 API，涉及包含目录使用要求。可以启用 :variable:"
 "`CMAKE_INCLUDE_CURRENT_DIR_IN_INTERFACE` 变量，其效果相当于："
 
-#: ../../../manual/cmake-buildsystem.7.rst:1248
+#: ../../../manual/cmake-buildsystem.7.rst:1289
 msgid ""
 "set_property(TARGET tgt APPEND PROPERTY INTERFACE_INCLUDE_DIRECTORIES\n"
 "  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR};${CMAKE_CURRENT_BINARY_DIR}"
@@ -2367,7 +2438,7 @@ msgstr ""
 ">\n"
 ")"
 
-#: ../../../manual/cmake-buildsystem.7.rst:1254
+#: ../../../manual/cmake-buildsystem.7.rst:1295
 msgid ""
 "for each target affected.  The convenience for installed targets is an "
 "``INCLUDES DESTINATION`` component with the :command:`install(TARGETS)` "
@@ -2376,7 +2447,7 @@ msgstr ""
 "对于每个受影响的目标。对已安装目标的便捷功能是使用 :command:"
 "`install(TARGETS)` 命令的 ``INCLUDES DESTINATION`` 组件："
 
-#: ../../../manual/cmake-buildsystem.7.rst:1258
+#: ../../../manual/cmake-buildsystem.7.rst:1299
 msgid ""
 "install(TARGETS foo bar bat EXPORT tgts ${dest_args}\n"
 "  INCLUDES DESTINATION include\n"
@@ -2390,7 +2461,7 @@ msgstr ""
 "install(EXPORT tgts ${other_args})\n"
 "install(FILES ${headers} DESTINATION include)"
 
-#: ../../../manual/cmake-buildsystem.7.rst:1266
+#: ../../../manual/cmake-buildsystem.7.rst:1307
 msgid ""
 "This is equivalent to appending ``${CMAKE_INSTALL_PREFIX}/include`` to the :"
 "prop_tgt:`INTERFACE_INCLUDE_DIRECTORIES` of each of the installed :prop_tgt:"
@@ -2400,7 +2471,7 @@ msgstr ""
 "`install(EXPORT)` 生成的每个已安装 :prop_tgt:`IMPORTED` 目标的 :prop_tgt:"
 "`INTERFACE_INCLUDE_DIRECTORIES`。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:1270
+#: ../../../manual/cmake-buildsystem.7.rst:1311
 msgid ""
 "When the :prop_tgt:`INTERFACE_INCLUDE_DIRECTORIES` of an :ref:`imported "
 "target <Imported targets>` is consumed, the entries in the property may be "
@@ -2421,7 +2492,7 @@ msgstr ""
 "*consumer* 上设置 :prop_tgt:`NO_SYSTEM_FROM_IMPORTED` 目标属性来更改消费者对"
 "消费导入目标的系统行为的解释。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:1281
+#: ../../../manual/cmake-buildsystem.7.rst:1322
 msgid ""
 "If a binary target is linked transitively to a macOS :prop_tgt:`FRAMEWORK`, "
 "the ``Headers`` directory of the framework is also treated as a usage "
@@ -2431,11 +2502,11 @@ msgstr ""
 "如果二进制目标具有传递链接的macOS :prop_tgt:`FRAMEWORK`，则框架的 "
 "``Headers`` 目录也被视为使用要求。这与将框架目录作为包含目录传递的效果相同。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:1287
+#: ../../../manual/cmake-buildsystem.7.rst:1328
 msgid "Link Libraries and Generator Expressions"
 msgstr "連結程式庫與生成器表達式"
 
-#: ../../../manual/cmake-buildsystem.7.rst:1289
+#: ../../../manual/cmake-buildsystem.7.rst:1330
 msgid ""
 "Like build specifications, :prop_tgt:`link libraries <LINK_LIBRARIES>` may "
 "be specified with generator expression conditions.  However, as consumption "
@@ -2450,7 +2521,7 @@ msgstr ""
 "另外的限制是链接依赖关系必须形成 \"有向无环图\"。即，如果链接到一个目标依赖于"
 "目标属性的值，则目标属性可能不依赖于链接依赖关系："
 
-#: ../../../manual/cmake-buildsystem.7.rst:1297
+#: ../../../manual/cmake-buildsystem.7.rst:1338
 msgid ""
 "add_library(lib1 lib1.cpp)\n"
 "add_library(lib2 lib2.cpp)\n"
@@ -2474,7 +2545,7 @@ msgstr ""
 "add_executable(exe1 exe1.cpp)\n"
 "target_link_libraries(exe1 lib1 lib3)"
 
-#: ../../../manual/cmake-buildsystem.7.rst:1310
+#: ../../../manual/cmake-buildsystem.7.rst:1351
 msgid ""
 "As the value of the :prop_tgt:`POSITION_INDEPENDENT_CODE` property of the "
 "``exe1`` target is dependent on the linked libraries (``lib3``), and the "
@@ -2487,11 +2558,11 @@ msgstr ""
 "`POSITION_INDEPENDENT_CODE` 属性决定，所以上述依赖图中包含一个循环。:manual:"
 "`cmake(1)` 发出错误信息。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:1319
+#: ../../../manual/cmake-buildsystem.7.rst:1360
 msgid "Output Artifacts"
 msgstr "輸出製品"
 
-#: ../../../manual/cmake-buildsystem.7.rst:1321
+#: ../../../manual/cmake-buildsystem.7.rst:1362
 msgid ""
 "The buildsystem targets created by the :command:`add_library` and :command:"
 "`add_executable` commands create rules to create binary outputs. The exact "
@@ -2510,7 +2581,7 @@ msgstr ""
 "于 ``OBJECT`` 库，这些表达式不起作用，因为这样的库没有生成的单个文件与这些表"
 "达式相关。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:1331
+#: ../../../manual/cmake-buildsystem.7.rst:1372
 msgid ""
 "There are three kinds of output artifacts that may be build by targets as "
 "detailed in the following sections.  Their classification differs between "
@@ -2521,15 +2592,15 @@ msgstr ""
 "非 DLL 平台之间有所不同。包括 Cygwin 在内的所有基于 Windows 的系统都是 DLL 平"
 "台。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:1339
+#: ../../../manual/cmake-buildsystem.7.rst:1380
 msgid "Runtime Output Artifacts"
 msgstr "執行時輸出製品"
 
-#: ../../../manual/cmake-buildsystem.7.rst:1341
+#: ../../../manual/cmake-buildsystem.7.rst:1382
 msgid "A *runtime* output artifact of a buildsystem target may be:"
 msgstr "构建系统目标的 *运行时* 输出文件可能是："
 
-#: ../../../manual/cmake-buildsystem.7.rst:1343
+#: ../../../manual/cmake-buildsystem.7.rst:1384
 msgid ""
 "The executable file (e.g. ``.exe``) of an executable target created by the :"
 "command:`add_executable` command."
@@ -2537,7 +2608,7 @@ msgstr ""
 "由 :command:`add_executable` 命令创建的可执行目标的可执行文件（例如 ``."
 "exe``）。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:1346
+#: ../../../manual/cmake-buildsystem.7.rst:1387
 msgid ""
 "On DLL platforms: the executable file (e.g. ``.dll``) of a shared library "
 "target created by the :command:`add_library` command with the ``SHARED`` "
@@ -2546,7 +2617,7 @@ msgstr ""
 "在 DLL 平台上：由 :command:`add_library` 命令使用 ``SHARED`` 选项创建的共享库"
 "目标的可执行文件（例如 ``.dll``）。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:1350
+#: ../../../manual/cmake-buildsystem.7.rst:1391
 msgid ""
 "The :prop_tgt:`RUNTIME_OUTPUT_DIRECTORY` and :prop_tgt:`RUNTIME_OUTPUT_NAME` "
 "target properties may be used to control runtime output artifact locations "
@@ -2555,15 +2626,15 @@ msgstr ""
 "可以使用 :prop_tgt:`RUNTIME_OUTPUT_DIRECTORY` 和 :prop_tgt:"
 "`RUNTIME_OUTPUT_NAME` 目标属性控制构建树中运行时输出文件的位置和名称。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:1357
+#: ../../../manual/cmake-buildsystem.7.rst:1398
 msgid "Library Output Artifacts"
 msgstr "程式庫輸出製品"
 
-#: ../../../manual/cmake-buildsystem.7.rst:1359
+#: ../../../manual/cmake-buildsystem.7.rst:1400
 msgid "A *library* output artifact of a buildsystem target may be:"
 msgstr "构建系统目标的 *库* 输出文件可能是："
 
-#: ../../../manual/cmake-buildsystem.7.rst:1361
+#: ../../../manual/cmake-buildsystem.7.rst:1402
 msgid ""
 "The loadable module file (e.g. ``.dll`` or ``.so``) of a module library "
 "target created by the :command:`add_library` command with the ``MODULE`` "
@@ -2572,7 +2643,7 @@ msgstr ""
 "由 :command:`add_library` 命令使用 ``MODULE`` 选项创建的模块库目标的可加载模"
 "块文件（例如 ``.dll`` 或 ``.so``）。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:1365
+#: ../../../manual/cmake-buildsystem.7.rst:1406
 msgid ""
 "On non-DLL platforms: the shared library file (e.g. ``.so`` or ``.dylib``) "
 "of a shared library target created by the :command:`add_library` command "
@@ -2581,7 +2652,7 @@ msgstr ""
 "在非 DLL 平台上：由 :command:`add_library` 命令使用 ``SHARED`` 选项创建的共享"
 "库目标的共享库文件（例如 ``.so`` 或 ``.dylib``）。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:1369
+#: ../../../manual/cmake-buildsystem.7.rst:1410
 msgid ""
 "The :prop_tgt:`LIBRARY_OUTPUT_DIRECTORY` and :prop_tgt:`LIBRARY_OUTPUT_NAME` "
 "target properties may be used to control library output artifact locations "
@@ -2590,15 +2661,15 @@ msgstr ""
 "可以使用 :prop_tgt:`LIBRARY_OUTPUT_DIRECTORY` 和 :prop_tgt:"
 "`LIBRARY_OUTPUT_NAME` 目标属性控制构建树中库输出文件的位置和名称。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:1376
+#: ../../../manual/cmake-buildsystem.7.rst:1417
 msgid "Archive Output Artifacts"
 msgstr "封存檔輸出製品"
 
-#: ../../../manual/cmake-buildsystem.7.rst:1378
+#: ../../../manual/cmake-buildsystem.7.rst:1419
 msgid "An *archive* output artifact of a buildsystem target may be:"
 msgstr "构建系统目标的 *存档* 输出文件可能是："
 
-#: ../../../manual/cmake-buildsystem.7.rst:1380
+#: ../../../manual/cmake-buildsystem.7.rst:1421
 msgid ""
 "The static library file (e.g. ``.lib`` or ``.a``) of a static library target "
 "created by the :command:`add_library` command with the ``STATIC`` option."
@@ -2606,7 +2677,7 @@ msgstr ""
 "由 :command:`add_library` 命令使用 ``STATIC`` 选项创建的静态库目标的静态库文"
 "件（例如 ``.lib`` 或 ``.a``）。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:1384
+#: ../../../manual/cmake-buildsystem.7.rst:1425
 msgid ""
 "On DLL platforms: the import library file (e.g. ``.lib``) of a shared "
 "library target created by the :command:`add_library` command with the "
@@ -2617,7 +2688,7 @@ msgstr ""
 "目标的导入库文件（例如 ``.lib``）。只有在库导出至少一个未托管符号时，该文件才"
 "保证存在。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:1389
+#: ../../../manual/cmake-buildsystem.7.rst:1430
 msgid ""
 "On DLL platforms: the import library file (e.g. ``.lib``) of an executable "
 "target created by the :command:`add_executable` command when its :prop_tgt:"
@@ -2626,7 +2697,7 @@ msgstr ""
 "在 DLL 平台上：当其 :prop_tgt:`ENABLE_EXPORTS` 目标属性设置时，由 :command:"
 "`add_executable` 命令创建的可执行目标的导入库文件（例如 ``.lib``）。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:1393
+#: ../../../manual/cmake-buildsystem.7.rst:1434
 msgid ""
 "On AIX: the linker import file (e.g. ``.imp``) of an executable target "
 "created by the :command:`add_executable` command when its :prop_tgt:"
@@ -2635,7 +2706,7 @@ msgstr ""
 "在 AIX 上：当其 :prop_tgt:`ENABLE_EXPORTS` 目标属性设置时，由 :command:"
 "`add_executable` 命令创建的可执行目标的链接器导入文件（例如 ``.imp``）。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:1397
+#: ../../../manual/cmake-buildsystem.7.rst:1438
 msgid ""
 "On macOS: the linker import file (e.g. ``.tbd``) of a shared library target "
 "created by the :command:`add_library` command with the ``SHARED`` option and "
@@ -2645,7 +2716,7 @@ msgstr ""
 "prop_tgt:`ENABLE_EXPORTS` 目标属性设置时的共享库目标的链接器导入文件（例如 "
 "``.tbd``）。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:1401
+#: ../../../manual/cmake-buildsystem.7.rst:1442
 msgid ""
 "The :prop_tgt:`ARCHIVE_OUTPUT_DIRECTORY` and :prop_tgt:`ARCHIVE_OUTPUT_NAME` "
 "target properties may be used to control archive output artifact locations "
@@ -2654,11 +2725,11 @@ msgstr ""
 "`:prop_tgt:`ARCHIVE_OUTPUT_DIRECTORY`和`:prop_tgt:`ARCHIVE_OUTPUT_NAME`目標屬"
 "性可用於控制建置樹中的歸檔輸出項目位置和名稱。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:1406
+#: ../../../manual/cmake-buildsystem.7.rst:1447
 msgid "Directory-Scoped Commands"
 msgstr "目錄作用域的命令"
 
-#: ../../../manual/cmake-buildsystem.7.rst:1408
+#: ../../../manual/cmake-buildsystem.7.rst:1449
 msgid ""
 "The :command:`target_include_directories`, :command:"
 "`target_compile_definitions` and :command:`target_compile_options` commands "
@@ -2673,11 +2744,11 @@ msgstr ""
 "`include_directories`命令具有类似功能，但为便捷起见适用于目录范围而不是目标范"
 "围。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:1419
+#: ../../../manual/cmake-buildsystem.7.rst:1460
 msgid "Build Configurations"
 msgstr "建置組態"
 
-#: ../../../manual/cmake-buildsystem.7.rst:1421
+#: ../../../manual/cmake-buildsystem.7.rst:1462
 msgid ""
 "Configurations determine specifications for a certain type of build, such as "
 "``Release`` or ``Debug``.  The way this is specified depends on the type of :"
@@ -2704,7 +2775,7 @@ msgstr ""
 "定，但实际使用配置只会在构建阶段方能确定。这种差异往往容易被误解，导致如以下"
 "代码所示的问题出现："
 
-#: ../../../manual/cmake-buildsystem.7.rst:1436
+#: ../../../manual/cmake-buildsystem.7.rst:1477
 msgid ""
 "# WARNING: This is wrong for multi-config generators because they don't use\n"
 "#          and typically don't even set CMAKE_BUILD_TYPE\n"
@@ -2720,7 +2791,7 @@ msgstr ""
 "  target_compile_definitions(exe1 PRIVATE DEBUG_BUILD)\n"
 "endif()"
 
-#: ../../../manual/cmake-buildsystem.7.rst:1445
+#: ../../../manual/cmake-buildsystem.7.rst:1486
 msgid ""
 ":manual:`Generator expressions <cmake-generator-expressions(7)>` should be "
 "used instead to handle configuration-specific logic correctly, regardless of "
@@ -2729,7 +2800,7 @@ msgstr ""
 "相反，應使用`:manual:`生成器表達式 <cmake-generator-expressions(7)>`來正確處"
 "理配置特定的邏輯，而不管所使用的生成器。 例如："
 
-#: ../../../manual/cmake-buildsystem.7.rst:1449
+#: ../../../manual/cmake-buildsystem.7.rst:1490
 msgid ""
 "# Works correctly for both single and multi-config generators\n"
 "target_compile_definitions(exe1 PRIVATE\n"
@@ -2741,7 +2812,7 @@ msgstr ""
 "  $<$<CONFIG:Debug>:DEBUG_BUILD>\n"
 ")"
 
-#: ../../../manual/cmake-buildsystem.7.rst:1456
+#: ../../../manual/cmake-buildsystem.7.rst:1497
 msgid ""
 "In the presence of :prop_tgt:`IMPORTED` targets, the content of :prop_tgt:"
 "`MAP_IMPORTED_CONFIG_DEBUG <MAP_IMPORTED_CONFIG_<CONFIG>>` is also accounted "
@@ -2751,11 +2822,11 @@ msgstr ""
 "`MAP_IMPORTED_CONFIG_DEBUG < MAP_IMPORTED_CONFIG_< CONFIG>>`的内容也会被上文"
 "`:genex:`$ < CONFIG:Debug>`表达式纳入考量。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:1462
+#: ../../../manual/cmake-buildsystem.7.rst:1503
 msgid "Case Sensitivity"
 msgstr "大小寫敏感度"
 
-#: ../../../manual/cmake-buildsystem.7.rst:1464
+#: ../../../manual/cmake-buildsystem.7.rst:1505
 msgid ""
 ":variable:`CMAKE_BUILD_TYPE` and :variable:`CMAKE_CONFIGURATION_TYPES` are "
 "just like other variables in that any string comparisons made with their "
@@ -2767,7 +2838,7 @@ msgstr ""
 "數一樣，與它們的值進行的任何字符串比較都將是大小寫敏感的。`:genex:`$<CONFIG>`"
 "生成器表達式也保留了由用戶或CMake默認設置的配置的大小寫。例如："
 
-#: ../../../manual/cmake-buildsystem.7.rst:1470
+#: ../../../manual/cmake-buildsystem.7.rst:1511
 msgid ""
 "# NOTE: Don't use these patterns, they are for illustration purposes only.\n"
 "\n"
@@ -2803,7 +2874,7 @@ msgstr ""
 "  # ... 永遠到不了這裡，\"Debug\" != \"DEBUG\"\n"
 "endif()"
 
-#: ../../../manual/cmake-buildsystem.7.rst:1489
+#: ../../../manual/cmake-buildsystem.7.rst:1530
 msgid ""
 "In contrast, CMake treats the configuration type case-insensitively when "
 "using it internally in places that modify behavior based on the "
@@ -2823,31 +2894,31 @@ msgstr ""
 "管有強烈的慣例（見下一節）。如果必須在字符串比較中測試數值，則應先將數值轉換"
 "為大寫或小寫，並相應調整測試。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:1501
+#: ../../../manual/cmake-buildsystem.7.rst:1542
 msgid "Default And Custom Configurations"
 msgstr "默認與自訂組態"
 
-#: ../../../manual/cmake-buildsystem.7.rst:1503
+#: ../../../manual/cmake-buildsystem.7.rst:1544
 msgid "By default, CMake defines a number of standard configurations:"
 msgstr "默認情況下，CMake 定義了許多標準組態："
 
-#: ../../../manual/cmake-buildsystem.7.rst:1505
+#: ../../../manual/cmake-buildsystem.7.rst:1546
 msgid "``Debug``"
 msgstr "``Debug``"
 
-#: ../../../manual/cmake-buildsystem.7.rst:1506
+#: ../../../manual/cmake-buildsystem.7.rst:1547
 msgid "``Release``"
 msgstr "``Debug``"
 
-#: ../../../manual/cmake-buildsystem.7.rst:1507
+#: ../../../manual/cmake-buildsystem.7.rst:1548
 msgid "``RelWithDebInfo``"
 msgstr "``RelWithDebInfo``"
 
-#: ../../../manual/cmake-buildsystem.7.rst:1508
+#: ../../../manual/cmake-buildsystem.7.rst:1549
 msgid "``MinSizeRel``"
 msgstr "``RelWithDebInfo``"
 
-#: ../../../manual/cmake-buildsystem.7.rst:1510
+#: ../../../manual/cmake-buildsystem.7.rst:1551
 msgid ""
 "In multi-config generators, the :variable:`CMAKE_CONFIGURATION_TYPES` "
 "variable will be populated with (potentially a subset of) the above list by "
@@ -2858,7 +2929,7 @@ msgstr ""
 "列表(可能是一個子集)，除非由專案或用戶重寫。實際使用的配置由用戶在構建時選"
 "擇。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:1515
+#: ../../../manual/cmake-buildsystem.7.rst:1556
 msgid ""
 "For single-config generators, the configuration is specified with the :"
 "variable:`CMAKE_BUILD_TYPE` variable at configure time and cannot be changed "
@@ -2873,7 +2944,7 @@ msgstr ""
 "的誤解是這與“Debug”相同，但情況並非如此。用戶應始終明確指定構建類型以避免此常"
 "見問題。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:1522
+#: ../../../manual/cmake-buildsystem.7.rst:1563
 msgid ""
 "The above standard configuration types provide reasonable behavior on most "
 "platforms, but they can be extended to provide other types.  Each "
@@ -2888,11 +2959,11 @@ msgstr ""
 "`CMAKE_<LANG>_FLAGS_<CONFIG>`約定，其中`<CONFIG>`始終是大寫的配置名稱。在定義"
 "自定義組態類型時，確保正確設定這些變數，通常作為緩存變量。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:1532
+#: ../../../manual/cmake-buildsystem.7.rst:1573
 msgid "Pseudo Targets"
 msgstr "偽目標"
 
-#: ../../../manual/cmake-buildsystem.7.rst:1534
+#: ../../../manual/cmake-buildsystem.7.rst:1575
 msgid ""
 "Some target types do not represent outputs of the buildsystem, but only "
 "inputs such as external dependencies, aliases or other non-build artifacts.  "
@@ -2901,11 +2972,11 @@ msgstr ""
 "某些目標類型不代表構建系統的輸出，而僅代表輸入，如外部依賴、別名或其他非構建"
 "工件。偽目標不在生成的構建系統中表示。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:1541
+#: ../../../manual/cmake-buildsystem.7.rst:1582
 msgid "Imported Targets"
 msgstr "匯入目標"
 
-#: ../../../manual/cmake-buildsystem.7.rst:1543
+#: ../../../manual/cmake-buildsystem.7.rst:1584
 msgid ""
 "An :prop_tgt:`IMPORTED` target represents a pre-existing dependency.  "
 "Usually such targets are defined by an upstream package and should be "
@@ -2921,7 +2992,7 @@ msgstr ""
 "command:`target_compile_options`或`:command:`target_link_libraries`等常用命令"
 "调整其目标属性。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:1551
+#: ../../../manual/cmake-buildsystem.7.rst:1592
 msgid ""
 ":prop_tgt:`IMPORTED` targets may have the same usage requirement properties "
 "populated as binary targets, such as :prop_tgt:"
@@ -2935,7 +3006,7 @@ msgstr ""
 "prop_tgt:`INTERFACE_LINK_LIBRARIES` 和 `:prop_tgt:"
 "`INTERFACE_POSITION_INDEPENDENT_CODE`。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:1559
+#: ../../../manual/cmake-buildsystem.7.rst:1600
 msgid ""
 "The :prop_tgt:`LOCATION` may also be read from an IMPORTED target, though "
 "there is rarely reason to do so.  Commands such as :command:"
@@ -2946,7 +3017,7 @@ msgstr ""
 "义命令`的命令可以透明地用`:prop_tgt:`引入的`:prop_tgt:`可执行<TYPE>`目标作为"
 "``命令``可执行文件。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:1564
+#: ../../../manual/cmake-buildsystem.7.rst:1605
 msgid ""
 "The scope of the definition of an :prop_tgt:`IMPORTED` target is the "
 "directory where it was defined.  It may be accessed and used from "
@@ -2956,14 +3027,14 @@ msgstr ""
 "`:prop_tgt:`IMPORTED`目標的定義範圍是它被定義的目錄。可以從子目錄中存取和使"
 "用，但不能從父目錄或同級目錄中存取。其範圍類似於cmake變數的範圍。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:1569
+#: ../../../manual/cmake-buildsystem.7.rst:1610
 msgid ""
 "It is also possible to define a ``GLOBAL`` :prop_tgt:`IMPORTED` target which "
 "is accessible globally in the buildsystem."
 msgstr ""
 "還可以定義一個“GLOBAL”`:prop_tgt:`IMPORTED`目標，這在建置系統中可以全域存取。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:1572
+#: ../../../manual/cmake-buildsystem.7.rst:1613
 msgid ""
 "See the :manual:`cmake-packages(7)` manual for more on creating packages "
 "with :prop_tgt:`IMPORTED` targets."
@@ -2971,11 +3042,11 @@ msgstr ""
 "根据`:manual:`cmake-packages(7)`手册查看更多有关使用`:prop_tgt:`引入的`目标创"
 "建软件包的信息。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:1578
+#: ../../../manual/cmake-buildsystem.7.rst:1619
 msgid "Alias Targets"
 msgstr "別名目標"
 
-#: ../../../manual/cmake-buildsystem.7.rst:1580
+#: ../../../manual/cmake-buildsystem.7.rst:1621
 msgid ""
 "An ``ALIAS`` target is a name which may be used interchangeably with a "
 "binary target name in read-only contexts.  A primary use-case for ``ALIAS`` "
@@ -2987,7 +3058,7 @@ msgstr ""
 "``ALIAS``目標的主要用途是例如與庫配套的示例或單元測試可執行文件，這些可以是同"
 "一構建系統的一部分或根據用戶配置單獨構建。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:1586
+#: ../../../manual/cmake-buildsystem.7.rst:1627
 msgid ""
 "add_library(lib1 lib1.cpp)\n"
 "install(TARGETS lib1 EXPORT lib1Export ${dest_args})\n"
@@ -3001,7 +3072,7 @@ msgstr ""
 "\n"
 "add_library(Upstream::lib1 ALIAS lib1)"
 
-#: ../../../manual/cmake-buildsystem.7.rst:1594
+#: ../../../manual/cmake-buildsystem.7.rst:1635
 msgid ""
 "In another directory, we can link unconditionally to the ``Upstream::lib1`` "
 "target, which may be an :prop_tgt:`IMPORTED` target from a package, or an "
@@ -3010,7 +3081,7 @@ msgstr ""
 "在另一個目錄中，我們可以無條件地鏈接到“Upstream::lib1”目標，它可以是來自包的"
 "`:prop_tgt:`IMPORTED`目標，或者是作為同一構建系統一部分構建的“ALIAS”目標。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:1598
+#: ../../../manual/cmake-buildsystem.7.rst:1639
 msgid ""
 "if (NOT TARGET Upstream::lib1)\n"
 "  find_package(lib1 REQUIRED)\n"
@@ -3024,13 +3095,13 @@ msgstr ""
 "add_executable(exe1 exe1.cpp)\n"
 "target_link_libraries(exe1 Upstream::lib1)"
 
-#: ../../../manual/cmake-buildsystem.7.rst:1606
+#: ../../../manual/cmake-buildsystem.7.rst:1647
 msgid ""
 "``ALIAS`` targets are not mutable, installable or exportable.  They are "
 "entirely local to the buildsystem description."
 msgstr ""
 
-#: ../../../manual/cmake-buildsystem.7.rst:1609
+#: ../../../manual/cmake-buildsystem.7.rst:1650
 msgid ""
 "``ALIAS`` targets may be used as the operand for :command:`set_property` and "
 "similar commands used to modify properties of targets.  The :command:"
@@ -3040,13 +3111,13 @@ msgid ""
 "exporting targets via an ``ALIAS``."
 msgstr ""
 
-#: ../../../manual/cmake-buildsystem.7.rst:1617
+#: ../../../manual/cmake-buildsystem.7.rst:1658
 msgid ""
 "A name can be tested for whether it is an ``ALIAS`` name by reading the :"
 "prop_tgt:`ALIASED_TARGET` property from it:"
 msgstr ""
 
-#: ../../../manual/cmake-buildsystem.7.rst:1620
+#: ../../../manual/cmake-buildsystem.7.rst:1661
 msgid ""
 "get_target_property(_aliased Upstream::lib1 ALIASED_TARGET)\n"
 "if(_aliased)\n"
@@ -3058,11 +3129,11 @@ msgstr ""
 "  message(STATUS \"名稱 Upstream::lib1是 ${_aliased} 的別名。\")\n"
 "endif()"
 
-#: ../../../manual/cmake-buildsystem.7.rst:1630
+#: ../../../manual/cmake-buildsystem.7.rst:1671
 msgid "Interface Libraries"
 msgstr "介面庫"
 
-#: ../../../manual/cmake-buildsystem.7.rst:1632
+#: ../../../manual/cmake-buildsystem.7.rst:1673
 msgid ""
 "An ``INTERFACE`` library target does not compile sources and does not "
 "produce a library artifact on disk, so it has no :prop_tgt:`LOCATION`."
@@ -3070,7 +3141,7 @@ msgstr ""
 "\"INTERFACE\" 載體目標不編譯來源，且不生成磁碟上圖書檔，故無`:prop_tgt:"
 "`LOCATION`。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:1635
+#: ../../../manual/cmake-buildsystem.7.rst:1676
 msgid ""
 "It may specify `usage requirements <Target Usage Requirements_>`_, "
 "`compatible interface properties <Compatible Interface Properties_>`_, and "
@@ -3086,7 +3157,7 @@ msgstr ""
 "command:`target_compile_options`、：command:`target_sources`和：command:"
 "`target_link_libraries`命令可以与``INTERFACE``库一起使用。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:1643
+#: ../../../manual/cmake-buildsystem.7.rst:1684
 msgid ""
 "Since CMake 3.19, an ``INTERFACE`` library target may optionally contain "
 "source files.  An interface library that contains source files will be "
@@ -3100,7 +3171,7 @@ msgstr ""
 "定義指令用於生成其他來源。此外，IDE會將來源檔案作為載體的一部分顯示，以供互動"
 "式讀取和編輯。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:1650
+#: ../../../manual/cmake-buildsystem.7.rst:1691
 msgid ""
 "A primary use-case for ``INTERFACE`` libraries is header-only libraries. "
 "Since CMake 3.23, header files may be associated with a library by adding "
@@ -3109,7 +3180,7 @@ msgstr ""
 "\"INTERFACE\" 資料庫的主要用途是僅頭文件型資料庫。自 CMake 3.23 起，頭文件可"
 "以通過`:command:`target_sources`命令將其添加到頭文件集來關聯到資料庫："
 
-#: ../../../manual/cmake-buildsystem.7.rst:1654
+#: ../../../manual/cmake-buildsystem.7.rst:1695
 msgid ""
 "add_library(Eigen INTERFACE)\n"
 "\n"
@@ -3133,7 +3204,7 @@ msgstr ""
 "add_executable(exe1 exe1.cpp)\n"
 "target_link_libraries(exe1 Eigen)"
 
-#: ../../../manual/cmake-buildsystem.7.rst:1667
+#: ../../../manual/cmake-buildsystem.7.rst:1708
 msgid ""
 "When we specify the ``FILE_SET`` here, the ``BASE_DIRS`` we define "
 "automatically become include directories in the usage requirements for the "
@@ -3143,13 +3214,13 @@ msgstr ""
 "當我們在此指定`FILE_SET`時，我們定義的`BASE_DIRS`會自動成為目標`Eigen`的用法"
 "要求中的包含目錄。目標的使用要求在編譯時被消耗和使用，但對鏈接沒有影響。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:1672
+#: ../../../manual/cmake-buildsystem.7.rst:1713
 msgid ""
 "Another use-case is to employ an entirely target-focussed design for usage "
 "requirements:"
 msgstr "另一個用例是為使用要求擁有一個完全聚焦於目標的設計："
 
-#: ../../../manual/cmake-buildsystem.7.rst:1675
+#: ../../../manual/cmake-buildsystem.7.rst:1716
 msgid ""
 "add_library(pic_on INTERFACE)\n"
 "set_property(TARGET pic_on PROPERTY INTERFACE_POSITION_INDEPENDENT_CODE ON)\n"
@@ -3179,7 +3250,7 @@ msgstr ""
 "add_executable(exe1 exe1.cpp)\n"
 "target_link_libraries(exe1 pic_on enable_rtti)"
 
-#: ../../../manual/cmake-buildsystem.7.rst:1690
+#: ../../../manual/cmake-buildsystem.7.rst:1731
 msgid ""
 "This way, the build specification of ``exe1`` is expressed entirely as "
 "linked targets, and the complexity of compiler-specific flags is "
@@ -3188,14 +3259,14 @@ msgstr ""
 "這種方式，“exe1”的建置規範完全表述為鏈接目標，且編譯器特定旗標的複雜性封裝"
 "於“INTERFACE”載體目標中。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:1694
+#: ../../../manual/cmake-buildsystem.7.rst:1735
 msgid ""
 "``INTERFACE`` libraries may be installed and exported. We can install the "
 "default header set along with the target:"
 msgstr ""
 "``INTERFACE``庫可以安裝及導出。我們可以將默認的頭文件集與目標一同安裝："
 
-#: ../../../manual/cmake-buildsystem.7.rst:1697
+#: ../../../manual/cmake-buildsystem.7.rst:1738
 msgid ""
 "add_library(Eigen INTERFACE)\n"
 "\n"
@@ -3225,7 +3296,7 @@ msgstr ""
 "  DESTINATION lib/cmake/Eigen\n"
 ")"
 
-#: ../../../manual/cmake-buildsystem.7.rst:1713
+#: ../../../manual/cmake-buildsystem.7.rst:1754
 msgid ""
 "Here, the headers defined in the header set are installed to ``include/"
 "Eigen``. The install destination automatically becomes an include directory "
@@ -3234,11 +3305,11 @@ msgstr ""
 "此處，在頭文件集中定義的頭文件被安裝至``include/Eigen``中。安裝目標自動成為互"
 "換工作的使用要求中的包含目錄。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:1718
+#: ../../../manual/cmake-buildsystem.7.rst:1759
 msgid "Properties Allowed on Interface Libraries"
 msgstr "介面庫上允許的屬性"
 
-#: ../../../manual/cmake-buildsystem.7.rst:1720
+#: ../../../manual/cmake-buildsystem.7.rst:1761
 msgid ""
 "Since CMake 3.19, interface libraries allow setting or reading target "
 "properties with any name, just like other target kinds always have."
@@ -3246,13 +3317,13 @@ msgstr ""
 "自CMake 3.19以來，介面庫允許像其他目標類型一樣，設定或閱讀具有任何名稱的目標"
 "屬性。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:1723
+#: ../../../manual/cmake-buildsystem.7.rst:1764
 msgid ""
 "Prior to CMake 3.19, interface libraries only allowed setting or reading "
 "target properties with a limited set of names:"
 msgstr "在CMake 3.19以前，介面庫僅允許撰寫或讀取具有有限名稱集的目標屬性："
 
-#: ../../../manual/cmake-buildsystem.7.rst:1726
+#: ../../../manual/cmake-buildsystem.7.rst:1767
 msgid ""
 "Properties named with an ``INTERFACE_`` prefix, either builtin `usage "
 "requirements <Target Usage Requirements_>`_, or custom names."
@@ -3260,7 +3331,7 @@ msgstr ""
 "以``INTERFACE_``前端命名的屬性，無論是內置`使用要求 <Target Usage "
 "Requirements_>`_，還是個性化名稱。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:1729
+#: ../../../manual/cmake-buildsystem.7.rst:1770
 msgid ""
 "Built-in properties named with a ``COMPATIBLE_INTERFACE_`` prefix "
 "(`compatible interface properties <Compatible Interface Properties_>`_)."
@@ -3268,7 +3339,7 @@ msgstr ""
 "内建属性以``COMPATIBLE_INTERFACE_``前缀命名（`兼容接口属性 <兼容接口属性"
 "_>`_）。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:1732
+#: ../../../manual/cmake-buildsystem.7.rst:1773
 msgid ""
 "Built-in properties :prop_tgt:`NAME`, :prop_tgt:`EXPORT_NAME`, :prop_tgt:"
 "`EXPORT_PROPERTIES`, :prop_tgt:`MANUALLY_ADDED_DEPENDENCIES`, :prop_tgt:"
@@ -3280,8 +3351,273 @@ msgstr ""
 "`IMPORTED`、`:prop_tgt:`IMPORTED_LIBNAME_<CONFIG>` 和 `:prop_tgt:"
 "`MAP_IMPORTED_CONFIG_<CONFIG>`。"
 
-#: ../../../manual/cmake-buildsystem.7.rst:1737
+#: ../../../manual/cmake-buildsystem.7.rst:1778
 msgid ""
 "Properties named with a leading underscore (``_``) or lowercase ASCII "
 "character."
 msgstr "以首字下劃線（``_``）或 ASCII 小寫字母命名的屬性。"
+
+#: ../../../manual/cmake-buildsystem.7.rst:1783
+msgid "Preparation Targets"
+msgstr ""
+
+#: ../../../manual/cmake-buildsystem.7.rst:1785
+msgid ""
+"The :ref:`Ninja Generators`, :ref:`Makefile Generators`, and :generator:"
+"`FASTBuild` generator provide convenience targets that build only the "
+"prerequisites of a later step, such as running tests or installing."
+msgstr ""
+
+#: ../../../manual/cmake-buildsystem.7.rst:1792
+msgid "Test Preparation Targets"
+msgstr ""
+
+#: ../../../manual/cmake-buildsystem.7.rst:1796
+msgid ""
+"The generators which support preparation targets provide convenience build "
+"targets that build the known prerequisites of tests before running the "
+"tests, unless :variable:`CMAKE_SKIP_TEST_PREP_TARGETS` is enabled:"
+msgstr ""
+
+#: ../../../manual/cmake-buildsystem.7.rst:1800
+msgid "``test_prep/all``"
+msgstr ""
+
+#: ../../../manual/cmake-buildsystem.7.rst:1801
+msgid "Prepare to run all tests."
+msgstr ""
+
+#: ../../../manual/cmake-buildsystem.7.rst:1803
+msgid "``test_prep/<name>``"
+msgstr ""
+
+#: ../../../manual/cmake-buildsystem.7.rst:1804
+msgid ""
+"Prepare to run the test ``<name>``.  If multiple tests in different "
+"directories share the same name, their dependencies are merged into a single "
+"``test_prep/<name>`` target."
+msgstr ""
+
+#: ../../../manual/cmake-buildsystem.7.rst:1808
+msgid ""
+"Building a test preparation target ensures that the test executable is up-to-"
+"date before the test runs."
+msgstr ""
+
+#: ../../../manual/cmake-buildsystem.7.rst:1811
+msgid ""
+"A test preparation target is generated only when its name can be represented "
+"safely by the native build tool, as described under :ref:`Target Names`. "
+"CMake warns about a test that has build dependencies but whose name cannot "
+"be represented."
+msgstr ""
+
+#: ../../../manual/cmake-buildsystem.7.rst:1816
+msgid ""
+"CMake infers dependencies associated with tests from the test executable, as "
+"well as any targets referenced by the test command via generator "
+"expressions. The ``BUILD_DEPENDS`` option of the :command:`add_test` command "
+"can be used to add explicit build dependencies."
+msgstr ""
+
+#: ../../../manual/cmake-buildsystem.7.rst:1821
+msgid ""
+"How file dependencies are prepared depends on how the file is produced.  "
+"See :ref:`Preparation Target File Dependencies`."
+msgstr ""
+
+#: ../../../manual/cmake-buildsystem.7.rst:1826
+msgid ""
+"Modules may also extend ``test_prep/all`` with directory-scoped dependencies "
+"via the :prop_dir:`CMAKE_TEST_BUILD_DEPENDS` directory property."
+msgstr ""
+
+#: ../../../manual/cmake-buildsystem.7.rst:1831
+msgid ""
+"Test preparation targets are enabled by default.  :generator:`FASTBuild` and "
+"the :ref:`Makefile Generators` gained support for test preparation targets. "
+"Previously, test preparation targets were only enabled if the :variable:"
+"`CMAKE_TEST_BUILD_DEPENDS` variable was enabled."
+msgstr ""
+
+#: ../../../manual/cmake-buildsystem.7.rst:1839
+msgid "Install Preparation Targets"
+msgstr ""
+
+#: ../../../manual/cmake-buildsystem.7.rst:1843
+msgid ""
+"If the project has install rules, the generators which support preparation "
+"targets provide convenience build targets that build the known prerequisites "
+"of an installation before running the installation, unless :variable:"
+"`CMAKE_SKIP_INSTALL_PREP_TARGETS` or :variable:`CMAKE_SKIP_INSTALL_RULES` is "
+"enabled:"
+msgstr ""
+
+#: ../../../manual/cmake-buildsystem.7.rst:1849
+msgid "``install_prep/all``"
+msgstr ""
+
+#: ../../../manual/cmake-buildsystem.7.rst:1850
+msgid ""
+"Prepare for an installation that does not select a component, such as :"
+"option:`cmake --install \\<build-dir\\> <cmake --install>` without :cmake-"
+"install-option:`--component`.  This includes rules of every component, but "
+"omits :command:`install` rules using the ``EXCLUDE_FROM_ALL`` option."
+msgstr ""
+
+#: ../../../manual/cmake-buildsystem.7.rst:1855
+msgid "``install_prep/<component>``"
+msgstr ""
+
+#: ../../../manual/cmake-buildsystem.7.rst:1856
+msgid ""
+"Prepare to install ``<component>``.  Rules for that component are included "
+"even when they use the ``EXCLUDE_FROM_ALL`` option."
+msgstr ""
+
+#: ../../../manual/cmake-buildsystem.7.rst:1859
+msgid ""
+"Building ``install_prep/all`` does not necessarily prepare the installation "
+"of a particular component, because installing a component also runs that "
+"component's ``EXCLUDE_FROM_ALL`` rules.  Build the matching ``install_prep/"
+"<component>`` target before installing a specific component."
+msgstr ""
+
+#: ../../../manual/cmake-buildsystem.7.rst:1866
+msgid ""
+"cmake --build <build-dir> --config Release --target install_prep/Runtime\n"
+"cmake --install <build-dir> --config Release --component Runtime"
+msgstr ""
+
+#: ../../../manual/cmake-buildsystem.7.rst:1871
+msgid ""
+"Only install rules active for the selected configuration contribute build "
+"dependencies.  For multi-config generators, the same configuration should be "
+"used for the preparation and installation steps."
+msgstr ""
+
+#: ../../../manual/cmake-buildsystem.7.rst:1875
+msgid ""
+"A component preparation target is generated only when its name can be "
+"represented safely by the native build tool, as described under :ref:`Target "
+"Names`.  CMake warns about a component that has build dependencies but whose "
+"name cannot be represented."
+msgstr ""
+
+#: ../../../manual/cmake-buildsystem.7.rst:1881
+msgid ""
+"A component named ``all`` does not get its own target because its name would "
+"conflict with ``install_prep/all``.  Its rules contribute to ``install_prep/"
+"all`` only when they do not use the ``EXCLUDE_FROM_ALL`` option."
+msgstr ""
+
+#: ../../../manual/cmake-buildsystem.7.rst:1886
+msgid ""
+"CMake infers dependencies associated with installed target artifacts, "
+"imported runtime artifacts, runtime dependency sets, C++ module BMIs, and C+"
+"+ module export metadata.  Preparing BMIs or module export metadata builds "
+"the targets that produce them."
+msgstr ""
+
+#: ../../../manual/cmake-buildsystem.7.rst:1891
+msgid ""
+"Installing files with the ``FILES`` or ``PROGRAMS`` signatures of the :"
+"command:`install` command, or a target's file sets or its :prop_tgt:"
+"`PUBLIC_HEADER`, :prop_tgt:`PRIVATE_HEADER`, or :prop_tgt:`RESOURCE` files, "
+"implies build dependencies only for files that the build produces, i.e., "
+"target output artifacts, and outputs and byproducts of custom commands and "
+"custom targets.  How such a file is prepared depends on how it is produced. "
+"See :ref:`Preparation Target File Dependencies`."
+msgstr ""
+
+#: ../../../manual/cmake-buildsystem.7.rst:1902
+msgid "Preparation Target File Dependencies"
+msgstr ""
+
+#: ../../../manual/cmake-buildsystem.7.rst:1904
+msgid ""
+"The manner in which a file dependency of a test or install preparation "
+"target is prepared depends on how it is produced:"
+msgstr ""
+
+#: ../../../manual/cmake-buildsystem.7.rst:1907
+msgid ""
+"A target's output artifact, such as one named by :genex:`TARGET_FILE`, is "
+"prepared by building that target."
+msgstr ""
+
+#: ../../../manual/cmake-buildsystem.7.rst:1910
+msgid ""
+"A file that is the output of a custom command attached to exactly one target "
+"is prepared by running that custom command.  The :ref:`Makefile Generators` "
+"cannot depend on individual files, so they build the target owning the "
+"custom command instead."
+msgstr ""
+
+#: ../../../manual/cmake-buildsystem.7.rst:1915
+msgid ""
+"The target which installs the file (or the file set to which the file "
+"belongs), if any, is not built by installation preparation targets."
+msgstr ""
+
+#: ../../../manual/cmake-buildsystem.7.rst:1918
+msgid ""
+"Any other generated file, such as a byproduct or the output of a custom "
+"command attached to more than one target, is prepared by depending on the "
+"file itself, which runs whatever produces it.  The :ref:`Makefile "
+"Generators` and :generator:`FASTBuild` cannot do so, so they warn."
+msgstr ""
+
+#: ../../../manual/cmake-buildsystem.7.rst:1924
+msgid ""
+"For install preparation targets, if a target installs the file (or the file "
+"set to which the file belongs), the preparation target will build that "
+"target instead, which must therefore depend on the producer, e.g., through :"
+"command:`add_dependencies`.  Otherwise, the preparation target does not "
+"prepare the file."
+msgstr ""
+
+#: ../../../manual/cmake-buildsystem.7.rst:1932
+msgid ""
+"# Preparation which depends on `generated.h` runs only the custom command,\n"
+"# not the library build.\n"
+"add_custom_command(OUTPUT \"${CMAKE_CURRENT_BINARY_DIR}/generated.h\"\n"
+"  COMMAND ...)\n"
+"add_library(A a.c \"${CMAKE_CURRENT_BINARY_DIR}/generated.h\")\n"
+"set_property(TARGET A PROPERTY PUBLIC_HEADER\n"
+"  \"${CMAKE_CURRENT_BINARY_DIR}/generated.h\")\n"
+"\n"
+"# Preparation which depends on `byproduct.h` runs `gen`, or with some\n"
+"# generators builds `B` instead, so `B` must depend on the producer of its\n"
+"# byproduct.\n"
+"add_custom_target(gen COMMAND ...\n"
+"  BYPRODUCTS \"${CMAKE_CURRENT_BINARY_DIR}/byproduct.h\")\n"
+"add_library(B b.c)\n"
+"add_dependencies(B gen)\n"
+"\n"
+"# The preparation target for an install which installs `B` will implicitly\n"
+"# depend on `byproduct.h` when it appears in an associated file set.\n"
+"set_property(TARGET B PROPERTY PUBLIC_HEADER\n"
+"  \"${CMAKE_CURRENT_BINARY_DIR}/byproduct.h\")\n"
+"\n"
+"# A test depending on `byproduct.h` needs to express that dependency\n"
+"# explicitly using `BUILD_DEPENDS`.\n"
+"add_test(test_B COMMAND test_B BUILD_DEPENDS\n"
+"  \"${CMAKE_CURRENT_BINARY_DIR}/byproduct.h\")"
+msgstr ""
+
+#: ../../../manual/cmake-buildsystem.7.rst:1960
+msgid ""
+"The ``BUILD_DEPENDS`` option of the ``FILES``, ``PROGRAMS``, ``DIRECTORY``, "
+"``SCRIPT``, and ``CODE`` signatures of the :command:`install` command can be "
+"used to specify targets or files that CMake cannot infer.  ``DIRECTORY``, "
+"``SCRIPT``, and ``CODE`` rules do not imply build dependencies without "
+"``BUILD_DEPENDS``.  The deprecated :command:`install_targets` command does "
+"not contribute dependencies."
+msgstr ""
+
+#: ../../../manual/cmake-buildsystem.7.rst:1967
+msgid ""
+"Install rules below a directory added with :prop_dir:`EXCLUDE_FROM_ALL` are "
+"ignored, matching installation from the parent directory."
+msgstr ""
