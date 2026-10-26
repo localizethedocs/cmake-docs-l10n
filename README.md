@@ -58,6 +58,9 @@
 <a href="https://github.com/localizethedocs/cmake-docs-l10n/pulls" title="GitHub Open Pull Requests" target="_blank">
   <img alt="GitHub Open Pull Requests" src="https://img.shields.io/github/issues-pr/localizethedocs/cmake-docs-l10n?logo=github&style=flat&color=blue" />
 </a>
+<a href="https://github.com/localizethedocs/cmake-docs-l10n/commits/l10n" title="GitHub L10n Commits" target="_blank">
+  <img alt="GitHub L10n Commits" src="https://img.shields.io/github/commit-activity/m/localizethedocs/cmake-docs-l10n/l10n?style=flat&logo=github&label=l10n%20commits&color=blue" />
+</a>
 <a href="https://opensource.org/licenses/BSD-3-Clause" title="License: BSD-3-Clause" target="_blank">
   <img alt="License: BSD-3-Clause" src="https://img.shields.io/badge/License-BSD--3--Clause-blue.svg?logo=opensourceinitiative&style=flat&logoColor=white" />
 </a>
