@@ -70,8 +70,8 @@ msgstr ""
 msgid ""
 "This tutorial endeavors to demonstrate best practices and solutions to real "
 "problems. However, for this one step we're going to be re-implementing some "
-"built-in CMake functions. In \"real life\", do not write your own :command:"
-"`list(APPEND)`."
+"built-in CMake functions. In \"real life\", do not write your "
+"own :command:`list(APPEND)`."
 msgstr ""
 
 #: ../../../guide/tutorial/CMake Language Fundamentals.rst:41
@@ -91,13 +91,13 @@ msgstr ""
 
 #: ../../../guide/tutorial/CMake Language Fundamentals.rst:51
 msgid ""
-"We can create a variable, which is to say a name for a string, using the :"
-"command:`set` command."
+"We can create a variable, which is to say a name for a string, using "
+"the :command:`set` command."
 msgstr ""
 
 #: ../../../guide/tutorial/CMake Language Fundamentals.rst:54
 msgid "set(var \"World!\")"
-msgstr ""
+msgstr "set(var \"World!\")"
 
 #: ../../../guide/tutorial/CMake Language Fundamentals.rst:58
 msgid ""
@@ -111,6 +111,8 @@ msgid ""
 "set(var \"World!\")\n"
 "message(\"Hello ${var}\")"
 msgstr ""
+"set(var \"World!\")\n"
+"message(\"Hello ${var}\")"
 
 #: ../../../guide/tutorial/CMake Language Fundamentals.rst:66
 msgid ""
@@ -149,8 +151,8 @@ msgstr ""
 msgid ""
 "As mentioned, lists are strings containing semicolons. The :command:`list` "
 "command is useful for manipulating these, and many structures within CMake "
-"expect to operate with this convention. As an example, we can use the :"
-"command:`foreach` command to iterate over a list."
+"expect to operate with this convention. As an example, we can use "
+"the :command:`foreach` command to iterate over a list."
 msgstr ""
 
 #: ../../../guide/tutorial/CMake Language Fundamentals.rst:92
@@ -189,7 +191,7 @@ msgstr ""
 
 #: ../../../guide/tutorial/CMake Language Fundamentals.rst:112
 msgid "Exercise 1 - Macros, Functions, and Lists"
-msgstr ""
+msgstr "練習 1 - 巨集、函數與列表"
 
 #: ../../../guide/tutorial/CMake Language Fundamentals.rst:114
 msgid ""
@@ -211,6 +213,15 @@ msgid ""
 "\n"
 "MyFunc(\"From TopLevel\")"
 msgstr ""
+"macro(MyMacro MacroArgument)\n"
+"  message(\"${MacroArgument}\\n\\t\\tFrom Macro\")\n"
+"endmacro()\n"
+"\n"
+"function(MyFunc FuncArgument)\n"
+"  MyMacro(\"${FuncArgument}\\n\\tFrom Function\")\n"
+"endfunction()\n"
+"\n"
+"MyFunc(\"From TopLevel\")"
 
 #: ../../../guide/tutorial/CMake Language Fundamentals.rst:131
 msgid ""
@@ -219,14 +230,18 @@ msgid ""
 "      From Function\n"
 "              From Macro"
 msgstr ""
+"$ cmake -P CMakeLists.txt\n"
+"From TopLevel\n"
+"      From Function\n"
+"              From Macro"
 
 #: ../../../guide/tutorial/CMake Language Fundamentals.rst:138
 msgid ""
 "Like with many languages, the difference between functions and macros is one "
 "of scope. In CMakeLang, both :command:`function` and :command:`macro` can "
-"\"see\" all the variables created in all the frames above them. However, a :"
-"command:`macro` acts semantically like a text replacement, similar to C/C++ "
-"macros, so any side effects the macro creates are visible in their calling "
+"\"see\" all the variables created in all the frames above them. However, "
+"a :command:`macro` acts semantically like a text replacement, similar to C/C+"
+"+ macros, so any side effects the macro creates are visible in their calling "
 "context. If we create or change a variable in a macro, the caller will see "
 "the change."
 msgstr ""
@@ -249,11 +264,11 @@ msgstr ""
 
 #: ../../../guide/tutorial/CMake Language Fundamentals.rst:156
 msgid ""
-"While not necessary for this exercise, it bears mentioning that :command:"
-"`macro` and :command:`function` both support variadic arguments via the "
-"``ARGV`` variable, a list containing all arguments passed to the command, "
-"and the ``ARGN`` variable, containing all arguments past the last expected "
-"argument."
+"While not necessary for this exercise, it bears mentioning "
+"that :command:`macro` and :command:`function` both support variadic "
+"arguments via the ``ARGV`` variable, a list containing all arguments passed "
+"to the command, and the ``ARGN`` variable, containing all arguments past the "
+"last expected argument."
 msgstr ""
 
 #: ../../../guide/tutorial/CMake Language Fundamentals.rst:161
@@ -329,7 +344,7 @@ msgstr ""
 
 #: ../../../guide/tutorial/CMake Language Fundamentals.rst:199
 msgid "``Exercise1.cmake``"
-msgstr ""
+msgstr "``Exercise1.cmake``"
 
 #: ../../../guide/tutorial/CMake Language Fundamentals.rst:202
 #: Fundamentals.rst:386 Fundamentals.rst:485
@@ -367,7 +382,7 @@ msgstr ""
 
 #: ../../../guide/tutorial/CMake Language Fundamentals.rst:221
 msgid "cmake -P Exercise1.cmake"
-msgstr ""
+msgstr "cmake -P Exercise1.cmake"
 
 #: ../../../guide/tutorial/CMake Language Fundamentals.rst:225
 msgid "The script will report if the commands were implemented correctly."
@@ -550,17 +565,18 @@ msgstr ""
 
 #: ../../../guide/tutorial/CMake Language Fundamentals.rst:354
 msgid ""
-"In addition to conditionals CMake provides two loop structures, :command:"
-"`while`, which follows the same rules as :command:`if` for checking a loop "
-"variable, and the more useful :command:`foreach`, which iterates over lists "
-"of strings and was demonstrated in the `Background`_ section."
+"In addition to conditionals CMake provides two loop "
+"structures, :command:`while`, which follows the same rules as :command:`if` "
+"for checking a loop variable, and the more useful :command:`foreach`, which "
+"iterates over lists of strings and was demonstrated in the `Background`_ "
+"section."
 msgstr ""
 
 #: ../../../guide/tutorial/CMake Language Fundamentals.rst:359
 msgid ""
 "For this exercise, we're going to use loops and conditionals to solve some "
-"simple problems. We'll be using the aforementioned ``ARGN`` variable from :"
-"command:`function` as the list to operate on."
+"simple problems. We'll be using the aforementioned ``ARGN`` variable "
+"from :command:`function` as the list to operate on."
 msgstr ""
 
 #: ../../../guide/tutorial/CMake Language Fundamentals.rst:366
@@ -570,8 +586,8 @@ msgstr ""
 
 #: ../../../guide/tutorial/CMake Language Fundamentals.rst:369
 msgid ""
-"Those who read the command documentation will be aware that this is :command:"
-"`list(FILTER)`, resist the temptation to use it."
+"Those who read the command documentation will be aware that this "
+"is :command:`list(FILTER)`, resist the temptation to use it."
 msgstr ""
 
 #: ../../../guide/tutorial/CMake Language Fundamentals.rst:376
@@ -584,7 +600,7 @@ msgstr ""
 
 #: ../../../guide/tutorial/CMake Language Fundamentals.rst:383
 msgid "``Exercise2.cmake``"
-msgstr ""
+msgstr "``Exercise2.cmake``"
 
 #: ../../../guide/tutorial/CMake Language Fundamentals.rst:388
 msgid ""
@@ -640,8 +656,8 @@ msgid ""
 "The :command:`if` comparison we need is ``MATCHES`` which will check if "
 "``\"Foo\"`` exists in the item. All that remains is to append the item to "
 "the ``OutVar`` list.  The trickiest part is remembering that ``OutVar`` "
-"*names* a list, it is not the list itself, so we need to access it via "
-"``${OutVar}``."
+"*names* a list, it is not the list itself, so we need to access it via ``$"
+"{OutVar}``."
 msgstr ""
 
 #: ../../../guide/tutorial/CMake Language Fundamentals.rst:425
@@ -688,10 +704,10 @@ msgstr ""
 
 #: ../../../guide/tutorial/CMake Language Fundamentals.rst:461
 msgid ""
-"To incorporate these separate ``.cmake`` files into our project, we use the :"
-"command:`include` command. This command immediately begins interpreting the "
-"contents of the :command:`include`'d file in the scope of the parent CML. It "
-"is as if the entire file were being called as a macro."
+"To incorporate these separate ``.cmake`` files into our project, we use "
+"the :command:`include` command. This command immediately begins interpreting "
+"the contents of the :command:`include`'d file in the scope of the parent "
+"CML. It is as if the entire file were being called as a macro."
 msgstr ""
 
 #: ../../../guide/tutorial/CMake Language Fundamentals.rst:466
@@ -734,7 +750,7 @@ msgstr ""
 
 #: ../../../guide/tutorial/CMake Language Fundamentals.rst:502
 msgid "cmake -P Exercise3.cmake"
-msgstr ""
+msgstr "cmake -P Exercise3.cmake"
 
 #: ../../../guide/tutorial/CMake Language Fundamentals.rst:506
 msgid ""
