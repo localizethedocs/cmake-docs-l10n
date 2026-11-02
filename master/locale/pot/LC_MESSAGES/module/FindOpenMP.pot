@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CMake master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-20 12:12+0000\n"
+"POT-Creation-Date: 2026-11-02 17:36+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -106,192 +106,297 @@ msgid ""
 "Target encapsulating the OpenMP usage requirements for language ``<lang>``."
 msgstr ""
 
-#: ../../../../Modules/FindOpenMP.cmake:63
-msgid "Input Variables"
+#: ../../../../Modules/FindOpenMP.cmake:62
+msgid "``OpenMP::OpenMP_<lang>_Offload``"
 msgstr ""
 
 #: ../../../../Modules/FindOpenMP.cmake:65
-msgid "The following variables may be set to influence this module's behavior:"
-msgstr ""
-
-#: ../../../../Modules/FindOpenMP.cmake:67
-msgid "``OpenMP_RUNTIME_MSVC``"
-msgstr ""
-
-#: ../../../../Modules/FindOpenMP.cmake:70
 msgid ""
-"Specify the `OpenMP Runtime <msvc-openmp_>`_ when compiling with MSVC. If "
-"set to a non-empty value, such as ``experimental`` or ``llvm``, it will be "
-"passed as the value of the ``-openmp:`` flag."
+"Target for code whose OpenMP ``target`` regions may be offloaded to a "
+"device, for ``<lang>`` of ``C``, ``CXX``, or ``Fortran``.  It links "
+"``OpenMP::OpenMP_<lang>`` and, when offload is enabled with the "
+"``OpenMP_<lang>_OFFLOAD`` or ``OpenMP_<lang>_OFFLOAD_FLAGS`` variables, adds "
+"the offload flags when compiling ``<lang>`` sources.  It also adds them, "
+"together with the OpenMP flags, when the link is done by a compiler with the "
+"same :variable:`CMAKE_<LANG>_COMPILER_ID`, because compilers need both in "
+"order to link device code.  When offload is not enabled, it is equivalent to "
+"``OpenMP::OpenMP_<lang>``."
 msgstr ""
 
-#: ../../../../Modules/FindOpenMP.cmake:77
-msgid "Result Variables"
+#: ../../../../Modules/FindOpenMP.cmake:75
+msgid ""
+"With NVHPC, an executable linked by NVHPC must also link the offload target "
+"when it uses a shared library with offloaded code, for example through "
+"``$<LINK_ONLY:OpenMP::OpenMP_<lang>_Offload>`` in the library's "
+"``INTERFACE`` link libraries."
 msgstr ""
 
-#: ../../../../Modules/FindOpenMP.cmake:79
-msgid "This module defines the following variables:"
-msgstr ""
-
-#: ../../../../Modules/FindOpenMP.cmake:81
-msgid "``OpenMP_FOUND``"
+#: ../../../../Modules/FindOpenMP.cmake:80
+msgid ""
+"Linking through a separate linker, as with Visual Studio generators or "
+"``clang-cl``, is not supported."
 msgstr ""
 
 #: ../../../../Modules/FindOpenMP.cmake:84
+msgid "Input Variables"
+msgstr ""
+
+#: ../../../../Modules/FindOpenMP.cmake:86
+msgid "The following variables may be set to influence this module's behavior:"
+msgstr ""
+
+#: ../../../../Modules/FindOpenMP.cmake:88
+msgid "``OpenMP_RUNTIME_MSVC``"
+msgstr ""
+
+#: ../../../../Modules/FindOpenMP.cmake:91
+msgid ""
+"Specify the `OpenMP Runtime <msvc-openmp_>`_ when compiling with the MSVC "
+"compiler (``cl``).  If set to a non-empty value, such as ``experimental`` or "
+"``llvm``, it will be passed as the value of the ``-openmp:`` flag.  This has "
+"no effect with other compilers, including ``clang-cl``."
+msgstr ""
+
+#: ../../../../Modules/FindOpenMP.cmake:99
+msgid "``OpenMP_<lang>_OFFLOAD``"
+msgstr ""
+
+#: ../../../../Modules/FindOpenMP.cmake:102
+msgid ""
+"Enables OpenMP ``target`` offload for targets that link "
+"``OpenMP::OpenMP_<lang>_Offload``.  If not defined, offload is enabled when "
+"``OpenMP_<lang>_OFFLOAD_FLAGS`` is non-empty.  If defined, its boolean value "
+"decides, so ``OFF`` disables offload even when flags are set."
+msgstr ""
+
+#: ../../../../Modules/FindOpenMP.cmake:108
+msgid ""
+"The offload flags are ``OpenMP_<lang>_OFFLOAD_FLAGS`` if non-empty, and "
+"otherwise a default for the compiler:"
+msgstr ""
+
+#: ../../../../Modules/FindOpenMP.cmake:111
+msgid ""
+"GNU: none.  GCC offloads to the devices whose offload compilers are "
+"installed, such as ``gcc-offload-nvptx`` on Debian and Ubuntu."
+msgstr ""
+
+#: ../../../../Modules/FindOpenMP.cmake:113
+msgid "NVHPC: ``-mp=gpu``."
+msgstr ""
+
+#: ../../../../Modules/FindOpenMP.cmake:114
+msgid ""
+"IntelLLVM with a GNU-like command line (``icx``, ``icpx``, ``ifx``): ``-"
+"fopenmp-targets=spir64``."
+msgstr ""
+
+#: ../../../../Modules/FindOpenMP.cmake:116
+msgid ""
+"Cray, CrayClang: none.  The device comes from the loaded ``craype-accel-*`` "
+"module."
+msgstr ""
+
+#: ../../../../Modules/FindOpenMP.cmake:119
+msgid ""
+"Other compilers, including Clang, have no default.  Enabling offload for "
+"them without ``OpenMP_<lang>_OFFLOAD_FLAGS`` is an error, even if the "
+"package is ``QUIET`` or the component is optional."
+msgstr ""
+
+#: ../../../../Modules/FindOpenMP.cmake:123
+msgid ""
+"Targets linking only ``OpenMP::OpenMP_<lang>`` are not affected. Projects "
+"using the result variables must add the device flags for compiling and "
+"linking themselves.  Disabling offload only removes what the offload target "
+"would add; it does not undo offload enabled by other compiler flags or by "
+"the environment.  ``OpenMP_<lang>_FOUND`` and ``OpenMP_<lang>_VERSION`` "
+"describe host OpenMP support only; the module does not check that offload "
+"works."
+msgstr ""
+
+#: ../../../../Modules/FindOpenMP.cmake:131
+msgid "``OpenMP_<lang>_OFFLOAD_FLAGS``"
+msgstr ""
+
+#: ../../../../Modules/FindOpenMP.cmake:134
+msgid ""
+"Compiler flags selecting the device(s) to offload OpenMP ``target`` regions "
+"to, replacing the compiler's default described above.  For example, ``--"
+"offload-arch=sm_80`` for Clang, ``-foffload=nvptx-none`` for GCC, or ``-"
+"mp=gpu -gpu=cc80`` for NVHPC.  The value is a command-line string, split "
+"into arguments as by the ``SHELL:`` prefix "
+"of :command:`target_compile_options`.  An empty or whitespace-only value "
+"counts as not set."
+msgstr ""
+
+#: ../../../../Modules/FindOpenMP.cmake:143
+msgid "Result Variables"
+msgstr ""
+
+#: ../../../../Modules/FindOpenMP.cmake:145
+msgid "This module defines the following variables:"
+msgstr ""
+
+#: ../../../../Modules/FindOpenMP.cmake:147
+msgid "``OpenMP_FOUND``"
+msgstr ""
+
+#: ../../../../Modules/FindOpenMP.cmake:150
 msgid ""
 "Boolean indicating that OpenMP flags for all requested languages were "
 "found.  If no components are specified, this variable is set to boolean true "
 "if OpenMP settings for all enabled languages were detected."
 msgstr ""
 
-#: ../../../../Modules/FindOpenMP.cmake:88
+#: ../../../../Modules/FindOpenMP.cmake:154
 msgid "``OpenMP_VERSION``"
 msgstr ""
 
-#: ../../../../Modules/FindOpenMP.cmake:91
+#: ../../../../Modules/FindOpenMP.cmake:157
 msgid ""
 "Minimal version of the OpenMP standard detected among the requested "
 "languages, or all enabled languages if no components were specified."
 msgstr ""
 
-#: ../../../../Modules/FindOpenMP.cmake:94
+#: ../../../../Modules/FindOpenMP.cmake:160
 msgid ""
 "This module will set the following variables per language in the project, "
 "where ``<lang>`` is one of C, CXX, CUDA, or Fortran:"
 msgstr ""
 
-#: ../../../../Modules/FindOpenMP.cmake:97
+#: ../../../../Modules/FindOpenMP.cmake:163
 msgid "``OpenMP_<lang>_FOUND``"
 msgstr ""
 
-#: ../../../../Modules/FindOpenMP.cmake:100
+#: ../../../../Modules/FindOpenMP.cmake:166
 msgid ""
 "Boolean indicating whether the (requested version of) OpenMP support for "
 "``<lang>`` was detected."
 msgstr ""
 
-#: ../../../../Modules/FindOpenMP.cmake:103
+#: ../../../../Modules/FindOpenMP.cmake:169
 msgid "``OpenMP_<lang>_VERSION``"
 msgstr ""
 
-#: ../../../../Modules/FindOpenMP.cmake:106
+#: ../../../../Modules/FindOpenMP.cmake:172
 msgid "OpenMP version implemented by the ``<lang>`` compiler, if available."
 msgstr ""
 
-#: ../../../../Modules/FindOpenMP.cmake:108
+#: ../../../../Modules/FindOpenMP.cmake:174
 msgid "``OpenMP_<lang>_VERSION_MAJOR``"
 msgstr ""
 
-#: ../../../../Modules/FindOpenMP.cmake:111
+#: ../../../../Modules/FindOpenMP.cmake:177
 msgid ""
 "Major version of OpenMP implemented by the ``<lang>`` compiler, if available."
 msgstr ""
 
-#: ../../../../Modules/FindOpenMP.cmake:114
+#: ../../../../Modules/FindOpenMP.cmake:180
 msgid "``OpenMP_<lang>_VERSION_MINOR``"
 msgstr ""
 
-#: ../../../../Modules/FindOpenMP.cmake:117
+#: ../../../../Modules/FindOpenMP.cmake:183
 msgid ""
 "Minor version of OpenMP implemented by the ``<lang>`` compiler, if available."
 msgstr ""
 
-#: ../../../../Modules/FindOpenMP.cmake:120
+#: ../../../../Modules/FindOpenMP.cmake:186
 msgid "``OpenMP_<lang>_SPEC_DATE``"
 msgstr ""
 
-#: ../../../../Modules/FindOpenMP.cmake:123
+#: ../../../../Modules/FindOpenMP.cmake:189
 msgid ""
 "Date of the OpenMP specification implemented by the ``<lang>`` compiler, if "
 "available."
 msgstr ""
 
-#: ../../../../Modules/FindOpenMP.cmake:126
+#: ../../../../Modules/FindOpenMP.cmake:192
 msgid ""
 "The specification date is formatted as given in the OpenMP standard: "
 "``yyyymm`` where ``yyyy`` and ``mm`` represents the year and month of the "
 "OpenMP specification implemented by the ``<lang>`` compiler."
 msgstr ""
 
-#: ../../../../Modules/FindOpenMP.cmake:130
+#: ../../../../Modules/FindOpenMP.cmake:196
 msgid "``OpenMP_<lang>_FLAGS``"
 msgstr ""
 
-#: ../../../../Modules/FindOpenMP.cmake:131
+#: ../../../../Modules/FindOpenMP.cmake:197
 msgid "OpenMP compiler flags for ``<lang>``, separated by spaces."
 msgstr ""
 
-#: ../../../../Modules/FindOpenMP.cmake:133
+#: ../../../../Modules/FindOpenMP.cmake:199
 msgid "``OpenMP_<lang>_INCLUDE_DIRS``"
 msgstr ""
 
-#: ../../../../Modules/FindOpenMP.cmake:136
+#: ../../../../Modules/FindOpenMP.cmake:202
 msgid ""
 "Directories that must be added to the header search path for ``<lang>`` when "
 "using OpenMP."
 msgstr ""
 
-#: ../../../../Modules/FindOpenMP.cmake:139
+#: ../../../../Modules/FindOpenMP.cmake:205
 msgid ""
 "For linking with OpenMP code written in ``<lang>``, the following variables "
 "are provided:"
 msgstr ""
 
-#: ../../../../Modules/FindOpenMP.cmake:142
+#: ../../../../Modules/FindOpenMP.cmake:208
 msgid "``OpenMP_<lang>_LIB_NAMES``"
 msgstr ""
 
-#: ../../../../Modules/FindOpenMP.cmake:145
+#: ../../../../Modules/FindOpenMP.cmake:211
 msgid ""
 "A :ref:`semicolon-separated list <CMake Language Lists>` of OpenMP programs "
 "libraries for ``<lang>``."
 msgstr ""
 
-#: ../../../../Modules/FindOpenMP.cmake:148
+#: ../../../../Modules/FindOpenMP.cmake:214
 msgid "``OpenMP_<libname>_LIBRARY``"
 msgstr ""
 
-#: ../../../../Modules/FindOpenMP.cmake:151
+#: ../../../../Modules/FindOpenMP.cmake:217
 msgid ""
 "Location of the individual libraries needed for OpenMP support in "
 "``<lang>``.  The ``<libname>`` names are stored in the "
 "``OpenMP_<lang>_LIB_NAMES`` list."
 msgstr ""
 
-#: ../../../../Modules/FindOpenMP.cmake:155
+#: ../../../../Modules/FindOpenMP.cmake:221
 msgid "``OpenMP_<lang>_LIBRARIES``"
 msgstr ""
 
-#: ../../../../Modules/FindOpenMP.cmake:158
+#: ../../../../Modules/FindOpenMP.cmake:224
 msgid ""
 "A list of libraries needed to link with OpenMP code written in ``<lang>``."
 msgstr ""
 
-#: ../../../../Modules/FindOpenMP.cmake:160
+#: ../../../../Modules/FindOpenMP.cmake:226
 msgid "Specifically for Fortran, the module sets the following variables:"
 msgstr ""
 
-#: ../../../../Modules/FindOpenMP.cmake:162
+#: ../../../../Modules/FindOpenMP.cmake:228
 msgid "``OpenMP_Fortran_HAVE_OMPLIB_HEADER``"
 msgstr ""
 
-#: ../../../../Modules/FindOpenMP.cmake:165
+#: ../../../../Modules/FindOpenMP.cmake:231
 msgid ""
 "Boolean indicating whether OpenMP is accessible through the ``omp_lib.h`` "
 "Fortran header."
 msgstr ""
 
-#: ../../../../Modules/FindOpenMP.cmake:168
+#: ../../../../Modules/FindOpenMP.cmake:234
 msgid "``OpenMP_Fortran_HAVE_OMPLIB_MODULE``"
 msgstr ""
 
-#: ../../../../Modules/FindOpenMP.cmake:171
+#: ../../../../Modules/FindOpenMP.cmake:237
 msgid ""
 "Boolean indicating whether OpenMP is accessible through the ``omp_lib`` "
 "Fortran module."
 msgstr ""
 
-#: ../../../../Modules/FindOpenMP.cmake:174
+#: ../../../../Modules/FindOpenMP.cmake:240
 msgid ""
 "For some compilers, it may be necessary to add a header search path to find "
 "the relevant OpenMP headers.  This location may be language-specific.  Where "
@@ -303,18 +408,52 @@ msgid ""
 "``OpenMP::OpenMP_<lang>`` imported target."
 msgstr ""
 
-#: ../../../../Modules/FindOpenMP.cmake:184
+#: ../../../../Modules/FindOpenMP.cmake:249
+msgid ""
+"For Clang targeting the MSVC ABI, the module searches for the OpenMP runtime "
+"library, preferring the one shipped with the compiler.  A different library "
+"can be provided directly by setting the ``OpenMP_libomp_LIBRARY`` cache "
+"variable.  Programs linked with it need the matching runtime DLL, such as "
+"``libomp.dll``, next to them or on ``PATH`` when they run."
+msgstr ""
+
+#: ../../../../Modules/FindOpenMP.cmake:255
+msgid ""
+"In previous CMake versions, the first ``libomp`` found through the ``LIB`` "
+"environment variable was used, such as the one provided with MSVC for its ``-"
+"openmp:llvm`` option."
+msgstr ""
+
+#: ../../../../Modules/FindOpenMP.cmake:261
 msgid "Examples"
 msgstr ""
 
-#: ../../../../Modules/FindOpenMP.cmake:186
+#: ../../../../Modules/FindOpenMP.cmake:263
 msgid ""
 "Finding OpenMP support and linking the imported target to a project target "
 "using the C language component:"
 msgstr ""
 
-#: ../../../../Modules/FindOpenMP.cmake:189
+#: ../../../../Modules/FindOpenMP.cmake:266
 msgid ""
 "find_package(OpenMP)\n"
 "target_link_libraries(project_target PRIVATE OpenMP::OpenMP_C)"
+msgstr ""
+
+#: ../../../../Modules/FindOpenMP.cmake:271
+msgid "Linking a library whose ``target`` regions may be offloaded to a GPU:"
+msgstr ""
+
+#: ../../../../Modules/FindOpenMP.cmake:273
+msgid ""
+"find_package(OpenMP REQUIRED)\n"
+"target_link_libraries(kernels PRIVATE OpenMP::OpenMP_CXX_Offload)"
+msgstr ""
+
+#: ../../../../Modules/FindOpenMP.cmake:278
+msgid "and enabling offload when configuring the build, e.g. with Clang:"
+msgstr ""
+
+#: ../../../../Modules/FindOpenMP.cmake:280
+msgid "$ cmake -B build -DOpenMP_CXX_OFFLOAD_FLAGS=--offload-arch=sm_80"
 msgstr ""
