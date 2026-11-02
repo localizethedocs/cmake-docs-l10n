@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CMake master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-02 08:35+0000\n"
+"POT-Creation-Date: 2026-11-02 17:36+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -64,14 +64,14 @@ msgstr ""
 #: ../../../../Modules/GenerateExportHeader.cmake:33
 msgid ""
 "Some symbol visibility can also be controlled with compiler options. In "
-"CMake, target properties such as :prop_tgt:`<LANG>_VISIBILITY_PRESET` and :"
-"prop_tgt:`VISIBILITY_INLINES_HIDDEN` enable compiler visibility flags, where "
-"appropriate.  See also related convenience variables :variable:"
-"`CMAKE_<LANG>_VISIBILITY_PRESET` and :variable:"
-"`CMAKE_VISIBILITY_INLINES_HIDDEN` to enable it for all targets in current "
-"scope.  These are commonly used in combination with this module to further "
-"simplify C/C++ code, removing the need for some of the preprocessor macros "
-"in the source code."
+"CMake, target properties such as :prop_tgt:`<LANG>_VISIBILITY_PRESET` "
+"and :prop_tgt:`VISIBILITY_INLINES_HIDDEN` enable compiler visibility flags, "
+"where appropriate.  See also related convenience "
+"variables :variable:`CMAKE_<LANG>_VISIBILITY_PRESET` "
+"and :variable:`CMAKE_VISIBILITY_INLINES_HIDDEN` to enable it for all targets "
+"in current scope.  These are commonly used in combination with this module "
+"to further simplify C/C++ code, removing the need for some of the "
+"preprocessor macros in the source code."
 msgstr ""
 
 #: ../../../../Modules/GenerateExportHeader.cmake:44
@@ -107,110 +107,132 @@ msgid ""
 "  [PREFIX_NAME <prefix>]\n"
 "  [CUSTOM_CONTENT_FROM_VARIABLE <variable>]\n"
 "  [INCLUDE_GUARD_NAME <include-guard-name>]\n"
+"  [CXX_ATTRIBUTES]\n"
 ")"
 msgstr ""
 
-#: ../../../../Modules/GenerateExportHeader.cmake:73
+#: ../../../../Modules/GenerateExportHeader.cmake:74
 msgid ""
 "By default, this command generates a header file named ``<target-name-"
-"lowercase>_export.h`` in the current binary directory (:variable:"
-"`CMAKE_CURRENT_BINARY_DIR`).  This header defines a set of preprocessor "
-"macros used to mark API symbols as exported, hidden, or deprecated across "
-"different platforms and build types (e.g., static or shared builds), and is "
-"intended to be installed along with the library's public headers, because it "
-"affects public API declarations:"
+"lowercase>_export.h`` in the current binary directory "
+"(:variable:`CMAKE_CURRENT_BINARY_DIR`).  This header defines a set of "
+"preprocessor macros used to mark API symbols as exported, hidden, or "
+"deprecated across different platforms and build types (e.g., static or "
+"shared builds), and is intended to be installed along with the library's "
+"public headers, because it affects public API declarations:"
 msgstr ""
 
-#: ../../../../Modules/GenerateExportHeader.cmake:81
+#: ../../../../Modules/GenerateExportHeader.cmake:82
 msgid ""
 "``<MACRO>_EXPORT``: Marks symbols for export or import, making them visible "
 "as part of the public API when building or consuming a shared library."
 msgstr ""
 
-#: ../../../../Modules/GenerateExportHeader.cmake:85
+#: ../../../../Modules/GenerateExportHeader.cmake:86
 msgid ""
-"``<MACRO>_NO_EXPORT``: Marks symbols that should not be exported. If the :"
-"prop_tgt:`<LANG>_VISIBILITY_PRESET` target property is set to ``hidden``, "
-"using this macro in source code is typically redundant."
+"``<MACRO>_NO_EXPORT``: Marks symbols that should not be exported. If "
+"the :prop_tgt:`<LANG>_VISIBILITY_PRESET` target property is set to "
+"``hidden``, using this macro in source code is typically redundant."
 msgstr ""
 
-#: ../../../../Modules/GenerateExportHeader.cmake:89
+#: ../../../../Modules/GenerateExportHeader.cmake:90
 msgid ""
 "``<MACRO>_DEPRECATED``: Marks symbols as deprecated.  When such symbols are "
 "used, the compiler emits a warning at compile-time."
 msgstr ""
 
-#: ../../../../Modules/GenerateExportHeader.cmake:92
+#: ../../../../Modules/GenerateExportHeader.cmake:93
 msgid ""
 "``<MACRO>_DEPRECATED_EXPORT``: Combines export/import and deprecation "
 "markers for a symbol that is both part of the public API and deprecated."
 msgstr ""
 
-#: ../../../../Modules/GenerateExportHeader.cmake:95
+#: ../../../../Modules/GenerateExportHeader.cmake:96
 msgid ""
 "``<MACRO>_DEPRECATED_NO_EXPORT``: Marks a deprecated symbol that should not "
 "be exported (internal and deprecated)."
 msgstr ""
 
-#: ../../../../Modules/GenerateExportHeader.cmake:98
+#: ../../../../Modules/GenerateExportHeader.cmake:99
+msgid ""
+"``<MACRO>_DEPRECATED_MSG(<message>)``, "
+"``<MACRO>_DEPRECATED_EXPORT_MSG(<message>)`` and "
+"``<MACRO>_DEPRECATED_NO_EXPORT_MSG(<message>)``:"
+msgstr ""
+
+#: ../../../../Modules/GenerateExportHeader.cmake:105
+msgid ""
+"Act like the three deprecation macros above.  The compiler warning also "
+"shows the string literal ``<message>``, which typically names the "
+"replacement.  Compilers that support deprecation only without a message "
+"ignore ``<message>``:"
+msgstr ""
+
+#: ../../../../Modules/GenerateExportHeader.cmake:110
+msgid ""
+"EXAMPLE_DEPRECATED_EXPORT_MSG(\"use doSomething() instead\")\n"
+"void legacyPublicFunction();"
+msgstr ""
+
+#: ../../../../Modules/GenerateExportHeader.cmake:115
 msgid ""
 "``<MACRO>_NO_DEPRECATED``: A macro that can be used in source code to "
 "conditionally exclude deprecated code parts from the build via preprocessor "
 "logic."
 msgstr ""
 
-#: ../../../../Modules/GenerateExportHeader.cmake:102
+#: ../../../../Modules/GenerateExportHeader.cmake:119
 msgid ""
 "The ``<MACRO>`` part is derived by default from the uppercase name of the "
 "target or the explicitly provided ``<base-name>``.  All macro names can be "
 "customized using the optional arguments."
 msgstr ""
 
-#: ../../../../Modules/GenerateExportHeader.cmake:107
+#: ../../../../Modules/GenerateExportHeader.cmake:124
 msgid "The arguments are:"
 msgstr ""
 
-#: ../../../../Modules/GenerateExportHeader.cmake:108
+#: ../../../../Modules/GenerateExportHeader.cmake:125
 msgid "``<target>``"
 msgstr ""
 
-#: ../../../../Modules/GenerateExportHeader.cmake:109
+#: ../../../../Modules/GenerateExportHeader.cmake:126
 msgid ""
 "Name of a target for which the export header will be generated. Supported "
 "target types:"
 msgstr ""
 
-#: ../../../../Modules/GenerateExportHeader.cmake:112
+#: ../../../../Modules/GenerateExportHeader.cmake:129
 msgid ""
 "``STATIC`` library (in this case, export-related macros are defined without "
 "values)"
 msgstr ""
 
-#: ../../../../Modules/GenerateExportHeader.cmake:114
+#: ../../../../Modules/GenerateExportHeader.cmake:131
 msgid "``SHARED`` library"
 msgstr ""
 
-#: ../../../../Modules/GenerateExportHeader.cmake:115
+#: ../../../../Modules/GenerateExportHeader.cmake:132
 msgid "``MODULE`` library"
 msgstr ""
 
-#: ../../../../Modules/GenerateExportHeader.cmake:116
+#: ../../../../Modules/GenerateExportHeader.cmake:133
 msgid "``OBJECT`` library"
 msgstr ""
 
-#: ../../../../Modules/GenerateExportHeader.cmake:119
+#: ../../../../Modules/GenerateExportHeader.cmake:136
 msgid "``BASE_NAME <base-name>``"
 msgstr ""
 
-#: ../../../../Modules/GenerateExportHeader.cmake:120
+#: ../../../../Modules/GenerateExportHeader.cmake:137
 msgid "If specified, it overrides the default file name and macro names."
 msgstr ""
 
-#: ../../../../Modules/GenerateExportHeader.cmake:122
+#: ../../../../Modules/GenerateExportHeader.cmake:139
 msgid "``EXPORT_FILE_NAME <export-file-name>``"
 msgstr ""
 
-#: ../../../../Modules/GenerateExportHeader.cmake:123
+#: ../../../../Modules/GenerateExportHeader.cmake:140
 msgid ""
 "If specified, it overrides the full path and the name of the generated "
 "export header file (``<base-name-lowercase>_export.h``) to ``<export-file-"
@@ -218,79 +240,86 @@ msgid ""
 "the current binary directory (:variable:`CMAKE_CURRENT_BINARY_DIR`)."
 msgstr ""
 
-#: ../../../../Modules/GenerateExportHeader.cmake:129
+#: ../../../../Modules/GenerateExportHeader.cmake:146
 msgid "``EXPORT_MACRO_NAME <export-macro-name>``"
 msgstr ""
 
-#: ../../../../Modules/GenerateExportHeader.cmake:130
+#: ../../../../Modules/GenerateExportHeader.cmake:147
 msgid ""
 "If specified, it overrides the default macro name for the export directive."
 msgstr ""
 
-#: ../../../../Modules/GenerateExportHeader.cmake:133
+#: ../../../../Modules/GenerateExportHeader.cmake:150
 msgid "``NO_EXPORT_MACRO_NAME <no-export-macro-name>``"
 msgstr ""
 
-#: ../../../../Modules/GenerateExportHeader.cmake:134
+#: ../../../../Modules/GenerateExportHeader.cmake:151
 msgid ""
 "If specified, the ``<no-export-macro-name>`` will be used for the macro name "
 "that designates the attribute for items that shouldn't be exported."
 msgstr ""
 
-#: ../../../../Modules/GenerateExportHeader.cmake:137
+#: ../../../../Modules/GenerateExportHeader.cmake:154
 msgid "``DEPRECATED_MACRO_NAME <deprecated-macro-name>``"
 msgstr ""
 
-#: ../../../../Modules/GenerateExportHeader.cmake:138
+#: ../../../../Modules/GenerateExportHeader.cmake:155
 msgid "If specified, the following names will be used:"
 msgstr ""
 
-#: ../../../../Modules/GenerateExportHeader.cmake:140
+#: ../../../../Modules/GenerateExportHeader.cmake:157
 msgid "``<deprecated-macro-name>`` (macro for marking deprecated symbols)"
 msgstr ""
 
-#: ../../../../Modules/GenerateExportHeader.cmake:141
+#: ../../../../Modules/GenerateExportHeader.cmake:158
 msgid ""
 "``<deprecated-macro-name>_EXPORT`` (macro for deprecated symbols with export "
 "markers)"
 msgstr ""
 
-#: ../../../../Modules/GenerateExportHeader.cmake:143
+#: ../../../../Modules/GenerateExportHeader.cmake:160
 msgid ""
 "``<deprecated-macro-name>_NO_EXPORT`` (macro for deprecated symbols with no-"
 "export markers)"
 msgstr ""
 
-#: ../../../../Modules/GenerateExportHeader.cmake:146
+#: ../../../../Modules/GenerateExportHeader.cmake:162
 msgid ""
-"instead of the default names in format of ``<MACRO>_DEPRECATED{,_EXPORT,"
-"_NO_EXPORT}``."
+"``<deprecated-macro-name>_MSG``, ``<deprecated-macro-name>_EXPORT_MSG`` and "
+"``<deprecated-macro-name>_NO_EXPORT_MSG`` (the above macros with a "
+"deprecation message)"
 msgstr ""
 
-#: ../../../../Modules/GenerateExportHeader.cmake:149
+#: ../../../../Modules/GenerateExportHeader.cmake:167
+msgid ""
+"instead of the default names in format of "
+"``<MACRO>_DEPRECATED{,_EXPORT,_NO_EXPORT}{,_MSG}``."
+msgstr ""
+
+#: ../../../../Modules/GenerateExportHeader.cmake:170
 msgid "``DEFINE_NO_DEPRECATED``"
 msgstr ""
 
-#: ../../../../Modules/GenerateExportHeader.cmake:150
+#: ../../../../Modules/GenerateExportHeader.cmake:171
 msgid "If specified, this will define a macro named ``<MACRO>_NO_DEPRECATED``."
 msgstr ""
 
-#: ../../../../Modules/GenerateExportHeader.cmake:152
+#: ../../../../Modules/GenerateExportHeader.cmake:173
 msgid "``NO_DEPRECATED_MACRO_NAME <no-deprecated-macro-name>``"
 msgstr ""
 
-#: ../../../../Modules/GenerateExportHeader.cmake:153
+#: ../../../../Modules/GenerateExportHeader.cmake:174
 msgid ""
 "Used in combination with ``DEFINE_NO_DEPRECATED`` option.  If specified, "
 "then a macro named ``<no-deprecated-macro-name>`` is used instead of the "
 "default ``<MACRO>_NO_DEPRECATED``."
 msgstr ""
 
-#: ../../../../Modules/GenerateExportHeader.cmake:157
+#: ../../../../Modules/GenerateExportHeader.cmake:178
 msgid "``STATIC_DEFINE <static-define>``"
 msgstr ""
 
-#: ../../../../Modules/GenerateExportHeader.cmake:158
+#: ../../../../Modules/GenerateExportHeader.cmake:179
 msgid ""
 "If specified, the ``<static-define>`` macro name will be used instead of the "
 "default ``<MACRO>_STATIC_DEFINE``.  This macro controls the symbol export "
@@ -302,42 +331,42 @@ msgid ""
 "shared libraries, not for static ones."
 msgstr ""
 
-#: ../../../../Modules/GenerateExportHeader.cmake:167
+#: ../../../../Modules/GenerateExportHeader.cmake:188
 msgid "``PREFIX_NAME <prefix>``"
 msgstr ""
 
-#: ../../../../Modules/GenerateExportHeader.cmake:168
+#: ../../../../Modules/GenerateExportHeader.cmake:189
 msgid ""
 "If specified, the additional ``<prefix>`` is prepended to all generated "
 "macro names."
 msgstr ""
 
-#: ../../../../Modules/GenerateExportHeader.cmake:171
+#: ../../../../Modules/GenerateExportHeader.cmake:192
 msgid "``CUSTOM_CONTENT_FROM_VARIABLE <variable>``"
 msgstr ""
 
-#: ../../../../Modules/GenerateExportHeader.cmake:174
+#: ../../../../Modules/GenerateExportHeader.cmake:195
 msgid ""
 "If specified, the content from the ``<variable>`` value is appended to the "
 "generated header file content after the preprocessor macros definitions."
 msgstr ""
 
-#: ../../../../Modules/GenerateExportHeader.cmake:178
+#: ../../../../Modules/GenerateExportHeader.cmake:199
 msgid "``INCLUDE_GUARD_NAME <include-guard-name>``"
 msgstr ""
 
-#: ../../../../Modules/GenerateExportHeader.cmake:181
+#: ../../../../Modules/GenerateExportHeader.cmake:202
 msgid ""
 "If specified, the ``<include-guard-name>`` is used as the preprocessor macro "
 "name to guard multiple inclusions of the generated header instead of the "
 "default name ``<export-macro-name>_H``."
 msgstr ""
 
-#: ../../../../Modules/GenerateExportHeader.cmake:185
+#: ../../../../Modules/GenerateExportHeader.cmake:206
 msgid "``<base-name-lowercase>_export.h``"
 msgstr ""
 
-#: ../../../../Modules/GenerateExportHeader.cmake:185
+#: ../../../../Modules/GenerateExportHeader.cmake:206
 msgid ""
 "#ifndef <include-guard-name>\n"
 "#define <include-guard-name>\n"
@@ -345,56 +374,108 @@ msgid ""
 "#endif /* <include-guard-name> */"
 msgstr ""
 
-#: ../../../../Modules/GenerateExportHeader.cmake:194
+#: ../../../../Modules/GenerateExportHeader.cmake:214
+msgid "``CXX_ATTRIBUTES``"
+msgstr ""
+
+#: ../../../../Modules/GenerateExportHeader.cmake:217
+msgid ""
+"If specified, the export, no-export and deprecation macros expand to C++11 "
+"attributes, such as ``[[gnu::visibility(\"default\")]]``, "
+"``[[gnu::dllexport]]`` and ``[[deprecated]]``, which can be combined with "
+"other C++11 attributes.  Deprecation uses the standard ``[[deprecated]]`` as "
+"of C++14 and ``[[gnu::deprecated]]`` in C++11. The generated header falls "
+"back to the compiler-specific spellings, such as ``__attribute__`` and "
+"``__declspec``, if the consumer compiles C, compiles C++ older than C++11, "
+"does not support the attribute, or is Qt's ``moc``.  The fallback is decided "
+"by the preprocessor, so the header remains usable by consumers using a "
+"different compiler.  The C++11 attributes are used with GCC 5 and Clang 3.6 "
+"or newer.  This matters for GCC versions before 13, which reject the "
+"compiler-specific spellings combined with C++11 attributes, such as ``struct "
+"EXAMPLE_EXPORT [[nodiscard]] Struct``."
+msgstr ""
+
+#: ../../../../Modules/GenerateExportHeader.cmake:232
+msgid ""
+"A C++11 attribute that follows a type applies to the type, not to the "
+"declared symbol.  The macros must therefore be placed at the start of a "
+"declaration or right after the class key.  Otherwise, compilers either "
+"reject the declaration or ignore the attribute and do not export the symbol:"
+msgstr ""
+
+#: ../../../../Modules/GenerateExportHeader.cmake:238
+msgid ""
+"class EXAMPLE_EXPORT Class\n"
+"{\n"
+"public:\n"
+"  EXAMPLE_NO_EXPORT int method_excluded() const;\n"
+"  EXAMPLE_EXPORT static int const data_exported;\n"
+"};\n"
+"\n"
+"EXAMPLE_EXPORT int function_exported();\n"
+"EXAMPLE_DEPRECATED_EXPORT int function_deprecated();\n"
+"EXAMPLE_EXPORT extern int const data_exported;\n"
+"\n"
+"int EXAMPLE_EXPORT function_not_exported(); // wrong placement"
+msgstr ""
+
+#: ../../../../Modules/GenerateExportHeader.cmake:253
+msgid ""
+"The compiler-specific spellings accept the same placement, so the "
+"declarations compile with either."
+msgstr ""
+
+#: ../../../../Modules/GenerateExportHeader.cmake:257
 msgid "Deprecated Command"
 msgstr ""
 
-#: ../../../../Modules/GenerateExportHeader.cmake:200
+#: ../../../../Modules/GenerateExportHeader.cmake:263
 msgid ""
 "Set the target properties :prop_tgt:`CXX_VISIBILITY_PRESET "
 "<<LANG>_VISIBILITY_PRESET>` and :prop_tgt:`VISIBILITY_INLINES_HIDDEN` "
 "instead."
 msgstr ""
 
-#: ../../../../Modules/GenerateExportHeader.cmake:204
+#: ../../../../Modules/GenerateExportHeader.cmake:267
 msgid ""
 "Adds C++ compiler options ``-fvisibility=hidden`` (and ``-fvisibility-"
-"inlines-hidden``, if supported) to hide all symbols by default to either :"
-"variable:`CMAKE_CXX_FLAGS <CMAKE_<LANG>_FLAGS>` variable or to a specified "
-"variable:"
+"inlines-hidden``, if supported) to hide all symbols by default to "
+"either :variable:`CMAKE_CXX_FLAGS <CMAKE_<LANG>_FLAGS>` variable or to a "
+"specified variable:"
 msgstr ""
 
-#: ../../../../Modules/GenerateExportHeader.cmake:209
+#: ../../../../Modules/GenerateExportHeader.cmake:272
 msgid "add_compiler_export_flags([<output_variable>])"
 msgstr ""
 
-#: ../../../../Modules/GenerateExportHeader.cmake:213
+#: ../../../../Modules/GenerateExportHeader.cmake:276
 msgid ""
 "This command is a no-op on Windows which does not need extra compiler flags "
 "for exporting support."
 msgstr ""
 
-#: ../../../../Modules/GenerateExportHeader.cmake:216
+#: ../../../../Modules/GenerateExportHeader.cmake:279
 msgid "``<output-variable>``"
 msgstr ""
 
-#: ../../../../Modules/GenerateExportHeader.cmake:217
+#: ../../../../Modules/GenerateExportHeader.cmake:280
 msgid ""
 "Optional variable name that will be populated with a string of space-"
 "separated C++ compile options required to enable visibility support for the "
-"compiler/architecture in use.  If this argument is specified, the :variable:"
-"`CMAKE_CXX_FLAGS <CMAKE_<LANG>_FLAGS>` variable will not be modified."
+"compiler/architecture in use.  If this argument is specified, "
+"the :variable:`CMAKE_CXX_FLAGS <CMAKE_<LANG>_FLAGS>` variable will not be "
+"modified."
 msgstr ""
 
-#: ../../../../Modules/GenerateExportHeader.cmake:224
+#: ../../../../Modules/GenerateExportHeader.cmake:287
 msgid "Examples"
 msgstr ""
 
-#: ../../../../Modules/GenerateExportHeader.cmake:227
+#: ../../../../Modules/GenerateExportHeader.cmake:290
 msgid "Example: Generating Export Header"
 msgstr ""
 
-#: ../../../../Modules/GenerateExportHeader.cmake:229
+#: ../../../../Modules/GenerateExportHeader.cmake:292
 msgid ""
 "The following example demonstrates how to use this module to generate an "
 "export header in the current binary directory (``example_export.h``) and use "
@@ -405,13 +486,13 @@ msgid ""
 "installed along with the library's other public headers:"
 msgstr ""
 
-#: ../../../../Modules/GenerateExportHeader.cmake:237
-#: ../../../../Modules/GenerateExportHeader.cmake:431
-#: ../../../../Modules/GenerateExportHeader.cmake:447
+#: ../../../../Modules/GenerateExportHeader.cmake:300
+#: ../../../../Modules/GenerateExportHeader.cmake:494
+#: ../../../../Modules/GenerateExportHeader.cmake:510
 msgid "``CMakeLists.txt``"
 msgstr ""
 
-#: ../../../../Modules/GenerateExportHeader.cmake:237
+#: ../../../../Modules/GenerateExportHeader.cmake:300
 msgid ""
 "cmake_minimum_required(VERSION 3.24)\n"
 "project(GenerateExportHeaderExample)\n"
@@ -444,16 +525,16 @@ msgid ""
 ")"
 msgstr ""
 
-#: ../../../../Modules/GenerateExportHeader.cmake:271
+#: ../../../../Modules/GenerateExportHeader.cmake:334
 msgid "And in the ABI header files:"
 msgstr ""
 
-#: ../../../../Modules/GenerateExportHeader.cmake:273
-#: ../../../../Modules/GenerateExportHeader.cmake:371
+#: ../../../../Modules/GenerateExportHeader.cmake:336
+#: ../../../../Modules/GenerateExportHeader.cmake:434
 msgid "``example.h``"
 msgstr ""
 
-#: ../../../../Modules/GenerateExportHeader.cmake:273
+#: ../../../../Modules/GenerateExportHeader.cmake:336
 msgid ""
 "#include \"example_export.h\"\n"
 "\n"
@@ -475,12 +556,12 @@ msgid ""
 "EXAMPLE_DEPRECATED void legacyInternalFunction();"
 msgstr ""
 
-#: ../../../../Modules/GenerateExportHeader.cmake:295
-#: ../../../../Modules/GenerateExportHeader.cmake:382
+#: ../../../../Modules/GenerateExportHeader.cmake:358
+#: ../../../../Modules/GenerateExportHeader.cmake:445
 msgid "``example.cxx``"
 msgstr ""
 
-#: ../../../../Modules/GenerateExportHeader.cmake:295
+#: ../../../../Modules/GenerateExportHeader.cmake:358
 msgid ""
 "#include <iostream>\n"
 "#include \"example.h\"\n"
@@ -502,17 +583,17 @@ msgid ""
 "  std::cout << \"legacyPublicFunction() is deprecated\" << std::endl;\n"
 "}\n"
 "\n"
-"void internalLegacyFunction()\n"
+"void legacyInternalFunction()\n"
 "{\n"
 "  std::cout << \"legacyInternalFunction() is deprecated\" << std::endl;\n"
 "}"
 msgstr ""
 
-#: ../../../../Modules/GenerateExportHeader.cmake:324
+#: ../../../../Modules/GenerateExportHeader.cmake:387
 msgid "Examples: Customizing Generated Header"
 msgstr ""
 
-#: ../../../../Modules/GenerateExportHeader.cmake:326
+#: ../../../../Modules/GenerateExportHeader.cmake:389
 msgid ""
 "The ``BASE_NAME`` argument can be used to override the generated file name "
 "and the names used for the macros.  The following will generate a file named "
@@ -521,14 +602,14 @@ msgid ""
 "etc."
 msgstr ""
 
-#: ../../../../Modules/GenerateExportHeader.cmake:332
+#: ../../../../Modules/GenerateExportHeader.cmake:395
 msgid ""
 "add_library(example example.cxx)\n"
 "include(GenerateExportHeader)\n"
 "generate_export_header(example BASE_NAME \"other_name\")"
 msgstr ""
 
-#: ../../../../Modules/GenerateExportHeader.cmake:338
+#: ../../../../Modules/GenerateExportHeader.cmake:401
 msgid ""
 "The ``BASE_NAME`` may be overridden by specifying other command options. For "
 "example, the following creates a macro ``OTHER_NAME_EXPORT`` instead of "
@@ -536,33 +617,33 @@ msgid ""
 "set to their default values:"
 msgstr ""
 
-#: ../../../../Modules/GenerateExportHeader.cmake:343
+#: ../../../../Modules/GenerateExportHeader.cmake:406
 msgid ""
 "add_library(example example.cxx)\n"
 "include(GenerateExportHeader)\n"
 "generate_export_header(example EXPORT_MACRO_NAME \"OTHER_NAME_EXPORT\")"
 msgstr ""
 
-#: ../../../../Modules/GenerateExportHeader.cmake:349
+#: ../../../../Modules/GenerateExportHeader.cmake:412
 msgid ""
 "The following example creates ``KDE_DEPRECATED`` macro instead of default "
 "``EXAMPLE_DEPRECATED``:"
 msgstr ""
 
-#: ../../../../Modules/GenerateExportHeader.cmake:352
+#: ../../../../Modules/GenerateExportHeader.cmake:415
 msgid ""
 "add_library(example example.cxx)\n"
 "include(GenerateExportHeader)\n"
 "generate_export_header(example DEPRECATED_MACRO_NAME \"KDE_DEPRECATED\")"
 msgstr ""
 
-#: ../../../../Modules/GenerateExportHeader.cmake:358
+#: ../../../../Modules/GenerateExportHeader.cmake:421
 msgid ""
 "The ``DEFINE_NO_DEPRECATED`` option can be used to define a macro which can "
 "be used to remove deprecated code from preprocessor output:"
 msgstr ""
 
-#: ../../../../Modules/GenerateExportHeader.cmake:361
+#: ../../../../Modules/GenerateExportHeader.cmake:424
 msgid ""
 "option(EXCLUDE_DEPRECATED \"Exclude deprecated parts of the library\")\n"
 "if(EXCLUDE_DEPRECATED)\n"
@@ -573,7 +654,7 @@ msgid ""
 "generate_export_header(example ${NO_BUILD_DEPRECATED})"
 msgstr ""
 
-#: ../../../../Modules/GenerateExportHeader.cmake:371
+#: ../../../../Modules/GenerateExportHeader.cmake:434
 msgid ""
 "class EXAMPLE_EXPORT SomeClass\n"
 "{\n"
@@ -584,51 +665,51 @@ msgid ""
 "};"
 msgstr ""
 
-#: ../../../../Modules/GenerateExportHeader.cmake:382
+#: ../../../../Modules/GenerateExportHeader.cmake:445
 msgid ""
 "#ifndef EXAMPLE_NO_DEPRECATED\n"
 "void SomeClass::legacyMethod() {  }\n"
 "#endif"
 msgstr ""
 
-#: ../../../../Modules/GenerateExportHeader.cmake:389
+#: ../../../../Modules/GenerateExportHeader.cmake:452
 msgid ""
 "The ``PREFIX_NAME`` argument can be used to prepend all generated macro "
 "names with some prefix.  For example, the following will generate macros "
 "such as ``VTK_SOMELIB_EXPORT``, etc."
 msgstr ""
 
-#: ../../../../Modules/GenerateExportHeader.cmake:393
+#: ../../../../Modules/GenerateExportHeader.cmake:456
 msgid ""
 "include(GenerateExportHeader)\n"
 "generate_export_header(somelib PREFIX_NAME \"VTK_\")"
 msgstr ""
 
-#: ../../../../Modules/GenerateExportHeader.cmake:398
+#: ../../../../Modules/GenerateExportHeader.cmake:461
 msgid ""
 "Appending additional content to generated header can be done with the "
 "``CUSTOM_CONTENT_FROM_VARIABLE`` argument:"
 msgstr ""
 
-#: ../../../../Modules/GenerateExportHeader.cmake:401
+#: ../../../../Modules/GenerateExportHeader.cmake:464
 msgid ""
 "include(GenerateExportHeader)\n"
 "set(content [[#include \"project_api.h\"]])\n"
 "generate_export_header(example CUSTOM_CONTENT_FROM_VARIABLE content)"
 msgstr ""
 
-#: ../../../../Modules/GenerateExportHeader.cmake:408
+#: ../../../../Modules/GenerateExportHeader.cmake:471
 msgid "Example: Building Shared and Static Library"
 msgstr ""
 
-#: ../../../../Modules/GenerateExportHeader.cmake:410
+#: ../../../../Modules/GenerateExportHeader.cmake:473
 msgid ""
 "In the following example both a shared and a static library are built from "
 "the same sources, and the ``<MACRO>_STATIC_DEFINE`` macro compile definition "
 "is defined to ensure the same generated export header works for both:"
 msgstr ""
 
-#: ../../../../Modules/GenerateExportHeader.cmake:414
+#: ../../../../Modules/GenerateExportHeader.cmake:477
 msgid ""
 "add_library(example_shared SHARED example.cxx)\n"
 "add_library(example_static STATIC example.cxx)\n"
@@ -640,17 +721,17 @@ msgid ""
 "target_compile_definitions(example_static PRIVATE EXAMPLE_STATIC_DEFINE)"
 msgstr ""
 
-#: ../../../../Modules/GenerateExportHeader.cmake:426
+#: ../../../../Modules/GenerateExportHeader.cmake:489
 msgid "Example: Upgrading Deprecated Command"
 msgstr ""
 
-#: ../../../../Modules/GenerateExportHeader.cmake:428
+#: ../../../../Modules/GenerateExportHeader.cmake:491
 msgid ""
 "In earlier versions of CMake, ``add_compiler_export_flags()`` command was "
 "used to add symbol visibility compile options:"
 msgstr ""
 
-#: ../../../../Modules/GenerateExportHeader.cmake:431
+#: ../../../../Modules/GenerateExportHeader.cmake:494
 msgid ""
 "add_library(example example.cxx)\n"
 "\n"
@@ -663,13 +744,13 @@ msgid ""
 "generate_export_header(example)"
 msgstr ""
 
-#: ../../../../Modules/GenerateExportHeader.cmake:444
+#: ../../../../Modules/GenerateExportHeader.cmake:507
 msgid ""
 "In new code, the following target properties are used to achieve the same "
 "functionality:"
 msgstr ""
 
-#: ../../../../Modules/GenerateExportHeader.cmake:447
+#: ../../../../Modules/GenerateExportHeader.cmake:510
 msgid ""
 "add_library(example example.cxx)\n"
 "\n"
@@ -685,11 +766,11 @@ msgid ""
 "generate_export_header(example)"
 msgstr ""
 
-#: ../../../../Modules/GenerateExportHeader.cmake:464
+#: ../../../../Modules/GenerateExportHeader.cmake:527
 msgid "See Also"
 msgstr ""
 
-#: ../../../../Modules/GenerateExportHeader.cmake:466
+#: ../../../../Modules/GenerateExportHeader.cmake:529
 msgid ""
 "The :prop_tgt:`DEFINE_SYMBOL` target property to customize the preprocessor "
 "macro name used by the generated header.  This macro determines whether the "
@@ -697,10 +778,10 @@ msgid ""
 "when it is used by another project (e.g., after installation)."
 msgstr ""
 
-#: ../../../../Modules/GenerateExportHeader.cmake:470
+#: ../../../../Modules/GenerateExportHeader.cmake:533
 msgid "The :prop_tgt:`ENABLE_EXPORTS` target property."
 msgstr ""
 
-#: ../../../../Modules/GenerateExportHeader.cmake:471
+#: ../../../../Modules/GenerateExportHeader.cmake:534
 msgid "The :prop_tgt:`WINDOWS_EXPORT_ALL_SYMBOLS` target property."
 msgstr ""
