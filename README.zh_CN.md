@@ -73,7 +73,7 @@
 该项目的目标是将 CMake 文档翻译成多种语言。翻译是通过 Crowdin 平台进行贡献，并自动与 GitHub 仓库进行同步，且可以在 GitHub Pages 进行预览。
 
 > [!NOTE]
-> The translation is <strong>unofficial</strong> and <strong>community-driven</strong>. If you find any inaccuracies, always refer to the <a href="https://cmake.org/cmake/help/latest/">official documentation</a> or the <a href="https://gitlab.kitware.com/cmake/cmake">source repository</a> of the upstream project for the most reliable information.
+> 翻译为<strong>非官方</strong>且<strong>由社区驱动的</strong>。 If you find any inaccuracies, always refer to the <a href="https://cmake.org/cmake/help/latest/">official documentation</a> or the <a href="https://gitlab.kitware.com/cmake/cmake">source repository</a> of the upstream project for the most reliable information.
 
 <div align="center">
 <table>
