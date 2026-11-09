@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CMake master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-22 13:28+0000\n"
+"POT-Creation-Date: 2026-11-09 17:59+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -62,10 +62,11 @@ msgid ""
 "In this case, the arguments that are parsed come from the ``ARGV#`` "
 "variables of the calling function.  The parsing starts with the ``<N>``-th "
 "argument, where ``<N>`` is an unsigned integer. This allows for the values "
-"to have special characters like ``;`` in them."
+"to have special characters like ``;`` in them. Arguments are numbered "
+"starting from 0."
 msgstr ""
 
-#: ../../../command/cmake_parse_arguments.rst:36
+#: ../../../command/cmake_parse_arguments.rst:37
 msgid ""
 "The ``PARSE_ARGN`` signature is only for use in a :command:`function` body. "
 "This starts parsing after the last named argument of the calling function "
@@ -73,28 +74,28 @@ msgid ""
 "parameters in the function definition."
 msgstr ""
 
-#: ../../../command/cmake_parse_arguments.rst:42
+#: ../../../command/cmake_parse_arguments.rst:43
 msgid ""
 "The ``<options>`` argument contains all options for the respective function "
 "or macro. These are keywords that have no value following them, like the "
 "``OPTIONAL`` keyword of the :command:`install` command."
 msgstr ""
 
-#: ../../../command/cmake_parse_arguments.rst:46
+#: ../../../command/cmake_parse_arguments.rst:47
 msgid ""
 "The ``<one_value_keywords>`` argument contains all keywords for this "
 "function or macro which are followed by one value, like the ``DESTINATION`` "
 "keyword of the :command:`install` command."
 msgstr ""
 
-#: ../../../command/cmake_parse_arguments.rst:50
+#: ../../../command/cmake_parse_arguments.rst:51
 msgid ""
 "The ``<multi_value_keywords>`` argument contains all keywords for this "
 "function or macro which can be followed by more than one value, like the "
 "``TARGETS`` or ``FILES`` keywords of the :command:`install` command."
 msgstr ""
 
-#: ../../../command/cmake_parse_arguments.rst:54
+#: ../../../command/cmake_parse_arguments.rst:55
 msgid ""
 "All keywords must be unique.  Each keyword can only be specified once in any "
 "of the ``<options>``, ``<one_value_keywords>``, or "
@@ -102,7 +103,7 @@ msgid ""
 "violated."
 msgstr ""
 
-#: ../../../command/cmake_parse_arguments.rst:60
+#: ../../../command/cmake_parse_arguments.rst:61
 msgid ""
 "When done, ``cmake_parse_arguments`` will consider for each of the keywords "
 "listed in ``<options>``, ``<one_value_keywords>``, and "
@@ -116,7 +117,7 @@ msgid ""
 "will be set to ``TRUE`` if the keyword is present, or ``FALSE`` if it is not."
 msgstr ""
 
-#: ../../../command/cmake_parse_arguments.rst:71
+#: ../../../command/cmake_parse_arguments.rst:72
 msgid ""
 "All remaining arguments are collected in a variable "
 "``<prefix>_UNPARSED_ARGUMENTS`` that will be undefined if all arguments were "
@@ -124,7 +125,7 @@ msgid ""
 "function was called with unrecognized parameters."
 msgstr ""
 
-#: ../../../command/cmake_parse_arguments.rst:76
+#: ../../../command/cmake_parse_arguments.rst:77
 msgid ""
 "``<one_value_keywords>`` and ``<multi_value_keywords>`` that were given no "
 "values at all are collected in a variable "
@@ -133,14 +134,14 @@ msgid ""
 "any values given."
 msgstr ""
 
-#: ../../../command/cmake_parse_arguments.rst:83
+#: ../../../command/cmake_parse_arguments.rst:84
 msgid ""
 "If a ``<one_value_keyword>`` is followed by an empty string as its value, "
 "policy :policy:`CMP0174` controls whether a corresponding "
 "``<prefix>_<keyword>`` variable is defined or not."
 msgstr ""
 
-#: ../../../command/cmake_parse_arguments.rst:88
+#: ../../../command/cmake_parse_arguments.rst:89
 msgid ""
 "Choose a ``<prefix>`` carefully to avoid clashing with existing variable "
 "names. When used inside a function, it is usually suitable to use the prefix "
@@ -151,7 +152,7 @@ msgid ""
 "convention of being all uppercase."
 msgstr ""
 
-#: ../../../command/cmake_parse_arguments.rst:95
+#: ../../../command/cmake_parse_arguments.rst:96
 msgid ""
 "function(my_install)\n"
 "    set(options OPTIONAL FAST)\n"
@@ -174,7 +175,7 @@ msgid ""
 "    #   arg_KEYWORDS_MISSING_VALUES"
 msgstr ""
 
-#: ../../../command/cmake_parse_arguments.rst:117
+#: ../../../command/cmake_parse_arguments.rst:118
 msgid ""
 "When used inside a macro, ``arg`` might not be a suitable prefix because the "
 "code will affect the calling scope.  If another macro also called in the "
@@ -186,7 +187,7 @@ msgid ""
 "``arg_lowercase_macro_name``."
 msgstr ""
 
-#: ../../../command/cmake_parse_arguments.rst:125
+#: ../../../command/cmake_parse_arguments.rst:126
 msgid ""
 "macro(my_install)\n"
 "    set(options OPTIONAL FAST)\n"
@@ -212,23 +213,23 @@ msgid ""
 "endmacro()"
 msgstr ""
 
-#: ../../../command/cmake_parse_arguments.rst:150
+#: ../../../command/cmake_parse_arguments.rst:151
 msgid "Suppose the above macros are called one after the other, like so:"
 msgstr ""
 
-#: ../../../command/cmake_parse_arguments.rst:152
+#: ../../../command/cmake_parse_arguments.rst:153
 msgid ""
 "my_install(TARGETS foo bar DESTINATION bin OPTIONAL blub CONFIGURATIONS)\n"
 "my_special_install(TARGETS barry DESTINATION sbin RENAME FAST)"
 msgstr ""
 
-#: ../../../command/cmake_parse_arguments.rst:157
+#: ../../../command/cmake_parse_arguments.rst:158
 msgid ""
 "After these two calls, the following describes the variables that will be "
 "set or unset::"
 msgstr ""
 
-#: ../../../command/cmake_parse_arguments.rst:160
+#: ../../../command/cmake_parse_arguments.rst:161
 msgid ""
 "arg_my_install_OPTIONAL = TRUE\n"
 "arg_my_install_FAST = FALSE # was not present in call to my_install\n"
@@ -251,7 +252,7 @@ msgid ""
 "arg_my_special_install_KEYWORDS_MISSING_VALUES = \"RENAME\""
 msgstr ""
 
-#: ../../../command/cmake_parse_arguments.rst:178
+#: ../../../command/cmake_parse_arguments.rst:179
 msgid ""
 "Keywords terminate lists of values. If a keyword is given directly after a "
 "``<one_value_keyword>``, that preceding ``<one_value_keyword>`` receives no "
@@ -265,14 +266,14 @@ msgid ""
 "``RENAME``."
 msgstr ""
 
-#: ../../../command/cmake_parse_arguments.rst:190
+#: ../../../command/cmake_parse_arguments.rst:191
 msgid "See Also"
 msgstr ""
 
-#: ../../../command/cmake_parse_arguments.rst:192
+#: ../../../command/cmake_parse_arguments.rst:193
 msgid ":command:`function`"
 msgstr ""
 
-#: ../../../command/cmake_parse_arguments.rst:193
+#: ../../../command/cmake_parse_arguments.rst:194
 msgid ":command:`macro`"
 msgstr ""

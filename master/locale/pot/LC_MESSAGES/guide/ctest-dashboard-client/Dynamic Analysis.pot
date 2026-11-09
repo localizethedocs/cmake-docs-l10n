@@ -1,0 +1,188 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2000-2026 Kitware, Inc. and Contributors
+# This file is distributed under the same license as the CMake package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CMake master\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-11-09 17:59+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../guide/ctest-dashboard-client/Dynamic Analysis.rst:4
+msgid "Step 4: Dynamic Analysis"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/Dynamic Analysis.rst:6
+msgid ""
+"This step shows how to detect memory errors with two tools: AddressSanitizer "
+"and Valgrind."
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/Dynamic Analysis.rst:9
+msgid ""
+"Unlike the other steps, this one builds its own project in the ``Step4/"
+"Project`` directory.  Its source file writes to memory after it is freed:"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/Dynamic Analysis.rst:13
+msgid "Step4/Project/use_after_free.c"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/Dynamic Analysis.rst:13
+msgid ""
+"#include <stdio.h>\n"
+"#include <stdlib.h>\n"
+"#include <string.h>\n"
+"\n"
+"int main(void)\n"
+"{\n"
+"  char* s = malloc(100);\n"
+"  free(s);\n"
+"  /* Bug: this writes to memory that was already freed. */\n"
+"  strcpy(s, \"Hello world!\");\n"
+"  printf(\"string is: %s\\n\", s);\n"
+"  return 0;\n"
+"}\n"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/Dynamic Analysis.rst:17
+msgid ""
+"Both scripts call :command:`ctest_memcheck` instead "
+"of :command:`ctest_test`. This runs each test under the analysis tool, "
+"collects the problems it reports, and submits them to CDash separately from "
+"the test results."
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/Dynamic Analysis.rst:22
+msgid "AddressSanitizer"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/Dynamic Analysis.rst:24
+msgid ""
+"AddressSanitizer is built into GCC and Clang.  The project is compiled with "
+"``-fsanitize=address``, and the tests report memory errors when they run."
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/Dynamic Analysis.rst:27
+msgid "Step4/asan.cmake"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/Dynamic Analysis.rst:27
+msgid ""
+"set(CTEST_BUILD_NAME \"Step4: AddressSanitizer\")\n"
+"site_name(CTEST_SITE)\n"
+"set(CTEST_SOURCE_DIRECTORY \"${CTEST_SCRIPT_DIRECTORY}/Project\")\n"
+"set(CTEST_CMAKE_GENERATOR \"Unix Makefiles\")\n"
+"set(CTEST_NOTES_FILES \"${CMAKE_CURRENT_LIST_FILE}\")\n"
+"\n"
+"set(CTEST_UPDATE_COMMAND \"git\")\n"
+"set(CTEST_UPDATE_VERSION_ONLY 1)\n"
+"\n"
+"set(CTEST_USE_LAUNCHERS 1)\n"
+"set(CTEST_BINARY_DIRECTORY \"${CTEST_SCRIPT_DIRECTORY}/build-asan\")\n"
+"\n"
+"# Tell CTest that the tests use AddressSanitizer, so that it knows how to\n"
+"# parse their output.\n"
+"set(CTEST_MEMORYCHECK_TYPE \"AddressSanitizer\")\n"
+"\n"
+"ctest_empty_binary_directory(\"${CTEST_BINARY_DIRECTORY}\")\n"
+"\n"
+"ctest_start(Experimental)\n"
+"ctest_update()\n"
+"\n"
+"# Build with the -fsanitize=address flag to enable AddressSanitizer.\n"
+"set(options\n"
+"  \"-DCMAKE_BUILD_TYPE=Debug\"\n"
+"  \"-DCMAKE_C_FLAGS=-fsanitize=address\"\n"
+"  )\n"
+"ctest_configure(OPTIONS \"${options}\")\n"
+"\n"
+"ctest_build()\n"
+"\n"
+"# Run the tests with dynamic analysis instead of calling ctest_test().\n"
+"ctest_memcheck()\n"
+"\n"
+"ctest_submit()\n"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/Dynamic Analysis.rst:31
+msgid ""
+"Setting :variable:`CTEST_MEMORYCHECK_TYPE` tells CTest how to parse the "
+"sanitizer output, so that it can report each problem to CDash."
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/Dynamic Analysis.rst:34
+msgid "ctest -S Step4/asan.cmake -V"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/Dynamic Analysis.rst:39
+msgid "Valgrind"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/Dynamic Analysis.rst:41
+msgid ""
+"Valgrind runs each test executable under its own instrumentation, so it "
+"needs no special compiler flags.  It is more portable but slower than ASan."
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/Dynamic Analysis.rst:44
+msgid "Step4/valgrind.cmake"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/Dynamic Analysis.rst:44
+msgid ""
+"set(CTEST_BUILD_NAME \"Step4: Valgrind\")\n"
+"site_name(CTEST_SITE)\n"
+"set(CTEST_SOURCE_DIRECTORY \"${CTEST_SCRIPT_DIRECTORY}/Project\")\n"
+"set(CTEST_CMAKE_GENERATOR \"Unix Makefiles\")\n"
+"set(CTEST_NOTES_FILES \"${CMAKE_CURRENT_LIST_FILE}\")\n"
+"\n"
+"set(CTEST_UPDATE_COMMAND \"git\")\n"
+"set(CTEST_UPDATE_VERSION_ONLY 1)\n"
+"\n"
+"set(CTEST_USE_LAUNCHERS 1)\n"
+"set(CTEST_BINARY_DIRECTORY \"${CTEST_SCRIPT_DIRECTORY}/build-valgrind\")\n"
+"\n"
+"# Run the tests under Valgrind.\n"
+"find_program(CTEST_MEMORYCHECK_COMMAND NAMES valgrind)\n"
+"\n"
+"ctest_empty_binary_directory(\"${CTEST_BINARY_DIRECTORY}\")\n"
+"\n"
+"ctest_start(Experimental)\n"
+"ctest_update()\n"
+"ctest_configure()\n"
+"ctest_build()\n"
+"\n"
+"# Run the tests with dynamic analysis instead of calling ctest_test().\n"
+"ctest_memcheck()\n"
+"\n"
+"ctest_submit()\n"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/Dynamic Analysis.rst:48
+msgid "ctest -S Step4/valgrind.cmake -V"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/Dynamic Analysis.rst:53
+msgid "Requirements"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/Dynamic Analysis.rst:55
+msgid "AddressSanitizer: GCC or Clang with ``-fsanitize=address``."
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/Dynamic Analysis.rst:56
+msgid "Valgrind: ``valgrind`` found in the ``PATH``."
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/Dynamic Analysis.rst:58
+msgid "See the :ref:`CTest MemCheck Step` for other supported tools."
+msgstr ""

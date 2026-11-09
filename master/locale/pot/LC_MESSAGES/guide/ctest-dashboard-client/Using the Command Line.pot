@@ -1,0 +1,143 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2000-2026 Kitware, Inc. and Contributors
+# This file is distributed under the same license as the CMake package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CMake master\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-11-09 17:59+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../guide/ctest-dashboard-client/Using the Command Line.rst:4
+msgid "Step 9: Using the Command Line"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/Using the Command Line.rst:8
+msgid ""
+"This step extends :ref:`Step 8 <CTest Dashboard Step 8>` by replacing the "
+"dashboard script with :program:`ctest` command lines in a shell script."
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/Using the Command Line.rst:11
+msgid "Step9/submit.sh"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/Using the Command Line.rst:11
+msgid ""
+"#!/bin/sh\n"
+"\n"
+"cd \"$(dirname \"$0\")\"\n"
+"site=$(uname -n)\n"
+"presets=\"$(pwd)/../Step8/CMakePresets.json\"\n"
+"rm -rf build\n"
+"\n"
+"# Start a new dashboard and configure an empty build tree.\n"
+"ctest -T Start -T Configure -T Submit \\\n"
+"  --source-dir ../Project \\\n"
+"  --build-dir build \\\n"
+"  -D CTEST_BUILD_NAME=\"Step9: command line\" \\\n"
+"  -D CTEST_SITE=\"$site\" \\\n"
+"  -D CTEST_PRESET=coverage \\\n"
+"  -D CTEST_PRESETS_FILE=\"$presets\" \\\n"
+"  -D CTEST_SUBMIT_PARTS=Configure\n"
+"\n"
+"# Report the current Git commit.\n"
+"ctest -T Update -T Submit \\\n"
+"  --build-dir build \\\n"
+"  -D CTEST_UPDATE_COMMAND=git \\\n"
+"  -D CTEST_UPDATE_VERSION_ONLY=1 \\\n"
+"  -D CTEST_SUBMIT_PARTS=Update\n"
+"\n"
+"# Build.\n"
+"ctest -T Build -T Submit \\\n"
+"  --build-dir build \\\n"
+"  -D CTEST_PRESET=coverage \\\n"
+"  -D CTEST_PRESETS_FILE=\"$presets\" \\\n"
+"  -D CTEST_USE_LAUNCHERS=1 \\\n"
+"  -D CTEST_SUBMIT_PARTS=Build\n"
+"\n"
+"# Test.\n"
+"ctest -T Test -T Submit \\\n"
+"  --build-dir build \\\n"
+"  -D CTEST_PRESET=coverage \\\n"
+"  -D CTEST_PRESETS_FILE=\"$presets\" \\\n"
+"  -D CTEST_SUBMIT_PARTS=Test\n"
+"\n"
+"# Compute coverage, and tell CDash the build is done.\n"
+"ctest -T Coverage -T Submit \\\n"
+"  --build-dir build \\\n"
+"  -D CTEST_SUBMIT_PARTS=\"Coverage;Done\"\n"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/Using the Command Line.rst:15
+msgid ""
+"Each :program:`ctest` invocation runs the steps given by :option:`ctest -T`, "
+"and sets variables with :option:`-D \\<var\\>=\\<value\\> <ctest-dashboard "
+"-D>` instead of the :command:`set` command."
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/Using the Command Line.rst:20
+msgid ""
+"The first invocation configures an empty build tree, using the :ctest-"
+"dashboard-option:`--source-dir` and :ctest-dashboard-option:`--build-dir` "
+"options.  The later invocations run in that build tree and add their results "
+"to the same submission."
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/Using the Command Line.rst:25
+msgid ""
+"Each invocation ends with a ``Submit`` step.  "
+"The :variable:`CTEST_SUBMIT_PARTS` variable limits it to the results of that "
+"invocation, so that earlier results are not submitted again.  The last "
+"invocation also submits the ``Done`` part, which tells CDash that the build "
+"is complete."
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/Using the Command Line.rst:31
+msgid "A dashboard script and command lines each have advantages:"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/Using the Command Line.rst:33
+msgid ""
+"A script can use the CMake language for logic, such as loops and conditions, "
+"and keeps every step in one file."
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/Using the Command Line.rst:35
+msgid ""
+"Command lines can run the steps separately, such as in different jobs of a "
+"CI pipeline, and need no ``.cmake`` file."
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/Using the Command Line.rst:39
+msgid "Requirements"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/Using the Command Line.rst:41
+msgid "GCC or Clang, which support the ``--coverage`` flag."
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/Using the Command Line.rst:42
+msgid ""
+"A ``gcov`` tool that matches the compiler version, found in the ``PATH``."
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/Using the Command Line.rst:43
+msgid "A POSIX shell to run the script."
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/Using the Command Line.rst:46
+msgid "Running the Script"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/Using the Command Line.rst:48
+msgid "sh Step9/submit.sh"
+msgstr ""

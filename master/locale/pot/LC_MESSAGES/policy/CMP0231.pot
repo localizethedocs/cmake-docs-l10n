@@ -1,0 +1,84 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2000-2026 Kitware, Inc. and Contributors
+# This file is distributed under the same license as the CMake package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CMake master\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-11-09 17:59+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../policy/CMP0231.rst:2
+msgid "CMP0231"
+msgstr ""
+
+#: ../../../policy/CMP0231.rst:6
+msgid "MSVC permissive mode is controlled by :prop_tgt:`CXX_EXTENSIONS`."
+msgstr ""
+
+#: ../../../policy/CMP0231.rst:8
+msgid ""
+"The :prop_tgt:`CXX_EXTENSIONS` target property selects whether compiler-"
+"specific language extensions are enabled. In CMake 4.5 and below, this had "
+"no influence on MSVC permissive mode. CMake 4.6 and above prefer to treat "
+"MSVC permissive mode as part of the compiler extensions for C++.  This "
+"policy provides compatibility for projects that have not been updated to "
+"expect the behavior."
+msgstr ""
+
+#: ../../../policy/CMP0231.rst:15
+msgid ""
+"The ``OLD`` behavior for this policy does not add ``/permissive`` or ``/"
+"permissive-`` for :prop_tgt:`CXX_EXTENSIONS`.  The ``NEW`` behavior for the "
+"``MSVC`` compiler keeps the compiler's default permissive mode unless the "
+"request needs a different one:"
+msgstr ""
+
+#: ../../../policy/CMP0231.rst:20
+msgid ""
+":prop_tgt:`CXX_EXTENSIONS` ``OFF`` adds ``/permissive-`` when the selected "
+"standard leaves the compiler permissive. ``/std:c++98``, ``/std:c++11``, ``/"
+"std:c++14`` and ``/std:c++17`` stay permissive until this flag is passed."
+msgstr ""
+
+#: ../../../policy/CMP0231.rst:24
+msgid ""
+":prop_tgt:`CXX_EXTENSIONS` ``ON`` adds ``/permissive`` when the selected "
+"standard implies ``/permissive-``.  ``/std:c++latest`` implies it since "
+"Visual Studio 2019 version 16.8, and ``/std:c++20`` and later standard modes "
+"do so as well.  The flag is placed after the ``/std:`` flag so it overrides "
+"that implication."
+msgstr ""
+
+#: ../../../policy/CMP0231.rst:30
+msgid ""
+"No permissive flag is added when the compiler mode already matches. "
+"Compilers older than Visual Studio 2017 have neither flag."
+msgstr ""
+
+#: ../../../policy/CMP0231.rst:33
+msgid ""
+"This policy has no effect on C or on compilers whose id is not ``MSVC``."
+msgstr ""
+
+#: ../../../policy/include/STANDARD_ADVICE.rst:1
+msgid ""
+"This policy was introduced in CMake version |INTRODUCED_IN_CMAKE_VERSION|. "
+"It may be set by :command:`cmake_policy` "
+"or :command:`cmake_minimum_required`. If it is not set, CMake |"
+"WARNS_OR_DOES_NOT_WARN|, and uses ``OLD`` behavior."
+msgstr ""
+
+#: ../../../policy/include/DEPRECATED.rst:2
+msgid ""
+"The ``OLD`` behavior of a policy is :ref:`deprecated by definition <cmake-"
+"policies-intro>` and may be removed in a future version of CMake."
+msgstr ""

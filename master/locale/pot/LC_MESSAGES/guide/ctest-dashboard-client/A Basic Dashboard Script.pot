@@ -1,0 +1,251 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2000-2026 Kitware, Inc. and Contributors
+# This file is distributed under the same license as the CMake package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CMake master\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-11-09 17:59+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../guide/ctest-dashboard-client/A Basic Dashboard Script.rst:4
+msgid "Step 1: A Basic Dashboard Script"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/A Basic Dashboard Script.rst:6
+msgid ""
+"This step shows the smallest complete :option:`ctest -S` script that "
+"configures, builds, and tests a project, and submits the results to CDash."
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/A Basic Dashboard Script.rst:10
+msgid "The Example Project"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/A Basic Dashboard Script.rst:12
+msgid ""
+"Most steps build the project in the ``Project`` directory, which defines two "
+"tests:"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/A Basic Dashboard Script.rst:15
+msgid "``passes``"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/A Basic Dashboard Script.rst:16
+msgid "A test that exits successfully."
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/A Basic Dashboard Script.rst:18
+msgid "``fails``"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/A Basic Dashboard Script.rst:19
+msgid "A test that exits with a non-zero exit code."
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/A Basic Dashboard Script.rst:21
+msgid "Project/CMakeLists.txt"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/A Basic Dashboard Script.rst:21
+msgid ""
+"cmake_minimum_required(VERSION 3.20)\n"
+"project(DashboardExample CXX)\n"
+"\n"
+"include(CTest)\n"
+"\n"
+"add_executable(passes passes.cxx)\n"
+"add_test(NAME passes COMMAND passes)\n"
+"\n"
+"add_executable(fails fails.cxx)\n"
+"add_test(NAME fails COMMAND fails)\n"
+"\n"
+"# Optionally add a target that fails to compile, to show how build errors\n"
+"# are reported on the dashboard.\n"
+"option(DASHBOARD_EXAMPLE_BUILD_ERROR \"Add a target that fails to compile\" "
+"OFF)\n"
+"if(DASHBOARD_EXAMPLE_BUILD_ERROR)\n"
+"  add_executable(error error.cxx)\n"
+"endif()\n"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/A Basic Dashboard Script.rst:25
+msgid ""
+"The project's ``CTestConfig.cmake`` file tells CTest where to submit "
+"results.  These examples submit to the ``sandbox`` project on `my.cdash.org "
+"<https://my.cdash.org/projects>`__:"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/A Basic Dashboard Script.rst:29
+msgid "Project/CTestConfig.cmake"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/A Basic Dashboard Script.rst:29
+msgid ""
+"set(CTEST_NIGHTLY_START_TIME \"00:00:00 UTC\")\n"
+"set(CTEST_SUBMIT_URL \"https://my.cdash.org/submit.php?project=sandbox\")\n"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/A Basic Dashboard Script.rst:34
+msgid "The Script"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/A Basic Dashboard Script.rst:36
+msgid "Step1/submit.cmake"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/A Basic Dashboard Script.rst:36
+msgid ""
+"# Set the name of this build to distinguish it from other builds on CDash.\n"
+"set(CTEST_BUILD_NAME \"Step1: introduction\")\n"
+"\n"
+"# Look up the name of this host and use it as the site name.\n"
+"# Alternatively, set CTEST_SITE directly.\n"
+"site_name(CTEST_SITE)\n"
+"\n"
+"# Tell CTest where the top-level CMakeLists.txt file is, and what directory\n"
+"# to use to build the project.\n"
+"set(CTEST_SOURCE_DIRECTORY \"${CTEST_SCRIPT_DIRECTORY}/../Project\")\n"
+"set(CTEST_BINARY_DIRECTORY \"${CTEST_SCRIPT_DIRECTORY}/build\")\n"
+"\n"
+"# Specify the native build system to generate.\n"
+"set(CTEST_CMAKE_GENERATOR \"Unix Makefiles\")\n"
+"\n"
+"# Attach this script as a note to the build on CDash.\n"
+"set(CTEST_NOTES_FILES \"${CMAKE_CURRENT_LIST_FILE}\")\n"
+"\n"
+"# Perform a \"version-only update\" with Git.  This reports the current\n"
+"# commit and any locally modified files to CDash without changing the\n"
+"# source tree.\n"
+"set(CTEST_UPDATE_COMMAND \"git\")\n"
+"set(CTEST_UPDATE_VERSION_ONLY 1)\n"
+"\n"
+"# Start from an empty build tree rather than building incrementally.\n"
+"ctest_empty_binary_directory(\"${CTEST_BINARY_DIRECTORY}\")\n"
+"\n"
+"# Run the dashboard steps to configure, build, and test the project,\n"
+"# and submit the results to CDash.\n"
+"ctest_start(Experimental)\n"
+"ctest_update()\n"
+"ctest_configure()\n"
+"ctest_build()\n"
+"ctest_test()\n"
+"ctest_submit()\n"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/A Basic Dashboard Script.rst:40
+msgid "The script runs these steps:"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/A Basic Dashboard Script.rst:42
+msgid ":command:`ctest_start`"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/A Basic Dashboard Script.rst:43
+msgid "Begin a new dashboard submission."
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/A Basic Dashboard Script.rst:45
+msgid ":command:`ctest_update`"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/A Basic Dashboard Script.rst:46
+msgid "Record the current Git commit and any modified files."
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/A Basic Dashboard Script.rst:48
+msgid ":command:`ctest_configure`"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/A Basic Dashboard Script.rst:49
+msgid "Run CMake to configure the project."
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/A Basic Dashboard Script.rst:51
+msgid ":command:`ctest_build`"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/A Basic Dashboard Script.rst:52
+msgid "Build the project."
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/A Basic Dashboard Script.rst:54
+msgid ":command:`ctest_test`"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/A Basic Dashboard Script.rst:55
+msgid "Run the tests."
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/A Basic Dashboard Script.rst:57
+msgid ":command:`ctest_submit`"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/A Basic Dashboard Script.rst:58
+msgid "Submit the results to CDash."
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/A Basic Dashboard Script.rst:61
+msgid "Key Concepts"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/A Basic Dashboard Script.rst:63
+msgid ":variable:`CTEST_BUILD_NAME`"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/A Basic Dashboard Script.rst:64
+msgid ""
+"The name of the build on the dashboard.  Use it to distinguish several "
+"builds of the same project, such as by platform, compiler, or configuration."
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/A Basic Dashboard Script.rst:68
+msgid ":variable:`CTEST_NOTES_FILES`"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/A Basic Dashboard Script.rst:69
+msgid ""
+"Attaches files to the build as notes.  Attaching the script itself makes it "
+"easy to see what produced a given result."
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/A Basic Dashboard Script.rst:72
+msgid ":variable:`CTEST_UPDATE_VERSION_ONLY`"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/A Basic Dashboard Script.rst:73
+msgid ""
+"Records the current Git commit without updating the source tree.  This is "
+"useful when a CI system has already checked out the source."
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/A Basic Dashboard Script.rst:76
+msgid ":command:`ctest_empty_binary_directory`"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/A Basic Dashboard Script.rst:77
+msgid ""
+"Removes the build tree before the dashboard starts, so that each run is a "
+"clean build."
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/A Basic Dashboard Script.rst:81
+msgid "Running the Script"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/A Basic Dashboard Script.rst:83
+msgid "ctest -S Step1/submit.cmake -V"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/A Basic Dashboard Script.rst:87
+msgid "The :option:`ctest -V` option prints the output of each step."
+msgstr ""

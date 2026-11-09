@@ -1,0 +1,143 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2000-2026 Kitware, Inc. and Contributors
+# This file is distributed under the same license as the CMake package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CMake master\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-11-09 17:59+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../guide/ctest-dashboard-client/Collecting Coverage.rst:4
+msgid "Step 3: Collecting Coverage"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/Collecting Coverage.rst:6
+msgid ""
+"This step extends :ref:`Step 2 <CTest Dashboard Step 2>` by collecting code "
+"coverage and submitting it to CDash.  It does not enable the build error "
+"from Step 2."
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/Collecting Coverage.rst:10
+msgid "Step3/submit.cmake"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/Collecting Coverage.rst:10
+msgid ""
+"set(CTEST_BUILD_NAME \"Step3: coverage\")\n"
+"site_name(CTEST_SITE)\n"
+"set(CTEST_SOURCE_DIRECTORY \"${CTEST_SCRIPT_DIRECTORY}/../Project\")\n"
+"set(CTEST_BINARY_DIRECTORY \"${CTEST_SCRIPT_DIRECTORY}/build\")\n"
+"set(CTEST_CMAKE_GENERATOR \"Unix Makefiles\")\n"
+"set(CTEST_NOTES_FILES \"${CMAKE_CURRENT_LIST_FILE}\")\n"
+"\n"
+"set(CTEST_UPDATE_COMMAND \"git\")\n"
+"set(CTEST_UPDATE_VERSION_ONLY 1)\n"
+"\n"
+"set(CTEST_USE_LAUNCHERS 1)\n"
+"\n"
+"# Tell CTest to use gcov for coverage analysis.\n"
+"set(CTEST_COVERAGE_COMMAND \"gcov\")\n"
+"\n"
+"ctest_empty_binary_directory(\"${CTEST_BINARY_DIRECTORY}\")\n"
+"\n"
+"ctest_start(Experimental)\n"
+"ctest_update()\n"
+"\n"
+"# Build with the --coverage flag to enable gcov-style instrumentation.\n"
+"set(options\n"
+"  \"-DCMAKE_BUILD_TYPE=Debug\"\n"
+"  \"-DCMAKE_CXX_FLAGS=--coverage\"\n"
+"  )\n"
+"ctest_configure(OPTIONS \"${options}\")\n"
+"\n"
+"ctest_build()\n"
+"ctest_test()\n"
+"\n"
+"# Run gcov to find which lines of code the tests executed.\n"
+"ctest_coverage()\n"
+"\n"
+"ctest_submit()\n"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/Collecting Coverage.rst:14
+msgid "Two things are needed to collect coverage:"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/Collecting Coverage.rst:16
+msgid ""
+"Build the project with instrumentation.  The ``--coverage`` flag makes GCC "
+"and Clang add counters that record which lines run.  A ``Debug`` build "
+"avoids optimizations that would make the line counts less accurate."
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/Collecting Coverage.rst:21
+msgid ""
+"Run the coverage tool.  After :command:`ctest_test`, "
+"the :command:`ctest_coverage` command runs the tool given "
+"by :variable:`CTEST_COVERAGE_COMMAND` on the data the tests produced. CTest "
+"parses its output and submits the coverage of each file."
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/Collecting Coverage.rst:26
+msgid ""
+"On CDash, the build shows the overall coverage percentage.  The details show "
+"the coverage of each file, with the lines that ran and the lines that did "
+"not.  For example, the ``fails`` test never runs one line of ``fails.cxx``:"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/Collecting Coverage.rst:31
+msgid "Project/fails.cxx"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/Collecting Coverage.rst:31
+msgid ""
+"#include <iostream>\n"
+"\n"
+"int main()\n"
+"{\n"
+"  bool b = false;\n"
+"  if (b) {\n"
+"    // This line never runs, so coverage reports it as missed.\n"
+"    std::cout << \"this shouldn't happen...\" << std::endl;\n"
+"  }\n"
+"\n"
+"  std::cout << \"this test fails\" << std::endl;\n"
+"  return 1;\n"
+"}\n"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/Collecting Coverage.rst:36
+msgid "Requirements"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/Collecting Coverage.rst:38
+msgid ""
+"GCC or Clang (supports ``--coverage`` / ``-fprofile-arcs -ftest-coverage``)"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/Collecting Coverage.rst:39
+msgid ""
+"A ``gcov`` tool that matches the compiler version, found in the ``PATH``."
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/Collecting Coverage.rst:41
+msgid "See the :ref:`CTest Coverage Step` for other supported tools."
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/Collecting Coverage.rst:44
+msgid "Running the Script"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/Collecting Coverage.rst:46
+msgid "ctest -S Step3/submit.cmake -V"
+msgstr ""
