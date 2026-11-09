@@ -1,0 +1,595 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2000-2026 Kitware, Inc. and Contributors
+# This file is distributed under the same license as the CMake package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CMake master\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-11-09 17:59+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../guide/ctest-dashboard-client/index.rst:2
+msgid "CTest Dashboard Client Guide"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/index.rst:5
+msgid "Contents"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/index.rst:9
+msgid "Introduction"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/index.rst:11
+msgid ""
+"A `CDash`_ dashboard collects the results of configuring, building, and "
+"testing a project on many machines.  The :manual:`ctest(1)` program acts as "
+"a :ref:`Dashboard Client`: it runs those steps and submits the results to a "
+"CDash server."
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/index.rst:16
+msgid ""
+"This guide shows how to prepare a project for dashboard submissions, how to "
+"submit results from an existing build tree, and how to write a script that "
+"runs a dashboard on a schedule.  See the :manual:`ctest(1)` manual for a "
+"complete reference."
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/index.rst:21
+msgid ""
+"The :ref:`CTest Dashboard Examples` at the end of this guide expand on each "
+"topic, one step at a time, with complete scripts that can be run standalone."
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/index.rst:28
+msgid "Preparing a Project"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/index.rst:30
+msgid ""
+"A project enables dashboard submissions by including the :module:`CTest` "
+"module in its top-level ``CMakeLists.txt`` file:"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/index.rst:33
+msgid ""
+"cmake_minimum_required(VERSION 4.0)\n"
+"project(MyProject)\n"
+"\n"
+"include(CTest)\n"
+"\n"
+"if(BUILD_TESTING)\n"
+"  add_executable(my_test my_test.cxx)\n"
+"  add_test(NAME my_test COMMAND my_test)\n"
+"endif()"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/index.rst:45
+msgid ""
+"The module calls :command:`enable_testing` and adds "
+"the :variable:`BUILD_TESTING` option.  It also writes the dashboard settings "
+"to a configuration file in the build tree."
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/index.rst:49
+msgid ""
+"The project also needs a ``CTestConfig.cmake`` file next to its top-level "
+"``CMakeLists.txt`` file to say where to submit results.  A CDash server "
+"offers this file for download on the settings page of each project. It "
+"contains settings such as:"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/index.rst:54
+msgid ""
+"set(CTEST_NIGHTLY_START_TIME \"01:00:00 UTC\")\n"
+"set(CTEST_SUBMIT_URL \"https://my.cdash.org/submit.php?project=MyProject\")"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/index.rst:59
+msgid ""
+"The :variable:`CTEST_NIGHTLY_START_TIME` variable must match the nightly "
+"start time configured in CDash, so that all ``Nightly`` submissions from one "
+"night appear on the same day."
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/index.rst:64
+msgid "Submitting from a Build Tree"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/index.rst:66
+msgid ""
+"The quickest way to submit results is to run :program:`ctest` from an "
+"existing build tree.  Configure and build the project as usual, then run an "
+"``Experimental`` dashboard:"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/index.rst:70
+msgid ""
+"cmake -S MyProject -B build\n"
+"cmake --build build\n"
+"cd build\n"
+"ctest -D Experimental"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/index.rst:77
+msgid ""
+"This runs the ``Start``, ``Configure``, ``Build``, ``Test``, ``Coverage``, "
+"and ``Submit`` steps.  The results are recorded in the ``Testing`` directory "
+"of the build tree before they are submitted."
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/index.rst:81
+msgid ""
+"The :module:`CTest` module also adds an ``Experimental`` target to the build "
+"system that does the same thing:"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/index.rst:84
+msgid "cmake --build build --target Experimental"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/index.rst:89
+msgid "Running Individual Steps"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/index.rst:91
+msgid ""
+"A dashboard may also be run one step at a time.  The :option:`ctest -M` "
+"option selects the mode and each :option:`ctest -T` option adds a step:"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/index.rst:94
+msgid "ctest -M Experimental -T Start -T Configure -T Build -T Test -T Submit"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/index.rst:98
+msgid ""
+"Results are recorded under the tag created by the most recent ``Start`` "
+"step, and later invocations add to it.  By default, the ``Submit`` step "
+"sends every result recorded under that tag, including results from earlier "
+"invocations."
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/index.rst:103
+msgid ""
+"Set :variable:`CTEST_SUBMIT_PARTS` to submit only some of them.  For "
+"example, to rerun the tests and submit only the new test results:"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/index.rst:107
+msgid "ctest -M Experimental -T Test -T Submit -D CTEST_SUBMIT_PARTS=Test"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/index.rst:111
+msgid ""
+"See :ref:`CTest Dashboard Step 9` for a complete dashboard run this way."
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/index.rst:114
+msgid "Overriding Settings"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/index.rst:118
+msgid ""
+"Settings in the configuration file can be overridden for one run with "
+"the :option:`-D \\<var\\>=\\<value\\> <ctest-dashboard -D>` option.  For "
+"example, to submit with a different build name:"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/index.rst:122
+msgid "ctest -D Experimental -D CTEST_BUILD_NAME=linux-gcc-debug"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/index.rst:127
+msgid "Writing a Dashboard Script"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/index.rst:129
+msgid ""
+"Machines that submit dashboards on a schedule usually run a script "
+"with :option:`ctest -S` instead.  A script can check out the source tree, "
+"start from an empty build tree, and choose which steps to run.  It does not "
+"depend on a build tree that was configured beforehand."
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/index.rst:134
+msgid ""
+"The script is written in the :manual:`cmake-language(7)`.  It sets variables "
+"that hold the dashboard settings and calls the :ref:`CTest Commands` to run "
+"each step.  The following script runs a ``Nightly`` dashboard for a project "
+"hosted in a Git repository:"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/index.rst:139
+msgid ""
+"# Describe this machine and build.\n"
+"set(CTEST_SITE \"my-machine\")\n"
+"set(CTEST_BUILD_NAME \"linux-gcc-release\")\n"
+"\n"
+"# Choose where to put the source and build trees.\n"
+"set(CTEST_DASHBOARD_ROOT \"$ENV{HOME}/dashboards\")\n"
+"set(CTEST_SOURCE_DIRECTORY \"${CTEST_DASHBOARD_ROOT}/MyProject\")\n"
+"set(CTEST_BINARY_DIRECTORY \"${CTEST_DASHBOARD_ROOT}/MyProject-build\")\n"
+"\n"
+"# Choose how to configure and build.\n"
+"set(CTEST_CMAKE_GENERATOR \"Ninja\")\n"
+"set(CTEST_CONFIGURATION_TYPE \"Release\")\n"
+"\n"
+"# Clone the repository on the first run, and update it later.\n"
+"find_program(CTEST_GIT_COMMAND NAMES git)\n"
+"set(repo \"https://example.com/MyProject.git\")\n"
+"if(NOT EXISTS \"${CTEST_SOURCE_DIRECTORY}\")\n"
+"  set(CTEST_CHECKOUT_COMMAND\n"
+"    \"\\\"${CTEST_GIT_COMMAND}\\\" clone ${repo} \\\"$"
+"{CTEST_SOURCE_DIRECTORY}\\\"\")\n"
+"endif()\n"
+"\n"
+"# Start each night with an empty build tree.\n"
+"ctest_empty_binary_directory(\"${CTEST_BINARY_DIRECTORY}\")\n"
+"\n"
+"ctest_start(Nightly)\n"
+"ctest_update()\n"
+"ctest_configure()\n"
+"ctest_build()\n"
+"ctest_test()\n"
+"ctest_submit()"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/index.rst:172
+msgid "Run the script from any directory outside the build tree:"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/index.rst:174
+msgid "ctest -S nightly.cmake -V"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/index.rst:178
+msgid ""
+"The :option:`ctest -V` option shows the progress of each step. "
+"See :ref:`CTest Dashboard Step 1` for a complete script."
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/index.rst:181
+msgid "Notes on the script:"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/index.rst:183
+msgid ""
+"The :command:`ctest_start` command runs "
+"the :variable:`CTEST_CHECKOUT_COMMAND`, if set, before it reads "
+"``CTestConfig.cmake`` from the binary or source tree. The script does not "
+"need to set :variable:`CTEST_SUBMIT_URL` itself."
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/index.rst:188
+msgid ""
+"The :command:`ctest_update` command uses :variable:`CTEST_GIT_COMMAND` to "
+"update the source tree, and records the changes in the submission."
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/index.rst:191
+msgid ""
+"The :command:`ctest_configure` command runs :manual:`cmake(1)` with the "
+"generator given by :variable:`CTEST_CMAKE_GENERATOR`.  To pass more options "
+"to CMake, set :variable:`CTEST_CONFIGURE_COMMAND` or use the ``OPTIONS`` "
+"argument of the command."
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/index.rst:196
+msgid ""
+"The :command:`ctest_empty_binary_directory` command does nothing if the "
+"build tree does not exist yet.  To avoid removing an unrelated directory by "
+"mistake, it fails if the directory exists but does not contain a "
+"``CMakeCache.txt`` file."
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/index.rst:202
+msgid "Passing Values to a Script"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/index.rst:204
+msgid ""
+"One script can serve several builds by reading values from the command "
+"line.  Each :option:`-D \\<var\\>=\\<value\\> <ctest-dashboard -D>` option "
+"sets a variable before the script runs:"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/index.rst:208
+msgid ""
+"if(NOT DEFINED CTEST_BUILD_NAME)\n"
+"  set(CTEST_BUILD_NAME \"linux-gcc-release\")\n"
+"endif()"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/index.rst:214
+msgid "ctest -S nightly.cmake -D CTEST_BUILD_NAME=linux-gcc-debug"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/index.rst:218
+msgid ""
+"Variables whose names do not begin with ``CTEST_`` must be given with a "
+"type, such as ``-D dashboard_model:STRING=Nightly``."
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/index.rst:221
+msgid ""
+"Variables whose names begin with ``CTEST_`` may be given without a type. "
+"Previously, every variable had to be given with a type."
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/index.rst:226
+msgid "Continuous Dashboards"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/index.rst:228
+msgid ""
+"A ``Continuous`` dashboard runs repeatedly during the day and submits "
+"results only when the source tree has changed.  In a script, use the "
+"``RETURN_VALUE`` option of :command:`ctest_update` to stop early when "
+"nothing changed:"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/index.rst:233
+msgid ""
+"ctest_start(Continuous)\n"
+"ctest_update(RETURN_VALUE count)\n"
+"if(count EQUAL 0)\n"
+"  return()\n"
+"endif()\n"
+"ctest_configure()\n"
+"ctest_build()\n"
+"ctest_test()\n"
+"ctest_submit()"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/index.rst:245
+msgid ""
+"A ``Continuous`` script usually keeps its build tree between runs, so it "
+"does not call :command:`ctest_empty_binary_directory`.  This keeps each "
+"build incremental."
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/index.rst:250
+msgid "Checking for Failures"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/index.rst:252
+msgid ""
+"Each command can store its result in a variable so the script can react to "
+"failures.  For example, to skip the tests when the build fails:"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/index.rst:255
+msgid ""
+"ctest_build(NUMBER_ERRORS errors)\n"
+"if(errors EQUAL 0)\n"
+"  ctest_test()\n"
+"endif()\n"
+"ctest_submit()"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/index.rst:263
+msgid "See the documentation of each command for the values it reports."
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/index.rst:266
+msgid "Running on a Schedule"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/index.rst:268
+msgid ""
+"A dashboard script can be run by the system scheduler (such as ``crontab`` "
+"on Linux and macOS), or via a continuous integration platform (such as "
+"GitHub Actions).  Schedule ``Nightly`` scripts to start shortly after "
+"the :variable:`CTEST_NIGHTLY_START_TIME` so that each submission is "
+"associated with the intended day."
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/index.rst:275
+msgid "Using CMake Presets"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/index.rst:279
+msgid ""
+"A project that provides :manual:`cmake-presets(7)` can use them in a "
+"dashboard.  In a script, set :variable:`CTEST_PRESET` to use one preset name "
+"for the configure, build, and test steps, or "
+"set :variable:`CTEST_CONFIGURE_PRESET`, :variable:`CTEST_BUILD_PRESET`, "
+"and :variable:`CTEST_TEST_PRESET` separately:"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/index.rst:285
+msgid ""
+"set(CTEST_SOURCE_DIRECTORY \"${CTEST_DASHBOARD_ROOT}/MyProject\")\n"
+"set(CTEST_BINARY_DIRECTORY \"${CTEST_DASHBOARD_ROOT}/MyProject-build\")\n"
+"set(CTEST_PRESET \"ci-release\")\n"
+"\n"
+"ctest_start(Nightly)\n"
+"ctest_configure()\n"
+"ctest_build()\n"
+"ctest_test()\n"
+"ctest_submit()"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/index.rst:297
+msgid ""
+"Settings from the script, such as :variable:`CTEST_BINARY_DIRECTORY`, take "
+"priority over the corresponding settings from the preset. See :ref:`CTest "
+"Dashboard Step 8` for a complete example."
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/index.rst:301
+msgid ""
+"From the command line, the :ctest-dashboard-option:`--source-dir` option "
+"lets the ``Configure`` step create a new build tree from a preset.  If the "
+"``ci-release`` preset sets ``binaryDir`` to ``${sourceDir}/build/$"
+"{presetName}``, then:"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/index.rst:306
+msgid ""
+"ctest -M Experimental -T Configure --source-dir MyProject \\\n"
+"  -D CTEST_CONFIGURE_PRESET=ci-release\n"
+"ctest -M Experimental -T Build -T Test -T Submit \\\n"
+"  --test-dir MyProject/build/ci-release"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/index.rst:314
+msgid "Adding More Steps"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/index.rst:317
+msgid "Coverage"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/index.rst:319
+msgid ""
+"To record test coverage, build the project with coverage enabled, such as "
+"with the ``--coverage`` flag of GCC, and call :command:`ctest_coverage` "
+"after :command:`ctest_test`:"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/index.rst:323
+msgid ""
+"find_program(CTEST_COVERAGE_COMMAND NAMES gcov)\n"
+"\n"
+"ctest_start(Nightly)\n"
+"ctest_configure(OPTIONS \"-DCMAKE_CXX_FLAGS=--coverage\")\n"
+"ctest_build()\n"
+"ctest_test()\n"
+"ctest_coverage()\n"
+"ctest_submit()"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/index.rst:334
+msgid ""
+"See the :ref:`CTest Coverage Step` for the supported tools, and :ref:`CTest "
+"Dashboard Step 3` for a complete example."
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/index.rst:338
+msgid "Memory Checking"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/index.rst:340
+msgid ""
+"To run the tests under a memory checker, call :command:`ctest_memcheck` "
+"instead of, or in addition to, :command:`ctest_test`.  "
+"The :variable:`CTEST_MEMORYCHECK_TYPE` variable selects the tool:"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/index.rst:344
+msgid ""
+"set(CTEST_MEMORYCHECK_TYPE \"Valgrind\")\n"
+"find_program(CTEST_MEMORYCHECK_COMMAND NAMES valgrind)\n"
+"\n"
+"ctest_start(Nightly)\n"
+"ctest_configure()\n"
+"ctest_build()\n"
+"ctest_memcheck()\n"
+"ctest_submit()"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/index.rst:355
+msgid ""
+"See the :ref:`CTest MemCheck Step` for the supported tools, including the "
+"sanitizers supported by Clang and GCC.  See :ref:`CTest Dashboard Step 4` "
+"for complete examples that use AddressSanitizer and Valgrind."
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/index.rst:361
+msgid "Detailed Build Reports"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/index.rst:363
+msgid ""
+"By default, CTest finds build errors and warnings by scanning the build "
+"output.  Set :variable:`CTEST_USE_LAUNCHERS` in ``CTestConfig.cmake`` to "
+"instead report the command line and output of each compile or link step that "
+"produces a warning or error:"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/index.rst:368
+msgid "set(CTEST_USE_LAUNCHERS 1)"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/index.rst:372
+msgid ""
+"This works with the :ref:`Makefile Generators` and :ref:`Ninja Generators`. "
+"See :ref:`CTest Dashboard Step 2` for a complete example."
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/index.rst:376
+msgid "Notes and Extra Files"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/index.rst:378
+msgid ""
+"A submission can include notes files, such as a copy of the dashboard "
+"script, to show on CDash.  Set :variable:`CTEST_NOTES_FILES` before "
+"calling :command:`ctest_submit`:"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/index.rst:382
+msgid "set(CTEST_NOTES_FILES \"${CMAKE_CURRENT_LIST_FILE}\")"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/index.rst:386
+msgid ""
+"From the command line, use the :ctest-dashboard-option:`--add-notes` option."
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/index.rst:388
+msgid ""
+"To attach other files, such as logs or reports, use "
+"the :command:`ctest_upload` command.  See :ref:`CTest Dashboard Step 6` for "
+"an example."
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/index.rst:395
+msgid "Step-by-Step Examples"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/index.rst:399
+msgid ""
+"The following steps show complete dashboard scripts, one topic at a time. |"
+"ctest_dashboard_source| The examples submit to the ``sandbox`` project on "
+"`my.cdash.org <https://my.cdash.org/projects>`__."
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/index.rst:403
+msgid ""
+"The examples need a C++ compiler and access to a CDash server.  Some steps "
+"have additional requirements, which are listed in each step."
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/index.rst:420
+msgid "Next Steps"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/index.rst:422
+msgid ""
+"The :ref:`Dashboard Client` section of the :manual:`ctest(1)` manual "
+"documents the command-line options, steps, and modes."
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/index.rst:425
+msgid ""
+"The :ref:`Dashboard Client Configuration` sections document every setting "
+"for each step."
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/index.rst:428
+msgid ""
+"The :ref:`CTest Commands` documentation describes the options of each "
+"command used in a dashboard script."
+msgstr ""

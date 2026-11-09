@@ -1,0 +1,148 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2000-2026 Kitware, Inc. and Contributors
+# This file is distributed under the same license as the CMake package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CMake master\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-11-09 17:59+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../guide/ctest-dashboard-client/Using CMake Presets.rst:4
+msgid "Step 8: Using CMake Presets"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/Using CMake Presets.rst:8
+msgid ""
+"This step extends :ref:`Step 3 <CTest Dashboard Step 3>` by moving the "
+"coverage settings into a :manual:`preset <cmake-presets(7)>`, instead of "
+"passing them with the ``OPTIONS`` argument of :command:`ctest_configure`."
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/Using CMake Presets.rst:12
+msgid "Step8/CMakePresets.json"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/Using CMake Presets.rst:12
+msgid ""
+"{\n"
+"  \"version\": 10,\n"
+"  \"cmakeMinimumRequired\": {\n"
+"    \"major\": 4,\n"
+"    \"minor\": 4,\n"
+"    \"patch\": 0\n"
+"  },\n"
+"  \"configurePresets\": [\n"
+"    {\n"
+"      \"name\": \"coverage\",\n"
+"      \"displayName\": \"Coverage\",\n"
+"      \"description\": \"Build with gcov coverage instrumentation\",\n"
+"      \"generator\": \"Unix Makefiles\",\n"
+"      \"cacheVariables\": {\n"
+"        \"CMAKE_BUILD_TYPE\": \"Debug\",\n"
+"        \"CMAKE_CXX_FLAGS\": \"--coverage\"\n"
+"      }\n"
+"    }\n"
+"  ],\n"
+"  \"buildPresets\": [\n"
+"    {\n"
+"      \"name\": \"coverage\",\n"
+"      \"configurePreset\": \"coverage\"\n"
+"    }\n"
+"  ],\n"
+"  \"testPresets\": [\n"
+"    {\n"
+"      \"name\": \"coverage\",\n"
+"      \"configurePreset\": \"coverage\"\n"
+"    }\n"
+"  ]\n"
+"}\n"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/Using CMake Presets.rst:16
+msgid "Step8/submit.cmake"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/Using CMake Presets.rst:16
+msgid ""
+"cmake_minimum_required(VERSION 4.4)\n"
+"\n"
+"set(CTEST_BUILD_NAME \"Step8: presets\")\n"
+"site_name(CTEST_SITE)\n"
+"set(CTEST_SOURCE_DIRECTORY \"${CTEST_SCRIPT_DIRECTORY}/../Project\")\n"
+"set(CTEST_BINARY_DIRECTORY \"${CTEST_SCRIPT_DIRECTORY}/build\")\n"
+"\n"
+"# Note that we aren't setting CTEST_CMAKE_GENERATOR in this script any "
+"more.\n"
+"# It is now defined in the configure preset instead.\n"
+"\n"
+"set(CTEST_NOTES_FILES \"${CMAKE_CURRENT_LIST_FILE}\")\n"
+"\n"
+"set(CTEST_UPDATE_COMMAND \"git\")\n"
+"set(CTEST_UPDATE_VERSION_ONLY 1)\n"
+"\n"
+"set(CTEST_USE_LAUNCHERS 1)\n"
+"set(CTEST_COVERAGE_COMMAND \"gcov\")\n"
+"\n"
+"# Select the preset, and the presets file that defines it, for the\n"
+"# ctest_configure(), ctest_build(), and ctest_test() commands below.\n"
+"set(CTEST_PRESET \"coverage\")\n"
+"set(CTEST_PRESETS_FILE \"${CTEST_SCRIPT_DIRECTORY}/CMakePresets.json\")\n"
+"\n"
+"ctest_empty_binary_directory(\"${CTEST_BINARY_DIRECTORY}\")\n"
+"\n"
+"ctest_start(Experimental)\n"
+"ctest_update()\n"
+"ctest_configure()\n"
+"ctest_build()\n"
+"ctest_test()\n"
+"ctest_coverage()\n"
+"ctest_submit()\n"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/Using CMake Presets.rst:20
+msgid ""
+"Setting :variable:`CTEST_PRESET` selects a preset with that name for "
+"the :command:`ctest_configure`, :command:`ctest_build`, "
+"and :command:`ctest_test` commands.  The commands read the variable "
+"themselves, so they need no arguments.  "
+"Setting :variable:`CTEST_PRESETS_FILE` reads the presets from a file other "
+"than the ``CMakePresets.json`` file in the source tree.  Here, the presets "
+"file is in the ``Step8`` directory."
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/Using CMake Presets.rst:27
+msgid ""
+"Presets keep the build settings in a standard file, instead of in the "
+"dashboard script.  Other scripts, :option:`cmake --preset`, and IDEs can use "
+"the same presets."
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/Using CMake Presets.rst:32
+msgid "Requirements"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/Using CMake Presets.rst:34
+msgid "GCC or Clang with ``--coverage``."
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/Using CMake Presets.rst:35
+msgid ""
+"A ``gcov`` tool that matches the compiler version, found in the ``PATH``."
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/Using CMake Presets.rst:38
+msgid "Running the Script"
+msgstr ""
+
+#: ../../../guide/ctest-dashboard-client/Using CMake Presets.rst:40
+msgid "ctest -S Step8/submit.cmake -V"
+msgstr ""
