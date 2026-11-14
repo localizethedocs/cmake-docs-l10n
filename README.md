@@ -52,12 +52,24 @@
 <a href="https://github.com/localizethedocs/cmake-docs-l10n" title="GitHub Repo Size" target="_blank">
   <img alt="GitHub Repo Size" src="https://img.shields.io/github/repo-size/localizethedocs/cmake-docs-l10n?logo=github&style=flat&color=blue" />
 </a>
+</div>
+<div align="center">
 <a href="https://github.com/localizethedocs/cmake-docs-l10n/issues" title="GitHub Open Issues" target="_blank">
   <img alt="GitHub Open Issues" src="https://img.shields.io/github/issues/localizethedocs/cmake-docs-l10n.svg?logo=github&style=flat&color=blue" />
 </a>
 <a href="https://github.com/localizethedocs/cmake-docs-l10n/pulls" title="GitHub Open Pull Requests" target="_blank">
   <img alt="GitHub Open Pull Requests" src="https://img.shields.io/github/issues-pr/localizethedocs/cmake-docs-l10n?logo=github&style=flat&color=blue" />
 </a>
+</div>
+<div align="center">
+<a href="https://github.com/localizethedocs/cmake-docs-l10n/commits/main" title="GitHub Main Commit" target="_blank">
+  <img alt="GitHub Main Commit" src="https://img.shields.io/github/last-commit/localizethedocs/cmake-docs-l10n/main?logo=github&label=main%20commit&color=blue" />
+</a>
+<a href="https://github.com/localizethedocs/cmake-docs-l10n/commits/l10n" title="GitHub l10n Commit" target="_blank">
+  <img alt="GitHub L10n Commit" src="https://img.shields.io/github/last-commit/localizethedocs/cmake-docs-l10n/l10n?logo=github&label=l10n%20commit&color=blue" />
+</a>
+</div>
+<div align="center">
 <a href="https://opensource.org/licenses/BSD-3-Clause" title="License: BSD-3-Clause" target="_blank">
   <img alt="License: BSD-3-Clause" src="https://img.shields.io/badge/License-BSD--3--Clause-blue.svg?logo=opensourceinitiative&style=flat&logoColor=white" />
 </a>
