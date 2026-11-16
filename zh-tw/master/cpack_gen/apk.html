@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+
+<html lang="zh-TW" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>CPack APK Generator &mdash; CMake 4.5.20261019-g7ed8fa4 Documentation</title>
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a3862c66" />
+    <link rel="stylesheet" type="text/css" href="../_static/cmake.css?v=d27bb136" />
+    
+    <script src="../_static/documentation_options.js?v=ebe881b9"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/translations.js?v=cbf116e0"></script>
+    
+    <link rel="canonical" href="https://projects.localizethedocs.org/cmake-docs-l10n/cpack_gen/apk.html" />
+    <link rel="icon" href="../_static/cmake-favicon.ico"/>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜尋" href="../search.html" />
+    <link rel="next" title="CPack AppImage 生成器" href="appimage.html" />
+    <link rel="prev" title="cpack-生成器(7)" href="../manual/cpack-generators.7.html" />
+
+ 
+
+    <script type="text/javascript" src="../ltd-provenance.js"></script>
+    <script type="text/javascript" src="../ltd-current.js"></script>
+    <script type="text/javascript" src="../../../ltd-config.js"></script>
+    <script type="text/javascript" src="../../../ltd-flyout.js"></script>
+
+  </head><body>
+    <input id="sidebar-check" type="checkbox" />
+    <label id="sidebar-overlay" for="sidebar-check"></label>
+
+
+
+    <div class="related relbar1" role="navigation" aria-label="Related">
+      <h3>瀏覽</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="總索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="appimage.html" title="CPack AppImage 生成器"
+             accesskey="N">下一頁</a> |</li>
+        <li class="right" >
+          <a href="../manual/cpack-generators.7.html" title="cpack-生成器(7)"
+             accesskey="P">上一頁</a> |</li>
+  <li>
+    <label class="sidebar-toggle" for="sidebar-check"></label>
+  </li>
+  <li class="rootlink">
+    <img src="../_static/cmake-logo-16.png" width="16" height="16" alt=""/>
+    <a href="https://cmake.org/">CMake 4.5.20261019-g7ed8fa4</a>
+    <span class="reldelim1"> &#187;</span>
+  </li>
+  <li>
+    <a href="../index.html">文件</a> &#187;
+  </li>
+
+          <li class="nav-item nav-item-1"><a href="../manual/cpack-generators.7.html" accesskey="U">cpack-生成器(7)</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">CPack APK Generator</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="cpack-apk-generator">
+<span id="cpack_gen:CPack APK Generator"></span><h1>CPack APK Generator<a class="headerlink" href="#cpack-apk-generator" title="連結到這個標頭">¶</a></h1>
+<div class="versionadded">
+<p><span class="versionmodified added">在 4.5 版被加入.</span></p>
+</div>
+<p>The CPack <code class="docutils literal notranslate"><span class="pre">APK</span></code> generator packages an application for Android as an
+<a class="reference external" href="https://developer.android.com/guide/components/fundamentals">APK</a> file.  It drives the Android SDK build tools (<code class="docutils literal notranslate"><span class="pre">aapt2</span></code>, <code class="docutils literal notranslate"><span class="pre">d8</span></code>,
+<code class="docutils literal notranslate"><span class="pre">zipalign</span></code> and <code class="docutils literal notranslate"><span class="pre">apksigner</span></code>) and the JDK directly, so neither Gradle
+nor a Java build system of any kind is required.</p>
+<p>The generator is meant for applications whose Java code is shipped with
+the project or available as <code class="docutils literal notranslate"><span class="pre">.jar</span></code> or <code class="docutils literal notranslate"><span class="pre">.aar</span></code> files, locally or in
+Maven repositories.  Nothing is downloaded unless the project lists
+Maven dependencies in <span class="target" id="index-0-variable:CPACK_APK_MAVEN_DEPENDENCIES"></span><a class="reference internal" href="#variable:CPACK_APK_MAVEN_DEPENDENCIES" title="CPACK_APK_MAVEN_DEPENDENCIES"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CPACK_APK_MAVEN_DEPENDENCIES</span></code></a>; see
+<a class="reference internal" href="#maven-dependencies">Maven dependencies</a>.  Projects whose builds need more of Gradle should
+keep using Gradle.</p>
+<section id="how-the-staging-tree-is-packaged">
+<h2>How the staging tree is packaged<a class="headerlink" href="#how-the-staging-tree-is-packaged" title="連結到這個標頭">¶</a></h2>
+<p>CPack installs the project into a staging tree and the generator turns
+that tree into the contents of the APK.  Most files are added to the APK
+at the same relative path they were installed to, so a native library
+installed to <code class="docutils literal notranslate"><span class="pre">lib/arm64-v8a/</span></code> ends up at <code class="docutils literal notranslate"><span class="pre">lib/arm64-v8a/</span></code> inside the
+APK.  The following entries of the staging tree are treated specially
+instead, because the build tools consume them:</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">AndroidManifest.xml</span></code></dt><dd><p>Used as the application manifest, unless
+<span class="target" id="index-0-variable:CPACK_APK_MANIFEST"></span><a class="reference internal" href="#variable:CPACK_APK_MANIFEST" title="CPACK_APK_MANIFEST"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CPACK_APK_MANIFEST</span></code></a> points elsewhere.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">res/</span></code></dt><dd><p>Compiled and linked by <code class="docutils literal notranslate"><span class="pre">aapt2</span></code>, unless
+<span class="target" id="index-0-variable:CPACK_APK_RESOURCE_DIRECTORIES"></span><a class="reference internal" href="#variable:CPACK_APK_RESOURCE_DIRECTORIES" title="CPACK_APK_RESOURCE_DIRECTORIES"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CPACK_APK_RESOURCE_DIRECTORIES</span></code></a> is set.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">assets/</span></code></dt><dd><p>Added to the APK by <code class="docutils literal notranslate"><span class="pre">aapt2</span></code>, unless
+<span class="target" id="index-0-variable:CPACK_APK_ASSET_DIRECTORIES"></span><a class="reference internal" href="#variable:CPACK_APK_ASSET_DIRECTORIES" title="CPACK_APK_ASSET_DIRECTORIES"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CPACK_APK_ASSET_DIRECTORIES</span></code></a> is set.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">*.jar</span></code> and <code class="docutils literal notranslate"><span class="pre">*.aar</span></code></dt><dd><p>Converted to Dalvik bytecode by <code class="docutils literal notranslate"><span class="pre">d8</span></code> and added as <code class="docutils literal notranslate"><span class="pre">classes.dex</span></code>.
+Archives below <code class="docutils literal notranslate"><span class="pre">res/</span></code> or <code class="docutils literal notranslate"><span class="pre">assets/</span></code> are left alone: those are
+resources of the application, not code.  See <a class="reference internal" href="#android-archives">Android archives</a> for
+what is taken from an <code class="docutils literal notranslate"><span class="pre">.aar</span></code>.</p>
+</dd>
+</dl>
+<p><code class="docutils literal notranslate"><span class="pre">AndroidManifest.xml</span></code>, <code class="docutils literal notranslate"><span class="pre">res/</span></code> and <code class="docutils literal notranslate"><span class="pre">assets/</span></code> are never copied into
+the APK as they are, because <code class="docutils literal notranslate"><span class="pre">aapt2</span></code> puts its own compiled versions of
+them there.  Overriding the variables above changes what <code class="docutils literal notranslate"><span class="pre">aapt2</span></code> is
+given, not whether the staged copies are packaged.</p>
+<p>A minimal example:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">install(</span><span class="no">TARGETS</span><span class="w"> </span><span class="nb">my_application</span>
+<span class="w">        </span><span class="no">LIBRARY</span><span class="w"> </span><span class="no">DESTINATION</span><span class="w"> </span><span class="na">lib/</span><span class="o">${</span><span class="nt">CMAKE_ANDROID_ARCH_ABI</span><span class="o">}</span><span class="nf">)</span>
+<span class="nf">install(</span><span class="no">FILES</span><span class="w"> </span><span class="nb">AndroidManifest.xml</span><span class="w"> </span><span class="no">DESTINATION</span><span class="w"> </span><span class="p">.</span><span class="nf">)</span>
+<span class="nf">install(</span><span class="no">DIRECTORY</span><span class="w"> </span><span class="nb">res</span><span class="w"> </span><span class="no">DESTINATION</span><span class="w"> </span><span class="p">.</span><span class="nf">)</span>
+
+<span class="nf">set(</span><span class="no">CPACK_GENERATOR</span><span class="w"> </span><span class="no">APK</span><span class="nf">)</span>
+<span class="nf">set(</span><span class="no">CPACK_APK_JAVA_SOURCE_DIRECTORIES</span><span class="w"> </span><span class="s">"${CMAKE_CURRENT_SOURCE_DIR}/java"</span><span class="nf">)</span>
+<span class="nf">include(</span><span class="nb">CPack</span><span class="nf">)</span>
+</pre></div>
+</div>
+<p>Like the Android Gradle plugin, the generator packages the shared C++
+runtime of the NDK, <code class="docutils literal notranslate"><span class="pre">libc++_shared.so</span></code>, into <code class="docutils literal notranslate"><span class="pre">lib/&lt;abi&gt;/</span></code> for the ABIs
+whose native libraries are linked to it, as those built with
+<span class="target" id="index-0-variable:CMAKE_ANDROID_STL_TYPE"></span><a class="reference internal" href="../variable/CMAKE_ANDROID_STL_TYPE.html#variable:CMAKE_ANDROID_STL_TYPE" title="CMAKE_ANDROID_STL_TYPE"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_ANDROID_STL_TYPE</span></code></a> set to <code class="docutils literal notranslate"><span class="pre">c++_shared</span></code> are, unless the
+project installs one itself.  The libraries linked to it are those whose
+dynamic section, as printed by <code class="docutils literal notranslate"><span class="pre">&lt;readelf&gt;</span> <span class="pre">-d</span> <span class="pre">&lt;library&gt;</span></code>, lists it as
+<code class="docutils literal notranslate"><span class="pre">NEEDED</span></code>.  <span class="target" id="index-0-variable:CPACK_READELF_EXECUTABLE"></span><a class="reference internal" href="../module/CPack.html#variable:CPACK_READELF_EXECUTABLE" title="CPACK_READELF_EXECUTABLE"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CPACK_READELF_EXECUTABLE</span></code></a>, which defaults to
+<code class="docutils literal notranslate"><span class="pre">CMAKE_READELF</span></code>, the <code class="docutils literal notranslate"><span class="pre">llvm-readelf</span></code> of the NDK when cross-compiling for
+Android, is used for that; when it is not set, the <code class="docutils literal notranslate"><span class="pre">llvm-readelf</span></code> of the
+NDK is, found like the <code class="docutils literal notranslate"><span class="pre">llvm-strip</span></code> of
+<span class="target" id="index-0-variable:CPACK_APK_STRIP_EXECUTABLE"></span><a class="reference internal" href="#variable:CPACK_APK_STRIP_EXECUTABLE" title="CPACK_APK_STRIP_EXECUTABLE"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CPACK_APK_STRIP_EXECUTABLE</span></code></a>.  The runtime is taken from the
+sysroot of that same NDK, or else of the NDK the <code class="docutils literal notranslate"><span class="pre">llvm-strip</span></code> or the
+<code class="docutils literal notranslate"><span class="pre">llvm-readelf</span></code> belongs to.  The generator warns when it finds no
+<code class="docutils literal notranslate"><span class="pre">readelf</span></code> to check the libraries with, or no runtime to package.</p>
+<p>The resulting APK is signed, so it can be installed with <code class="docutils literal notranslate"><span class="pre">adb</span> <span class="pre">install</span></code>
+right away.  By default it is signed with the same debug keystore the
+rest of the Android tooling uses, <code class="docutils literal notranslate"><span class="pre">debug.keystore</span></code> in the directory
+named by the <code class="docutils literal notranslate"><span class="pre">ANDROID_USER_HOME</span></code> environment variable or else in
+<code class="docutils literal notranslate"><span class="pre">~/.android</span></code>, which is created if it does not exist yet.  On Windows,
+<code class="docutils literal notranslate"><span class="pre">~</span></code> is the user's profile directory, <code class="docutils literal notranslate"><span class="pre">%USERPROFILE%</span></code>.  Use
+<span class="target" id="index-0-variable:CPACK_APK_KEYSTORE"></span><a class="reference internal" href="#variable:CPACK_APK_KEYSTORE" title="CPACK_APK_KEYSTORE"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CPACK_APK_KEYSTORE</span></code></a> and the related variables to sign with a
+key of your own.</p>
+</section>
+<section id="multiple-abis">
+<h2>Multiple ABIs<a class="headerlink" href="#multiple-abis" title="連結到這個標頭">¶</a></h2>
+<p>A build tree targets a single Android ABI.  To package the native code
+of several ABIs into one APK, use a superbuild: a project that builds the
+application once per ABI with <span class="target" id="index-0-module:ExternalProject"></span><a class="reference internal" href="../module/ExternalProject.html#module:ExternalProject" title="ExternalProject"><code class="xref cmake cmake-module docutils literal notranslate"><span class="pre">ExternalProject</span></code></a>, from the same
+sources, and lists the build trees in
+<span class="target" id="index-0-variable:CPACK_INSTALL_CMAKE_PROJECTS"></span><a class="reference internal" href="../module/CPack.html#variable:CPACK_INSTALL_CMAKE_PROJECTS" title="CPACK_INSTALL_CMAKE_PROJECTS"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CPACK_INSTALL_CMAKE_PROJECTS</span></code></a>.  The superbuild names the build
+trees itself and brings all of them up to date whenever it is built, so
+the ABIs are always packaged from the same revision of the sources.  CPack
+installs each build tree into the same staging tree, so the native
+libraries end up side by side in <code class="docutils literal notranslate"><span class="pre">lib/&lt;abi&gt;/</span></code>:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">cmake_minimum_required(</span><span class="no">VERSION</span><span class="w"> </span><span class="m">4.5</span><span class="nf">)</span>
+<span class="nf">project(</span><span class="nb">MySuperBuild</span><span class="w"> </span><span class="no">LANGUAGES</span><span class="w"> </span><span class="no">NONE</span><span class="nf">)</span>
+
+<span class="nf">include(</span><span class="nb">ExternalProject</span><span class="nf">)</span>
+
+<span class="c"># The NDK is given with -DANDROID_NDK=&lt;path&gt;.</span>
+<span class="nf">foreach(</span><span class="nb">abi</span><span class="w"> </span><span class="no">IN</span><span class="w"> </span><span class="no">ITEMS</span><span class="w"> </span><span class="nb">arm64-v8a</span><span class="w"> </span><span class="nb">x86_64</span><span class="nf">)</span>
+<span class="w">  </span><span class="nf">set(</span><span class="nb">binary_dir</span><span class="w"> </span><span class="s">"${CMAKE_CURRENT_BINARY_DIR}/${abi}"</span><span class="nf">)</span>
+<span class="w">  </span><span class="nf">ExternalProject_Add(</span><span class="nb">app-</span><span class="o">${</span><span class="nt">abi</span><span class="o">}</span>
+<span class="w">    </span><span class="no">SOURCE_DIR</span><span class="w"> </span><span class="s">"${CMAKE_CURRENT_SOURCE_DIR}/app"</span>
+<span class="w">    </span><span class="no">BINARY_DIR</span><span class="w"> </span><span class="s">"${binary_dir}"</span>
+<span class="w">    </span><span class="no">CMAKE_ARGS</span>
+<span class="w">      </span><span class="s">"-DCMAKE_TOOLCHAIN_FILE=${ANDROID_NDK}/build/cmake/android.toolchain.cmake"</span>
+<span class="w">      </span><span class="p">-</span><span class="no">DANDROID_ABI</span><span class="p">=</span><span class="o">${</span><span class="nt">abi</span><span class="o">}</span>
+<span class="w">      </span><span class="p">-</span><span class="no">DCMAKE_BUILD_TYPE</span><span class="p">=</span><span class="o">$&lt;</span><span class="no">CONFIG</span><span class="p">&gt;</span>
+<span class="w">    </span><span class="no">BUILD_ALWAYS</span><span class="w"> </span><span class="no">TRUE</span>
+<span class="w">    </span><span class="no">INSTALL_COMMAND</span><span class="w"> </span><span class="s">""</span>
+<span class="w">  </span><span class="nf">)</span>
+<span class="w">  </span><span class="nf">list(</span><span class="no">APPEND</span><span class="w"> </span><span class="no">CPACK_INSTALL_CMAKE_PROJECTS</span><span class="w"> </span><span class="s">"${binary_dir};MyApp;ALL;/"</span><span class="nf">)</span>
+<span class="nf">endforeach()</span>
+
+<span class="nf">set(</span><span class="no">CPACK_GENERATOR</span><span class="w"> </span><span class="no">APK</span><span class="nf">)</span>
+<span class="nf">set(</span><span class="no">CPACK_APK_NDK_ROOT</span><span class="w"> </span><span class="s">"${ANDROID_NDK}"</span><span class="nf">)</span>
+<span class="nf">set(</span><span class="no">CPACK_APK_JAVA_SOURCE_DIRECTORIES</span><span class="w"> </span><span class="s">"${CMAKE_CURRENT_SOURCE_DIR}/app/java"</span><span class="nf">)</span>
+<span class="nf">include(</span><span class="nb">CPack</span><span class="nf">)</span>
+</pre></div>
+</div>
+<p>The package is then made with <code class="docutils literal notranslate"><span class="pre">cmake</span> <span class="pre">--build</span></code> followed by <code class="docutils literal notranslate"><span class="pre">cpack</span></code> in
+the build tree of the superbuild.  It is the configuration of the
+superbuild that CPack reads, so the <code class="docutils literal notranslate"><span class="pre">CPACK_APK_*</span></code> variables are set
+there rather than in the application.  Since the superbuild does not
+cross-compile, <span class="target" id="index-0-variable:CPACK_APK_NDK_ROOT"></span><a class="reference internal" href="#variable:CPACK_APK_NDK_ROOT" title="CPACK_APK_NDK_ROOT"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CPACK_APK_NDK_ROOT</span></code></a> tells where to take the
+<code class="docutils literal notranslate"><span class="pre">llvm-strip</span></code>, the <code class="docutils literal notranslate"><span class="pre">llvm-readelf</span></code> and the shared C++ runtime from,
+unless the generator finds the NDK otherwise.</p>
+<p>The native libraries have to be installed into <code class="docutils literal notranslate"><span class="pre">lib/&lt;abi&gt;/</span></code>, as in the
+example of <a class="reference internal" href="#how-the-staging-tree-is-packaged">How the staging tree is packaged</a>.  The files the build
+trees have in common, such as the manifest and the resources, are taken
+from the one installed last.  The shared C++ runtime and the native
+libraries of Android archives are packaged for each of the ABIs.</p>
+</section>
+<section id="android-archives">
+<h2>Android archives<a class="headerlink" href="#android-archives" title="連結到這個標頭">¶</a></h2>
+<p>From an <code class="docutils literal notranslate"><span class="pre">.aar</span></code>, the generator takes:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">classes.jar</span></code> and <code class="docutils literal notranslate"><span class="pre">libs/*.jar</span></code>, which are converted to Dalvik
+bytecode.  The <code class="docutils literal notranslate"><span class="pre">R</span></code> class of the archive's package, which the archive
+does not ship, is generated along with the application's.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">res/</span></code> and <code class="docutils literal notranslate"><span class="pre">assets/</span></code>, which the application's own resources and
+assets override.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">jni/&lt;abi&gt;/*.so</span></code>, packaged as <code class="docutils literal notranslate"><span class="pre">lib/&lt;abi&gt;/</span></code> and stripped like the
+application's own libraries, see <span class="target" id="index-1-variable:CPACK_APK_STRIP_EXECUTABLE"></span><a class="reference internal" href="#variable:CPACK_APK_STRIP_EXECUTABLE" title="CPACK_APK_STRIP_EXECUTABLE"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CPACK_APK_STRIP_EXECUTABLE</span></code></a>.
+Only the ABIs the application ships native code for, or
+<span class="target" id="index-0-variable:CPACK_APK_ABI"></span><a class="reference internal" href="#variable:CPACK_APK_ABI" title="CPACK_APK_ABI"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CPACK_APK_ABI</span></code></a>, are packaged; all of them when the
+application has no native code.</p></li>
+<li><p>The permissions, features, <code class="docutils literal notranslate"><span class="pre">&lt;queries&gt;</span></code>, components, <code class="docutils literal notranslate"><span class="pre">&lt;meta-data&gt;</span></code>
+and libraries declared by <code class="docutils literal notranslate"><span class="pre">AndroidManifest.xml</span></code>, which are merged into
+the application manifest.  An element the application manifest, or an
+archive before it, already declares under the same <code class="docutils literal notranslate"><span class="pre">android:name</span></code> is
+left out, except that the child elements of a component, such as the
+<code class="docutils literal notranslate"><span class="pre">&lt;meta-data&gt;</span></code> of the <code class="docutils literal notranslate"><span class="pre">androidx.startup.InitializationProvider</span></code> that
+several AndroidX libraries declare, are merged into the one declared
+first, unless it is marked <code class="docutils literal notranslate"><span class="pre">tools:node=&quot;replace&quot;</span></code>.  Children declared
+under the same <code class="docutils literal notranslate"><span class="pre">android:name</span></code> are again left out.  Beyond that, the
+merge rules of the Gradle manifest merger are not applied: <code class="docutils literal notranslate"><span class="pre">tools:</span></code>
+attributes are dropped, except that an
+element marked <code class="docutils literal notranslate"><span class="pre">tools:node=&quot;remove&quot;</span></code>, at any depth, is not merged.
+Such an element at the top level
+of the application manifest is not packaged either, and keeps the
+elements of the archives declared under the same <code class="docutils literal notranslate"><span class="pre">android:name</span></code> out.</p></li>
+</ul>
+</section>
+<section id="maven-dependencies">
+<h2>Maven dependencies<a class="headerlink" href="#maven-dependencies" title="連結到這個標頭">¶</a></h2>
+<p>Libraries such as those of AndroidX are published to Maven repositories
+rather than installed with the SDK.  Listing them in
+<span class="target" id="index-1-variable:CPACK_APK_MAVEN_DEPENDENCIES"></span><a class="reference internal" href="#variable:CPACK_APK_MAVEN_DEPENDENCIES" title="CPACK_APK_MAVEN_DEPENDENCIES"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CPACK_APK_MAVEN_DEPENDENCIES</span></code></a> makes the generator download
+them and the libraries they depend on at packaging time, and add them
+to <span class="target" id="index-0-variable:CPACK_APK_JARS"></span><a class="reference internal" href="#variable:CPACK_APK_JARS" title="CPACK_APK_JARS"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CPACK_APK_JARS</span></code></a>:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">set(</span><span class="no">CPACK_APK_MAVEN_DEPENDENCIES</span><span class="w"> </span><span class="nb">androidx.core</span><span class="o">:</span><span class="nb">core</span><span class="o">:</span><span class="m">1.17.0</span><span class="nf">)</span>
+</pre></div>
+</div>
+<p>This is opt-in: when the variable is not set, no repository is
+contacted.  Each file that is downloaded is reported, and downloaded
+files are kept in <span class="target" id="index-0-variable:CPACK_APK_MAVEN_CACHE_DIRECTORY"></span><a class="reference internal" href="#variable:CPACK_APK_MAVEN_CACHE_DIRECTORY" title="CPACK_APK_MAVEN_CACHE_DIRECTORY"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CPACK_APK_MAVEN_CACHE_DIRECTORY</span></code></a>, so that
+later runs work offline.  Dependencies are resolved like Gradle resolves
+the runtime classpath of an Android application:</p>
+<ul class="simple">
+<li><p>The Gradle module metadata (<code class="docutils literal notranslate"><span class="pre">.module</span></code> file) of an artifact is used
+when the repository has it, which is the case for AndroidX, Kotlin and
+most libraries built with Gradle.  Its variant for the Java runtime is
+selected, preferring the one for Android over the one for the JVM, and
+the one for the release build type over the one for debug.  A variant
+published as a separate module, as Kotlin Multiplatform libraries do, is
+followed there.  The files are checked against the SHA-256 hashes it
+lists.</p></li>
+<li><p>Otherwise the POM is used, for its dependencies of the <code class="docutils literal notranslate"><span class="pre">compile</span></code> and
+<code class="docutils literal notranslate"><span class="pre">runtime</span></code> scopes that are not optional, and for the <code class="docutils literal notranslate"><span class="pre">packaging</span></code> of
+the artifact.  The dependencies of build plugins and of profiles are
+not used.  The file is checked against the SHA-1 hash published next to
+it, if any.  Parent POMs and imported BOMs are not read, so a version
+defined in one of them is an error.  The <code class="docutils literal notranslate"><span class="pre">project.groupId</span></code>,
+<code class="docutils literal notranslate"><span class="pre">project.artifactId</span></code> and <code class="docutils literal notranslate"><span class="pre">project.version</span></code> properties, and those of
+the POM's own <code class="docutils literal notranslate"><span class="pre">&lt;properties&gt;</span></code>, are replaced.</p></li>
+<li><p>When an artifact is required in several versions, the highest one is
+used, in the order of Gradle: <code class="docutils literal notranslate"><span class="pre">1.0-alpha01</span></code> is lower than
+<code class="docutils literal notranslate"><span class="pre">1.0-rc01</span></code>, which is lower than <code class="docutils literal notranslate"><span class="pre">1.0</span></code>.  As with Gradle, the versions
+that an artifact requires stop counting once a higher version of it is
+selected instead.  Dependency constraints,
+including those of the platforms that Gradle module metadata depends on,
+such as BOMs, can raise the version of an artifact that is required
+anyway, or give one to a dependency that has none.  It is an error when
+no version is given.  Version ranges are not supported, except for a
+single version in brackets, like <code class="docutils literal notranslate"><span class="pre">[1.2.3]</span></code>.</p></li>
+<li><p>Exclusions of transitive dependencies, in POMs or in Gradle module
+metadata, leave an artifact out when every path to it excludes it.</p></li>
+</ul>
+</section>
+<section id="the-android-sdk">
+<h2>The Android SDK<a class="headerlink" href="#the-android-sdk" title="連結到這個標頭">¶</a></h2>
+<p>The SDK is looked for in <span class="target" id="index-0-variable:CPACK_APK_SDK_ROOT"></span><a class="reference internal" href="#variable:CPACK_APK_SDK_ROOT" title="CPACK_APK_SDK_ROOT"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CPACK_APK_SDK_ROOT</span></code></a>, then in the
+<code class="docutils literal notranslate"><span class="pre">ANDROID_HOME</span></code> and <code class="docutils literal notranslate"><span class="pre">ANDROID_SDK_ROOT</span></code> environment variables, and
+finally next to the NDK named by <span class="target" id="index-1-variable:CPACK_APK_NDK_ROOT"></span><a class="reference internal" href="#variable:CPACK_APK_NDK_ROOT" title="CPACK_APK_NDK_ROOT"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CPACK_APK_NDK_ROOT</span></code></a> or by the
+<code class="docutils literal notranslate"><span class="pre">ANDROID_NDK_ROOT</span></code>, <code class="docutils literal notranslate"><span class="pre">ANDROID_NDK_HOME</span></code> and <code class="docutils literal notranslate"><span class="pre">ANDROID_NDK</span></code>
+environment variables.  When <span class="target" id="index-1-variable:CPACK_APK_SDK_ROOT"></span><a class="reference internal" href="#variable:CPACK_APK_SDK_ROOT" title="CPACK_APK_SDK_ROOT"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CPACK_APK_SDK_ROOT</span></code></a> is set, it
+must hold the SDK: the other locations are not considered.  When the
+project is cross-compiled for Android, <span class="target" id="index-2-variable:CPACK_APK_NDK_ROOT"></span><a class="reference internal" href="#variable:CPACK_APK_NDK_ROOT" title="CPACK_APK_NDK_ROOT"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CPACK_APK_NDK_ROOT</span></code></a>
+defaults to <span class="target" id="index-0-variable:CMAKE_ANDROID_NDK"></span><a class="reference internal" href="../variable/CMAKE_ANDROID_NDK.html#variable:CMAKE_ANDROID_NDK" title="CMAKE_ANDROID_NDK"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_ANDROID_NDK</span></code></a>.</p>
+<p>A JDK is required as well: <code class="docutils literal notranslate"><span class="pre">d8</span></code> and <code class="docutils literal notranslate"><span class="pre">apksigner</span></code> are Java programs,
+and <code class="docutils literal notranslate"><span class="pre">jar</span></code> and <code class="docutils literal notranslate"><span class="pre">keytool</span></code> are used directly.  Java sources are compiled
+against the Java library of the Android platform rather than the one of
+the JDK, using a system image built from the platform's
+<code class="docutils literal notranslate"><span class="pre">core-for-system-modules.jar</span></code> with <code class="docutils literal notranslate"><span class="pre">jmod</span></code> and <code class="docutils literal notranslate"><span class="pre">jlink</span></code>.  Platforms
+older than API level 30 do not provide that file, in which case the Java
+library of the JDK is used.</p>
+</section>
+<section id="variables-specific-to-cpack-apk-generator">
+<h2>Variables Specific to CPack APK Generator<a class="headerlink" href="#variables-specific-to-cpack-apk-generator" title="連結到這個標頭">¶</a></h2>
+<p>Relative paths given to the variables below are relative to the
+directory cpack runs in.</p>
+<dl class="cmake variable">
+<dt class="sig sig-object cmake" id="variable:CPACK_APK_SDK_ROOT">
+<span class="sig-name descname"><span class="pre">CPACK_APK_SDK_ROOT</span></span><a class="headerlink" href="#variable:CPACK_APK_SDK_ROOT" title="連結到這個定義">¶</a></dt>
+<dd><p>Root directory of the Android SDK.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Detected as described above</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cmake variable">
+<dt class="sig sig-object cmake" id="variable:CPACK_APK_JAVA_HOME">
+<span class="sig-name descname"><span class="pre">CPACK_APK_JAVA_HOME</span></span><a class="headerlink" href="#variable:CPACK_APK_JAVA_HOME" title="連結到這個定義">¶</a></dt>
+<dd><p>Root directory of the JDK.  The Java tools are taken from it, and the
+<code class="docutils literal notranslate"><span class="pre">JAVA_HOME</span></code> environment variable is set to it for the SDK build
+tools.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The <code class="docutils literal notranslate"><span class="pre">JAVA_HOME</span></code> environment variable, then on macOS the
+output of <code class="docutils literal notranslate"><span class="pre">/usr/libexec/java_home</span></code>, and finally the JDK
+the <code class="docutils literal notranslate"><span class="pre">javac</span></code> found on the <code class="docutils literal notranslate"><span class="pre">PATH</span></code> belongs to</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cmake variable">
+<dt class="sig sig-object cmake" id="variable:CPACK_APK_NDK_ROOT">
+<span class="sig-name descname"><span class="pre">CPACK_APK_NDK_ROOT</span></span><a class="headerlink" href="#variable:CPACK_APK_NDK_ROOT" title="連結到這個定義">¶</a></dt>
+<dd><p>Root directory of the Android NDK.  Used to locate the SDK it is
+installed in, the <code class="docutils literal notranslate"><span class="pre">llvm-strip</span></code> of
+<span class="target" id="index-2-variable:CPACK_APK_STRIP_EXECUTABLE"></span><a class="reference internal" href="#variable:CPACK_APK_STRIP_EXECUTABLE" title="CPACK_APK_STRIP_EXECUTABLE"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CPACK_APK_STRIP_EXECUTABLE</span></code></a>, and the <code class="docutils literal notranslate"><span class="pre">libc++_shared.so</span></code>
+packaged for the native libraries linked to it.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="target" id="index-1-variable:CMAKE_ANDROID_NDK"></span><a class="reference internal" href="../variable/CMAKE_ANDROID_NDK.html#variable:CMAKE_ANDROID_NDK" title="CMAKE_ANDROID_NDK"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_ANDROID_NDK</span></code></a> when cross-compiling for Android,
+otherwise unset</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cmake variable">
+<dt class="sig sig-object cmake" id="variable:CPACK_APK_BUILD_TOOLS_VERSION">
+<span class="sig-name descname"><span class="pre">CPACK_APK_BUILD_TOOLS_VERSION</span></span><a class="headerlink" href="#variable:CPACK_APK_BUILD_TOOLS_VERSION" title="連結到這個定義">¶</a></dt>
+<dd><p>Version of the SDK build tools to use, e.g. <code class="docutils literal notranslate"><span class="pre">35.0.0</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The highest version installed in <code class="docutils literal notranslate"><span class="pre">&lt;sdk&gt;/build-tools</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cmake variable">
+<dt class="sig sig-object cmake" id="variable:CPACK_APK_COMPILE_SDK_VERSION">
+<span class="sig-name descname"><span class="pre">CPACK_APK_COMPILE_SDK_VERSION</span></span><a class="headerlink" href="#variable:CPACK_APK_COMPILE_SDK_VERSION" title="連結到這個定義">¶</a></dt>
+<dd><p>API level whose <code class="docutils literal notranslate"><span class="pre">android.jar</span></code> the resources and the Java sources are
+compiled against, e.g. <code class="docutils literal notranslate"><span class="pre">35</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The highest API level installed in <code class="docutils literal notranslate"><span class="pre">&lt;sdk&gt;/platforms</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cmake variable">
+<dt class="sig sig-object cmake" id="variable:CPACK_APK_MIN_SDK_VERSION">
+<span class="sig-name descname"><span class="pre">CPACK_APK_MIN_SDK_VERSION</span></span><a class="headerlink" href="#variable:CPACK_APK_MIN_SDK_VERSION" title="連結到這個定義">¶</a></dt>
+<dd><p>Minimum API level the application supports.  Written into the
+<code class="docutils literal notranslate"><span class="pre">&lt;uses-sdk&gt;</span></code> element of the manifest, replacing the value it
+declares.  Either way, <code class="docutils literal notranslate"><span class="pre">d8</span></code> targets the resulting API level.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Unset</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cmake variable">
+<dt class="sig sig-object cmake" id="variable:CPACK_APK_TARGET_SDK_VERSION">
+<span class="sig-name descname"><span class="pre">CPACK_APK_TARGET_SDK_VERSION</span></span><a class="headerlink" href="#variable:CPACK_APK_TARGET_SDK_VERSION" title="連結到這個定義">¶</a></dt>
+<dd><p>API level the application targets.  Written into the <code class="docutils literal notranslate"><span class="pre">&lt;uses-sdk&gt;</span></code>
+element of the manifest, replacing the value it declares.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The value declared by the manifest, otherwise
+<span class="target" id="index-0-variable:CPACK_APK_COMPILE_SDK_VERSION"></span><a class="reference internal" href="#variable:CPACK_APK_COMPILE_SDK_VERSION" title="CPACK_APK_COMPILE_SDK_VERSION"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CPACK_APK_COMPILE_SDK_VERSION</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cmake variable">
+<dt class="sig sig-object cmake" id="variable:CPACK_APK_ABI">
+<span class="sig-name descname"><span class="pre">CPACK_APK_ABI</span></span><a class="headerlink" href="#variable:CPACK_APK_ABI" title="連結到這個定義">¶</a></dt>
+<dd><p>Android ABI of the native code, e.g. <code class="docutils literal notranslate"><span class="pre">arm64-v8a</span></code>.  Shared libraries
+installed directly into <code class="docutils literal notranslate"><span class="pre">lib/</span></code> are moved to <code class="docutils literal notranslate"><span class="pre">lib/&lt;abi&gt;/</span></code> inside the
+APK, which is where Android expects them.  Libraries already installed
+into an ABI sub-directory are left alone.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="target" id="index-0-variable:CMAKE_ANDROID_ARCH_ABI"></span><a class="reference internal" href="../variable/CMAKE_ANDROID_ARCH_ABI.html#variable:CMAKE_ANDROID_ARCH_ABI" title="CMAKE_ANDROID_ARCH_ABI"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_ANDROID_ARCH_ABI</span></code></a> when cross-compiling for
+Android, otherwise unset</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cmake variable">
+<dt class="sig sig-object cmake" id="variable:CPACK_APK_STRIP_EXECUTABLE">
+<span class="sig-name descname"><span class="pre">CPACK_APK_STRIP_EXECUTABLE</span></span><a class="headerlink" href="#variable:CPACK_APK_STRIP_EXECUTABLE" title="連結到這個定義">¶</a></dt>
+<dd><p>Tool that strips the debug symbols from the native libraries packaged in
+<code class="docutils literal notranslate"><span class="pre">lib/&lt;abi&gt;/</span></code>, those of Android archives included, as the Android Gradle
+plugin does.  It is run as <code class="docutils literal notranslate"><span class="pre">&lt;strip&gt;</span> <span class="pre">--strip-unneeded</span> <span class="pre">-o</span> <span class="pre">&lt;output&gt;</span>
+<span class="pre">&lt;input&gt;</span></code>.  Files that are not ELF are packaged as they are.  When no
+tool is found, the libraries are packaged as they are, with a warning;
+when stripping a library fails, that one is, with a warning as well.
+A tool set explicitly that does not exist is an error.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">CMAKE_STRIP</span></code> when cross-compiling for Android, otherwise
+the <code class="docutils literal notranslate"><span class="pre">llvm-strip</span></code> of the
+NDK of <span class="target" id="index-3-variable:CPACK_APK_NDK_ROOT"></span><a class="reference internal" href="#variable:CPACK_APK_NDK_ROOT" title="CPACK_APK_NDK_ROOT"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CPACK_APK_NDK_ROOT</span></code></a>, of the <code class="docutils literal notranslate"><span class="pre">ANDROID_NDK_ROOT</span></code>,
+<code class="docutils literal notranslate"><span class="pre">ANDROID_NDK_HOME</span></code> or <code class="docutils literal notranslate"><span class="pre">ANDROID_NDK</span></code> environment variables,
+or else of the highest version installed in <code class="docutils literal notranslate"><span class="pre">&lt;sdk&gt;/ndk</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cmake variable">
+<dt class="sig sig-object cmake" id="variable:CPACK_APK_KEEP_DEBUG_SYMBOLS">
+<span class="sig-name descname"><span class="pre">CPACK_APK_KEEP_DEBUG_SYMBOLS</span></span><a class="headerlink" href="#variable:CPACK_APK_KEEP_DEBUG_SYMBOLS" title="連結到這個定義">¶</a></dt>
+<dd><p>List of file name patterns, in which <code class="docutils literal notranslate"><span class="pre">*</span></code> and <code class="docutils literal notranslate"><span class="pre">?</span></code> are wildcards, of
+the native libraries to package with their debug symbols, like the
+<code class="docutils literal notranslate"><span class="pre">keepDebugSymbols</span></code> packaging option of the Android Gradle plugin.  For
+example, <code class="docutils literal notranslate"><span class="pre">*.so</span></code> keeps them in all libraries.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Unset</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cmake variable">
+<dt class="sig sig-object cmake" id="variable:CPACK_APK_MANIFEST">
+<span class="sig-name descname"><span class="pre">CPACK_APK_MANIFEST</span></span><a class="headerlink" href="#variable:CPACK_APK_MANIFEST" title="連結到這個定義">¶</a></dt>
+<dd><p>Path to the <code class="docutils literal notranslate"><span class="pre">AndroidManifest.xml</span></code> to package.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">AndroidManifest.xml</span></code> at the top of the staging tree</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cmake variable">
+<dt class="sig sig-object cmake" id="variable:CPACK_APK_PACKAGE">
+<span class="sig-name descname"><span class="pre">CPACK_APK_PACKAGE</span></span><a class="headerlink" href="#variable:CPACK_APK_PACKAGE" title="連結到這個定義">¶</a></dt>
+<dd><p>Package of the application, e.g. <code class="docutils literal notranslate"><span class="pre">com.example.app</span></code>.  Written into the
+<code class="docutils literal notranslate"><span class="pre">package</span></code> attribute of the manifest, replacing the value it declares.
+Relative class names of the manifest resolve against it.  This is what
+Gradle projects set as the <code class="docutils literal notranslate"><span class="pre">namespace</span></code> in their build script, leaving
+it out of the manifest.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The value declared by the manifest, which must then declare one</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cmake variable">
+<dt class="sig sig-object cmake" id="variable:CPACK_APK_MANIFEST_PLACEHOLDERS">
+<span class="sig-name descname"><span class="pre">CPACK_APK_MANIFEST_PLACEHOLDERS</span></span><a class="headerlink" href="#variable:CPACK_APK_MANIFEST_PLACEHOLDERS" title="連結到這個定義">¶</a></dt>
+<dd><p>List of <code class="docutils literal notranslate"><span class="pre">&lt;name&gt;=&lt;value&gt;</span></code> entries.  Each <code class="docutils literal notranslate"><span class="pre">${&lt;name&gt;}</span></code> in the manifest
+is replaced by the corresponding value before the manifest is compiled.
+This is how the Gradle-style placeholders found in manifest templates,
+most notably <code class="docutils literal notranslate"><span class="pre">${applicationId}</span></code>, can be resolved.  Unless listed here,
+<code class="docutils literal notranslate"><span class="pre">${applicationId}</span></code> is the <code class="docutils literal notranslate"><span class="pre">package</span></code> of the manifest.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Unset</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cmake variable">
+<dt class="sig sig-object cmake" id="variable:CPACK_APK_RESOURCE_DIRECTORIES">
+<span class="sig-name descname"><span class="pre">CPACK_APK_RESOURCE_DIRECTORIES</span></span><a class="headerlink" href="#variable:CPACK_APK_RESOURCE_DIRECTORIES" title="連結到這個定義">¶</a></dt>
+<dd><p>List of Android resource directories to compile into the APK.  They are
+merged in order, with later directories overlaying earlier ones.  The
+resources of Android archives come before all of them.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">res</span></code> at the top of the staging tree, if present</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cmake variable">
+<dt class="sig sig-object cmake" id="variable:CPACK_APK_ASSET_DIRECTORIES">
+<span class="sig-name descname"><span class="pre">CPACK_APK_ASSET_DIRECTORIES</span></span><a class="headerlink" href="#variable:CPACK_APK_ASSET_DIRECTORIES" title="連結到這個定義">¶</a></dt>
+<dd><p>List of directories whose contents are packaged as Android assets.
+They are merged in order, with files of later directories replacing
+those of earlier ones.  The assets of Android archives come before all
+of them.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">assets</span></code> at the top of the staging tree, if present</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cmake variable">
+<dt class="sig sig-object cmake" id="variable:CPACK_APK_JAVA_SOURCE_DIRECTORIES">
+<span class="sig-name descname"><span class="pre">CPACK_APK_JAVA_SOURCE_DIRECTORIES</span></span><a class="headerlink" href="#variable:CPACK_APK_JAVA_SOURCE_DIRECTORIES" title="連結到這個定義">¶</a></dt>
+<dd><p>List of directories to compile <code class="docutils literal notranslate"><span class="pre">.java</span></code> files from.  They are searched
+recursively.  The generated <code class="docutils literal notranslate"><span class="pre">R</span></code> classes are compiled along with them.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Unset</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cmake variable">
+<dt class="sig sig-object cmake" id="variable:CPACK_APK_JAVA_VERSION">
+<span class="sig-name descname"><span class="pre">CPACK_APK_JAVA_VERSION</span></span><a class="headerlink" href="#variable:CPACK_APK_JAVA_VERSION" title="連結到這個定義">¶</a></dt>
+<dd><p>Java release to compile the Java sources for, passed to <code class="docutils literal notranslate"><span class="pre">javac</span></code> as its
+<code class="docutils literal notranslate"><span class="pre">-source</span></code> and <code class="docutils literal notranslate"><span class="pre">-target</span></code> options.  Left to itself, <code class="docutils literal notranslate"><span class="pre">javac</span></code> targets
+the release of the JDK, whose class files the <code class="docutils literal notranslate"><span class="pre">d8</span></code> of older build
+tools cannot read.  Set this to an empty string to pass neither option.
+It is not used when <span class="target" id="index-0-variable:CPACK_APK_JAVAC_EXTRA_OPTIONS"></span><a class="reference internal" href="#variable:CPACK_APK_JAVAC_EXTRA_OPTIONS" title="CPACK_APK_JAVAC_EXTRA_OPTIONS"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CPACK_APK_JAVAC_EXTRA_OPTIONS</span></code></a> holds one
+of the <code class="docutils literal notranslate"><span class="pre">--release</span></code>, <code class="docutils literal notranslate"><span class="pre">-source</span></code> or <code class="docutils literal notranslate"><span class="pre">-target</span></code> options.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">11</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cmake variable">
+<dt class="sig sig-object cmake" id="variable:CPACK_APK_JARS">
+<span class="sig-name descname"><span class="pre">CPACK_APK_JARS</span></span><a class="headerlink" href="#variable:CPACK_APK_JARS" title="連結到這個定義">¶</a></dt>
+<dd><p>List of additional <code class="docutils literal notranslate"><span class="pre">.jar</span></code> and <code class="docutils literal notranslate"><span class="pre">.aar</span></code> files to convert to Dalvik
+bytecode and to compile the Java sources against.  Archives found in
+the staging tree, and those of
+<span class="target" id="index-2-variable:CPACK_APK_MAVEN_DEPENDENCIES"></span><a class="reference internal" href="#variable:CPACK_APK_MAVEN_DEPENDENCIES" title="CPACK_APK_MAVEN_DEPENDENCIES"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CPACK_APK_MAVEN_DEPENDENCIES</span></code></a>, are added to this list.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Unset</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cmake variable">
+<dt class="sig sig-object cmake" id="variable:CPACK_APK_MAVEN_DEPENDENCIES">
+<span class="sig-name descname"><span class="pre">CPACK_APK_MAVEN_DEPENDENCIES</span></span><a class="headerlink" href="#variable:CPACK_APK_MAVEN_DEPENDENCIES" title="連結到這個定義">¶</a></dt>
+<dd><p>List of Maven artifacts to download, with the artifacts they depend
+on, and to add to <span class="target" id="index-1-variable:CPACK_APK_JARS"></span><a class="reference internal" href="#variable:CPACK_APK_JARS" title="CPACK_APK_JARS"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CPACK_APK_JARS</span></code></a>, each given as
+<code class="docutils literal notranslate"><span class="pre">&lt;group&gt;:&lt;artifact&gt;:&lt;version&gt;</span></code>.  See <a class="reference internal" href="#maven-dependencies">Maven dependencies</a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Unset: nothing is downloaded</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cmake variable">
+<dt class="sig sig-object cmake" id="variable:CPACK_APK_MAVEN_REPOSITORIES">
+<span class="sig-name descname"><span class="pre">CPACK_APK_MAVEN_REPOSITORIES</span></span><a class="headerlink" href="#variable:CPACK_APK_MAVEN_REPOSITORIES" title="連結到這個定義">¶</a></dt>
+<dd><p>List of Maven repositories to download
+<span class="target" id="index-3-variable:CPACK_APK_MAVEN_DEPENDENCIES"></span><a class="reference internal" href="#variable:CPACK_APK_MAVEN_DEPENDENCIES" title="CPACK_APK_MAVEN_DEPENDENCIES"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CPACK_APK_MAVEN_DEPENDENCIES</span></code></a> from, tried in order for each
+file.  An entry is a URL, or else a path to a local directory laid out
+as a Maven repository.  The local repository of Maven itself,
+<code class="docutils literal notranslate"><span class="pre">~/.m2/repository</span></code>, is one, so listing it first reuses the artifacts
+Maven has already downloaded.  Maven does not keep Gradle module
+metadata there, which is then still downloaded from the repositories
+listed after it:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">set(</span><span class="no">CPACK_APK_MAVEN_REPOSITORIES</span>
+<span class="w">  </span><span class="s">"$ENV{HOME}/.m2/repository"</span>
+<span class="w">  </span><span class="na">https://maven.google.com</span>
+<span class="w">  </span><span class="na">https://repo.maven.apache.org/maven2</span>
+<span class="w">  </span><span class="nf">)</span>
+</pre></div>
+</div>
+<p>On Windows, the user's home directory is <code class="docutils literal notranslate"><span class="pre">$ENV{USERPROFILE}</span></code>.  A
+<code class="docutils literal notranslate"><span class="pre">~</span></code> in an entry is not expanded.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">https://maven.google.com</span></code> and
+<code class="docutils literal notranslate"><span class="pre">https://repo.maven.apache.org/maven2</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cmake variable">
+<dt class="sig sig-object cmake" id="variable:CPACK_APK_MAVEN_CACHE_DIRECTORY">
+<span class="sig-name descname"><span class="pre">CPACK_APK_MAVEN_CACHE_DIRECTORY</span></span><a class="headerlink" href="#variable:CPACK_APK_MAVEN_CACHE_DIRECTORY" title="連結到這個定義">¶</a></dt>
+<dd><p>Directory to download <span class="target" id="index-4-variable:CPACK_APK_MAVEN_DEPENDENCIES"></span><a class="reference internal" href="#variable:CPACK_APK_MAVEN_DEPENDENCIES" title="CPACK_APK_MAVEN_DEPENDENCIES"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CPACK_APK_MAVEN_DEPENDENCIES</span></code></a> to.
+Files found there are not downloaded again.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">_CPack_Packages/maven</span></code> in
+<span class="target" id="index-0-variable:CPACK_PACKAGE_DIRECTORY"></span><a class="reference internal" href="../module/CPack.html#variable:CPACK_PACKAGE_DIRECTORY" title="CPACK_PACKAGE_DIRECTORY"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CPACK_PACKAGE_DIRECTORY</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cmake variable">
+<dt class="sig sig-object cmake" id="variable:CPACK_APK_VERSION_CODE">
+<span class="sig-name descname"><span class="pre">CPACK_APK_VERSION_CODE</span></span><a class="headerlink" href="#variable:CPACK_APK_VERSION_CODE" title="連結到這個定義">¶</a></dt>
+<dd><p>Integer version code of the application.  Written into the manifest,
+replacing the value it declares.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The value declared by the manifest, otherwise <code class="docutils literal notranslate"><span class="pre">1</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cmake variable">
+<dt class="sig sig-object cmake" id="variable:CPACK_APK_VERSION_NAME">
+<span class="sig-name descname"><span class="pre">CPACK_APK_VERSION_NAME</span></span><a class="headerlink" href="#variable:CPACK_APK_VERSION_NAME" title="連結到這個定義">¶</a></dt>
+<dd><p>User visible version of the application.  Written into the manifest,
+replacing the value it declares.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The value declared by the manifest, otherwise
+<span class="target" id="index-0-variable:CPACK_PACKAGE_VERSION"></span><a class="reference internal" href="../module/CPack.html#variable:CPACK_PACKAGE_VERSION" title="CPACK_PACKAGE_VERSION"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CPACK_PACKAGE_VERSION</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cmake variable">
+<dt class="sig sig-object cmake" id="variable:CPACK_APK_NO_COMPRESS_EXTENSIONS">
+<span class="sig-name descname"><span class="pre">CPACK_APK_NO_COMPRESS_EXTENSIONS</span></span><a class="headerlink" href="#variable:CPACK_APK_NO_COMPRESS_EXTENSIONS" title="連結到這個定義">¶</a></dt>
+<dd><p>List of file name extensions, leading dot included, to store in the APK
+uncompressed.  Android maps uncompressed native libraries straight out
+of the APK, which is required when the manifest sets
+<code class="docutils literal notranslate"><span class="pre">android:extractNativeLibs</span></code> to <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">.so</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cmake variable">
+<dt class="sig sig-object cmake" id="variable:CPACK_APK_SIGN">
+<span class="sig-name descname"><span class="pre">CPACK_APK_SIGN</span></span><a class="headerlink" href="#variable:CPACK_APK_SIGN" title="連結到這個定義">¶</a></dt>
+<dd><p>Boolean controlling whether the APK is signed.  An unsigned APK cannot
+be installed on a device.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">TRUE</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cmake variable">
+<dt class="sig sig-object cmake" id="variable:CPACK_APK_KEYSTORE">
+<span class="sig-name descname"><span class="pre">CPACK_APK_KEYSTORE</span></span><a class="headerlink" href="#variable:CPACK_APK_KEYSTORE" title="連結到這個定義">¶</a></dt>
+<dd><p>Path to the Java keystore holding the signing key.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The debug keystore described above, generated if missing</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cmake variable">
+<dt class="sig sig-object cmake" id="variable:CPACK_APK_KEYSTORE_PASSWORD">
+<span class="sig-name descname"><span class="pre">CPACK_APK_KEYSTORE_PASSWORD</span></span><a class="headerlink" href="#variable:CPACK_APK_KEYSTORE_PASSWORD" title="連結到這個定義">¶</a></dt>
+<dd><p>Password of the keystore.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">android</span></code>, together with the default keystore</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cmake variable">
+<dt class="sig sig-object cmake" id="variable:CPACK_APK_KEY_ALIAS">
+<span class="sig-name descname"><span class="pre">CPACK_APK_KEY_ALIAS</span></span><a class="headerlink" href="#variable:CPACK_APK_KEY_ALIAS" title="連結到這個定義">¶</a></dt>
+<dd><p>Alias of the key to sign with inside the keystore.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">androiddebugkey</span></code>, together with the default keystore</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cmake variable">
+<dt class="sig sig-object cmake" id="variable:CPACK_APK_KEY_PASSWORD">
+<span class="sig-name descname"><span class="pre">CPACK_APK_KEY_PASSWORD</span></span><a class="headerlink" href="#variable:CPACK_APK_KEY_PASSWORD" title="連結到這個定義">¶</a></dt>
+<dd><p>Password of the key.  A PKCS12 keystore, which is what <code class="docutils literal notranslate"><span class="pre">keytool</span></code>
+creates by default since JDK 9, protects its keys with the keystore
+password and cannot hold a key with a password of its own.  Leave this
+unset for such a keystore.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="target" id="index-0-variable:CPACK_APK_KEYSTORE_PASSWORD"></span><a class="reference internal" href="#variable:CPACK_APK_KEYSTORE_PASSWORD" title="CPACK_APK_KEYSTORE_PASSWORD"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CPACK_APK_KEYSTORE_PASSWORD</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cmake variable">
+<dt class="sig sig-object cmake" id="variable:CPACK_APK_ZIPALIGN_OPTIONS">
+<span class="sig-name descname"><span class="pre">CPACK_APK_ZIPALIGN_OPTIONS</span></span><a class="headerlink" href="#variable:CPACK_APK_ZIPALIGN_OPTIONS" title="連結到這個定義">¶</a></dt>
+<dd><p>Options passed to <code class="docutils literal notranslate"><span class="pre">zipalign</span></code> ahead of the input and output files.
+The default aligns uncompressed native libraries to 16 KB memory pages,
+which devices with such pages require to load them straight from the
+APK.  Build tools older than version 35 only support 4 KB pages.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">-P;16;-f;4</span></code>, or <code class="docutils literal notranslate"><span class="pre">-p;-f;4</span></code> with build tools older than 35</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cmake variable">
+<dt class="sig sig-object cmake" id="variable:CPACK_APK_AAPT2_EXECUTABLE">
+<span class="sig-name descname"><span class="pre">CPACK_APK_AAPT2_EXECUTABLE</span></span><a class="headerlink" href="#variable:CPACK_APK_AAPT2_EXECUTABLE" title="連結到這個定義">¶</a></dt>
+<dt class="sig sig-object cmake" id="variable:CPACK_APK_D8_EXECUTABLE">
+<span class="sig-name descname"><span class="pre">CPACK_APK_D8_EXECUTABLE</span></span><a class="headerlink" href="#variable:CPACK_APK_D8_EXECUTABLE" title="連結到這個定義">¶</a></dt>
+<dt class="sig sig-object cmake" id="variable:CPACK_APK_ZIPALIGN_EXECUTABLE">
+<span class="sig-name descname"><span class="pre">CPACK_APK_ZIPALIGN_EXECUTABLE</span></span><a class="headerlink" href="#variable:CPACK_APK_ZIPALIGN_EXECUTABLE" title="連結到這個定義">¶</a></dt>
+<dt class="sig sig-object cmake" id="variable:CPACK_APK_APKSIGNER_EXECUTABLE">
+<span class="sig-name descname"><span class="pre">CPACK_APK_APKSIGNER_EXECUTABLE</span></span><a class="headerlink" href="#variable:CPACK_APK_APKSIGNER_EXECUTABLE" title="連結到這個定義">¶</a></dt>
+<dt class="sig sig-object cmake" id="variable:CPACK_APK_JAR_EXECUTABLE">
+<span class="sig-name descname"><span class="pre">CPACK_APK_JAR_EXECUTABLE</span></span><a class="headerlink" href="#variable:CPACK_APK_JAR_EXECUTABLE" title="連結到這個定義">¶</a></dt>
+<dt class="sig sig-object cmake" id="variable:CPACK_APK_KEYTOOL_EXECUTABLE">
+<span class="sig-name descname"><span class="pre">CPACK_APK_KEYTOOL_EXECUTABLE</span></span><a class="headerlink" href="#variable:CPACK_APK_KEYTOOL_EXECUTABLE" title="連結到這個定義">¶</a></dt>
+<dd><p>Paths to the individual tools, overriding the ones that would be found
+in the SDK build tools directory and in the JDK.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Detected</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cmake variable">
+<dt class="sig sig-object cmake" id="variable:CPACK_APK_AAPT2_LINK_EXTRA_OPTIONS">
+<span class="sig-name descname"><span class="pre">CPACK_APK_AAPT2_LINK_EXTRA_OPTIONS</span></span><a class="headerlink" href="#variable:CPACK_APK_AAPT2_LINK_EXTRA_OPTIONS" title="連結到這個定義">¶</a></dt>
+<dt class="sig sig-object cmake" id="variable:CPACK_APK_JAVAC_EXTRA_OPTIONS">
+<span class="sig-name descname"><span class="pre">CPACK_APK_JAVAC_EXTRA_OPTIONS</span></span><a class="headerlink" href="#variable:CPACK_APK_JAVAC_EXTRA_OPTIONS" title="連結到這個定義">¶</a></dt>
+<dt class="sig sig-object cmake" id="variable:CPACK_APK_D8_EXTRA_OPTIONS">
+<span class="sig-name descname"><span class="pre">CPACK_APK_D8_EXTRA_OPTIONS</span></span><a class="headerlink" href="#variable:CPACK_APK_D8_EXTRA_OPTIONS" title="連結到這個定義">¶</a></dt>
+<dt class="sig sig-object cmake" id="variable:CPACK_APK_APKSIGNER_EXTRA_OPTIONS">
+<span class="sig-name descname"><span class="pre">CPACK_APK_APKSIGNER_EXTRA_OPTIONS</span></span><a class="headerlink" href="#variable:CPACK_APK_APKSIGNER_EXTRA_OPTIONS" title="連結到這個定義">¶</a></dt>
+<dd><p>Additional options to pass to the respective tool.  To compile the Java
+sources for another Java release, set <span class="target" id="index-0-variable:CPACK_APK_JAVA_VERSION"></span><a class="reference internal" href="#variable:CPACK_APK_JAVA_VERSION" title="CPACK_APK_JAVA_VERSION"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CPACK_APK_JAVA_VERSION</span></code></a>
+or pass <code class="docutils literal notranslate"><span class="pre">javac</span></code> the <code class="docutils literal notranslate"><span class="pre">-source</span></code> and <code class="docutils literal notranslate"><span class="pre">-target</span></code> options rather than
+<code class="docutils literal notranslate"><span class="pre">--release</span></code>, which makes it compile against the Java library of the
+JDK instead of the one of the Android platform.  For a target release
+older than 9, <code class="docutils literal notranslate"><span class="pre">android.jar</span></code> is used as the boot class path instead of
+a system image.</p>
+<p><code class="docutils literal notranslate"><span class="pre">d8</span></code> is passed <code class="docutils literal notranslate"><span class="pre">--release</span></code>, which leaves the debugging information
+out of the Dalvik bytecode, unless <code class="docutils literal notranslate"><span class="pre">--debug</span></code> is given here.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Unset</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cmake variable">
+<dt class="sig sig-object cmake" id="variable:CPACK_APK_DEBUG">
+<span class="sig-name descname"><span class="pre">CPACK_APK_DEBUG</span></span><a class="headerlink" href="#variable:CPACK_APK_DEBUG" title="連結到這個定義">¶</a></dt>
+<dd><p>Boolean enabling verbose output of every tool invocation and its
+result.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">FALSE</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3>目次表</h3>
+    <ul>
+<li><a class="reference internal" href="#">CPack APK Generator</a><ul>
+<li><a class="reference internal" href="#how-the-staging-tree-is-packaged">How the staging tree is packaged</a></li>
+<li><a class="reference internal" href="#multiple-abis">Multiple ABIs</a></li>
+<li><a class="reference internal" href="#android-archives">Android archives</a></li>
+<li><a class="reference internal" href="#maven-dependencies">Maven dependencies</a></li>
+<li><a class="reference internal" href="#the-android-sdk">The Android SDK</a></li>
+<li><a class="reference internal" href="#variables-specific-to-cpack-apk-generator">Variables Specific to CPack APK Generator</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>上個話題</h4>
+    <p class="topless"><a href="../manual/cpack-generators.7.html"
+                          title="上個章節">cpack-生成器(7)</a></p>
+  </div>
+  <div>
+    <h4>下個話題</h4>
+    <p class="topless"><a href="appimage.html"
+                          title="下個章節">CPack AppImage 生成器</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>本頁</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/cpack_gen/apk.rst.txt"
+            rel="nofollow">顯示來源碼</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜尋</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="前往" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>瀏覽</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="總索引"
+             >索引</a></li>
+        <li class="right" >
+          <a href="appimage.html" title="CPack AppImage 生成器"
+             >下一頁</a> |</li>
+        <li class="right" >
+          <a href="../manual/cpack-generators.7.html" title="cpack-生成器(7)"
+             >上一頁</a> |</li>
+  <li>
+    <label class="sidebar-toggle" for="sidebar-check"></label>
+  </li>
+  <li class="rootlink">
+    <img src="../_static/cmake-logo-16.png" width="16" height="16" alt=""/>
+    <a href="https://cmake.org/">CMake 4.5.20261019-g7ed8fa4</a>
+    <span class="reldelim1"> &#187;</span>
+  </li>
+  <li>
+    <a href="../index.html">文件</a> &#187;
+  </li>
+
+          <li class="nav-item nav-item-1"><a href="../manual/cpack-generators.7.html" >cpack-生成器(7)</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">CPack APK Generator</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+    &#169; 著作權 2000-2026 Kitware, Inc. and Contributors.
+      使用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3 建立。
+    </div>
+<script type="text/javascript">
+(function() {
+  "use strict";
+  const hide = () => document.getElementById("sidebar-check").checked = false;
+  addEventListener("keydown", e => (e.key === "Escape") && hide());
+  addEventListener("click", e => (e.target.tagName === "A") && hide());
+  addEventListener("hashchange", hide)
+})();
+</script>
+  </body>
+</html>
