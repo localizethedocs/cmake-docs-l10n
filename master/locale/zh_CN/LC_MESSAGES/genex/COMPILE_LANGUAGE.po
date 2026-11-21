@@ -1,0 +1,108 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2000-2026 Kitware, Inc. and Contributors
+# This file is distributed under the same license as the CMake package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CMake master\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-11-16 17:42+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../genex/COMPILE_LANGUAGE.rst:2
+msgid "COMPILE_LANGUAGE"
+msgstr ""
+
+#: ../../../manual/include/GENEX_FAMILY.rst:3
+msgid ""
+"This generator expression belongs to the |genex-family| family. See that "
+"section for related generator expressions."
+msgstr ""
+
+#: ../../../genex/COMPILE_LANGUAGE.rst:13
+#: ../../../genex/COMPILE_LANGUAGE.rst:27
+msgid "Syntax"
+msgstr ""
+
+#: ../../../genex/COMPILE_LANGUAGE.rst:15
+msgid "$<COMPILE_LANGUAGE>"
+msgstr ""
+
+#: ../../../genex/COMPILE_LANGUAGE.rst:21
+msgid ""
+"The compile language of source files when evaluating compile options. See "
+"the related boolean expression :genex:`$<COMPILE_LANGUAGE:languages> "
+"<COMPILE_LANGUAGE:languages>` for notes about the portability of this "
+"generator expression."
+msgstr ""
+
+#: ../../../genex/COMPILE_LANGUAGE.rst:29
+msgid "$<COMPILE_LANGUAGE:languages>"
+msgstr ""
+
+#: ../../../genex/COMPILE_LANGUAGE.rst:35
+msgid ""
+"Multiple languages can be specified for ``languages``. CMake 3.14 and "
+"earlier only accepted a single language."
+msgstr ""
+
+#: ../../../genex/COMPILE_LANGUAGE.rst:39
+msgid ""
+"``1`` when the language used for compilation unit matches any of the comma-"
+"separated entries in ``languages``, otherwise ``0``. This expression may be "
+"used to specify compile options, compile definitions, and include "
+"directories for source files of a particular language in a target. For "
+"example:"
+msgstr ""
+
+#: ../../../genex/COMPILE_LANGUAGE.rst:44
+msgid ""
+"add_executable(myapp main.cpp foo.c bar.cpp zot.cu)\n"
+"target_compile_options(myapp\n"
+"  PRIVATE $<$<COMPILE_LANGUAGE:CXX>:-fno-exceptions>\n"
+")\n"
+"target_compile_definitions(myapp\n"
+"  PRIVATE $<$<COMPILE_LANGUAGE:CXX>:COMPILING_CXX>\n"
+"          $<$<COMPILE_LANGUAGE:CUDA>:COMPILING_CUDA>\n"
+")\n"
+"target_include_directories(myapp\n"
+"  PRIVATE $<$<COMPILE_LANGUAGE:CXX,CUDA>:/opt/foo/headers>\n"
+")"
+msgstr ""
+
+#: ../../../genex/COMPILE_LANGUAGE.rst:58
+msgid ""
+"This specifies the use of the ``-fno-exceptions`` compile option, "
+"``COMPILING_CXX`` compile definition, and ``cxx_headers`` include directory "
+"for C++ only (compiler id checks elided).  It also specifies a "
+"``COMPILING_CUDA`` compile definition for CUDA."
+msgstr ""
+
+#: ../../../genex/COMPILE_LANGUAGE.rst:63
+msgid ""
+"Note that with :ref:`Visual Studio Generators` and :generator:`Xcode` there "
+"is no way to represent target-wide compile definitions or include "
+"directories separately for ``C`` and ``CXX`` languages. Also, "
+"with :ref:`Visual Studio Generators` there is no way to represent target-"
+"wide flags separately for ``C`` and ``CXX`` languages.  Under these "
+"generators, expressions for both C and C++ sources will be evaluated using "
+"``CXX`` if there are any C++ sources and otherwise using ``C``. A workaround "
+"is to create separate libraries for each source file language instead:"
+msgstr ""
+
+#: ../../../genex/COMPILE_LANGUAGE.rst:72
+msgid ""
+"add_library(myapp_c foo.c)\n"
+"add_library(myapp_cxx bar.cpp)\n"
+"target_compile_options(myapp_cxx PUBLIC -fno-exceptions)\n"
+"add_executable(myapp main.cpp)\n"
+"target_link_libraries(myapp myapp_c myapp_cxx)"
+msgstr ""

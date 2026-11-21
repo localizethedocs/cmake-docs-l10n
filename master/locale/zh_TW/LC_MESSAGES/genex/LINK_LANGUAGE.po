@@ -1,0 +1,125 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2000-2026 Kitware, Inc. and Contributors
+# This file is distributed under the same license as the CMake package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CMake master\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-11-16 17:42+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../genex/LINK_LANGUAGE.rst:2
+msgid "LINK_LANGUAGE"
+msgstr ""
+
+#: ../../../manual/include/GENEX_FAMILY.rst:3
+msgid ""
+"This generator expression belongs to the |genex-family| family. See that "
+"section for related generator expressions."
+msgstr ""
+
+#: ../../../genex/LINK_LANGUAGE.rst:9 ../../../genex/LINK_LANGUAGE.rst:29
+msgid "Syntax"
+msgstr ""
+
+#: ../../../genex/LINK_LANGUAGE.rst:11
+msgid "$<LINK_LANGUAGE>"
+msgstr ""
+
+#: ../../../genex/LINK_LANGUAGE.rst:17
+msgid ""
+"The link language of the target when evaluating link options. See :ref:`the "
+"related boolean expression <Boolean LINK_LANGUAGE Generator Expression>` "
+"``$<LINK_LANGUAGE:languages>`` for notes about the portability of this "
+"generator expression."
+msgstr ""
+
+#: ../../../genex/LINK_LANGUAGE.rst:24
+msgid ""
+"This generator expression is not supported by the link libraries properties "
+"to avoid side-effects due to the double evaluation of these properties."
+msgstr ""
+
+#: ../../../genex/LINK_LANGUAGE.rst:31
+msgid "$<LINK_LANGUAGE:languages>"
+msgstr ""
+
+#: ../../../genex/LINK_LANGUAGE.rst:37
+msgid ""
+"``1`` when the language used for link step matches any of the comma-"
+"separated entries in ``languages``, otherwise ``0``.  This expression may be "
+"used to specify link libraries, link options, link directories and link "
+"dependencies of a particular language in a target. For example:"
+msgstr ""
+
+#: ../../../genex/LINK_LANGUAGE.rst:42
+msgid ""
+"add_library(api_C ...)\n"
+"add_library(api_CXX ...)\n"
+"add_library(api INTERFACE)\n"
+"target_link_options(api   INTERFACE $<$<LINK_LANGUAGE:C>:-opt_c>\n"
+"                                    $<$<LINK_LANGUAGE:CXX>:-opt_cxx>)\n"
+"target_link_libraries(api INTERFACE $<$<LINK_LANGUAGE:C>:api_C>\n"
+"                                    $<$<LINK_LANGUAGE:CXX>:api_CXX>)\n"
+"\n"
+"add_executable(myapp1 main.c)\n"
+"target_link_options(myapp1 PRIVATE api)\n"
+"\n"
+"add_executable(myapp2 main.cpp)\n"
+"target_link_options(myapp2 PRIVATE api)"
+msgstr ""
+
+#: ../../../genex/LINK_LANGUAGE.rst:58
+msgid ""
+"This specifies to use the ``api`` target for linking targets ``myapp1`` and "
+"``myapp2``. In practice, ``myapp1`` will link with target ``api_C`` and "
+"option ``-opt_c`` because it will use ``C`` as link language. And ``myapp2`` "
+"will link with ``api_CXX`` and option ``-opt_cxx`` because ``CXX`` will be "
+"the link language."
+msgstr ""
+
+#: ../../../genex/LINK_LANGUAGE.rst:68
+msgid ""
+"To determine the link language of a target, it is required to collect, "
+"transitively, all the targets which will be linked to it. So, for link "
+"libraries properties, a double evaluation will be done. During the first "
+"evaluation, ``$<LINK_LANGUAGE:..>`` expressions will always return ``0``. "
+"The link language computed after this first pass will be used to do the "
+"second pass. To avoid inconsistency, it is required that the second pass do "
+"not change the link language. Moreover, to avoid unexpected side-effects, it "
+"is required to specify complete entities as part of the "
+"``$<LINK_LANGUAGE:..>`` expression. For example:"
+msgstr ""
+
+#: ../../../genex/LINK_LANGUAGE.rst:78
+msgid ""
+"add_library(lib STATIC file.cxx)\n"
+"add_library(libother STATIC file.c)\n"
+"\n"
+"# bad usage\n"
+"add_executable(myapp1 main.c)\n"
+"target_link_libraries(myapp1 PRIVATE lib$<$<LINK_LANGUAGE:C>:other>)\n"
+"\n"
+"# correct usage\n"
+"add_executable(myapp2 main.c)\n"
+"target_link_libraries(myapp2 PRIVATE $<$<LINK_LANGUAGE:C>:libother>)"
+msgstr ""
+
+#: ../../../genex/LINK_LANGUAGE.rst:91
+msgid ""
+"In this example, for ``myapp1``, the first pass will, unexpectedly, "
+"determine that the link language is ``CXX`` because the evaluation of the "
+"generator expression will be an empty string so ``myapp1`` will depends on "
+"target ``lib`` which is ``C++``. On the contrary, for ``myapp2``, the first "
+"evaluation will give ``C`` as link language, so the second pass will "
+"correctly add target ``libother`` as link dependency."
+msgstr ""
