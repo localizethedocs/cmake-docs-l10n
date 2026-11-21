@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CMake 4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-19 16:54+0000\n"
+"POT-Creation-Date: 2026-11-16 18:49+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -886,8 +886,8 @@ msgstr ""
 
 #: ../../../manual/cmake-language.7.rst:717
 msgid ""
-"Matches any character(s) inside the brackets. To match a literal ``]``, make "
-"it the first character, e.g., ``[]ab]``."
+"Matches any single character inside the brackets. To match a literal ``]``, "
+"make it the first character, e.g., ``[]ab]``."
 msgstr ""
 
 #: ../../../manual/cmake-language.7.rst:719
@@ -896,7 +896,7 @@ msgstr ""
 
 #: ../../../manual/cmake-language.7.rst:720
 msgid ""
-"Matches any character(s) not inside the brackets. To not match a literal "
+"Matches any single character not inside the brackets. To not match a literal "
 "``]``, make it the first character, e.g., ``[^]ab]``."
 msgstr ""
 
@@ -949,19 +949,17 @@ msgid "``()``"
 msgstr ""
 
 #: ../../../manual/cmake-language.7.rst:736
-msgid ""
-"Saves a matched subexpression, which can be referenced in the ``REGEX "
-"REPLACE`` operation."
+msgid "Groups a subexpression and captures the text it matches."
 msgstr ""
 
-#: ../../../manual/cmake-language.7.rst:739
+#: ../../../manual/cmake-language.7.rst:738
 msgid ""
 "All regular expression-related commands, including "
 "e.g. :command:`if(MATCHES)`, save subgroup matches in the "
 "variables :variable:`CMAKE_MATCH_<n>` for ``<n>`` 0..9."
 msgstr ""
 
-#: ../../../manual/cmake-language.7.rst:746
+#: ../../../manual/cmake-language.7.rst:745
 msgid ""
 "``*``, ``+`` and ``?`` have higher precedence than concatenation.  ``|`` has "
 "lower precedence than concatenation.  This means that the regular expression "
@@ -970,35 +968,84 @@ msgid ""
 msgstr ""
 
 #: ../../../manual/cmake-language.7.rst:753
+msgid "Character Classes"
+msgstr ""
+
+#: ../../../manual/cmake-language.7.rst:755
+msgid ""
+"Backslashes are literal inside brackets and do not escape the following "
+"character.  Furthermore, regex escapes do not provide shorthand character "
+"classes such as ``\\d``, ``\\w``, or ``\\s``, or word boundaries such as "
+"``\\b``. For example, ``\\d+`` matches one or more literal ``d`` characters, "
+"not digits. POSIX character classes such as ``[[:alpha:]]`` are also not "
+"supported.  Use explicit ranges such as ``[A-Za-z]`` or ``[0-9]`` instead."
+msgstr ""
+
+#: ../../../manual/cmake-language.7.rst:763
+msgid "Escaping"
+msgstr ""
+
+#: ../../../manual/cmake-language.7.rst:765
+msgid ""
+"When a regex is written in CMake code, CMake parses the argument before the "
+"regex engine sees it.  In particular, regex backslashes must be doubled in "
+"a :ref:`Quoted Argument`, while a :ref:`Bracket Argument` preserves them "
+"literally."
+msgstr ""
+
+#: ../../../manual/cmake-language.7.rst:770
 msgid ""
 "CMake language :ref:`Escape Sequences` such as ``\\t``, ``\\r``, ``\\n``, "
 "and ``\\\\`` may be used to construct literal tabs, carriage returns, "
 "newlines, and backslashes (respectively) to pass in a regex.  For example:"
 msgstr ""
 
-#: ../../../manual/cmake-language.7.rst:757
+#: ../../../manual/cmake-language.7.rst:774
 msgid ""
 "The quoted argument ``\"[ \\t\\r\\n]\"`` specifies a regex that matches any "
 "single whitespace character."
 msgstr ""
 
-#: ../../../manual/cmake-language.7.rst:759
+#: ../../../manual/cmake-language.7.rst:776
 msgid ""
 "The quoted argument ``\"[/\\\\]\"`` specifies a regex that matches a single "
 "forward slash ``/`` or backslash ``\\``."
 msgstr ""
 
-#: ../../../manual/cmake-language.7.rst:761
+#: ../../../manual/cmake-language.7.rst:778
 msgid ""
 "The quoted argument ``\"[A-Za-z0-9_]\"`` specifies a regex that matches any "
 "single \"word\" character in the C locale."
 msgstr ""
 
-#: ../../../manual/cmake-language.7.rst:763
+#: ../../../manual/cmake-language.7.rst:780
 msgid ""
 "The quoted argument ``\"\\\\(\\\\a\\\\+b\\\\)\"`` specifies a regex that "
 "matches the exact string ``(a+b)``.  Each ``\\\\`` is parsed in a quoted "
 "argument as just ``\\``, so the regex itself is actually ``\\(\\a\\+"
 "\\b\\)``.  This can alternatively be specified in a :ref:`bracket argument` "
 "without having to escape the backslashes, e.g. ``[[\\(\\a\\+\\b\\)]]``."
+msgstr ""
+
+#: ../../../manual/cmake-language.7.rst:787
+msgid "Other Regex Syntaxes"
+msgstr ""
+
+#: ../../../manual/cmake-language.7.rst:789
+msgid ""
+"Backreferences such as ``\\1`` through ``\\9`` are supported in the "
+"replacement expression of :command:`string(REGEX REPLACE)`, but not in regex "
+"patterns. For example, ``(a)\\1`` matches ``a1``, not ``aa``."
+msgstr ""
+
+#: ../../../manual/cmake-language.7.rst:793
+msgid ""
+"CMake's regex syntax does not support counted repetition such as ``{2}``. "
+"For example, ``a{2}`` matches the literal text ``a{2}``, rather than ``aa``."
+msgstr ""
+
+#: ../../../manual/cmake-language.7.rst:796
+msgid ""
+"Lazy or possessive repetition, such as ``*?`` or ``*+``, and special group "
+"forms, such as ``(?:...)`` or ``(?=...)``, are not supported."
 msgstr ""
