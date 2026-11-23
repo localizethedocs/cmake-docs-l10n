@@ -8,10 +8,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CMake master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-16 17:42+0000\n"
+"POT-Creation-Date: 2026-11-23 19:40+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -26,15 +27,25 @@ msgid ""
 "section for related generator expressions."
 msgstr ""
 
-#: ../../../genex/LINK_LANGUAGE.rst:9 ../../../genex/LINK_LANGUAGE.rst:29
-msgid "Syntax"
+#: ../../../genex/LINK_LANGUAGE.rst:11
+msgid "Synopsis"
 msgstr ""
 
-#: ../../../genex/LINK_LANGUAGE.rst:11
+#: ../../../genex/LINK_LANGUAGE.rst:23
+msgid ""
+"`$<LINK_LANGUAGE> <Without Arguments_>`_\n"
+"`$<LINK_LANGUAGE:languages> <With Arguments_>`_"
+msgstr ""
+
+#: ../../../genex/LINK_LANGUAGE.rst:19
+msgid "Without Arguments"
+msgstr ""
+
+#: ../../../genex/LINK_LANGUAGE.rst:21
 msgid "$<LINK_LANGUAGE>"
 msgstr ""
 
-#: ../../../genex/LINK_LANGUAGE.rst:17
+#: ../../../genex/LINK_LANGUAGE.rst:25
 msgid ""
 "The link language of the target when evaluating link options. See :ref:`the "
 "related boolean expression <Boolean LINK_LANGUAGE Generator Expression>` "
@@ -42,17 +53,21 @@ msgid ""
 "generator expression."
 msgstr ""
 
-#: ../../../genex/LINK_LANGUAGE.rst:24
+#: ../../../genex/LINK_LANGUAGE.rst:32
 msgid ""
 "This generator expression is not supported by the link libraries properties "
 "to avoid side-effects due to the double evaluation of these properties."
 msgstr ""
 
-#: ../../../genex/LINK_LANGUAGE.rst:31
+#: ../../../genex/LINK_LANGUAGE.rst:37
+msgid "With Arguments"
+msgstr ""
+
+#: ../../../genex/LINK_LANGUAGE.rst:39
 msgid "$<LINK_LANGUAGE:languages>"
 msgstr ""
 
-#: ../../../genex/LINK_LANGUAGE.rst:37
+#: ../../../genex/LINK_LANGUAGE.rst:43
 msgid ""
 "``1`` when the language used for link step matches any of the comma-"
 "separated entries in ``languages``, otherwise ``0``.  This expression may be "
@@ -60,7 +75,7 @@ msgid ""
 "dependencies of a particular language in a target. For example:"
 msgstr ""
 
-#: ../../../genex/LINK_LANGUAGE.rst:42
+#: ../../../genex/LINK_LANGUAGE.rst:48
 msgid ""
 "add_library(api_C ...)\n"
 "add_library(api_CXX ...)\n"
@@ -77,7 +92,7 @@ msgid ""
 "target_link_options(myapp2 PRIVATE api)"
 msgstr ""
 
-#: ../../../genex/LINK_LANGUAGE.rst:58
+#: ../../../genex/LINK_LANGUAGE.rst:64
 msgid ""
 "This specifies to use the ``api`` target for linking targets ``myapp1`` and "
 "``myapp2``. In practice, ``myapp1`` will link with target ``api_C`` and "
@@ -86,20 +101,20 @@ msgid ""
 "the link language."
 msgstr ""
 
-#: ../../../genex/LINK_LANGUAGE.rst:68
+#: ../../../genex/LINK_LANGUAGE.rst:74
 msgid ""
 "To determine the link language of a target, it is required to collect, "
 "transitively, all the targets which will be linked to it. So, for link "
 "libraries properties, a double evaluation will be done. During the first "
-"evaluation, ``$<LINK_LANGUAGE:..>`` expressions will always return ``0``. "
+"evaluation, ``$<LINK_LANGUAGE:...>`` expressions will always return ``0``. "
 "The link language computed after this first pass will be used to do the "
 "second pass. To avoid inconsistency, it is required that the second pass do "
 "not change the link language. Moreover, to avoid unexpected side-effects, it "
 "is required to specify complete entities as part of the "
-"``$<LINK_LANGUAGE:..>`` expression. For example:"
+"``$<LINK_LANGUAGE:...>`` expression. For example:"
 msgstr ""
 
-#: ../../../genex/LINK_LANGUAGE.rst:78
+#: ../../../genex/LINK_LANGUAGE.rst:84
 msgid ""
 "add_library(lib STATIC file.cxx)\n"
 "add_library(libother STATIC file.c)\n"
@@ -113,7 +128,7 @@ msgid ""
 "target_link_libraries(myapp2 PRIVATE $<$<LINK_LANGUAGE:C>:libother>)"
 msgstr ""
 
-#: ../../../genex/LINK_LANGUAGE.rst:91
+#: ../../../genex/LINK_LANGUAGE.rst:97
 msgid ""
 "In this example, for ``myapp1``, the first pass will, unexpectedly, "
 "determine that the link language is ``CXX`` because the evaluation of the "

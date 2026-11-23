@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CMake master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-19 15:09+0000\n"
+"POT-Creation-Date: 2026-11-23 19:40+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -45,10 +45,10 @@ msgstr ""
 
 #: ../../../command/target_precompile_headers.rst:21
 msgid ""
-"The command adds header files to the :prop_tgt:`PRECOMPILE_HEADERS` and/or :"
-"prop_tgt:`INTERFACE_PRECOMPILE_HEADERS` target properties of ``<target>``. "
-"The named ``<target>`` must have been created by a command such as :command:"
-"`add_executable` or :command:`add_library`."
+"The command adds header files to the :prop_tgt:`PRECOMPILE_HEADERS` and/"
+"or :prop_tgt:`INTERFACE_PRECOMPILE_HEADERS` target properties of "
+"``<target>``. The named ``<target>`` must have been created by a command "
+"such as :command:`add_executable` or :command:`add_library`."
 msgstr ""
 
 #: ../../../command/target_precompile_headers.rst:26
@@ -61,12 +61,13 @@ msgstr ""
 msgid ""
 "The ``INTERFACE``, ``PUBLIC`` and ``PRIVATE`` keywords are required to "
 "specify the :ref:`scope <Target Command Scope>` of the following arguments. "
-"``PRIVATE`` and ``PUBLIC`` items will populate the :prop_tgt:"
-"`PRECOMPILE_HEADERS` property of ``<target>``.  ``PUBLIC`` and ``INTERFACE`` "
-"items will populate the :prop_tgt:`INTERFACE_PRECOMPILE_HEADERS` property of "
-"``<target>`` (:ref:`IMPORTED targets <Imported Targets>` only support "
-"``INTERFACE`` items). Repeated calls for the same ``<target>`` will append "
-"items in the order called."
+"``PRIVATE`` and ``PUBLIC`` items will populate "
+"the :prop_tgt:`PRECOMPILE_HEADERS` property of ``<target>``.  ``PUBLIC`` and "
+"``INTERFACE`` items will populate "
+"the :prop_tgt:`INTERFACE_PRECOMPILE_HEADERS` property of ``<target>`` "
+"(:ref:`IMPORTED targets <Imported Targets>` only support ``INTERFACE`` "
+"items). Repeated calls for the same ``<target>`` will append items in the "
+"order called."
 msgstr ""
 
 #: ../../../command/target_precompile_headers.rst:38
@@ -89,11 +90,11 @@ msgstr ""
 
 #: ../../../command/target_precompile_headers.rst:52
 msgid ""
-"The list of header files is used to generate a header file named ``cmake_pch."
-"h|xx`` which is used to generate the precompiled header file (``.pch``, ``."
-"gch``, ``.pchi``) artifact.  The ``cmake_pch.h|xx`` header file will be "
-"force included (``-include`` for GCC, ``/FI`` for MSVC) to all source files, "
-"so sources do not need to have ``#include \"pch.h\"``."
+"The list of header files is used to generate a header file named "
+"``cmake_pch.h|xx`` which is used to generate the precompiled header file "
+"(``.pch``, ``.gch``, ``.pchi``) artifact.  The ``cmake_pch.h|xx`` header "
+"file will be force included (``-include`` for GCC, ``/FI`` for MSVC) to all "
+"source files, so sources do not need to have ``#include \"pch.h\"``."
 msgstr ""
 
 #: ../../../command/target_precompile_headers.rst:58
@@ -101,8 +102,8 @@ msgid ""
 "Header file names specified with angle brackets (e.g. ``<unordered_map>``) "
 "or explicit double quotes (escaped for the :manual:`cmake-language(7)`, e.g. "
 "``[[\"other_header.h\"]]``) will be treated as is, and include directories "
-"must be available for the compiler to find them.  Other header file names (e."
-"g. ``project_header.h``) are interpreted as being relative to the current "
+"must be available for the compiler to find them.  Other header file names "
+"(e.g. ``project_header.h``) are interpreted as being relative to the current "
 "source directory (e.g. :variable:`CMAKE_CURRENT_SOURCE_DIR`) and will be "
 "included by absolute path.  For example:"
 msgstr ""
@@ -121,8 +122,9 @@ msgstr ""
 #: ../../../command/include/GENEX_NOTE.rst:2
 msgid ""
 "Arguments to |command_name| may use :manual:`generator expressions <cmake-"
-"generator-expressions(7)>` with the syntax ``$<...>``.  See the :manual:"
-"`cmake-buildsystem(7)` manual for more on defining buildsystem properties."
+"generator-expressions(7)>` with the syntax ``$<...>``.  See "
+"the :manual:`cmake-buildsystem(7)` manual for more on defining buildsystem "
+"properties."
 msgstr ""
 
 #: ../../../command/target_precompile_headers.rst:79
@@ -164,12 +166,21 @@ msgstr ""
 msgid ""
 "This form sets the :prop_tgt:`PRECOMPILE_HEADERS_REUSE_FROM` property to "
 "``<other_target>`` and adds a dependency such that ``<target>`` will depend "
-"on ``<other_target>``.  CMake will halt with an error if the :prop_tgt:"
-"`PRECOMPILE_HEADERS` property of ``<target>`` is already set when the "
-"``REUSE_FROM`` form is used."
+"on ``<other_target>``.  CMake will halt with an error if "
+"the :prop_tgt:`PRECOMPILE_HEADERS` property of ``<target>`` is already set "
+"when the ``REUSE_FROM`` form is used."
 msgstr ""
 
-#: ../../../command/target_precompile_headers.rst:115
+#: ../../../command/target_precompile_headers.rst:113
+msgid ""
+"``<other_target>`` must build a precompiled header for each language in "
+"which ``<target>`` compiles sources with one.  It builds one for each "
+"language of its sources that are not "
+"marked :prop_sf:`SKIP_PRECOMPILE_HEADERS`, when its precompiled headers "
+"apply to that language."
+msgstr ""
+
+#: ../../../command/target_precompile_headers.rst:120
 msgid ""
 "The ``REUSE_FROM`` form requires the same set of compiler options, compiler "
 "flags and compiler definitions for both ``<target>`` and "
@@ -177,56 +188,56 @@ msgid ""
 "precompiled header file cannot be used (``-Winvalid-pch``)."
 msgstr ""
 
-#: ../../../command/target_precompile_headers.rst:121
+#: ../../../command/target_precompile_headers.rst:126
 msgid "See Also"
 msgstr ""
 
-#: ../../../command/target_precompile_headers.rst:123
+#: ../../../command/target_precompile_headers.rst:128
 msgid ""
-"To disable precompile headers for specific targets, see the :prop_tgt:"
-"`DISABLE_PRECOMPILE_HEADERS` target property."
+"To disable precompile headers for specific targets, see "
+"the :prop_tgt:`DISABLE_PRECOMPILE_HEADERS` target property."
 msgstr ""
 
-#: ../../../command/target_precompile_headers.rst:126
+#: ../../../command/target_precompile_headers.rst:131
 msgid ""
 "To prevent precompile headers from being used when compiling a specific "
 "source file, see the :prop_sf:`SKIP_PRECOMPILE_HEADERS` source file property."
 msgstr ""
 
-#: ../../../command/target_precompile_headers.rst:129
+#: ../../../command/target_precompile_headers.rst:134
 msgid ""
 "To get compiler warnings for the precompiled headers themselves, which are "
 "suppressed by default, see the :prop_tgt:`PCH_WARNINGS` target property."
 msgstr ""
 
-#: ../../../command/target_precompile_headers.rst:132
+#: ../../../command/target_precompile_headers.rst:137
 msgid ":command:`target_compile_definitions`"
 msgstr ""
 
-#: ../../../command/target_precompile_headers.rst:133
+#: ../../../command/target_precompile_headers.rst:138
 msgid ":command:`target_compile_features`"
 msgstr ""
 
-#: ../../../command/target_precompile_headers.rst:134
+#: ../../../command/target_precompile_headers.rst:139
 msgid ":command:`target_compile_options`"
 msgstr ""
 
-#: ../../../command/target_precompile_headers.rst:135
+#: ../../../command/target_precompile_headers.rst:140
 msgid ":command:`target_include_directories`"
 msgstr ""
 
-#: ../../../command/target_precompile_headers.rst:136
+#: ../../../command/target_precompile_headers.rst:141
 msgid ":command:`target_link_libraries`"
 msgstr ""
 
-#: ../../../command/target_precompile_headers.rst:137
+#: ../../../command/target_precompile_headers.rst:142
 msgid ":command:`target_link_directories`"
 msgstr ""
 
-#: ../../../command/target_precompile_headers.rst:138
+#: ../../../command/target_precompile_headers.rst:143
 msgid ":command:`target_link_options`"
 msgstr ""
 
-#: ../../../command/target_precompile_headers.rst:139
+#: ../../../command/target_precompile_headers.rst:144
 msgid ":command:`target_sources`"
 msgstr ""
