@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>CTest Dashboard Client Guide &mdash; CMake 4.5.20261116-g20268ff Documentation</title>
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a3862c66" />
+    <link rel="stylesheet" type="text/css" href="../../_static/cmake.css?v=d27bb136" />
+    
+    <script src="../../_static/documentation_options.js?v=8e88e664"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/translations.js?v=beaddf03"></script>
+    
+    <link rel="canonical" href="https://projects.localizethedocs.org/cmake-docs-l10n/guide/ctest-dashboard-client/index.html" />
+    <link rel="icon" href="../../_static/cmake-favicon.ico"/>
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="搜索" href="../../search.html" />
+    <link rel="next" title="Step 1: A Basic Dashboard Script" href="A%20Basic%20Dashboard%20Script.html" />
+    <link rel="prev" title="IDE Integration Guide" href="../ide-integration/index.html" />
+
+ 
+
+    <script type="text/javascript" src="../../ltd-provenance.js"></script>
+    <script type="text/javascript" src="../../ltd-current.js"></script>
+    <script type="text/javascript" src="../../../../ltd-config.js"></script>
+    <script type="text/javascript" src="../../../../ltd-flyout.js"></script>
+
+  </head><body>
+    <input id="sidebar-check" type="checkbox" />
+    <label id="sidebar-overlay" for="sidebar-check"></label>
+
+
+
+    <div class="related relbar1" role="navigation" aria-label="Related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="总索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="A%20Basic%20Dashboard%20Script.html" title="Step 1: A Basic Dashboard Script"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="../ide-integration/index.html" title="IDE Integration Guide"
+             accesskey="P">上一页</a> |</li>
+  <li>
+    <label class="sidebar-toggle" for="sidebar-check"></label>
+  </li>
+  <li class="rootlink">
+    <img src="../../_static/cmake-logo-16.png" width="16" height="16" alt=""/>
+    <a href="https://cmake.org/">CMake 4.5.20261116-g20268ff</a>
+    <span class="reldelim1"> &#187;</span>
+  </li>
+  <li>
+    <a href="../../index.html">Documentation</a> &#187;
+  </li>
+
+        <li class="nav-item nav-item-this"><a href="">CTest Dashboard Client Guide</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="ctest-dashboard-client-guide">
+<span id="guide:CTest Dashboard Client Guide"></span><h1><a class="toc-backref" href="#id2" role="doc-backlink">CTest Dashboard Client Guide</a><a class="headerlink" href="#ctest-dashboard-client-guide" title="Link to this heading">¶</a></h1>
+<nav class="contents" id="id1">
+<p class="topic-title">目录</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#ctest-dashboard-client-guide" id="id2">CTest Dashboard Client Guide</a></p>
+<ul>
+<li><p><a class="reference internal" href="#introduction" id="id3">Introduction</a></p></li>
+<li><p><a class="reference internal" href="#preparing-a-project" id="id4">Preparing a Project</a></p></li>
+<li><p><a class="reference internal" href="#submitting-from-a-build-tree" id="id5">Submitting from a Build Tree</a></p>
+<ul>
+<li><p><a class="reference internal" href="#running-individual-steps" id="id6">Running Individual Steps</a></p></li>
+<li><p><a class="reference internal" href="#overriding-settings" id="id7">Overriding Settings</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#writing-a-dashboard-script" id="id8">Writing a Dashboard Script</a></p>
+<ul>
+<li><p><a class="reference internal" href="#passing-values-to-a-script" id="id9">Passing Values to a Script</a></p></li>
+<li><p><a class="reference internal" href="#continuous-dashboards" id="id10">Continuous Dashboards</a></p></li>
+<li><p><a class="reference internal" href="#checking-for-failures" id="id11">Checking for Failures</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#running-on-a-schedule" id="id12">Running on a Schedule</a></p></li>
+<li><p><a class="reference internal" href="#using-cmake-presets" id="id13">Using CMake Presets</a></p></li>
+<li><p><a class="reference internal" href="#adding-more-steps" id="id14">Adding More Steps</a></p>
+<ul>
+<li><p><a class="reference internal" href="#coverage" id="id15">Coverage</a></p></li>
+<li><p><a class="reference internal" href="#memory-checking" id="id16">Memory Checking</a></p></li>
+<li><p><a class="reference internal" href="#detailed-build-reports" id="id17">Detailed Build Reports</a></p></li>
+<li><p><a class="reference internal" href="#notes-and-extra-files" id="id18">Notes and Extra Files</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#step-by-step-examples" id="id19">Step-by-Step Examples</a></p></li>
+<li><p><a class="reference internal" href="#next-steps" id="id20">Next Steps</a></p></li>
+</ul>
+</li>
+</ul>
+</nav>
+<section id="introduction">
+<h2><a class="toc-backref" href="#id3" role="doc-backlink">Introduction</a><a class="headerlink" href="#introduction" title="Link to this heading">¶</a></h2>
+<p>A <a class="reference external" href="https://www.cdash.org">CDash</a> dashboard collects the results of configuring, building, and
+testing a project on many machines.  The <span class="target" id="index-0-manual:ctest(1)"></span><a class="reference internal" href="../../manual/ctest.1.html#manual:ctest(1)" title="ctest(1)"><code class="xref cmake cmake-manual docutils literal notranslate"><span class="pre">ctest(1)</span></code></a> program acts
+as a <a class="reference internal" href="../../manual/ctest.1.html#dashboard-client"><span class="std std-ref">Dashboard Client</span></a>: it runs those steps and submits the results
+to a CDash server.</p>
+<p>This guide shows how to prepare a project for dashboard submissions, how
+to submit results from an existing build tree, and how to write a script
+that runs a dashboard on a schedule.  See the <span class="target" id="index-1-manual:ctest(1)"></span><a class="reference internal" href="../../manual/ctest.1.html#manual:ctest(1)" title="ctest(1)"><code class="xref cmake cmake-manual docutils literal notranslate"><span class="pre">ctest(1)</span></code></a> manual
+for a complete reference.</p>
+<p>The <a class="reference internal" href="#ctest-dashboard-examples"><span class="std std-ref">Step-by-Step Examples</span></a> at the end of this guide expand on
+each topic, one step at a time, with complete scripts that can be run
+standalone.</p>
+</section>
+<section id="preparing-a-project">
+<h2><a class="toc-backref" href="#id4" role="doc-backlink">Preparing a Project</a><a class="headerlink" href="#preparing-a-project" title="Link to this heading">¶</a></h2>
+<p>A project enables dashboard submissions by including the <span class="target" id="index-0-module:CTest"></span><a class="reference internal" href="../../module/CTest.html#module:CTest" title="CTest"><code class="xref cmake cmake-module docutils literal notranslate"><span class="pre">CTest</span></code></a>
+module in its top-level <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code> file:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">cmake_minimum_required(</span><span class="no">VERSION</span><span class="w"> </span><span class="m">4.0</span><span class="nf">)</span>
+<span class="nf">project(</span><span class="nb">MyProject</span><span class="nf">)</span>
+
+<span class="nf">include(</span><span class="nb">CTest</span><span class="nf">)</span>
+
+<span class="nf">if(</span><span class="no">BUILD_TESTING</span><span class="nf">)</span>
+<span class="w">  </span><span class="nf">add_executable(</span><span class="nb">my_test</span><span class="w"> </span><span class="nb">my_test.cxx</span><span class="nf">)</span>
+<span class="w">  </span><span class="nf">add_test(</span><span class="no">NAME</span><span class="w"> </span><span class="nb">my_test</span><span class="w"> </span><span class="no">COMMAND</span><span class="w"> </span><span class="nb">my_test</span><span class="nf">)</span>
+<span class="nf">endif()</span>
+</pre></div>
+</div>
+<p>The module calls <span class="target" id="index-0-command:enable_testing"></span><a class="reference internal" href="../../command/enable_testing.html#command:enable_testing" title="enable_testing"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">enable_testing()</span></code></a> and adds the
+<span class="target" id="index-0-variable:BUILD_TESTING"></span><a class="reference internal" href="../../variable/BUILD_TESTING.html#variable:BUILD_TESTING" title="BUILD_TESTING"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">BUILD_TESTING</span></code></a> option.  It also writes the dashboard settings
+to a configuration file in the build tree.</p>
+<p>The project also needs a <code class="docutils literal notranslate"><span class="pre">CTestConfig.cmake</span></code> file next to its top-level
+<code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code> file to say where to submit results.  A CDash server
+offers this file for download on the settings page of each project.
+It contains settings such as:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">set(</span><span class="no">CTEST_NIGHTLY_START_TIME</span><span class="w"> </span><span class="s">"01:00:00 UTC"</span><span class="nf">)</span>
+<span class="nf">set(</span><span class="no">CTEST_SUBMIT_URL</span><span class="w"> </span><span class="s">"https://my.cdash.org/submit.php?project=MyProject"</span><span class="nf">)</span>
+</pre></div>
+</div>
+<p>The <span class="target" id="index-0-variable:CTEST_NIGHTLY_START_TIME"></span><a class="reference internal" href="../../variable/CTEST_NIGHTLY_START_TIME.html#variable:CTEST_NIGHTLY_START_TIME" title="CTEST_NIGHTLY_START_TIME"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CTEST_NIGHTLY_START_TIME</span></code></a> variable must match the
+nightly start time configured in CDash, so that all <code class="docutils literal notranslate"><span class="pre">Nightly</span></code>
+submissions from one night appear on the same day.</p>
+</section>
+<section id="submitting-from-a-build-tree">
+<h2><a class="toc-backref" href="#id5" role="doc-backlink">Submitting from a Build Tree</a><a class="headerlink" href="#submitting-from-a-build-tree" title="Link to this heading">¶</a></h2>
+<p>The quickest way to submit results is to run <strong class="program">ctest</strong> from an
+existing build tree.  Configure and build the project as usual, then run
+an <code class="docutils literal notranslate"><span class="pre">Experimental</span></code> dashboard:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>cmake<span class="w"> </span>-S<span class="w"> </span>MyProject<span class="w"> </span>-B<span class="w"> </span>build
+cmake<span class="w"> </span>--build<span class="w"> </span>build
+<span class="nb">cd</span><span class="w"> </span>build
+ctest<span class="w"> </span>-D<span class="w"> </span>Experimental
+</pre></div>
+</div>
+<p>This runs the <code class="docutils literal notranslate"><span class="pre">Start</span></code>, <code class="docutils literal notranslate"><span class="pre">Configure</span></code>, <code class="docutils literal notranslate"><span class="pre">Build</span></code>, <code class="docutils literal notranslate"><span class="pre">Test</span></code>,
+<code class="docutils literal notranslate"><span class="pre">Coverage</span></code>, and <code class="docutils literal notranslate"><span class="pre">Submit</span></code> steps.  The results are recorded in the
+<code class="docutils literal notranslate"><span class="pre">Testing</span></code> directory of the build tree before they are submitted.</p>
+<p>The <span class="target" id="index-1-module:CTest"></span><a class="reference internal" href="../../module/CTest.html#module:CTest" title="CTest"><code class="xref cmake cmake-module docutils literal notranslate"><span class="pre">CTest</span></code></a> module also adds an <code class="docutils literal notranslate"><span class="pre">Experimental</span></code> target to the
+build system that does the same thing:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>cmake<span class="w"> </span>--build<span class="w"> </span>build<span class="w"> </span>--target<span class="w"> </span>Experimental
+</pre></div>
+</div>
+<section id="running-individual-steps">
+<h3><a class="toc-backref" href="#id6" role="doc-backlink">Running Individual Steps</a><a class="headerlink" href="#running-individual-steps" title="Link to this heading">¶</a></h3>
+<p>A dashboard may also be run one step at a time.  The <a class="reference internal" href="../../manual/ctest.1.html#cmdoption-ctest-M"><code class="xref std std-option docutils literal notranslate"><span class="pre">ctest</span> <span class="pre">-M</span></code></a>
+option selects the mode and each <a class="reference internal" href="../../manual/ctest.1.html#cmdoption-ctest-T"><code class="xref std std-option docutils literal notranslate"><span class="pre">ctest</span> <span class="pre">-T</span></code></a> option adds a step:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ctest<span class="w"> </span>-M<span class="w"> </span>Experimental<span class="w"> </span>-T<span class="w"> </span>Start<span class="w"> </span>-T<span class="w"> </span>Configure<span class="w"> </span>-T<span class="w"> </span>Build<span class="w"> </span>-T<span class="w"> </span>Test<span class="w"> </span>-T<span class="w"> </span>Submit
+</pre></div>
+</div>
+<p>Results are recorded under the tag created by the most recent <code class="docutils literal notranslate"><span class="pre">Start</span></code>
+step, and later invocations add to it.  By default, the <code class="docutils literal notranslate"><span class="pre">Submit</span></code> step
+sends every result recorded under that tag, including results from
+earlier invocations.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 4.4: </span>Set <span class="target" id="index-0-variable:CTEST_SUBMIT_PARTS"></span><a class="reference internal" href="../../variable/CTEST_SUBMIT_PARTS.html#variable:CTEST_SUBMIT_PARTS" title="CTEST_SUBMIT_PARTS"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CTEST_SUBMIT_PARTS</span></code></a> to submit only some of them.  For
+example, to rerun the tests and submit only the new test results:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ctest<span class="w"> </span>-M<span class="w"> </span>Experimental<span class="w"> </span>-T<span class="w"> </span>Test<span class="w"> </span>-T<span class="w"> </span>Submit<span class="w"> </span>-D<span class="w"> </span><span class="nv">CTEST_SUBMIT_PARTS</span><span class="o">=</span>Test
+</pre></div>
+</div>
+</div>
+<p>See <a class="reference internal" href="Using%20the%20Command%20Line.html#ctest-dashboard-step-9"><span class="std std-ref">Step 9: Using the Command Line</span></a> for a complete dashboard run this way.</p>
+</section>
+<section id="overriding-settings">
+<h3><a class="toc-backref" href="#id7" role="doc-backlink">Overriding Settings</a><a class="headerlink" href="#overriding-settings" title="Link to this heading">¶</a></h3>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 4.4.</span></p>
+</div>
+<p>Settings in the configuration file can be overridden for one run with the
+<a class="reference internal" href="../../manual/ctest.1.html#cmdoption-ctest-dashboard-D"><code class="xref std std-option docutils literal notranslate"><span class="pre">-D</span> <span class="pre">&lt;var&gt;=&lt;value&gt;</span></code></a> option.  For example,
+to submit with a different build name:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ctest<span class="w"> </span>-D<span class="w"> </span>Experimental<span class="w"> </span>-D<span class="w"> </span><span class="nv">CTEST_BUILD_NAME</span><span class="o">=</span>linux-gcc-debug
+</pre></div>
+</div>
+</section>
+</section>
+<section id="writing-a-dashboard-script">
+<h2><a class="toc-backref" href="#id8" role="doc-backlink">Writing a Dashboard Script</a><a class="headerlink" href="#writing-a-dashboard-script" title="Link to this heading">¶</a></h2>
+<p>Machines that submit dashboards on a schedule usually run a script with
+<a class="reference internal" href="../../manual/ctest.1.html#cmdoption-ctest-S"><code class="xref std std-option docutils literal notranslate"><span class="pre">ctest</span> <span class="pre">-S</span></code></a> instead.  A script can check out the source tree,
+start from an empty build tree, and choose which steps to run.  It does
+not depend on a build tree that was configured beforehand.</p>
+<p>The script is written in the <span class="target" id="index-0-manual:cmake-language(7)"></span><a class="reference internal" href="../../manual/cmake-language.7.html#manual:cmake-language(7)" title="cmake-language(7)"><code class="xref cmake cmake-manual docutils literal notranslate"><span class="pre">cmake-language(7)</span></code></a>.  It sets
+variables that hold the dashboard settings and calls the
+<a class="reference internal" href="../../manual/cmake-commands.7.html#ctest-commands"><span class="std std-ref">CTest Commands</span></a> to run each step.  The following script runs a
+<code class="docutils literal notranslate"><span class="pre">Nightly</span></code> dashboard for a project hosted in a Git repository:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="c"># Describe this machine and build.</span>
+<span class="nf">set(</span><span class="no">CTEST_SITE</span><span class="w"> </span><span class="s">"my-machine"</span><span class="nf">)</span>
+<span class="nf">set(</span><span class="no">CTEST_BUILD_NAME</span><span class="w"> </span><span class="s">"linux-gcc-release"</span><span class="nf">)</span>
+
+<span class="c"># Choose where to put the source and build trees.</span>
+<span class="nf">set(</span><span class="no">CTEST_DASHBOARD_ROOT</span><span class="w"> </span><span class="s">"$ENV{HOME}/dashboards"</span><span class="nf">)</span>
+<span class="nf">set(</span><span class="no">CTEST_SOURCE_DIRECTORY</span><span class="w"> </span><span class="s">"${CTEST_DASHBOARD_ROOT}/MyProject"</span><span class="nf">)</span>
+<span class="nf">set(</span><span class="no">CTEST_BINARY_DIRECTORY</span><span class="w"> </span><span class="s">"${CTEST_DASHBOARD_ROOT}/MyProject-build"</span><span class="nf">)</span>
+
+<span class="c"># Choose how to configure and build.</span>
+<span class="nf">set(</span><span class="no">CTEST_CMAKE_GENERATOR</span><span class="w"> </span><span class="s">"Ninja"</span><span class="nf">)</span>
+<span class="nf">set(</span><span class="no">CTEST_CONFIGURATION_TYPE</span><span class="w"> </span><span class="s">"Release"</span><span class="nf">)</span>
+
+<span class="c"># Clone the repository on the first run, and update it later.</span>
+<span class="nf">find_program(</span><span class="no">CTEST_GIT_COMMAND</span><span class="w"> </span><span class="no">NAMES</span><span class="w"> </span><span class="nb">git</span><span class="nf">)</span>
+<span class="nf">set(</span><span class="nb">repo</span><span class="w"> </span><span class="s">"https://example.com/MyProject.git"</span><span class="nf">)</span>
+<span class="nf">if(</span><span class="no">NOT</span><span class="w"> </span><span class="no">EXISTS</span><span class="w"> </span><span class="s">"${CTEST_SOURCE_DIRECTORY}"</span><span class="nf">)</span>
+<span class="w">  </span><span class="nf">set(</span><span class="no">CTEST_CHECKOUT_COMMAND</span>
+<span class="w">    </span><span class="s">"\"${CTEST_GIT_COMMAND}\" clone ${repo} \"${CTEST_SOURCE_DIRECTORY}\""</span><span class="nf">)</span>
+<span class="nf">endif()</span>
+
+<span class="c"># Start each night with an empty build tree.</span>
+<span class="nf">ctest_empty_binary_directory(</span><span class="s">"${CTEST_BINARY_DIRECTORY}"</span><span class="nf">)</span>
+
+<span class="nf">ctest_start(</span><span class="nb">Nightly</span><span class="nf">)</span>
+<span class="nf">ctest_update()</span>
+<span class="nf">ctest_configure()</span>
+<span class="nf">ctest_build()</span>
+<span class="nf">ctest_test()</span>
+<span class="nf">ctest_submit()</span>
+</pre></div>
+</div>
+<p>Run the script from any directory outside the build tree:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ctest<span class="w"> </span>-S<span class="w"> </span>nightly.cmake<span class="w"> </span>-V
+</pre></div>
+</div>
+<p>The <a class="reference internal" href="../../manual/ctest.1.html#cmdoption-ctest-V"><code class="xref std std-option docutils literal notranslate"><span class="pre">ctest</span> <span class="pre">-V</span></code></a> option shows the progress of each step.
+See <a class="reference internal" href="A%20Basic%20Dashboard%20Script.html#ctest-dashboard-step-1"><span class="std std-ref">Step 1: A Basic Dashboard Script</span></a> for a complete script.</p>
+<p>Notes on the script:</p>
+<ul class="simple">
+<li><p>The <span class="target" id="index-0-command:ctest_start"></span><a class="reference internal" href="../../command/ctest_start.html#command:ctest_start" title="ctest_start"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">ctest_start()</span></code></a> command runs the
+<span class="target" id="index-0-variable:CTEST_CHECKOUT_COMMAND"></span><a class="reference internal" href="../../variable/CTEST_CHECKOUT_COMMAND.html#variable:CTEST_CHECKOUT_COMMAND" title="CTEST_CHECKOUT_COMMAND"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CTEST_CHECKOUT_COMMAND</span></code></a>, if set, before it reads
+<code class="docutils literal notranslate"><span class="pre">CTestConfig.cmake</span></code> from the binary or source tree.
+The script does not need to set <span class="target" id="index-0-variable:CTEST_SUBMIT_URL"></span><a class="reference internal" href="../../variable/CTEST_SUBMIT_URL.html#variable:CTEST_SUBMIT_URL" title="CTEST_SUBMIT_URL"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CTEST_SUBMIT_URL</span></code></a> itself.</p></li>
+<li><p>The <span class="target" id="index-0-command:ctest_update"></span><a class="reference internal" href="../../command/ctest_update.html#command:ctest_update" title="ctest_update"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">ctest_update()</span></code></a> command uses <span class="target" id="index-0-variable:CTEST_GIT_COMMAND"></span><a class="reference internal" href="../../variable/CTEST_GIT_COMMAND.html#variable:CTEST_GIT_COMMAND" title="CTEST_GIT_COMMAND"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CTEST_GIT_COMMAND</span></code></a>
+to update the source tree, and records the changes in the submission.</p></li>
+<li><p>The <span class="target" id="index-0-command:ctest_configure"></span><a class="reference internal" href="../../command/ctest_configure.html#command:ctest_configure" title="ctest_configure"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">ctest_configure()</span></code></a> command runs <span class="target" id="index-0-manual:cmake(1)"></span><a class="reference internal" href="../../manual/cmake.1.html#manual:cmake(1)" title="cmake(1)"><code class="xref cmake cmake-manual docutils literal notranslate"><span class="pre">cmake(1)</span></code></a> with the
+generator given by <span class="target" id="index-0-variable:CTEST_CMAKE_GENERATOR"></span><a class="reference internal" href="../../variable/CTEST_CMAKE_GENERATOR.html#variable:CTEST_CMAKE_GENERATOR" title="CTEST_CMAKE_GENERATOR"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CTEST_CMAKE_GENERATOR</span></code></a>.  To pass more
+options to CMake, set <span class="target" id="index-0-variable:CTEST_CONFIGURE_OPTIONS"></span><a class="reference internal" href="../../variable/CTEST_CONFIGURE_OPTIONS.html#variable:CTEST_CONFIGURE_OPTIONS" title="CTEST_CONFIGURE_OPTIONS"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CTEST_CONFIGURE_OPTIONS</span></code></a> or use the
+<code class="docutils literal notranslate"><span class="pre">OPTIONS</span></code> argument of the command.  To set a different configure command,
+use <span class="target" id="index-0-variable:CTEST_CONFIGURE_COMMAND"></span><a class="reference internal" href="../../variable/CTEST_CONFIGURE_COMMAND.html#variable:CTEST_CONFIGURE_COMMAND" title="CTEST_CONFIGURE_COMMAND"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CTEST_CONFIGURE_COMMAND</span></code></a>.</p></li>
+<li><p>The <span class="target" id="index-0-command:ctest_empty_binary_directory"></span><a class="reference internal" href="../../command/ctest_empty_binary_directory.html#command:ctest_empty_binary_directory" title="ctest_empty_binary_directory"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">ctest_empty_binary_directory()</span></code></a> command does nothing if the
+build tree does not exist yet.  To avoid removing an unrelated directory
+by mistake, it fails if the directory exists but does not contain a
+<code class="docutils literal notranslate"><span class="pre">CMakeCache.txt</span></code> file.</p></li>
+</ul>
+<section id="passing-values-to-a-script">
+<h3><a class="toc-backref" href="#id9" role="doc-backlink">Passing Values to a Script</a><a class="headerlink" href="#passing-values-to-a-script" title="Link to this heading">¶</a></h3>
+<p>One script can serve several builds by reading values from the command
+line.  Each <a class="reference internal" href="../../manual/ctest.1.html#cmdoption-ctest-dashboard-D"><code class="xref std std-option docutils literal notranslate"><span class="pre">-D</span> <span class="pre">&lt;var&gt;=&lt;value&gt;</span></code></a> option sets
+a variable before the script runs:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">if(</span><span class="no">NOT</span><span class="w"> </span><span class="no">DEFINED</span><span class="w"> </span><span class="no">CTEST_BUILD_NAME</span><span class="nf">)</span>
+<span class="w">  </span><span class="nf">set(</span><span class="no">CTEST_BUILD_NAME</span><span class="w"> </span><span class="s">"linux-gcc-release"</span><span class="nf">)</span>
+<span class="nf">endif()</span>
+</pre></div>
+</div>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ctest<span class="w"> </span>-S<span class="w"> </span>nightly.cmake<span class="w"> </span>-D<span class="w"> </span><span class="nv">CTEST_BUILD_NAME</span><span class="o">=</span>linux-gcc-debug
+</pre></div>
+</div>
+<p>Variables whose names do not begin with <code class="docutils literal notranslate"><span class="pre">CTEST_</span></code> must be given with a
+type, such as <code class="docutils literal notranslate"><span class="pre">-D</span> <span class="pre">dashboard_model:STRING=Nightly</span></code>.</p>
+<div class="versionchanged">
+<p><span class="versionmodified changed">在 4.4 版本发生变更: </span>Variables whose names begin with <code class="docutils literal notranslate"><span class="pre">CTEST_</span></code> may be given without a type.
+Previously, every variable had to be given with a type.</p>
+</div>
+</section>
+<section id="continuous-dashboards">
+<h3><a class="toc-backref" href="#id10" role="doc-backlink">Continuous Dashboards</a><a class="headerlink" href="#continuous-dashboards" title="Link to this heading">¶</a></h3>
+<p>A <code class="docutils literal notranslate"><span class="pre">Continuous</span></code> dashboard runs repeatedly during the day and submits
+results only when the source tree has changed.  In a script, use the
+<code class="docutils literal notranslate"><span class="pre">RETURN_VALUE</span></code> option of <span class="target" id="index-1-command:ctest_update"></span><a class="reference internal" href="../../command/ctest_update.html#command:ctest_update" title="ctest_update"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">ctest_update()</span></code></a> to stop early when
+nothing changed:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">ctest_start(</span><span class="nb">Continuous</span><span class="nf">)</span>
+<span class="nf">ctest_update(</span><span class="no">RETURN_VALUE</span><span class="w"> </span><span class="nb">count</span><span class="nf">)</span>
+<span class="nf">if(</span><span class="nb">count</span><span class="w"> </span><span class="no">EQUAL</span><span class="w"> </span><span class="m">0</span><span class="nf">)</span>
+<span class="w">  </span><span class="nf">return()</span>
+<span class="nf">endif()</span>
+<span class="nf">ctest_configure()</span>
+<span class="nf">ctest_build()</span>
+<span class="nf">ctest_test()</span>
+<span class="nf">ctest_submit()</span>
+</pre></div>
+</div>
+<p>A <code class="docutils literal notranslate"><span class="pre">Continuous</span></code> script usually keeps its build tree between runs, so it
+does not call <span class="target" id="index-1-command:ctest_empty_binary_directory"></span><a class="reference internal" href="../../command/ctest_empty_binary_directory.html#command:ctest_empty_binary_directory" title="ctest_empty_binary_directory"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">ctest_empty_binary_directory()</span></code></a>.  This keeps each
+build incremental.</p>
+</section>
+<section id="checking-for-failures">
+<h3><a class="toc-backref" href="#id11" role="doc-backlink">Checking for Failures</a><a class="headerlink" href="#checking-for-failures" title="Link to this heading">¶</a></h3>
+<p>Each command can store its result in a variable so the script can react
+to failures.  For example, to skip the tests when the build fails:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">ctest_build(</span><span class="no">NUMBER_ERRORS</span><span class="w"> </span><span class="nb">errors</span><span class="nf">)</span>
+<span class="nf">if(</span><span class="nb">errors</span><span class="w"> </span><span class="no">EQUAL</span><span class="w"> </span><span class="m">0</span><span class="nf">)</span>
+<span class="w">  </span><span class="nf">ctest_test()</span>
+<span class="nf">endif()</span>
+<span class="nf">ctest_submit()</span>
+</pre></div>
+</div>
+<p>See the documentation of each command for the values it reports.</p>
+</section>
+</section>
+<section id="running-on-a-schedule">
+<h2><a class="toc-backref" href="#id12" role="doc-backlink">Running on a Schedule</a><a class="headerlink" href="#running-on-a-schedule" title="Link to this heading">¶</a></h2>
+<p>A dashboard script can be run by the system scheduler (such as <code class="docutils literal notranslate"><span class="pre">crontab</span></code> on
+Linux and macOS), or via a continuous integration platform (such as GitHub
+Actions).  Schedule <code class="docutils literal notranslate"><span class="pre">Nightly</span></code> scripts to start shortly after the
+<span class="target" id="index-1-variable:CTEST_NIGHTLY_START_TIME"></span><a class="reference internal" href="../../variable/CTEST_NIGHTLY_START_TIME.html#variable:CTEST_NIGHTLY_START_TIME" title="CTEST_NIGHTLY_START_TIME"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CTEST_NIGHTLY_START_TIME</span></code></a> so that each submission is associated with
+the intended day.</p>
+</section>
+<section id="using-cmake-presets">
+<h2><a class="toc-backref" href="#id13" role="doc-backlink">Using CMake Presets</a><a class="headerlink" href="#using-cmake-presets" title="Link to this heading">¶</a></h2>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 4.4.</span></p>
+</div>
+<p>A project that provides <span class="target" id="index-0-manual:cmake-presets(7)"></span><a class="reference internal" href="../../manual/cmake-presets.7.html#manual:cmake-presets(7)" title="cmake-presets(7)"><code class="xref cmake cmake-manual docutils literal notranslate"><span class="pre">cmake-presets(7)</span></code></a> can use them in a
+dashboard.  In a script, set <span class="target" id="index-0-variable:CTEST_PRESET"></span><a class="reference internal" href="../../variable/CTEST_PRESET.html#variable:CTEST_PRESET" title="CTEST_PRESET"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CTEST_PRESET</span></code></a> to use one preset
+name for the configure, build, and test steps, or set
+<span class="target" id="index-0-variable:CTEST_CONFIGURE_PRESET"></span><a class="reference internal" href="../../variable/CTEST_CONFIGURE_PRESET.html#variable:CTEST_CONFIGURE_PRESET" title="CTEST_CONFIGURE_PRESET"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CTEST_CONFIGURE_PRESET</span></code></a>, <span class="target" id="index-0-variable:CTEST_BUILD_PRESET"></span><a class="reference internal" href="../../variable/CTEST_BUILD_PRESET.html#variable:CTEST_BUILD_PRESET" title="CTEST_BUILD_PRESET"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CTEST_BUILD_PRESET</span></code></a>, and
+<span class="target" id="index-0-variable:CTEST_TEST_PRESET"></span><a class="reference internal" href="../../variable/CTEST_TEST_PRESET.html#variable:CTEST_TEST_PRESET" title="CTEST_TEST_PRESET"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CTEST_TEST_PRESET</span></code></a> separately:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">set(</span><span class="no">CTEST_SOURCE_DIRECTORY</span><span class="w"> </span><span class="s">"${CTEST_DASHBOARD_ROOT}/MyProject"</span><span class="nf">)</span>
+<span class="nf">set(</span><span class="no">CTEST_BINARY_DIRECTORY</span><span class="w"> </span><span class="s">"${CTEST_DASHBOARD_ROOT}/MyProject-build"</span><span class="nf">)</span>
+<span class="nf">set(</span><span class="no">CTEST_PRESET</span><span class="w"> </span><span class="s">"ci-release"</span><span class="nf">)</span>
+
+<span class="nf">ctest_start(</span><span class="nb">Nightly</span><span class="nf">)</span>
+<span class="nf">ctest_configure()</span>
+<span class="nf">ctest_build()</span>
+<span class="nf">ctest_test()</span>
+<span class="nf">ctest_submit()</span>
+</pre></div>
+</div>
+<p>Settings from the script, such as <span class="target" id="index-0-variable:CTEST_BINARY_DIRECTORY"></span><a class="reference internal" href="../../variable/CTEST_BINARY_DIRECTORY.html#variable:CTEST_BINARY_DIRECTORY" title="CTEST_BINARY_DIRECTORY"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CTEST_BINARY_DIRECTORY</span></code></a>,
+take priority over the corresponding settings from the preset.
+See <a class="reference internal" href="Using%20CMake%20Presets.html#ctest-dashboard-step-8"><span class="std std-ref">Step 8: Using CMake Presets</span></a> for a complete example.</p>
+<p>From the command line, the <a class="reference internal" href="../../manual/ctest.1.html#cmdoption-ctest-dashboard-source-dir"><code class="xref std std-option docutils literal notranslate"><span class="pre">--source-dir</span></code></a> option
+lets the <code class="docutils literal notranslate"><span class="pre">Configure</span></code> step create a new build tree from a preset.  If
+the <code class="docutils literal notranslate"><span class="pre">ci-release</span></code> preset sets <code class="docutils literal notranslate"><span class="pre">binaryDir</span></code> to
+<code class="docutils literal notranslate"><span class="pre">${sourceDir}/build/${presetName}</span></code>, then:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ctest<span class="w"> </span>-M<span class="w"> </span>Experimental<span class="w"> </span>-T<span class="w"> </span>Configure<span class="w"> </span>--source-dir<span class="w"> </span>MyProject<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-D<span class="w"> </span><span class="nv">CTEST_CONFIGURE_PRESET</span><span class="o">=</span>ci-release
+ctest<span class="w"> </span>-M<span class="w"> </span>Experimental<span class="w"> </span>-T<span class="w"> </span>Build<span class="w"> </span>-T<span class="w"> </span>Test<span class="w"> </span>-T<span class="w"> </span>Submit<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--test-dir<span class="w"> </span>MyProject/build/ci-release
+</pre></div>
+</div>
+</section>
+<section id="adding-more-steps">
+<h2><a class="toc-backref" href="#id14" role="doc-backlink">Adding More Steps</a><a class="headerlink" href="#adding-more-steps" title="Link to this heading">¶</a></h2>
+<section id="coverage">
+<h3><a class="toc-backref" href="#id15" role="doc-backlink">Coverage</a><a class="headerlink" href="#coverage" title="Link to this heading">¶</a></h3>
+<p>To record test coverage, build the project with coverage enabled, such as
+with the <code class="docutils literal notranslate"><span class="pre">--coverage</span></code> flag of GCC, and call <span class="target" id="index-0-command:ctest_coverage"></span><a class="reference internal" href="../../command/ctest_coverage.html#command:ctest_coverage" title="ctest_coverage"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">ctest_coverage()</span></code></a>
+after <span class="target" id="index-0-command:ctest_test"></span><a class="reference internal" href="../../command/ctest_test.html#command:ctest_test" title="ctest_test"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">ctest_test()</span></code></a>:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">find_program(</span><span class="no">CTEST_COVERAGE_COMMAND</span><span class="w"> </span><span class="no">NAMES</span><span class="w"> </span><span class="nb">gcov</span><span class="nf">)</span>
+
+<span class="nf">ctest_start(</span><span class="nb">Nightly</span><span class="nf">)</span>
+<span class="nf">ctest_configure(</span><span class="no">OPTIONS</span><span class="w"> </span><span class="s">"-DCMAKE_CXX_FLAGS=--coverage"</span><span class="nf">)</span>
+<span class="nf">ctest_build()</span>
+<span class="nf">ctest_test()</span>
+<span class="nf">ctest_coverage()</span>
+<span class="nf">ctest_submit()</span>
+</pre></div>
+</div>
+<p>See the <a class="reference internal" href="../../manual/ctest.1.html#ctest-coverage-step"><span class="std std-ref">CTest Coverage Step</span></a> for the supported tools, and
+<a class="reference internal" href="Collecting%20Coverage.html#ctest-dashboard-step-3"><span class="std std-ref">Step 3: Collecting Coverage</span></a> for a complete example.</p>
+</section>
+<section id="memory-checking">
+<h3><a class="toc-backref" href="#id16" role="doc-backlink">Memory Checking</a><a class="headerlink" href="#memory-checking" title="Link to this heading">¶</a></h3>
+<p>To run the tests under a memory checker, call <span class="target" id="index-0-command:ctest_memcheck"></span><a class="reference internal" href="../../command/ctest_memcheck.html#command:ctest_memcheck" title="ctest_memcheck"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">ctest_memcheck()</span></code></a>
+instead of, or in addition to, <span class="target" id="index-1-command:ctest_test"></span><a class="reference internal" href="../../command/ctest_test.html#command:ctest_test" title="ctest_test"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">ctest_test()</span></code></a>.  The
+<span class="target" id="index-0-variable:CTEST_MEMORYCHECK_TYPE"></span><a class="reference internal" href="../../variable/CTEST_MEMORYCHECK_TYPE.html#variable:CTEST_MEMORYCHECK_TYPE" title="CTEST_MEMORYCHECK_TYPE"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CTEST_MEMORYCHECK_TYPE</span></code></a> variable selects the tool:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">set(</span><span class="no">CTEST_MEMORYCHECK_TYPE</span><span class="w"> </span><span class="s">"Valgrind"</span><span class="nf">)</span>
+<span class="nf">find_program(</span><span class="no">CTEST_MEMORYCHECK_COMMAND</span><span class="w"> </span><span class="no">NAMES</span><span class="w"> </span><span class="nb">valgrind</span><span class="nf">)</span>
+
+<span class="nf">ctest_start(</span><span class="nb">Nightly</span><span class="nf">)</span>
+<span class="nf">ctest_configure()</span>
+<span class="nf">ctest_build()</span>
+<span class="nf">ctest_memcheck()</span>
+<span class="nf">ctest_submit()</span>
+</pre></div>
+</div>
+<p>See the <a class="reference internal" href="../../manual/ctest.1.html#ctest-memcheck-step"><span class="std std-ref">CTest MemCheck Step</span></a> for the supported tools, including
+the sanitizers supported by Clang and GCC.  See
+<a class="reference internal" href="Dynamic%20Analysis.html#ctest-dashboard-step-4"><span class="std std-ref">Step 4: Dynamic Analysis</span></a> for complete examples that use
+AddressSanitizer and Valgrind.</p>
+</section>
+<section id="detailed-build-reports">
+<h3><a class="toc-backref" href="#id17" role="doc-backlink">Detailed Build Reports</a><a class="headerlink" href="#detailed-build-reports" title="Link to this heading">¶</a></h3>
+<p>By default, CTest finds build errors and warnings by scanning the build
+output.  Set <span class="target" id="index-0-variable:CTEST_USE_LAUNCHERS"></span><a class="reference internal" href="../../variable/CTEST_USE_LAUNCHERS.html#variable:CTEST_USE_LAUNCHERS" title="CTEST_USE_LAUNCHERS"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CTEST_USE_LAUNCHERS</span></code></a> in <code class="docutils literal notranslate"><span class="pre">CTestConfig.cmake</span></code> to
+instead report the command line and output of each compile or link step
+that produces a warning or error:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">set(</span><span class="no">CTEST_USE_LAUNCHERS</span><span class="w"> </span><span class="m">1</span><span class="nf">)</span>
+</pre></div>
+</div>
+<p>This works with the <a class="reference internal" href="../../manual/cmake-generators.7.html#makefile-generators"><span class="std std-ref">Makefile Generators</span></a> and <a class="reference internal" href="../../manual/cmake-generators.7.html#ninja-generators"><span class="std std-ref">Ninja Generators</span></a>.
+See <a class="reference internal" href="Using%20CTest%20Launchers.html#ctest-dashboard-step-2"><span class="std std-ref">Step 2: Using CTest Launchers</span></a> for a complete example.</p>
+</section>
+<section id="notes-and-extra-files">
+<h3><a class="toc-backref" href="#id18" role="doc-backlink">Notes and Extra Files</a><a class="headerlink" href="#notes-and-extra-files" title="Link to this heading">¶</a></h3>
+<p>A submission can include notes files, such as a copy of the dashboard
+script, to show on CDash.  Set <span class="target" id="index-0-variable:CTEST_NOTES_FILES"></span><a class="reference internal" href="../../variable/CTEST_NOTES_FILES.html#variable:CTEST_NOTES_FILES" title="CTEST_NOTES_FILES"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CTEST_NOTES_FILES</span></code></a> before
+calling <span class="target" id="index-0-command:ctest_submit"></span><a class="reference internal" href="../../command/ctest_submit.html#command:ctest_submit" title="ctest_submit"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">ctest_submit()</span></code></a>:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">set(</span><span class="no">CTEST_NOTES_FILES</span><span class="w"> </span><span class="s">"${CMAKE_CURRENT_LIST_FILE}"</span><span class="nf">)</span>
+</pre></div>
+</div>
+<p>From the command line, use the <a class="reference internal" href="../../manual/ctest.1.html#cmdoption-ctest-dashboard-A"><code class="xref std std-option docutils literal notranslate"><span class="pre">--add-notes</span></code></a> option.</p>
+<p>To attach other files, such as logs or reports, use the
+<span class="target" id="index-0-command:ctest_upload"></span><a class="reference internal" href="../../command/ctest_upload.html#command:ctest_upload" title="ctest_upload"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">ctest_upload()</span></code></a> command.  See <a class="reference internal" href="Uploading%20Files.html#ctest-dashboard-step-6"><span class="std std-ref">Step 6: Uploading Files</span></a> for an
+example.</p>
+</section>
+</section>
+<section id="step-by-step-examples">
+<span id="ctest-dashboard-examples"></span><h2><a class="toc-backref" href="#id19" role="doc-backlink">Step-by-Step Examples</a><a class="headerlink" href="#step-by-step-examples" title="Link to this heading">¶</a></h2>
+<p>The following steps show complete dashboard scripts, one topic at a time.
+The scripts and example projects are in the
+<code class="docutils literal notranslate"><span class="pre">Help/guide/ctest-dashboard-client</span></code> directory of the CMake source tree.
+The examples submit to the <code class="docutils literal notranslate"><span class="pre">sandbox</span></code> project on <a class="reference external" href="https://my.cdash.org/projects">my.cdash.org</a>.</p>
+<p>The examples need a C++ compiler and access to a CDash server.  Some
+steps have additional requirements, which are listed in each step.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="A%20Basic%20Dashboard%20Script.html">Step 1: A Basic Dashboard Script</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Using%20CTest%20Launchers.html">Step 2: Using CTest Launchers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Collecting%20Coverage.html">Step 3: Collecting Coverage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Dynamic%20Analysis.html">Step 4: Dynamic Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Instrumentation.html">Step 5: Instrumentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Uploading%20Files.html">Step 6: Uploading Files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Authenticated%20Submissions.html">Step 7: Authenticated Submissions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Using%20CMake%20Presets.html">Step 8: Using CMake Presets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Using%20the%20Command%20Line.html">Step 9: Using the Command Line</a></li>
+</ul>
+</div>
+</section>
+<section id="next-steps">
+<h2><a class="toc-backref" href="#id20" role="doc-backlink">Next Steps</a><a class="headerlink" href="#next-steps" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>The <a class="reference internal" href="../../manual/ctest.1.html#dashboard-client"><span class="std std-ref">Dashboard Client</span></a> section of the <span class="target" id="index-2-manual:ctest(1)"></span><a class="reference internal" href="../../manual/ctest.1.html#manual:ctest(1)" title="ctest(1)"><code class="xref cmake cmake-manual docutils literal notranslate"><span class="pre">ctest(1)</span></code></a> manual
+documents the command-line options, steps, and modes.</p></li>
+<li><p>The <a class="reference internal" href="../../manual/ctest.1.html#dashboard-client-configuration"><span class="std std-ref">Dashboard Client Configuration</span></a> sections document every setting for
+each step.</p></li>
+<li><p>The <a class="reference internal" href="../../manual/cmake-commands.7.html#ctest-commands"><span class="std std-ref">CTest Commands</span></a> documentation describes the options of each
+command used in a dashboard script.</p></li>
+</ul>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3>目录</h3>
+    <ul>
+<li><a class="reference internal" href="#">CTest Dashboard Client Guide</a><ul>
+<li><a class="reference internal" href="#introduction">Introduction</a></li>
+<li><a class="reference internal" href="#preparing-a-project">Preparing a Project</a></li>
+<li><a class="reference internal" href="#submitting-from-a-build-tree">Submitting from a Build Tree</a><ul>
+<li><a class="reference internal" href="#running-individual-steps">Running Individual Steps</a></li>
+<li><a class="reference internal" href="#overriding-settings">Overriding Settings</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#writing-a-dashboard-script">Writing a Dashboard Script</a><ul>
+<li><a class="reference internal" href="#passing-values-to-a-script">Passing Values to a Script</a></li>
+<li><a class="reference internal" href="#continuous-dashboards">Continuous Dashboards</a></li>
+<li><a class="reference internal" href="#checking-for-failures">Checking for Failures</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#running-on-a-schedule">Running on a Schedule</a></li>
+<li><a class="reference internal" href="#using-cmake-presets">Using CMake Presets</a></li>
+<li><a class="reference internal" href="#adding-more-steps">Adding More Steps</a><ul>
+<li><a class="reference internal" href="#coverage">Coverage</a></li>
+<li><a class="reference internal" href="#memory-checking">Memory Checking</a></li>
+<li><a class="reference internal" href="#detailed-build-reports">Detailed Build Reports</a></li>
+<li><a class="reference internal" href="#notes-and-extra-files">Notes and Extra Files</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#step-by-step-examples">Step-by-Step Examples</a></li>
+<li><a class="reference internal" href="#next-steps">Next Steps</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>上一主题</h4>
+    <p class="topless"><a href="../ide-integration/index.html"
+                          title="上一章">IDE Integration Guide</a></p>
+  </div>
+  <div>
+    <h4>下一主题</h4>
+    <p class="topless"><a href="A%20Basic%20Dashboard%20Script.html"
+                          title="下一章">Step 1: A Basic Dashboard Script</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>本页</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/guide/ctest-dashboard-client/index.rst.txt"
+            rel="nofollow">显示源代码</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="提交" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="总索引"
+             >索引</a></li>
+        <li class="right" >
+          <a href="A%20Basic%20Dashboard%20Script.html" title="Step 1: A Basic Dashboard Script"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="../ide-integration/index.html" title="IDE Integration Guide"
+             >上一页</a> |</li>
+  <li>
+    <label class="sidebar-toggle" for="sidebar-check"></label>
+  </li>
+  <li class="rootlink">
+    <img src="../../_static/cmake-logo-16.png" width="16" height="16" alt=""/>
+    <a href="https://cmake.org/">CMake 4.5.20261116-g20268ff</a>
+    <span class="reldelim1"> &#187;</span>
+  </li>
+  <li>
+    <a href="../../index.html">Documentation</a> &#187;
+  </li>
+
+        <li class="nav-item nav-item-this"><a href="">CTest Dashboard Client Guide</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+    &#169; 版权所有 2000-2026 Kitware, Inc. and Contributors.
+      由 <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3创建。
+    </div>
+<script type="text/javascript">
+(function() {
+  "use strict";
+  const hide = () => document.getElementById("sidebar-check").checked = false;
+  addEventListener("keydown", e => (e.key === "Escape") && hide());
+  addEventListener("click", e => (e.target.tagName === "A") && hide());
+  addEventListener("hashchange", hide)
+})();
+</script>
+  </body>
+</html>

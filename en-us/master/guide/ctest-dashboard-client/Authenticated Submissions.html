@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+
+<html lang="en-US" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Step 7: Authenticated Submissions &mdash; CMake 4.5.20261116-g20268ff Documentation</title>
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a3862c66" />
+    <link rel="stylesheet" type="text/css" href="../../_static/cmake.css?v=d27bb136" />
+    
+    <script src="../../_static/documentation_options.js?v=3fdfa467"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    
+    <link rel="canonical" href="https://projects.localizethedocs.org/cmake-docs-l10n/guide/ctest-dashboard-client/Authenticated%20Submissions.html" />
+    <link rel="icon" href="../../_static/cmake-favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Step 8: Using CMake Presets" href="Using%20CMake%20Presets.html" />
+    <link rel="prev" title="Step 6: Uploading Files" href="Uploading%20Files.html" />
+
+ 
+
+    <script type="text/javascript" src="../../ltd-provenance.js"></script>
+    <script type="text/javascript" src="../../ltd-current.js"></script>
+    <script type="text/javascript" src="../../../../ltd-config.js"></script>
+    <script type="text/javascript" src="../../../../ltd-flyout.js"></script>
+
+  </head><body>
+    <input id="sidebar-check" type="checkbox" />
+    <label id="sidebar-overlay" for="sidebar-check"></label>
+
+
+
+    <div class="related relbar1" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="Using%20CMake%20Presets.html" title="Step 8: Using CMake Presets"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="Uploading%20Files.html" title="Step 6: Uploading Files"
+             accesskey="P">previous</a> |</li>
+  <li>
+    <label class="sidebar-toggle" for="sidebar-check"></label>
+  </li>
+  <li class="rootlink">
+    <img src="../../_static/cmake-logo-16.png" width="16" height="16" alt=""/>
+    <a href="https://cmake.org/">CMake 4.5.20261116-g20268ff</a>
+    <span class="reldelim1"> &#187;</span>
+  </li>
+  <li>
+    <a href="../../index.html">Documentation</a> &#187;
+  </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">CTest Dashboard Client Guide</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Step 7: Authenticated Submissions</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="step-7-authenticated-submissions">
+<span id="ctest-dashboard-step-7"></span><span id="guide:ctest-dashboard-client/Authenticated Submissions"></span><h1>Step 7: Authenticated Submissions<a class="headerlink" href="#step-7-authenticated-submissions" title="Link to this heading">¶</a></h1>
+<p>This step extends <a class="reference internal" href="Uploading%20Files.html#ctest-dashboard-step-6"><span class="std std-ref">Step 6</span></a> by submitting to a
+CDash project that requires authentication.</p>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">Step7/submit.cmake</span><a class="headerlink" href="#id1" title="Link to this code">¶</a></div>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="c"># Submit to a project that requires authentication.  The bearer token is</span>
+<span class="c"># read from the CDASH_TOKEN environment variable.</span>
+<span class="nf">if(</span><span class="no">NOT</span><span class="w"> </span><span class="no">DEFINED</span><span class="w"> </span><span class="o">ENV{</span><span class="nt">CDASH_TOKEN</span><span class="o">}</span><span class="nf">)</span>
+<span class="w">  </span><span class="nf">message(</span><span class="no">FATAL_ERROR</span><span class="w"> </span><span class="s">"Set the CDASH_TOKEN environment variable"</span><span class="nf">)</span>
+<span class="nf">endif()</span>
+<span class="nf">ctest_submit(</span>
+<span class="w">  </span><span class="no">SUBMIT_URL</span><span class="w"> </span><span class="s">"https://my.cdash.org/submit.php?project=gated-sandbox"</span>
+<span class="w">  </span><span class="no">HTTPHEADER</span><span class="w"> </span><span class="s">"Authorization: Bearer $ENV{CDASH_TOKEN}"</span>
+<span class="w">  </span><span class="nf">)</span>
+</pre></div>
+</div>
+</div>
+<p>Two options of <span class="target" id="index-0-command:ctest_submit"></span><a class="reference internal" href="../../command/ctest_submit.html#command:ctest_submit" title="ctest_submit"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">ctest_submit()</span></code></a> change compared to the previous
+steps:</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">SUBMIT_URL</span></code></dt><dd><p>Overrides the URL from <code class="docutils literal notranslate"><span class="pre">CTestConfig.cmake</span></code> to submit to a project that
+requires authentication.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">HTTPHEADER</span></code></dt><dd><p>Adds an <code class="docutils literal notranslate"><span class="pre">Authorization</span></code> header with a bearer token to the submission.
+CDash checks the token before it accepts the results.</p>
+</dd>
+</dl>
+<section id="requirements">
+<h2>Requirements<a class="headerlink" href="#requirements" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>The same as <a class="reference internal" href="Collecting%20Coverage.html#ctest-dashboard-step-3"><span class="std std-ref">Step 3</span></a>.</p></li>
+<li><p>A CDash project that requires authentication, and a token that can submit to
+it.</p></li>
+</ul>
+</section>
+<section id="providing-the-token">
+<h2>Providing the Token<a class="headerlink" href="#providing-the-token" title="Link to this heading">¶</a></h2>
+<p>The script reads the token from the <code class="docutils literal notranslate"><span class="pre">CDASH_TOKEN</span></code> environment variable.
+Never write a token in the script itself:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">CDASH_TOKEN</span><span class="o">=</span>&lt;token&gt;
+ctest<span class="w"> </span>-S<span class="w"> </span>Step7/submit.cmake<span class="w"> </span>-V
+</pre></div>
+</div>
+<p>In a CI system, store the token as a masked secret variable so that it is
+never stored in source control.  Tokens can be created on the
+authentication tokens page of a CDash user profile.</p>
+<p>Authenticated submissions are useful to:</p>
+<ul class="simple">
+<li><p>Restrict who can submit results to a project.</p></li>
+<li><p>Prevent spam or tampering on a shared dashboard.</p></li>
+<li><p>Associate submissions with a specific user or service account.</p></li>
+</ul>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3>Table of Contents</h3>
+    <ul>
+<li><a class="reference internal" href="#">Step 7: Authenticated Submissions</a><ul>
+<li><a class="reference internal" href="#requirements">Requirements</a></li>
+<li><a class="reference internal" href="#providing-the-token">Providing the Token</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="Uploading%20Files.html"
+                          title="previous chapter">Step 6: Uploading Files</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="Using%20CMake%20Presets.html"
+                          title="next chapter">Step 8: Using CMake Presets</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/guide/ctest-dashboard-client/Authenticated Submissions.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="Using%20CMake%20Presets.html" title="Step 8: Using CMake Presets"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="Uploading%20Files.html" title="Step 6: Uploading Files"
+             >previous</a> |</li>
+  <li>
+    <label class="sidebar-toggle" for="sidebar-check"></label>
+  </li>
+  <li class="rootlink">
+    <img src="../../_static/cmake-logo-16.png" width="16" height="16" alt=""/>
+    <a href="https://cmake.org/">CMake 4.5.20261116-g20268ff</a>
+    <span class="reldelim1"> &#187;</span>
+  </li>
+  <li>
+    <a href="../../index.html">Documentation</a> &#187;
+  </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >CTest Dashboard Client Guide</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Step 7: Authenticated Submissions</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2000-2026 Kitware, Inc. and Contributors.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    </div>
+<script type="text/javascript">
+(function() {
+  "use strict";
+  const hide = () => document.getElementById("sidebar-check").checked = false;
+  addEventListener("keydown", e => (e.key === "Escape") && hide());
+  addEventListener("click", e => (e.target.tagName === "A") && hide());
+  addEventListener("hashchange", hide)
+})();
+</script>
+  </body>
+</html>

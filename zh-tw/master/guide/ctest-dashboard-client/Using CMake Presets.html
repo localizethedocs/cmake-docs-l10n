@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+
+<html lang="zh-TW" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Step 8: Using CMake Presets &mdash; CMake 4.5.20261116-g20268ff Documentation</title>
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a3862c66" />
+    <link rel="stylesheet" type="text/css" href="../../_static/cmake.css?v=d27bb136" />
+    
+    <script src="../../_static/documentation_options.js?v=fe97c693"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/translations.js?v=cbf116e0"></script>
+    
+    <link rel="canonical" href="https://projects.localizethedocs.org/cmake-docs-l10n/guide/ctest-dashboard-client/Using%20CMake%20Presets.html" />
+    <link rel="icon" href="../../_static/cmake-favicon.ico"/>
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="搜尋" href="../../search.html" />
+    <link rel="next" title="Step 9: Using the Command Line" href="Using%20the%20Command%20Line.html" />
+    <link rel="prev" title="Step 7: Authenticated Submissions" href="Authenticated%20Submissions.html" />
+
+ 
+
+    <script type="text/javascript" src="../../ltd-provenance.js"></script>
+    <script type="text/javascript" src="../../ltd-current.js"></script>
+    <script type="text/javascript" src="../../../../ltd-config.js"></script>
+    <script type="text/javascript" src="../../../../ltd-flyout.js"></script>
+
+  </head><body>
+    <input id="sidebar-check" type="checkbox" />
+    <label id="sidebar-overlay" for="sidebar-check"></label>
+
+
+
+    <div class="related relbar1" role="navigation" aria-label="Related">
+      <h3>瀏覽</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="總索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="Using%20the%20Command%20Line.html" title="Step 9: Using the Command Line"
+             accesskey="N">下一頁</a> |</li>
+        <li class="right" >
+          <a href="Authenticated%20Submissions.html" title="Step 7: Authenticated Submissions"
+             accesskey="P">上一頁</a> |</li>
+  <li>
+    <label class="sidebar-toggle" for="sidebar-check"></label>
+  </li>
+  <li class="rootlink">
+    <img src="../../_static/cmake-logo-16.png" width="16" height="16" alt=""/>
+    <a href="https://cmake.org/">CMake 4.5.20261116-g20268ff</a>
+    <span class="reldelim1"> &#187;</span>
+  </li>
+  <li>
+    <a href="../../index.html">文件</a> &#187;
+  </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">CTest Dashboard Client Guide</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Step 8: Using CMake Presets</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="step-8-using-cmake-presets">
+<span id="ctest-dashboard-step-8"></span><span id="guide:ctest-dashboard-client/Using CMake Presets"></span><h1>Step 8: Using CMake Presets<a class="headerlink" href="#step-8-using-cmake-presets" title="連結到這個標頭">¶</a></h1>
+<div class="versionadded">
+<p><span class="versionmodified added">在 4.4 版被加入.</span></p>
+</div>
+<p>This step extends <a class="reference internal" href="Collecting%20Coverage.html#ctest-dashboard-step-3"><span class="std std-ref">Step 3</span></a> by moving the
+coverage settings into a <span class="target" id="index-0-manual:cmake-presets(7)"></span><a class="reference internal" href="../../manual/cmake-presets.7.html#manual:cmake-presets(7)" title="cmake-presets(7)"><code class="xref cmake cmake-manual docutils literal notranslate"><span class="pre">preset</span></code></a>, instead of
+passing them with the <code class="docutils literal notranslate"><span class="pre">OPTIONS</span></code> argument of <span class="target" id="index-0-command:ctest_configure"></span><a class="reference internal" href="../../command/ctest_configure.html#command:ctest_configure" title="ctest_configure"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">ctest_configure()</span></code></a>.</p>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">Step8/CMakePresets.json</span><a class="headerlink" href="#id1" title="連結到這個程式碼">¶</a></div>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">"version"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"cmakeMinimumRequired"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"major"</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"minor"</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"patch"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">"configurePresets"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"coverage"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"displayName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Coverage"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Build with gcov coverage instrumentation"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"generator"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Unix Makefiles"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"cacheVariables"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"CMAKE_BUILD_TYPE"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Debug"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"CMAKE_CXX_FLAGS"</span><span class="p">:</span><span class="w"> </span><span class="s2">"--coverage"</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">],</span>
+<span class="w">  </span><span class="nt">"buildPresets"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"coverage"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"configurePreset"</span><span class="p">:</span><span class="w"> </span><span class="s2">"coverage"</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">],</span>
+<span class="w">  </span><span class="nt">"testPresets"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"coverage"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"configurePreset"</span><span class="p">:</span><span class="w"> </span><span class="s2">"coverage"</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">Step8/submit.cmake</span><a class="headerlink" href="#id2" title="連結到這個程式碼">¶</a></div>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">cmake_minimum_required(</span><span class="no">VERSION</span><span class="w"> </span><span class="m">4.4</span><span class="nf">)</span>
+
+<span class="nf">set(</span><span class="no">CTEST_BUILD_NAME</span><span class="w"> </span><span class="s">"Step8: presets"</span><span class="nf">)</span>
+<span class="nf">site_name(</span><span class="no">CTEST_SITE</span><span class="nf">)</span>
+<span class="nf">set(</span><span class="no">CTEST_SOURCE_DIRECTORY</span><span class="w"> </span><span class="s">"${CTEST_SCRIPT_DIRECTORY}/../Project"</span><span class="nf">)</span>
+<span class="nf">set(</span><span class="no">CTEST_BINARY_DIRECTORY</span><span class="w"> </span><span class="s">"${CTEST_SCRIPT_DIRECTORY}/build"</span><span class="nf">)</span>
+
+<span class="c"># Note that we aren't setting CTEST_CMAKE_GENERATOR in this script any more.</span>
+<span class="c"># It is now defined in the configure preset instead.</span>
+
+<span class="nf">set(</span><span class="no">CTEST_NOTES_FILES</span><span class="w"> </span><span class="s">"${CMAKE_CURRENT_LIST_FILE}"</span><span class="nf">)</span>
+
+<span class="nf">set(</span><span class="no">CTEST_UPDATE_COMMAND</span><span class="w"> </span><span class="s">"git"</span><span class="nf">)</span>
+<span class="nf">set(</span><span class="no">CTEST_UPDATE_VERSION_ONLY</span><span class="w"> </span><span class="m">1</span><span class="nf">)</span>
+
+<span class="nf">set(</span><span class="no">CTEST_USE_LAUNCHERS</span><span class="w"> </span><span class="m">1</span><span class="nf">)</span>
+<span class="nf">set(</span><span class="no">CTEST_COVERAGE_COMMAND</span><span class="w"> </span><span class="s">"gcov"</span><span class="nf">)</span>
+
+<span class="c"># Select the preset, and the presets file that defines it, for the</span>
+<span class="c"># ctest_configure(), ctest_build(), and ctest_test() commands below.</span>
+<span class="nf">set(</span><span class="no">CTEST_PRESET</span><span class="w"> </span><span class="s">"coverage"</span><span class="nf">)</span>
+<span class="nf">set(</span><span class="no">CTEST_PRESETS_FILE</span><span class="w"> </span><span class="s">"${CTEST_SCRIPT_DIRECTORY}/CMakePresets.json"</span><span class="nf">)</span>
+
+<span class="nf">ctest_empty_binary_directory(</span><span class="s">"${CTEST_BINARY_DIRECTORY}"</span><span class="nf">)</span>
+
+<span class="nf">ctest_start(</span><span class="nb">Experimental</span><span class="nf">)</span>
+<span class="nf">ctest_update()</span>
+<span class="nf">ctest_configure()</span>
+<span class="nf">ctest_build()</span>
+<span class="nf">ctest_test()</span>
+<span class="nf">ctest_coverage()</span>
+<span class="nf">ctest_submit()</span>
+</pre></div>
+</div>
+</div>
+<p>Setting <span class="target" id="index-0-variable:CTEST_PRESET"></span><a class="reference internal" href="../../variable/CTEST_PRESET.html#variable:CTEST_PRESET" title="CTEST_PRESET"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CTEST_PRESET</span></code></a> selects a preset with that name for the
+<span class="target" id="index-1-command:ctest_configure"></span><a class="reference internal" href="../../command/ctest_configure.html#command:ctest_configure" title="ctest_configure"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">ctest_configure()</span></code></a>, <span class="target" id="index-0-command:ctest_build"></span><a class="reference internal" href="../../command/ctest_build.html#command:ctest_build" title="ctest_build"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">ctest_build()</span></code></a>, and <span class="target" id="index-0-command:ctest_test"></span><a class="reference internal" href="../../command/ctest_test.html#command:ctest_test" title="ctest_test"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">ctest_test()</span></code></a>
+commands.  The commands read the variable themselves, so they need no
+arguments.  Setting <span class="target" id="index-0-variable:CTEST_PRESETS_FILE"></span><a class="reference internal" href="../../variable/CTEST_PRESETS_FILE.html#variable:CTEST_PRESETS_FILE" title="CTEST_PRESETS_FILE"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CTEST_PRESETS_FILE</span></code></a> reads the presets from
+a file other than the <code class="docutils literal notranslate"><span class="pre">CMakePresets.json</span></code> file in the source tree.  Here,
+the presets file is in the <code class="docutils literal notranslate"><span class="pre">Step8</span></code> directory.</p>
+<p>Presets keep the build settings in a standard file, instead of in the
+dashboard script.  Other scripts, <a class="reference internal" href="../../manual/cmake.1.html#cmdoption-cmake-preset"><code class="xref std std-option docutils literal notranslate"><span class="pre">cmake</span> <span class="pre">--preset</span></code></a>, and IDEs can use
+the same presets.</p>
+<section id="requirements">
+<h2>Requirements<a class="headerlink" href="#requirements" title="連結到這個標頭">¶</a></h2>
+<ul class="simple">
+<li><p>GCC or Clang with <code class="docutils literal notranslate"><span class="pre">--coverage</span></code>.</p></li>
+<li><p>A <code class="docutils literal notranslate"><span class="pre">gcov</span></code> tool that matches the compiler version, found in the <code class="docutils literal notranslate"><span class="pre">PATH</span></code>.</p></li>
+</ul>
+</section>
+<section id="running-the-script">
+<h2>Running the Script<a class="headerlink" href="#running-the-script" title="連結到這個標頭">¶</a></h2>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ctest<span class="w"> </span>-S<span class="w"> </span>Step8/submit.cmake<span class="w"> </span>-V
+</pre></div>
+</div>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3>目次表</h3>
+    <ul>
+<li><a class="reference internal" href="#">Step 8: Using CMake Presets</a><ul>
+<li><a class="reference internal" href="#requirements">Requirements</a></li>
+<li><a class="reference internal" href="#running-the-script">Running the Script</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>上個話題</h4>
+    <p class="topless"><a href="Authenticated%20Submissions.html"
+                          title="上個章節">Step 7: Authenticated Submissions</a></p>
+  </div>
+  <div>
+    <h4>下個話題</h4>
+    <p class="topless"><a href="Using%20the%20Command%20Line.html"
+                          title="下個章節">Step 9: Using the Command Line</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>本頁</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/guide/ctest-dashboard-client/Using CMake Presets.rst.txt"
+            rel="nofollow">顯示來源碼</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜尋</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="前往" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>瀏覽</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="總索引"
+             >索引</a></li>
+        <li class="right" >
+          <a href="Using%20the%20Command%20Line.html" title="Step 9: Using the Command Line"
+             >下一頁</a> |</li>
+        <li class="right" >
+          <a href="Authenticated%20Submissions.html" title="Step 7: Authenticated Submissions"
+             >上一頁</a> |</li>
+  <li>
+    <label class="sidebar-toggle" for="sidebar-check"></label>
+  </li>
+  <li class="rootlink">
+    <img src="../../_static/cmake-logo-16.png" width="16" height="16" alt=""/>
+    <a href="https://cmake.org/">CMake 4.5.20261116-g20268ff</a>
+    <span class="reldelim1"> &#187;</span>
+  </li>
+  <li>
+    <a href="../../index.html">文件</a> &#187;
+  </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >CTest Dashboard Client Guide</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Step 8: Using CMake Presets</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+    &#169; 著作權 2000-2026 Kitware, Inc. and Contributors.
+      使用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3 建立。
+    </div>
+<script type="text/javascript">
+(function() {
+  "use strict";
+  const hide = () => document.getElementById("sidebar-check").checked = false;
+  addEventListener("keydown", e => (e.key === "Escape") && hide());
+  addEventListener("click", e => (e.target.tagName === "A") && hide());
+  addEventListener("hashchange", hide)
+})();
+</script>
+  </body>
+</html>

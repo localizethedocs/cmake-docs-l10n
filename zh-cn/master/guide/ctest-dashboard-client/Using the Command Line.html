@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Step 9: Using the Command Line &mdash; CMake 4.5.20261116-g20268ff Documentation</title>
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a3862c66" />
+    <link rel="stylesheet" type="text/css" href="../../_static/cmake.css?v=d27bb136" />
+    
+    <script src="../../_static/documentation_options.js?v=8e88e664"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/translations.js?v=beaddf03"></script>
+    
+    <link rel="canonical" href="https://projects.localizethedocs.org/cmake-docs-l10n/guide/ctest-dashboard-client/Using%20the%20Command%20Line.html" />
+    <link rel="icon" href="../../_static/cmake-favicon.ico"/>
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="搜索" href="../../search.html" />
+    <link rel="next" title="CMake Release Notes" href="../../release/index.html" />
+    <link rel="prev" title="Step 8: Using CMake Presets" href="Using%20CMake%20Presets.html" />
+
+ 
+
+    <script type="text/javascript" src="../../ltd-provenance.js"></script>
+    <script type="text/javascript" src="../../ltd-current.js"></script>
+    <script type="text/javascript" src="../../../../ltd-config.js"></script>
+    <script type="text/javascript" src="../../../../ltd-flyout.js"></script>
+
+  </head><body>
+    <input id="sidebar-check" type="checkbox" />
+    <label id="sidebar-overlay" for="sidebar-check"></label>
+
+
+
+    <div class="related relbar1" role="navigation" aria-label="Related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="总索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="../../release/index.html" title="CMake Release Notes"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="Using%20CMake%20Presets.html" title="Step 8: Using CMake Presets"
+             accesskey="P">上一页</a> |</li>
+  <li>
+    <label class="sidebar-toggle" for="sidebar-check"></label>
+  </li>
+  <li class="rootlink">
+    <img src="../../_static/cmake-logo-16.png" width="16" height="16" alt=""/>
+    <a href="https://cmake.org/">CMake 4.5.20261116-g20268ff</a>
+    <span class="reldelim1"> &#187;</span>
+  </li>
+  <li>
+    <a href="../../index.html">Documentation</a> &#187;
+  </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">CTest Dashboard Client Guide</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Step 9: Using the Command Line</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="step-9-using-the-command-line">
+<span id="ctest-dashboard-step-9"></span><span id="guide:ctest-dashboard-client/Using the Command Line"></span><h1>Step 9: Using the Command Line<a class="headerlink" href="#step-9-using-the-command-line" title="Link to this heading">¶</a></h1>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 4.4.</span></p>
+</div>
+<p>This step extends <a class="reference internal" href="Using%20CMake%20Presets.html#ctest-dashboard-step-8"><span class="std std-ref">Step 8</span></a> by replacing the
+dashboard script with <strong class="program">ctest</strong> command lines in a shell script.</p>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">Step9/submit.sh</span><a class="headerlink" href="#id1" title="Link to this code">¶</a></div>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/sh</span>
+
+<span class="nb">cd</span><span class="w"> </span><span class="s2">"</span><span class="k">$(</span>dirname<span class="w"> </span><span class="s2">"</span><span class="nv">$0</span><span class="s2">"</span><span class="k">)</span><span class="s2">"</span>
+<span class="nv">site</span><span class="o">=</span><span class="k">$(</span>uname<span class="w"> </span>-n<span class="k">)</span>
+<span class="nv">presets</span><span class="o">=</span><span class="s2">"</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span><span class="s2">/../Step8/CMakePresets.json"</span>
+rm<span class="w"> </span>-rf<span class="w"> </span>build
+
+<span class="c1"># Start a new dashboard and configure an empty build tree.</span>
+ctest<span class="w"> </span>-T<span class="w"> </span>Start<span class="w"> </span>-T<span class="w"> </span>Configure<span class="w"> </span>-T<span class="w"> </span>Submit<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--source-dir<span class="w"> </span>../Project<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--build-dir<span class="w"> </span>build<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-D<span class="w"> </span><span class="nv">CTEST_BUILD_NAME</span><span class="o">=</span><span class="s2">"Step9: command line"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-D<span class="w"> </span><span class="nv">CTEST_SITE</span><span class="o">=</span><span class="s2">"</span><span class="nv">$site</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-D<span class="w"> </span><span class="nv">CTEST_PRESET</span><span class="o">=</span>coverage<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-D<span class="w"> </span><span class="nv">CTEST_PRESETS_FILE</span><span class="o">=</span><span class="s2">"</span><span class="nv">$presets</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-D<span class="w"> </span><span class="nv">CTEST_SUBMIT_PARTS</span><span class="o">=</span>Configure
+
+<span class="c1"># Report the current Git commit.</span>
+ctest<span class="w"> </span>-T<span class="w"> </span>Update<span class="w"> </span>-T<span class="w"> </span>Submit<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--build-dir<span class="w"> </span>build<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-D<span class="w"> </span><span class="nv">CTEST_UPDATE_COMMAND</span><span class="o">=</span>git<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-D<span class="w"> </span><span class="nv">CTEST_UPDATE_VERSION_ONLY</span><span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-D<span class="w"> </span><span class="nv">CTEST_SUBMIT_PARTS</span><span class="o">=</span>Update
+
+<span class="c1"># Build.</span>
+ctest<span class="w"> </span>-T<span class="w"> </span>Build<span class="w"> </span>-T<span class="w"> </span>Submit<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--build-dir<span class="w"> </span>build<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-D<span class="w"> </span><span class="nv">CTEST_PRESET</span><span class="o">=</span>coverage<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-D<span class="w"> </span><span class="nv">CTEST_PRESETS_FILE</span><span class="o">=</span><span class="s2">"</span><span class="nv">$presets</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-D<span class="w"> </span><span class="nv">CTEST_USE_LAUNCHERS</span><span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-D<span class="w"> </span><span class="nv">CTEST_SUBMIT_PARTS</span><span class="o">=</span>Build
+
+<span class="c1"># Test.</span>
+ctest<span class="w"> </span>-T<span class="w"> </span>Test<span class="w"> </span>-T<span class="w"> </span>Submit<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--build-dir<span class="w"> </span>build<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-D<span class="w"> </span><span class="nv">CTEST_PRESET</span><span class="o">=</span>coverage<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-D<span class="w"> </span><span class="nv">CTEST_PRESETS_FILE</span><span class="o">=</span><span class="s2">"</span><span class="nv">$presets</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-D<span class="w"> </span><span class="nv">CTEST_SUBMIT_PARTS</span><span class="o">=</span>Test
+
+<span class="c1"># Compute coverage, and tell CDash the build is done.</span>
+ctest<span class="w"> </span>-T<span class="w"> </span>Coverage<span class="w"> </span>-T<span class="w"> </span>Submit<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--build-dir<span class="w"> </span>build<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-D<span class="w"> </span><span class="nv">CTEST_SUBMIT_PARTS</span><span class="o">=</span><span class="s2">"Coverage;Done"</span>
+</pre></div>
+</div>
+</div>
+<p>Each <strong class="program">ctest</strong> invocation runs the steps given by
+<a class="reference internal" href="../../manual/ctest.1.html#cmdoption-ctest-T"><code class="xref std std-option docutils literal notranslate"><span class="pre">ctest</span> <span class="pre">-T</span></code></a>, and sets variables with
+<a class="reference internal" href="../../manual/ctest.1.html#cmdoption-ctest-dashboard-D"><code class="xref std std-option docutils literal notranslate"><span class="pre">-D</span> <span class="pre">&lt;var&gt;=&lt;value&gt;</span></code></a> instead of the
+<span class="target" id="index-0-command:set"></span><a class="reference internal" href="../../command/set.html#command:set" title="set"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">set()</span></code></a> command.</p>
+<p>The first invocation configures an empty build tree, using the
+<a class="reference internal" href="../../manual/ctest.1.html#cmdoption-ctest-dashboard-source-dir"><code class="xref std std-option docutils literal notranslate"><span class="pre">--source-dir</span></code></a> and
+<a class="reference internal" href="../../manual/ctest.1.html#cmdoption-ctest-dashboard-build-dir"><code class="xref std std-option docutils literal notranslate"><span class="pre">--build-dir</span></code></a> options.  The later invocations run in
+that build tree and add their results to the same submission.</p>
+<p>Each invocation ends with a <code class="docutils literal notranslate"><span class="pre">Submit</span></code> step.  The
+<span class="target" id="index-0-variable:CTEST_SUBMIT_PARTS"></span><a class="reference internal" href="../../variable/CTEST_SUBMIT_PARTS.html#variable:CTEST_SUBMIT_PARTS" title="CTEST_SUBMIT_PARTS"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CTEST_SUBMIT_PARTS</span></code></a> variable limits it to the results of that
+invocation, so that earlier results are not submitted again.  The last
+invocation also submits the <code class="docutils literal notranslate"><span class="pre">Done</span></code> part, which tells CDash that the build
+is complete.</p>
+<p>A dashboard script and command lines each have advantages:</p>
+<ul class="simple">
+<li><p>A script can use the CMake language for logic, such as loops and
+conditions, and keeps every step in one file.</p></li>
+<li><p>Command lines can run the steps separately, such as in different jobs of
+a CI pipeline, and need no <code class="docutils literal notranslate"><span class="pre">.cmake</span></code> file.</p></li>
+</ul>
+<section id="requirements">
+<h2>Requirements<a class="headerlink" href="#requirements" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>GCC or Clang, which support the <code class="docutils literal notranslate"><span class="pre">--coverage</span></code> flag.</p></li>
+<li><p>A <code class="docutils literal notranslate"><span class="pre">gcov</span></code> tool that matches the compiler version, found in the <code class="docutils literal notranslate"><span class="pre">PATH</span></code>.</p></li>
+<li><p>A POSIX shell to run the script.</p></li>
+</ul>
+</section>
+<section id="running-the-script">
+<h2>Running the Script<a class="headerlink" href="#running-the-script" title="Link to this heading">¶</a></h2>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sh<span class="w"> </span>Step9/submit.sh
+</pre></div>
+</div>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3>目录</h3>
+    <ul>
+<li><a class="reference internal" href="#">Step 9: Using the Command Line</a><ul>
+<li><a class="reference internal" href="#requirements">Requirements</a></li>
+<li><a class="reference internal" href="#running-the-script">Running the Script</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>上一主题</h4>
+    <p class="topless"><a href="Using%20CMake%20Presets.html"
+                          title="上一章">Step 8: Using CMake Presets</a></p>
+  </div>
+  <div>
+    <h4>下一主题</h4>
+    <p class="topless"><a href="../../release/index.html"
+                          title="下一章">CMake Release Notes</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>本页</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/guide/ctest-dashboard-client/Using the Command Line.rst.txt"
+            rel="nofollow">显示源代码</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="提交" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="总索引"
+             >索引</a></li>
+        <li class="right" >
+          <a href="../../release/index.html" title="CMake Release Notes"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="Using%20CMake%20Presets.html" title="Step 8: Using CMake Presets"
+             >上一页</a> |</li>
+  <li>
+    <label class="sidebar-toggle" for="sidebar-check"></label>
+  </li>
+  <li class="rootlink">
+    <img src="../../_static/cmake-logo-16.png" width="16" height="16" alt=""/>
+    <a href="https://cmake.org/">CMake 4.5.20261116-g20268ff</a>
+    <span class="reldelim1"> &#187;</span>
+  </li>
+  <li>
+    <a href="../../index.html">Documentation</a> &#187;
+  </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >CTest Dashboard Client Guide</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Step 9: Using the Command Line</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+    &#169; 版权所有 2000-2026 Kitware, Inc. and Contributors.
+      由 <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3创建。
+    </div>
+<script type="text/javascript">
+(function() {
+  "use strict";
+  const hide = () => document.getElementById("sidebar-check").checked = false;
+  addEventListener("keydown", e => (e.key === "Escape") && hide());
+  addEventListener("click", e => (e.target.tagName === "A") && hide());
+  addEventListener("hashchange", hide)
+})();
+</script>
+  </body>
+</html>

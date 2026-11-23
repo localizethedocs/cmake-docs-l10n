@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+
+<html lang="zh-TW" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>CMAKE_LISTFILE_COVERAGE_DIR &mdash; CMake 4.5.20261116-g20268ff Documentation</title>
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a3862c66" />
+    <link rel="stylesheet" type="text/css" href="../_static/cmake.css?v=d27bb136" />
+    
+    <script src="../_static/documentation_options.js?v=fe97c693"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/translations.js?v=cbf116e0"></script>
+    
+    <link rel="canonical" href="https://projects.localizethedocs.org/cmake-docs-l10n/envvar/CMAKE_LISTFILE_COVERAGE_DIR.html" />
+    <link rel="icon" href="../_static/cmake-favicon.ico"/>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜尋" href="../search.html" />
+    <link rel="next" title="CMAKE_MSVCIDE_RUN_PATH" href="CMAKE_MSVCIDE_RUN_PATH.html" />
+    <link rel="prev" title="CMAKE_&lt;LANG&gt;_LINKER_LAUNCHER" href="CMAKE_LANG_LINKER_LAUNCHER.html" />
+
+ 
+
+    <script type="text/javascript" src="../ltd-provenance.js"></script>
+    <script type="text/javascript" src="../ltd-current.js"></script>
+    <script type="text/javascript" src="../../../ltd-config.js"></script>
+    <script type="text/javascript" src="../../../ltd-flyout.js"></script>
+
+  </head><body>
+    <input id="sidebar-check" type="checkbox" />
+    <label id="sidebar-overlay" for="sidebar-check"></label>
+
+
+
+    <div class="related relbar1" role="navigation" aria-label="Related">
+      <h3>瀏覽</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="總索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="CMAKE_MSVCIDE_RUN_PATH.html" title="CMAKE_MSVCIDE_RUN_PATH"
+             accesskey="N">下一頁</a> |</li>
+        <li class="right" >
+          <a href="CMAKE_LANG_LINKER_LAUNCHER.html" title="CMAKE_&lt;LANG&gt;_LINKER_LAUNCHER"
+             accesskey="P">上一頁</a> |</li>
+  <li>
+    <label class="sidebar-toggle" for="sidebar-check"></label>
+  </li>
+  <li class="rootlink">
+    <img src="../_static/cmake-logo-16.png" width="16" height="16" alt=""/>
+    <a href="https://cmake.org/">CMake 4.5.20261116-g20268ff</a>
+    <span class="reldelim1"> &#187;</span>
+  </li>
+  <li>
+    <a href="../index.html">文件</a> &#187;
+  </li>
+
+          <li class="nav-item nav-item-1"><a href="../manual/cmake-env-variables.7.html" accesskey="U">cmake-環境變數(7)</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">CMAKE_LISTFILE_COVERAGE_DIR</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="cmake-listfile-coverage-dir">
+<span id="envvar:CMAKE_LISTFILE_COVERAGE_DIR"></span><h1>CMAKE_LISTFILE_COVERAGE_DIR<a class="headerlink" href="#cmake-listfile-coverage-dir" title="連結到這個標頭">¶</a></h1>
+<div class="versionadded">
+<p><span class="versionmodified added">在 4.6 版被加入.</span></p>
+</div>
+<p>這是一個 CMake <a class="reference internal" href="../manual/cmake-language.7.html#cmake-language-environment-variables"><span class="std std-ref">環境變數</span></a>。其初始值取自呼叫進程的環境。</p>
+<p>Record coverage of CMake language code in lcov tracefiles.</p>
+<p>When this environment variable is set to a directory, each CMake process
+that runs CMake language code records which lines of each listfile ran, and
+how many times each function and macro was called.  At exit the process
+writes this data into the directory.  This variable alone turns coverage
+on.  There is no command-line option for it.</p>
+<p>The value must be an absolute path.  If the directory does not exist,
+CMake creates it.  If the variable is not set, or is set to an empty value,
+coverage is off.</p>
+<p>Child processes inherit the variable, so a <strong class="program">cmake</strong> process that a
+project starts with <span class="target" id="index-0-command:execute_process"></span><a class="reference internal" href="../command/execute_process.html#command:execute_process" title="execute_process"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">execute_process()</span></code></a> also records coverage.  On
+every platform, this form sets the variable for one command:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>cmake<span class="w"> </span>-E<span class="w"> </span>env<span class="w"> </span><span class="nv">CMAKE_LISTFILE_COVERAGE_DIR</span><span class="o">=</span>/path/to/dir<span class="w"> </span>cmake<span class="w"> </span>-S<span class="w"> </span>src<span class="w"> </span>-B<span class="w"> </span>build
+</pre></div>
+</div>
+<section id="modes-that-record-coverage">
+<h2>Modes that Record Coverage<a class="headerlink" href="#modes-that-record-coverage" title="連結到這個標頭">¶</a></h2>
+<p>These modes record coverage:</p>
+<ul class="simple">
+<li><p>Configure and generate a project.  This includes projects that
+<span class="target" id="index-0-command:try_compile"></span><a class="reference internal" href="../command/try_compile.html#command:try_compile" title="try_compile"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">try_compile()</span></code></a> and <span class="target" id="index-0-command:try_run"></span><a class="reference internal" href="../command/try_run.html#command:try_run" title="try_run"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">try_run()</span></code></a> configure, which record into
+the same file as the parent project.</p></li>
+<li><p>Script mode, <a class="reference internal" href="../manual/cmake.1.html#cmdoption-cmake-P"><code class="xref std std-option docutils literal notranslate"><span class="pre">cmake</span> <span class="pre">-P</span></code></a>.</p></li>
+<li><p>Install scripts, <a class="reference internal" href="../manual/cmake.1.html#cmdoption-cmake-install"><code class="xref std std-option docutils literal notranslate"><span class="pre">cmake</span> <span class="pre">--install</span></code></a>.</p></li>
+<li><p>A re-run of configure that the build system starts.</p></li>
+<li><p><span class="target" id="index-0-manual:ctest(1)"></span><a class="reference internal" href="../manual/ctest.1.html#manual:ctest(1)" title="ctest(1)"><code class="xref cmake cmake-manual docutils literal notranslate"><span class="pre">ctest(1)</span></code></a>, for the CMake language code that it runs itself, such
+as <code class="docutils literal notranslate"><span class="pre">CTestTestfile.cmake</span></code> files and <a class="reference internal" href="../manual/ctest.1.html#dashboard-client"><span class="std std-ref">Dashboard Client</span></a> scripts.
+To record coverage for each test instead, use the <code class="docutils literal notranslate"><span class="pre">CMAKE</span></code> value of the
+CTest <a class="reference internal" href="../manual/ctest.1.html#ctest-coveragetool"><span class="std std-ref">CoverageTool</span></a> setting.</p></li>
+<li><p><span class="target" id="index-0-manual:cpack(1)"></span><a class="reference internal" href="../manual/cpack.1.html#manual:cpack(1)" title="cpack(1)"><code class="xref cmake cmake-manual docutils literal notranslate"><span class="pre">cpack(1)</span></code></a>, for the CPack configuration file, the CPack generator
+modules and the install scripts that it runs to make a package.</p></li>
+</ul>
+<p>These modes do not record coverage and do not check the directory:</p>
+<ul class="simple">
+<li><p><span class="target" id="index-0-manual:ccmake(1)"></span><a class="reference internal" href="../manual/ccmake.1.html#manual:ccmake(1)" title="ccmake(1)"><code class="xref cmake cmake-manual docutils literal notranslate"><span class="pre">ccmake(1)</span></code></a> and <span class="target" id="index-0-manual:cmake-gui(1)"></span><a class="reference internal" href="../manual/cmake-gui.1.html#manual:cmake-gui(1)" title="cmake-gui(1)"><code class="xref cmake cmake-manual docutils literal notranslate"><span class="pre">cmake-gui(1)</span></code></a>.</p></li>
+<li><p><a class="reference internal" href="../manual/cmake.1.html#cmdoption-cmake-build"><code class="xref std std-option docutils literal notranslate"><span class="pre">cmake</span> <span class="pre">--build</span></code></a> and the <a class="reference internal" href="../manual/cmake.1.html#cmdoption-cmake-E"><code class="xref std std-option docutils literal notranslate"><span class="pre">cmake</span> <span class="pre">-E</span></code></a> commands.  This
+includes <code class="docutils literal notranslate"><span class="pre">cmake</span> <span class="pre">-E</span> <span class="pre">cmake_depends</span></code>, which reads files that CMake
+generates.</p></li>
+<li><p><a class="reference internal" href="../manual/cmake.1.html#cmdoption-cmake-h"><code class="xref std std-option docutils literal notranslate"><span class="pre">cmake</span> <span class="pre">--help</span></code></a>, <a class="reference internal" href="../manual/cmake.1.html#cmdoption-cmake-version"><code class="xref std std-option docutils literal notranslate"><span class="pre">cmake</span> <span class="pre">--version</span></code></a>, <a class="reference internal" href="../manual/ctest.1.html#cmdoption-ctest-h"><code class="xref std std-option docutils literal notranslate"><span class="pre">ctest</span> <span class="pre">--help</span></code></a>,
+<a class="reference internal" href="../manual/ctest.1.html#cmdoption-ctest-version"><code class="xref std std-option docutils literal notranslate"><span class="pre">ctest</span> <span class="pre">--version</span></code></a>, <a class="reference internal" href="../manual/cpack.1.html#cmdoption-cpack-h"><code class="xref std std-option docutils literal notranslate"><span class="pre">cpack</span> <span class="pre">--help</span></code></a> and
+<a class="reference internal" href="../manual/cpack.1.html#cmdoption-cpack-version"><code class="xref std std-option docutils literal notranslate"><span class="pre">cpack</span> <span class="pre">--version</span></code></a>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cmake</span> <span class="pre">--system-information</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cmake</span> <span class="pre">--check-build-system</span></code>, which the build system runs to check
+whether it must re-run configure.  If the check decides to re-run
+configure, coverage starts at that point and the re-run records as usual.
+The <code class="docutils literal notranslate"><span class="pre">PreLoad.cmake</span></code> file that CMake reads before the check is not
+recorded in that run.</p></li>
+<li><p>The compile and link launchers that <span class="target" id="index-0-module:CTestUseLaunchers"></span><a class="reference internal" href="../module/CTestUseLaunchers.html#module:CTestUseLaunchers" title="CTestUseLaunchers"><code class="xref cmake cmake-module docutils literal notranslate"><span class="pre">CTestUseLaunchers</span></code></a> enables,
+which read a file that CMake generates, once for each compile.</p></li>
+</ul>
+<p>Some other modes that run no CMake language code, such as <code class="docutils literal notranslate"><span class="pre">cmake</span> <span class="pre">-N</span></code> and
+<a class="reference internal" href="../manual/cmake.1.html#cmdoption-cmake-list-presets"><code class="xref std std-option docutils literal notranslate"><span class="pre">cmake</span> <span class="pre">--list-presets</span></code></a>, check the directory at startup, but write no
+file.</p>
+</section>
+<section id="errors">
+<h2>Errors<a class="headerlink" href="#errors" title="連結到這個標頭">¶</a></h2>
+<p>Before it runs any CMake language code, CMake makes sure that it can write
+files in the directory.  If the value is a relative path, or if CMake cannot
+create the directory or write there, CMake reports an error and stops.  A
+failure to write the file at exit does not change the exit code.</p>
+</section>
+<section id="what-gets-recorded">
+<h2>What Gets Recorded<a class="headerlink" href="#what-gets-recorded" title="連結到這個標頭">¶</a></h2>
+<p>Each file that CMake reads as a listfile gets a record, with the absolute
+path that CMake used to read it.  This includes files under
+<span class="target" id="index-0-variable:CMAKE_ROOT"></span><a class="reference internal" href="../variable/CMAKE_ROOT.html#variable:CMAKE_ROOT" title="CMAKE_ROOT"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_ROOT</span></code></a> and files that CMake generates in the build tree.
+Records can name generated files that CMake deletes later, such as the
+projects that <span class="target" id="index-1-command:try_compile"></span><a class="reference internal" href="../command/try_compile.html#command:try_compile" title="try_compile"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">try_compile()</span></code></a> configures, so report tools may need
+to filter them out.  The CTest <code class="docutils literal notranslate"><span class="pre">CMAKE</span></code>
+<a class="reference internal" href="../manual/ctest.1.html#ctest-coveragetool"><span class="std std-ref">coverage tool</span></a> leaves out the files under the
+build tree when it merges the files of a test, except for an in-source
+build.  Files that CMake never reads do not appear.  A file with no line
+that can count and no function or macro, such as a file with only comments,
+gets no record, and a process that has no record writes no file.</p>
+<p>Lines:</p>
+<ul class="simple">
+<li><p>A command counts on the line where it starts, once each time it runs, even
+if its arguments span several lines.</p></li>
+<li><p>Opening commands such as <span class="target" id="index-0-command:if"></span><a class="reference internal" href="../command/if.html#command:if" title="if"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">if()</span></code></a>, <span class="target" id="index-0-command:foreach"></span><a class="reference internal" href="../command/foreach.html#command:foreach" title="foreach"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">foreach()</span></code></a>,
+<span class="target" id="index-0-command:while"></span><a class="reference internal" href="../command/while.html#command:while" title="while"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">while()</span></code></a>, <span class="target" id="index-0-command:block"></span><a class="reference internal" href="../command/block.html#command:block" title="block"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">block()</span></code></a>, <span class="target" id="index-0-command:function"></span><a class="reference internal" href="../command/function.html#command:function" title="function"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">function()</span></code></a> and
+<span class="target" id="index-0-command:macro"></span><a class="reference internal" href="../command/macro.html#command:macro" title="macro"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">macro()</span></code></a> count like any other command.  A <span class="target" id="index-1-command:while"></span><a class="reference internal" href="../command/while.html#command:while" title="while"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">while()</span></code></a>
+command counts once each time the loop starts, not once for each
+evaluation of its condition.</p></li>
+<li><p>An <span class="target" id="index-0-command:elseif"></span><a class="reference internal" href="../command/elseif.html#command:elseif" title="elseif"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">elseif()</span></code></a> counts each time CMake evaluates its condition.</p></li>
+<li><p><span class="target" id="index-0-command:else"></span><a class="reference internal" href="../command/else.html#command:else" title="else"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">else()</span></code></a> and the commands that close a block, such as
+<span class="target" id="index-0-command:endif"></span><a class="reference internal" href="../command/endif.html#command:endif" title="endif"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">endif()</span></code></a> and <span class="target" id="index-0-command:endfunction"></span><a class="reference internal" href="../command/endfunction.html#command:endfunction" title="endfunction"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">endfunction()</span></code></a>, do not count.  Comments and
+blank lines do not count.</p></li>
+<li><p>A command in the body of a function or macro counts each time the body
+runs, on its line in the file that defines the function or macro.</p></li>
+<li><p>A deferred call made with <span class="target" id="index-0-command:cmake_language"></span><a class="reference internal" href="../command/cmake_language.html#defer" title="cmake_language(defer)"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">cmake_language(DEFER)</span></code></a> counts on its
+own line when it runs.</p></li>
+<li><p>A command that CMake skips because of an earlier fatal error does not
+count.</p></li>
+<li><p>A command that another command runs on the same line does not add a hit.
+Examples are the command that <span class="target" id="index-1-command:cmake_language"></span><a class="reference internal" href="../command/cmake_language.html#call" title="cmake_language(call)"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">cmake_language(CALL)</span></code></a> runs, and
+the commands that <span class="target" id="index-0-command:list"></span><a class="reference internal" href="../command/list.html#command:list" title="list"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">list()</span></code></a> operations call.</p></li>
+<li><p>Code that <span class="target" id="index-2-command:cmake_language"></span><a class="reference internal" href="../command/cmake_language.html#eval" title="cmake_language(eval)"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">cmake_language(EVAL</span> <span class="pre">CODE)</span></code></a> runs
+is left out, because it has no file.  The <span class="target" id="index-3-command:cmake_language"></span><a class="reference internal" href="../command/cmake_language.html#command:cmake_language" title="cmake_language"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">cmake_language()</span></code></a> line
+itself counts.</p></li>
+<li><p>Each line that can count appears in the record, with zero hits if it
+never ran.</p></li>
+</ul>
+<p>Functions and macros:</p>
+<ul class="simple">
+<li><p>Each <span class="target" id="index-1-command:function"></span><a class="reference internal" href="../command/function.html#command:function" title="function"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">function()</span></code></a> and <span class="target" id="index-1-command:macro"></span><a class="reference internal" href="../command/macro.html#command:macro" title="macro"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">macro()</span></code></a> definition gets one
+function record, with the name as written in the source and the line of
+the definition.  Its count is the number of calls.</p></li>
+<li><p>If one file defines the same name more than once, each definition gets
+its own record, named <code class="docutils literal notranslate"><span class="pre">&lt;name&gt;&#64;&lt;line&gt;</span></code>, for example <code class="docutils literal notranslate"><span class="pre">foo&#64;120</span></code> and
+<code class="docutils literal notranslate"><span class="pre">foo&#64;135</span></code>.  A name that one file defines once keeps its name.</p></li>
+<li><p>A name is percent-encoded as in URLs: <code class="docutils literal notranslate"><span class="pre">%</span></code> is written as <code class="docutils literal notranslate"><span class="pre">%25</span></code>, a
+comma as <code class="docutils literal notranslate"><span class="pre">%2C</span></code>, a line break as <code class="docutils literal notranslate"><span class="pre">%0A</span></code> or <code class="docutils literal notranslate"><span class="pre">%0D</span></code>, and <code class="docutils literal notranslate"><span class="pre">&#64;</span></code> as
+<code class="docutils literal notranslate"><span class="pre">%40</span></code>.  Other characters are written as they are.  For example, a
+function named <code class="docutils literal notranslate"><span class="pre">a,b</span></code> is written as <code class="docutils literal notranslate"><span class="pre">a%2Cb</span></code>.</p></li>
+<li><p>When CMake reads a tracefile back, it removes the <code class="docutils literal notranslate"><span class="pre">&#64;&lt;line&gt;</span></code> suffix and
+decodes the name, so every name reads back as written.</p></li>
+</ul>
+</section>
+<section id="output-files">
+<h2>Output Files<a class="headerlink" href="#output-files" title="連結到這個標頭">¶</a></h2>
+<p>Each process that records coverage writes one lcov tracefile, named
+<code class="docutils literal notranslate"><span class="pre">&lt;pid&gt;-&lt;token&gt;.info</span></code>, where <code class="docutils literal notranslate"><span class="pre">&lt;pid&gt;</span></code> is the process ID and <code class="docutils literal notranslate"><span class="pre">&lt;token&gt;</span></code>
+is a random value.  The file uses the <code class="docutils literal notranslate"><span class="pre">SF</span></code>, <code class="docutils literal notranslate"><span class="pre">FN</span></code>, <code class="docutils literal notranslate"><span class="pre">FNDA</span></code>, <code class="docutils literal notranslate"><span class="pre">FNF</span></code>,
+<code class="docutils literal notranslate"><span class="pre">FNH</span></code>, <code class="docutils literal notranslate"><span class="pre">DA</span></code>, <code class="docutils literal notranslate"><span class="pre">LF</span></code> and <code class="docutils literal notranslate"><span class="pre">LH</span></code> records.  CMake never deletes or merges
+files in the directory.  Clear the directory before a new run.</p>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3>目次表</h3>
+    <ul>
+<li><a class="reference internal" href="#">CMAKE_LISTFILE_COVERAGE_DIR</a><ul>
+<li><a class="reference internal" href="#modes-that-record-coverage">Modes that Record Coverage</a></li>
+<li><a class="reference internal" href="#errors">Errors</a></li>
+<li><a class="reference internal" href="#what-gets-recorded">What Gets Recorded</a></li>
+<li><a class="reference internal" href="#output-files">Output Files</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>上個話題</h4>
+    <p class="topless"><a href="CMAKE_LANG_LINKER_LAUNCHER.html"
+                          title="上個章節">CMAKE_&lt;LANG&gt;_LINKER_LAUNCHER</a></p>
+  </div>
+  <div>
+    <h4>下個話題</h4>
+    <p class="topless"><a href="CMAKE_MSVCIDE_RUN_PATH.html"
+                          title="下個章節">CMAKE_MSVCIDE_RUN_PATH</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>本頁</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/envvar/CMAKE_LISTFILE_COVERAGE_DIR.rst.txt"
+            rel="nofollow">顯示來源碼</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜尋</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="前往" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>瀏覽</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="總索引"
+             >索引</a></li>
+        <li class="right" >
+          <a href="CMAKE_MSVCIDE_RUN_PATH.html" title="CMAKE_MSVCIDE_RUN_PATH"
+             >下一頁</a> |</li>
+        <li class="right" >
+          <a href="CMAKE_LANG_LINKER_LAUNCHER.html" title="CMAKE_&lt;LANG&gt;_LINKER_LAUNCHER"
+             >上一頁</a> |</li>
+  <li>
+    <label class="sidebar-toggle" for="sidebar-check"></label>
+  </li>
+  <li class="rootlink">
+    <img src="../_static/cmake-logo-16.png" width="16" height="16" alt=""/>
+    <a href="https://cmake.org/">CMake 4.5.20261116-g20268ff</a>
+    <span class="reldelim1"> &#187;</span>
+  </li>
+  <li>
+    <a href="../index.html">文件</a> &#187;
+  </li>
+
+          <li class="nav-item nav-item-1"><a href="../manual/cmake-env-variables.7.html" >cmake-環境變數(7)</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">CMAKE_LISTFILE_COVERAGE_DIR</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+    &#169; 著作權 2000-2026 Kitware, Inc. and Contributors.
+      使用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3 建立。
+    </div>
+<script type="text/javascript">
+(function() {
+  "use strict";
+  const hide = () => document.getElementById("sidebar-check").checked = false;
+  addEventListener("keydown", e => (e.key === "Escape") && hide());
+  addEventListener("click", e => (e.target.tagName === "A") && hide());
+  addEventListener("hashchange", hide)
+})();
+</script>
+  </body>
+</html>

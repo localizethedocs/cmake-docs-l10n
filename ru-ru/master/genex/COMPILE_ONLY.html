@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+
+<html lang="ru-RU" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>COMPILE_ONLY &mdash; CMake 4.5.20261116-g20268ff Documentation</title>
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a3862c66" />
+    <link rel="stylesheet" type="text/css" href="../_static/cmake.css?v=d27bb136" />
+    
+    <script src="../_static/documentation_options.js?v=a5fd2243"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    
+    <link rel="canonical" href="https://projects.localizethedocs.org/cmake-docs-l10n/genex/COMPILE_ONLY.html" />
+    <link rel="icon" href="../_static/cmake-favicon.ico"/>
+    <link rel="index" title="Алфавитный указатель" href="../genindex.html" />
+    <link rel="search" title="Поиск" href="../search.html" />
+    <link rel="next" title="LINK_LANGUAGE" href="LINK_LANGUAGE.html" />
+    <link rel="prev" title="COMPILE_FEATURES" href="COMPILE_FEATURES.html" />
+
+ 
+
+    <script type="text/javascript" src="../ltd-provenance.js"></script>
+    <script type="text/javascript" src="../ltd-current.js"></script>
+    <script type="text/javascript" src="../../../ltd-config.js"></script>
+    <script type="text/javascript" src="../../../ltd-flyout.js"></script>
+
+  </head><body>
+    <input id="sidebar-check" type="checkbox" />
+    <label id="sidebar-overlay" for="sidebar-check"></label>
+
+
+
+    <div class="related relbar1" role="navigation" aria-label="Related">
+      <h3>Навигация</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Алфавитный указатель"
+             accesskey="I">указатель</a></li>
+        <li class="right" >
+          <a href="LINK_LANGUAGE.html" title="LINK_LANGUAGE"
+             accesskey="N">вперёд</a> |</li>
+        <li class="right" >
+          <a href="COMPILE_FEATURES.html" title="COMPILE_FEATURES"
+             accesskey="P">назад</a> |</li>
+  <li>
+    <label class="sidebar-toggle" for="sidebar-check"></label>
+  </li>
+  <li class="rootlink">
+    <img src="../_static/cmake-logo-16.png" width="16" height="16" alt=""/>
+    <a href="https://cmake.org/">CMake 4.5.20261116-g20268ff</a>
+    <span class="reldelim1"> &#187;</span>
+  </li>
+  <li>
+    <a href="../index.html">Documentation</a> &#187;
+  </li>
+
+          <li class="nav-item nav-item-1"><a href="../manual/cmake-generator-expressions.7.html" accesskey="U">cmake-generator-expressions(7)</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">COMPILE_ONLY</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="compile-only">
+<span id="genex:COMPILE_ONLY"></span><h1>COMPILE_ONLY<a class="headerlink" href="#compile-only" title="Ссылка на этот заголовок">¶</a></h1>
+<p>This generator expression belongs to the <a class="reference internal" href="../manual/cmake-generator-expressions.7.html#genex-family-toolchain-and-language-expressions"><span class="std std-ref">Toolchain And Language Expressions</span></a> family. See that
+section for related generator expressions.</p>
+<section id="syntax">
+<h2>Syntax<a class="headerlink" href="#syntax" title="Ссылка на этот заголовок">¶</a></h2>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="o">$&lt;</span><span class="no">COMPILE_ONLY</span><span class="o">:</span><span class="p">...&gt;</span>
+</pre></div>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified added">Добавлено в версии 3.27.</span></p>
+</div>
+<p>Content of <code class="docutils literal notranslate"><span class="pre">...</span></code>, when collecting <a class="reference internal" href="../manual/cmake-buildsystem.7.html#transitive-compile-properties"><span class="std std-ref">transitive compile properties</span></a>, otherwise it is the empty string.  This is
+intended for use in an <span class="target" id="index-0-prop_tgt:INTERFACE_LINK_LIBRARIES"></span><a class="reference internal" href="../prop_tgt/INTERFACE_LINK_LIBRARIES.html#prop_tgt:INTERFACE_LINK_LIBRARIES" title="INTERFACE_LINK_LIBRARIES"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">INTERFACE_LINK_LIBRARIES</span></code></a> and
+<span class="target" id="index-0-prop_tgt:LINK_LIBRARIES"></span><a class="reference internal" href="../prop_tgt/LINK_LIBRARIES.html#prop_tgt:LINK_LIBRARIES" title="LINK_LIBRARIES"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">LINK_LIBRARIES</span></code></a> target properties, typically populated via the
+<span class="target" id="index-0-command:target_link_libraries"></span><a class="reference internal" href="../command/target_link_libraries.html#command:target_link_libraries" title="target_link_libraries"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">target_link_libraries()</span></code></a> command. Provides compilation usage
+requirements without any linking requirements.</p>
+<p>Use cases include header-only usage where all usages are known to not have
+linking requirements (e.g., all-<code class="docutils literal notranslate"><span class="pre">inline</span></code> or C++ template libraries).</p>
+<p>Note that for proper evaluation of this expression requires policy
+<span class="target" id="index-0-policy:CMP0099"></span><a class="reference internal" href="../policy/CMP0099.html#policy:CMP0099" title="CMP0099"><code class="xref cmake cmake-policy docutils literal notranslate"><span class="pre">CMP0099</span></code></a> to be set to <code class="docutils literal notranslate"><span class="pre">NEW</span></code>.</p>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3>Оглавление</h3>
+    <ul>
+<li><a class="reference internal" href="#">COMPILE_ONLY</a><ul>
+<li><a class="reference internal" href="#syntax">Syntax</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Предыдущий раздел</h4>
+    <p class="topless"><a href="COMPILE_FEATURES.html"
+                          title="предыдущая глава">COMPILE_FEATURES</a></p>
+  </div>
+  <div>
+    <h4>Следующий раздел</h4>
+    <p class="topless"><a href="LINK_LANGUAGE.html"
+                          title="следующая глава">LINK_LANGUAGE</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>Эта страница</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/genex/COMPILE_ONLY.rst.txt"
+            rel="nofollow">Исходный текст</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Быстрый поиск</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Искать" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Навигация</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Алфавитный указатель"
+             >указатель</a></li>
+        <li class="right" >
+          <a href="LINK_LANGUAGE.html" title="LINK_LANGUAGE"
+             >вперёд</a> |</li>
+        <li class="right" >
+          <a href="COMPILE_FEATURES.html" title="COMPILE_FEATURES"
+             >назад</a> |</li>
+  <li>
+    <label class="sidebar-toggle" for="sidebar-check"></label>
+  </li>
+  <li class="rootlink">
+    <img src="../_static/cmake-logo-16.png" width="16" height="16" alt=""/>
+    <a href="https://cmake.org/">CMake 4.5.20261116-g20268ff</a>
+    <span class="reldelim1"> &#187;</span>
+  </li>
+  <li>
+    <a href="../index.html">Documentation</a> &#187;
+  </li>
+
+          <li class="nav-item nav-item-1"><a href="../manual/cmake-generator-expressions.7.html" >cmake-generator-expressions(7)</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">COMPILE_ONLY</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+    &#169; Авторские права 2000-2026 Kitware, Inc. and Contributors.
+      Создано с использованием <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    </div>
+<script type="text/javascript">
+(function() {
+  "use strict";
+  const hide = () => document.getElementById("sidebar-check").checked = false;
+  addEventListener("keydown", e => (e.key === "Escape") && hide());
+  addEventListener("click", e => (e.target.tagName === "A") && hide());
+  addEventListener("hashchange", hide)
+})();
+</script>
+  </body>
+</html>

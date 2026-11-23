@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+
+<html lang="zh-TW" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>LIST:FILTER &mdash; CMake 4.5.20261116-g20268ff Documentation</title>
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a3862c66" />
+    <link rel="stylesheet" type="text/css" href="../_static/cmake.css?v=d27bb136" />
+    
+    <script src="../_static/documentation_options.js?v=fe97c693"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/translations.js?v=cbf116e0"></script>
+    
+    <link rel="canonical" href="https://projects.localizethedocs.org/cmake-docs-l10n/genex/LIST-FILTER.html" />
+    <link rel="icon" href="../_static/cmake-favicon.ico"/>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜尋" href="../search.html" />
+    <link rel="next" title="LIST:TRANSFORM" href="LIST-TRANSFORM.html" />
+    <link rel="prev" title="LIST:REMOVE_DUPLICATES" href="LIST-REMOVE_DUPLICATES.html" />
+
+ 
+
+    <script type="text/javascript" src="../ltd-provenance.js"></script>
+    <script type="text/javascript" src="../ltd-current.js"></script>
+    <script type="text/javascript" src="../../../ltd-config.js"></script>
+    <script type="text/javascript" src="../../../ltd-flyout.js"></script>
+
+  </head><body>
+    <input id="sidebar-check" type="checkbox" />
+    <label id="sidebar-overlay" for="sidebar-check"></label>
+
+
+
+    <div class="related relbar1" role="navigation" aria-label="Related">
+      <h3>瀏覽</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="總索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="LIST-TRANSFORM.html" title="LIST:TRANSFORM"
+             accesskey="N">下一頁</a> |</li>
+        <li class="right" >
+          <a href="LIST-REMOVE_DUPLICATES.html" title="LIST:REMOVE_DUPLICATES"
+             accesskey="P">上一頁</a> |</li>
+  <li>
+    <label class="sidebar-toggle" for="sidebar-check"></label>
+  </li>
+  <li class="rootlink">
+    <img src="../_static/cmake-logo-16.png" width="16" height="16" alt=""/>
+    <a href="https://cmake.org/">CMake 4.5.20261116-g20268ff</a>
+    <span class="reldelim1"> &#187;</span>
+  </li>
+  <li>
+    <a href="../index.html">文件</a> &#187;
+  </li>
+
+          <li class="nav-item nav-item-1"><a href="../manual/cmake-generator-expressions.7.html" accesskey="U">cmake-生成器表達式(7)</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">LIST:FILTER</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="list-filter">
+<span id="genex:LIST:FILTER"></span><h1>LIST:FILTER<a class="headerlink" href="#list-filter" title="連結到這個標頭">¶</a></h1>
+<p>This generator expression belongs to the <a class="reference internal" href="../manual/cmake-generator-expressions.7.html#genex-family-genex-list-transformations"><span class="std std-ref">列表變換</span></a> family. See that
+section for related generator expressions.</p>
+<section id="syntax">
+<h2>語法<a class="headerlink" href="#syntax" title="連結到這個標頭">¶</a></h2>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="o">$&lt;</span><span class="no">LIST</span><span class="o">:</span><span class="no">FILTER</span><span class="p">,</span><span class="nb">list</span><span class="p">,</span><span class="no">INCLUDE</span><span class="p">|</span><span class="no">EXCLUDE</span><span class="p">,</span><span class="nb">regex</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified added">在 3.27 版被加入.</span></p>
+</div>
+<p>A list of items from the <code class="docutils literal notranslate"><span class="pre">list</span></code> which match (<code class="docutils literal notranslate"><span class="pre">INCLUDE</span></code>) or do not match
+(<code class="docutils literal notranslate"><span class="pre">EXCLUDE</span></code>) the regular expression <code class="docutils literal notranslate"><span class="pre">regex</span></code>.  The result is the same as
+<span class="target" id="index-0-genex:FILTER"></span><a class="reference internal" href="FILTER.html#genex:FILTER" title="FILTER"><code class="xref cmake cmake-genex docutils literal notranslate"><span class="pre">$&lt;FILTER:list,INCLUDE|EXCLUDE,regex&gt;</span></code></a>.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">在 4.5 版被加入: </span>The regular expression may be introduced explicitly with a <code class="docutils literal notranslate"><span class="pre">REGEX</span></code>
+keyword, and a <code class="docutils literal notranslate"><span class="pre">PREDICATE</span></code> keyword selects items using a generator
+expression instead:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="o">$&lt;</span><span class="no">LIST</span><span class="o">:</span><span class="no">FILTER</span><span class="p">,</span><span class="nb">list</span><span class="p">,</span><span class="no">INCLUDE</span><span class="p">|</span><span class="no">EXCLUDE</span><span class="p">,</span><span class="no">REGEX</span><span class="p">,</span><span class="nb">regex</span><span class="p">&gt;</span>
+<span class="o">$&lt;</span><span class="no">LIST</span><span class="o">:</span><span class="no">FILTER</span><span class="p">,</span><span class="nb">list</span><span class="p">,</span><span class="no">INCLUDE</span><span class="p">|</span><span class="no">EXCLUDE</span><span class="p">,</span><span class="no">PREDICATE</span><span class="p">,</span><span class="nb">body</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>With <code class="docutils literal notranslate"><span class="pre">PREDICATE</span></code>, <code class="docutils literal notranslate"><span class="pre">body</span></code> is evaluated once per item with the bound
+operand <span class="target" id="index-0-genex:_0"></span><a class="reference internal" href="_0.html#genex:_0" title="_0"><code class="xref cmake cmake-genex docutils literal notranslate"><span class="pre">$&lt;_0&gt;</span></code></a> expanding to the current item.  The body must
+evaluate to exactly <code class="docutils literal notranslate"><span class="pre">0</span></code> or <code class="docutils literal notranslate"><span class="pre">1</span></code>; <code class="docutils literal notranslate"><span class="pre">INCLUDE</span></code> keeps items whose body
+yields <code class="docutils literal notranslate"><span class="pre">1</span></code> and <code class="docutils literal notranslate"><span class="pre">EXCLUDE</span></code> removes them.  Use <code class="docutils literal notranslate"><span class="pre">$&lt;BOOL:...&gt;</span></code> to
+coerce other values.  Because <code class="docutils literal notranslate"><span class="pre">REGEX</span></code> and <code class="docutils literal notranslate"><span class="pre">PREDICATE</span></code> are now keywords,
+a bare regular expression equal to <code class="docutils literal notranslate"><span class="pre">REGEX</span></code> or <code class="docutils literal notranslate"><span class="pre">PREDICATE</span></code> must use the
+explicit <code class="docutils literal notranslate"><span class="pre">REGEX</span></code> form.</p>
+</div>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3>目次表</h3>
+    <ul>
+<li><a class="reference internal" href="#">LIST:FILTER</a><ul>
+<li><a class="reference internal" href="#syntax">語法</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>上個話題</h4>
+    <p class="topless"><a href="LIST-REMOVE_DUPLICATES.html"
+                          title="上個章節">LIST:REMOVE_DUPLICATES</a></p>
+  </div>
+  <div>
+    <h4>下個話題</h4>
+    <p class="topless"><a href="LIST-TRANSFORM.html"
+                          title="下個章節">LIST:TRANSFORM</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>本頁</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/genex/LIST-FILTER.rst.txt"
+            rel="nofollow">顯示來源碼</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜尋</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="前往" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>瀏覽</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="總索引"
+             >索引</a></li>
+        <li class="right" >
+          <a href="LIST-TRANSFORM.html" title="LIST:TRANSFORM"
+             >下一頁</a> |</li>
+        <li class="right" >
+          <a href="LIST-REMOVE_DUPLICATES.html" title="LIST:REMOVE_DUPLICATES"
+             >上一頁</a> |</li>
+  <li>
+    <label class="sidebar-toggle" for="sidebar-check"></label>
+  </li>
+  <li class="rootlink">
+    <img src="../_static/cmake-logo-16.png" width="16" height="16" alt=""/>
+    <a href="https://cmake.org/">CMake 4.5.20261116-g20268ff</a>
+    <span class="reldelim1"> &#187;</span>
+  </li>
+  <li>
+    <a href="../index.html">文件</a> &#187;
+  </li>
+
+          <li class="nav-item nav-item-1"><a href="../manual/cmake-generator-expressions.7.html" >cmake-生成器表達式(7)</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">LIST:FILTER</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+    &#169; 著作權 2000-2026 Kitware, Inc. and Contributors.
+      使用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3 建立。
+    </div>
+<script type="text/javascript">
+(function() {
+  "use strict";
+  const hide = () => document.getElementById("sidebar-check").checked = false;
+  addEventListener("keydown", e => (e.key === "Escape") && hide());
+  addEventListener("click", e => (e.target.tagName === "A") && hide());
+  addEventListener("hashchange", hide)
+})();
+</script>
+  </body>
+</html>

@@ -1,0 +1,19 @@
+CUDA_STANDARD_REQUIRED
+----------------------
+
+.. versionadded:: 3.8
+
+Boolean describing whether the value of :prop_tgt:`CUDA_STANDARD` is a requirement.
+
+If this property is set to ``ON``, then the value of the
+:prop_tgt:`CUDA_STANDARD` target property is treated as a requirement.  If this
+property is ``OFF`` or unset, the :prop_tgt:`CUDA_STANDARD` target property is
+treated as optional and may "decay" to a previous standard if the requested is
+not available.  For compilers that have no notion of a standard level, such as
+MSVC 1800 (Visual Studio 2013) and lower, this has no effect.
+
+.. include:: ../include/COMPILE_FEATURES_NOTE.rst
+
+This property is initialized by the value of
+the :variable:`CMAKE_CUDA_STANDARD_REQUIRED` variable if it is set when a
+target is created.

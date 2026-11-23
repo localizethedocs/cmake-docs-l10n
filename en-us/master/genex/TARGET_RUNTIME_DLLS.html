@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+
+<html lang="en-US" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>TARGET_RUNTIME_DLLS &mdash; CMake 4.5.20261116-g20268ff Documentation</title>
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a3862c66" />
+    <link rel="stylesheet" type="text/css" href="../_static/cmake.css?v=d27bb136" />
+    
+    <script src="../_static/documentation_options.js?v=3fdfa467"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    
+    <link rel="canonical" href="https://projects.localizethedocs.org/cmake-docs-l10n/genex/TARGET_RUNTIME_DLLS.html" />
+    <link rel="icon" href="../_static/cmake-favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="TARGET_RUNTIME_DLL_DIRS" href="TARGET_RUNTIME_DLL_DIRS.html" />
+    <link rel="prev" title="TARGET_OBJECTS" href="TARGET_OBJECTS.html" />
+
+ 
+
+    <script type="text/javascript" src="../ltd-provenance.js"></script>
+    <script type="text/javascript" src="../ltd-current.js"></script>
+    <script type="text/javascript" src="../../../ltd-config.js"></script>
+    <script type="text/javascript" src="../../../ltd-flyout.js"></script>
+
+  </head><body>
+    <input id="sidebar-check" type="checkbox" />
+    <label id="sidebar-overlay" for="sidebar-check"></label>
+
+
+
+    <div class="related relbar1" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="TARGET_RUNTIME_DLL_DIRS.html" title="TARGET_RUNTIME_DLL_DIRS"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="TARGET_OBJECTS.html" title="TARGET_OBJECTS"
+             accesskey="P">previous</a> |</li>
+  <li>
+    <label class="sidebar-toggle" for="sidebar-check"></label>
+  </li>
+  <li class="rootlink">
+    <img src="../_static/cmake-logo-16.png" width="16" height="16" alt=""/>
+    <a href="https://cmake.org/">CMake 4.5.20261116-g20268ff</a>
+    <span class="reldelim1"> &#187;</span>
+  </li>
+  <li>
+    <a href="../index.html">Documentation</a> &#187;
+  </li>
+
+          <li class="nav-item nav-item-1"><a href="../manual/cmake-generator-expressions.7.html" accesskey="U">cmake-generator-expressions(7)</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">TARGET_RUNTIME_DLLS</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="target-runtime-dlls">
+<span id="genex:TARGET_RUNTIME_DLLS"></span><h1>TARGET_RUNTIME_DLLS<a class="headerlink" href="#target-runtime-dlls" title="Link to this heading">¶</a></h1>
+<p>This generator expression belongs to the <a class="reference internal" href="../manual/cmake-generator-expressions.7.html#genex-family-target-artifacts"><span class="std std-ref">Target Artifacts</span></a> family. See that
+section for related generator expressions.</p>
+<section id="syntax">
+<h2>Syntax<a class="headerlink" href="#syntax" title="Link to this heading">¶</a></h2>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="o">$&lt;</span><span class="no">TARGET_RUNTIME_DLLS</span><span class="o">:</span><span class="nb">tgt</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 3.21.</span></p>
+</div>
+<p>List of DLLs that the target depends on at runtime. This is determined by the
+locations of all the <code class="docutils literal notranslate"><span class="pre">SHARED</span></code> targets in the target's transitive dependencies.
+If only the directories of the DLLs are needed, see the
+<span class="target" id="index-0-genex:TARGET_RUNTIME_DLL_DIRS"></span><a class="reference internal" href="TARGET_RUNTIME_DLL_DIRS.html#genex:TARGET_RUNTIME_DLL_DIRS" title="TARGET_RUNTIME_DLL_DIRS"><code class="xref cmake cmake-genex docutils literal notranslate"><span class="pre">TARGET_RUNTIME_DLL_DIRS</span></code></a> generator expression. Using this generator
+expression on targets other than executables, <code class="docutils literal notranslate"><span class="pre">SHARED</span></code> libraries, and
+<code class="docutils literal notranslate"><span class="pre">MODULE</span></code> libraries is an error. <strong>On non-DLL platforms, this expression always
+evaluates to an empty string</strong>.</p>
+<p>This generator expression can be used to copy all of the DLLs that a target
+depends on into its output directory in a <code class="docutils literal notranslate"><span class="pre">POST_BUILD</span></code> custom command using
+the <a class="reference internal" href="../manual/cmake.1.html#cmdoption-cmake-E-arg-copy"><code class="xref std std-option docutils literal notranslate"><span class="pre">cmake</span> <span class="pre">-E</span> <span class="pre">copy</span> <span class="pre">-t</span></code></a> command. For example:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">find_package(</span><span class="nb">foo</span><span class="w"> </span><span class="no">CONFIG</span><span class="w"> </span><span class="no">REQUIRED</span><span class="nf">)</span><span class="w"> </span><span class="c"># package generated by install(EXPORT)</span>
+
+<span class="nf">add_executable(</span><span class="nb">exe</span><span class="w"> </span><span class="nb">main.c</span><span class="nf">)</span>
+<span class="nf">target_link_libraries(</span><span class="nb">exe</span><span class="w"> </span><span class="no">PRIVATE</span><span class="w"> </span><span class="nb">foo</span><span class="o">::</span><span class="nb">foo</span><span class="w"> </span><span class="nb">foo</span><span class="o">::</span><span class="nb">bar</span><span class="nf">)</span>
+<span class="nf">add_custom_command(</span><span class="no">TARGET</span><span class="w"> </span><span class="nb">exe</span><span class="w"> </span><span class="no">POST_BUILD</span>
+<span class="w">  </span><span class="no">COMMAND</span><span class="w"> </span><span class="o">${</span><span class="nt">CMAKE_COMMAND</span><span class="o">}</span><span class="w"> </span><span class="p">-</span><span class="no">E</span><span class="w"> </span><span class="nb">copy</span><span class="w"> </span><span class="p">-</span><span class="nb">t</span><span class="w"> </span><span class="o">$&lt;</span><span class="no">TARGET_FILE_DIR</span><span class="o">:</span><span class="nb">exe</span><span class="p">&gt;</span><span class="w"> </span><span class="o">$&lt;</span><span class="no">TARGET_RUNTIME_DLLS</span><span class="o">:</span><span class="nb">exe</span><span class="p">&gt;</span>
+<span class="w">  </span><span class="no">COMMAND_EXPAND_LISTS</span>
+<span class="nf">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><a class="reference internal" href="../manual/cmake-buildsystem.7.html#imported-targets"><span class="std std-ref">Imported Targets</span></a> are supported only if they know the location
+of their <code class="docutils literal notranslate"><span class="pre">.dll</span></code> files.  An imported <code class="docutils literal notranslate"><span class="pre">SHARED</span></code> library must have
+<span class="target" id="index-0-prop_tgt:IMPORTED_LOCATION"></span><a class="reference internal" href="../prop_tgt/IMPORTED_LOCATION.html#prop_tgt:IMPORTED_LOCATION" title="IMPORTED_LOCATION"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">IMPORTED_LOCATION</span></code></a> set to its <code class="docutils literal notranslate"><span class="pre">.dll</span></code> file.  See the
+<a class="reference internal" href="../command/add_library.html#add-library-imported-libraries"><span class="std std-ref">add_library imported libraries</span></a>
+section for details.  Many <a class="reference internal" href="../manual/cmake-developer.7.html#find-modules"><span class="std std-ref">Find Modules</span></a> produce imported targets
+with the <code class="docutils literal notranslate"><span class="pre">UNKNOWN</span></code> type and therefore will be ignored.</p>
+</div>
+<p>On platforms that support runtime paths (<code class="docutils literal notranslate"><span class="pre">RPATH</span></code>), refer to the
+<span class="target" id="index-0-prop_tgt:INSTALL_RPATH"></span><a class="reference internal" href="../prop_tgt/INSTALL_RPATH.html#prop_tgt:INSTALL_RPATH" title="INSTALL_RPATH"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">INSTALL_RPATH</span></code></a> target property. On Apple platforms, refer to the
+<span class="target" id="index-0-prop_tgt:INSTALL_NAME_DIR"></span><a class="reference internal" href="../prop_tgt/INSTALL_NAME_DIR.html#prop_tgt:INSTALL_NAME_DIR" title="INSTALL_NAME_DIR"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">INSTALL_NAME_DIR</span></code></a> target property.</p>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3>Table of Contents</h3>
+    <ul>
+<li><a class="reference internal" href="#">TARGET_RUNTIME_DLLS</a><ul>
+<li><a class="reference internal" href="#syntax">Syntax</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="TARGET_OBJECTS.html"
+                          title="previous chapter">TARGET_OBJECTS</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="TARGET_RUNTIME_DLL_DIRS.html"
+                          title="next chapter">TARGET_RUNTIME_DLL_DIRS</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/genex/TARGET_RUNTIME_DLLS.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="TARGET_RUNTIME_DLL_DIRS.html" title="TARGET_RUNTIME_DLL_DIRS"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="TARGET_OBJECTS.html" title="TARGET_OBJECTS"
+             >previous</a> |</li>
+  <li>
+    <label class="sidebar-toggle" for="sidebar-check"></label>
+  </li>
+  <li class="rootlink">
+    <img src="../_static/cmake-logo-16.png" width="16" height="16" alt=""/>
+    <a href="https://cmake.org/">CMake 4.5.20261116-g20268ff</a>
+    <span class="reldelim1"> &#187;</span>
+  </li>
+  <li>
+    <a href="../index.html">Documentation</a> &#187;
+  </li>
+
+          <li class="nav-item nav-item-1"><a href="../manual/cmake-generator-expressions.7.html" >cmake-generator-expressions(7)</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">TARGET_RUNTIME_DLLS</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2000-2026 Kitware, Inc. and Contributors.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    </div>
+<script type="text/javascript">
+(function() {
+  "use strict";
+  const hide = () => document.getElementById("sidebar-check").checked = false;
+  addEventListener("keydown", e => (e.key === "Escape") && hide());
+  addEventListener("click", e => (e.target.tagName === "A") && hide());
+  addEventListener("hashchange", hide)
+})();
+</script>
+  </body>
+</html>

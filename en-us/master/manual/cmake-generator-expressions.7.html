@@ -1,0 +1,1300 @@
+<!DOCTYPE html>
+
+<html lang="en-US" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>cmake-generator-expressions(7) &mdash; CMake 4.5.20261116-g20268ff Documentation</title>
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a3862c66" />
+    <link rel="stylesheet" type="text/css" href="../_static/cmake.css?v=d27bb136" />
+    
+    <script src="../_static/documentation_options.js?v=3fdfa467"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    
+    <link rel="canonical" href="https://projects.localizethedocs.org/cmake-docs-l10n/manual/cmake-generator-expressions.7.html" />
+    <link rel="icon" href="../_static/cmake-favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="condition" href="../genex/CONDITION.html" />
+    <link rel="prev" title="cmake-file-api(7)" href="cmake-file-api.7.html" />
+
+ 
+
+    <script type="text/javascript" src="../ltd-provenance.js"></script>
+    <script type="text/javascript" src="../ltd-current.js"></script>
+    <script type="text/javascript" src="../../../ltd-config.js"></script>
+    <script type="text/javascript" src="../../../ltd-flyout.js"></script>
+
+  </head><body>
+    <input id="sidebar-check" type="checkbox" />
+    <label id="sidebar-overlay" for="sidebar-check"></label>
+
+
+
+    <div class="related relbar1" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../genex/CONDITION.html" title="condition"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="cmake-file-api.7.html" title="cmake-file-api(7)"
+             accesskey="P">previous</a> |</li>
+  <li>
+    <label class="sidebar-toggle" for="sidebar-check"></label>
+  </li>
+  <li class="rootlink">
+    <img src="../_static/cmake-logo-16.png" width="16" height="16" alt=""/>
+    <a href="https://cmake.org/">CMake 4.5.20261116-g20268ff</a>
+    <span class="reldelim1"> &#187;</span>
+  </li>
+  <li>
+    <a href="../index.html">Documentation</a> &#187;
+  </li>
+
+        <li class="nav-item nav-item-this"><a href="">cmake-generator-expressions(7)</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <span class="target" id="manual:cmake-generator-expressions(7)"></span><section id="cmake-generator-expressions-7">
+<h1><a class="toc-backref" href="#id4" role="doc-backlink">cmake-generator-expressions(7)</a><a class="headerlink" href="#cmake-generator-expressions-7" title="Link to this heading">¶</a></h1>
+<nav class="contents" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#cmake-generator-expressions-7" id="id4">cmake-generator-expressions(7)</a></p>
+<ul>
+<li><p><a class="reference internal" href="#introduction" id="id5">Introduction</a></p></li>
+<li><p><a class="reference internal" href="#whitespace-and-quoting" id="id6">Whitespace And Quoting</a></p></li>
+<li><p><a class="reference internal" href="#debugging" id="id7">Debugging</a></p></li>
+<li><p><a class="reference internal" href="#generator-expression-reference" id="id8">Generator Expression Reference</a></p>
+<ul>
+<li><p><a class="reference internal" href="#conditional-expressions" id="id9">Conditional Expressions</a></p></li>
+<li><p><a class="reference internal" href="#logical-operators" id="id10">Logical Operators</a></p></li>
+<li><p><a class="reference internal" href="#primary-comparison-expressions" id="id11">Primary Comparison Expressions</a></p>
+<ul>
+<li><p><a class="reference internal" href="#numeric-comparisons" id="id12">Numeric Comparisons</a></p></li>
+<li><p><a class="reference internal" href="#version-comparisons" id="id13">Version Comparisons</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#string-expressions" id="id14">String Expressions</a></p>
+<ul>
+<li><p><a class="reference internal" href="#string-comparisons" id="id15">String Comparisons</a></p></li>
+<li><p><a class="reference internal" href="#string-queries" id="id16">String Queries</a></p></li>
+<li><p><a class="reference internal" href="#string-generations" id="id17">String Generations</a></p></li>
+<li><p><a class="reference internal" href="#string-transformations" id="id18">String Transformations</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#list-expressions" id="id19">List Expressions</a></p>
+<ul>
+<li><p><a class="reference internal" href="#list-comparisons" id="id20">List Comparisons</a></p></li>
+<li><p><a class="reference internal" href="#list-queries" id="id21">List Queries</a></p></li>
+<li><p><a class="reference internal" href="#list-transformations" id="id22">List Transformations</a></p></li>
+<li><p><a class="reference internal" href="#list-ordering" id="id23">List Ordering</a></p></li>
+<li><p><a class="reference internal" href="#bound-operands" id="id24">Bound Operands</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#path-expressions" id="id25">Path Expressions</a></p>
+<ul>
+<li><p><a class="reference internal" href="#path-comparisons" id="id26">Path Comparisons</a></p></li>
+<li><p><a class="reference internal" href="#path-queries" id="id27">Path Queries</a></p></li>
+<li><p><a class="reference internal" href="#path-decomposition" id="id28">Path Decomposition</a></p></li>
+<li><p><a class="reference internal" href="#path-transformations" id="id29">Path Transformations</a></p></li>
+<li><p><a class="reference internal" href="#shell-paths" id="id30">Shell Paths</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#configuration-expressions" id="id31">Configuration Expressions</a></p></li>
+<li><p><a class="reference internal" href="#global-expressions" id="id32">Global Expressions</a></p>
+<ul>
+<li><p><a class="reference internal" href="#global-properties" id="id33">Global Properties</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#directory-dependent-expressions" id="id34">Directory-dependent Expressions</a></p>
+<ul>
+<li><p><a class="reference internal" href="#directory-properties" id="id35">Directory Properties</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#rule-dependent-expressions" id="id36">Rule-Dependent Expressions</a></p>
+<ul>
+<li><p><a class="reference internal" href="#rule-properties" id="id37">Rule Properties</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#toolchain-and-language-expressions" id="id38">Toolchain And Language Expressions</a></p>
+<ul>
+<li><p><a class="reference internal" href="#platform" id="id39">Platform</a></p></li>
+<li><p><a class="reference internal" href="#compiler-version" id="id40">Compiler Version</a></p></li>
+<li><p><a class="reference internal" href="#compiler-language-id-and-frontend-variant" id="id41">Compiler Language, ID, and Frontend-Variant</a></p></li>
+<li><p><a class="reference internal" href="#compile-features" id="id42">Compile Features</a></p></li>
+<li><p><a class="reference internal" href="#compile-context" id="id43">Compile Context</a></p></li>
+<li><p><a class="reference internal" href="#link-language-and-id" id="id44">Link Language and ID</a></p></li>
+<li><p><a class="reference internal" href="#link-features" id="id45">Link Features</a></p></li>
+<li><p><a class="reference internal" href="#link-context" id="id46">Link Context</a></p></li>
+<li><p><a class="reference internal" href="#linker-id-and-frontend-variant" id="id47">Linker ID and Frontend-Variant</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#genex-family-source-dependent-expressions" id="id48">Source-Dependent Expressions</a></p>
+<ul>
+<li><p><a class="reference internal" href="#source-meta-data" id="id49">Source Meta-Data</a></p></li>
+<li><p><a class="reference internal" href="#source-properties" id="id50">Source Properties</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#genex-family-fileset-dependent-expressions" id="id51">FileSet-Dependent Expressions</a></p>
+<ul>
+<li><p><a class="reference internal" href="#fileset-meta-data" id="id52">FileSet Meta-Data</a></p></li>
+<li><p><a class="reference internal" href="#fileset-properties" id="id53">FileSet Properties</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#genex-family-target-dependent-expressions" id="id54">Target-Dependent Expressions</a></p>
+<ul>
+<li><p><a class="reference internal" href="#target-meta-data" id="id55">Target Meta-Data</a></p></li>
+<li><p><a class="reference internal" href="#target-properties" id="id56">Target Properties</a></p></li>
+<li><p><a class="reference internal" href="#target-artifacts" id="id57">Target Artifacts</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#export-and-install-expressions" id="id58">Export And Install Expressions</a></p></li>
+<li><p><a class="reference internal" href="#multi-level-expression-evaluation" id="id59">Multi-level Expression Evaluation</a></p></li>
+<li><p><a class="reference internal" href="#support-expressions" id="id60">Support Expressions</a></p>
+<ul>
+<li><p><a class="reference internal" href="#conversions" id="id61">Conversions</a></p></li>
+<li><p><a class="reference internal" href="#escaped-characters" id="id62">Escaped Characters</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#deprecated-expressions" id="id63">Deprecated Expressions</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+<section id="introduction">
+<h2><a class="toc-backref" href="#id5" role="doc-backlink">Introduction</a><a class="headerlink" href="#introduction" title="Link to this heading">¶</a></h2>
+<p>Generator expressions are evaluated during build system generation to produce
+information specific to each build configuration.  They have the form
+<code class="docutils literal notranslate"><span class="pre">$&lt;...&gt;</span></code>.  For example:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">target_include_directories(</span><span class="nb">tgt</span><span class="w"> </span><span class="no">PRIVATE</span><span class="w"> </span><span class="na">/opt/include/</span><span class="o">$&lt;</span><span class="no">CXX_COMPILER_ID</span><span class="p">&gt;</span><span class="nf">)</span>
+</pre></div>
+</div>
+<p>This would expand to <code class="docutils literal notranslate"><span class="pre">/opt/include/GNU</span></code>, <code class="docutils literal notranslate"><span class="pre">/opt/include/Clang</span></code>, etc.
+depending on the C++ compiler used.</p>
+<p>Generator expressions are allowed in the context of many target properties,
+such as <span class="target" id="index-0-prop_tgt:LINK_LIBRARIES"></span><a class="reference internal" href="../prop_tgt/LINK_LIBRARIES.html#prop_tgt:LINK_LIBRARIES" title="LINK_LIBRARIES"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">LINK_LIBRARIES</span></code></a>, <span class="target" id="index-0-prop_tgt:INCLUDE_DIRECTORIES"></span><a class="reference internal" href="../prop_tgt/INCLUDE_DIRECTORIES.html#prop_tgt:INCLUDE_DIRECTORIES" title="INCLUDE_DIRECTORIES"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">INCLUDE_DIRECTORIES</span></code></a>,
+<span class="target" id="index-0-prop_tgt:COMPILE_DEFINITIONS"></span><a class="reference internal" href="../prop_tgt/COMPILE_DEFINITIONS.html#prop_tgt:COMPILE_DEFINITIONS" title="COMPILE_DEFINITIONS"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">COMPILE_DEFINITIONS</span></code></a> and others.  They may also be used when using
+commands to populate those properties, such as <span class="target" id="index-0-command:target_link_libraries"></span><a class="reference internal" href="../command/target_link_libraries.html#command:target_link_libraries" title="target_link_libraries"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">target_link_libraries()</span></code></a>,
+<span class="target" id="index-0-command:target_include_directories"></span><a class="reference internal" href="../command/target_include_directories.html#command:target_include_directories" title="target_include_directories"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">target_include_directories()</span></code></a>, <span class="target" id="index-0-command:target_compile_definitions"></span><a class="reference internal" href="../command/target_compile_definitions.html#command:target_compile_definitions" title="target_compile_definitions"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">target_compile_definitions()</span></code></a>
+and others.  They enable conditional linking, conditional definitions used when
+compiling, conditional include directories, and more.  The conditions may be
+based on the build configuration, target properties, platform information,
+or any other queryable information.</p>
+<p>Generator expressions can be nested:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">target_compile_definitions(</span><span class="nb">tgt</span><span class="w"> </span><span class="no">PRIVATE</span>
+<span class="w">  </span><span class="o">$&lt;$&lt;</span><span class="no">VERSION_LESS</span><span class="o">:$&lt;</span><span class="no">CXX_COMPILER_VERSION</span><span class="p">&gt;,</span><span class="m">4.2.0</span><span class="p">&gt;</span><span class="o">:</span><span class="no">OLD_COMPILER</span><span class="p">&gt;</span>
+<span class="nf">)</span>
+</pre></div>
+</div>
+<p>The above would expand to <code class="docutils literal notranslate"><span class="pre">OLD_COMPILER</span></code> if the
+<span class="target" id="index-0-variable:CMAKE_&lt;LANG&gt;_COMPILER_VERSION"></span><a class="reference internal" href="../variable/CMAKE_LANG_COMPILER_VERSION.html#variable:CMAKE_&lt;LANG&gt;_COMPILER_VERSION" title="CMAKE_&lt;LANG&gt;_COMPILER_VERSION"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_CXX_COMPILER_VERSION</span></code></a> is less
+than 4.2.0.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Generator expressions are supported in the values of many properties,
+but not all.  Check a property's documentation for explicit mention
+of generator expressions before using them.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Property names specified as part of a generator expression must respect
+the following regular expression: <code class="docutils literal notranslate"><span class="pre">^[A-Za-z0-9_:]+$</span></code>.</p>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 4.5: </span>The character <code class="docutils literal notranslate"><span class="pre">:</span></code> is now allowed.</p>
+</div>
+</div>
+</section>
+<section id="whitespace-and-quoting">
+<h2><a class="toc-backref" href="#id6" role="doc-backlink">Whitespace And Quoting</a><a class="headerlink" href="#whitespace-and-quoting" title="Link to this heading">¶</a></h2>
+<p>Generator expressions are typically parsed after command arguments.
+If a generator expression contains spaces, new lines, semicolons or
+other characters that may be interpreted as command argument separators,
+the whole expression should be surrounded by quotes when passed to a
+command.  Failure to do so may result in the expression being split and
+it may no longer be recognized as a generator expression.</p>
+<p>When using <span class="target" id="index-0-command:add_custom_command"></span><a class="reference internal" href="../command/add_custom_command.html#command:add_custom_command" title="add_custom_command"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">add_custom_command()</span></code></a> or <span class="target" id="index-0-command:add_custom_target"></span><a class="reference internal" href="../command/add_custom_target.html#command:add_custom_target" title="add_custom_target"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">add_custom_target()</span></code></a>,
+use the <code class="docutils literal notranslate"><span class="pre">VERBATIM</span></code> and <code class="docutils literal notranslate"><span class="pre">COMMAND_EXPAND_LISTS</span></code> options to obtain robust
+argument splitting and quoting.</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="c"># WRONG: Embedded space will be treated as an argument separator.</span>
+<span class="c"># This ends up not being seen as a generator expression at all.</span>
+<span class="nf">add_custom_target(</span><span class="nb">run_some_tool</span>
+<span class="w">  </span><span class="no">COMMAND</span><span class="w"> </span><span class="nb">some_tool</span><span class="w"> </span><span class="p">-</span><span class="no">I</span><span class="o">$&lt;</span><span class="no">JOIN</span><span class="o">:$&lt;</span><span class="no">TARGET_PROPERTY</span><span class="o">:</span><span class="nb">tgt</span><span class="p">,</span><span class="no">INCLUDE_DIRECTORIES</span><span class="p">&gt;,</span><span class="w"> </span><span class="p">-</span><span class="no">I</span><span class="p">&gt;</span>
+<span class="w">  </span><span class="no">VERBATIM</span>
+<span class="nf">)</span>
+</pre></div>
+</div>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="c"># Better, but still not robust. Quotes prevent the space from splitting the</span>
+<span class="c"># expression. However, the tool will receive the expanded value as a single</span>
+<span class="c"># argument.</span>
+<span class="nf">add_custom_target(</span><span class="nb">run_some_tool</span>
+<span class="w">  </span><span class="no">COMMAND</span><span class="w"> </span><span class="nb">some_tool</span><span class="w"> </span><span class="s">"-I$&lt;JOIN:$&lt;TARGET_PROPERTY:tgt,INCLUDE_DIRECTORIES&gt;, -I&gt;"</span>
+<span class="w">  </span><span class="no">VERBATIM</span>
+<span class="nf">)</span>
+</pre></div>
+</div>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="c"># Nearly correct. Using a semicolon to separate arguments and adding the</span>
+<span class="c"># COMMAND_EXPAND_LISTS option means that paths with spaces will be handled</span>
+<span class="c"># correctly. Quoting the whole expression ensures it is seen as a generator</span>
+<span class="c"># expression. But if the target property is empty, we will get a bare -I</span>
+<span class="c"># with nothing after it.</span>
+<span class="nf">add_custom_target(</span><span class="nb">run_some_tool</span>
+<span class="w">  </span><span class="no">COMMAND</span><span class="w"> </span><span class="nb">some_tool</span><span class="w"> </span><span class="s">"-I$&lt;JOIN:$&lt;TARGET_PROPERTY:tgt,INCLUDE_DIRECTORIES&gt;,;-I&gt;"</span>
+<span class="w">  </span><span class="no">COMMAND_EXPAND_LISTS</span>
+<span class="w">  </span><span class="no">VERBATIM</span>
+<span class="nf">)</span>
+</pre></div>
+</div>
+<p>Using variables to build up a more complex generator expression is also a
+good way to reduce errors and improve readability.  The above example can be
+improved further like so:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="c"># The $&lt;BOOL:...&gt; check prevents adding anything if the property is empty,</span>
+<span class="c"># assuming the property value cannot be one of CMake's false constants.</span>
+<span class="nf">set(</span><span class="nb">prop</span><span class="w"> </span><span class="s">"$&lt;TARGET_PROPERTY:tgt,INCLUDE_DIRECTORIES&gt;"</span><span class="nf">)</span>
+<span class="nf">add_custom_target(</span><span class="nb">run_some_tool</span>
+<span class="w">  </span><span class="no">COMMAND</span><span class="w"> </span><span class="nb">some_tool</span><span class="w"> </span><span class="s">"$&lt;$&lt;BOOL:${prop}&gt;:-I$&lt;JOIN:${prop},;-I&gt;&gt;"</span>
+<span class="w">  </span><span class="no">COMMAND_EXPAND_LISTS</span>
+<span class="w">  </span><span class="no">VERBATIM</span>
+<span class="nf">)</span>
+</pre></div>
+</div>
+<p>Finally, the above example can be expressed in a more simple and robust way
+using an alternate generator expression:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">add_custom_target(</span><span class="nb">run_some_tool</span>
+<span class="w">  </span><span class="no">COMMAND</span><span class="w"> </span><span class="nb">some_tool</span><span class="w"> </span><span class="s">"$&lt;LIST:TRANSFORM,$&lt;TARGET_PROPERTY:tgt,INCLUDE_DIRECTORIES&gt;,PREPEND,-I&gt;"</span>
+<span class="w">  </span><span class="no">COMMAND_EXPAND_LISTS</span>
+<span class="w">  </span><span class="no">VERBATIM</span>
+<span class="nf">)</span>
+</pre></div>
+</div>
+<p>For tools that expect <code class="docutils literal notranslate"><span class="pre">-I</span></code>'s value to be a separate argument, use the
+semicolon trick learned earlier:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">add_custom_target(</span><span class="nb">run_some_tool</span>
+<span class="w">  </span><span class="no">COMMAND</span><span class="w"> </span><span class="nb">some_tool</span><span class="w"> </span><span class="s">"$&lt;LIST:TRANSFORM,$&lt;TARGET_PROPERTY:tgt,INCLUDE_DIRECTORIES&gt;,PREPEND,-I;&gt;"</span>
+<span class="w">  </span><span class="no">COMMAND_EXPAND_LISTS</span>
+<span class="w">  </span><span class="no">VERBATIM</span>
+<span class="nf">)</span>
+</pre></div>
+</div>
+<p>A common mistake is to try to split a generator expression across multiple
+lines with indenting:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="c"># WRONG: New lines and spaces all treated as argument separators, so the</span>
+<span class="c"># generator expression is split and not recognized correctly.</span>
+<span class="nf">target_compile_definitions(</span><span class="nb">tgt</span><span class="w"> </span><span class="no">PRIVATE</span>
+<span class="w">  </span><span class="o">$&lt;$&lt;</span><span class="no">AND</span><span class="o">:</span>
+<span class="w">      </span><span class="o">$&lt;</span><span class="no">CXX_COMPILER_ID</span><span class="o">:</span><span class="no">GNU</span><span class="p">&gt;,</span>
+<span class="w">      </span><span class="o">$&lt;</span><span class="no">VERSION_GREATER_EQUAL</span><span class="o">:$&lt;</span><span class="no">CXX_COMPILER_VERSION</span><span class="p">&gt;,</span><span class="m">5</span><span class="p">&gt;</span>
+<span class="w">    </span><span class="p">&gt;</span><span class="o">:</span><span class="no">HAVE_5_OR_LATER</span><span class="p">&gt;</span>
+<span class="nf">)</span>
+</pre></div>
+</div>
+<p>Again, use helper variables with well-chosen names to build up a readable
+expression instead:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">set(</span><span class="nb">is_gnu</span><span class="w"> </span><span class="s">"$&lt;CXX_COMPILER_ID:GNU&gt;"</span><span class="nf">)</span>
+<span class="nf">set(</span><span class="nb">v5_or_later</span><span class="w"> </span><span class="s">"$&lt;VERSION_GREATER_EQUAL:$&lt;CXX_COMPILER_VERSION&gt;,5&gt;"</span><span class="nf">)</span>
+<span class="nf">set(</span><span class="nb">meet_requirements</span><span class="w"> </span><span class="s">"$&lt;AND:${is_gnu},${v5_or_later}&gt;"</span><span class="nf">)</span>
+<span class="nf">target_compile_definitions(</span><span class="nb">tgt</span><span class="w"> </span><span class="no">PRIVATE</span>
+<span class="w">  </span><span class="s">"$&lt;${meet_requirements}:HAVE_5_OR_LATER&gt;"</span>
+<span class="nf">)</span>
+</pre></div>
+</div>
+</section>
+<section id="debugging">
+<h2><a class="toc-backref" href="#id7" role="doc-backlink">Debugging</a><a class="headerlink" href="#debugging" title="Link to this heading">¶</a></h2>
+<p>Since generator expressions are evaluated during generation of the buildsystem,
+and not during processing of <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code> files, it is not possible to
+inspect their result with the <span class="target" id="index-0-command:message"></span><a class="reference internal" href="../command/message.html#command:message" title="message"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">message()</span></code></a> command.  One possible way
+to generate debug messages is to add a custom target:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">add_custom_target(</span><span class="nb">genexdebug</span><span class="w"> </span><span class="no">COMMAND</span><span class="w"> </span><span class="o">${</span><span class="nt">CMAKE_COMMAND</span><span class="o">}</span><span class="w"> </span><span class="p">-</span><span class="no">E</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s">"$&lt;...&gt;"</span><span class="nf">)</span>
+</pre></div>
+</div>
+<p>After running <strong class="program">cmake</strong>, you can then build the <code class="docutils literal notranslate"><span class="pre">genexdebug</span></code> target to print
+the result of the <code class="docutils literal notranslate"><span class="pre">$&lt;...&gt;</span></code> expression (i.e. run the command
+<a class="reference internal" href="cmake.1.html#cmdoption-cmake-build-t"><code class="xref std std-option docutils literal notranslate"><span class="pre">cmake</span> <span class="pre">--build</span> <span class="pre">...</span> <span class="pre">--target</span> <span class="pre">genexdebug</span></code></a>).</p>
+<p>Another way is to write debug messages to a file with <span class="target" id="index-0-command:file"></span><a class="reference internal" href="../command/file.html#generate" title="file(generate)"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">file(GENERATE)</span></code></a>:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">file(</span><span class="no">GENERATE</span><span class="w"> </span><span class="no">OUTPUT</span><span class="w"> </span><span class="nb">filename</span><span class="w"> </span><span class="no">CONTENT</span><span class="w"> </span><span class="s">"$&lt;...&gt;"</span><span class="nf">)</span>
+</pre></div>
+</div>
+</section>
+<section id="generator-expression-reference">
+<span id="genex-family-generator-expression-reference"></span><h2><a class="toc-backref" href="#id8" role="doc-backlink">Generator Expression Reference</a><a class="headerlink" href="#generator-expression-reference" title="Link to this heading">¶</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This reference deviates from most of the CMake documentation in that it
+omits angular brackets <code class="docutils literal notranslate"><span class="pre">&lt;...&gt;</span></code> around placeholders like <code class="docutils literal notranslate"><span class="pre">condition</span></code>,
+<code class="docutils literal notranslate"><span class="pre">string</span></code>, <code class="docutils literal notranslate"><span class="pre">target</span></code>, etc.  This is to prevent an opportunity for those
+placeholders to be misinterpreted as generator expressions.</p>
+</div>
+<section id="conditional-expressions">
+<span id="genex-family-conditional-generator-expressions"></span><span id="conditional-generator-expressions"></span><h3><a class="toc-backref" href="#id9" role="doc-backlink">Conditional Expressions</a><a class="headerlink" href="#conditional-expressions" title="Link to this heading">¶</a></h3>
+<p>A fundamental category of generator expressions relates to conditional logic.
+Two forms of conditional generator expressions are supported:</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../genex/CONDITION.html" id="genex:condition">condition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/IF.html" id="genex:IF">IF</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/BOOL.html" id="genex:BOOL">BOOL</a></li>
+</ul>
+</div>
+<p>Typically, the <code class="docutils literal notranslate"><span class="pre">condition</span></code> is itself a generator expression.  For instance,
+the following expression expands to <code class="docutils literal notranslate"><span class="pre">DEBUG_MODE</span></code> when the <code class="docutils literal notranslate"><span class="pre">Debug</span></code>
+configuration is used, and the empty string for all other configurations:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="o">$&lt;$&lt;</span><span class="no">CONFIG</span><span class="o">:</span><span class="nb">Debug</span><span class="p">&gt;</span><span class="o">:</span><span class="no">DEBUG_MODE</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>Boolean-like <code class="docutils literal notranslate"><span class="pre">condition</span></code> values other than <code class="docutils literal notranslate"><span class="pre">1</span></code> or <code class="docutils literal notranslate"><span class="pre">0</span></code> can be handled
+by wrapping them with the <code class="docutils literal notranslate"><span class="pre">$&lt;BOOL:...&gt;</span></code> generator expression:</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">$&lt;BOOL:...&gt;</span></code> generator expression is often used when a <code class="docutils literal notranslate"><span class="pre">condition</span></code>
+is provided by a CMake variable:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="o">$&lt;$&lt;</span><span class="no">BOOL</span><span class="o">:${</span><span class="nt">HAVE_SOME_FEATURE</span><span class="o">}</span><span class="p">&gt;</span><span class="o">:</span><span class="p">-</span><span class="no">DENABLE_SOME_FEATURE</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+</section>
+<section id="logical-operators">
+<span id="genex-family-boolean-generator-expressions"></span><span id="boolean-generator-expressions"></span><h3><a class="toc-backref" href="#id10" role="doc-backlink">Logical Operators</a><a class="headerlink" href="#logical-operators" title="Link to this heading">¶</a></h3>
+<p>The common boolean logic operators are supported:</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../genex/AND.html" id="genex:AND">AND</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/OR.html" id="genex:OR">OR</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/NOT.html" id="genex:NOT">NOT</a></li>
+</ul>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 3.28: </span>Logical operators short-circuit such that generator expressions in the
+arguments list will not be evaluated once a return value can be determined.</p>
+</div>
+</section>
+<section id="primary-comparison-expressions">
+<span id="genex-family-comparison-expressions"></span><span id="comparison-expressions"></span><h3><a class="toc-backref" href="#id11" role="doc-backlink">Primary Comparison Expressions</a><a class="headerlink" href="#primary-comparison-expressions" title="Link to this heading">¶</a></h3>
+<p>CMake supports a variety of generator expressions that compare things.
+This section covers the primary and most widely used comparison types.
+Other more specific comparison types are documented in their own separate
+sections further below.</p>
+<section id="numeric-comparisons">
+<h4><a class="toc-backref" href="#id12" role="doc-backlink">Numeric Comparisons</a><a class="headerlink" href="#numeric-comparisons" title="Link to this heading">¶</a></h4>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../genex/EQUAL.html" id="genex:EQUAL">EQUAL</a></li>
+</ul>
+</div>
+</section>
+<section id="version-comparisons">
+<span id="genex-family-version-comparisons"></span><h4><a class="toc-backref" href="#id13" role="doc-backlink">Version Comparisons</a><a class="headerlink" href="#version-comparisons" title="Link to this heading">¶</a></h4>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../genex/VERSION_LESS.html" id="genex:VERSION_LESS">VERSION_LESS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/VERSION_GREATER.html" id="genex:VERSION_GREATER">VERSION_GREATER</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/VERSION_EQUAL.html" id="genex:VERSION_EQUAL">VERSION_EQUAL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/VERSION_LESS_EQUAL.html" id="genex:VERSION_LESS_EQUAL">VERSION_LESS_EQUAL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/VERSION_GREATER_EQUAL.html" id="genex:VERSION_GREATER_EQUAL">VERSION_GREATER_EQUAL</a></li>
+</ul>
+</div>
+</section>
+</section>
+<section id="string-expressions">
+<h3><a class="toc-backref" href="#id14" role="doc-backlink">String Expressions</a><a class="headerlink" href="#string-expressions" title="Link to this heading">¶</a></h3>
+<p>Most of the expressions in this section are closely associated with the
+<span class="target" id="index-0-command:string"></span><a class="reference internal" href="../command/string.html#command:string" title="string"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">string()</span></code></a> command, providing the same capabilities, but in
+the form of a generator expression.</p>
+<p>In each of the following string-related generator expressions, the <code class="docutils literal notranslate"><span class="pre">string</span></code>
+must not contain any commas if that generator expression expects something to
+be provided after the <code class="docutils literal notranslate"><span class="pre">string</span></code>.  For example, the expression
+<code class="docutils literal notranslate"><span class="pre">$&lt;STRING:FIND,string,value&gt;</span></code> requires a <code class="docutils literal notranslate"><span class="pre">value</span></code> after the <code class="docutils literal notranslate"><span class="pre">string</span></code>.
+Since a comma is used to separate the <code class="docutils literal notranslate"><span class="pre">string</span></code> and the <code class="docutils literal notranslate"><span class="pre">value</span></code>, the
+<code class="docutils literal notranslate"><span class="pre">string</span></code> cannot itself contain a comma.  This restriction does not apply to
+the <span class="target" id="index-1-command:string"></span><a class="reference internal" href="../command/string.html#command:string" title="string"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">string()</span></code></a> command, it is specific to the string-handling generator
+expressions only. The <span class="target" id="index-0-genex:COMMA"></span><a class="reference internal" href="../genex/COMMA.html#genex:COMMA" title="COMMA"><code class="xref cmake cmake-genex docutils literal notranslate"><span class="pre">$&lt;COMMA&gt;</span></code></a> generator expression can be used to
+specify a comma as part of the arguments of the string-related generator
+expressions.</p>
+<section id="string-comparisons">
+<span id="genex-family-string-comparisons-generator-expressions"></span><span id="string-comparisons-generator-expressions"></span><h4><a class="toc-backref" href="#id15" role="doc-backlink">String Comparisons</a><a class="headerlink" href="#string-comparisons" title="Link to this heading">¶</a></h4>
+<p>The comparisons are case-sensitive.  For a case-insensitive comparison,
+combine with a <a class="reference internal" href="#string-transforming-generator-expressions"><span class="std std-ref">string transforming generator expression</span></a>.  For example, the following
+evaluates to <code class="docutils literal notranslate"><span class="pre">1</span></code> if <code class="docutils literal notranslate"><span class="pre">${foo}</span></code> is any of <code class="docutils literal notranslate"><span class="pre">BAR</span></code>, <code class="docutils literal notranslate"><span class="pre">Bar</span></code>, <code class="docutils literal notranslate"><span class="pre">bar</span></code>, etc.</p>
+<blockquote>
+<div><div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="o">$&lt;</span><span class="no">STREQUAL</span><span class="o">:$&lt;</span><span class="no">STRING</span><span class="o">:</span><span class="no">TOUPPER</span><span class="p">,</span><span class="o">${</span><span class="nt">foo</span><span class="o">}</span><span class="p">&gt;,</span><span class="no">BAR</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+</div></blockquote>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../genex/STREQUAL.html" id="genex:STREQUAL">STREQUAL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/STRLESS.html" id="genex:STRLESS">STRLESS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/STRGREATER.html" id="genex:STRGREATER">STRGREATER</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/STRLESS_EQUAL.html" id="genex:STRLESS_EQUAL">STRLESS_EQUAL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/STRGREATER_EQUAL.html" id="genex:STRGREATER_EQUAL">STRGREATER_EQUAL</a></li>
+</ul>
+</div>
+</section>
+<section id="string-queries">
+<span id="genex-family-string-queries-generator-expressions"></span><span id="string-queries-generator-expressions"></span><h4><a class="toc-backref" href="#id16" role="doc-backlink">String Queries</a><a class="headerlink" href="#string-queries" title="Link to this heading">¶</a></h4>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../genex/STRING-LENGTH.html" id="genex:STRING">STRING:LENGTH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/STRING-SUBSTRING.html">STRING:SUBSTRING</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/STRING-FIND.html">STRING:FIND</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/STRING-MATCH.html">STRING:MATCH</a></li>
+</ul>
+</div>
+</section>
+<section id="string-generations">
+<span id="genex-family-string-generating-generator-expressions"></span><span id="string-generating-generator-expressions"></span><h4><a class="toc-backref" href="#id17" role="doc-backlink">String Generations</a><a class="headerlink" href="#string-generations" title="Link to this heading">¶</a></h4>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../genex/STRING-JOIN.html">STRING:JOIN</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/STRING-ASCII.html">STRING:ASCII</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/STRING-TIMESTAMP.html">STRING:TIMESTAMP</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/STRING-RANDOM.html">STRING:RANDOM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/STRING-UUID.html">STRING:UUID</a></li>
+</ul>
+</div>
+</section>
+<section id="string-transformations">
+<span id="genex-family-string-transforming-generator-expressions"></span><span id="string-transforming-generator-expressions"></span><h4><a class="toc-backref" href="#id18" role="doc-backlink">String Transformations</a><a class="headerlink" href="#string-transformations" title="Link to this heading">¶</a></h4>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../genex/STRING-REPLACE.html">STRING:REPLACE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/STRING-APPEND.html">STRING:APPEND</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/STRING-PREPEND.html">STRING:PREPEND</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/STRING-TOLOWER.html">STRING:TOLOWER</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/STRING-TOUPPER.html">STRING:TOUPPER</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/STRING-STRIP.html">STRING:STRIP</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/STRING-QUOTE.html">STRING:QUOTE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/STRING-HEX.html">STRING:HEX</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/STRING-HASH.html">STRING:HASH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/STRING-MAKE_C_IDENTIFIER.html">STRING:MAKE_C_IDENTIFIER</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/LOWER_CASE.html" id="genex:LOWER_CASE">LOWER_CASE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/UPPER_CASE.html" id="genex:UPPER_CASE">UPPER_CASE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/MAKE_C_IDENTIFIER.html" id="genex:MAKE_C_IDENTIFIER">MAKE_C_IDENTIFIER</a></li>
+</ul>
+</div>
+</section>
+</section>
+<section id="list-expressions">
+<span id="genex-family-list-expressions"></span><h3><a class="toc-backref" href="#id19" role="doc-backlink">List Expressions</a><a class="headerlink" href="#list-expressions" title="Link to this heading">¶</a></h3>
+<p>Most of the expressions in this section are closely associated with the
+<span class="target" id="index-0-command:list"></span><a class="reference internal" href="../command/list.html#command:list" title="list"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">list()</span></code></a> command, providing the same capabilities, but in
+the form of a generator expression.</p>
+<p>In each of the following list-related generator expressions, the <code class="docutils literal notranslate"><span class="pre">list</span></code>
+must not contain any commas if that generator expression expects something to
+be provided after the <code class="docutils literal notranslate"><span class="pre">list</span></code>.  For example, the expression
+<code class="docutils literal notranslate"><span class="pre">$&lt;LIST:FIND,list,value&gt;</span></code> requires a <code class="docutils literal notranslate"><span class="pre">value</span></code> after the <code class="docutils literal notranslate"><span class="pre">list</span></code>.
+Since a comma is used to separate the <code class="docutils literal notranslate"><span class="pre">list</span></code> and the <code class="docutils literal notranslate"><span class="pre">value</span></code>, the <code class="docutils literal notranslate"><span class="pre">list</span></code>
+cannot itself contain a comma.  This restriction does not apply to the
+<span class="target" id="index-1-command:list"></span><a class="reference internal" href="../command/list.html#command:list" title="list"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">list()</span></code></a> command, it is specific to the list-handling generator
+expressions only.</p>
+<section id="list-comparisons">
+<span id="genex-list-comparisons"></span><h4><a class="toc-backref" href="#id20" role="doc-backlink">List Comparisons</a><a class="headerlink" href="#list-comparisons" title="Link to this heading">¶</a></h4>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../genex/IN_LIST.html" id="genex:IN_LIST">IN_LIST</a></li>
+</ul>
+</div>
+</section>
+<section id="list-queries">
+<span id="genex-family-genex-list-queries"></span><span id="genex-list-queries"></span><h4><a class="toc-backref" href="#id21" role="doc-backlink">List Queries</a><a class="headerlink" href="#list-queries" title="Link to this heading">¶</a></h4>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../genex/LIST-LENGTH.html" id="genex:LIST">LIST:LENGTH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/LIST-GET.html">LIST:GET</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/LIST-SUBLIST.html">LIST:SUBLIST</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/LIST-FIND.html">LIST:FIND</a></li>
+</ul>
+</div>
+</section>
+<section id="list-transformations">
+<span id="genex-family-genex-list-transformations"></span><span id="genex-list-transformations"></span><h4><a class="toc-backref" href="#id22" role="doc-backlink">List Transformations</a><a class="headerlink" href="#list-transformations" title="Link to this heading">¶</a></h4>
+<div class="toctree-wrapper compound" id="genex-list-join">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../genex/LIST-JOIN.html">LIST:JOIN</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/LIST-APPEND.html">LIST:APPEND</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/LIST-PREPEND.html">LIST:PREPEND</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/LIST-INSERT.html">LIST:INSERT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/LIST-POP_BACK.html">LIST:POP_BACK</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/LIST-POP_FRONT.html">LIST:POP_FRONT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/LIST-REMOVE_ITEM.html">LIST:REMOVE_ITEM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/LIST-REMOVE_AT.html">LIST:REMOVE_AT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/LIST-REMOVE_DUPLICATES.html">LIST:REMOVE_DUPLICATES</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/LIST-FILTER.html">LIST:FILTER</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/LIST-TRANSFORM.html">LIST:TRANSFORM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/JOIN.html" id="genex:JOIN">JOIN</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/REMOVE_DUPLICATES.html" id="genex:REMOVE_DUPLICATES">REMOVE_DUPLICATES</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/FILTER.html" id="genex:FILTER">FILTER</a></li>
+</ul>
+</div>
+</section>
+<section id="list-ordering">
+<span id="genex-family-genex-list-ordering"></span><span id="genex-list-ordering"></span><span id="genex-list-filter"></span><span id="genex-list-remove-duplicates"></span><h4><a class="toc-backref" href="#id23" role="doc-backlink">List Ordering</a><a class="headerlink" href="#list-ordering" title="Link to this heading">¶</a></h4>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../genex/LIST-REVERSE.html">LIST:REVERSE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/LIST-SORT.html">LIST:SORT</a></li>
+</ul>
+</div>
+</section>
+<section id="bound-operands">
+<span id="genex-family-genex-bound-operands"></span><span id="genex-bound-operands"></span><h4><a class="toc-backref" href="#id24" role="doc-backlink">Bound Operands</a><a class="headerlink" href="#bound-operands" title="Link to this heading">¶</a></h4>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../genex/_0.html" id="genex:_0">$&lt;_0&gt;</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/_1.html" id="genex:_1">$&lt;_1&gt;</a></li>
+</ul>
+</div>
+</section>
+</section>
+<section id="path-expressions">
+<span id="genex-family-path-expressions"></span><h3><a class="toc-backref" href="#id25" role="doc-backlink">Path Expressions</a><a class="headerlink" href="#path-expressions" title="Link to this heading">¶</a></h3>
+<p>Most of the expressions in this section are closely associated with the
+<span class="target" id="index-0-command:cmake_path"></span><a class="reference internal" href="../command/cmake_path.html#command:cmake_path" title="cmake_path"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">cmake_path()</span></code></a> command, providing the same capabilities, but in
+the form of a generator expression.</p>
+<p>For all generator expressions in this section, paths are expected to be in
+cmake-style format. The <a class="reference internal" href="#genex-path-cmake-path"><code class="cmake literal docutils notranslate"><span class="pre">$&lt;PATH:CMAKE_PATH&gt;</span></code></a>
+generator expression can be used to convert a native path to a cmake-style
+one.</p>
+<section id="path-comparisons">
+<span id="genex-path-comparisons"></span><h4><a class="toc-backref" href="#id26" role="doc-backlink">Path Comparisons</a><a class="headerlink" href="#path-comparisons" title="Link to this heading">¶</a></h4>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../genex/PATH_EQUAL.html" id="genex:PATH_EQUAL">PATH_EQUAL</a></li>
+</ul>
+</div>
+</section>
+<section id="path-queries">
+<span id="genex-family-genex-path-queries"></span><span id="genex-path-queries"></span><h4><a class="toc-backref" href="#id27" role="doc-backlink">Path Queries</a><a class="headerlink" href="#path-queries" title="Link to this heading">¶</a></h4>
+<p>These expressions provide the generation-time capabilities equivalent to the
+<a class="reference internal" href="../command/cmake_path.html#path-query"><span class="std std-ref">Query</span></a> options of the <span class="target" id="index-1-command:cmake_path"></span><a class="reference internal" href="../command/cmake_path.html#command:cmake_path" title="cmake_path"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">cmake_path()</span></code></a> command.
+All paths are expected to be in cmake-style format.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../genex/PATH-HAS_.html" id="genex:PATH">PATH:HAS_*</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/PATH-IS_ABSOLUTE.html">PATH:IS_ABSOLUTE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/PATH-IS_RELATIVE.html">PATH:IS_RELATIVE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/PATH-IS_PREFIX.html">PATH:IS_PREFIX</a></li>
+</ul>
+</div>
+</section>
+<section id="path-decomposition">
+<span id="genex-path-decomposition"></span><h4><a class="toc-backref" href="#id28" role="doc-backlink">Path Decomposition</a><a class="headerlink" href="#path-decomposition" title="Link to this heading">¶</a></h4>
+<p>These expressions provide the generation-time capabilities equivalent to the
+<a class="reference internal" href="../command/cmake_path.html#path-decomposition"><span class="std std-ref">Decomposition</span></a> options of the <span class="target" id="index-2-command:cmake_path"></span><a class="reference internal" href="../command/cmake_path.html#command:cmake_path" title="cmake_path"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">cmake_path()</span></code></a>
+command.  All paths are expected to be in cmake-style format.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../genex/PATH-GET_.html">PATH:GET_*</a></li>
+</ul>
+</div>
+</section>
+<section id="path-transformations">
+<span id="genex-family-genex-path-transformations"></span><span id="genex-path-transformations"></span><h4><a class="toc-backref" href="#id29" role="doc-backlink">Path Transformations</a><a class="headerlink" href="#path-transformations" title="Link to this heading">¶</a></h4>
+<p>These expressions provide the generation-time capabilities equivalent to the
+<a class="reference internal" href="../command/cmake_path.html#path-modification"><span class="std std-ref">Modification</span></a> and <a class="reference internal" href="../command/cmake_path.html#path-generation"><span class="std std-ref">Generation</span></a>
+options of the <span class="target" id="index-3-command:cmake_path"></span><a class="reference internal" href="../command/cmake_path.html#command:cmake_path" title="cmake_path"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">cmake_path()</span></code></a> command.  All paths are expected to be
+in cmake-style format.</p>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 3.27: </span>All operations now accept a list of paths as argument. When a list of paths
+is specified, the operation will be applied to each path.</p>
+</div>
+<div class="toctree-wrapper compound" id="genex-path-cmake-path">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../genex/PATH-CMAKE_PATH.html">PATH:CMAKE_PATH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/PATH-NATIVE_PATH.html">PATH:NATIVE_PATH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/PATH-APPEND.html">PATH:APPEND</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/PATH-REMOVE_FILENAME.html">PATH:REMOVE_FILENAME</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/PATH-REPLACE_FILENAME.html">PATH:REPLACE_FILENAME</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/PATH-REMOVE_EXTENSION.html">PATH:REMOVE_EXTENSION</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/PATH-REPLACE_EXTENSION.html">PATH:REPLACE_EXTENSION</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/PATH-NORMAL_PATH.html">PATH:NORMAL_PATH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/PATH-RELATIVE_PATH.html">PATH:RELATIVE_PATH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/PATH-ABSOLUTE_PATH.html">PATH:ABSOLUTE_PATH</a></li>
+</ul>
+</div>
+</section>
+<section id="shell-paths">
+<h4><a class="toc-backref" href="#id30" role="doc-backlink">Shell Paths</a><a class="headerlink" href="#shell-paths" title="Link to this heading">¶</a></h4>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../genex/SHELL_PATH.html" id="genex:SHELL_PATH">SHELL_PATH</a></li>
+</ul>
+</div>
+</section>
+</section>
+<section id="configuration-expressions">
+<span id="genex-family-configuration-expressions"></span><h3><a class="toc-backref" href="#id31" role="doc-backlink">Configuration Expressions</a><a class="headerlink" href="#configuration-expressions" title="Link to this heading">¶</a></h3>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../genex/CONFIG.html" id="genex:CONFIG">CONFIG</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/OUTPUT_CONFIG.html" id="genex:OUTPUT_CONFIG">OUTPUT_CONFIG</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/COMMAND_CONFIG.html" id="genex:COMMAND_CONFIG">COMMAND_CONFIG</a></li>
+</ul>
+</div>
+</section>
+<section id="global-expressions">
+<h3><a class="toc-backref" href="#id32" role="doc-backlink">Global Expressions</a><a class="headerlink" href="#global-expressions" title="Link to this heading">¶</a></h3>
+<section id="global-properties">
+<h4><a class="toc-backref" href="#id33" role="doc-backlink">Global Properties</a><a class="headerlink" href="#global-properties" title="Link to this heading">¶</a></h4>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../genex/GLOBAL_PROPERTY.html" id="genex:GLOBAL_PROPERTY">GLOBAL_PROPERTY</a></li>
+</ul>
+</div>
+</section>
+</section>
+<section id="directory-dependent-expressions">
+<h3><a class="toc-backref" href="#id34" role="doc-backlink">Directory-dependent Expressions</a><a class="headerlink" href="#directory-dependent-expressions" title="Link to this heading">¶</a></h3>
+<section id="directory-properties">
+<h4><a class="toc-backref" href="#id35" role="doc-backlink">Directory Properties</a><a class="headerlink" href="#directory-properties" title="Link to this heading">¶</a></h4>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../genex/DIRECTORY_PROPERTY.html" id="genex:DIRECTORY_PROPERTY">DIRECTORY_PROPERTY</a></li>
+</ul>
+</div>
+</section>
+</section>
+<section id="rule-dependent-expressions">
+<h3><a class="toc-backref" href="#id36" role="doc-backlink">Rule-Dependent Expressions</a><a class="headerlink" href="#rule-dependent-expressions" title="Link to this heading">¶</a></h3>
+<section id="rule-properties">
+<h4><a class="toc-backref" href="#id37" role="doc-backlink">Rule Properties</a><a class="headerlink" href="#rule-properties" title="Link to this heading">¶</a></h4>
+<p>These expressions look up the values of rule properties.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../genex/RULE_PROPERTY.html" id="genex:RULE_PROPERTY">RULE_PROPERTY</a></li>
+</ul>
+</div>
+</section>
+</section>
+<section id="toolchain-and-language-expressions">
+<span id="genex-family-toolchain-and-language-expressions"></span><h3><a class="toc-backref" href="#id38" role="doc-backlink">Toolchain And Language Expressions</a><a class="headerlink" href="#toolchain-and-language-expressions" title="Link to this heading">¶</a></h3>
+<section id="platform">
+<h4><a class="toc-backref" href="#id39" role="doc-backlink">Platform</a><a class="headerlink" href="#platform" title="Link to this heading">¶</a></h4>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../genex/PLATFORM_ID.html" id="genex:PLATFORM_ID">PLATFORM_ID</a></li>
+</ul>
+</div>
+</section>
+<section id="compiler-version">
+<span id="genex-family-compiler-version"></span><h4><a class="toc-backref" href="#id40" role="doc-backlink">Compiler Version</a><a class="headerlink" href="#compiler-version" title="Link to this heading">¶</a></h4>
+<p>See also the <span class="target" id="index-1-variable:CMAKE_&lt;LANG&gt;_COMPILER_VERSION"></span><a class="reference internal" href="../variable/CMAKE_LANG_COMPILER_VERSION.html#variable:CMAKE_&lt;LANG&gt;_COMPILER_VERSION" title="CMAKE_&lt;LANG&gt;_COMPILER_VERSION"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_&lt;LANG&gt;_COMPILER_VERSION</span></code></a> variable, which is
+closely related to the expressions in this sub-section.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../genex/C_COMPILER_VERSION.html" id="genex:C_COMPILER_VERSION">C_COMPILER_VERSION</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/CXX_COMPILER_VERSION.html" id="genex:CXX_COMPILER_VERSION">CXX_COMPILER_VERSION</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/CUDA_COMPILER_VERSION.html" id="genex:CUDA_COMPILER_VERSION">CUDA_COMPILER_VERSION</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/OBJC_COMPILER_VERSION.html" id="genex:OBJC_COMPILER_VERSION">OBJC_COMPILER_VERSION</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/OBJCXX_COMPILER_VERSION.html" id="genex:OBJCXX_COMPILER_VERSION">OBJCXX_COMPILER_VERSION</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/FORTRAN_COMPILER_VERSION.html" id="genex:Fortran_COMPILER_VERSION">Fortran_COMPILER_VERSION</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/HIP_COMPILER_VERSION.html" id="genex:HIP_COMPILER_VERSION">HIP_COMPILER_VERSION</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/ISPC_COMPILER_VERSION.html" id="genex:ISPC_COMPILER_VERSION">ISPC_COMPILER_VERSION</a></li>
+</ul>
+</div>
+</section>
+<section id="compiler-language-id-and-frontend-variant">
+<span id="genex-family-compiler-language-id-and-frontend-variant"></span><h4><a class="toc-backref" href="#id41" role="doc-backlink">Compiler Language, ID, and Frontend-Variant</a><a class="headerlink" href="#compiler-language-id-and-frontend-variant" title="Link to this heading">¶</a></h4>
+<p>See also the <span class="target" id="index-0-variable:CMAKE_&lt;LANG&gt;_COMPILER_ID"></span><a class="reference internal" href="../variable/CMAKE_LANG_COMPILER_ID.html#variable:CMAKE_&lt;LANG&gt;_COMPILER_ID" title="CMAKE_&lt;LANG&gt;_COMPILER_ID"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_&lt;LANG&gt;_COMPILER_ID</span></code></a> and
+<span class="target" id="index-0-variable:CMAKE_&lt;LANG&gt;_COMPILER_FRONTEND_VARIANT"></span><a class="reference internal" href="../variable/CMAKE_LANG_COMPILER_FRONTEND_VARIANT.html#variable:CMAKE_&lt;LANG&gt;_COMPILER_FRONTEND_VARIANT" title="CMAKE_&lt;LANG&gt;_COMPILER_FRONTEND_VARIANT"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_&lt;LANG&gt;_COMPILER_FRONTEND_VARIANT</span></code></a> variables, which are closely
+related to most of the expressions in this sub-section.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../genex/C_COMPILER_ID.html" id="genex:C_COMPILER_ID">C_COMPILER_ID</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/CXX_COMPILER_ID.html" id="genex:CXX_COMPILER_ID">CXX_COMPILER_ID</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/CUDA_COMPILER_ID.html" id="genex:CUDA_COMPILER_ID">CUDA_COMPILER_ID</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/OBJC_COMPILER_ID.html" id="genex:OBJC_COMPILER_ID">OBJC_COMPILER_ID</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/OBJCXX_COMPILER_ID.html" id="genex:OBJCXX_COMPILER_ID">OBJCXX_COMPILER_ID</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/FORTRAN_COMPILER_ID.html" id="genex:Fortran_COMPILER_ID">Fortran_COMPILER_ID</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/HIP_COMPILER_ID.html" id="genex:HIP_COMPILER_ID">HIP_COMPILER_ID</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/ISPC_COMPILER_ID.html" id="genex:ISPC_COMPILER_ID">ISPC_COMPILER_ID</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/C_COMPILER_FRONTEND_VARIANT.html" id="genex:C_COMPILER_FRONTEND_VARIANT">C_COMPILER_FRONTEND_VARIANT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/CXX_COMPILER_FRONTEND_VARIANT.html" id="genex:CXX_COMPILER_FRONTEND_VARIANT">CXX_COMPILER_FRONTEND_VARIANT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/CUDA_COMPILER_FRONTEND_VARIANT.html" id="genex:CUDA_COMPILER_FRONTEND_VARIANT">CUDA_COMPILER_FRONTEND_VARIANT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/OBJC_COMPILER_FRONTEND_VARIANT.html" id="genex:OBJC_COMPILER_FRONTEND_VARIANT">OBJC_COMPILER_FRONTEND_VARIANT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/OBJCXX_COMPILER_FRONTEND_VARIANT.html" id="genex:OBJCXX_COMPILER_FRONTEND_VARIANT">OBJCXX_COMPILER_FRONTEND_VARIANT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/FORTRAN_COMPILER_FRONTEND_VARIANT.html" id="genex:Fortran_COMPILER_FRONTEND_VARIANT">Fortran_COMPILER_FRONTEND_VARIANT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/HIP_COMPILER_FRONTEND_VARIANT.html" id="genex:HIP_COMPILER_FRONTEND_VARIANT">HIP_COMPILER_FRONTEND_VARIANT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/ISPC_COMPILER_FRONTEND_VARIANT.html" id="genex:ISPC_COMPILER_FRONTEND_VARIANT">ISPC_COMPILER_FRONTEND_VARIANT</a></li>
+<span id="genex:COMPILE_LANGUAGE"></span><li class="toctree-l1"><a class="reference internal" href="../genex/COMPILE_LANGUAGE.html" id="genex:COMPILE_LANGUAGE:languages">COMPILE_LANGUAGE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/COMPILE_LANG_AND_ID.html" id="genex:COMPILE_LANG_AND_ID">COMPILE_LANG_AND_ID</a></li>
+</ul>
+</div>
+</section>
+<section id="compile-features">
+<h4><a class="toc-backref" href="#id42" role="doc-backlink">Compile Features</a><a class="headerlink" href="#compile-features" title="Link to this heading">¶</a></h4>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../genex/COMPILE_FEATURES.html" id="genex:COMPILE_FEATURES">COMPILE_FEATURES</a></li>
+</ul>
+</div>
+</section>
+<section id="compile-context">
+<h4><a class="toc-backref" href="#id43" role="doc-backlink">Compile Context</a><a class="headerlink" href="#compile-context" title="Link to this heading">¶</a></h4>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../genex/COMPILE_ONLY.html" id="genex:COMPILE_ONLY">COMPILE_ONLY</a></li>
+</ul>
+</div>
+</section>
+<section id="link-language-and-id">
+<span id="genex-family-link-language-and-id"></span><h4><a class="toc-backref" href="#id44" role="doc-backlink">Link Language and ID</a><a class="headerlink" href="#link-language-and-id" title="Link to this heading">¶</a></h4>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../genex/LINK_LANGUAGE.html" id="genex:LINK_LANGUAGE">LINK_LANGUAGE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/LINK_LANG_AND_ID.html" id="genex:LINK_LANG_AND_ID">LINK_LANG_AND_ID</a></li>
+</ul>
+</div>
+</section>
+<section id="link-features">
+<span id="genex-family-boolean-link-language-generator-expression"></span><span id="boolean-link-language-generator-expression"></span><h4><a class="toc-backref" href="#id45" role="doc-backlink">Link Features</a><a class="headerlink" href="#link-features" title="Link to this heading">¶</a></h4>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../genex/LINK_LIBRARY.html" id="genex:LINK_LIBRARY">LINK_LIBRARY</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/LINK_GROUP.html" id="genex:LINK_GROUP">LINK_GROUP</a></li>
+</ul>
+</div>
+</section>
+<section id="link-context">
+<span id="genex-family-link-context"></span><h4><a class="toc-backref" href="#id46" role="doc-backlink">Link Context</a><a class="headerlink" href="#link-context" title="Link to this heading">¶</a></h4>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../genex/LINK_ONLY.html" id="genex:LINK_ONLY">LINK_ONLY</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/DEVICE_LINK.html" id="genex:DEVICE_LINK">DEVICE_LINK</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/HOST_LINK.html" id="genex:HOST_LINK">HOST_LINK</a></li>
+</ul>
+</div>
+</section>
+<section id="linker-id-and-frontend-variant">
+<span id="genex-family-linker-id-and-frontend-variant"></span><h4><a class="toc-backref" href="#id47" role="doc-backlink">Linker ID and Frontend-Variant</a><a class="headerlink" href="#linker-id-and-frontend-variant" title="Link to this heading">¶</a></h4>
+<p>See also the <span class="target" id="index-0-variable:CMAKE_&lt;LANG&gt;_COMPILER_LINKER_ID"></span><a class="reference internal" href="../variable/CMAKE_LANG_COMPILER_LINKER_ID.html#variable:CMAKE_&lt;LANG&gt;_COMPILER_LINKER_ID" title="CMAKE_&lt;LANG&gt;_COMPILER_LINKER_ID"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_&lt;LANG&gt;_COMPILER_LINKER_ID</span></code></a> and
+<span class="target" id="index-0-variable:CMAKE_&lt;LANG&gt;_COMPILER_LINKER_FRONTEND_VARIANT"></span><a class="reference internal" href="../variable/CMAKE_LANG_COMPILER_LINKER_FRONTEND_VARIANT.html#variable:CMAKE_&lt;LANG&gt;_COMPILER_LINKER_FRONTEND_VARIANT" title="CMAKE_&lt;LANG&gt;_COMPILER_LINKER_FRONTEND_VARIANT"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_&lt;LANG&gt;_COMPILER_LINKER_FRONTEND_VARIANT</span></code></a> variables, which are
+closely related to most of the expressions in this sub-section.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../genex/C_COMPILER_LINKER_ID.html" id="genex:C_COMPILER_LINKER_ID">C_COMPILER_LINKER_ID</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/CXX_COMPILER_LINKER_ID.html" id="genex:CXX_COMPILER_LINKER_ID">CXX_COMPILER_LINKER_ID</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/CUDA_COMPILER_LINKER_ID.html" id="genex:CUDA_COMPILER_LINKER_ID">CUDA_COMPILER_LINKER_ID</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/OBJC_COMPILER_LINKER_ID.html" id="genex:OBJC_COMPILER_LINKER_ID">OBJC_COMPILER_LINKER_ID</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/OBJCXX_COMPILER_LINKER_ID.html" id="genex:OBJCXX_COMPILER_LINKER_ID">OBJCXX_COMPILER_LINKER_ID</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/FORTRAN_COMPILER_LINKER_ID.html" id="genex:Fortran_COMPILER_LINKER_ID">Fortran_COMPILER_LINKER_ID</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/HIP_COMPILER_LINKER_ID.html" id="genex:HIP_COMPILER_LINKER_ID">HIP_COMPILER_LINKER_ID</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/SYCL_COMPILER_LINKER_ID.html" id="genex:SYCL_COMPILER_LINKER_ID">SYCL_COMPILER_LINKER_ID</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/C_COMPILER_LINKER_FRONTEND_VARIANT.html" id="genex:C_COMPILER_LINKER_FRONTEND_VARIANT">C_COMPILER_LINKER_FRONTEND_VARIANT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/CXX_COMPILER_LINKER_FRONTEND_VARIANT.html" id="genex:CXX_COMPILER_LINKER_FRONTEND_VARIANT">CXX_COMPILER_LINKER_FRONTEND_VARIANT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/CUDA_COMPILER_LINKER_FRONTEND_VARIANT.html" id="genex:CUDA_COMPILER_LINKER_FRONTEND_VARIANT">CUDA_COMPILER_LINKER_FRONTEND_VARIANT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/OBJC_COMPILER_LINKER_FRONTEND_VARIANT.html" id="genex:OBJC_COMPILER_LINKER_FRONTEND_VARIANT">OBJC_COMPILER_LINKER_FRONTEND_VARIANT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/OBJCXX_COMPILER_LINKER_FRONTEND_VARIANT.html" id="genex:OBJCXX_COMPILER_LINKER_FRONTEND_VARIANT">OBJCXX_COMPILER_LINKER_FRONTEND_VARIANT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/FORTRAN_COMPILER_LINKER_FRONTEND_VARIANT.html" id="genex:Fortran_COMPILER_LINKER_FRONTEND_VARIANT">Fortran_COMPILER_LINKER_FRONTEND_VARIANT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/HIP_COMPILER_LINKER_FRONTEND_VARIANT.html" id="genex:HIP_COMPILER_LINKER_FRONTEND_VARIANT">HIP_COMPILER_LINKER_FRONTEND_VARIANT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/SYCL_COMPILER_LINKER_FRONTEND_VARIANT.html" id="genex:SYCL_COMPILER_LINKER_FRONTEND_VARIANT">SYCL_COMPILER_LINKER_FRONTEND_VARIANT</a></li>
+</ul>
+</div>
+</section>
+</section>
+<section id="genex-family-source-dependent-expressions">
+<span id="source-dependent-expressions"></span><span id="id1"></span><h3><a class="toc-backref" href="#id48" role="doc-backlink">Source-Dependent Expressions</a><a class="headerlink" href="#genex-family-source-dependent-expressions" title="Link to this heading">¶</a></h3>
+<p>The source file, as specified in the following expressions, can be nonexistent
+on the file system (i.e. generated file) but must be known from CMake. A source
+file becomes known from CMake if it is part of some target (library or
+executable) or when a source file property is defined. Moreover, this
+information is specific to the directory where the declaration occurred.</p>
+<p>For example, these generator expressions enable to offer a uniform behavior,
+for the <span class="target" id="index-1-command:add_custom_command"></span><a class="reference internal" href="../command/add_custom_command.html#command:add_custom_command" title="add_custom_command"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">add_custom_command()</span></code></a> and <span class="target" id="index-1-command:add_custom_target"></span><a class="reference internal" href="../command/add_custom_target.html#command:add_custom_target" title="add_custom_target"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">add_custom_target()</span></code></a>
+commands, regarding the source properties:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">function(</span><span class="nb">custom_add_library</span><span class="w"> </span><span class="nb">target</span><span class="nf">)</span>
+<span class="w">  </span><span class="nf">unset(</span><span class="nb">sources</span><span class="nf">)</span>
+<span class="w">  </span><span class="nf">foreach(</span><span class="nb">source</span><span class="w"> </span><span class="no">IN</span><span class="w"> </span><span class="no">LISTS</span><span class="w"> </span><span class="no">ARGN</span><span class="nf">)</span>
+<span class="w">    </span><span class="nf">add_custom_command(</span>
+<span class="w">      </span><span class="no">OUTPUT</span><span class="w"> </span><span class="o">${</span><span class="nt">CMAKE_CURRENT_BINARY_DIR</span><span class="o">}</span><span class="na">/</span><span class="o">${</span><span class="nt">source</span><span class="o">}</span><span class="p">.</span><span class="nb">bin</span>
+<span class="w">      </span><span class="no">COMMAND</span><span class="w"> </span><span class="nb">my-compiler</span><span class="w"> </span><span class="p">-</span><span class="nb">o</span><span class="w"> </span><span class="o">${</span><span class="nt">CMAKE_CURRENT_BINARY_DIR</span><span class="o">}</span><span class="na">/</span><span class="o">${</span><span class="nt">source</span><span class="o">}</span><span class="p">.</span><span class="nb">bin</span>
+<span class="w">                          </span><span class="s">"$&lt;$&lt;SOURCE_EXISTS:${source}&gt;:$&lt;SOURCE_PROPERTY:${source},COMPILE_OPTIONS&gt;&gt;"</span>
+<span class="w">                          </span><span class="o">${</span><span class="nt">source</span><span class="o">}</span><span class="nf">)</span>
+<span class="w">    </span><span class="nf">list(</span><span class="no">APPEND</span><span class="w"> </span><span class="nb">sources</span><span class="w"> </span><span class="o">${</span><span class="nt">CMAKE_CURRENT_BINARY_DIR</span><span class="o">}</span><span class="na">/</span><span class="o">${</span><span class="nt">source</span><span class="o">}</span><span class="p">.</span><span class="nb">bin</span><span class="nf">)</span>
+<span class="w">  </span><span class="nf">endforeach()</span>
+<span class="w">  </span><span class="nf">add_custom_target(</span><span class="o">${</span><span class="nt">target</span><span class="o">}</span>
+<span class="w">                    </span><span class="no">DEPENDS</span><span class="w"> </span><span class="o">${</span><span class="nt">sources</span><span class="o">}</span><span class="nf">)</span>
+<span class="nf">endfunction()</span>
+
+<span class="nf">custom_add_library(</span><span class="nb">my-lib</span><span class="w"> </span><span class="nb">file1.x</span><span class="w"> </span><span class="nb">file2.x</span><span class="w"> </span><span class="nb">file3.x</span><span class="nf">)</span>
+<span class="nf">set_property(</span><span class="no">SOURCE</span><span class="w"> </span><span class="nb">file1.x</span><span class="w"> </span><span class="no">PROPERTY</span><span class="w"> </span><span class="no">COMPILE_OPTIONS</span><span class="w"> </span><span class="p">-</span><span class="no">X</span><span class="nf">)</span>
+<span class="nf">set_property(</span><span class="no">SOURCE</span><span class="w"> </span><span class="nb">file2.x</span><span class="w"> </span><span class="no">PROPERTY</span><span class="w"> </span><span class="no">COMPILE_OPTIONS</span><span class="w"> </span><span class="p">-</span><span class="no">Y</span><span class="nf">)</span>
+</pre></div>
+</div>
+<section id="source-meta-data">
+<h4><a class="toc-backref" href="#id49" role="doc-backlink">Source Meta-Data</a><a class="headerlink" href="#source-meta-data" title="Link to this heading">¶</a></h4>
+<p>These expressions look up information about a source file.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../genex/SOURCE_EXISTS.html" id="genex:SOURCE_EXISTS">SOURCE_EXISTS</a></li>
+</ul>
+</div>
+</section>
+<section id="source-properties">
+<h4><a class="toc-backref" href="#id50" role="doc-backlink">Source Properties</a><a class="headerlink" href="#source-properties" title="Link to this heading">¶</a></h4>
+<p>These expressions look up the values of
+<a class="reference internal" href="cmake-properties.7.html#source-file-properties"><span class="std std-ref">source file properties</span></a>.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../genex/SOURCE_PROPERTY.html" id="genex:SOURCE_PROPERTY">SOURCE_PROPERTY</a></li>
+</ul>
+</div>
+</section>
+</section>
+<section id="genex-family-fileset-dependent-expressions">
+<span id="fileset-dependent-expressions"></span><span id="id2"></span><h3><a class="toc-backref" href="#id51" role="doc-backlink">FileSet-Dependent Expressions</a><a class="headerlink" href="#genex-family-fileset-dependent-expressions" title="Link to this heading">¶</a></h3>
+<section id="fileset-meta-data">
+<h4><a class="toc-backref" href="#id52" role="doc-backlink">FileSet Meta-Data</a><a class="headerlink" href="#fileset-meta-data" title="Link to this heading">¶</a></h4>
+<p>These expressions look up information about a file set.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../genex/FILE_SET_EXISTS.html" id="genex:FILE_SET_EXISTS">FILE_SET_EXISTS</a></li>
+</ul>
+</div>
+</section>
+<section id="fileset-properties">
+<h4><a class="toc-backref" href="#id53" role="doc-backlink">FileSet Properties</a><a class="headerlink" href="#fileset-properties" title="Link to this heading">¶</a></h4>
+<p>These expressions look up the values of file set properties.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../genex/FILE_SET_PROPERTY.html" id="genex:FILE_SET_PROPERTY">FILE_SET_PROPERTY</a></li>
+</ul>
+</div>
+</section>
+</section>
+<section id="genex-family-target-dependent-expressions">
+<span id="target-dependent-expressions"></span><span id="id3"></span><h3><a class="toc-backref" href="#id54" role="doc-backlink">Target-Dependent Expressions</a><a class="headerlink" href="#genex-family-target-dependent-expressions" title="Link to this heading">¶</a></h3>
+<section id="target-meta-data">
+<span id="genex-family-target-meta-data"></span><h4><a class="toc-backref" href="#id55" role="doc-backlink">Target Meta-Data</a><a class="headerlink" href="#target-meta-data" title="Link to this heading">¶</a></h4>
+<p>These expressions look up information about a target.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../genex/TARGET_EXISTS.html" id="genex:TARGET_EXISTS">TARGET_EXISTS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/TARGET_NAME_IF_EXISTS.html" id="genex:TARGET_NAME_IF_EXISTS">TARGET_NAME_IF_EXISTS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/TARGET_NAME.html" id="genex:TARGET_NAME">TARGET_NAME</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/TARGET_POLICY.html" id="genex:TARGET_POLICY">TARGET_POLICY</a></li>
+</ul>
+</div>
+</section>
+<section id="target-properties">
+<h4><a class="toc-backref" href="#id56" role="doc-backlink">Target Properties</a><a class="headerlink" href="#target-properties" title="Link to this heading">¶</a></h4>
+<p>These expressions look up the values of
+<a class="reference internal" href="cmake-properties.7.html#target-properties"><span class="std std-ref">target properties</span></a>.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<span id="genex:TARGET_PROPERTY"></span><li class="toctree-l1"><a class="reference internal" href="../genex/TARGET_PROPERTY.html" id="genex:TARGET_PROPERTY:prop">TARGET_PROPERTY</a></li>
+</ul>
+</div>
+<p>The expressions have special evaluation rules for some properties:</p>
+<dl>
+<dt><a class="reference internal" href="cmake-buildsystem.7.html#target-build-specification"><span class="std std-ref">Target Build Specification Properties</span></a></dt><dd><p>These evaluate as a <a class="reference internal" href="cmake-language.7.html#cmake-language-lists"><span class="std std-ref">semicolon-separated list</span></a>
+representing the union of the value on the target itself with the values
+of the corresponding <a class="reference internal" href="cmake-buildsystem.7.html#target-usage-requirements"><span class="std std-ref">Target Usage Requirements</span></a> on targets named by
+the target's <span class="target" id="index-1-prop_tgt:LINK_LIBRARIES"></span><a class="reference internal" href="../prop_tgt/LINK_LIBRARIES.html#prop_tgt:LINK_LIBRARIES" title="LINK_LIBRARIES"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">LINK_LIBRARIES</span></code></a>:</p>
+<ul class="simple">
+<li><p>For <a class="reference internal" href="cmake-buildsystem.7.html#target-compile-properties"><span class="std std-ref">Target Compile Properties</span></a>, evaluation of corresponding usage
+requirements is transitive over the closure of the linked targets'
+<span class="target" id="index-0-prop_tgt:INTERFACE_LINK_LIBRARIES"></span><a class="reference internal" href="../prop_tgt/INTERFACE_LINK_LIBRARIES.html#prop_tgt:INTERFACE_LINK_LIBRARIES" title="INTERFACE_LINK_LIBRARIES"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">INTERFACE_LINK_LIBRARIES</span></code></a> <em>excluding</em> entries guarded by the
+<span class="target" id="index-0-genex:LINK_ONLY"></span><a class="reference internal" href="../genex/LINK_ONLY.html#genex:LINK_ONLY" title="LINK_ONLY"><code class="xref cmake cmake-genex docutils literal notranslate"><span class="pre">LINK_ONLY</span></code></a> generator expression.</p></li>
+<li><p>For <a class="reference internal" href="cmake-buildsystem.7.html#target-link-properties"><span class="std std-ref">Target Link Properties</span></a>, evaluation of corresponding usage
+requirements is transitive over the closure of the linked targets'
+<span class="target" id="index-1-prop_tgt:INTERFACE_LINK_LIBRARIES"></span><a class="reference internal" href="../prop_tgt/INTERFACE_LINK_LIBRARIES.html#prop_tgt:INTERFACE_LINK_LIBRARIES" title="INTERFACE_LINK_LIBRARIES"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">INTERFACE_LINK_LIBRARIES</span></code></a> <em>including</em> entries guarded by the
+<span class="target" id="index-1-genex:LINK_ONLY"></span><a class="reference internal" href="../genex/LINK_ONLY.html#genex:LINK_ONLY" title="LINK_ONLY"><code class="xref cmake cmake-genex docutils literal notranslate"><span class="pre">LINK_ONLY</span></code></a> generator expression.  See policy <span class="target" id="index-0-policy:CMP0166"></span><a class="reference internal" href="../policy/CMP0166.html#policy:CMP0166" title="CMP0166"><code class="xref cmake cmake-policy docutils literal notranslate"><span class="pre">CMP0166</span></code></a>.</p></li>
+</ul>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 4.1: </span>Evaluation of <span class="target" id="index-2-prop_tgt:LINK_LIBRARIES"></span><a class="reference internal" href="../prop_tgt/LINK_LIBRARIES.html#prop_tgt:LINK_LIBRARIES" title="LINK_LIBRARIES"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">LINK_LIBRARIES</span></code></a> itself is now transitive.
+See policy <span class="target" id="index-0-policy:CMP0189"></span><a class="reference internal" href="../policy/CMP0189.html#policy:CMP0189" title="CMP0189"><code class="xref cmake cmake-policy docutils literal notranslate"><span class="pre">CMP0189</span></code></a>.</p>
+</div>
+</dd>
+<dt><a class="reference internal" href="cmake-buildsystem.7.html#target-usage-requirements"><span class="std std-ref">Target Usage Requirement Properties</span></a></dt><dd><p>These evaluate as a <a class="reference internal" href="cmake-language.7.html#cmake-language-lists"><span class="std std-ref">semicolon-separated list</span></a>
+representing the union of the value on the target itself with the values
+of the same properties on targets named by the target's
+<span class="target" id="index-2-prop_tgt:INTERFACE_LINK_LIBRARIES"></span><a class="reference internal" href="../prop_tgt/INTERFACE_LINK_LIBRARIES.html#prop_tgt:INTERFACE_LINK_LIBRARIES" title="INTERFACE_LINK_LIBRARIES"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">INTERFACE_LINK_LIBRARIES</span></code></a>:</p>
+<ul class="simple">
+<li><p>For <a class="reference internal" href="cmake-buildsystem.7.html#transitive-compile-properties"><span class="std std-ref">Transitive Compile Properties</span></a>, evaluation is transitive over
+the closure of the target's <span class="target" id="index-3-prop_tgt:INTERFACE_LINK_LIBRARIES"></span><a class="reference internal" href="../prop_tgt/INTERFACE_LINK_LIBRARIES.html#prop_tgt:INTERFACE_LINK_LIBRARIES" title="INTERFACE_LINK_LIBRARIES"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">INTERFACE_LINK_LIBRARIES</span></code></a>
+<em>excluding</em> entries guarded by the <span class="target" id="index-2-genex:LINK_ONLY"></span><a class="reference internal" href="../genex/LINK_ONLY.html#genex:LINK_ONLY" title="LINK_ONLY"><code class="xref cmake cmake-genex docutils literal notranslate"><span class="pre">LINK_ONLY</span></code></a> generator expression.</p></li>
+<li><p>For <a class="reference internal" href="cmake-buildsystem.7.html#transitive-link-properties"><span class="std std-ref">Transitive Link Properties</span></a>, evaluation is transitive over
+the closure of the target's <span class="target" id="index-4-prop_tgt:INTERFACE_LINK_LIBRARIES"></span><a class="reference internal" href="../prop_tgt/INTERFACE_LINK_LIBRARIES.html#prop_tgt:INTERFACE_LINK_LIBRARIES" title="INTERFACE_LINK_LIBRARIES"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">INTERFACE_LINK_LIBRARIES</span></code></a>
+<em>including</em> entries guarded by the <span class="target" id="index-3-genex:LINK_ONLY"></span><a class="reference internal" href="../genex/LINK_ONLY.html#genex:LINK_ONLY" title="LINK_ONLY"><code class="xref cmake cmake-genex docutils literal notranslate"><span class="pre">LINK_ONLY</span></code></a> generator expression.
+See policy <span class="target" id="index-1-policy:CMP0166"></span><a class="reference internal" href="../policy/CMP0166.html#policy:CMP0166" title="CMP0166"><code class="xref cmake cmake-policy docutils literal notranslate"><span class="pre">CMP0166</span></code></a>.</p></li>
+</ul>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 4.1: </span>Evaluation of <span class="target" id="index-5-prop_tgt:INTERFACE_LINK_LIBRARIES"></span><a class="reference internal" href="../prop_tgt/INTERFACE_LINK_LIBRARIES.html#prop_tgt:INTERFACE_LINK_LIBRARIES" title="INTERFACE_LINK_LIBRARIES"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">INTERFACE_LINK_LIBRARIES</span></code></a> itself is now
+transitive.  See policy <span class="target" id="index-1-policy:CMP0189"></span><a class="reference internal" href="../policy/CMP0189.html#policy:CMP0189" title="CMP0189"><code class="xref cmake cmake-policy docutils literal notranslate"><span class="pre">CMP0189</span></code></a>.</p>
+</div>
+</dd>
+<dt><a class="reference internal" href="cmake-buildsystem.7.html#custom-transitive-properties"><span class="std std-ref">Custom Transitive Properties</span></a></dt><dd><div class="versionadded">
+<p><span class="versionmodified added">Added in version 3.30.</span></p>
+</div>
+<p>These are processed during evaluation as follows:</p>
+<ul>
+<li><p>Evaluation of <span class="target" id="index-0-genex:TARGET_PROPERTY"></span><a class="reference internal" href="../genex/TARGET_PROPERTY.html#genex:TARGET_PROPERTY" title="TARGET_PROPERTY"><code class="xref cmake cmake-genex docutils literal notranslate"><span class="pre">$&lt;TARGET_PROPERTY:tgt,PROP&gt;</span></code></a> for some property
+<code class="docutils literal notranslate"><span class="pre">PROP</span></code>, named without an <code class="docutils literal notranslate"><span class="pre">INTERFACE_</span></code> prefix,
+checks the <span class="target" id="index-0-prop_tgt:TRANSITIVE_COMPILE_PROPERTIES"></span><a class="reference internal" href="../prop_tgt/TRANSITIVE_COMPILE_PROPERTIES.html#prop_tgt:TRANSITIVE_COMPILE_PROPERTIES" title="TRANSITIVE_COMPILE_PROPERTIES"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">TRANSITIVE_COMPILE_PROPERTIES</span></code></a>
+and <span class="target" id="index-0-prop_tgt:TRANSITIVE_LINK_PROPERTIES"></span><a class="reference internal" href="../prop_tgt/TRANSITIVE_LINK_PROPERTIES.html#prop_tgt:TRANSITIVE_LINK_PROPERTIES" title="TRANSITIVE_LINK_PROPERTIES"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">TRANSITIVE_LINK_PROPERTIES</span></code></a> properties on target <code class="docutils literal notranslate"><span class="pre">tgt</span></code>,
+on targets named by its <span class="target" id="index-3-prop_tgt:LINK_LIBRARIES"></span><a class="reference internal" href="../prop_tgt/LINK_LIBRARIES.html#prop_tgt:LINK_LIBRARIES" title="LINK_LIBRARIES"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">LINK_LIBRARIES</span></code></a>, and on the
+transitive closure of targets named by the linked targets'
+<span class="target" id="index-6-prop_tgt:INTERFACE_LINK_LIBRARIES"></span><a class="reference internal" href="../prop_tgt/INTERFACE_LINK_LIBRARIES.html#prop_tgt:INTERFACE_LINK_LIBRARIES" title="INTERFACE_LINK_LIBRARIES"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">INTERFACE_LINK_LIBRARIES</span></code></a>.</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">PROP</span></code> is listed by one of those properties, then it evaluates as
+a <a class="reference internal" href="cmake-language.7.html#cmake-language-lists"><span class="std std-ref">semicolon-separated list</span></a> representing
+the union of the value on the target itself with the values of the
+corresponding <code class="docutils literal notranslate"><span class="pre">INTERFACE_PROP</span></code> on targets named by the target's
+<span class="target" id="index-4-prop_tgt:LINK_LIBRARIES"></span><a class="reference internal" href="../prop_tgt/LINK_LIBRARIES.html#prop_tgt:LINK_LIBRARIES" title="LINK_LIBRARIES"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">LINK_LIBRARIES</span></code></a>:</p>
+<ul class="simple">
+<li><p>If <code class="docutils literal notranslate"><span class="pre">PROP</span></code> is named by <span class="target" id="index-1-prop_tgt:TRANSITIVE_COMPILE_PROPERTIES"></span><a class="reference internal" href="../prop_tgt/TRANSITIVE_COMPILE_PROPERTIES.html#prop_tgt:TRANSITIVE_COMPILE_PROPERTIES" title="TRANSITIVE_COMPILE_PROPERTIES"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">TRANSITIVE_COMPILE_PROPERTIES</span></code></a>,
+evaluation of the corresponding <code class="docutils literal notranslate"><span class="pre">INTERFACE_PROP</span></code> is transitive over
+the closure of the linked targets' <span class="target" id="index-7-prop_tgt:INTERFACE_LINK_LIBRARIES"></span><a class="reference internal" href="../prop_tgt/INTERFACE_LINK_LIBRARIES.html#prop_tgt:INTERFACE_LINK_LIBRARIES" title="INTERFACE_LINK_LIBRARIES"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">INTERFACE_LINK_LIBRARIES</span></code></a>,
+excluding entries guarded by the <span class="target" id="index-4-genex:LINK_ONLY"></span><a class="reference internal" href="../genex/LINK_ONLY.html#genex:LINK_ONLY" title="LINK_ONLY"><code class="xref cmake cmake-genex docutils literal notranslate"><span class="pre">LINK_ONLY</span></code></a> generator expression.</p></li>
+<li><p>If <code class="docutils literal notranslate"><span class="pre">PROP</span></code> is named by <span class="target" id="index-1-prop_tgt:TRANSITIVE_LINK_PROPERTIES"></span><a class="reference internal" href="../prop_tgt/TRANSITIVE_LINK_PROPERTIES.html#prop_tgt:TRANSITIVE_LINK_PROPERTIES" title="TRANSITIVE_LINK_PROPERTIES"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">TRANSITIVE_LINK_PROPERTIES</span></code></a>,
+evaluation of the corresponding <code class="docutils literal notranslate"><span class="pre">INTERFACE_PROP</span></code> is transitive over
+the closure of the linked targets' <span class="target" id="index-8-prop_tgt:INTERFACE_LINK_LIBRARIES"></span><a class="reference internal" href="../prop_tgt/INTERFACE_LINK_LIBRARIES.html#prop_tgt:INTERFACE_LINK_LIBRARIES" title="INTERFACE_LINK_LIBRARIES"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">INTERFACE_LINK_LIBRARIES</span></code></a>,
+including entries guarded by the <span class="target" id="index-5-genex:LINK_ONLY"></span><a class="reference internal" href="../genex/LINK_ONLY.html#genex:LINK_ONLY" title="LINK_ONLY"><code class="xref cmake cmake-genex docutils literal notranslate"><span class="pre">LINK_ONLY</span></code></a> generator expression.</p></li>
+</ul>
+</li>
+<li><p>Evaluation of <span class="target" id="index-1-genex:TARGET_PROPERTY"></span><a class="reference internal" href="../genex/TARGET_PROPERTY.html#genex:TARGET_PROPERTY" title="TARGET_PROPERTY"><code class="xref cmake cmake-genex docutils literal notranslate"><span class="pre">$&lt;TARGET_PROPERTY:tgt,INTERFACE_PROP&gt;</span></code></a> for some
+property <code class="docutils literal notranslate"><span class="pre">INTERFACE_PROP</span></code>, named with an <code class="docutils literal notranslate"><span class="pre">INTERFACE_</span></code> prefix,
+checks the <span class="target" id="index-2-prop_tgt:TRANSITIVE_COMPILE_PROPERTIES"></span><a class="reference internal" href="../prop_tgt/TRANSITIVE_COMPILE_PROPERTIES.html#prop_tgt:TRANSITIVE_COMPILE_PROPERTIES" title="TRANSITIVE_COMPILE_PROPERTIES"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">TRANSITIVE_COMPILE_PROPERTIES</span></code></a>
+and <span class="target" id="index-2-prop_tgt:TRANSITIVE_LINK_PROPERTIES"></span><a class="reference internal" href="../prop_tgt/TRANSITIVE_LINK_PROPERTIES.html#prop_tgt:TRANSITIVE_LINK_PROPERTIES" title="TRANSITIVE_LINK_PROPERTIES"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">TRANSITIVE_LINK_PROPERTIES</span></code></a> properties on target <code class="docutils literal notranslate"><span class="pre">tgt</span></code>,
+and on the transitive closure of targets named by its
+<span class="target" id="index-9-prop_tgt:INTERFACE_LINK_LIBRARIES"></span><a class="reference internal" href="../prop_tgt/INTERFACE_LINK_LIBRARIES.html#prop_tgt:INTERFACE_LINK_LIBRARIES" title="INTERFACE_LINK_LIBRARIES"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">INTERFACE_LINK_LIBRARIES</span></code></a>.</p>
+<p>If the corresponding <code class="docutils literal notranslate"><span class="pre">PROP</span></code> is listed by one of those properties,
+then <code class="docutils literal notranslate"><span class="pre">INTERFACE_PROP</span></code> evaluates as a
+<a class="reference internal" href="cmake-language.7.html#cmake-language-lists"><span class="std std-ref">semicolon-separated list</span></a> representing the
+union of the value on the target itself with the value of the same
+property on targets named by the target's
+<span class="target" id="index-10-prop_tgt:INTERFACE_LINK_LIBRARIES"></span><a class="reference internal" href="../prop_tgt/INTERFACE_LINK_LIBRARIES.html#prop_tgt:INTERFACE_LINK_LIBRARIES" title="INTERFACE_LINK_LIBRARIES"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">INTERFACE_LINK_LIBRARIES</span></code></a>:</p>
+<ul class="simple">
+<li><p>If <code class="docutils literal notranslate"><span class="pre">PROP</span></code> is named by <span class="target" id="index-3-prop_tgt:TRANSITIVE_COMPILE_PROPERTIES"></span><a class="reference internal" href="../prop_tgt/TRANSITIVE_COMPILE_PROPERTIES.html#prop_tgt:TRANSITIVE_COMPILE_PROPERTIES" title="TRANSITIVE_COMPILE_PROPERTIES"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">TRANSITIVE_COMPILE_PROPERTIES</span></code></a>,
+evaluation of the corresponding <code class="docutils literal notranslate"><span class="pre">INTERFACE_PROP</span></code> is transitive over
+the closure of the target's <span class="target" id="index-11-prop_tgt:INTERFACE_LINK_LIBRARIES"></span><a class="reference internal" href="../prop_tgt/INTERFACE_LINK_LIBRARIES.html#prop_tgt:INTERFACE_LINK_LIBRARIES" title="INTERFACE_LINK_LIBRARIES"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">INTERFACE_LINK_LIBRARIES</span></code></a>,
+excluding entries guarded by the <span class="target" id="index-6-genex:LINK_ONLY"></span><a class="reference internal" href="../genex/LINK_ONLY.html#genex:LINK_ONLY" title="LINK_ONLY"><code class="xref cmake cmake-genex docutils literal notranslate"><span class="pre">LINK_ONLY</span></code></a> generator expression.</p></li>
+<li><p>If <code class="docutils literal notranslate"><span class="pre">PROP</span></code> is named by <span class="target" id="index-3-prop_tgt:TRANSITIVE_LINK_PROPERTIES"></span><a class="reference internal" href="../prop_tgt/TRANSITIVE_LINK_PROPERTIES.html#prop_tgt:TRANSITIVE_LINK_PROPERTIES" title="TRANSITIVE_LINK_PROPERTIES"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">TRANSITIVE_LINK_PROPERTIES</span></code></a>,
+evaluation of the corresponding <code class="docutils literal notranslate"><span class="pre">INTERFACE_PROP</span></code> is transitive over
+the closure of the target's <span class="target" id="index-12-prop_tgt:INTERFACE_LINK_LIBRARIES"></span><a class="reference internal" href="../prop_tgt/INTERFACE_LINK_LIBRARIES.html#prop_tgt:INTERFACE_LINK_LIBRARIES" title="INTERFACE_LINK_LIBRARIES"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">INTERFACE_LINK_LIBRARIES</span></code></a>,
+including entries guarded by the <span class="target" id="index-7-genex:LINK_ONLY"></span><a class="reference internal" href="../genex/LINK_ONLY.html#genex:LINK_ONLY" title="LINK_ONLY"><code class="xref cmake cmake-genex docutils literal notranslate"><span class="pre">LINK_ONLY</span></code></a> generator expression.</p></li>
+</ul>
+</li>
+</ul>
+<p>If a <code class="docutils literal notranslate"><span class="pre">PROP</span></code> is named by both <span class="target" id="index-4-prop_tgt:TRANSITIVE_COMPILE_PROPERTIES"></span><a class="reference internal" href="../prop_tgt/TRANSITIVE_COMPILE_PROPERTIES.html#prop_tgt:TRANSITIVE_COMPILE_PROPERTIES" title="TRANSITIVE_COMPILE_PROPERTIES"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">TRANSITIVE_COMPILE_PROPERTIES</span></code></a>
+and <span class="target" id="index-4-prop_tgt:TRANSITIVE_LINK_PROPERTIES"></span><a class="reference internal" href="../prop_tgt/TRANSITIVE_LINK_PROPERTIES.html#prop_tgt:TRANSITIVE_LINK_PROPERTIES" title="TRANSITIVE_LINK_PROPERTIES"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">TRANSITIVE_LINK_PROPERTIES</span></code></a>, the latter takes precedence.</p>
+</dd>
+<dt><a class="reference internal" href="cmake-buildsystem.7.html#compatible-interface-properties"><span class="std std-ref">Compatible Interface Properties</span></a></dt><dd><p>These evaluate as a single value combined from the target itself,
+from targets named by the target's <span class="target" id="index-5-prop_tgt:LINK_LIBRARIES"></span><a class="reference internal" href="../prop_tgt/LINK_LIBRARIES.html#prop_tgt:LINK_LIBRARIES" title="LINK_LIBRARIES"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">LINK_LIBRARIES</span></code></a>, and
+from the transitive closure of the linked targets'
+<span class="target" id="index-13-prop_tgt:INTERFACE_LINK_LIBRARIES"></span><a class="reference internal" href="../prop_tgt/INTERFACE_LINK_LIBRARIES.html#prop_tgt:INTERFACE_LINK_LIBRARIES" title="INTERFACE_LINK_LIBRARIES"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">INTERFACE_LINK_LIBRARIES</span></code></a>.  Values of a compatible
+interface property from multiple targets combine based on the type
+of compatibility required by the <code class="docutils literal notranslate"><span class="pre">COMPATIBLE_INTERFACE_*</span></code> property
+defining it.</p>
+</dd>
+</dl>
+</section>
+<section id="target-artifacts">
+<span id="genex-family-target-artifacts"></span><h4><a class="toc-backref" href="#id57" role="doc-backlink">Target Artifacts</a><a class="headerlink" href="#target-artifacts" title="Link to this heading">¶</a></h4>
+<p>These expressions look up information about artifacts associated with
+a given target <code class="docutils literal notranslate"><span class="pre">tgt</span></code>.  Unless otherwise stated, this can be any
+runtime artifact, namely:</p>
+<ul class="simple">
+<li><p>An executable target created by <span class="target" id="index-0-command:add_executable"></span><a class="reference internal" href="../command/add_executable.html#command:add_executable" title="add_executable"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">add_executable()</span></code></a>.</p></li>
+<li><p>A shared library target (<code class="docutils literal notranslate"><span class="pre">.so</span></code>, <code class="docutils literal notranslate"><span class="pre">.dll</span></code> but not their <code class="docutils literal notranslate"><span class="pre">.lib</span></code> import
+library) created by <span class="target" id="index-0-command:add_library"></span><a class="reference internal" href="../command/add_library.html#command:add_library" title="add_library"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">add_library()</span></code></a>.</p></li>
+<li><p>A static library target created by <span class="target" id="index-1-command:add_library"></span><a class="reference internal" href="../command/add_library.html#command:add_library" title="add_library"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">add_library()</span></code></a>.</p></li>
+</ul>
+<p>In the following, the phrase &quot;the <code class="docutils literal notranslate"><span class="pre">tgt</span></code> filename&quot; means the name of the
+<code class="docutils literal notranslate"><span class="pre">tgt</span></code> binary file. This has to be distinguished from the phrase
+&quot;the target name&quot;, which is just the string <code class="docutils literal notranslate"><span class="pre">tgt</span></code>.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../genex/TARGET_FILE.html" id="genex:TARGET_FILE">TARGET_FILE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/TARGET_FILE_BASE_NAME.html" id="genex:TARGET_FILE_BASE_NAME">TARGET_FILE_BASE_NAME</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/TARGET_FILE_PREFIX.html" id="genex:TARGET_FILE_PREFIX">TARGET_FILE_PREFIX</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/TARGET_FILE_SUFFIX.html" id="genex:TARGET_FILE_SUFFIX">TARGET_FILE_SUFFIX</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/TARGET_FILE_NAME.html" id="genex:TARGET_FILE_NAME">TARGET_FILE_NAME</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/TARGET_FILE_DIR.html" id="genex:TARGET_FILE_DIR">TARGET_FILE_DIR</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/TARGET_IMPORT_FILE.html" id="genex:TARGET_IMPORT_FILE">TARGET_IMPORT_FILE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/TARGET_IMPORT_FILE_BASE_NAME.html" id="genex:TARGET_IMPORT_FILE_BASE_NAME">TARGET_IMPORT_FILE_BASE_NAME</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/TARGET_IMPORT_FILE_PREFIX.html" id="genex:TARGET_IMPORT_FILE_PREFIX">TARGET_IMPORT_FILE_PREFIX</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/TARGET_IMPORT_FILE_SUFFIX.html" id="genex:TARGET_IMPORT_FILE_SUFFIX">TARGET_IMPORT_FILE_SUFFIX</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/TARGET_IMPORT_FILE_NAME.html" id="genex:TARGET_IMPORT_FILE_NAME">TARGET_IMPORT_FILE_NAME</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/TARGET_IMPORT_FILE_DIR.html" id="genex:TARGET_IMPORT_FILE_DIR">TARGET_IMPORT_FILE_DIR</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/TARGET_LINKER_FILE.html" id="genex:TARGET_LINKER_FILE">TARGET_LINKER_FILE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/TARGET_LINKER_FILE_BASE_NAME.html" id="genex:TARGET_LINKER_FILE_BASE_NAME">TARGET_LINKER_FILE_BASE_NAME</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/TARGET_LINKER_FILE_PREFIX.html" id="genex:TARGET_LINKER_FILE_PREFIX">TARGET_LINKER_FILE_PREFIX</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/TARGET_LINKER_FILE_SUFFIX.html" id="genex:TARGET_LINKER_FILE_SUFFIX">TARGET_LINKER_FILE_SUFFIX</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/TARGET_LINKER_FILE_NAME.html" id="genex:TARGET_LINKER_FILE_NAME">TARGET_LINKER_FILE_NAME</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/TARGET_LINKER_FILE_DIR.html" id="genex:TARGET_LINKER_FILE_DIR">TARGET_LINKER_FILE_DIR</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/TARGET_LINKER_LIBRARY_FILE.html" id="genex:TARGET_LINKER_LIBRARY_FILE">TARGET_LINKER_LIBRARY_FILE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/TARGET_LINKER_LIBRARY_FILE_BASE_NAME.html" id="genex:TARGET_LINKER_LIBRARY_FILE_BASE_NAME">TARGET_LINKER_LIBRARY_FILE_BASE_NAME</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/TARGET_LINKER_LIBRARY_FILE_PREFIX.html" id="genex:TARGET_LINKER_LIBRARY_FILE_PREFIX">TARGET_LINKER_LIBRARY_FILE_PREFIX</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/TARGET_LINKER_LIBRARY_FILE_SUFFIX.html" id="genex:TARGET_LINKER_LIBRARY_FILE_SUFFIX">TARGET_LINKER_LIBRARY_FILE_SUFFIX</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/TARGET_LINKER_LIBRARY_FILE_NAME.html" id="genex:TARGET_LINKER_LIBRARY_FILE_NAME">TARGET_LINKER_LIBRARY_FILE_NAME</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/TARGET_LINKER_LIBRARY_FILE_DIR.html" id="genex:TARGET_LINKER_LIBRARY_FILE_DIR">TARGET_LINKER_LIBRARY_FILE_DIR</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/TARGET_LINKER_IMPORT_FILE.html" id="genex:TARGET_LINKER_IMPORT_FILE">TARGET_LINKER_IMPORT_FILE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/TARGET_LINKER_IMPORT_FILE_BASE_NAME.html" id="genex:TARGET_LINKER_IMPORT_FILE_BASE_NAME">TARGET_LINKER_IMPORT_FILE_BASE_NAME</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/TARGET_LINKER_IMPORT_FILE_PREFIX.html" id="genex:TARGET_LINKER_IMPORT_FILE_PREFIX">TARGET_LINKER_IMPORT_FILE_PREFIX</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/TARGET_LINKER_IMPORT_FILE_SUFFIX.html" id="genex:TARGET_LINKER_IMPORT_FILE_SUFFIX">TARGET_LINKER_IMPORT_FILE_SUFFIX</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/TARGET_LINKER_IMPORT_FILE_NAME.html" id="genex:TARGET_LINKER_IMPORT_FILE_NAME">TARGET_LINKER_IMPORT_FILE_NAME</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/TARGET_LINKER_IMPORT_FILE_DIR.html" id="genex:TARGET_LINKER_IMPORT_FILE_DIR">TARGET_LINKER_IMPORT_FILE_DIR</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/TARGET_SONAME_FILE.html" id="genex:TARGET_SONAME_FILE">TARGET_SONAME_FILE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/TARGET_SONAME_FILE_NAME.html" id="genex:TARGET_SONAME_FILE_NAME">TARGET_SONAME_FILE_NAME</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/TARGET_SONAME_FILE_DIR.html" id="genex:TARGET_SONAME_FILE_DIR">TARGET_SONAME_FILE_DIR</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/TARGET_SONAME_IMPORT_FILE.html" id="genex:TARGET_SONAME_IMPORT_FILE">TARGET_SONAME_IMPORT_FILE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/TARGET_SONAME_IMPORT_FILE_NAME.html" id="genex:TARGET_SONAME_IMPORT_FILE_NAME">TARGET_SONAME_IMPORT_FILE_NAME</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/TARGET_SONAME_IMPORT_FILE_DIR.html" id="genex:TARGET_SONAME_IMPORT_FILE_DIR">TARGET_SONAME_IMPORT_FILE_DIR</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/TARGET_PDB_FILE.html" id="genex:TARGET_PDB_FILE">TARGET_PDB_FILE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/TARGET_PDB_FILE_BASE_NAME.html" id="genex:TARGET_PDB_FILE_BASE_NAME">TARGET_PDB_FILE_BASE_NAME</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/TARGET_PDB_FILE_NAME.html" id="genex:TARGET_PDB_FILE_NAME">TARGET_PDB_FILE_NAME</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/TARGET_PDB_FILE_DIR.html" id="genex:TARGET_PDB_FILE_DIR">TARGET_PDB_FILE_DIR</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/TARGET_BUNDLE_DIR.html" id="genex:TARGET_BUNDLE_DIR">TARGET_BUNDLE_DIR</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/TARGET_BUNDLE_DIR_NAME.html" id="genex:TARGET_BUNDLE_DIR_NAME">TARGET_BUNDLE_DIR_NAME</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/TARGET_BUNDLE_CONTENT_DIR.html" id="genex:TARGET_BUNDLE_CONTENT_DIR">TARGET_BUNDLE_CONTENT_DIR</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/TARGET_OBJECTS.html" id="genex:TARGET_OBJECTS">TARGET_OBJECTS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/TARGET_RUNTIME_DLLS.html" id="genex:TARGET_RUNTIME_DLLS">TARGET_RUNTIME_DLLS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/TARGET_RUNTIME_DLL_DIRS.html" id="genex:TARGET_RUNTIME_DLL_DIRS">TARGET_RUNTIME_DLL_DIRS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/TARGET_INTERMEDIATE_DIR.html" id="genex:TARGET_INTERMEDIATE_DIR">TARGET_INTERMEDIATE_DIR</a></li>
+</ul>
+</div>
+</section>
+</section>
+<section id="export-and-install-expressions">
+<span id="genex-family-export-and-install-expressions"></span><h3><a class="toc-backref" href="#id58" role="doc-backlink">Export And Install Expressions</a><a class="headerlink" href="#export-and-install-expressions" title="Link to this heading">¶</a></h3>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../genex/INSTALL_INTERFACE.html" id="genex:INSTALL_INTERFACE">INSTALL_INTERFACE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/BUILD_INTERFACE.html" id="genex:BUILD_INTERFACE">BUILD_INTERFACE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/BUILD_LOCAL_INTERFACE.html" id="genex:BUILD_LOCAL_INTERFACE">BUILD_LOCAL_INTERFACE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/INSTALL_PREFIX.html" id="genex:INSTALL_PREFIX">INSTALL_PREFIX</a></li>
+</ul>
+</div>
+</section>
+<section id="multi-level-expression-evaluation">
+<span id="genex-family-multi-level-expression-evaluation"></span><h3><a class="toc-backref" href="#id59" role="doc-backlink">Multi-level Expression Evaluation</a><a class="headerlink" href="#multi-level-expression-evaluation" title="Link to this heading">¶</a></h3>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../genex/GENEX_EVAL.html" id="genex:GENEX_EVAL">GENEX_EVAL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/TARGET_GENEX_EVAL.html" id="genex:TARGET_GENEX_EVAL">TARGET_GENEX_EVAL</a></li>
+</ul>
+</div>
+</section>
+<section id="support-expressions">
+<span id="genex-family-support-expressions"></span><h3><a class="toc-backref" href="#id60" role="doc-backlink">Support Expressions</a><a class="headerlink" href="#support-expressions" title="Link to this heading">¶</a></h3>
+<section id="conversions">
+<h4><a class="toc-backref" href="#id61" role="doc-backlink">Conversions</a><a class="headerlink" href="#conversions" title="Link to this heading">¶</a></h4>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../genex/ARGS.html" id="genex:ARGS">ARGS</a></li>
+</ul>
+</div>
+</section>
+<section id="escaped-characters">
+<span id="genex-family-escaped-characters"></span><h4><a class="toc-backref" href="#id62" role="doc-backlink">Escaped Characters</a><a class="headerlink" href="#escaped-characters" title="Link to this heading">¶</a></h4>
+<p>These expressions evaluate to specific string literals. Use them in place of
+the actual string literal where you need to prevent them from having their
+special meaning.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../genex/ANGLE-R.html" id="genex:ANGLE-R">ANGLE-R</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/COMMA.html" id="genex:COMMA">COMMA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/SEMICOLON.html" id="genex:SEMICOLON">SEMICOLON</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genex/QUOTE.html" id="genex:QUOTE">QUOTE</a></li>
+</ul>
+</div>
+</section>
+</section>
+<section id="deprecated-expressions">
+<h3><a class="toc-backref" href="#id63" role="doc-backlink">Deprecated Expressions</a><a class="headerlink" href="#deprecated-expressions" title="Link to this heading">¶</a></h3>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../genex/CONFIGURATION.html" id="genex:CONFIGURATION">CONFIGURATION</a></li>
+</ul>
+</div>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3>Table of Contents</h3>
+    <ul>
+<li><a class="reference internal" href="#">cmake-generator-expressions(7)</a><ul>
+<li><a class="reference internal" href="#introduction">Introduction</a></li>
+<li><a class="reference internal" href="#whitespace-and-quoting">Whitespace And Quoting</a></li>
+<li><a class="reference internal" href="#debugging">Debugging</a></li>
+<li><a class="reference internal" href="#generator-expression-reference">Generator Expression Reference</a><ul>
+<li><a class="reference internal" href="#conditional-expressions">Conditional Expressions</a></li>
+<li><a class="reference internal" href="#logical-operators">Logical Operators</a></li>
+<li><a class="reference internal" href="#primary-comparison-expressions">Primary Comparison Expressions</a><ul>
+<li><a class="reference internal" href="#numeric-comparisons">Numeric Comparisons</a></li>
+<li><a class="reference internal" href="#version-comparisons">Version Comparisons</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#string-expressions">String Expressions</a><ul>
+<li><a class="reference internal" href="#string-comparisons">String Comparisons</a></li>
+<li><a class="reference internal" href="#string-queries">String Queries</a></li>
+<li><a class="reference internal" href="#string-generations">String Generations</a></li>
+<li><a class="reference internal" href="#string-transformations">String Transformations</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#list-expressions">List Expressions</a><ul>
+<li><a class="reference internal" href="#list-comparisons">List Comparisons</a></li>
+<li><a class="reference internal" href="#list-queries">List Queries</a></li>
+<li><a class="reference internal" href="#list-transformations">List Transformations</a></li>
+<li><a class="reference internal" href="#list-ordering">List Ordering</a></li>
+<li><a class="reference internal" href="#bound-operands">Bound Operands</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#path-expressions">Path Expressions</a><ul>
+<li><a class="reference internal" href="#path-comparisons">Path Comparisons</a></li>
+<li><a class="reference internal" href="#path-queries">Path Queries</a></li>
+<li><a class="reference internal" href="#path-decomposition">Path Decomposition</a></li>
+<li><a class="reference internal" href="#path-transformations">Path Transformations</a></li>
+<li><a class="reference internal" href="#shell-paths">Shell Paths</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#configuration-expressions">Configuration Expressions</a></li>
+<li><a class="reference internal" href="#global-expressions">Global Expressions</a><ul>
+<li><a class="reference internal" href="#global-properties">Global Properties</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#directory-dependent-expressions">Directory-dependent Expressions</a><ul>
+<li><a class="reference internal" href="#directory-properties">Directory Properties</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#rule-dependent-expressions">Rule-Dependent Expressions</a><ul>
+<li><a class="reference internal" href="#rule-properties">Rule Properties</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#toolchain-and-language-expressions">Toolchain And Language Expressions</a><ul>
+<li><a class="reference internal" href="#platform">Platform</a></li>
+<li><a class="reference internal" href="#compiler-version">Compiler Version</a></li>
+<li><a class="reference internal" href="#compiler-language-id-and-frontend-variant">Compiler Language, ID, and Frontend-Variant</a></li>
+<li><a class="reference internal" href="#compile-features">Compile Features</a></li>
+<li><a class="reference internal" href="#compile-context">Compile Context</a></li>
+<li><a class="reference internal" href="#link-language-and-id">Link Language and ID</a></li>
+<li><a class="reference internal" href="#link-features">Link Features</a></li>
+<li><a class="reference internal" href="#link-context">Link Context</a></li>
+<li><a class="reference internal" href="#linker-id-and-frontend-variant">Linker ID and Frontend-Variant</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#genex-family-source-dependent-expressions">Source-Dependent Expressions</a><ul>
+<li><a class="reference internal" href="#source-meta-data">Source Meta-Data</a></li>
+<li><a class="reference internal" href="#source-properties">Source Properties</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#genex-family-fileset-dependent-expressions">FileSet-Dependent Expressions</a><ul>
+<li><a class="reference internal" href="#fileset-meta-data">FileSet Meta-Data</a></li>
+<li><a class="reference internal" href="#fileset-properties">FileSet Properties</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#genex-family-target-dependent-expressions">Target-Dependent Expressions</a><ul>
+<li><a class="reference internal" href="#target-meta-data">Target Meta-Data</a></li>
+<li><a class="reference internal" href="#target-properties">Target Properties</a></li>
+<li><a class="reference internal" href="#target-artifacts">Target Artifacts</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#export-and-install-expressions">Export And Install Expressions</a></li>
+<li><a class="reference internal" href="#multi-level-expression-evaluation">Multi-level Expression Evaluation</a></li>
+<li><a class="reference internal" href="#support-expressions">Support Expressions</a><ul>
+<li><a class="reference internal" href="#conversions">Conversions</a></li>
+<li><a class="reference internal" href="#escaped-characters">Escaped Characters</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#deprecated-expressions">Deprecated Expressions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="cmake-file-api.7.html"
+                          title="previous chapter">cmake-file-api(7)</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="../genex/CONDITION.html"
+                          title="next chapter">condition</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/manual/cmake-generator-expressions.7.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../genex/CONDITION.html" title="condition"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="cmake-file-api.7.html" title="cmake-file-api(7)"
+             >previous</a> |</li>
+  <li>
+    <label class="sidebar-toggle" for="sidebar-check"></label>
+  </li>
+  <li class="rootlink">
+    <img src="../_static/cmake-logo-16.png" width="16" height="16" alt=""/>
+    <a href="https://cmake.org/">CMake 4.5.20261116-g20268ff</a>
+    <span class="reldelim1"> &#187;</span>
+  </li>
+  <li>
+    <a href="../index.html">Documentation</a> &#187;
+  </li>
+
+        <li class="nav-item nav-item-this"><a href="">cmake-generator-expressions(7)</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2000-2026 Kitware, Inc. and Contributors.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    </div>
+<script type="text/javascript">
+(function() {
+  "use strict";
+  const hide = () => document.getElementById("sidebar-check").checked = false;
+  addEventListener("keydown", e => (e.key === "Escape") && hide());
+  addEventListener("click", e => (e.target.tagName === "A") && hide());
+  addEventListener("hashchange", hide)
+})();
+</script>
+  </body>
+</html>

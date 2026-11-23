@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>LINK_GROUP &mdash; CMake 4.5.20261116-g20268ff Documentation</title>
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a3862c66" />
+    <link rel="stylesheet" type="text/css" href="../_static/cmake.css?v=d27bb136" />
+    
+    <script src="../_static/documentation_options.js?v=8e88e664"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/translations.js?v=beaddf03"></script>
+    
+    <link rel="canonical" href="https://projects.localizethedocs.org/cmake-docs-l10n/genex/LINK_GROUP.html" />
+    <link rel="icon" href="../_static/cmake-favicon.ico"/>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="LINK_ONLY" href="LINK_ONLY.html" />
+    <link rel="prev" title="LINK_LIBRARY" href="LINK_LIBRARY.html" />
+
+ 
+
+    <script type="text/javascript" src="../ltd-provenance.js"></script>
+    <script type="text/javascript" src="../ltd-current.js"></script>
+    <script type="text/javascript" src="../../../ltd-config.js"></script>
+    <script type="text/javascript" src="../../../ltd-flyout.js"></script>
+
+  </head><body>
+    <input id="sidebar-check" type="checkbox" />
+    <label id="sidebar-overlay" for="sidebar-check"></label>
+
+
+
+    <div class="related relbar1" role="navigation" aria-label="Related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="总索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="LINK_ONLY.html" title="LINK_ONLY"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="LINK_LIBRARY.html" title="LINK_LIBRARY"
+             accesskey="P">上一页</a> |</li>
+  <li>
+    <label class="sidebar-toggle" for="sidebar-check"></label>
+  </li>
+  <li class="rootlink">
+    <img src="../_static/cmake-logo-16.png" width="16" height="16" alt=""/>
+    <a href="https://cmake.org/">CMake 4.5.20261116-g20268ff</a>
+    <span class="reldelim1"> &#187;</span>
+  </li>
+  <li>
+    <a href="../index.html">Documentation</a> &#187;
+  </li>
+
+          <li class="nav-item nav-item-1"><a href="../manual/cmake-generator-expressions.7.html" accesskey="U">cmake-generator-expressions(7)</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">LINK_GROUP</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="link-group">
+<span id="genex:LINK_GROUP"></span><h1>LINK_GROUP<a class="headerlink" href="#link-group" title="Link to this heading">¶</a></h1>
+<p>This generator expression belongs to the <a class="reference internal" href="../manual/cmake-generator-expressions.7.html#genex-family-boolean-link-language-generator-expression"><span class="std std-ref">Link Features</span></a> family. See that
+section for related generator expressions.</p>
+<section id="syntax">
+<h2>Syntax<a class="headerlink" href="#syntax" title="Link to this heading">¶</a></h2>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="o">$&lt;</span><span class="no">LINK_GROUP</span><span class="o">:</span><span class="nb">feature</span><span class="p">,</span><span class="nb">library-list</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 3.24.</span></p>
+</div>
+<p>Specify a group of libraries to link to a target, along with a <code class="docutils literal notranslate"><span class="pre">feature</span></code> which
+defines how that group should be linked.  For example:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">add_library(</span><span class="nb">lib1</span><span class="w"> </span><span class="no">STATIC</span><span class="w"> </span><span class="p">...</span><span class="nf">)</span>
+<span class="nf">add_library(</span><span class="nb">lib2</span><span class="w"> </span><span class="p">...</span><span class="nf">)</span>
+<span class="nf">target_link_libraries(</span><span class="nb">lib2</span><span class="w"> </span><span class="no">PRIVATE</span><span class="w"> </span><span class="s">"$&lt;LINK_GROUP:RESCAN,lib1,external&gt;"</span><span class="nf">)</span>
+</pre></div>
+</div>
+<p>This specifies that <code class="docutils literal notranslate"><span class="pre">lib2</span></code> should link to <code class="docutils literal notranslate"><span class="pre">lib1</span></code> and <code class="docutils literal notranslate"><span class="pre">external</span></code>, and that
+both of those two libraries should be included on the linker command line
+according to the definition of the <code class="docutils literal notranslate"><span class="pre">RESCAN</span></code> feature.</p>
+<p>Feature names are case-sensitive and may only contain letters, numbers and
+underscores.  Feature names defined in all uppercase are reserved for CMake's
+own built-in features.  Currently, there is only one pre-defined built-in group
+feature:</p>
+<dl>
+<dt><code class="docutils literal notranslate"><span class="pre">RESCAN</span></code></dt><dd><p>Some linkers are single-pass only.  For such linkers, circular references
+between libraries typically result in unresolved symbols.  This feature
+instructs the linker to search the specified static libraries repeatedly
+until no new undefined references are created.</p>
+<p>Normally, a static library is searched only once in the order that it is
+specified on the command line.  If a symbol in that library is needed to
+resolve an undefined symbol referred to by an object in a library that
+appears later on the command line, the linker would not be able to resolve
+that reference.  By grouping the static libraries with the <code class="docutils literal notranslate"><span class="pre">RESCAN</span></code>
+feature, they will all be searched repeatedly until all possible references
+are resolved.  This will use linker options like <code class="docutils literal notranslate"><span class="pre">--start-group</span></code> and
+<code class="docutils literal notranslate"><span class="pre">--end-group</span></code>, or on SunOS, <code class="docutils literal notranslate"><span class="pre">-z</span> <span class="pre">rescan-start</span></code> and <code class="docutils literal notranslate"><span class="pre">-z</span> <span class="pre">rescan-end</span></code>.</p>
+<p>Using this feature has a significant performance cost. It is best to use it
+only when there are unavoidable circular references between two or more
+static libraries.</p>
+<p>This feature is available when using toolchains that target Linux, BSD, and
+SunOS.  It can also be used when targeting Windows platforms if the GNU
+toolchain is used.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 4.4: </span><code class="docutils literal notranslate"><span class="pre">RESCAN</span></code> is additionally available when using toolchains targeting
+Haiku.</p>
+</div>
+</dd>
+</dl>
+<p>Built-in and custom group features are defined in terms of the following
+variables:</p>
+<ul class="simple">
+<li><p><span class="target" id="index-0-variable:CMAKE_&lt;LANG&gt;_LINK_GROUP_USING_&lt;FEATURE&gt;_SUPPORTED"></span><a class="reference internal" href="../variable/CMAKE_LANG_LINK_GROUP_USING_FEATURE_SUPPORTED.html#variable:CMAKE_&lt;LANG&gt;_LINK_GROUP_USING_&lt;FEATURE&gt;_SUPPORTED" title="CMAKE_&lt;LANG&gt;_LINK_GROUP_USING_&lt;FEATURE&gt;_SUPPORTED"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_&lt;LANG&gt;_LINK_GROUP_USING_&lt;FEATURE&gt;_SUPPORTED</span></code></a></p></li>
+<li><p><span class="target" id="index-0-variable:CMAKE_&lt;LANG&gt;_LINK_GROUP_USING_&lt;FEATURE&gt;"></span><a class="reference internal" href="../variable/CMAKE_LANG_LINK_GROUP_USING_FEATURE.html#variable:CMAKE_&lt;LANG&gt;_LINK_GROUP_USING_&lt;FEATURE&gt;" title="CMAKE_&lt;LANG&gt;_LINK_GROUP_USING_&lt;FEATURE&gt;"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_&lt;LANG&gt;_LINK_GROUP_USING_&lt;FEATURE&gt;</span></code></a></p></li>
+<li><p><span class="target" id="index-0-variable:CMAKE_LINK_GROUP_USING_&lt;FEATURE&gt;_SUPPORTED"></span><a class="reference internal" href="../variable/CMAKE_LINK_GROUP_USING_FEATURE_SUPPORTED.html#variable:CMAKE_LINK_GROUP_USING_&lt;FEATURE&gt;_SUPPORTED" title="CMAKE_LINK_GROUP_USING_&lt;FEATURE&gt;_SUPPORTED"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_LINK_GROUP_USING_&lt;FEATURE&gt;_SUPPORTED</span></code></a></p></li>
+<li><p><span class="target" id="index-0-variable:CMAKE_LINK_GROUP_USING_&lt;FEATURE&gt;"></span><a class="reference internal" href="../variable/CMAKE_LINK_GROUP_USING_FEATURE.html#variable:CMAKE_LINK_GROUP_USING_&lt;FEATURE&gt;" title="CMAKE_LINK_GROUP_USING_&lt;FEATURE&gt;"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_LINK_GROUP_USING_&lt;FEATURE&gt;</span></code></a></p></li>
+</ul>
+<p>The value used for each of these variables is the value as set at the end of the
+directory scope in which the target was created.  The usage is as follows:</p>
+<ol class="arabic simple">
+<li><p>If the language-specific
+<span class="target" id="index-1-variable:CMAKE_&lt;LANG&gt;_LINK_GROUP_USING_&lt;FEATURE&gt;_SUPPORTED"></span><a class="reference internal" href="../variable/CMAKE_LANG_LINK_GROUP_USING_FEATURE_SUPPORTED.html#variable:CMAKE_&lt;LANG&gt;_LINK_GROUP_USING_&lt;FEATURE&gt;_SUPPORTED" title="CMAKE_&lt;LANG&gt;_LINK_GROUP_USING_&lt;FEATURE&gt;_SUPPORTED"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_&lt;LANG&gt;_LINK_GROUP_USING_&lt;FEATURE&gt;_SUPPORTED</span></code></a> variable
+is true, the <code class="docutils literal notranslate"><span class="pre">feature</span></code> must be defined by the corresponding
+<span class="target" id="index-1-variable:CMAKE_&lt;LANG&gt;_LINK_GROUP_USING_&lt;FEATURE&gt;"></span><a class="reference internal" href="../variable/CMAKE_LANG_LINK_GROUP_USING_FEATURE.html#variable:CMAKE_&lt;LANG&gt;_LINK_GROUP_USING_&lt;FEATURE&gt;" title="CMAKE_&lt;LANG&gt;_LINK_GROUP_USING_&lt;FEATURE&gt;"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_&lt;LANG&gt;_LINK_GROUP_USING_&lt;FEATURE&gt;</span></code></a> variable.</p></li>
+<li><p>If no language-specific <code class="docutils literal notranslate"><span class="pre">feature</span></code> is supported, then the
+<span class="target" id="index-1-variable:CMAKE_LINK_GROUP_USING_&lt;FEATURE&gt;_SUPPORTED"></span><a class="reference internal" href="../variable/CMAKE_LINK_GROUP_USING_FEATURE_SUPPORTED.html#variable:CMAKE_LINK_GROUP_USING_&lt;FEATURE&gt;_SUPPORTED" title="CMAKE_LINK_GROUP_USING_&lt;FEATURE&gt;_SUPPORTED"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_LINK_GROUP_USING_&lt;FEATURE&gt;_SUPPORTED</span></code></a> variable must be
+true and the <code class="docutils literal notranslate"><span class="pre">feature</span></code> must be defined by the corresponding
+<span class="target" id="index-1-variable:CMAKE_LINK_GROUP_USING_&lt;FEATURE&gt;"></span><a class="reference internal" href="../variable/CMAKE_LINK_GROUP_USING_FEATURE.html#variable:CMAKE_LINK_GROUP_USING_&lt;FEATURE&gt;" title="CMAKE_LINK_GROUP_USING_&lt;FEATURE&gt;"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_LINK_GROUP_USING_&lt;FEATURE&gt;</span></code></a> variable.</p></li>
+</ol>
+<p>The <code class="docutils literal notranslate"><span class="pre">LINK_GROUP</span></code> generator expression is compatible with the
+<span class="target" id="index-0-genex:LINK_LIBRARY"></span><a class="reference internal" href="LINK_LIBRARY.html#genex:LINK_LIBRARY" title="LINK_LIBRARY"><code class="xref cmake cmake-genex docutils literal notranslate"><span class="pre">LINK_LIBRARY</span></code></a> generator expression. The libraries involved in a group
+can be specified using the <span class="target" id="index-1-genex:LINK_LIBRARY"></span><a class="reference internal" href="LINK_LIBRARY.html#genex:LINK_LIBRARY" title="LINK_LIBRARY"><code class="xref cmake cmake-genex docutils literal notranslate"><span class="pre">LINK_LIBRARY</span></code></a> generator expression.</p>
+<p>Each target or external library involved in the link step is allowed to be part
+of multiple groups, but only if all the groups involved specify the same
+<code class="docutils literal notranslate"><span class="pre">feature</span></code>.  Such groups will not be merged on the linker command line, the
+individual groups will still be preserved.  Mixing different group features for
+the same target or library is forbidden.</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">add_library(</span><span class="nb">lib1</span><span class="w"> </span><span class="p">...</span><span class="nf">)</span>
+<span class="nf">add_library(</span><span class="nb">lib2</span><span class="w"> </span><span class="p">...</span><span class="nf">)</span>
+<span class="nf">add_library(</span><span class="nb">lib3</span><span class="w"> </span><span class="p">...</span><span class="nf">)</span>
+<span class="nf">add_library(</span><span class="nb">lib4</span><span class="w"> </span><span class="p">...</span><span class="nf">)</span>
+<span class="nf">add_library(</span><span class="nb">lib5</span><span class="w"> </span><span class="p">...</span><span class="nf">)</span>
+
+<span class="nf">target_link_libraries(</span><span class="nb">lib3</span><span class="w"> </span><span class="no">PUBLIC</span><span class="w">  </span><span class="s">"$&lt;LINK_GROUP:feature1,lib1,lib2&gt;"</span><span class="nf">)</span>
+<span class="nf">target_link_libraries(</span><span class="nb">lib4</span><span class="w"> </span><span class="no">PRIVATE</span><span class="w"> </span><span class="s">"$&lt;LINK_GROUP:feature1,lib1,lib3&gt;"</span><span class="nf">)</span>
+<span class="c"># lib4 will be linked with the groups {lib1,lib2} and {lib1,lib3}.</span>
+<span class="c"># Both groups specify the same feature, so this is fine.</span>
+
+<span class="nf">target_link_libraries(</span><span class="nb">lib5</span><span class="w"> </span><span class="no">PRIVATE</span><span class="w"> </span><span class="s">"$&lt;LINK_GROUP:feature2,lib1,lib3&gt;"</span><span class="nf">)</span>
+<span class="c"># An error will be raised here because both lib1 and lib3 are part of two</span>
+<span class="c"># groups with different features.</span>
+</pre></div>
+</div>
+<p>When a target or an external library is involved in the link step as part of a
+group and also as not part of any group, any occurrence of the non-group link
+item will be replaced by the groups it belongs to.</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">add_library(</span><span class="nb">lib1</span><span class="w"> </span><span class="p">...</span><span class="nf">)</span>
+<span class="nf">add_library(</span><span class="nb">lib2</span><span class="w"> </span><span class="p">...</span><span class="nf">)</span>
+<span class="nf">add_library(</span><span class="nb">lib3</span><span class="w"> </span><span class="p">...</span><span class="nf">)</span>
+<span class="nf">add_library(</span><span class="nb">lib4</span><span class="w"> </span><span class="p">...</span><span class="nf">)</span>
+
+<span class="nf">target_link_libraries(</span><span class="nb">lib3</span><span class="w"> </span><span class="no">PUBLIC</span><span class="w"> </span><span class="nb">lib1</span><span class="nf">)</span>
+
+<span class="nf">target_link_libraries(</span><span class="nb">lib4</span><span class="w"> </span><span class="no">PRIVATE</span><span class="w"> </span><span class="nb">lib3</span><span class="w"> </span><span class="s">"$&lt;LINK_GROUP:feature1,lib1,lib2&gt;"</span><span class="nf">)</span>
+<span class="c"># lib4 will only be linked with lib3 and the group {lib1,lib2}</span>
+</pre></div>
+</div>
+<p>Because <code class="docutils literal notranslate"><span class="pre">lib1</span></code> is part of the group defined for <code class="docutils literal notranslate"><span class="pre">lib4</span></code>, that group then gets
+applied back to the use of <code class="docutils literal notranslate"><span class="pre">lib1</span></code> for <code class="docutils literal notranslate"><span class="pre">lib3</span></code>.  The end result will be as
+though the linking relationship for <code class="docutils literal notranslate"><span class="pre">lib3</span></code> had been specified as:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">target_link_libraries(</span><span class="nb">lib3</span><span class="w"> </span><span class="no">PUBLIC</span><span class="w"> </span><span class="s">"$&lt;LINK_GROUP:feature1,lib1,lib2&gt;"</span><span class="nf">)</span>
+</pre></div>
+</div>
+<p>Be aware that the precedence of the group over the non-group link item can
+result in circular dependencies between groups.  If this occurs, a fatal error
+is raised because circular dependencies are not allowed for groups.</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">add_library(</span><span class="nb">lib1A</span><span class="w"> </span><span class="p">...</span><span class="nf">)</span>
+<span class="nf">add_library(</span><span class="nb">lib1B</span><span class="w"> </span><span class="p">...</span><span class="nf">)</span>
+<span class="nf">add_library(</span><span class="nb">lib2A</span><span class="w"> </span><span class="p">...</span><span class="nf">)</span>
+<span class="nf">add_library(</span><span class="nb">lib2B</span><span class="w"> </span><span class="p">...</span><span class="nf">)</span>
+<span class="nf">add_library(</span><span class="nb">lib3</span><span class="w"> </span><span class="p">...</span><span class="nf">)</span>
+
+<span class="c"># Non-group linking relationships, these are non-circular so far</span>
+<span class="nf">target_link_libraries(</span><span class="nb">lib1A</span><span class="w"> </span><span class="no">PUBLIC</span><span class="w"> </span><span class="nb">lib2A</span><span class="nf">)</span>
+<span class="nf">target_link_libraries(</span><span class="nb">lib2B</span><span class="w"> </span><span class="no">PUBLIC</span><span class="w"> </span><span class="nb">lib1B</span><span class="nf">)</span>
+
+<span class="c"># The addition of these groups creates circular dependencies</span>
+<span class="nf">target_link_libraries(</span><span class="nb">lib3</span><span class="w"> </span><span class="no">PRIVATE</span>
+<span class="w">  </span><span class="s">"$&lt;LINK_GROUP:feat,lib1A,lib1B&gt;"</span>
+<span class="w">  </span><span class="s">"$&lt;LINK_GROUP:feat,lib2A,lib2B&gt;"</span>
+<span class="nf">)</span>
+</pre></div>
+</div>
+<p>Because of the groups defined for <code class="docutils literal notranslate"><span class="pre">lib3</span></code>, the linking relationships for
+<code class="docutils literal notranslate"><span class="pre">lib1A</span></code> and <code class="docutils literal notranslate"><span class="pre">lib2B</span></code> effectively get expanded to the equivalent of:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">target_link_libraries(</span><span class="nb">lib1A</span><span class="w"> </span><span class="no">PUBLIC</span><span class="w"> </span><span class="s">"$&lt;LINK_GROUP:feat,lib2A,lib2B&gt;"</span><span class="nf">)</span>
+<span class="nf">target_link_libraries(</span><span class="nb">lib2B</span><span class="w"> </span><span class="no">PUBLIC</span><span class="w"> </span><span class="s">"$&lt;LINK_GROUP:feat,lib1A,lib1B&gt;"</span><span class="nf">)</span>
+</pre></div>
+</div>
+<p>This creates a circular dependency between groups: <code class="docutils literal notranslate"><span class="pre">lib1A</span> <span class="pre">--&gt;</span> <span class="pre">lib2B</span> <span class="pre">--&gt;</span>
+<span class="pre">lib1A</span></code>.</p>
+<p>The following limitations should also be noted:</p>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">library-list</span></code> can specify CMake targets or libraries.
+Any CMake target of type <a class="reference internal" href="../manual/cmake-buildsystem.7.html#object-libraries"><span class="std std-ref">OBJECT</span></a>
+or <a class="reference internal" href="../manual/cmake-buildsystem.7.html#interface-libraries"><span class="std std-ref">INTERFACE</span></a> will ignore the feature aspect
+of the expression and instead be linked in the standard way.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">$&lt;LINK_GROUP:...&gt;</span></code> generator expression can only be used to
+specify link libraries.  In practice, this means it can appear in the
+<span class="target" id="index-0-prop_tgt:LINK_LIBRARIES"></span><a class="reference internal" href="../prop_tgt/LINK_LIBRARIES.html#prop_tgt:LINK_LIBRARIES" title="LINK_LIBRARIES"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">LINK_LIBRARIES</span></code></a>, <span class="target" id="index-0-prop_tgt:INTERFACE_LINK_LIBRARIES"></span><a class="reference internal" href="../prop_tgt/INTERFACE_LINK_LIBRARIES.html#prop_tgt:INTERFACE_LINK_LIBRARIES" title="INTERFACE_LINK_LIBRARIES"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">INTERFACE_LINK_LIBRARIES</span></code></a>,and
+<span class="target" id="index-0-prop_tgt:INTERFACE_LINK_LIBRARIES_DIRECT"></span><a class="reference internal" href="../prop_tgt/INTERFACE_LINK_LIBRARIES_DIRECT.html#prop_tgt:INTERFACE_LINK_LIBRARIES_DIRECT" title="INTERFACE_LINK_LIBRARIES_DIRECT"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">INTERFACE_LINK_LIBRARIES_DIRECT</span></code></a> target properties, and be
+specified in <span class="target" id="index-0-command:target_link_libraries"></span><a class="reference internal" href="../command/target_link_libraries.html#command:target_link_libraries" title="target_link_libraries"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">target_link_libraries()</span></code></a> and <span class="target" id="index-0-command:link_libraries"></span><a class="reference internal" href="../command/link_libraries.html#command:link_libraries" title="link_libraries"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">link_libraries()</span></code></a>
+commands.</p></li>
+<li><p>If a <code class="docutils literal notranslate"><span class="pre">$&lt;LINK_GROUP:...&gt;</span></code> generator expression appears in the
+<span class="target" id="index-1-prop_tgt:INTERFACE_LINK_LIBRARIES"></span><a class="reference internal" href="../prop_tgt/INTERFACE_LINK_LIBRARIES.html#prop_tgt:INTERFACE_LINK_LIBRARIES" title="INTERFACE_LINK_LIBRARIES"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">INTERFACE_LINK_LIBRARIES</span></code></a> property of a target, it will be
+included in the imported target generated by a <span class="target" id="index-0-command:install"></span><a class="reference internal" href="../command/install.html#export" title="install(export)"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">install(EXPORT)</span></code></a>
+command.  It is the responsibility of the environment consuming this
+import to define the link feature used by this expression.  Any CMake
+target named in the <code class="docutils literal notranslate"><span class="pre">library-list</span></code> should be wrapped in
+<span class="target" id="index-0-genex:TARGET_NAME"></span><a class="reference internal" href="TARGET_NAME.html#genex:TARGET_NAME" title="TARGET_NAME"><code class="xref cmake cmake-genex docutils literal notranslate"><span class="pre">TARGET_NAME</span></code></a> so that its name is namespaced on export; otherwise it
+is exported verbatim and will not resolve as an imported target.</p></li>
+</ul>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3>目录</h3>
+    <ul>
+<li><a class="reference internal" href="#">LINK_GROUP</a><ul>
+<li><a class="reference internal" href="#syntax">Syntax</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>上一主题</h4>
+    <p class="topless"><a href="LINK_LIBRARY.html"
+                          title="上一章">LINK_LIBRARY</a></p>
+  </div>
+  <div>
+    <h4>下一主题</h4>
+    <p class="topless"><a href="LINK_ONLY.html"
+                          title="下一章">LINK_ONLY</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>本页</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/genex/LINK_GROUP.rst.txt"
+            rel="nofollow">显示源代码</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="提交" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="总索引"
+             >索引</a></li>
+        <li class="right" >
+          <a href="LINK_ONLY.html" title="LINK_ONLY"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="LINK_LIBRARY.html" title="LINK_LIBRARY"
+             >上一页</a> |</li>
+  <li>
+    <label class="sidebar-toggle" for="sidebar-check"></label>
+  </li>
+  <li class="rootlink">
+    <img src="../_static/cmake-logo-16.png" width="16" height="16" alt=""/>
+    <a href="https://cmake.org/">CMake 4.5.20261116-g20268ff</a>
+    <span class="reldelim1"> &#187;</span>
+  </li>
+  <li>
+    <a href="../index.html">Documentation</a> &#187;
+  </li>
+
+          <li class="nav-item nav-item-1"><a href="../manual/cmake-generator-expressions.7.html" >cmake-generator-expressions(7)</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">LINK_GROUP</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+    &#169; 版权所有 2000-2026 Kitware, Inc. and Contributors.
+      由 <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3创建。
+    </div>
+<script type="text/javascript">
+(function() {
+  "use strict";
+  const hide = () => document.getElementById("sidebar-check").checked = false;
+  addEventListener("keydown", e => (e.key === "Escape") && hide());
+  addEventListener("click", e => (e.target.tagName === "A") && hide());
+  addEventListener("hashchange", hide)
+})();
+</script>
+  </body>
+</html>

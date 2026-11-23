@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+
+<html lang="ru-RU" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>LINK_LIBRARY &mdash; CMake 4.5.20261116-g20268ff Documentation</title>
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a3862c66" />
+    <link rel="stylesheet" type="text/css" href="../_static/cmake.css?v=d27bb136" />
+    
+    <script src="../_static/documentation_options.js?v=a5fd2243"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    
+    <link rel="canonical" href="https://projects.localizethedocs.org/cmake-docs-l10n/genex/LINK_LIBRARY.html" />
+    <link rel="icon" href="../_static/cmake-favicon.ico"/>
+    <link rel="index" title="Алфавитный указатель" href="../genindex.html" />
+    <link rel="search" title="Поиск" href="../search.html" />
+    <link rel="next" title="LINK_GROUP" href="LINK_GROUP.html" />
+    <link rel="prev" title="LINK_LANG_AND_ID" href="LINK_LANG_AND_ID.html" />
+
+ 
+
+    <script type="text/javascript" src="../ltd-provenance.js"></script>
+    <script type="text/javascript" src="../ltd-current.js"></script>
+    <script type="text/javascript" src="../../../ltd-config.js"></script>
+    <script type="text/javascript" src="../../../ltd-flyout.js"></script>
+
+  </head><body>
+    <input id="sidebar-check" type="checkbox" />
+    <label id="sidebar-overlay" for="sidebar-check"></label>
+
+
+
+    <div class="related relbar1" role="navigation" aria-label="Related">
+      <h3>Навигация</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Алфавитный указатель"
+             accesskey="I">указатель</a></li>
+        <li class="right" >
+          <a href="LINK_GROUP.html" title="LINK_GROUP"
+             accesskey="N">вперёд</a> |</li>
+        <li class="right" >
+          <a href="LINK_LANG_AND_ID.html" title="LINK_LANG_AND_ID"
+             accesskey="P">назад</a> |</li>
+  <li>
+    <label class="sidebar-toggle" for="sidebar-check"></label>
+  </li>
+  <li class="rootlink">
+    <img src="../_static/cmake-logo-16.png" width="16" height="16" alt=""/>
+    <a href="https://cmake.org/">CMake 4.5.20261116-g20268ff</a>
+    <span class="reldelim1"> &#187;</span>
+  </li>
+  <li>
+    <a href="../index.html">Documentation</a> &#187;
+  </li>
+
+          <li class="nav-item nav-item-1"><a href="../manual/cmake-generator-expressions.7.html" accesskey="U">cmake-generator-expressions(7)</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">LINK_LIBRARY</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="link-library">
+<span id="genex:LINK_LIBRARY"></span><h1>LINK_LIBRARY<a class="headerlink" href="#link-library" title="Ссылка на этот заголовок">¶</a></h1>
+<p>This generator expression belongs to the <a class="reference internal" href="../manual/cmake-generator-expressions.7.html#genex-family-boolean-link-language-generator-expression"><span class="std std-ref">Link Features</span></a> family. See that
+section for related generator expressions.</p>
+<section id="syntax">
+<h2>Syntax<a class="headerlink" href="#syntax" title="Ссылка на этот заголовок">¶</a></h2>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="o">$&lt;</span><span class="no">LINK_LIBRARY</span><span class="o">:</span><span class="nb">feature</span><span class="p">,</span><span class="nb">library-list</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified added">Добавлено в версии 3.24.</span></p>
+</div>
+<p>Specify a set of libraries to link to a target, along with a <code class="docutils literal notranslate"><span class="pre">feature</span></code> which
+provides details about <em>how</em> they should be linked.  For example:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">add_library(</span><span class="nb">lib1</span><span class="w"> </span><span class="no">STATIC</span><span class="w"> </span><span class="p">...</span><span class="nf">)</span>
+<span class="nf">add_library(</span><span class="nb">lib2</span><span class="w"> </span><span class="p">...</span><span class="nf">)</span>
+<span class="nf">target_link_libraries(</span><span class="nb">lib2</span><span class="w"> </span><span class="no">PRIVATE</span><span class="w"> </span><span class="s">"$&lt;LINK_LIBRARY:WHOLE_ARCHIVE,lib1&gt;"</span><span class="nf">)</span>
+</pre></div>
+</div>
+<p>This specifies that <code class="docutils literal notranslate"><span class="pre">lib2</span></code> should link to <code class="docutils literal notranslate"><span class="pre">lib1</span></code> and use the
+<code class="docutils literal notranslate"><span class="pre">WHOLE_ARCHIVE</span></code> feature when doing so.</p>
+<p>Feature names are case-sensitive and may only contain letters, numbers and
+underscores.  Feature names defined in all uppercase are reserved for CMake's
+own built-in features.  The pre-defined built-in library features are:</p>
+<dl>
+<dt><code class="docutils literal notranslate"><span class="pre">DEFAULT</span></code></dt><dd><p>This feature corresponds to standard linking, essentially equivalent to
+using no feature at all.  It is typically only used with the
+<span class="target" id="index-0-prop_tgt:LINK_LIBRARY_OVERRIDE"></span><a class="reference internal" href="../prop_tgt/LINK_LIBRARY_OVERRIDE.html#prop_tgt:LINK_LIBRARY_OVERRIDE" title="LINK_LIBRARY_OVERRIDE"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">LINK_LIBRARY_OVERRIDE</span></code></a> and
+<span class="target" id="index-0-prop_tgt:LINK_LIBRARY_OVERRIDE_&lt;LIBRARY&gt;"></span><a class="reference internal" href="../prop_tgt/LINK_LIBRARY_OVERRIDE_LIBRARY.html#prop_tgt:LINK_LIBRARY_OVERRIDE_&lt;LIBRARY&gt;" title="LINK_LIBRARY_OVERRIDE_&lt;LIBRARY&gt;"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">LINK_LIBRARY_OVERRIDE_&lt;LIBRARY&gt;</span></code></a> target properties.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">WHOLE_ARCHIVE</span></code></dt><dd><p>Force inclusion of all members of a static library when linked as a
+dependency of consuming <a class="reference internal" href="../manual/cmake-buildsystem.7.html#executables"><span class="std std-ref">Executables</span></a>, <a class="reference internal" href="../manual/cmake-buildsystem.7.html#shared-libraries"><span class="std std-ref">Shared Libraries</span></a>,
+and <a class="reference internal" href="../manual/cmake-buildsystem.7.html#module-libraries"><span class="std std-ref">Module Libraries</span></a>.  This feature is only supported for the
+following platforms, with limitations as noted:</p>
+<ul class="simple">
+<li><p>Linux.</p></li>
+<li><p>All BSD variants.</p></li>
+<li><p>SunOS.</p></li>
+<li><p>All Apple variants.  The library must be specified as a CMake target name,
+a library file name (such as <code class="docutils literal notranslate"><span class="pre">libfoo.a</span></code>), or a library file path (such as
+<code class="docutils literal notranslate"><span class="pre">/path/to/libfoo.a</span></code>).  Due to a limitation of the Apple linker, it
+cannot be specified as a plain library name like <code class="docutils literal notranslate"><span class="pre">foo</span></code>, where <code class="docutils literal notranslate"><span class="pre">foo</span></code>
+is not a CMake target.</p></li>
+<li><p>Windows.  When using a MSVC or MSVC-like toolchain, the MSVC version must
+be greater than 1900.</p></li>
+<li><p>Cygwin.</p></li>
+<li><p>MSYS.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Примечание</p>
+<p>Since <a class="reference internal" href="../manual/cmake-buildsystem.7.html#static-libraries"><span class="std std-ref">Static Libraries</span></a> are archives and not linked binaries,
+CMake records their link dependencies for transitive use when linking
+consuming binaries.  Therefore <code class="docutils literal notranslate"><span class="pre">WHOLE_ARCHIVE</span></code> does not cause a
+static library's objects to be included in other static libraries.
+Use <a class="reference internal" href="../manual/cmake-buildsystem.7.html#object-libraries"><span class="std std-ref">Object Libraries</span></a> for that.</p>
+</div>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">FRAMEWORK</span></code></dt><dd><p>This option tells the linker to search for the specified framework using
+the <code class="docutils literal notranslate"><span class="pre">-framework</span></code> linker option.  It can only be used on Apple platforms,
+and only with a linker that understands the option used (i.e. the linker
+provided with Xcode, or one compatible with it).</p>
+<p>The framework can be specified as a CMake framework target, a bare framework
+name, or a file path.  If a target is given, that target must have the
+<span class="target" id="index-0-prop_tgt:FRAMEWORK"></span><a class="reference internal" href="../prop_tgt/FRAMEWORK.html#prop_tgt:FRAMEWORK" title="FRAMEWORK"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">FRAMEWORK</span></code></a> target property set to true.  For a file path, if it
+contains a directory part, that directory will be added as a framework
+search path.</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">add_library(</span><span class="nb">lib</span><span class="w"> </span><span class="no">SHARED</span><span class="w"> </span><span class="p">...</span><span class="nf">)</span>
+<span class="nf">target_link_libraries(</span><span class="nb">lib</span><span class="w"> </span><span class="no">PRIVATE</span><span class="w"> </span><span class="s">"$&lt;LINK_LIBRARY:FRAMEWORK,/path/to/my_framework&gt;"</span><span class="nf">)</span>
+
+<span class="c"># The constructed linker command line will contain:</span>
+<span class="c">#   -F/path/to -framework my_framework</span>
+</pre></div>
+</div>
+<p>File paths must conform to one of the following patterns (<code class="docutils literal notranslate"><span class="pre">*</span></code> is a
+wildcard, and optional parts are shown as <code class="docutils literal notranslate"><span class="pre">[...]</span></code>):</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">[/path/to/]FwName[.framework]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">[/path/to/]FwName.framework/FwName[suffix]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">[/path/to/]FwName.framework/Versions/*/FwName[suffix]</span></code></p></li>
+</ul>
+<p>Note that CMake recognizes and automatically handles framework targets,
+even without using the <span class="target" id="index-0-genex:LINK_LIBRARY"></span><a class="reference internal" href="#genex:LINK_LIBRARY" title="LINK_LIBRARY"><code class="xref cmake cmake-genex docutils literal notranslate"><span class="pre">$&lt;LINK_LIBRARY:FRAMEWORK,...&gt;</span></code></a> expression.
+The generator expression can still be used with a CMake target if the
+project wants to be explicit about it, but it is not required to do so.
+The linker command line may have some differences between using the
+generator expression or not, but the final result should be the same.
+On the other hand, if a file path is given, CMake will recognize some paths
+automatically, but not all cases.  The project may want to use
+<span class="target" id="index-1-genex:LINK_LIBRARY"></span><a class="reference internal" href="#genex:LINK_LIBRARY" title="LINK_LIBRARY"><code class="xref cmake cmake-genex docutils literal notranslate"><span class="pre">$&lt;LINK_LIBRARY:FRAMEWORK,...&gt;</span></code></a> for file paths so that the expected
+behavior is clear.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">Добавлено в версии 3.25: </span>The <span class="target" id="index-0-prop_tgt:FRAMEWORK_MULTI_CONFIG_POSTFIX_&lt;CONFIG&gt;"></span><a class="reference internal" href="../prop_tgt/FRAMEWORK_MULTI_CONFIG_POSTFIX_CONFIG.html#prop_tgt:FRAMEWORK_MULTI_CONFIG_POSTFIX_&lt;CONFIG&gt;" title="FRAMEWORK_MULTI_CONFIG_POSTFIX_&lt;CONFIG&gt;"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">FRAMEWORK_MULTI_CONFIG_POSTFIX_&lt;CONFIG&gt;</span></code></a> target property as
+well as the <code class="docutils literal notranslate"><span class="pre">suffix</span></code> of the framework library name are now supported by
+the <code class="docutils literal notranslate"><span class="pre">FRAMEWORK</span></code> features.</p>
+</div>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">NEEDED_FRAMEWORK</span></code></dt><dd><p>This is similar to the <code class="docutils literal notranslate"><span class="pre">FRAMEWORK</span></code> feature, except it forces the linker
+to link with the framework even if no symbols are used from it.  It uses
+the <code class="docutils literal notranslate"><span class="pre">-needed_framework</span></code> option and has the same linker constraints as
+<code class="docutils literal notranslate"><span class="pre">FRAMEWORK</span></code>.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">REEXPORT_FRAMEWORK</span></code></dt><dd><p>This is similar to the <code class="docutils literal notranslate"><span class="pre">FRAMEWORK</span></code> feature, except it tells the linker
+that the framework should be available to clients linking to the library
+being created.  It uses the <code class="docutils literal notranslate"><span class="pre">-reexport_framework</span></code> option and has the
+same linker constraints as <code class="docutils literal notranslate"><span class="pre">FRAMEWORK</span></code>.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">WEAK_FRAMEWORK</span></code></dt><dd><p>This is similar to the <code class="docutils literal notranslate"><span class="pre">FRAMEWORK</span></code> feature, except it forces the linker
+to mark the framework and all references to it as weak imports.  It uses
+the <code class="docutils literal notranslate"><span class="pre">-weak_framework</span></code> option and has the same linker constraints as
+<code class="docutils literal notranslate"><span class="pre">FRAMEWORK</span></code>.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">NEEDED_LIBRARY</span></code></dt><dd><p>This is similar to the <code class="docutils literal notranslate"><span class="pre">NEEDED_FRAMEWORK</span></code> feature, except it is for use
+with non-framework targets or libraries.  This feature is only supported
+on the following platforms:</p>
+<dl>
+<dt>Apple</dt><dd><p>Uses the <code class="docutils literal notranslate"><span class="pre">-needed_library</span></code> or <code class="docutils literal notranslate"><span class="pre">-needed-l</span></code> option as appropriate,
+with the same linker constraints as <code class="docutils literal notranslate"><span class="pre">NEEDED_FRAMEWORK</span></code>.</p>
+</dd>
+<dt>Linux</dt><dd><div class="versionadded">
+<p><span class="versionmodified added">Добавлено в версии 4.5.</span></p>
+</div>
+<p>Wraps the library with <code class="docutils literal notranslate"><span class="pre">--no-as-needed</span></code> / <code class="docutils literal notranslate"><span class="pre">--as-needed</span></code> to force
+an entry in the binary's <code class="docutils literal notranslate"><span class="pre">DT_NEEDED</span></code> list regardless of whether any
+symbols from the library are directly referenced.  When the linker
+supports <code class="docutils literal notranslate"><span class="pre">--push-state</span></code> / <code class="docutils literal notranslate"><span class="pre">--pop-state</span></code> (GNU ld &gt;= 2.25, gold,
+LLD, MOLD), the state-stacking form is used instead to correctly
+restore the pre-existing <code class="docutils literal notranslate"><span class="pre">--as-needed</span></code> state rather than
+unconditionally enabling it after the library.  This feature is only
+meaningful for shared libraries; applying it to a static library
+produces a developer warning and has no effect.</p>
+</dd>
+</dl>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">REEXPORT_LIBRARY</span></code></dt><dd><p>This is similar to the <code class="docutils literal notranslate"><span class="pre">REEXPORT_FRAMEWORK</span></code> feature,  except it is for use
+with non-framework targets or libraries (Apple platforms only).
+It uses the <code class="docutils literal notranslate"><span class="pre">-reexport_library</span></code> or <code class="docutils literal notranslate"><span class="pre">-reexport-l</span></code> option as appropriate,
+and has the same linker constraints as <code class="docutils literal notranslate"><span class="pre">REEXPORT_FRAMEWORK</span></code>.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">WEAK_LIBRARY</span></code></dt><dd><p>This is similar to the <code class="docutils literal notranslate"><span class="pre">WEAK_FRAMEWORK</span></code> feature, except it is for use
+with non-framework targets or libraries (Apple platforms only).
+It uses the <code class="docutils literal notranslate"><span class="pre">-weak_library</span></code> or <code class="docutils literal notranslate"><span class="pre">-weak-l</span></code> option as appropriate,
+and has the same linker constraints as <code class="docutils literal notranslate"><span class="pre">WEAK_FRAMEWORK</span></code>.</p>
+</dd>
+</dl>
+<p>Built-in and custom library features are defined in terms of the following
+variables:</p>
+<ul class="simple">
+<li><p><span class="target" id="index-0-variable:CMAKE_&lt;LANG&gt;_LINK_LIBRARY_USING_&lt;FEATURE&gt;_SUPPORTED"></span><a class="reference internal" href="../variable/CMAKE_LANG_LINK_LIBRARY_USING_FEATURE_SUPPORTED.html#variable:CMAKE_&lt;LANG&gt;_LINK_LIBRARY_USING_&lt;FEATURE&gt;_SUPPORTED" title="CMAKE_&lt;LANG&gt;_LINK_LIBRARY_USING_&lt;FEATURE&gt;_SUPPORTED"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_&lt;LANG&gt;_LINK_LIBRARY_USING_&lt;FEATURE&gt;_SUPPORTED</span></code></a></p></li>
+<li><p><span class="target" id="index-0-variable:CMAKE_&lt;LANG&gt;_LINK_LIBRARY_USING_&lt;FEATURE&gt;"></span><a class="reference internal" href="../variable/CMAKE_LANG_LINK_LIBRARY_USING_FEATURE.html#variable:CMAKE_&lt;LANG&gt;_LINK_LIBRARY_USING_&lt;FEATURE&gt;" title="CMAKE_&lt;LANG&gt;_LINK_LIBRARY_USING_&lt;FEATURE&gt;"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_&lt;LANG&gt;_LINK_LIBRARY_USING_&lt;FEATURE&gt;</span></code></a></p></li>
+<li><p><span class="target" id="index-0-variable:CMAKE_LINK_LIBRARY_USING_&lt;FEATURE&gt;_SUPPORTED"></span><a class="reference internal" href="../variable/CMAKE_LINK_LIBRARY_USING_FEATURE_SUPPORTED.html#variable:CMAKE_LINK_LIBRARY_USING_&lt;FEATURE&gt;_SUPPORTED" title="CMAKE_LINK_LIBRARY_USING_&lt;FEATURE&gt;_SUPPORTED"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_LINK_LIBRARY_USING_&lt;FEATURE&gt;_SUPPORTED</span></code></a></p></li>
+<li><p><span class="target" id="index-0-variable:CMAKE_LINK_LIBRARY_USING_&lt;FEATURE&gt;"></span><a class="reference internal" href="../variable/CMAKE_LINK_LIBRARY_USING_FEATURE.html#variable:CMAKE_LINK_LIBRARY_USING_&lt;FEATURE&gt;" title="CMAKE_LINK_LIBRARY_USING_&lt;FEATURE&gt;"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_LINK_LIBRARY_USING_&lt;FEATURE&gt;</span></code></a></p></li>
+</ul>
+<p>The value used for each of these variables is the value as set at the end of the
+directory scope in which the target was created.  The usage is as follows:</p>
+<ol class="arabic simple">
+<li><p>If the language-specific
+<span class="target" id="index-1-variable:CMAKE_&lt;LANG&gt;_LINK_LIBRARY_USING_&lt;FEATURE&gt;_SUPPORTED"></span><a class="reference internal" href="../variable/CMAKE_LANG_LINK_LIBRARY_USING_FEATURE_SUPPORTED.html#variable:CMAKE_&lt;LANG&gt;_LINK_LIBRARY_USING_&lt;FEATURE&gt;_SUPPORTED" title="CMAKE_&lt;LANG&gt;_LINK_LIBRARY_USING_&lt;FEATURE&gt;_SUPPORTED"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_&lt;LANG&gt;_LINK_LIBRARY_USING_&lt;FEATURE&gt;_SUPPORTED</span></code></a> variable
+is true, the <code class="docutils literal notranslate"><span class="pre">feature</span></code> must be defined by the corresponding
+<span class="target" id="index-1-variable:CMAKE_&lt;LANG&gt;_LINK_LIBRARY_USING_&lt;FEATURE&gt;"></span><a class="reference internal" href="../variable/CMAKE_LANG_LINK_LIBRARY_USING_FEATURE.html#variable:CMAKE_&lt;LANG&gt;_LINK_LIBRARY_USING_&lt;FEATURE&gt;" title="CMAKE_&lt;LANG&gt;_LINK_LIBRARY_USING_&lt;FEATURE&gt;"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_&lt;LANG&gt;_LINK_LIBRARY_USING_&lt;FEATURE&gt;</span></code></a> variable.</p></li>
+<li><p>If no language-specific <code class="docutils literal notranslate"><span class="pre">feature</span></code> is supported, then the
+<span class="target" id="index-1-variable:CMAKE_LINK_LIBRARY_USING_&lt;FEATURE&gt;_SUPPORTED"></span><a class="reference internal" href="../variable/CMAKE_LINK_LIBRARY_USING_FEATURE_SUPPORTED.html#variable:CMAKE_LINK_LIBRARY_USING_&lt;FEATURE&gt;_SUPPORTED" title="CMAKE_LINK_LIBRARY_USING_&lt;FEATURE&gt;_SUPPORTED"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_LINK_LIBRARY_USING_&lt;FEATURE&gt;_SUPPORTED</span></code></a> variable must be
+true and the <code class="docutils literal notranslate"><span class="pre">feature</span></code> must be defined by the corresponding
+<span class="target" id="index-1-variable:CMAKE_LINK_LIBRARY_USING_&lt;FEATURE&gt;"></span><a class="reference internal" href="../variable/CMAKE_LINK_LIBRARY_USING_FEATURE.html#variable:CMAKE_LINK_LIBRARY_USING_&lt;FEATURE&gt;" title="CMAKE_LINK_LIBRARY_USING_&lt;FEATURE&gt;"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CMAKE_LINK_LIBRARY_USING_&lt;FEATURE&gt;</span></code></a> variable.</p></li>
+</ol>
+<p>The following limitations should be noted:</p>
+<ul>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">library-list</span></code> can specify CMake targets or libraries.
+Any CMake target of type <a class="reference internal" href="../manual/cmake-buildsystem.7.html#object-libraries"><span class="std std-ref">OBJECT</span></a>
+or <a class="reference internal" href="../manual/cmake-buildsystem.7.html#interface-libraries"><span class="std std-ref">INTERFACE</span></a> will ignore the feature aspect
+of the expression and instead be linked in the standard way.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">$&lt;LINK_LIBRARY:...&gt;</span></code> generator expression can only be used to
+specify link libraries.  In practice, this means it can appear in the
+<span class="target" id="index-0-prop_tgt:LINK_LIBRARIES"></span><a class="reference internal" href="../prop_tgt/LINK_LIBRARIES.html#prop_tgt:LINK_LIBRARIES" title="LINK_LIBRARIES"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">LINK_LIBRARIES</span></code></a>, <span class="target" id="index-0-prop_tgt:INTERFACE_LINK_LIBRARIES"></span><a class="reference internal" href="../prop_tgt/INTERFACE_LINK_LIBRARIES.html#prop_tgt:INTERFACE_LINK_LIBRARIES" title="INTERFACE_LINK_LIBRARIES"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">INTERFACE_LINK_LIBRARIES</span></code></a>, and
+<span class="target" id="index-0-prop_tgt:INTERFACE_LINK_LIBRARIES_DIRECT"></span><a class="reference internal" href="../prop_tgt/INTERFACE_LINK_LIBRARIES_DIRECT.html#prop_tgt:INTERFACE_LINK_LIBRARIES_DIRECT" title="INTERFACE_LINK_LIBRARIES_DIRECT"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">INTERFACE_LINK_LIBRARIES_DIRECT</span></code></a>  target properties, and be
+specified in <span class="target" id="index-0-command:target_link_libraries"></span><a class="reference internal" href="../command/target_link_libraries.html#command:target_link_libraries" title="target_link_libraries"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">target_link_libraries()</span></code></a> and <span class="target" id="index-0-command:link_libraries"></span><a class="reference internal" href="../command/link_libraries.html#command:link_libraries" title="link_libraries"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">link_libraries()</span></code></a>
+commands.</p></li>
+<li><p>If a <code class="docutils literal notranslate"><span class="pre">$&lt;LINK_LIBRARY:...&gt;</span></code> generator expression appears in the
+<span class="target" id="index-1-prop_tgt:INTERFACE_LINK_LIBRARIES"></span><a class="reference internal" href="../prop_tgt/INTERFACE_LINK_LIBRARIES.html#prop_tgt:INTERFACE_LINK_LIBRARIES" title="INTERFACE_LINK_LIBRARIES"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">INTERFACE_LINK_LIBRARIES</span></code></a> property of a target, it will be
+included in the imported target generated by a <span class="target" id="index-0-command:install"></span><a class="reference internal" href="../command/install.html#export" title="install(export)"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">install(EXPORT)</span></code></a>
+command.  It is the responsibility of the environment consuming this
+import to define the link feature used by this expression.  Any CMake
+target named in the <code class="docutils literal notranslate"><span class="pre">library-list</span></code> should be wrapped in
+<span class="target" id="index-0-genex:TARGET_NAME"></span><a class="reference internal" href="TARGET_NAME.html#genex:TARGET_NAME" title="TARGET_NAME"><code class="xref cmake cmake-genex docutils literal notranslate"><span class="pre">TARGET_NAME</span></code></a> so that its name is namespaced on export; otherwise it
+is exported verbatim and will not resolve as an imported target.</p></li>
+<li><p>Each target or library involved in the link step must have at most only
+one kind of library feature.  The absence of a feature is also incompatible
+with all other features.  For example:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">add_library(</span><span class="nb">lib1</span><span class="w"> </span><span class="p">...</span><span class="nf">)</span>
+<span class="nf">add_library(</span><span class="nb">lib2</span><span class="w"> </span><span class="p">...</span><span class="nf">)</span>
+<span class="nf">add_library(</span><span class="nb">lib3</span><span class="w"> </span><span class="p">...</span><span class="nf">)</span>
+
+<span class="c"># lib1 will be associated with feature1</span>
+<span class="nf">target_link_libraries(</span><span class="nb">lib2</span><span class="w"> </span><span class="no">PUBLIC</span><span class="w"> </span><span class="s">"$&lt;LINK_LIBRARY:feature1,lib1&gt;"</span><span class="nf">)</span>
+
+<span class="c"># lib1 is being linked with no feature here. This conflicts with the</span>
+<span class="c"># use of feature1 in the line above and would result in an error.</span>
+<span class="nf">target_link_libraries(</span><span class="nb">lib3</span><span class="w"> </span><span class="no">PRIVATE</span><span class="w"> </span><span class="nb">lib1</span><span class="w"> </span><span class="nb">lib2</span><span class="nf">)</span>
+</pre></div>
+</div>
+<p>Where it isn't possible to use the same feature throughout a build for a
+given target or library, the <span class="target" id="index-1-prop_tgt:LINK_LIBRARY_OVERRIDE"></span><a class="reference internal" href="../prop_tgt/LINK_LIBRARY_OVERRIDE.html#prop_tgt:LINK_LIBRARY_OVERRIDE" title="LINK_LIBRARY_OVERRIDE"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">LINK_LIBRARY_OVERRIDE</span></code></a> and
+<span class="target" id="index-1-prop_tgt:LINK_LIBRARY_OVERRIDE_&lt;LIBRARY&gt;"></span><a class="reference internal" href="../prop_tgt/LINK_LIBRARY_OVERRIDE_LIBRARY.html#prop_tgt:LINK_LIBRARY_OVERRIDE_&lt;LIBRARY&gt;" title="LINK_LIBRARY_OVERRIDE_&lt;LIBRARY&gt;"><code class="xref cmake cmake-prop_tgt docutils literal notranslate"><span class="pre">LINK_LIBRARY_OVERRIDE_&lt;LIBRARY&gt;</span></code></a> target properties can be
+used to resolve such incompatibilities.</p>
+</li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">$&lt;LINK_LIBRARY:...&gt;</span></code> generator expression does not guarantee
+that the list of specified targets and libraries will be kept grouped
+together.  To manage constructs like <code class="docutils literal notranslate"><span class="pre">--start-group</span></code> and <code class="docutils literal notranslate"><span class="pre">--end-group</span></code>,
+as supported by the GNU <code class="docutils literal notranslate"><span class="pre">ld</span></code> linker, use the <span class="target" id="index-0-genex:LINK_GROUP"></span><a class="reference internal" href="LINK_GROUP.html#genex:LINK_GROUP" title="LINK_GROUP"><code class="xref cmake cmake-genex docutils literal notranslate"><span class="pre">LINK_GROUP</span></code></a>
+generator expression instead.</p></li>
+</ul>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3>Оглавление</h3>
+    <ul>
+<li><a class="reference internal" href="#">LINK_LIBRARY</a><ul>
+<li><a class="reference internal" href="#syntax">Syntax</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Предыдущий раздел</h4>
+    <p class="topless"><a href="LINK_LANG_AND_ID.html"
+                          title="предыдущая глава">LINK_LANG_AND_ID</a></p>
+  </div>
+  <div>
+    <h4>Следующий раздел</h4>
+    <p class="topless"><a href="LINK_GROUP.html"
+                          title="следующая глава">LINK_GROUP</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>Эта страница</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/genex/LINK_LIBRARY.rst.txt"
+            rel="nofollow">Исходный текст</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Быстрый поиск</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Искать" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Навигация</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Алфавитный указатель"
+             >указатель</a></li>
+        <li class="right" >
+          <a href="LINK_GROUP.html" title="LINK_GROUP"
+             >вперёд</a> |</li>
+        <li class="right" >
+          <a href="LINK_LANG_AND_ID.html" title="LINK_LANG_AND_ID"
+             >назад</a> |</li>
+  <li>
+    <label class="sidebar-toggle" for="sidebar-check"></label>
+  </li>
+  <li class="rootlink">
+    <img src="../_static/cmake-logo-16.png" width="16" height="16" alt=""/>
+    <a href="https://cmake.org/">CMake 4.5.20261116-g20268ff</a>
+    <span class="reldelim1"> &#187;</span>
+  </li>
+  <li>
+    <a href="../index.html">Documentation</a> &#187;
+  </li>
+
+          <li class="nav-item nav-item-1"><a href="../manual/cmake-generator-expressions.7.html" >cmake-generator-expressions(7)</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">LINK_LIBRARY</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+    &#169; Авторские права 2000-2026 Kitware, Inc. and Contributors.
+      Создано с использованием <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    </div>
+<script type="text/javascript">
+(function() {
+  "use strict";
+  const hide = () => document.getElementById("sidebar-check").checked = false;
+  addEventListener("keydown", e => (e.key === "Escape") && hide());
+  addEventListener("click", e => (e.target.tagName === "A") && hide());
+  addEventListener("hashchange", hide)
+})();
+</script>
+  </body>
+</html>

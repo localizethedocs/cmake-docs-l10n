@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+
+<html lang="zh-TW" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Step 1: A Basic Dashboard Script &mdash; CMake 4.5.20261116-g20268ff Documentation</title>
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a3862c66" />
+    <link rel="stylesheet" type="text/css" href="../../_static/cmake.css?v=d27bb136" />
+    
+    <script src="../../_static/documentation_options.js?v=fe97c693"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/translations.js?v=cbf116e0"></script>
+    
+    <link rel="canonical" href="https://projects.localizethedocs.org/cmake-docs-l10n/guide/ctest-dashboard-client/A%20Basic%20Dashboard%20Script.html" />
+    <link rel="icon" href="../../_static/cmake-favicon.ico"/>
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="搜尋" href="../../search.html" />
+    <link rel="next" title="Step 2: Using CTest Launchers" href="Using%20CTest%20Launchers.html" />
+    <link rel="prev" title="CTest Dashboard Client Guide" href="index.html" />
+
+ 
+
+    <script type="text/javascript" src="../../ltd-provenance.js"></script>
+    <script type="text/javascript" src="../../ltd-current.js"></script>
+    <script type="text/javascript" src="../../../../ltd-config.js"></script>
+    <script type="text/javascript" src="../../../../ltd-flyout.js"></script>
+
+  </head><body>
+    <input id="sidebar-check" type="checkbox" />
+    <label id="sidebar-overlay" for="sidebar-check"></label>
+
+
+
+    <div class="related relbar1" role="navigation" aria-label="Related">
+      <h3>瀏覽</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="總索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="Using%20CTest%20Launchers.html" title="Step 2: Using CTest Launchers"
+             accesskey="N">下一頁</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="CTest Dashboard Client Guide"
+             accesskey="P">上一頁</a> |</li>
+  <li>
+    <label class="sidebar-toggle" for="sidebar-check"></label>
+  </li>
+  <li class="rootlink">
+    <img src="../../_static/cmake-logo-16.png" width="16" height="16" alt=""/>
+    <a href="https://cmake.org/">CMake 4.5.20261116-g20268ff</a>
+    <span class="reldelim1"> &#187;</span>
+  </li>
+  <li>
+    <a href="../../index.html">文件</a> &#187;
+  </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">CTest Dashboard Client Guide</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Step 1: A Basic Dashboard Script</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="step-1-a-basic-dashboard-script">
+<span id="ctest-dashboard-step-1"></span><span id="guide:ctest-dashboard-client/A Basic Dashboard Script"></span><h1>Step 1: A Basic Dashboard Script<a class="headerlink" href="#step-1-a-basic-dashboard-script" title="連結到這個標頭">¶</a></h1>
+<p>This step shows the smallest complete <a class="reference internal" href="../../manual/ctest.1.html#cmdoption-ctest-S"><code class="xref std std-option docutils literal notranslate"><span class="pre">ctest</span> <span class="pre">-S</span></code></a> script that
+configures, builds, and tests a project, and submits the results to CDash.</p>
+<section id="the-example-project">
+<h2>The Example Project<a class="headerlink" href="#the-example-project" title="連結到這個標頭">¶</a></h2>
+<p>Most steps build the project in the <code class="docutils literal notranslate"><span class="pre">Project</span></code> directory, which defines
+two tests:</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">passes</span></code></dt><dd><p>A test that exits successfully.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">fails</span></code></dt><dd><p>A test that exits with a non-zero exit code.</p>
+</dd>
+</dl>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">Project/CMakeLists.txt</span><a class="headerlink" href="#id1" title="連結到這個程式碼">¶</a></div>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">cmake_minimum_required(</span><span class="no">VERSION</span><span class="w"> </span><span class="m">3.20</span><span class="nf">)</span>
+<span class="nf">project(</span><span class="nb">DashboardExample</span><span class="w"> </span><span class="no">CXX</span><span class="nf">)</span>
+
+<span class="nf">include(</span><span class="nb">CTest</span><span class="nf">)</span>
+
+<span class="nf">add_executable(</span><span class="nb">passes</span><span class="w"> </span><span class="nb">passes.cxx</span><span class="nf">)</span>
+<span class="nf">add_test(</span><span class="no">NAME</span><span class="w"> </span><span class="nb">passes</span><span class="w"> </span><span class="no">COMMAND</span><span class="w"> </span><span class="nb">passes</span><span class="nf">)</span>
+
+<span class="nf">add_executable(</span><span class="nb">fails</span><span class="w"> </span><span class="nb">fails.cxx</span><span class="nf">)</span>
+<span class="nf">add_test(</span><span class="no">NAME</span><span class="w"> </span><span class="nb">fails</span><span class="w"> </span><span class="no">COMMAND</span><span class="w"> </span><span class="nb">fails</span><span class="nf">)</span>
+
+<span class="c"># Optionally add a target that fails to compile, to show how build errors</span>
+<span class="c"># are reported on the dashboard.</span>
+<span class="nf">option(</span><span class="no">DASHBOARD_EXAMPLE_BUILD_ERROR</span><span class="w"> </span><span class="s">"Add a target that fails to compile"</span><span class="w"> </span><span class="no">OFF</span><span class="nf">)</span>
+<span class="nf">if(</span><span class="no">DASHBOARD_EXAMPLE_BUILD_ERROR</span><span class="nf">)</span>
+<span class="w">  </span><span class="nf">add_executable(</span><span class="nb">error</span><span class="w"> </span><span class="nb">error.cxx</span><span class="nf">)</span>
+<span class="nf">endif()</span>
+</pre></div>
+</div>
+</div>
+<p>The project's <code class="docutils literal notranslate"><span class="pre">CTestConfig.cmake</span></code> file tells CTest where to submit
+results.  These examples submit to the <code class="docutils literal notranslate"><span class="pre">sandbox</span></code> project on
+<a class="reference external" href="https://my.cdash.org/projects">my.cdash.org</a>:</p>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">Project/CTestConfig.cmake</span><a class="headerlink" href="#id2" title="連結到這個程式碼">¶</a></div>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nf">set(</span><span class="no">CTEST_NIGHTLY_START_TIME</span><span class="w"> </span><span class="s">"00:00:00 UTC"</span><span class="nf">)</span>
+<span class="nf">set(</span><span class="no">CTEST_SUBMIT_URL</span><span class="w"> </span><span class="s">"https://my.cdash.org/submit.php?project=sandbox"</span><span class="nf">)</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="the-script">
+<h2>The Script<a class="headerlink" href="#the-script" title="連結到這個標頭">¶</a></h2>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">Step1/submit.cmake</span><a class="headerlink" href="#id3" title="連結到這個程式碼">¶</a></div>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="c"># Set the name of this build to distinguish it from other builds on CDash.</span>
+<span class="nf">set(</span><span class="no">CTEST_BUILD_NAME</span><span class="w"> </span><span class="s">"Step1: introduction"</span><span class="nf">)</span>
+
+<span class="c"># Look up the name of this host and use it as the site name.</span>
+<span class="c"># Alternatively, set CTEST_SITE directly.</span>
+<span class="nf">site_name(</span><span class="no">CTEST_SITE</span><span class="nf">)</span>
+
+<span class="c"># Tell CTest where the top-level CMakeLists.txt file is, and what directory</span>
+<span class="c"># to use to build the project.</span>
+<span class="nf">set(</span><span class="no">CTEST_SOURCE_DIRECTORY</span><span class="w"> </span><span class="s">"${CTEST_SCRIPT_DIRECTORY}/../Project"</span><span class="nf">)</span>
+<span class="nf">set(</span><span class="no">CTEST_BINARY_DIRECTORY</span><span class="w"> </span><span class="s">"${CTEST_SCRIPT_DIRECTORY}/build"</span><span class="nf">)</span>
+
+<span class="c"># Specify the native build system to generate.</span>
+<span class="nf">set(</span><span class="no">CTEST_CMAKE_GENERATOR</span><span class="w"> </span><span class="s">"Unix Makefiles"</span><span class="nf">)</span>
+
+<span class="c"># Attach this script as a note to the build on CDash.</span>
+<span class="nf">set(</span><span class="no">CTEST_NOTES_FILES</span><span class="w"> </span><span class="s">"${CMAKE_CURRENT_LIST_FILE}"</span><span class="nf">)</span>
+
+<span class="c"># Perform a "version-only update" with Git.  This reports the current</span>
+<span class="c"># commit and any locally modified files to CDash without changing the</span>
+<span class="c"># source tree.</span>
+<span class="nf">set(</span><span class="no">CTEST_UPDATE_COMMAND</span><span class="w"> </span><span class="s">"git"</span><span class="nf">)</span>
+<span class="nf">set(</span><span class="no">CTEST_UPDATE_VERSION_ONLY</span><span class="w"> </span><span class="m">1</span><span class="nf">)</span>
+
+<span class="c"># Start from an empty build tree rather than building incrementally.</span>
+<span class="nf">ctest_empty_binary_directory(</span><span class="s">"${CTEST_BINARY_DIRECTORY}"</span><span class="nf">)</span>
+
+<span class="c"># Run the dashboard steps to configure, build, and test the project,</span>
+<span class="c"># and submit the results to CDash.</span>
+<span class="nf">ctest_start(</span><span class="nb">Experimental</span><span class="nf">)</span>
+<span class="nf">ctest_update()</span>
+<span class="nf">ctest_configure()</span>
+<span class="nf">ctest_build()</span>
+<span class="nf">ctest_test()</span>
+<span class="nf">ctest_submit()</span>
+</pre></div>
+</div>
+</div>
+<p>The script runs these steps:</p>
+<dl class="simple">
+<dt><span class="target" id="index-0-command:ctest_start"></span><a class="reference internal" href="../../command/ctest_start.html#command:ctest_start" title="ctest_start"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">ctest_start()</span></code></a></dt><dd><p>Begin a new dashboard submission.</p>
+</dd>
+<dt><span class="target" id="index-0-command:ctest_update"></span><a class="reference internal" href="../../command/ctest_update.html#command:ctest_update" title="ctest_update"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">ctest_update()</span></code></a></dt><dd><p>Record the current Git commit and any modified files.</p>
+</dd>
+<dt><span class="target" id="index-0-command:ctest_configure"></span><a class="reference internal" href="../../command/ctest_configure.html#command:ctest_configure" title="ctest_configure"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">ctest_configure()</span></code></a></dt><dd><p>Run CMake to configure the project.</p>
+</dd>
+<dt><span class="target" id="index-0-command:ctest_build"></span><a class="reference internal" href="../../command/ctest_build.html#command:ctest_build" title="ctest_build"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">ctest_build()</span></code></a></dt><dd><p>Build the project.</p>
+</dd>
+<dt><span class="target" id="index-0-command:ctest_test"></span><a class="reference internal" href="../../command/ctest_test.html#command:ctest_test" title="ctest_test"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">ctest_test()</span></code></a></dt><dd><p>Run the tests.</p>
+</dd>
+<dt><span class="target" id="index-0-command:ctest_submit"></span><a class="reference internal" href="../../command/ctest_submit.html#command:ctest_submit" title="ctest_submit"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">ctest_submit()</span></code></a></dt><dd><p>Submit the results to CDash.</p>
+</dd>
+</dl>
+</section>
+<section id="key-concepts">
+<h2>Key Concepts<a class="headerlink" href="#key-concepts" title="連結到這個標頭">¶</a></h2>
+<dl class="simple">
+<dt><span class="target" id="index-0-variable:CTEST_BUILD_NAME"></span><a class="reference internal" href="../../variable/CTEST_BUILD_NAME.html#variable:CTEST_BUILD_NAME" title="CTEST_BUILD_NAME"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CTEST_BUILD_NAME</span></code></a></dt><dd><p>The name of the build on the dashboard.  Use it to distinguish several
+builds of the same project, such as by platform, compiler, or
+configuration.</p>
+</dd>
+<dt><span class="target" id="index-0-variable:CTEST_NOTES_FILES"></span><a class="reference internal" href="../../variable/CTEST_NOTES_FILES.html#variable:CTEST_NOTES_FILES" title="CTEST_NOTES_FILES"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CTEST_NOTES_FILES</span></code></a></dt><dd><p>Attaches files to the build as notes.  Attaching the script itself makes
+it easy to see what produced a given result.</p>
+</dd>
+<dt><span class="target" id="index-0-variable:CTEST_UPDATE_VERSION_ONLY"></span><a class="reference internal" href="../../variable/CTEST_UPDATE_VERSION_ONLY.html#variable:CTEST_UPDATE_VERSION_ONLY" title="CTEST_UPDATE_VERSION_ONLY"><code class="xref cmake cmake-variable docutils literal notranslate"><span class="pre">CTEST_UPDATE_VERSION_ONLY</span></code></a></dt><dd><p>Records the current Git commit without updating the source tree.  This is
+useful when a CI system has already checked out the source.</p>
+</dd>
+<dt><span class="target" id="index-0-command:ctest_empty_binary_directory"></span><a class="reference internal" href="../../command/ctest_empty_binary_directory.html#command:ctest_empty_binary_directory" title="ctest_empty_binary_directory"><code class="xref cmake cmake-command docutils literal notranslate"><span class="pre">ctest_empty_binary_directory()</span></code></a></dt><dd><p>Removes the build tree before the dashboard starts, so that each run is a
+clean build.</p>
+</dd>
+</dl>
+</section>
+<section id="running-the-script">
+<h2>Running the Script<a class="headerlink" href="#running-the-script" title="連結到這個標頭">¶</a></h2>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ctest<span class="w"> </span>-S<span class="w"> </span>Step1/submit.cmake<span class="w"> </span>-V
+</pre></div>
+</div>
+<p>The <a class="reference internal" href="../../manual/ctest.1.html#cmdoption-ctest-V"><code class="xref std std-option docutils literal notranslate"><span class="pre">ctest</span> <span class="pre">-V</span></code></a> option prints the output of each step.</p>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3>目次表</h3>
+    <ul>
+<li><a class="reference internal" href="#">Step 1: A Basic Dashboard Script</a><ul>
+<li><a class="reference internal" href="#the-example-project">The Example Project</a></li>
+<li><a class="reference internal" href="#the-script">The Script</a></li>
+<li><a class="reference internal" href="#key-concepts">Key Concepts</a></li>
+<li><a class="reference internal" href="#running-the-script">Running the Script</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>上個話題</h4>
+    <p class="topless"><a href="index.html"
+                          title="上個章節">CTest Dashboard Client Guide</a></p>
+  </div>
+  <div>
+    <h4>下個話題</h4>
+    <p class="topless"><a href="Using%20CTest%20Launchers.html"
+                          title="下個章節">Step 2: Using CTest Launchers</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>本頁</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/guide/ctest-dashboard-client/A Basic Dashboard Script.rst.txt"
+            rel="nofollow">顯示來源碼</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜尋</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="前往" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>瀏覽</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="總索引"
+             >索引</a></li>
+        <li class="right" >
+          <a href="Using%20CTest%20Launchers.html" title="Step 2: Using CTest Launchers"
+             >下一頁</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="CTest Dashboard Client Guide"
+             >上一頁</a> |</li>
+  <li>
+    <label class="sidebar-toggle" for="sidebar-check"></label>
+  </li>
+  <li class="rootlink">
+    <img src="../../_static/cmake-logo-16.png" width="16" height="16" alt=""/>
+    <a href="https://cmake.org/">CMake 4.5.20261116-g20268ff</a>
+    <span class="reldelim1"> &#187;</span>
+  </li>
+  <li>
+    <a href="../../index.html">文件</a> &#187;
+  </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >CTest Dashboard Client Guide</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Step 1: A Basic Dashboard Script</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+    &#169; 著作權 2000-2026 Kitware, Inc. and Contributors.
+      使用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3 建立。
+    </div>
+<script type="text/javascript">
+(function() {
+  "use strict";
+  const hide = () => document.getElementById("sidebar-check").checked = false;
+  addEventListener("keydown", e => (e.key === "Escape") && hide());
+  addEventListener("click", e => (e.target.tagName === "A") && hide());
+  addEventListener("hashchange", hide)
+})();
+</script>
+  </body>
+</html>
