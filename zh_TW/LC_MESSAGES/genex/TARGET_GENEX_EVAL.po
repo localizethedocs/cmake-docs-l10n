@@ -1,0 +1,85 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2000-2026 Kitware, Inc. and Contributors
+# This file is distributed under the same license as the CMake package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CMake master\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-11-16 17:42+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../genex/TARGET_GENEX_EVAL.rst:2
+msgid "TARGET_GENEX_EVAL"
+msgstr ""
+
+#: ../../../manual/include/GENEX_FAMILY.rst:3
+msgid ""
+"This generator expression belongs to the |genex-family| family. See that "
+"section for related generator expressions."
+msgstr ""
+
+#: ../../../genex/TARGET_GENEX_EVAL.rst:10
+msgid "Syntax"
+msgstr "語法"
+
+#: ../../../genex/TARGET_GENEX_EVAL.rst:12
+msgid "$<TARGET_GENEX_EVAL:tgt,expr>"
+msgstr ""
+
+#: ../../../genex/TARGET_GENEX_EVAL.rst:18
+msgid ""
+"Content of ``expr`` evaluated as a generator expression in the context of "
+"``tgt`` target. This enables consumption of custom target properties that "
+"themselves contain generator expressions."
+msgstr ""
+
+#: ../../../genex/TARGET_GENEX_EVAL.rst:22
+msgid ""
+"Having the capability to evaluate generator expressions is very useful when "
+"you want to manage custom properties supporting generator expressions. For "
+"example:"
+msgstr ""
+
+#: ../../../genex/TARGET_GENEX_EVAL.rst:25
+msgid ""
+"add_library(foo ...)\n"
+"\n"
+"set_property(TARGET foo PROPERTY\n"
+"  CUSTOM_KEYS $<$<CONFIG:DEBUG>:FOO_EXTRA_THINGS>\n"
+")\n"
+"\n"
+"add_custom_target(printFooKeys\n"
+"  COMMAND ${CMAKE_COMMAND} -E echo $<TARGET_PROPERTY:foo,CUSTOM_KEYS>\n"
+")"
+msgstr ""
+
+#: ../../../genex/TARGET_GENEX_EVAL.rst:37
+msgid ""
+"This naive implementation of the ``printFooKeys`` custom command is wrong "
+"because ``CUSTOM_KEYS`` target property is not evaluated and the content is "
+"passed as is (i.e. ``$<$<CONFIG:DEBUG>:FOO_EXTRA_THINGS>``)."
+msgstr ""
+
+#: ../../../genex/TARGET_GENEX_EVAL.rst:41
+msgid ""
+"To have the expected result (i.e. ``FOO_EXTRA_THINGS`` if config is "
+"``Debug``), it is required to evaluate the output of "
+"``$<TARGET_PROPERTY:foo,CUSTOM_KEYS>``:"
+msgstr ""
+
+#: ../../../genex/TARGET_GENEX_EVAL.rst:44
+msgid ""
+"add_custom_target(printFooKeys\n"
+"  COMMAND ${CMAKE_COMMAND} -E\n"
+"    echo $<TARGET_GENEX_EVAL:foo,$<TARGET_PROPERTY:foo,CUSTOM_KEYS>>\n"
+")"
+msgstr ""

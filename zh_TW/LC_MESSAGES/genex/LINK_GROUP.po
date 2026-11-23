@@ -1,0 +1,295 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2000-2026 Kitware, Inc. and Contributors
+# This file is distributed under the same license as the CMake package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CMake master\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-11-16 17:42+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../genex/LINK_GROUP.rst:2
+msgid "LINK_GROUP"
+msgstr ""
+
+#: ../../../manual/include/GENEX_FAMILY.rst:3
+msgid ""
+"This generator expression belongs to the |genex-family| family. See that "
+"section for related generator expressions."
+msgstr ""
+
+#: ../../../genex/LINK_GROUP.rst:10
+msgid "Syntax"
+msgstr "語法"
+
+#: ../../../genex/LINK_GROUP.rst:12
+msgid "$<LINK_GROUP:feature,library-list>"
+msgstr ""
+
+#: ../../../genex/LINK_GROUP.rst:18
+msgid ""
+"Specify a group of libraries to link to a target, along with a ``feature`` "
+"which defines how that group should be linked.  For example:"
+msgstr ""
+
+#: ../../../genex/LINK_GROUP.rst:21
+msgid ""
+"add_library(lib1 STATIC ...)\n"
+"add_library(lib2 ...)\n"
+"target_link_libraries(lib2 PRIVATE \"$<LINK_GROUP:RESCAN,lib1,external>\")"
+msgstr ""
+
+#: ../../../genex/LINK_GROUP.rst:27
+msgid ""
+"This specifies that ``lib2`` should link to ``lib1`` and ``external``, and "
+"that both of those two libraries should be included on the linker command "
+"line according to the definition of the ``RESCAN`` feature."
+msgstr ""
+
+#: ../../../genex/LINK_GROUP.rst:31
+msgid ""
+"Feature names are case-sensitive and may only contain letters, numbers and "
+"underscores.  Feature names defined in all uppercase are reserved for "
+"CMake's own built-in features.  Currently, there is only one pre-defined "
+"built-in group feature:"
+msgstr ""
+
+#: ../../../variable/include/LINK_GROUP_PREDEFINED_FEATURES.rst:1
+msgid "``RESCAN``"
+msgstr ""
+
+#: ../../../variable/include/LINK_GROUP_PREDEFINED_FEATURES.rst:2
+msgid ""
+"Some linkers are single-pass only.  For such linkers, circular references "
+"between libraries typically result in unresolved symbols.  This feature "
+"instructs the linker to search the specified static libraries repeatedly "
+"until no new undefined references are created."
+msgstr ""
+
+#: ../../../variable/include/LINK_GROUP_PREDEFINED_FEATURES.rst:7
+msgid ""
+"Normally, a static library is searched only once in the order that it is "
+"specified on the command line.  If a symbol in that library is needed to "
+"resolve an undefined symbol referred to by an object in a library that "
+"appears later on the command line, the linker would not be able to resolve "
+"that reference.  By grouping the static libraries with the ``RESCAN`` "
+"feature, they will all be searched repeatedly until all possible references "
+"are resolved.  This will use linker options like ``--start-group`` and ``--"
+"end-group``, or on SunOS, ``-z rescan-start`` and ``-z rescan-end``."
+msgstr ""
+
+#: ../../../variable/include/LINK_GROUP_PREDEFINED_FEATURES.rst:16
+msgid ""
+"Using this feature has a significant performance cost. It is best to use it "
+"only when there are unavoidable circular references between two or more "
+"static libraries."
+msgstr ""
+
+#: ../../../variable/include/LINK_GROUP_PREDEFINED_FEATURES.rst:20
+msgid ""
+"This feature is available when using toolchains that target Linux, BSD, and "
+"SunOS.  It can also be used when targeting Windows platforms if the GNU "
+"toolchain is used."
+msgstr ""
+
+#: ../../../variable/include/LINK_GROUP_PREDEFINED_FEATURES.rst:24
+msgid ""
+"``RESCAN`` is additionally available when using toolchains targeting Haiku."
+msgstr ""
+
+#: ../../../genex/LINK_GROUP.rst:38
+msgid ""
+"Built-in and custom group features are defined in terms of the following "
+"variables:"
+msgstr ""
+
+#: ../../../genex/LINK_GROUP.rst:41
+msgid ":variable:`CMAKE_<LANG>_LINK_GROUP_USING_<FEATURE>_SUPPORTED`"
+msgstr ":variable:`CMAKE_<LANG>_LINK_GROUP_USING_<FEATURE>_SUPPORTED`"
+
+#: ../../../genex/LINK_GROUP.rst:42
+msgid ":variable:`CMAKE_<LANG>_LINK_GROUP_USING_<FEATURE>`"
+msgstr ""
+
+#: ../../../genex/LINK_GROUP.rst:43
+msgid ":variable:`CMAKE_LINK_GROUP_USING_<FEATURE>_SUPPORTED`"
+msgstr ":variable:`CMAKE_LINK_GROUP_USING_<FEATURE>_SUPPORTED`"
+
+#: ../../../genex/LINK_GROUP.rst:44
+msgid ":variable:`CMAKE_LINK_GROUP_USING_<FEATURE>`"
+msgstr ":variable:`CMAKE_LINK_GROUP_USING_<FEATURE>`"
+
+#: ../../../genex/LINK_GROUP.rst:46
+msgid ""
+"The value used for each of these variables is the value as set at the end of "
+"the directory scope in which the target was created.  The usage is as "
+"follows:"
+msgstr ""
+
+#: ../../../genex/LINK_GROUP.rst:49
+msgid ""
+"If the language-"
+"specific :variable:`CMAKE_<LANG>_LINK_GROUP_USING_<FEATURE>_SUPPORTED` "
+"variable is true, the ``feature`` must be defined by the "
+"corresponding :variable:`CMAKE_<LANG>_LINK_GROUP_USING_<FEATURE>` variable."
+msgstr ""
+
+#: ../../../genex/LINK_GROUP.rst:53
+msgid ""
+"If no language-specific ``feature`` is supported, then "
+"the :variable:`CMAKE_LINK_GROUP_USING_<FEATURE>_SUPPORTED` variable must be "
+"true and the ``feature`` must be defined by the "
+"corresponding :variable:`CMAKE_LINK_GROUP_USING_<FEATURE>` variable."
+msgstr ""
+
+#: ../../../genex/LINK_GROUP.rst:58
+msgid ""
+"The ``LINK_GROUP`` generator expression is compatible with "
+"the :genex:`LINK_LIBRARY` generator expression. The libraries involved in a "
+"group can be specified using the :genex:`LINK_LIBRARY` generator expression."
+msgstr ""
+
+#: ../../../genex/LINK_GROUP.rst:62
+msgid ""
+"Each target or external library involved in the link step is allowed to be "
+"part of multiple groups, but only if all the groups involved specify the "
+"same ``feature``.  Such groups will not be merged on the linker command "
+"line, the individual groups will still be preserved.  Mixing different group "
+"features for the same target or library is forbidden."
+msgstr ""
+
+#: ../../../genex/LINK_GROUP.rst:68
+msgid ""
+"add_library(lib1 ...)\n"
+"add_library(lib2 ...)\n"
+"add_library(lib3 ...)\n"
+"add_library(lib4 ...)\n"
+"add_library(lib5 ...)\n"
+"\n"
+"target_link_libraries(lib3 PUBLIC  \"$<LINK_GROUP:feature1,lib1,lib2>\")\n"
+"target_link_libraries(lib4 PRIVATE \"$<LINK_GROUP:feature1,lib1,lib3>\")\n"
+"# lib4 will be linked with the groups {lib1,lib2} and {lib1,lib3}.\n"
+"# Both groups specify the same feature, so this is fine.\n"
+"\n"
+"target_link_libraries(lib5 PRIVATE \"$<LINK_GROUP:feature2,lib1,lib3>\")\n"
+"# An error will be raised here because both lib1 and lib3 are part of two\n"
+"# groups with different features."
+msgstr ""
+
+#: ../../../genex/LINK_GROUP.rst:85
+msgid ""
+"When a target or an external library is involved in the link step as part of "
+"a group and also as not part of any group, any occurrence of the non-group "
+"link item will be replaced by the groups it belongs to."
+msgstr ""
+
+#: ../../../genex/LINK_GROUP.rst:89
+msgid ""
+"add_library(lib1 ...)\n"
+"add_library(lib2 ...)\n"
+"add_library(lib3 ...)\n"
+"add_library(lib4 ...)\n"
+"\n"
+"target_link_libraries(lib3 PUBLIC lib1)\n"
+"\n"
+"target_link_libraries(lib4 PRIVATE lib3 "
+"\"$<LINK_GROUP:feature1,lib1,lib2>\")\n"
+"# lib4 will only be linked with lib3 and the group {lib1,lib2}"
+msgstr ""
+
+#: ../../../genex/LINK_GROUP.rst:101
+msgid ""
+"Because ``lib1`` is part of the group defined for ``lib4``, that group then "
+"gets applied back to the use of ``lib1`` for ``lib3``.  The end result will "
+"be as though the linking relationship for ``lib3`` had been specified as:"
+msgstr ""
+
+#: ../../../genex/LINK_GROUP.rst:105
+msgid "target_link_libraries(lib3 PUBLIC \"$<LINK_GROUP:feature1,lib1,lib2>\")"
+msgstr ""
+
+#: ../../../genex/LINK_GROUP.rst:109
+msgid ""
+"Be aware that the precedence of the group over the non-group link item can "
+"result in circular dependencies between groups.  If this occurs, a fatal "
+"error is raised because circular dependencies are not allowed for groups."
+msgstr ""
+
+#: ../../../genex/LINK_GROUP.rst:113
+msgid ""
+"add_library(lib1A ...)\n"
+"add_library(lib1B ...)\n"
+"add_library(lib2A ...)\n"
+"add_library(lib2B ...)\n"
+"add_library(lib3 ...)\n"
+"\n"
+"# Non-group linking relationships, these are non-circular so far\n"
+"target_link_libraries(lib1A PUBLIC lib2A)\n"
+"target_link_libraries(lib2B PUBLIC lib1B)\n"
+"\n"
+"# The addition of these groups creates circular dependencies\n"
+"target_link_libraries(lib3 PRIVATE\n"
+"  \"$<LINK_GROUP:feat,lib1A,lib1B>\"\n"
+"  \"$<LINK_GROUP:feat,lib2A,lib2B>\"\n"
+")"
+msgstr ""
+
+#: ../../../genex/LINK_GROUP.rst:131
+msgid ""
+"Because of the groups defined for ``lib3``, the linking relationships for "
+"``lib1A`` and ``lib2B`` effectively get expanded to the equivalent of:"
+msgstr ""
+
+#: ../../../genex/LINK_GROUP.rst:134
+msgid ""
+"target_link_libraries(lib1A PUBLIC \"$<LINK_GROUP:feat,lib2A,lib2B>\")\n"
+"target_link_libraries(lib2B PUBLIC \"$<LINK_GROUP:feat,lib1A,lib1B>\")"
+msgstr ""
+
+#: ../../../genex/LINK_GROUP.rst:139
+msgid ""
+"This creates a circular dependency between groups: ``lib1A --> lib2B --> "
+"lib1A``."
+msgstr ""
+
+#: ../../../genex/LINK_GROUP.rst:142
+msgid "The following limitations should also be noted:"
+msgstr ""
+
+#: ../../../genex/LINK_GROUP.rst:144
+msgid ""
+"The ``library-list`` can specify CMake targets or libraries. Any CMake "
+"target of type :ref:`OBJECT <Object Libraries>` or :ref:`INTERFACE "
+"<Interface Libraries>` will ignore the feature aspect of the expression and "
+"instead be linked in the standard way."
+msgstr ""
+
+#: ../../../genex/LINK_GROUP.rst:149
+msgid ""
+"The ``$<LINK_GROUP:...>`` generator expression can only be used to specify "
+"link libraries.  In practice, this means it can appear in "
+"the :prop_tgt:`LINK_LIBRARIES`, :prop_tgt:`INTERFACE_LINK_LIBRARIES`,and :prop_tgt:`INTERFACE_LINK_LIBRARIES_DIRECT` "
+"target properties, and be specified in :command:`target_link_libraries` "
+"and :command:`link_libraries` commands."
+msgstr ""
+
+#: ../../../genex/LINK_GROUP.rst:156
+msgid ""
+"If a ``$<LINK_GROUP:...>`` generator expression appears in "
+"the :prop_tgt:`INTERFACE_LINK_LIBRARIES` property of a target, it will be "
+"included in the imported target generated by a :command:`install(EXPORT)` "
+"command.  It is the responsibility of the environment consuming this import "
+"to define the link feature used by this expression.  Any CMake target named "
+"in the ``library-list`` should be wrapped in :genex:`TARGET_NAME` so that "
+"its name is namespaced on export; otherwise it is exported verbatim and will "
+"not resolve as an imported target."
+msgstr ""
