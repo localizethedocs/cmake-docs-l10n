@@ -36,7 +36,10 @@
 
 <h2 id="introduction"><a href="#table-of-contents">Introduction</a></h2>
 
-<div align="center"><a href="https://localizethedocs.zulipchat.com" title="Zulip Chat" target="_blank">
+<div align="center"><a href="https://localizethedocs.discourse.group" title="Discourse Forum" target="_blank">
+  <img alt="Discourse Forum" src="https://img.shields.io/badge/Discourse-Forum-blue.svg?logo=discourse&style=flat&logoColor=white" />
+</a>
+<a href="https://localizethedocs.zulipchat.com" title="Zulip Chat" target="_blank">
   <img alt="Zulip Chat" src="https://img.shields.io/badge/Zulip-Chat-blue.svg?logo=zulip&style=flat&logoColor=white" />
 </a>
 <a href="https://github.com/localizethedocs/cmake-docs-l10n/stargazers" title="GitHub Stars" target="_blank">
